@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700;900&amp;family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#486644",
+                        "primary-fixed-dim": "#aed0a7",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdcbd",
+                        "tertiary-container": "#8d6a48",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#caf24d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-primary-fixed": "#052107",
+                        "surface-variant": "#eae1d7",
+                        "on-surface": "#1f1b15",
+                        "secondary-container": "#caf24d",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#c9ecc2",
+                        "on-secondary-container": "#566c00",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "secondary": "#516600",
+                        "outline-variant": "#c3c8be",
+                        "surface-bright": "#fff8f2",
+                        "on-primary-container": "#e2ffda",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "outline": "#737970",
+                        "on-secondary-fixed": "#161e00",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container-high": "#efe7dd",
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary": "#725232",
+                        "primary": "#42603f",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "primary-container": "#5a7956",
+                        "on-surface-variant": "#434840",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#eae1d7",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f2",
+                        "on-background": "#1f1b15",
+                        "inverse-primary": "#aed0a7",
+                        "surface-dim": "#e1d9cf",
+                        "surface-container": "#f5ede2",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#2c1600",
+                        "inverse-surface": "#343029",
+                        "surface": "#fff8f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Montserrat"],
+                        "ui": ["Montserrat"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 no-border tonal-shift bg-[#fbf2e8] dark:bg-stone-900">
+<div class="flex items-center justify-between px-6 py-4 w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="text-[#5A7956] hover:opacity-80 transition-opacity scale-95 active:duration-150">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-['Noto_Serif'] font-bold text-lg tracking-tight text-[#5A7956]">Letters of Rec</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional student profile avatar in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWA57TRQB3swkl-y8rm5jgYsivlBvdvaVbFm9A6bTdCEoS2o_gbcLEB_YNYYR9bpodqc0GNSfMjIe7v-tguBaKGIplxHqHDEbZAZsjdkrktE69virtvtzhWdS93xcrW3hyFOlsV-BjmnYmPsNl1gGPotx0egebgIU7TV7oe_lxXe5UgAts1RHZuvUw2qWRrMk-4aKnWR87Bv3jsnb45MXiJjI9L4xY_dytT8No6tyKdyCY6H00UVSrGzQA6Um7VigS4VffOtEFZdg"/>
+</div>
+</div>
+</header>
+<main class="px-6 pt-6 space-y-6">
+<!-- Summary Row -->
+<section class="flex items-center justify-between bg-surface-container-low p-5 rounded-xl">
+<div class="space-y-1">
+<p class="font-['Montserrat'] text-[10px] uppercase tracking-widest font-semibold text-on-surface-variant">Current Progress</p>
+<h2 class="font-headline text-2xl text-primary">2 of 3 submitted</h2>
+</div>
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_8px_rgba(66,96,63,0.3)]"></div>
+<div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_8px_rgba(66,96,63,0.3)]"></div>
+<div class="w-3 h-3 rounded-full bg-surface-variant"></div>
+</div>
+</section>
+<!-- Deadline Banner -->
+<section class="bg-[#F59E0B] p-4 rounded-xl flex items-start gap-3 shadow-[0_4px_20px_rgba(245,158,11,0.15)]">
+<span class="material-symbols-outlined text-on-surface" data-icon="priority_high">priority_high</span>
+<div class="space-y-0.5">
+<p class="font-ui font-bold text-sm text-on-surface">UF deadline in 23 days</p>
+<p class="font-ui text-xs text-on-surface/80">Mrs. Johnson hasn't submitted yet</p>
+</div>
+</section>
+<!-- Recommender List -->
+<section class="space-y-4">
+<!-- Card 1: Submitted -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col gap-4 shadow-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline text-lg text-on-surface">Mrs. Johnson</h3>
+<p class="font-ui text-sm text-on-surface-variant">AP Biology</p>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider rounded-full">Submitted</span>
+</div>
+<div class="flex items-center gap-4 text-[11px] text-outline font-medium border-t border-surface-variant pt-3">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span> Asked Sep 12</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> Recieved Oct 04</span>
+</div>
+</div>
+<!-- Card 2: Pending -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col gap-4 shadow-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline text-lg text-on-surface">Mr. Henderson</h3>
+<p class="font-ui text-sm text-on-surface-variant">History</p>
+</div>
+<span class="px-3 py-1 bg-[#F59E0B]/10 text-[#F59E0B] text-[10px] font-bold uppercase tracking-wider rounded-full">Pending</span>
+</div>
+<button class="w-full py-3 bg-surface-container-highest text-on-surface text-xs font-bold rounded-lg hover:opacity-80 transition-all active:scale-95">
+                    Send Reminder
+                </button>
+</div>
+<!-- Card 3: Not Asked -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col gap-4 shadow-sm opacity-90">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline text-lg text-on-surface">Dr. Aris</h3>
+<p class="font-ui text-sm text-on-surface-variant">Physics</p>
+</div>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant text-[10px] font-bold uppercase tracking-wider rounded-full">Not Asked</span>
+</div>
+<button class="w-full py-3 bg-surface-container-highest text-on-surface text-xs font-bold rounded-lg hover:opacity-80 transition-all active:scale-95">
+                    Mark Submitted
+                </button>
+</div>
+</section>
+<!-- Tips Section -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden">
+<button class="w-full p-5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="lightbulb">lightbulb</span>
+<span class="font-headline text-base text-primary">Pro Tips</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="expand_less">expand_less</span>
+</button>
+<div class="px-5 pb-5 space-y-3">
+<div class="flex gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary-fixed mt-2 shrink-0"></div>
+<p class="text-sm text-on-surface-variant leading-relaxed">Ask 4–6 weeks before deadline to give your teachers plenty of time.</p>
+</div>
+<div class="flex gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary-fixed mt-2 shrink-0"></div>
+<p class="text-sm text-on-surface-variant leading-relaxed">Give your teacher a resume and bullet points highlighting your class achievements.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<div class="fixed bottom-28 right-6 z-40">
+<button class="flex items-center gap-2 px-6 py-4 bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-ui font-bold text-sm">Add Recommender</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#fff8f2]/70 backdrop-blur-xl rounded-t-[24px] shadow-[0_-4px_30px_rgba(31,27,21,0.06)]">
+<a class="flex flex-col items-center justify-center text-stone-600 dark:text-stone-400 px-5 py-2 transition-all duration-300 ease-out hover:text-[#5A7956]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Montserrat'] text-[10px] uppercase tracking-widest font-semibold mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-600 dark:text-stone-400 px-5 py-2 transition-all duration-300 ease-out hover:text-[#5A7956]" href="#">
+<span class="material-symbols-outlined" data-icon="checklist">checklist</span>
+<span class="font-['Montserrat'] text-[10px] uppercase tracking-widest font-semibold mt-1">Checklist</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-[16px] px-5 py-2 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-['Montserrat'] text-[10px] uppercase tracking-widest font-semibold mt-1">Letters</span>
+</a>
+</nav>
+</body></html>

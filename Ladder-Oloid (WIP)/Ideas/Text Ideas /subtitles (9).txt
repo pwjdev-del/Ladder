@@ -1,0 +1,61 @@
+Okay, so the person opens the app, logs in, um, we're gonna try to get, um, middle school, like, transcripts. 
+
+
+We also want the school to create a profile and upload, um, the classes they provide, um, like, clubs they offer and all that bullcrap. 
+
+
+Uh, clubs they offer classes they provide, clubs they offer, athletics they offer as well, and dates of everything. 
+
+
+So like, oh, tryouts for this thing is this day, or tryouts for this thing is sometime this month, at least, and they update it as they go. 
+
+
+Now, the school has the students fill out academic resumes, and... Oh, you made it bigger? Awesome. I'm just voice noting. I'm just putting on a video like everything that we thought of so far. 
+
+
+So academic resume, the school has the students fill up an academic resume by freshman year, the start of freshman year. 
+
+
+They have them fill out an academic resume. Academic resume we can take from the LRPA academic resume. It was just basically hobbies, accomplishments, whatever, whatever. 
+
+
+We have them upload that. AI will spit out. I also want a questionnaire probably in between these steps. academic resume, a questionnaire basically of the AI asking like, do you have plans for your future? 
+
+
+What plans do you have for your future? Like, do you know what college you want to go to? Do you know what major you want to go to? And most of often the time is going to be no, or I'm unsure. 
+
+
+And so when that happens, when it's unsure, we want the AI to be able to question the student and be like, hey, so you're unsure of what major you want to do. 
+
+
+What are your hobbies? Okay, well, your hobbies translate over to these different majors and you can make a job out of that. 
+
+
+And you can make this much per year sometimes, who knows, doing this, this or this, whatever. So that's a big one. We also want, we have listed four general electives that students should complete throughout their time in high school to get into a good college. 
+
+
+That is volunteering, clubs, jobs and athletics. So they would do those four things. We also have our five different, I think, career breakdowns as well, like five different career or major breakdowns. 
+
+
+So we got, I think, future slash career, whatever, med, law, business, STEM, sports, and humanities are the five. 
+
+
+Yeah, I put three twice because I erased it half the time. What else? Oh, it's windy. Nice. So, and then they need six career specific hobbies or electives, such as like internships, whatever, internships, jobs, lessons, programs they're taking at local colleges, whatever. 
+
+
+Okay. And so we want to be finished with electives or most of our like extracurriculars essentially by the end of sophomore year or at least throughout junior year, we want to be finished with them because by sophomore summer, we want them to be prepping for the SAT so they can get a decent SAT score by junior year. 
+
+
+And then we also take their major, they decide through our questionnaire because they're most likely, we want them to be able to pick a major that our AI provides the questionnaire, our AI prompts them because what the AI is gonna prompt them is basically just suggesting what they should do and based on their hobbies and all that stuff. 
+
+
+And if the student likes their hobbies, they're most likely gonna like their job, right? Or like the offerings that the AI puts. So then they're gonna know their major and then they're also gonna list their preferences. 
+
+
+Like if they want to run one room dorm or big campus urban whatever suburban rural big small whatever AI sorts best colleges by major and preference. 
+
+
+Now, we also have an idea for the questionnaire. I was just explaining to cotton like, no, yes, it branches off. How can AI help with no and yes as well what was the other thing? 
+
+
+We also had a huge AI thing oh okay so we're gonna have we need I need to add more on this. So it best best colleges by major and preference. Then, hold on. 

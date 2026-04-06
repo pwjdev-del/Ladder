@@ -1,0 +1,13 @@
+[
+    {
+        "college_name": "Florida State University",
+        "early_action_deadline": "October 15, 2025",
+        "regular_decision_deadline": "December 1, 2025",
+        "testing_policy": "FSU requires submission of an ACT, CLT, or SAT test score for admission. Self-reported test scores from the Common App are not accepted.",
+        "transcript_requirement": "All first-year applicants must complete a Self-reported Transcript and Academic Record System (STARS) Record. GED graduates must submit their official GED transcript along with official partial high school transcript(s).",
+        "application_platforms": [
+            "Common App",
+            "FSU Application"
+        ]
+    }
+]

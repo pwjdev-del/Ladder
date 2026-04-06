@@ -1,0 +1,52 @@
+fix boundaries, you take percentages for making stuff up. But the problem is, when you're in the app, you know how an app is like rigid. 
+
+
+you can go up and down, it does not move sideways. If it's a website app, it moves sideways. It does not look and feel good as an app. And there's no way to change that. 
+
+
+Do people usually go on a website? No. then think about going on a mobile. Because that's where you can get . So then how do we get it on iOS? Because you need that Apple developer thing. 
+
+
+Unless we go off of Google Play Store, which I don't know what their certification is. Let's just first make it and then . Yeah, I think that's a good idea. Yeah. OK. Let's see how. And I think, yeah, I think we can. 
+
+
+We got to work on this whole week. Yeah. We can work it out. I know the website is on on phone like it's bad formatting but just turning it vertical can sometimes help or I mean horizontal Oh, like Focus and other websites that I've done on my phone. 
+
+
+The formatting is just screwed up, but I can turn it horizontal and it actually works sometimes. I would say go with an app because Duolingo, the way interaction works, that would be better off that. 
+
+
+Well, we want to go with an app, but we can't do that first, can we? We can. We can make an app. So how many databases do you have with this? You need a super base so that your kids can upload stuff and download stuff. 
+
+
+You need that. And then you're going to need Firebase. Firebase, super base, same thing. Then you're going to need an API. I would call it Cloud because it's smarter, but it's very expensive. 
+
+
+It's one of the tools I'm going to use to create this. There's any other ones that are coming? The tools to make it, or? No. Oh, just for that? Oh, I was thinking about making it. 
+
+
+How many different databases do you have anything? It's . classes and reports that we had in school. I'll ask you if you can't manage it. But we have to do log in data, right? 
+
+
+Log in data or something. Oh, log in data, yeah. same thing then for the further later on slowly actually make it to a school perspective we should think about location in school information identifier information as well vocation, school information, and the class and other subjects will need to be careful from their websites. 
+
+
+And then school. students' activities. Yeah. Oh, portfolio. Not portfolio. Yeah. Well, that's what we . Portfolio . Do we have to store the data of colleges' pages and whatnot? 
+
+
+So, see, none of you guys have computer science data. Yeah. Right? So, you have to ask the app manager that you use and ask them how many different databases they have to manage in order to make this work successfully. 
+
+
+Yes. When I do a video, I'm... So, now, this is all Roddy. This is our brain economy. ideas on paper. Now we're going to take all of this ideas. First we're going to go to perplexity. 
+
+
+Perplexity is going to do a deep research on this. And then we're going to use perplexity's deep research. And then we're going to use an ancient gravity. 
+
+
+And we're going to use opus 4.6 to make this a detailed implementation plan. And then we're going to go over that, make that plan as solid, as bulletproof as you can, so that there is no loophole for that first shot. 
+
+
+spent on researching, on making your plan better, the easier you can make the app. In the first shot, in the first prompt when you press enter for implementation plan, you should be at least 90% of the way done. 
+
+
+So it's going to take like, before even making the app, two weeks is just research and getting the UI good. 

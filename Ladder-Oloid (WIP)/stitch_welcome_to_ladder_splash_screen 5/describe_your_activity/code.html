@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#fff8f2",
+                    "inverse-primary": "#aed0a7",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "inverse-surface": "#343029",
+                    "secondary-container": "#caf24d",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#fff8f2",
+                    "outline": "#737970",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary-fixed-dim": "#aed0a7",
+                    "surface-container": "#f5ede2",
+                    "tertiary-fixed": "#ffdcbd",
+                    "secondary": "#516600",
+                    "on-surface-variant": "#434840",
+                    "on-primary-fixed": "#052107",
+                    "surface-container-low": "#fbf2e8",
+                    "outline-variant": "#c3c8be",
+                    "on-secondary-fixed": "#161e00",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#5a7956",
+                    "on-secondary-container": "#566c00",
+                    "surface-container-highest": "#eae1d7",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "primary": "#42603f",
+                    "tertiary": "#725232",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-tint": "#486644",
+                    "on-surface": "#1f1b15",
+                    "surface-dim": "#e1d9cf",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#efe7dd",
+                    "on-background": "#1f1b15",
+                    "secondary-fixed": "#caf24d",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "tertiary-container": "#8d6a48",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "16px",
+                    "xl": "24px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fff8f2;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased">
+<!-- Top Navigation -->
+<header class="w-full top-0 sticky bg-[#fff8f2] dark:bg-stone-950 flex items-center px-6 py-4 w-full z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f] dark:text-[#caf24d] cursor-pointer hover:opacity-80 transition-opacity" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-noto-serif text-2xl tracking-tight font-bold text-[#42603f] dark:text-[#caf24d]">Enhance Activity</h1>
+</div>
+</header>
+<main class="px-6 pb-32 pt-4 max-w-lg mx-auto">
+<!-- Activity Summary Card -->
+<section class="mb-8">
+<div class="bg-surface-container-low rounded-xl p-6 shadow-sm border-l-4 border-primary">
+<h2 class="font-headline text-xl text-on-surface leading-tight mb-2">Hospital Volunteer — St. Joseph's Medical Center</h2>
+<div class="flex items-center gap-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant text-[10px] font-extrabold px-2 py-1 rounded-full tracking-widest uppercase">2 years | 120 hours</span>
+</div>
+</div>
+</section>
+<!-- Current Description -->
+<section class="mb-6">
+<div class="flex justify-between items-end mb-3">
+<h3 class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Your Current Description</h3>
+<span class="font-label text-[10px] font-bold text-outline">47 / 150</span>
+</div>
+<div class="bg-surface-container-high rounded-xl p-5 italic text-on-surface-variant leading-relaxed">
+                "I volunteered at a hospital helping patients and doing tasks."
+            </div>
+</section>
+<!-- Asymmetrical AI Transition -->
+<div class="relative py-4 flex flex-col items-center">
+<div class="h-12 w-[2px] bg-gradient-to-b from-outline-variant to-primary-container"></div>
+<div class="flex items-center gap-3 bg-surface-container-highest px-4 py-2 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-primary scale-90" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label text-[10px] font-black uppercase tracking-widest text-primary">AI Rewrote It</span>
+</div>
+<div class="h-12 w-[2px] bg-gradient-to-b from-primary-container to-secondary-fixed"></div>
+</div>
+<!-- Enhanced Description Card -->
+<section class="mb-8">
+<div class="flex justify-between items-end mb-3">
+<h3 class="font-headline text-lg font-bold text-primary">Ladder's Version</h3>
+<span class="font-label text-[10px] font-bold text-primary">148 / 150 ✅</span>
+</div>
+<div class="bg-primary-container text-on-primary-container rounded-xl p-6 shadow-xl relative overflow-hidden group">
+<!-- Background Decorative Element -->
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all"></div>
+<p class="relative z-10 font-medium leading-relaxed text-lg">
+                    Provided compassionate support to 40+ patients weekly across 3 departments, improving care coordination and earning recognition from nursing staff.
+                </p>
+<div class="mt-4 flex justify-end">
+<span class="material-symbols-outlined text-secondary-fixed opacity-50" data-icon="format_quote">format_quote</span>
+</div>
+</div>
+</section>
+<!-- Footer Tip -->
+<div class="flex items-start gap-3 bg-tertiary-fixed/30 p-4 rounded-lg mb-12">
+<span class="material-symbols-outlined text-tertiary mt-0.5" data-icon="lightbulb">lightbulb</span>
+<p class="text-xs font-medium text-tertiary leading-normal">
+<span class="font-bold">Pro Tip:</span> 150 characters is tight. Lead with your impact, not your tasks.
+            </p>
+</div>
+</main>
+<!-- Contextual Bottom Action Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-8 pb-8 pt-4 bg-[#fbf2e8]/70 dark:bg-stone-900/70 backdrop-blur-xl shadow-[0_-4px_40px_rgba(31,27,21,0.06)] rounded-t-[24px] z-50">
+<!-- Retry Button (Label: Retry from JSON) -->
+<button class="flex flex-col items-center justify-center text-[#1f1b15] dark:text-stone-400 px-6 py-2 hover:scale-105 transition-transform active:scale-95 duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="refresh">refresh</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Retry</span>
+</button>
+<!-- Confirm Button (Label: Confirm from JSON - Primary Intent) -->
+<button class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-[24px] px-8 py-3 shadow-lg hover:scale-105 transition-transform active:scale-95 duration-150">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Confirm</span>
+</div>
+</button>
+</nav>
+<!-- Visual Anchor Decorations -->
+<div class="fixed top-20 -left-20 w-64 h-64 bg-secondary-fixed/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="fixed bottom-40 -right-20 w-80 h-80 bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+</body></html>

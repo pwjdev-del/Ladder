@@ -1,0 +1,47 @@
+(Transcribed by UniScribe (https://www.uniscribe.co). Upgrade to remove this message.)
+
+And how do you authenticate fall certificate uploaded on your website? For like transcript and all? So I wanted that to be approved by the teachers. The school is, so we were going to have an option, number one, for the middle school and every other transcript. The school can upload it or the student can upload it.
+
+Student uploads it school has to approve it school uploads it it's automatically approved But you can there's gonna be a page where you can sit there and it'll tell you hey student Upload you can upload your transcript or go talk to your school administration about them getting it's up to the school It could be up to the school as well. That's a good idea. So we can like Each app is personalized to the school
+
+because it's the data privacy of the transcripts yes because county school responsible for data privacy it doesn't does it can it not be official can it be unofficial transcripts that we go off of so in that case
+
+You have to find a way that you can... save student identity. Do you guys have any unique number? Like an ID number? Yeah. Yeah. 3-0-0-4-2-0-7-6. That's your system? Yeah.
+
+So, find a way if it is open source to get the data from focus.
+
+So students can just put their number and automatically give their profile post up. That's what PowerSchool does. Our school uses PowerSchool, but Manatee uses Focus. So what it does, they have to give you like data. So students don't have to create a profile. Like for example, when you go to Flex City, they say use your Gmail account.
+
+Use your Focus account Use your Focus account, use your PowerSchool, use your CSUSA account, something like that Not CSUSA, CSUSA is using PowerSchool Yeah, so every county has their own, so Mantea is Focus So, like, even our grades are under PowerSchool, but they have to go to Focus
+
+It's a rule. So all of our transcripts have to go to focus. Our actual transcripts are on focus, not on the power school. That includes students who do homeschooling, right? Yes. Every single kid. Focus has to happen. We need to finish the branching degrees. So take SAT twice minimum. What is your recommendation? Oh, fee waiver. Fee waiver. Fee waiver.
+
+What else do 11th graders have to do? Application essay. Colleges. Colleges. What college do we suggest?
+
+Now for colleges, we found that instead of making our own courses for colleges, what we can do is call the reps to colleges. And it's already a great place you can start your colleges if the data is accurate enough. So what we can do is tell the students, go to that website, put in your data and take that college quiz, which is already very good. And then all the college you get, take a screenshot, just upload it to our app.
+
+And it's going to make a personalized place for each app. So what is it? I pick RIT. So I'm done applying to RIT.
+
+And then I did the application for like the admission portal. So what I have to do as a student is go in my Gmail, take a link of that application portal, put it in this app, in Ladder, and then you gotta put the ID in Pathway. So you yourself do not forget. So it's like a place to hold everything. So now I log in, I press RIT, it takes you to their admission portal, so where you can access. And also with that, each college will have their own page
+
+with a checklist for your transcript, your SAT scores, and everything which is going to be different for each college. So why do you want to do that when those data is already available on the college website?
+
+The college website or college board? The college website, you know the... No, no, no, the way we access the checklist. Oh, okay, so checklist, it's just to simplify it all in one place because... The reason why I'm saying is because you are prone to risk of students' data.
+
+Yeah, that's why I don't... Fallen boat can sue you if something get lost or stolen, everybody can sue you. So if you just give them the link, they can do it over there. So if anything happened there,
+
+No, no, no. The app does not check it by itself. The student did it and then the student does it by themselves. It's manual. So like, when I say something, they upload my transcript. I don't forget it. It's in a different place. So I check it and upload it. In one app, you press RIT. Oh, I didn't know transit. So what I did for my college is... So the checklist is okay. I'm not talking about checklist. Then what are you talking about? But then, how many checklists do students have to create?
+
+Because same list is, school asks student to pay the checklist, college board asks student to pay the checklist, you guys are asking student to pay the checklist. That should be one place. This is the place. No, no, no, no. Basically what we were thinking is, so the college page, the student says, I want to go to RIT.
+
+College page of RIT has a link to their admissions portal so they can create an account, apply, or common app link as well based on what the school says they're using, I'm sure.
+
+And then another thing on that is a checklist of general things that the student has to do. Okay, apply to, okay, so application checklist. It automatically determines the school. The student doesn't have to input anything themselves for that checklist, but they manually check it off. I know, but what I'm, my question is,
+
+the one website where you guys apply for all the colleges what is it common app common app yep common app application yeah all that because yeah everything about the fees and everything common app common app right it doesn't tell you anything about after you apply so common app is just for applying once you're done applying there's a whole different process after that yeah you gotta go where do you where do you take all those information after that there are different apps to analyze the website for the school website
+
+- Yes, we call it a website. - And so a lot of them, and I'll tell you about those college web sites, a lot of their checklists after you've gotten accepted are really confusing and really difficult to find. I'll tell you right now, FIU, I got accepted. I have to log in three different times to like a gazillion different portals. I have no clue where to go. And then when I finally get there, the formatting is completely confusing. Genuinely, the pictures don't load.
+
+the links are all over the place, not even like bubbles and whatnot. The UI itself is just bad. - So how would you solve that problem? - We would literally just have to simplify it. - Okay, when we were applying, the college counselor told us there's a whole thing after you're done with your common application. You have to go over to transfer ground
+
+(Transcribed by UniScribe (https://www.uniscribe.co). Upgrade to remove this message.)

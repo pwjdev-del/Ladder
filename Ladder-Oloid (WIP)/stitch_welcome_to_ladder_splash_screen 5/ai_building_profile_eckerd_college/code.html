@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Building Your Journey</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;0,900;1,700&amp;family=Manrope:wght@400;600;800&amp;family=Montserrat:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#fff8f2",
+                    "surface": "#fff8f2",
+                    "on-surface-variant": "#434840",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "secondary-container": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "primary-fixed-dim": "#aed0a7",
+                    "inverse-surface": "#343029",
+                    "secondary-fixed": "#caf24d",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#486644",
+                    "secondary": "#516600",
+                    "primary-fixed": "#c9ecc2",
+                    "on-primary-container": "#e2ffda",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary": "#42603f",
+                    "surface-container": "#f5ede2",
+                    "on-secondary-container": "#566c00",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#725232",
+                    "secondary-fixed-dim": "#afd531",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e1d9cf",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "outline": "#737970",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-error-container": "#93000a",
+                    "background": "#fff8f2",
+                    "tertiary-container": "#8d6a48",
+                    "on-surface": "#1f1b15",
+                    "on-primary-fixed": "#052107",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "primary-container": "#5a7956",
+                    "outline-variant": "#c3c8be",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-secondary-fixed-variant": "#3c4d00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"],
+                    "montserrat": ["Montserrat"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .step-glow {
+            box-shadow: 0 0 15px rgba(202, 242, 77, 0.3);
+        }
+        /* Custom spinner animation for extracting deadlines */
+        @keyframes custom-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-custom-spin {
+            animation: custom-spin 1.5s linear infinite;
+        }
+        /* Pulse for the loading bar */
+        @keyframes soft-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .animate-soft-pulse {
+            animation: soft-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col items-center overflow-hidden">
+<!-- Top Navigation Bar (Shared Component Logic - Suppression applied: Focused Flow) -->
+<nav class="w-full top-0 px-6 py-6 flex justify-between items-center max-w-screen-xl mx-auto">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-primary-container" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="font-headline font-black text-xl tracking-tight text-on-surface">Academic Journey</div>
+<div class="w-10"></div> <!-- Spacer for symmetry -->
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-md px-8 flex flex-col items-center justify-center gap-10 mt-[-40px]">
+<!-- Header Section -->
+<header class="text-center space-y-3">
+<div class="relative inline-block">
+<h1 class="text-4xl font-headline font-bold tracking-tight text-primary-container">Eckerd College</h1>
+<!-- Subtle organic accent -->
+<div class="absolute -top-4 -right-6 w-12 h-12 bg-secondary-fixed/20 rounded-full blur-xl"></div>
+</div>
+<p class="font-montserrat text-on-surface-variant font-medium tracking-wide">We're building this page for you...</p>
+</header>
+<!-- Vertical Stepper (The Ladder Tracker Principle) -->
+<div class="relative w-full max-w-[280px]">
+<!-- Vertical Line -->
+<div class="absolute left-[13px] top-2 bottom-2 w-[4px] bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-[60%] bg-secondary-fixed shadow-[0_0_8px_rgba(202,242,77,0.8)]"></div>
+</div>
+<div class="space-y-8 relative z-10">
+<!-- Step 1: Completed -->
+<div class="flex items-center gap-6">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white ring-4 ring-surface">
+<span class="material-symbols-outlined text-[18px]" data-icon="check" style="font-variation-settings: 'FILL' 0, 'wght' 700;">check</span>
+</div>
+<span class="text-on-surface font-semibold text-sm">Found official admissions page</span>
+</div>
+<!-- Step 2: Completed -->
+<div class="flex items-center gap-6">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white ring-4 ring-surface">
+<span class="material-symbols-outlined text-[18px]" data-icon="check" style="font-variation-settings: 'FILL' 0, 'wght' 700;">check</span>
+</div>
+<span class="text-on-surface font-semibold text-sm">Reading application requirements</span>
+</div>
+<!-- Step 3: Active -->
+<div class="flex items-center gap-6">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container ring-4 ring-surface animate-custom-spin">
+<span class="material-symbols-outlined text-[18px]" data-icon="sync">sync</span>
+</div>
+<span class="text-primary font-extrabold text-sm tracking-tight">Extracting deadlines...</span>
+</div>
+<!-- Step 4: Pending -->
+<div class="flex items-center gap-6 opacity-40">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant ring-4 ring-surface">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant/30"></div>
+</div>
+<span class="text-on-surface font-medium text-sm">Generating personality archetype</span>
+</div>
+<!-- Step 5: Pending -->
+<div class="flex items-center gap-6 opacity-40">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant ring-4 ring-surface">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant/30"></div>
+</div>
+<span class="text-on-surface font-medium text-sm">Calculating your fit score</span>
+</div>
+</div>
+</div>
+<!-- Pulse Progress Bar Container -->
+<div class="w-full space-y-6">
+<div class="w-full h-3 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container w-[65%] rounded-full animate-soft-pulse"></div>
+</div>
+<!-- Reassuring Message Card -->
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary-fixed"></div>
+<p class="text-on-surface-variant text-sm leading-relaxed text-center italic">
+                    "This usually takes 20–30 seconds. Once done, this page is saved for all future students."
+                </p>
+</div>
+</div>
+</main>
+<!-- Footer Branding -->
+<footer class="pb-12 pt-4 flex flex-col items-center gap-2">
+<div class="flex items-center gap-1.5 opacity-60">
+<span class="text-[10px] font-label font-extrabold uppercase tracking-[0.2em] text-on-surface-variant">Powered by</span>
+<span class="text-xs font-headline font-black text-primary-container">Ladder AI</span>
+</div>
+<!-- Decorative subtle element -->
+<div class="w-8 h-1 bg-secondary-fixed/40 rounded-full"></div>
+</footer>
+<!-- Background Decoration (Asymmetric Organicism) -->
+<div class="fixed top-[-10%] right-[-20%] w-[80%] h-[50%] bg-[#fbf2e8] rounded-full blur-[100px] -z-10 opacity-60"></div>
+<div class="fixed bottom-[-10%] left-[-10%] w-[60%] h-[40%] bg-[#eae1d7] rounded-full blur-[80px] -z-10 opacity-40"></div>
+</body></html>

@@ -1,0 +1,73 @@
+But some other cultures, like USF, there is a place for stars. It's a place where you upload your transcripts. Nothing's centralized at all. Everything is different websites and everything. 
+
+
+There is not one place where you can do everything. And the thing is, we're trying our best to centralize everything else that those random websites do. 
+
+
+When we're trying to centralize everything else that they don't do, essentially. So what we're telling you- So that's what a college counselor is for. 
+
+
+The college counselor is for, to help you to navigate through these processes. USF takes STARS, whereas FSU takes their own grade transcript upvoter. 
+
+
+And we're here to tell you that on your checklist, USF takes stars, whereas FSU, you have to upload on their website or through your student portal. 
+
+
+We're just here to tell you that as well. And that's their checklist. We can ask college counselors because they already know what that data is. 
+
+
+Or we can just AI that because that data is public. So a lot of data is public that we can find online. But if we don't find it online, we can definitely ask college counselors. 
+
+
+Thank you. some space there early apply virtual or in-person calls to us strong priest. Because like this is the stuff that a lot of students don't don't know Yeah, like they didn't like a lot of people don't you didn't know colleges can revoke except you didn't even know that is we got told by Yeah, this game and now you still have to tell us Yeah, you have to keep your grades on senior year even and they can revoke it As soon as they finish, it's just crazy. 
+
+
+Before, no, we done with all applications before November 1st. It's like that's for early application then. Yep. Because housing applications were what you wanted. 
+
+
+When did they close? A lot of them opened by January, February, and a lot of them closed by March and April. Okay. This is the time when we can, 11th and 12th grade. 
+
+
+11th and 12th grade, we also need scholarships. Yes, and you can also get freelancing counselors. We can get them on our app, so we can suggest them kids. 
+
+
+Make sense? Yeah. So like over here, because counselor is going to tell them what college is good for what. Or if you want that, we can add that in the app too, but that's going to need a lot of data. 
+
+
+First of all, the individuals identified with the student data are non-phobic. is protected by law. That includes student names, address, date of birth, grades, school attendance, district records, contact information, student ID number, health or special education information. 
+
+
+So the government will not release that information. Is that from high school or college? It is Florida Department of Education law. So that's high school. That's high school. But then focus in, the power school also used the same thing. 
+
+
+So how do you get grades on Powerpoint? I'm sure we just have to have some type of approval. Yeah, we need to get it approved. We cannot get it publicly. Why would they give approval to Kotal and the Stranger? 
+
+
+Who are they? Why are they on our schema? How do I know? Think about it. See, it's all about credibility now. Credibility now. And we don't have any credibility because we're young. 
+
+
+So you'll start somewhere small. That is because we have many of them. Don't be suddenly. Then how do we check if it's true? You are building credibility by creating engagement. 
+
+
+If you create millions of users, and then you can pitch this idea to the county, they will open up. 
+
+
+So maybe we can start off as just singular students. Yeah, singular students. Your personal counselor for singular students. They help you by themselves. Well, of course they have to consent to all the data stuff. 
+
+
+And you have to take the consent right from the beginning that the data you put in is your responsibility. 
+
+
+And it has nothing to do with us. Or instead of just making sure the data is correct. Because the kid's parents don't look at data. Don't assume that in America, for public record is very stringent. 
+
+
+No, no, no, no, no. Like for the unofficial transcripts, the kids can access their own transcripts, right? So they can just take a screenshot. You can always get the aggregate data, such as total enrollment counts, student demographics, enrollment by grade level, district school level performance, assessment results aggregate, enrollment trends, attendance rates, But if the student approaches by themselves, then the taxes are great, right? 
+
+
+Yeah. Yeah, so in this, in this form, we make them sign that... The NCES common code... as public API that returns school district information, including total student counts and demographic breakdown, not individually. 
+
+
+So even if you ask for API, they will not give you those public data. But if student create a profile, and then encrypt that, and read the API, and if they both talk to each other, and then put the data, it's fine. 
+
+
+So it's good. You follow what I'm saying? 

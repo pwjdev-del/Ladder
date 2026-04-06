@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Montserrat:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#caf24d",
+                    "outline-variant": "#c3c8be",
+                    "surface-container": "#f5ede2",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-error-container": "#93000a",
+                    "surface": "#fff8f2",
+                    "on-error": "#ffffff",
+                    "background": "#fff8f2",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary-fixed": "#c9ecc2",
+                    "on-surface-variant": "#434840",
+                    "surface-tint": "#486644",
+                    "primary-fixed-dim": "#aed0a7",
+                    "inverse-primary": "#aed0a7",
+                    "primary": "#42603f",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-surface": "#1f1b15",
+                    "surface-bright": "#fff8f2",
+                    "secondary-fixed-dim": "#afd531",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#fff5ee",
+                    "surface-container-highest": "#eae1d7",
+                    "tertiary-container": "#8d6a48",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-secondary": "#ffffff",
+                    "outline": "#737970",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container-low": "#fbf2e8",
+                    "secondary": "#516600",
+                    "primary-container": "#5a7956",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-primary-fixed": "#052107",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-container": "#e2ffda",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface-variant": "#eae1d7",
+                    "secondary-container": "#caf24d",
+                    "on-secondary-container": "#566c00",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#e1d9cf",
+                    "tertiary": "#725232",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"],
+                    "montserrat": ["Montserrat"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed antialiased">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-[#fff8f2] dark:bg-stone-950 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#42603f] dark:text-[#caf24d] hover:opacity-80 transition-opacity scale-95 active:duration-100">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline font-bold tracking-tight text-xl text-[#1f1b15] dark:text-[#eae1d7]">University of Florida</h1>
+</div>
+<button class="text-[#42603f] dark:text-[#caf24d] hover:opacity-80 transition-opacity scale-95 active:duration-100">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</header>
+<main class="pb-32">
+<!-- Hero Section -->
+<section class="px-6 pt-2">
+<div class="relative w-full aspect-[16/9] rounded-3xl overflow-hidden bg-gradient-to-br from-primary via-primary-container to-primary flex flex-col justify-center items-center text-center p-8">
+<div class="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
+<img alt="UF Campus" class="w-full h-full object-cover" data-alt="cinematic wide shot of the University of Florida brick clock tower and lush oak trees at sunset with golden hour light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtacAvvOADcwCj9G6YggT3B1jeX3InMBUJIyWDGS022wzPYI5eU6Ni72VxQveMu_DUY8jxToDlm3jn0ii7nzmiAhn_QyWVef4yYtdc1KIhbwylhRWIifZ-ET7NTX_5t_c0Z8j07cWP2eL_rWpDoYM8Y4ZjZC0CAhfTRxmn6sbVUJqVBB9osL9rmrPV9h9ikXZqjkQUgSglc1oM1oEIfhKkP1m1s4OuNpEjDtD2JYileZztqVtd8T_Juvpgc_qRLDytpKujaNOal5E"/>
+</div>
+<div class="relative z-10">
+<span class="block text-7xl md:text-8xl font-black text-white/20 font-montserrat tracking-tighter select-none">UF</span>
+<h2 class="text-white text-2xl md:text-3xl font-montserrat font-bold -mt-8">University of Florida</h2>
+</div>
+</div>
+</section>
+<!-- Tab Strip -->
+<nav class="mt-6 border-b border-outline-variant/15 px-6">
+<div class="flex gap-8 overflow-x-auto hide-scrollbar">
+<button class="pb-4 text-on-surface-variant font-montserrat font-semibold text-sm whitespace-nowrap opacity-60">Overview</button>
+<button class="pb-4 text-primary font-montserrat font-bold text-sm whitespace-nowrap relative border-b-2 border-primary">Personality</button>
+<button class="pb-4 text-on-surface-variant font-montserrat font-semibold text-sm whitespace-nowrap opacity-60">Fit</button>
+<button class="pb-4 text-on-surface-variant font-montserrat font-semibold text-sm whitespace-nowrap opacity-60">Requirements</button>
+</div>
+</nav>
+<!-- Archetype Banner -->
+<section class="px-6 mt-8">
+<div class="bg-surface-container-highest rounded-3xl p-8 flex flex-col items-center text-center shadow-[0_40px_60px_rgba(31,27,21,0.04)]">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center mb-6 shadow-lg shadow-secondary-fixed/20">
+<span class="material-symbols-outlined text-on-secondary-fixed text-3xl" data-icon="emoji_events" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<h3 class="font-headline text-4xl mb-3 tracking-tight">The Achiever</h3>
+<p class="font-montserrat text-on-surface-variant text-sm max-w-[280px] leading-relaxed">
+                    Metrics-first. High GPA bar. Florida's flagship experience.
+                </p>
+</div>
+</section>
+<!-- Trait Chips Row -->
+<section class="mt-8">
+<div class="flex gap-3 overflow-x-auto px-6 hide-scrollbar">
+<span class="px-5 py-2.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-montserrat font-bold whitespace-nowrap">Test-Driven</span>
+<span class="px-5 py-2.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-montserrat font-bold whitespace-nowrap">Large Campus</span>
+<span class="px-5 py-2.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-montserrat font-bold whitespace-nowrap">Research Culture</span>
+<span class="px-5 py-2.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-montserrat font-bold whitespace-nowrap">Competitive</span>
+</div>
+</section>
+<!-- What UF Values Most Section -->
+<section class="px-6 mt-12">
+<h4 class="font-headline text-2xl mb-6">What UF Values Most</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- GPA -->
+<div class="bg-surface-container-low p-5 rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface flex items-center justify-center rounded-xl">
+<span class="material-symbols-outlined text-primary" data-icon="school">school</span>
+</div>
+<div>
+<p class="text-on-surface font-montserrat font-bold text-sm">GPA</p>
+<p class="text-on-surface-variant text-xs">Very Important</p>
+</div>
+</div>
+</div>
+<!-- Test Scores -->
+<div class="bg-surface-container-low p-5 rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface flex items-center justify-center rounded-xl">
+<span class="material-symbols-outlined text-primary" data-icon="quiz">quiz</span>
+</div>
+<div>
+<p class="text-on-surface font-montserrat font-bold text-sm">Test Scores</p>
+<p class="text-on-surface-variant text-xs">Very Important</p>
+</div>
+</div>
+</div>
+<!-- Course Rigor -->
+<div class="bg-surface-container-low p-5 rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface flex items-center justify-center rounded-xl">
+<span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<p class="text-on-surface font-montserrat font-bold text-sm">Course Rigor</p>
+<p class="text-on-surface-variant text-xs">Important</p>
+</div>
+</div>
+</div>
+<!-- Essays -->
+<div class="bg-surface-container-low p-5 rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface flex items-center justify-center rounded-xl">
+<span class="material-symbols-outlined text-primary" data-icon="edit_note">edit_note</span>
+</div>
+<div>
+<p class="text-on-surface font-montserrat font-bold text-sm">Essays</p>
+<p class="text-on-surface-variant text-xs">Considered</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Who Thrives Here Section -->
+<section class="px-6 mt-12">
+<h4 class="font-headline text-2xl mb-4">Who Thrives Here</h4>
+<div class="p-1">
+<p class="text-on-surface font-montserrat leading-relaxed text-sm">
+                    Driven students who excel in a high-energy, competitive environment and are ready to contribute to a world-class research community.
+                </p>
+</div>
+</section>
+</main>
+<!-- Bottom Sticky Bar -->
+<div class="fixed bottom-0 left-0 w-full p-6 bg-surface/80 backdrop-blur-xl z-50">
+<button class="w-full bg-primary-container text-white font-montserrat font-semibold py-5 rounded-3xl shadow-xl shadow-primary/20 scale-100 active:scale-95 transition-all flex items-center justify-center gap-2">
+            Add to My List
+        </button>
+</div>
+<!-- BottomNavBar (Hidden per transaction/focused screen logic, but defined in JSON) -->
+<nav class="hidden md:hidden fixed bottom-0 left-0 w-full bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl flex justify-around items-center px-4 pb-6 pt-2 rounded-t-3xl border-t border-[#c3c8be]/15 shadow-[0_-4px_40px_rgba(31,27,21,0.06)]">
+<div class="flex flex-col items-center justify-center text-[#1f1b15] dark:text-[#c3c8be] px-5 py-2">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest">Discover</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#eae1d7] dark:bg-stone-800 text-[#42603f] dark:text-[#caf24d] rounded-2xl px-5 py-2">
+<span class="material-symbols-outlined mb-1" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest">Match</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15] dark:text-[#c3c8be] px-5 py-2">
+<span class="material-symbols-outlined mb-1" data-icon="bookmark">bookmark</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest">Saved</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15] dark:text-[#c3c8be] px-5 py-2">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest">Profile</span>
+</div>
+</nav>
+</body></html>

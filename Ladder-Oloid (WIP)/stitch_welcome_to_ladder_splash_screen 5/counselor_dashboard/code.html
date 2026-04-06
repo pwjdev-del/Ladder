@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Counselor Portal Dashboard - Evergreen Academy</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Noto Serif & Manrope (Montserrat replacement per DS) -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#e1d9cf",
+                        "inverse-surface": "#343029",
+                        "outline": "#737970",
+                        "on-primary-container": "#e2ffda",
+                        "background": "#fff8f2",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fff8f2",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c3c8be",
+                        "on-error": "#ffffff",
+                        "primary": "#42603f",
+                        "surface-container": "#f5ede2",
+                        "secondary-container": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-container": "#8d6a48",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-primary-fixed": "#052107",
+                        "secondary": "#516600",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#486644",
+                        "on-surface": "#1f1b15",
+                        "on-secondary-fixed": "#161e00",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-tertiary-fixed": "#2c1600",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface": "#fff8f2",
+                        "on-surface-variant": "#434840",
+                        "primary-fixed": "#c9ecc2",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary-fixed": "#caf24d",
+                        "primary-fixed-dim": "#aed0a7",
+                        "inverse-primary": "#aed0a7",
+                        "tertiary": "#725232",
+                        "surface-container-low": "#fbf2e8",
+                        "primary-container": "#5a7956",
+                        "on-secondary-container": "#566c00",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#eae1d7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 py-4 bg-[#fff8f2] dark:bg-stone-950 fixed top-0 z-40 transition-all duration-300 ease-in-out">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="Counselor Profile" class="w-full h-full object-cover" data-alt="Professional portrait of a middle-aged female school counselor with a kind expression, soft natural lighting in an academic office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtxtSg0kzsIAVe4GgRPo0uIbyxmlrZKl3s8VfdT2Ot9AWHRcCVC_aDT4ufcBeADbPZG0EAKhbCvv8L_7LRX9viVT__1B0vQsj3I5xKeaiXHvFamkqqXQ2aRWpPKUiuBfkZC3Evlphk9kufbHBIojHcu3zCvFct_ucrixlSXlUBTOzHIO-kujN1cFulIo_LtStoULRf-cA32m1tG3oThpRV6XrYjpS-yWjvpyd6q68dImIBPgtCBMdY_U8qRJbw-aaog6UI025yH4c"/>
+</div>
+<div class="flex flex-col">
+<h1 class="font-headline font-bold tracking-tight text-[#42603f] text-xl">Manatee High — Ms. Demlak</h1>
+<span class="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant/60">Evergreen Academy</span>
+</div>
+</div>
+<div class="p-2 rounded-full hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800 transition-all duration-300">
+<span class="material-symbols-outlined text-[#42603f] dark:text-[#caf24d]" data-icon="settings">settings</span>
+</div>
+</header>
+<main class="mt-24 px-6 max-w-5xl mx-auto">
+<!-- Summary Stats Horizontal Scroll -->
+<section class="mb-10">
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 -mx-6 px-6">
+<div class="flex-none bg-primary text-white px-6 py-4 rounded-2xl flex items-center gap-3 min-w-[160px] shadow-sm">
+<span class="material-symbols-outlined text-secondary-fixed">group</span>
+<span class="font-bold whitespace-nowrap">47 Students</span>
+</div>
+<div class="flex-none bg-surface-container-low border border-outline-variant/15 px-6 py-4 rounded-2xl flex items-center gap-3 min-w-[160px]">
+<span class="material-symbols-outlined text-error">warning</span>
+<span class="font-bold text-on-surface whitespace-nowrap">12 At-Risk</span>
+</div>
+<div class="flex-none bg-surface-container-low border border-outline-variant/15 px-6 py-4 rounded-2xl flex items-center gap-3 min-w-[160px]">
+<span class="material-symbols-outlined text-primary">verified</span>
+<span class="font-bold text-on-surface whitespace-nowrap">8 Pending Approvals</span>
+</div>
+<div class="flex-none bg-surface-container-low border border-outline-variant/15 px-6 py-4 rounded-2xl flex items-center gap-3 min-w-[160px]">
+<span class="material-symbols-outlined text-primary">mail</span>
+<span class="font-bold text-on-surface whitespace-nowrap">3 Unread Messages</span>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- At-Risk Alerts Section (Bento Style) -->
+<section class="md:col-span-12 lg:col-span-7">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline text-2xl font-bold tracking-tight text-on-surface">At-Risk Alerts</h2>
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Priority Focus</span>
+</div>
+<div class="bg-[#fffbeb] border border-amber-200/50 rounded-2xl p-6 shadow-sm">
+<div class="space-y-4">
+<!-- Alert Item 1 -->
+<div class="bg-white/60 p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center font-bold text-amber-800">JT</div>
+<div>
+<h3 class="font-bold text-on-surface">James T.</h3>
+<p class="text-xs text-on-surface-variant">11th Grade • <span class="text-error font-semibold">No SAT registered</span></p>
+</div>
+</div>
+<button class="px-4 py-2 border-2 border-primary text-primary font-bold text-xs rounded-full hover:bg-primary hover:text-white transition-all">Send Nudge</button>
+</div>
+<!-- Alert Item 2 -->
+<div class="bg-white/60 p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center font-bold text-amber-800">MR</div>
+<div>
+<h3 class="font-bold text-on-surface">Maya R.</h3>
+<p class="text-xs text-on-surface-variant">12th Grade • <span class="text-error font-semibold">0 volunteer hours logged</span></p>
+</div>
+</div>
+<button class="px-4 py-2 border-2 border-primary text-primary font-bold text-xs rounded-full hover:bg-primary hover:text-white transition-all">Send Nudge</button>
+</div>
+<!-- Alert Item 3 -->
+<div class="bg-white/60 p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center font-bold text-amber-800">CM</div>
+<div>
+<h3 class="font-bold text-on-surface">Carlos M.</h3>
+<p class="text-xs text-on-surface-variant">10th Grade • <span class="text-error font-semibold">No clubs (2 consecutive years)</span></p>
+</div>
+</div>
+<button class="px-4 py-2 border-2 border-primary text-primary font-bold text-xs rounded-full hover:bg-primary hover:text-white transition-all">Send Nudge</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Pending Class Approvals Section -->
+<section class="md:col-span-12 lg:col-span-5">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Pending Approvals</h2>
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Action Required</span>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-2 space-y-2">
+<div class="bg-surface p-5 rounded-xl border border-outline-variant/10 shadow-sm flex items-center justify-between transition-all hover:translate-x-1">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Kathan S.</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Senior Year Electives</span>
+</div>
+<button class="bg-primary text-white font-bold text-xs px-5 py-2.5 rounded-full hover:bg-primary-container transition-colors">Review Schedule</button>
+</div>
+<div class="bg-surface p-5 rounded-xl border border-outline-variant/10 shadow-sm flex items-center justify-between transition-all hover:translate-x-1">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Elena V.</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">AP Calculus Swap</span>
+</div>
+<button class="bg-primary text-white font-bold text-xs px-5 py-2.5 rounded-full hover:bg-primary-container transition-colors">Review Schedule</button>
+</div>
+<div class="bg-surface p-5 rounded-xl border border-outline-variant/10 shadow-sm flex items-center justify-between transition-all hover:translate-x-1">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Marcus P.</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Early Graduation Audit</span>
+</div>
+<button class="bg-primary text-white font-bold text-xs px-5 py-2.5 rounded-full hover:bg-primary-container transition-colors">Review Schedule</button>
+</div>
+</div>
+<!-- Editorial/Organicism Breakout Image Component -->
+<div class="mt-8 relative h-48 rounded-2xl overflow-hidden group">
+<img class="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" data-alt="Modern high school library with warm oak furniture, large windows showing green trees, and soft sunlight hitting wooden tables" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3B_Vkl5dX3OaPua01nB2-FrAXP_QV8jdtpfTHScaBU8bcePLvYt5pzpV42hYn53kZ_Zg4CRJgO4hpUMSChUhjyTWid_GrU8_QOq8uKeYSPZM8Y1OrUijAna4i95d_isz7NkZty248rugSxql5AeN-vMeFHbOOuw_QyBFdgMbieZM4_UkcIOgEXZpL8ueGsM_PjfS7LHKTZ4wtX7l-5X-messn4RDz-B6k0X-SwXwK6LN85SuvZxkpRMn_-qb2PNSG3qAUdjwU77A"/>
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+<div class="absolute inset-0 flex flex-col justify-end p-6">
+<p class="font-headline text-white text-lg leading-tight font-bold">Encouraging Student Autonomy.</p>
+<p class="text-secondary-fixed text-xs font-bold uppercase tracking-widest mt-1">Counselor Insight Vol. 4</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-3 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl shadow-[0_-4px_20px_rgba(31,27,21,0.06)] border-t border-stone-200/15 dark:border-stone-800/15">
+<!-- Destination: Students -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#5a7956] dark:hover:text-[#caf24d] transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="group">group</span>
+<span class="font-['Manrope'] text-[10px] font-semibold uppercase tracking-widest">Students</span>
+</a>
+<!-- Destination: Approvals (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-[#42603f] text-white dark:bg-[#caf24d] dark:text-stone-950 rounded-2xl px-5 py-2 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-['Manrope'] text-[10px] font-semibold uppercase tracking-widest">Approvals</span>
+</a>
+<!-- Destination: Messages -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#5a7956] dark:hover:text-[#caf24d] transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="mail">mail</span>
+<span class="font-['Manrope'] text-[10px] font-semibold uppercase tracking-widest">Messages</span>
+</a>
+<!-- Destination: Settings -->
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#5a7956] dark:hover:text-[#caf24d] transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="font-['Manrope'] text-[10px] font-semibold uppercase tracking-widest">Settings</span>
+</a>
+</nav>
+<!-- FAB Suppression: On Detail/Admin/Dashboard Views FAB is typically secondary. 
+         No FAB added here to keep the editorial clean aesthetic as per instructions for Focus screens. -->
+</body></html>

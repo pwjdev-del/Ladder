@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Find a Counselor - Expert Counselors</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#c9ecc2",
+                      "tertiary-fixed": "#ffdcbd",
+                      "surface": "#fff8f2",
+                      "on-surface-variant": "#434840",
+                      "surface-container-highest": "#eae1d7",
+                      "secondary-fixed": "#caf24d",
+                      "primary-fixed-dim": "#aed0a7",
+                      "inverse-primary": "#aed0a7",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-low": "#fbf2e8",
+                      "tertiary": "#725232",
+                      "surface-variant": "#eae1d7",
+                      "primary-container": "#5a7956",
+                      "on-secondary-container": "#566c00",
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#8d6a48",
+                      "secondary": "#516600",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "on-primary-fixed": "#052107",
+                      "on-surface": "#1f1b15",
+                      "on-secondary-fixed": "#161e00",
+                      "surface-tint": "#486644",
+                      "on-tertiary-container": "#fff5ee",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "secondary-fixed-dim": "#afd531",
+                      "on-tertiary-fixed": "#2c1600",
+                      "primary": "#42603f",
+                      "surface-container": "#f5ede2",
+                      "secondary-container": "#caf24d",
+                      "on-background": "#1f1b15",
+                      "inverse-on-surface": "#f8efe5",
+                      "surface-dim": "#e1d9cf",
+                      "inverse-surface": "#343029",
+                      "outline": "#737970",
+                      "on-primary-container": "#e2ffda",
+                      "background": "#fff8f2",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#efe7dd",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#fff8f2",
+                      "outline-variant": "#c3c8be",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "1rem",
+                      "xl": "1.5rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Noto Serif"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, .font-serif { font-family: 'Noto Serif', serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fff8f2]/70 dark:bg-[#1f1b15]/70 backdrop-blur-xl shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)]">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#42603f] dark:text-[#caf24d] hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-serif tracking-tight text-xl font-bold text-[#42603f] dark:text-[#caf24d]">Find a Counselor</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a professional woman with a warm smile, soft natural lighting in a contemporary office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV1TNvhwvt5Af5ZyBHpSSbYMULkTDgL7lo3CH0di8Ww6h4nAQKd-B9s9DS0df2k1t6PDLa7VrWoVng1eFy5KkCa2yiECt20hxb7pBJOO0F0nP_9qcF64e85FVnbdkPsQVzVJpBWPcr0OO7YgMcVQOpojjdTyb6uy2XTUFz30N53xUfTnSkMfvI0PIpvToLlKJwcd30p0yA2UtCeg4m3MQ38CJXdndP4Xxy_ZqW8ULXq7PXClHFd1dRPqQPnWED7z5r0rKZwNA1dNA"/>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6">
+<!-- Exclusivity Badge -->
+<div class="mb-6 flex justify-center">
+<div class="bg-secondary-container px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-on-secondary-container" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-[11px] font-bold tracking-widest uppercase text-on-secondary-container">1 counselor per region</span>
+</div>
+</div>
+<!-- Search/Filter Section -->
+<section class="space-y-6 mb-8">
+<div class="relative">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+</div>
+<input class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-primary/20 rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder-on-surface-variant/50 font-medium" placeholder="Search by specialty or school..." type="text"/>
+</div>
+<div class="flex items-center gap-2 text-primary-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on" data-weight="fill" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="text-sm font-semibold">Within 50 miles of Bradenton, FL</span>
+<span class="material-symbols-outlined text-[18px] ml-auto cursor-pointer" data-icon="tune">tune</span>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-3 overflow-x-auto pb-2 -mx-2 px-2 no-scrollbar">
+<button class="whitespace-nowrap px-4 py-2 bg-primary text-on-primary rounded-full text-xs font-bold transition-all active:scale-95">
+                    Available this week
+                </button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container-highest text-on-surface rounded-full text-xs font-bold border border-outline-variant/15 transition-all hover:bg-surface-container-high">
+                    Under $150/hr
+                </button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface-container-highest text-on-surface rounded-full text-xs font-bold border border-outline-variant/15 transition-all hover:bg-surface-container-high">
+                    Florida schools specialist
+                </button>
+</div>
+</section>
+<!-- Counselor Cards List -->
+<section class="space-y-8">
+<!-- Card 1 -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(31,27,21,0.03)] transition-all active:scale-[0.98]">
+<div class="p-5 flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white">
+<img alt="Sarah M." class="w-full h-full object-cover" data-alt="Professional headshot of a woman with glasses, smiling warmly, in a brightly lit academic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuSyI4IbWNDilqt3ta3WLnP0C2ObqdPauK4fWc1PWdsK8vSooi4btV3va8yEpo-yvnFwrH5BB8fYGKajeckTCZciH5mCbc58hSDiMkWSCvA2vKopdh7S9y_5MoNk9AdEUC2b7sszoRj_rTx7EGeJapaXO-B76HgyDw2-JhPSUX1oBdvludgzg7JHUr9ohDyDcgYcsooL8_Rlymge4RaouhLJv2_fd1ilEsUyxeHlstPlfPnPrOIjBNSMvVq8ibKruIAr-Xw8jBHL4"/>
+</div>
+<div class="flex flex-col">
+<h3 class="text-lg font-extrabold text-on-surface leading-tight">Sarah M.</h3>
+<p class="text-xs font-medium text-on-surface-variant/70 uppercase tracking-wider">Certified IEC, 8 years</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-secondary-fixed text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">4.9</span>
+<span class="text-xs text-on-surface-variant/60">(124 reviews)</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-highest p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="bookmark">bookmark</span>
+</div>
+</div>
+<!-- Specialty Chips -->
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-highest/50 rounded-lg text-[10px] font-bold uppercase tracking-tight text-on-surface-variant">Florida Schools</span>
+<span class="px-3 py-1 bg-surface-container-highest/50 rounded-lg text-[10px] font-bold uppercase tracking-tight text-on-surface-variant">First-Gen</span>
+<span class="px-3 py-1 bg-surface-container-highest/50 rounded-lg text-[10px] font-bold uppercase tracking-tight text-on-surface-variant">Pre-Med</span>
+</div>
+<div class="flex items-end justify-between mt-2">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Price</p>
+<p class="text-lg font-black text-primary">$120 <span class="text-sm font-normal text-on-surface-variant/60">/ session</span></p>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Availability</p>
+<p class="text-sm font-bold text-secondary">Mon Apr 7</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-bold uppercase tracking-widest text-xs transition-all hover:opacity-90 active:scale-95 shadow-lg shadow-primary-container/20">
+                        Book Session
+                    </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(31,27,21,0.03)] transition-all active:scale-[0.98]">
+<div class="p-5 flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-white">
+<img alt="David L." class="w-full h-full object-cover" data-alt="Close up of a friendly male academic counselor in a casual blazer, natural daylight, sophisticated workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDz2r7GOnp3aqJn6p4lCxugrsa5YRmFIbWhpM9Kk75IT97G7KTtUqw5shaBvjwJyyRl6VBJD7WK54gWNVa0vkKjMywqKlhocN1kmqXv0gQR7q3Lr-QJjdxMiUl2qAFU7ME4U_BUcahlppEce-s5u5rAEf9snd7Bs4P_JDN1JaHono_KLcB87riTMUGLHV-wnEqU3rsVROZCevrupjNtz-wN6qEFk4Bm-AuEYq_mX7aBRcxdS4XAGkTo15WI0O6-5yYd0Esib99nDw"/>
+</div>
+<div class="flex flex-col">
+<h3 class="text-lg font-extrabold text-on-surface leading-tight">David L.</h3>
+<p class="text-xs font-medium text-on-surface-variant/70 uppercase tracking-wider">Former Admissions, 12 years</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-secondary-fixed text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">5.0</span>
+<span class="text-xs text-on-surface-variant/60">(89 reviews)</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-highest p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="bookmark">bookmark</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-highest/50 rounded-lg text-[10px] font-bold uppercase tracking-tight text-on-surface-variant">Ivy League</span>
+<span class="px-3 py-1 bg-surface-container-highest/50 rounded-lg text-[10px] font-bold uppercase tracking-tight text-on-surface-variant">Essay Coach</span>
+</div>
+<div class="flex items-end justify-between mt-2">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Price</p>
+<p class="text-lg font-black text-primary">$185 <span class="text-sm font-normal text-on-surface-variant/60">/ session</span></p>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Availability</p>
+<p class="text-sm font-bold text-secondary">Tomorrow</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-bold uppercase tracking-widest text-xs transition-all hover:opacity-90 active:scale-95 shadow-lg shadow-primary-container/20">
+                        Book Session
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-3 pb-8 px-4 bg-[#fff8f2]/70 dark:bg-[#1f1b15]/70 backdrop-blur-xl rounded-t-3xl shadow-[0_-10px_40px_rgba(31,27,21,0.04)] z-50">
+<a class="flex flex-col items-center justify-center text-[#42603f] dark:text-[#caf24d] font-bold scale-110 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-sans text-[10px] uppercase tracking-widest">Discover</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/40 dark:text-[#fff8f2]/40 hover:text-[#42603f] dark:hover:text-[#caf24d] transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-sans text-[10px] uppercase tracking-widest">Messages</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/40 dark:text-[#fff8f2]/40 hover:text-[#42603f] dark:hover:text-[#caf24d] transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="school">school</span>
+<span class="font-sans text-[10px] uppercase tracking-widest">Academy</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/40 dark:text-[#fff8f2]/40 hover:text-[#42603f] dark:hover:text-[#caf24d] transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_circle">account_circle</span>
+<span class="font-sans text-[10px] uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+</body></html>

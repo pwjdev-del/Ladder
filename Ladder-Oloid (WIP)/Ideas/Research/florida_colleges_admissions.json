@@ -1,0 +1,56 @@
+[
+    {
+        "college_name": "University of Florida",
+        "early_action_deadline": "November 1",
+        "regular_decision_deadline": "January 15",
+        "testing_policy": "Test Required (SAT/ACT/CLT)",
+        "transcript_requirement": "STARS",
+        "application_platforms": [
+            "Common App"
+        ]
+    },
+    {
+        "college_name": "Florida State University",
+        "early_action_deadline": "October 15 (FL Residents)",
+        "regular_decision_deadline": "December 1",
+        "testing_policy": "Test Required (SAT/ACT/CLT)",
+        "transcript_requirement": "SSAR",
+        "application_platforms": [
+            "Common App",
+            "Institutional Portal"
+        ]
+    },
+    {
+        "college_name": "University of South Florida",
+        "early_action_deadline": "November 1",
+        "regular_decision_deadline": "March 1",
+        "testing_policy": "Test Required (SAT/ACT/CLT)",
+        "transcript_requirement": "STARS",
+        "application_platforms": [
+            "Common App",
+            "Institutional Portal"
+        ]
+    },
+    {
+        "college_name": "University of Central Florida",
+        "early_action_deadline": "October 15",
+        "regular_decision_deadline": "May 1",
+        "testing_policy": "Test Required (SAT/ACT/CLT)",
+        "transcript_requirement": "SPARK",
+        "application_platforms": [
+            "Common App",
+            "Institutional Portal"
+        ]
+    },
+    {
+        "college_name": "Florida International University",
+        "early_action_deadline": "November 3",
+        "regular_decision_deadline": "December 17",
+        "testing_policy": "Test Required (SAT/ACT/CLT)",
+        "transcript_requirement": "SSAR",
+        "application_platforms": [
+            "Common App",
+            "Institutional Portal"
+        ]
+    }
+]

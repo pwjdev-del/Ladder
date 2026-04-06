@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Graduation Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#434840",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-high": "#efe7dd",
+                        "on-surface": "#1f1b15",
+                        "surface-variant": "#eae1d7",
+                        "surface": "#fff8f2",
+                        "outline-variant": "#c3c8be",
+                        "primary": "#42603f",
+                        "surface-container-highest": "#eae1d7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-primary-fixed": "#052107",
+                        "inverse-on-surface": "#f8efe5",
+                        "background": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary-fixed": "#2c1600",
+                        "outline": "#737970",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-dim": "#e1d9cf",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#516600",
+                        "on-background": "#1f1b15",
+                        "on-secondary-fixed": "#161e00",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-bright": "#fff8f2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "inverse-surface": "#343029",
+                        "surface-tint": "#486644",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fbf2e8",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#725232",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-container": "#f5ede2",
+                        "secondary-fixed": "#caf24d",
+                        "primary-container": "#5a7956"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky flex items-center justify-between px-6 py-4 w-full bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f] dark:text-[#5a7956] cursor-pointer active:scale-95 duration-200">arrow_back</span>
+<h1 class="font-noto-serif text-2xl tracking-tighter italic text-[#1f1b15] dark:text-[#eae1d7]">Milestone Progress</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a confident university student in a library setting with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOKF3pGwutu4UVW4js6FDv6h1YzjldfxUVU4jWt-3GmW-FV-ETAEVyCoGVw1uE-ZYzqETWUWFVCo-4z6fH0oZ8m5kzbzwckATd-6GIUZdlCGGh6FBF7JU8vE-aXinQZahlENZya40J9QfZJpZ7FuE2yYOSsqiCMQp8f-BZXDpOS7BE6WVPa-aYFN8ptdXKppNs9PFY9TSxrM5EP53ZbLoyyL9P6eIpPGNYxZmOFkMu4ZUqtrcFHLV5IXBDaxG-rqKsoTFAZuiCAzU"/>
+</div>
+</header>
+<main class="px-6 py-8">
+<!-- Headline Section -->
+<div class="mb-10">
+<h2 class="font-headline text-4xl font-bold tracking-tight text-on-surface mb-2 leading-tight">Graduation Tracker</h2>
+<p class="font-label text-on-surface-variant font-medium tracking-wide">Florida requires 24 credits to graduate</p>
+</div>
+<!-- Hero: Progress Dial -->
+<section class="relative mb-12 flex flex-col items-center">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<!-- Circular Track -->
+<svg class="absolute w-full h-full -rotate-90">
+<circle class="text-surface-container-high" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="24"></circle>
+<circle cx="128" cy="128" fill="transparent" r="110" stroke="url(#primaryGradient)" stroke-dasharray="691" stroke-dashoffset="173" stroke-linecap="round" stroke-width="24"></circle>
+<defs>
+<lineargradient id="primaryGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#42603f"></stop>
+<stop offset="100%" style="stop-color:#5a7956"></stop>
+</lineargradient>
+</defs>
+</svg>
+<!-- Center Text -->
+<div class="text-center z-10 bg-secondary-fixed w-48 h-48 rounded-full flex flex-col items-center justify-center shadow-[0_4px_40px_rgba(202,242,77,0.3)]">
+<span class="text-4xl font-bold text-on-secondary-fixed">75%</span>
+<span class="text-sm font-bold text-on-secondary-fixed/80 uppercase tracking-widest mt-1">18 / 24 Credits</span>
+</div>
+</div>
+<!-- Projection Card Floating Asymmetrically -->
+<div class="mt-8 self-end -mr-2 bg-primary text-white rounded-xl p-5 shadow-xl max-w-[220px]">
+<p class="text-xs uppercase tracking-widest opacity-80 mb-1 font-bold">Projection</p>
+<p class="font-headline italic text-lg leading-snug">On track for May 2027 graduation</p>
+</div>
+</section>
+<!-- Missing Credits Alert (Prioritized Layout) -->
+<section class="mb-10">
+<div class="bg-tertiary-fixed rounded-xl p-6 border-l-4 border-tertiary">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary">warning</span>
+<h3 class="font-headline font-bold text-tertiary text-lg">Missing Credits Alert</h3>
+</div>
+<ul class="space-y-3">
+<li class="flex justify-between items-center text-on-tertiary-fixed-variant">
+<span class="font-medium">Social Studies</span>
+<span class="bg-white/40 px-3 py-1 rounded-full text-xs font-bold uppercase">1 credit needed</span>
+</li>
+<li class="flex justify-between items-center text-on-tertiary-fixed-variant">
+<span class="font-medium">Electives</span>
+<span class="bg-white/40 px-3 py-1 rounded-full text-xs font-bold uppercase">1 credit needed</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Credits Bento Grid -->
+<section class="grid grid-cols-2 gap-4 mb-12">
+<!-- English -->
+<div class="bg-surface-container-low rounded-xl p-5 flex flex-col justify-between aspect-square">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">English</h4>
+<span class="text-xs font-bold text-primary">3 / 4 Credits</span>
+</div>
+<div class="mt-4">
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mb-3">
+<div class="h-full bg-primary w-3/4"></div>
+</div>
+<span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-primary/10 text-primary">On Track</span>
+</div>
+</div>
+<!-- Math -->
+<div class="bg-surface-container-low rounded-xl p-5 flex flex-col justify-between aspect-square">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">Math</h4>
+<span class="text-xs font-bold text-primary">4 / 4 Credits</span>
+</div>
+<div class="mt-4">
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mb-3">
+<div class="h-full bg-primary w-full"></div>
+</div>
+<span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed">Completed</span>
+</div>
+</div>
+<!-- Science -->
+<div class="bg-surface-container-low rounded-xl p-5 flex flex-col justify-between aspect-square">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">Science</h4>
+<span class="text-xs font-bold text-primary">3 / 3 Credits</span>
+</div>
+<div class="mt-4">
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mb-3">
+<div class="h-full bg-primary w-full"></div>
+</div>
+<span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed">Completed</span>
+</div>
+</div>
+<!-- Social Studies -->
+<div class="bg-surface-container-low rounded-xl p-5 flex flex-col justify-between aspect-square">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">Social Studies</h4>
+<span class="text-xs font-bold text-error">2 / 3 Credits</span>
+</div>
+<div class="mt-4">
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mb-3">
+<div class="h-full bg-error w-2/3"></div>
+</div>
+<span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-error/10 text-error">Behind</span>
+</div>
+</div>
+<!-- World Lang -->
+<div class="bg-surface-container-low rounded-xl p-5 flex flex-col justify-between aspect-square">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">World Lang</h4>
+<span class="text-xs font-bold text-primary">2 / 2 Credits</span>
+</div>
+<div class="mt-4">
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mb-3">
+<div class="h-full bg-primary w-full"></div>
+</div>
+<span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed">Completed</span>
+</div>
+</div>
+<!-- Electives -->
+<div class="bg-surface-container-low rounded-xl p-5 flex flex-col justify-between aspect-square">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">Electives</h4>
+<span class="text-xs font-bold text-error">4 / 8 Credits</span>
+</div>
+<div class="mt-4">
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mb-3">
+<div class="h-full bg-error w-1/2"></div>
+</div>
+<span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded-full bg-error/10 text-error">Behind</span>
+</div>
+</div>
+</section>
+<!-- Primary Action Button -->
+<button class="w-full py-5 bg-gradient-to-br from-primary to-primary-container text-white rounded-full font-bold uppercase tracking-widest text-sm shadow-xl active:scale-95 duration-300">
+            Update from Transcript
+        </button>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fbf2e8]/70 dark:bg-stone-900/70 backdrop-blur-3xl shadow-[0_-4px_40px_rgba(31,27,21,0.06)] rounded-t-[24px]">
+<div class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-all active:scale-90 duration-300 ease-out">
+<span class="material-symbols-outlined mb-1">auto_stories</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Curriculum</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-all active:scale-90 duration-300 ease-out">
+<span class="material-symbols-outlined mb-1">emoji_events</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Goals</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#42603f] text-white rounded-xl px-5 py-2 active:scale-90 duration-300 ease-out">
+<span class="material-symbols-outlined mb-1">school</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Milestones</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-all active:scale-90 duration-300 ease-out">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-manrope text-[10px] font-semibold uppercase tracking-widest">Profile</span>
+</div>
+</nav>
+</body></html>

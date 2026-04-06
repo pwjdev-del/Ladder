@@ -1,0 +1,79 @@
+in your app. Why would somebody do that? So you have to create a story or help them to find more students. Well, first, we should ask them, what do they do? 
+
+
+Well, we need to find out what school college counselors do in a day-to-day basis. And that would be interviewing Ms. Demlak. Yes, and Ms. Gaber. Ms. Gaber. And when we... Yes, yes. We need to prepare a list. 
+
+
+But my centralized question I would ask them would basically be, what type of tasks do they do at a school? 
+
+
+Like... Let's say you have one week of school. What do you have to do on a day-to-day basis for the first week of school? You have to interview students to get what classes they want. 
+
+
+And you have to... Like make a timeline of their whole life. Make a timeline, fill out paperwork, fill out a bunch of different stuff. 
+
+
+A lot of them have paperwork. And... you have to they also have to lecture and inform kids on who want to go to college how to go to college so we're taking off two things from a college counselor's day-to-day plate not paperwork but it would be finding and um preparing uh class schedules for the kids which is a major thing when school starts that is a huge thing that college counselors struggle with i know it's literally happening so so when when in the start of the year, last year we had a meeting with Ms. 
+
+
+Durbel and Dr. Senden about what classes are we gonna take next year. And then we had some idea, because it's a small school, we know what classes are there. 
+
+
+In bigger schools, you don't know how many classes are there. In the app, there's gonna be data on what classes are there. And the app is gonna, on the basis of your academics, is gonna give a list that, three parts, easy, medium, hard. 
+
+
+If you take these classes, it's gonna be easy, hard, and then meet me yes on the basis of the of their last three years. 
+
+
+On the basis of the last three years transfer yep so basically to our AI and then I'm gonna use their data to get an answer for them. 
+
+
+So basically it would be like, um, okay, so the past three years you upload your transcript, you have all days and hours everything that you've done in middle school. 
+
+
+Biology, math, reading, science, okay? So you have all As in everything. Then you fill out that career course when you first open it, It gets your hobbies, your interests, and gives you suggestions, feedback based on like, okay, you have a hobby in art. 
+
+
+So maybe you should become a digital artist that makes good money, that combines your love of technology and art. 
+
+
+Okay. So you choose- So it's gonna make you get like a general line. Like we got into like five lines, like STEM, medical, business, humanities, and sports. 
+
+
+These are like five lines, I think. So every kid in the US can like, one, one is related to them, from the ninth grade. 
+
+
+Yeah, at least one of these five sections are going to be in your interest. So it's not two in one, it's last. So if you pick STEM, so now all the activities that we are gonna suggest them, the classes that we are gonna suggest them, are gonna be in focusing from them getting to a STEM-based college. 
+
+
+onto a STEM-based major. For activities, we'll have like four activities, which will be mandatory for like all kids, like general for all kids, like volunteering, clubs, What was it? 
+
+
+Athletics and a job or something like that. There's like four things that every kid does in high school. But there are going to be six other activities which are going to be specific towards their major. 
+
+
+So like STEM, okay, you can go on tools like anti-gravity and make an app, make a website, put that on your resume. 
+
+
+Oh my God, you know how to use AI, you know how to use code. So that's gonna bump it up. And where the easy, moderate, and hard decisions come in, because I know that's what you originally asked about, those five overarching umbrellas, when the career quiz says, oh, you look like you would be good in a STEM major, okay? 
+
+
+So then AI will analyze your past transcripts from middle school, say, okay, you did good in every class because you had all A's in every class. 
+
+
+You want to go into a STEM major. So I think your school offers AP Computer Science Principles A, AP Biology, and AP Stats. 
+
+
+Okay, STEM majors should focus on math technology, so I would suggest you take AP Computer Science Principles and AP Statistics. 
+
+
+Based on your transcripts of the past three years, you would excel in these classes quite well and these would be moderate difficulty for you because they are still AP courses. 
+
+
+But if you do not want to take those classes, which are moderate, you can go into much easier class-based, which are just going to be like normal math, normal pre-algebra or algebra. 
+
+
+And this is all based on what your school uploads as well. Because the school will create a profile and upload the classes that they have and they offer. 
+
+
+You should have the API from the management company. Yes, we have to talk to Manatee County, CSUSA, all of them. Because the more data this thing gets, the more accurate it would be for each student. 

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#737970",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-surface": "#343029",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#1f1b15",
+                    "on-tertiary-container": "#fff5ee",
+                    "surface-container-highest": "#eae1d7",
+                    "tertiary-container": "#8d6a48",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface-variant": "#eae1d7",
+                    "secondary-container": "#caf24d",
+                    "on-secondary-container": "#566c00",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#e1d9cf",
+                    "tertiary": "#725232",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-primary-fixed": "#052107",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-container": "#e2ffda",
+                    "secondary": "#516600",
+                    "primary-container": "#5a7956",
+                    "primary-fixed": "#c9ecc2",
+                    "on-surface-variant": "#434840",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-error-container": "#93000a",
+                    "surface": "#fff8f2",
+                    "on-error": "#ffffff",
+                    "background": "#fff8f2",
+                    "secondary-fixed": "#caf24d",
+                    "outline-variant": "#c3c8be",
+                    "surface-container": "#f5ede2",
+                    "secondary-fixed-dim": "#afd531",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1f1b15",
+                    "surface-bright": "#fff8f2",
+                    "inverse-primary": "#aed0a7",
+                    "primary": "#42603f",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-tint": "#486644",
+                    "primary-fixed-dim": "#aed0a7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .chart-container {
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased pb-32">
+<!-- Top Navigation -->
+<header class="w-full sticky top-0 z-50 bg-[#fff8f2] dark:bg-stone-950 flex items-center justify-between px-6 py-4 w-full no-border tonal-layering">
+<div class="flex items-center gap-4">
+<button class="scale-95 transition-transform duration-200 text-[#5a7956] dark:text-[#7ba375] hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-serif tracking-tighter text-2xl text-[#5a7956] dark:text-[#7ba375]">SAT Score Tracker</h1>
+</div>
+<div class="text-stone-400">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</div>
+</header>
+<main class="px-6 space-y-8 max-w-2xl mx-auto mt-4">
+<!-- Summary Card -->
+<section class="relative">
+<div class="bg-[#DBD3C9] p-8 rounded-xl shadow-[0_10px_40px_rgba(31,27,21,0.06)] overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface/60 mb-1">Best Superscore</p>
+<h2 class="text-5xl font-bold tracking-tighter text-on-surface">1380</h2>
+</div>
+<span class="bg-[#A1C621] text-[#161e00] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                        Superscored across 3 attempts
+                    </span>
+</div>
+<div class="flex gap-12">
+<div>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface/60">Math</p>
+<p class="text-2xl font-bold text-primary">720</p>
+</div>
+<div>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface/60">Reading</p>
+<p class="text-2xl font-bold text-primary">660</p>
+</div>
+</div>
+<!-- Abstract Decorative Element -->
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[160px]" data-icon="school">school</span>
+</div>
+</div>
+</section>
+<!-- Chart Section -->
+<section class="space-y-4">
+<h3 class="text-lg font-serif italic text-on-surface/80 px-1">Score Progression</h3>
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden h-48 flex items-end justify-between">
+<!-- SVG Line Chart Mock -->
+<svg class="absolute inset-0 w-full h-full p-6" preserveaspectratio="none" viewbox="0 0 400 150">
+<path d="M 0 120 Q 100 100, 200 60 T 400 20" fill="none" stroke="#5A7956" stroke-linecap="round" stroke-width="4"></path>
+<!-- Points -->
+<circle cx="50" cy="110" fill="#5A7956" r="6"></circle>
+<circle cx="200" cy="60" fill="#5A7956" r="6"></circle>
+<circle cx="350" cy="25" fill="#5A7956" r="6"></circle>
+</svg>
+<div class="z-10 w-full flex justify-between px-2 pt-32">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface/40">March</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface/40">June</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface/40">August</span>
+</div>
+</div>
+</section>
+<!-- My Attempts Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-center px-1">
+<h3 class="text-xl font-serif">My Attempts</h3>
+<span class="text-xs font-bold text-primary/60 uppercase tracking-widest">3 Total</span>
+</div>
+<div class="space-y-3">
+<!-- Attempt Card 1 -->
+<div class="bg-surface-container-highest p-5 rounded-xl flex justify-between items-center transition-all active:scale-95">
+<div class="space-y-1">
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface/50">August 24, 2023</p>
+<p class="text-lg font-bold">1380 <span class="text-primary text-xs ml-2 font-medium bg-primary/10 px-2 py-0.5 rounded-full inline-flex items-center"><span class="material-symbols-outlined text-xs mr-0.5" data-icon="trending_up">trending_up</span>+40 pts</span></p>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface/60">M: <span class="font-bold text-on-surface">720</span></p>
+<p class="text-xs text-on-surface/60">R: <span class="font-bold text-on-surface">660</span></p>
+</div>
+</div>
+<!-- Attempt Card 2 -->
+<div class="bg-surface-container-highest p-5 rounded-xl flex justify-between items-center opacity-80">
+<div class="space-y-1">
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface/50">June 10, 2023</p>
+<p class="text-lg font-bold">1340 <span class="text-primary text-xs ml-2 font-medium bg-primary/10 px-2 py-0.5 rounded-full inline-flex items-center"><span class="material-symbols-outlined text-xs mr-0.5" data-icon="trending_up">trending_up</span>+90 pts</span></p>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface/60">M: <span class="font-bold text-on-surface">690</span></p>
+<p class="text-xs text-on-surface/60">R: <span class="font-bold text-on-surface">650</span></p>
+</div>
+</div>
+<!-- Attempt Card 3 -->
+<div class="bg-surface-container-highest p-5 rounded-xl flex justify-between items-center opacity-60">
+<div class="space-y-1">
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface/50">March 14, 2023</p>
+<p class="text-lg font-bold">1250</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface/60">M: <span class="font-bold text-on-surface">610</span></p>
+<p class="text-xs text-on-surface/60">R: <span class="font-bold text-on-surface">640</span></p>
+</div>
+</div>
+</div>
+</section>
+<!-- College Targets Section -->
+<section class="space-y-4">
+<h3 class="text-xl font-serif px-1">College Targets</h3>
+<div class="grid grid-cols-1 gap-4">
+<!-- College Card 1 -->
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between border-l-4 border-secondary-fixed">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Rochester Institute of Tech</h4>
+<p class="text-xs text-on-surface/60">Range: 1270 - 1450</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary-fixed shadow-[0_0_8px_rgba(202,242,77,0.6)]"></div>
+<span class="text-[9px] font-bold uppercase tracking-widest text-secondary">In Range</span>
+</div>
+</div>
+<!-- College Card 2 -->
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between border-l-4 border-tertiary-fixed-dim">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="temple_hindu">temple_hindu</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">University of Florida</h4>
+<p class="text-xs text-on-surface/60">Range: 1300 - 1470</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+<span class="text-[9px] font-bold uppercase tracking-widest text-tertiary">Close</span>
+</div>
+</div>
+<!-- College Card 3 -->
+<div class="bg-surface-container-low p-5 rounded-xl flex items-center justify-between border-l-4 border-error/40">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="park">park</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Stanford University</h4>
+<p class="text-xs text-on-surface/60">Range: 1470 - 1570</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="w-2.5 h-2.5 rounded-full bg-error"></div>
+<span class="text-[9px] font-bold uppercase tracking-widest text-error">Below</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-28 right-6 w-14 h-14 bg-primary-container text-white rounded-full flex items-center justify-center shadow-xl active:scale-90 transition-all z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full px-6 pb-8 pt-4 flex justify-around items-center bg-[#fbf2e8]/70 dark:bg-stone-900/70 backdrop-blur-3xl rounded-t-[24px] z-50 shadow-[0_-10px_40px_rgba(31,27,21,0.06)]">
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-3 hover:text-[#5a7956] transition-colors active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#eae1d7] dark:bg-stone-800 text-[#5a7956] dark:text-[#caf24d] rounded-2xl p-3 active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-3 hover:text-[#5a7956] transition-colors active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-3 hover:text-[#5a7956] transition-colors active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+</nav>
+</body></html>

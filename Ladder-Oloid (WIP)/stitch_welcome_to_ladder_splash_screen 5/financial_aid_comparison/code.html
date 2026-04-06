@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Aid Comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f8efe5",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-tint": "#486644",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-primary-container": "#e2ffda",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-secondary-container": "#566c00",
+                        "surface-bright": "#fff8f2",
+                        "secondary-container": "#caf24d",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "primary-fixed": "#c9ecc2",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-dim": "#e1d9cf",
+                        "surface": "#fff8f2",
+                        "outline": "#737970",
+                        "on-surface": "#1f1b15",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#8d6a48",
+                        "primary-container": "#5a7956",
+                        "background": "#fff8f2",
+                        "tertiary": "#725232",
+                        "on-tertiary-container": "#fff5ee",
+                        "primary": "#42603f",
+                        "secondary": "#516600",
+                        "surface-container": "#f5ede2",
+                        "secondary-fixed": "#caf24d",
+                        "surface-container-high": "#efe7dd",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1f1b15",
+                        "secondary-fixed-dim": "#afd531",
+                        "inverse-surface": "#343029",
+                        "surface-container-highest": "#eae1d7",
+                        "on-secondary-fixed": "#161e00",
+                        "outline-variant": "#c3c8be",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#eae1d7",
+                        "on-primary-fixed": "#052107",
+                        "tertiary-fixed-dim": "#e9bf96"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grown-serif { font-family: 'Noto Serif', serif; }
+        .modern-body { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface modern-body min-h-screen pb-40">
+<!-- TopAppBar Execution -->
+<header class="fixed top-0 w-full z-50 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-xl shadow-sm shadow-stone-900/5 flex items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-emerald-900 dark:text-emerald-500 cursor-pointer">arrow_back</span>
+<h1 class="font-serif tracking-tight text-xl text-emerald-900 dark:text-emerald-500 font-bold">Financial Aid Comparison</h1>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto">
+<!-- Subtitle & Context -->
+<div class="mb-8">
+<p class="text-on-surface-variant font-medium text-lg leading-snug">What you'll actually pay per year</p>
+<p class="text-outline text-sm mt-1">Estimates based on your FAFSA and institutional data.</p>
+</div>
+<!-- College Cards Stack -->
+<div class="space-y-6">
+<!-- Card 1: USF (Best Value) -->
+<div class="bg-surface-container-low rounded-3xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Best Value</span>
+</div>
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary font-bold text-xl" data-alt="Abstract gradient background with deep forest green and moss tones for university branding">USF</div>
+<div>
+<h2 class="grown-serif text-xl font-bold tracking-tight">University of South Florida</h2>
+<div class="flex items-center gap-2">
+<span class="text-outline line-through text-sm">$24,100/yr</span>
+<span class="text-primary font-extrabold text-2xl tracking-tighter">$9,200/yr</span>
+</div>
+</div>
+</div>
+<!-- Ladder Tracker Breakdown -->
+<div class="space-y-3 relative pl-6 border-l-4 border-secondary-fixed">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Grants &amp; Scholarships</span>
+<span class="text-primary font-bold">-$12,400</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Work Study</span>
+<span class="text-primary font-bold">-$2,500</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Federal Loans</span>
+<span class="text-on-surface-variant">+$5,500</span>
+</div>
+</div>
+<button class="mt-6 w-full py-3 bg-surface-container-highest rounded-2xl text-on-surface font-semibold text-sm hover:opacity-80 transition-opacity">
+                    Update Award Data
+                </button>
+</div>
+<!-- Card 2: UF -->
+<div class="bg-surface-container-low rounded-3xl p-6">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-tertiary to-tertiary-container flex items-center justify-center text-on-tertiary font-bold text-xl" data-alt="Warm amber and chocolate brown gradient texture for university branding">UF</div>
+<div>
+<h2 class="grown-serif text-xl font-bold tracking-tight">University of Florida</h2>
+<div class="flex items-center gap-2">
+<span class="text-outline line-through text-sm">$28,400/yr</span>
+<span class="text-primary font-extrabold text-2xl tracking-tighter">$13,200/yr</span>
+</div>
+</div>
+</div>
+<div class="space-y-3 relative pl-6 border-l-4 border-outline-variant/30">
+<div class="flex justify-between items-center opacity-70">
+<span class="text-sm">Estimated Aid</span>
+<span class="text-on-surface-variant">-$15,200</span>
+</div>
+</div>
+<div class="mt-6 p-4 bg-tertiary-fixed/30 rounded-2xl flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">priority_high</span>
+<p class="text-xs text-tertiary font-medium">Missing final award letter details. Upload to refine cost.</p>
+</div>
+<button class="mt-4 w-full py-4 bg-gradient-to-br from-primary to-primary-container rounded-2xl text-on-primary font-bold text-sm shadow-sm">
+                    Enter Award Letter
+                </button>
+</div>
+<!-- Card 3: RIT -->
+<div class="bg-surface-container-low rounded-3xl p-6">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-600 to-orange-800 flex items-center justify-center text-white font-bold text-xl" data-alt="Deep orange and rust gradient background for university visual identity">RIT</div>
+<div>
+<h2 class="grown-serif text-xl font-bold tracking-tight">Rochester Institute of Tech.</h2>
+<div class="flex items-center gap-2">
+<span class="text-outline line-through text-sm">$68,200/yr</span>
+<span class="text-primary font-extrabold text-2xl tracking-tighter">$42,500/yr</span>
+</div>
+</div>
+</div>
+<div class="space-y-3 relative pl-6 border-l-4 border-outline-variant/30">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Institutional Grant</span>
+<span class="text-primary font-bold">-$25,700</span>
+</div>
+</div>
+<button class="mt-6 w-full py-3 bg-surface-container-highest rounded-2xl text-on-surface font-semibold text-sm">
+                    View Full Breakdown
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer Area (Summary and Floating Actions) -->
+<div class="fixed bottom-0 left-0 w-full z-40">
+<!-- Green Banner -->
+<div class="bg-primary text-on-primary-container px-6 py-3 flex items-center justify-between text-xs font-semibold">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<span>Award letter deadline for UF: May 1</span>
+</div>
+<span class="bg-on-primary-container/20 px-2 py-1 rounded">18 days away</span>
+</div>
+<!-- Summary & Primary Action -->
+<div class="bg-stone-50/90 backdrop-blur-2xl px-6 pt-4 pb-10 border-t border-outline-variant/10">
+<div class="flex justify-between items-end mb-6">
+<div class="max-w-[70%]">
+<p class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Value Summary</p>
+<p class="text-sm font-medium text-on-surface">Best value: <span class="text-primary font-bold">USF at $9,200/yr</span> — $4,000 less than UF</p>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-primary flex items-center justify-center text-[10px] text-white">US</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-tertiary flex items-center justify-center text-[10px] text-white">UF</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-orange-700 flex items-center justify-center text-[10px] text-white">RI</div>
+</div>
+</div>
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-5 rounded-3xl font-extrabold text-base shadow-xl shadow-primary/10 tracking-tight">
+                Compare All 3 Side by Side
+            </button>
+</div>
+<!-- BottomNavBar Execution -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-xl rounded-t-3xl shadow-xl shadow-stone-900/10">
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-3 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-stone-200 dark:bg-stone-800 text-emerald-900 dark:text-emerald-400 rounded-2xl p-3 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">compare_arrows</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-3 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-3 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+</div>
+</nav>
+</div>
+</body></html>

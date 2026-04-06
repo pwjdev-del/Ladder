@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | LOCI Generator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#8d6a48",
+                    "on-surface": "#1f1b15",
+                    "primary-container": "#5a7956",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#566c00",
+                    "surface-tint": "#486644",
+                    "surface-container-highest": "#eae1d7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-container-high": "#efe7dd",
+                    "outline-variant": "#c3c8be",
+                    "outline": "#737970",
+                    "primary-fixed": "#c9ecc2",
+                    "primary": "#42603f",
+                    "secondary-container": "#caf24d",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1f1b15",
+                    "surface-bright": "#fff8f2",
+                    "on-primary-container": "#e2ffda",
+                    "inverse-surface": "#343029",
+                    "secondary-fixed": "#caf24d",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#fbf2e8",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface": "#fff8f2",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-primary-fixed": "#052107",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-dim": "#e1d9cf",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary": "#516600",
+                    "background": "#fff8f2",
+                    "tertiary-fixed": "#ffdcbd",
+                    "primary-fixed-dim": "#aed0a7",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface-container": "#f5ede2",
+                    "surface-variant": "#eae1d7",
+                    "on-surface-variant": "#434840",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary": "#725232"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Montserrat"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fff8f2;
+            color: #1f1b15;
+            -webkit-font-smoothing: antialiased;
+        }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-[#fff8f2] dark:bg-stone-950 flex items-center justify-between px-6 py-4 w-full sticky top-0 z-50 tonal-shift-bg">
+<div class="flex items-center gap-4">
+<button class="text-[#42603f] dark:text-[#5a7956] hover:opacity-80 transition-opacity scale-95 duration-200">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-[#1f1b15] dark:text-[#eae1d7] font-noto-serif italic tracking-tight">LOCI Generator</h1>
+</div>
+<div class="w-10"></div> <!-- Spacer for symmetry -->
+</header>
+<main class="max-w-md mx-auto px-6 pt-4 space-y-8">
+<!-- Explainer Card (Amber Tinted) -->
+<section class="bg-[#fef3c7] rounded-xl p-6 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<p class="text-sm leading-relaxed text-[#725232] font-medium relative z-10">
+                You were waitlisted. A Letter of Continued Interest (LOCI) shows the admissions office you're still committed. It's your chance to share new achievements.
+            </p>
+</section>
+<!-- Form Section -->
+<section class="space-y-6">
+<h2 class="text-2xl font-noto-serif font-bold tracking-tight text-primary">What's new since you applied?</h2>
+<div class="space-y-4">
+<!-- Field 1 -->
+<div class="group">
+<label class="block text-[10px] uppercase tracking-widest font-manrope font-bold text-outline mb-2 ml-1">New award or achievement</label>
+<div class="bg-surface-container-low rounded-xl p-4 transition-all duration-300 group-focus-within:bg-surface-container-highest">
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-on-surface placeholder:text-outline/60 text-sm font-medium" placeholder="e.g. State Science Fair Finalist" type="text"/>
+</div>
+</div>
+<!-- Field 2 -->
+<div class="group">
+<label class="block text-[10px] uppercase tracking-widest font-manrope font-bold text-outline mb-2 ml-1">New grade or score improvement</label>
+<div class="bg-surface-container-low rounded-xl p-4 transition-all duration-300 group-focus-within:bg-surface-container-highest">
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-on-surface placeholder:text-outline/60 text-sm font-medium" placeholder="e.g. Straight A's in AP Calc BC" type="text"/>
+</div>
+</div>
+<!-- Field 3 -->
+<div class="group">
+<label class="block text-[10px] uppercase tracking-widest font-manrope font-bold text-outline mb-2 ml-1">Why this school specifically?</label>
+<div class="bg-surface-container-low rounded-xl p-4 transition-all duration-300 group-focus-within:bg-surface-container-highest">
+<textarea class="w-full bg-transparent border-none p-0 focus:ring-0 text-on-surface placeholder:text-outline/60 text-sm font-medium min-h-[80px] resize-none" placeholder="Mention specific labs, professors, or programs"></textarea>
+</div>
+</div>
+<!-- Toggle Row -->
+<div class="flex items-center justify-between py-2 px-1">
+<span class="text-sm font-semibold text-on-surface">Commit to attend if admitted?</span>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-secondary-container transition-colors focus:outline-none">
+<span class="sr-only">Toggle commitment</span>
+<span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
+</button>
+</div>
+</div>
+</section>
+<!-- Preview Card -->
+<section class="space-y-3">
+<h3 class="text-[10px] uppercase tracking-widest font-manrope font-extrabold text-outline ml-1">AI Draft Preview</h3>
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/15 shadow-sm">
+<div class="space-y-3">
+<p class="text-sm text-on-surface/90 leading-relaxed italic font-noto-serif">
+                        "Dear Admissions Committee, I am writing to reaffirm my strong interest in attending your esteemed university. Since submitting my initial application, I have..."
+                    </p>
+<div class="pt-2">
+<button class="text-primary font-bold text-xs flex items-center gap-1 hover:opacity-80">
+                            See full letter
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<section class="flex flex-col gap-3 pt-4">
+<button class="w-full py-4 rounded-full bg-gradient-to-br from-primary to-primary-container text-white font-bold text-sm shadow-xl shadow-primary/10 hover:opacity-90 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">content_copy</span>
+                Copy to Clipboard
+            </button>
+<button class="w-full py-4 rounded-full border-2 border-primary text-primary font-bold text-sm hover:bg-primary/5 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">refresh</span>
+                Regenerate
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#fbf2e8]/70 dark:bg-stone-900/70 backdrop-blur-xl z-50 rounded-t-[24px] shadow-[0_-4px_40px_rgba(31,27,21,0.06)] tonal-layering">
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:text-[#42603f] dark:hover:text-[#caf24d]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:text-[#42603f] dark:hover:text-[#caf24d]" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Applications</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#42603f] dark:text-[#caf24d] font-bold scale-110 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">LOCI</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:text-[#42603f] dark:hover:text-[#caf24d]" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-manrope text-[10px] uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

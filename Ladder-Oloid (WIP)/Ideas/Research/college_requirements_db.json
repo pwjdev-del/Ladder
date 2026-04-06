@@ -1,0 +1,57 @@
+[
+    {
+        "college_name": "University of Florida",
+        "early_action_deadline": "November 1, 2025",
+        "regular_decision_deadline": "January 15, 2026",
+        "testing_policy": "UF has no test preference. We superscore the SAT, ACT and CLT.",
+        "transcript_requirement": "Submit your STARS: high school courses and grades via the Gator Portal.",
+        "application_platforms": [
+            "Common App"
+        ]
+    },
+    {
+        "college_name": "Florida State University",
+        "early_action_deadline": "",
+        "regular_decision_deadline": "",
+        "testing_policy": "",
+        "transcript_requirement": "",
+        "application_platforms": []
+    },
+    {
+        "college_name": "University of South Florida",
+        "early_action_deadline": "",
+        "regular_decision_deadline": "March 1",
+        "testing_policy": "",
+        "transcript_requirement": "",
+        "application_platforms": [
+            "USF Application"
+        ]
+    },
+    {
+        "college_name": "Rochester Institute of Technology",
+        "early_action_deadline": "Not specified",
+        "regular_decision_deadline": "Not specified",
+        "testing_policy": "Test Optional",
+        "transcript_requirement": "Not specified",
+        "application_platforms": [
+            "Common App",
+            "Institutional portal"
+        ]
+    },
+    {
+        "college_name": "The University of Tampa",
+        "early_action_deadline": "",
+        "regular_decision_deadline": "",
+        "testing_policy": "",
+        "transcript_requirement": "",
+        "application_platforms": []
+    },
+    {
+        "college_name": "Florida International University",
+        "early_action_deadline": "",
+        "regular_decision_deadline": "",
+        "testing_policy": "",
+        "transcript_requirement": "",
+        "application_platforms": []
+    }
+]
