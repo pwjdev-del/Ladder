@@ -1,7 +1,7 @@
-import os
 import requests
 import json
 import time
+import os
 
 FIRECRAWL_API_KEY = os.environ.get("FIRECRAWL_API_KEY", "")
 HEADERS = {
