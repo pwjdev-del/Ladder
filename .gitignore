@@ -1,0 +1,11 @@
+# Large media files (exceed GitHub 100MB limit)
+*.MOV
+*.mov
+*.HEIC
+*.heic
+*.mp4
+*.MP4
+
+# macOS
+.DS_Store
+.agent
