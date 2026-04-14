@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>District Analytics Dashboard | Ladder Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#725232",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-fixed": "#caf24d",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "surface-tint": "#486644",
+                        "primary": "#42603f",
+                        "on-background": "#1f1b15",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container": "#f5ede2",
+                        "surface-bright": "#fff8f2",
+                        "on-secondary-container": "#566c00",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-fixed": "#161e00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-primary-fixed": "#052107",
+                        "background": "#fff8f2",
+                        "outline": "#737970",
+                        "on-surface": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#fbf2e8",
+                        "inverse-surface": "#343029",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "surface-dim": "#e1d9cf",
+                        "outline-variant": "#c3c8be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<aside class="fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] dark:bg-[#1f1b15] flex flex-col h-full py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="mb-12 flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-3xl">auto_stories</span>
+</div>
+<div>
+<h1 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+<p class="text-xs font-medium opacity-60 tracking-widest uppercase">District Administration</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">domain</span>
+                Schools
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15] dark:text-white font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7] dark:bg-[#42603f]/30 duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                District Stats
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">group</span>
+                Staff Directory
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+                Curriculum
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">construction</span>
+                Utility Tools
+            </a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/10 space-y-4">
+<button class="w-full py-4 px-6 rounded-xl bg-gradient-to-br from-primary to-primary-container text-white font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined">description</span>
+                Quick Report
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 rounded-lg text-[#1f1b15]/60 hover:text-[#42603f] transition-colors text-sm" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+                    Support
+                </a>
+<a class="flex items-center gap-4 px-4 py-2 rounded-lg text-error/80 hover:text-error transition-colors text-sm" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+                    Log Out
+                </a>
+</div>
+</div>
+</aside>
+<main class="ml-[280pt] min-h-screen pb-20">
+<header class="sticky top-0 z-40 flex justify-between items-center px-12 py-6 w-full bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex flex-col">
+<h2 class="font-noto-serif text-3xl font-bold tracking-tight text-on-surface">District Analytics</h2>
+<p class="text-on-surface-variant font-medium text-sm">Oakridge Academic District • FY 2024</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3 bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+<span class="text-sm font-semibold">Q3 Progress Report</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high ring-2 ring-primary/10">
+<img alt="Administrator profile" class="w-full h-full object-cover" data-alt="professional headshot of a middle-aged academic administrator in a modern office with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4x31Zs6YMyfzh38a38GsDIOHXi4szk8I5TQQl_wKGCAydaio1jmUO_pZBOVqOt4HjxB3-EboYq5oQ7MGtgs_7K7YsPguU-OLt_FFjzCDjsCxWLXSBXp5m_3m9QV_zSGqUzZdVSNIhmsixN4mNeLyChp4WuJJnUGznvbhvFemwTrk45nFMocU9-XhHcmv0pIVMqkEOBhDOAuc53zswk7bRFRsKCPeSzUzko8GgNP8XEK76-r_8_qmsGZZKkO6I-4HUY7DkYAjorCg"/>
+</div>
+</div>
+</div>
+</header>
+<section class="px-12 mt-8">
+<div class="grid grid-cols-4 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col gap-4 group hover:bg-surface-container-high transition-colors duration-300">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary">school</span>
+</div>
+<span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">+2 New</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface-variant uppercase tracking-wider">Schools</p>
+<h3 class="text-4xl font-bold mt-1 tracking-tight">142</h3>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col gap-4 group hover:bg-surface-container-high transition-colors duration-300">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary">diversity_3</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-2 py-1 rounded-full">Total Pop.</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface-variant uppercase tracking-wider">Students</p>
+<h3 class="text-4xl font-bold mt-1 tracking-tight">84,203</h3>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col gap-4 group hover:bg-surface-container-high transition-colors duration-300 relative overflow-hidden">
+<div class="absolute right-0 top-0 w-24 h-24 bg-secondary-fixed/10 rounded-bl-full -mr-8 -mt-8"></div>
+<div class="flex justify-between items-start">
+<div class="p-3 bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary">auto_graph</span>
+</div>
+<span class="text-xs font-bold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">trending_up</span> 4.2%
+                        </span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface-variant uppercase tracking-wider">College-Bound %</p>
+<h3 class="text-4xl font-bold mt-1 tracking-tight">82.4%</h3>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col gap-4 group hover:bg-surface-container-high transition-colors duration-300">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant bg-surface-container-highest px-2 py-1 rounded-full">Annual</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface-variant uppercase tracking-wider">Avg. Financial Aid</p>
+<h3 class="text-4xl font-bold mt-1 tracking-tight">$14.2k</h3>
+</div>
+</div>
+</div>
+</section>
+<section class="px-12 mt-12">
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+<div class="p-8 flex justify-between items-center bg-surface-container">
+<div>
+<h3 class="font-noto-serif text-xl font-bold">School Comparison Matrix</h3>
+<p class="text-on-surface-variant text-sm">Detailed performance breakdown across the district</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-white rounded-lg border border-outline-variant/10 text-sm font-bold flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                            Filters
+                        </button>
+<button class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">file_download</span>
+                            Export Data
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest/50 border-b border-outline-variant/10">
+<th class="px-8 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">School Name</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">Enrollment</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">GPA Avg.</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">STEM Focus</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant">Retention</th>
+<th class="px-6 py-4 font-bold text-xs uppercase tracking-widest text-on-surface-variant text-right">Trend</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-white transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-primary rounded-full group-hover:scale-y-125 transition-transform"></div>
+<div>
+<p class="font-bold">Northview Academy</p>
+<p class="text-xs text-on-surface-variant">Public Charter • Ward 4</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-medium">1,240</td>
+<td class="px-6 py-5 font-bold">3.82</td>
+<td class="px-6 py-5">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[85%]"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-primary font-bold">98.2%</td>
+<td class="px-6 py-5 text-right">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+</td>
+</tr>
+<tr class="hover:bg-white transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-tertiary rounded-full group-hover:scale-y-125 transition-transform"></div>
+<div>
+<p class="font-bold">South Oaks High</p>
+<p class="text-xs text-on-surface-variant">Regional Magnet • Ward 1</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-medium">2,105</td>
+<td class="px-6 py-5 font-bold">3.64</td>
+<td class="px-6 py-5">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[62%]"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-primary font-bold">94.5%</td>
+<td class="px-6 py-5 text-right">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+</td>
+</tr>
+<tr class="hover:bg-white transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-primary-container rounded-full group-hover:scale-y-125 transition-transform"></div>
+<div>
+<p class="font-bold">East River Prep</p>
+<p class="text-xs text-on-surface-variant">Public • Ward 7</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-medium">940</td>
+<td class="px-6 py-5 font-bold">3.41</td>
+<td class="px-6 py-5">
+<div class="w-24 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[45%]"></div>
+</div>
+</td>
+<td class="px-6 py-5 text-primary font-bold">91.8%</td>
+<td class="px-6 py-5 text-right">
+<span class="material-symbols-outlined text-tertiary">trending_flat</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="px-12 mt-12 grid grid-cols-2 gap-8">
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="font-noto-serif text-2xl font-bold">Equity Metrics</h3>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline underline-offset-4 decoration-2">
+                        View Deep Dive <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-surface-container-low p-6 rounded-xl flex items-center gap-6 border-l-4 border-secondary-fixed">
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-2xl font-black text-primary shadow-sm">
+                            94<span class="text-xs">%</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg">Resource Equity Index</h4>
+<p class="text-on-surface-variant text-sm">Funding parity across lower-income districts increased by 12% this cycle.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex items-center gap-6 border-l-4 border-primary">
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-2xl font-black text-primary shadow-sm">
+                            +8<span class="text-xs">pts</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-lg">Achievement Gap Closure</h4>
+<p class="text-on-surface-variant text-sm">Significant progress in Tier 3 school math proficiency outcomes.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-noto-serif text-2xl font-bold">Bright Futures Projection</h3>
+<p class="text-on-surface-variant text-sm">AI-driven 2025 college enrollment forecasts</p>
+</div>
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div class="w-3 h-3 rounded-full bg-secondary-fixed"></div>
+</div>
+</div>
+<div class="flex-1 flex items-end gap-6 h-48 pb-4 border-b border-outline-variant/10">
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-primary/20 rounded-t-lg relative group h-[60%]">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-[80%] transition-all group-hover:h-[85%]"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter text-center">Northview</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-primary/20 rounded-t-lg relative group h-[85%]">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-[92%] transition-all group-hover:h-[95%]"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter text-center">South Oaks</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-primary/20 rounded-t-lg relative group h-[45%]">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-[70%] transition-all group-hover:h-[75%]"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter text-center">East River</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-primary/20 rounded-t-lg relative group h-[70%]">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-[85%] transition-all group-hover:h-[90%]"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter text-center">Westside</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-primary/20 rounded-t-lg relative group h-[55%]">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg h-[65%] transition-all group-hover:h-[70%]"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter text-center">Central</span>
+</div>
+</div>
+<div class="mt-4 flex justify-between text-xs font-bold text-on-surface-variant uppercase tracking-widest">
+<span>Baseline 2023</span>
+<span class="text-primary">Projected 2025 Peak</span>
+</div>
+</div>
+</section>
+<section class="px-12 mt-12 flex justify-end gap-4">
+<button class="px-8 py-4 bg-surface-container-highest text-on-surface font-bold rounded-xl flex items-center gap-3 hover:bg-outline-variant/20 transition-colors">
+<span class="material-symbols-outlined">schedule</span>
+                Schedule Auto-Report
+            </button>
+<button class="px-8 py-4 bg-gradient-to-r from-primary to-primary-container text-white font-bold rounded-xl flex items-center gap-3 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined">ios_share</span>
+                Export Executive Summary
+            </button>
+</section>
+</main>
+<div class="fixed bottom-10 right-10 z-50">
+<button class="w-16 h-16 rounded-full bg-secondary-fixed text-on-secondary-fixed shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined text-3xl font-bold group-hover:rotate-12 transition-transform">bolt</span>
+</button>
+</div>
+</body></html>

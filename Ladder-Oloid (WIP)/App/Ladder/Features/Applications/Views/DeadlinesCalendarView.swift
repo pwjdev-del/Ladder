@@ -5,22 +5,20 @@ import SwiftUI
 struct DeadlinesCalendarView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AppCoordinator.self) private var coordinator
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var selectedMonth = Calendar.current.component(.month, from: Date())
+    @State private var selectedDay: Int?
 
     private let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-    var body: some View {
-        ZStack {
-            LadderColors.surface.ignoresSafeArea()
+    private var currentYear: Int { Calendar.current.component(.year, from: Date()) }
 
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: LadderSpacing.lg) {
-                    monthSelector
-                    upcomingDeadlines
-                }
-                .padding(.horizontal, LadderSpacing.md)
-                .padding(.top, LadderSpacing.md)
-                .padding(.bottom, 120)
+    var body: some View {
+        Group {
+            if sizeClass == .regular {
+                iPadLayout
+            } else {
+                iPhoneLayout
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -38,6 +36,229 @@ struct DeadlinesCalendarView: View {
                     .foregroundStyle(LadderColors.onSurface)
             }
         }
+    }
+
+    // MARK: - iPhone Layout
+
+    private var iPhoneLayout: some View {
+        ZStack {
+            LadderColors.surface.ignoresSafeArea()
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: LadderSpacing.lg) {
+                    monthSelector
+                    upcomingDeadlines
+                }
+                .padding(.horizontal, LadderSpacing.md)
+                .padding(.top, LadderSpacing.md)
+                .padding(.bottom, 120)
+            }
+        }
+    }
+
+    // MARK: - iPad Layout (Month Grid + Side Panel)
+
+    private var iPadLayout: some View {
+        ZStack {
+            LadderColors.surface.ignoresSafeArea()
+
+            HStack(alignment: .top, spacing: 0) {
+                // Left: month grid (~70%)
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: LadderSpacing.lg) {
+                        monthSelector
+                        monthGridHeatmap
+                    }
+                    .padding(LadderSpacing.xl)
+                }
+                .frame(maxWidth: .infinity)
+
+                Rectangle()
+                    .fill(LadderColors.outlineVariant)
+                    .frame(width: 1)
+                    .ignoresSafeArea()
+
+                // Right: selected day deadlines (~30%)
+                selectedDayPanel
+                    .frame(width: 360)
+                    .frame(maxHeight: .infinity)
+                    .background(LadderColors.surfaceContainerLow.opacity(0.4))
+            }
+        }
+    }
+
+    private var monthGridHeatmap: some View {
+        let daysInMonth = daysIn(month: selectedMonth)
+        let firstWeekday = firstWeekdayOf(month: selectedMonth) // 1 = Sun
+        let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        let columns = Array(repeating: GridItem(.flexible(), spacing: LadderSpacing.sm), count: 7)
+        let monthDeadlines = deadlinesForMonth(selectedMonth)
+        let maxCount: Int = max(1, monthDeadlines.reduce(into: [Int: Int]()) { acc, d in
+            acc[d.day, default: 0] += 1
+        }.values.max() ?? 1)
+
+        return VStack(alignment: .leading, spacing: LadderSpacing.md) {
+            Text("\(fullMonthName(selectedMonth).uppercased()) \(String(currentYear))")
+                .font(LadderTypography.labelSmall)
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+                .labelTracking()
+
+            LazyVGrid(columns: columns, spacing: LadderSpacing.sm) {
+                ForEach(weekdays, id: \.self) { wd in
+                    Text(wd)
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, LadderSpacing.xs)
+                }
+
+                // Leading blanks
+                ForEach(0..<(firstWeekday - 1), id: \.self) { _ in
+                    Color.clear.frame(height: 72)
+                }
+
+                // Day cells
+                ForEach(1...daysInMonth, id: \.self) { day in
+                    let count = monthDeadlines.filter { $0.day == day }.count
+                    dayCell(day: day, count: count, maxCount: maxCount)
+                }
+            }
+        }
+    }
+
+    private func dayCell(day: Int, count: Int, maxCount: Int) -> some View {
+        let intensity: Double = count == 0 ? 0.0 : max(0.2, min(1.0, Double(count) / Double(maxCount)))
+        let isSelected = selectedDay == day
+
+        return Button {
+            withAnimation(.easeInOut(duration: 0.15)) {
+                selectedDay = day
+            }
+        } label: {
+            VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                Text("\(day)")
+                    .font(LadderTypography.titleSmall)
+                    .foregroundStyle(count > 0 && intensity > 0.55 ? .white : LadderColors.onSurface)
+
+                Spacer(minLength: 0)
+
+                if count > 0 {
+                    Text("\(count)")
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(intensity > 0.55 ? .white.opacity(0.9) : LadderColors.onSurfaceVariant)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: 72)
+            .padding(LadderSpacing.sm)
+            .background(
+                Group {
+                    if count > 0 {
+                        LadderColors.primary.opacity(intensity)
+                    } else {
+                        LadderColors.surfaceContainerLow
+                    }
+                }
+            )
+            .clipShape(RoundedRectangle(cornerRadius: LadderRadius.md, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: LadderRadius.md, style: .continuous)
+                    .strokeBorder(
+                        isSelected ? LadderColors.accentLime : Color.clear,
+                        lineWidth: 2
+                    )
+            )
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var selectedDayPanel: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: LadderSpacing.md) {
+                if let day = selectedDay {
+                    Text("\(fullMonthName(selectedMonth).uppercased()) \(day)")
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                        .labelTracking()
+
+                    Text("\(day) \(fullMonthName(selectedMonth))")
+                        .font(LadderTypography.headlineSmall)
+                        .foregroundStyle(LadderColors.onSurface)
+
+                    let dayDeadlines = deadlinesForMonth(selectedMonth).filter { $0.day == day }
+
+                    if dayDeadlines.isEmpty {
+                        VStack(spacing: LadderSpacing.sm) {
+                            Image(systemName: "calendar.badge.checkmark")
+                                .font(.system(size: 32))
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
+                            Text("No deadlines on this day")
+                                .font(LadderTypography.bodyMedium)
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, LadderSpacing.xxxl)
+                    } else {
+                        ForEach(dayDeadlines) { deadline in
+                            deadlineCard(deadline)
+                        }
+                    }
+                } else {
+                    Text("SELECT A DAY")
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                        .labelTracking()
+
+                    Text("Tap a day in the calendar to view deadlines")
+                        .font(LadderTypography.bodyMedium)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+
+                    Divider()
+                        .padding(.vertical, LadderSpacing.sm)
+
+                    Text("\(fullMonthName(selectedMonth).uppercased()) DEADLINES")
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                        .labelTracking()
+
+                    let allDeadlines = deadlinesForMonth(selectedMonth)
+                    if allDeadlines.isEmpty {
+                        Text("No deadlines this month")
+                            .font(LadderTypography.bodyMedium)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                    } else {
+                        ForEach(allDeadlines) { deadline in
+                            deadlineCard(deadline)
+                        }
+                    }
+                }
+            }
+            .padding(LadderSpacing.lg)
+        }
+    }
+
+    private func fullMonthName(_ month: Int) -> String {
+        let names = ["January", "February", "March", "April", "May", "June",
+                     "July", "August", "September", "October", "November", "December"]
+        guard month >= 1 && month <= 12 else { return "" }
+        return names[month - 1]
+    }
+
+    private func daysIn(month: Int) -> Int {
+        let components = DateComponents(year: currentYear, month: month)
+        let calendar = Calendar.current
+        guard let date = calendar.date(from: components),
+              let range = calendar.range(of: .day, in: .month, for: date) else {
+            return 30
+        }
+        return range.count
+    }
+
+    private func firstWeekdayOf(month: Int) -> Int {
+        let components = DateComponents(year: currentYear, month: month, day: 1)
+        guard let date = Calendar.current.date(from: components) else { return 1 }
+        return Calendar.current.component(.weekday, from: date)
     }
 
     // MARK: - Month Selector
@@ -188,7 +409,8 @@ struct DeadlineItem: Identifiable {
 
     var dayString: String { "\(day)" }
     var weekday: String {
-        let components = DateComponents(year: 2026, month: month, day: day)
+        let year = Calendar.current.component(.year, from: Date())
+        let components = DateComponents(year: year, month: month, day: day)
         guard let date = Calendar.current.date(from: components) else { return "" }
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE"

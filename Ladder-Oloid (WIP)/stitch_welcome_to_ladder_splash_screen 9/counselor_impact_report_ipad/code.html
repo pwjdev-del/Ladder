@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#161e00",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-container": "#e2ffda",
+                    "inverse-primary": "#aed0a7",
+                    "on-primary-fixed": "#052107",
+                    "secondary-container": "#caf24d",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#725232",
+                    "secondary-fixed": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "surface-bright": "#fff8f2",
+                    "on-surface-variant": "#434840",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#486644",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container": "#f5ede2",
+                    "primary": "#42603f",
+                    "background": "#fff8f2",
+                    "surface-container-highest": "#eae1d7",
+                    "on-secondary-container": "#566c00",
+                    "outline": "#737970",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1f1b15",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container-low": "#fbf2e8",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-primary": "#ffffff",
+                    "secondary": "#516600",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-container": "#8d6a48",
+                    "surface": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .glass-header { backdrop-filter: blur(20px); }
+        .ladder-line { position: relative; }
+        .ladder-line::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #caf24d;
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(202, 242, 77, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- SideNavBar from JSON -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 h-screen w-72 border-r-0 bg-[#fbf2e8] dark:bg-stone-900 z-[60]">
+<div class="mb-10">
+<h1 class="font-serif text-2xl font-bold text-[#1f1b15] dark:text-[#eae1d7]">Counselor Hub</h1>
+<p class="font-sans text-xs opacity-60 tracking-widest mt-1">Senior Academic Lead</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active: Reports (Closest to Impact Report) -->
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-sans text-sm">Caseload</span>
+</div>
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-sans text-sm">Approvals</span>
+</div>
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-sans text-sm">Calendar</span>
+</div>
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+<span class="font-sans text-sm">Students</span>
+</div>
+<div class="flex items-center gap-3 py-3 px-4 transition-all duration-200 cursor-pointer hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="font-sans text-sm">Announcements</span>
+</div>
+</nav>
+<button class="bg-primary text-on-primary py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-8 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+<span class="font-sans text-sm font-semibold">Add Student</span>
+</button>
+<div class="space-y-2 pt-6 border-t border-outline-variant/20">
+<div class="flex items-center gap-3 py-2 px-4 transition-all duration-200 text-[#1f1b15]/60 hover:text-primary">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-sans text-sm">Settings</span>
+</div>
+<div class="flex items-center gap-3 py-2 px-4 transition-all duration-200 text-[#1f1b15]/60 hover:text-primary">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-sans text-sm">Support</span>
+</div>
+</div>
+</aside>
+<!-- TopNavBar from JSON -->
+<header class="fixed top-0 right-0 left-72 z-50 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl border-b border-[#c3c8be]/15 shadow-sm opacity-6 shadow-[#1f1b15]">
+<div class="flex items-center gap-8">
+<span class="text-[#1f1b15] dark:text-[#eae1d7] font-serif font-black text-xl">Academic Atelier</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-[#1f1b15]/70 font-serif italic text-lg hover:text-[#5A7956]" href="#">Overview</a>
+<a class="text-[#1f1b15]/70 font-serif italic text-lg hover:text-[#5A7956]" href="#">Messages</a>
+<a class="text-[#5A7956] font-serif italic text-lg border-b-2 border-[#5A7956]" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-[#1f1b15]/60">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary" data-icon="history">history</span>
+</div>
+<button class="bg-surface-container-highest text-on-surface px-6 py-2 rounded-xl font-sans text-sm font-medium hover:bg-outline-variant/30 transition-colors">
+                Bulk Import
+            </button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="Counselor Avatar" class="w-full h-full object-cover" data-alt="professional portrait of a middle-aged woman with glasses and a warm smile in a brightly lit office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBStiz2QL7OwRBWw4UUELO9M8oieWeWH1eQpYwFbxuQO9ZpF7_wQJlmdeDKpWPMbFBbijMqZ_BRefq3oCcqO-Dicib1xh4KRBBZ-yvYIqZOSra7JgV2FwE_QwHQdxrhHmgGIlsnEj7EBmztQrv-xFdxBgsw8yEby83GN1I96yb1inFKtVyQjTUWFvu1SyPlyTq81cq3vm378TYB89pINBpsXabLNE6EQaAzlgWgf4lFfl2rSrjXnyVJEbZhix8xDgl10NKI0xw4Lmo"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-72 pt-28 px-10 pb-12 bg-background">
+<!-- Header & Action Row -->
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-4xl font-black text-on-surface tracking-tight mb-2">Counselor Impact Report</h2>
+<p class="text-on-surface-variant font-medium">Academic Year 2023 - 2024 • Q3 Summative Analysis</p>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-6 py-3 rounded-xl bg-surface-container-highest text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="ios_share">ios_share</span>
+<span class="font-sans font-bold">Share with Admin</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-lg shadow-primary/10 hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="font-sans font-bold">Export PDF</span>
+</button>
+</div>
+</div>
+<!-- Executive Summary Bento Grid -->
+<div class="grid grid-cols-12 gap-6 mb-12">
+<!-- Hero Stat Card -->
+<div class="col-span-8 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between relative overflow-hidden group">
+<div class="z-10">
+<h3 class="text-primary font-bold uppercase tracking-widest text-xs mb-8">Executive Summary</h3>
+<div class="grid grid-cols-3 gap-12">
+<div>
+<p class="text-on-surface-variant text-sm font-medium mb-1">Students Served</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-black text-on-surface">1,248</span>
+<span class="text-primary text-sm font-bold">+12%</span>
+</div>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium mb-1">Apps Completed</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-black text-on-surface">4,812</span>
+<span class="text-primary text-sm font-bold">+8.4%</span>
+</div>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium mb-1">Acceptance Rate</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-black text-on-surface">82%</span>
+<span class="text-primary text-sm font-bold">↑ 3%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Abstract Shape -->
+<div class="absolute -right-12 -top-12 w-64 h-64 bg-secondary-fixed/10 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
+</div>
+<!-- Equity Outcomes -->
+<div class="col-span-4 bg-primary text-on-primary rounded-xl p-8">
+<h3 class="font-serif text-xl mb-6">Equity Outcomes</h3>
+<div class="space-y-6">
+<div class="ladder-line ml-3">
+<p class="text-on-primary/60 text-xs uppercase tracking-tighter mb-1">First Gen Participation</p>
+<p class="text-2xl font-bold">64% <span class="text-secondary-fixed text-sm font-normal ml-2">Met Target</span></p>
+</div>
+<div class="ladder-line ml-3">
+<p class="text-on-primary/60 text-xs uppercase tracking-tighter mb-1">Pell-Eligible Support</p>
+<p class="text-2xl font-bold">91% <span class="text-secondary-fixed text-sm font-normal ml-2">Outperformed</span></p>
+</div>
+</div>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="grid grid-cols-12 gap-6 mb-12">
+<!-- Grouped Bar Chart -->
+<div class="col-span-7 bg-surface-container-highest rounded-xl p-8">
+<div class="flex justify-between items-center mb-10">
+<h3 class="text-lg font-bold">Applications vs. Acceptances</h3>
+<div class="flex gap-4 text-xs font-bold uppercase tracking-wider">
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-primary rounded-full"></div> Apps</div>
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-secondary-fixed rounded-full"></div> Accepts</div>
+</div>
+</div>
+<div class="flex items-end justify-between h-48 gap-4 px-4">
+<!-- 2021 -->
+<div class="flex flex-col items-center flex-1 h-full justify-end group">
+<div class="flex items-end gap-1 w-full justify-center h-full">
+<div class="w-4 bg-primary rounded-t-lg transition-all h-[40%] group-hover:h-[45%]"></div>
+<div class="w-4 bg-secondary-fixed rounded-t-lg transition-all h-[30%] group-hover:h-[35%]"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 opacity-50">2021</span>
+</div>
+<!-- 2022 -->
+<div class="flex flex-col items-center flex-1 h-full justify-end group">
+<div class="flex items-end gap-1 w-full justify-center h-full">
+<div class="w-4 bg-primary rounded-t-lg transition-all h-[60%] group-hover:h-[65%]"></div>
+<div class="w-4 bg-secondary-fixed rounded-t-lg transition-all h-[45%] group-hover:h-[50%]"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 opacity-50">2022</span>
+</div>
+<!-- 2023 -->
+<div class="flex flex-col items-center flex-1 h-full justify-end group">
+<div class="flex items-end gap-1 w-full justify-center h-full">
+<div class="w-4 bg-primary rounded-t-lg transition-all h-[85%] group-hover:h-[90%]"></div>
+<div class="w-4 bg-secondary-fixed rounded-t-lg transition-all h-[70%] group-hover:h-[75%]"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 opacity-50 font-black text-on-surface">2023</span>
+</div>
+<!-- 2024 -->
+<div class="flex flex-col items-center flex-1 h-full justify-end group">
+<div class="flex items-end gap-1 w-full justify-center h-full">
+<div class="w-4 bg-primary rounded-t-lg transition-all h-[95%] group-hover:h-[100%]"></div>
+<div class="w-4 bg-secondary-fixed rounded-t-lg transition-all h-[82%] group-hover:h-[87%]"></div>
+</div>
+<span class="text-[10px] font-bold mt-4 opacity-50">2024 (Proj)</span>
+</div>
+</div>
+</div>
+<!-- Line Chart Acceptance Trends -->
+<div class="col-span-5 bg-surface-container-low rounded-xl p-8 relative overflow-hidden">
+<h3 class="text-lg font-bold mb-2">Acceptance Trends</h3>
+<p class="text-on-surface-variant text-sm mb-8 italic">4-Year longitudinal growth curve</p>
+<div class="relative h-40 flex items-center">
+<!-- SVG Line Replacement Visual -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0 80 Q 25 70, 50 40 T 100 10" fill="none" stroke="#42603f" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="0" cy="80" fill="#42603f" r="3"></circle>
+<circle cx="50" cy="40" fill="#42603f" r="3"></circle>
+<circle cx="100" cy="10" fill="#caf24d" r="4" stroke="#42603f" stroke-width="2"></circle>
+</svg>
+<div class="absolute right-0 top-0 bg-secondary-fixed text-on-secondary-fixed text-[10px] px-2 py-1 rounded-full font-black">HIGH SCORE: 82%</div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] font-bold opacity-40">
+<span>JAN</span><span>APR</span><span>JUL</span><span>OCT</span>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Bright Futures & Testimonials -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Bright Futures Eligibility -->
+<div class="col-span-5 bg-surface-container-high rounded-xl p-8">
+<h3 class="text-lg font-bold mb-6">Bright Futures Eligibility</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs font-bold mb-2">
+<span>Medallion Scholars</span>
+<span>412 Students</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[70%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold mb-2">
+<span>Academic Scholars</span>
+<span>188 Students</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[35%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold mb-2">
+<span>Vocational Gold Seal</span>
+<span>92 Students</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[15%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Testimonials Section -->
+<div class="col-span-7 flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+<div class="min-w-[320px] bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary-container/30 text-4xl mb-4" data-icon="format_quote">format_quote</span>
+<p class="font-serif italic text-on-surface leading-relaxed mb-6">"Our counselor helped me navigate the FAFSA process when my family was lost. I wouldn't be going to state this fall without them."</p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed"></div>
+<div>
+<p class="text-xs font-bold">Marcus J.</p>
+<p class="text-[10px] opacity-60">Class of 2024</p>
+</div>
+</div>
+</div>
+<div class="min-w-[320px] bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary-container/30 text-4xl mb-4" data-icon="format_quote">format_quote</span>
+<p class="font-serif italic text-on-surface leading-relaxed mb-6">"The workshops for scholarship writing were a game changer. I feel so much more prepared for the next chapter."</p>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed"></div>
+<div>
+<p class="text-xs font-bold">Elena R.</p>
+<p class="text-[10px] opacity-60">Class of 2024</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

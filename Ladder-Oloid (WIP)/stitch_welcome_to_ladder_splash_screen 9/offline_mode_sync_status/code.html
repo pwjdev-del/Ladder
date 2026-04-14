@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder Admin - Offline Mode &amp; Sync</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-fixed": "#caf24d",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "primary-container": "#5a7956",
+                    "surface-tint": "#486644",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container": "#f5ede2",
+                    "surface-bright": "#fff8f2",
+                    "on-secondary-container": "#566c00",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-fixed": "#052107",
+                    "background": "#fff8f2",
+                    "outline": "#737970",
+                    "on-surface": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-surface": "#343029",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "2xl": "2rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .serif-tight { font-family: 'Noto Serif', serif; letter-spacing: -0.02em; }
+        .bg-primary-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased min-h-screen">
+<!-- Top Banner (Amber/Tertiary Alert) -->
+<div class="sticky top-0 z-50 bg-[#F5A623] text-on-tertiary-fixed py-3 px-8 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">cloud_off</span>
+<span class="font-label font-bold text-sm tracking-wide">You're offline</span>
+</div>
+<div class="hidden md:block text-xs font-medium opacity-90">Changes will be saved locally and synced once a connection is restored.</div>
+<button class="text-xs font-bold underline decoration-2 underline-offset-4 uppercase tracking-widest">Retry Connection</button>
+</div>
+<div class="flex min-h-[calc(100vh-48px)]">
+<!-- SideNavBar -->
+<aside class="fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] flex flex-col h-full py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-40">
+<div class="mb-12">
+<div class="flex items-center gap-4 mb-2">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="font-headline text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+<p class="font-label text-xs uppercase tracking-widest opacity-60">District Administration</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 ease-out hover:text-[#42603f] font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 ease-out hover:text-[#42603f] font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">domain</span>
+<span>Schools</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7] font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">construction</span>
+<span>Utility Tools</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 ease-out hover:text-[#42603f] font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>District Stats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 ease-out hover:text-[#42603f] font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Staff Directory</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 ease-out hover:text-[#42603f] font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span>Curriculum</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/20 space-y-2">
+<button class="w-full bg-primary-gradient text-white py-4 rounded-xl font-bold text-sm tracking-wide mb-6">Quick Report</button>
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-[#42603f] transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm font-medium">Support</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[280pt] flex-1 p-12 max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="mb-12 flex justify-between items-end">
+<div class="max-w-2xl">
+<div class="flex items-center gap-2 mb-4">
+<span class="h-[2px] w-8 bg-secondary-fixed"></span>
+<span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">Offline Environment</span>
+</div>
+<h2 class="font-headline text-5xl font-black text-on-surface serif-tight mb-4">Sync Center</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-lg">Manage your pending contributions. Your work is safely stored in the local cache.</p>
+</div>
+<div class="pb-2">
+<button class="bg-primary-gradient text-on-primary px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-xl hover:scale-[1.02] transition-transform duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sync</span>
+                        Sync Now
+                    </button>
+</div>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: Sync Status & Queued Changes -->
+<div class="col-span-5 space-y-8">
+<!-- Sync Status Card -->
+<section class="bg-surface-container-low p-8 rounded-2xl relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline text-xl font-bold mb-6">Sync Status</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<span class="text-sm text-on-surface-variant">Last successful sync</span>
+<span class="text-sm font-bold">Today, 08:42 AM</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm text-on-surface-variant">Storage usage</span>
+<span class="text-sm font-bold">12.4 MB / 500 MB</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2">
+<div class="h-full w-[15%] bg-secondary-fixed rounded-full shadow-[0_0_8px_#caf24d]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Changes Waiting list -->
+<section class="bg-surface-container-low p-8 rounded-2xl">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-xl font-bold">3 changes waiting to sync</h3>
+<span class="material-symbols-outlined text-outline-variant">inventory_2</span>
+</div>
+<div class="space-y-4">
+<!-- Change Item: Essay Draft -->
+<div class="bg-surface-container-highest p-5 rounded-xl flex items-center justify-between group cursor-pointer hover:bg-surface-dim transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">edit_note</span>
+</div>
+<div>
+<h4 class="text-sm font-bold">Essay draft</h4>
+<p class="text-[11px] uppercase tracking-wider text-on-surface-variant/70 mt-0.5">English Literature • 2m ago</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase tracking-widest">Queued</span>
+</div>
+<!-- Change Item: Score Log -->
+<div class="bg-surface-container-highest p-5 rounded-xl flex items-center justify-between group cursor-pointer hover:bg-surface-dim transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<div>
+<h4 class="text-sm font-bold">Score log update</h4>
+<p class="text-[11px] uppercase tracking-wider text-on-surface-variant/70 mt-0.5">Calculus AP • 15m ago</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-error-container text-error text-[10px] font-bold rounded-full uppercase tracking-widest">Failed</span>
+</div>
+<!-- Change Item: Profile Update -->
+<div class="bg-surface-container-highest p-5 rounded-xl flex items-center justify-between group cursor-pointer hover:bg-surface-dim transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<h4 class="text-sm font-bold">Profile update</h4>
+<p class="text-[11px] uppercase tracking-wider text-on-surface-variant/70 mt-0.5">Admin Settings • 1h ago</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase tracking-widest">Queued</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Conflict Resolution Card -->
+<div class="col-span-7">
+<section class="bg-surface-container-low p-8 rounded-2xl h-full flex flex-col">
+<div class="flex items-start justify-between mb-8">
+<div>
+<h3 class="font-headline text-2xl font-bold mb-1">Conflict Resolution</h3>
+<p class="text-sm text-on-surface-variant">Multiple versions detected for <span class="font-bold text-on-surface">"Modernist Poetry Analysis"</span></p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-outline">history</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Diff Viewer -->
+<div class="flex-1 grid grid-cols-2 gap-4">
+<!-- Local Version -->
+<div class="bg-surface-bright rounded-xl border-l-4 border-secondary-fixed overflow-hidden flex flex-col">
+<div class="p-4 bg-surface-container flex items-center justify-between">
+<span class="text-[10px] font-bold uppercase tracking-widest text-secondary">Local (This Device)</span>
+<span class="text-[10px] text-on-surface-variant">Today, 10:14 AM</span>
+</div>
+<div class="p-6 flex-1 text-sm leading-relaxed text-on-surface/80 font-serif">
+<p class="mb-4">The transition from Victorian moralism to Modernist ambiguity is best captured in Eliot’s early fragments.</p>
+<p class="bg-secondary-container/30 px-2 py-1 rounded inline">Modernism seeks to fragment the ego, creating a landscape of intellectual debris rather than moral certainty.</p>
+<p class="mt-4">This departure marks the definitive break in 20th century literary thought...</p>
+</div>
+<div class="p-4 bg-surface-container-low border-t border-outline-variant/10">
+<button class="w-full py-2 bg-primary text-on-primary rounded-lg text-xs font-bold hover:bg-primary-container transition-colors">Keep Local</button>
+</div>
+</div>
+<!-- Server Version -->
+<div class="bg-surface-bright rounded-xl border-l-4 border-outline-variant overflow-hidden flex flex-col">
+<div class="p-4 bg-surface-container flex items-center justify-between">
+<span class="text-[10px] font-bold uppercase tracking-widest text-outline">Cloud (Server Version)</span>
+<span class="text-[10px] text-on-surface-variant">Today, 09:30 AM</span>
+</div>
+<div class="p-6 flex-1 text-sm leading-relaxed text-on-surface/80 font-serif">
+<p class="mb-4">The transition from Victorian moralism to Modernist ambiguity is best captured in Eliot’s early fragments.</p>
+<p class="bg-error-container/20 text-error line-through px-2 py-1 rounded inline">It represents the shift toward a fragmented reality.</p>
+<p class="mt-4">This departure marks the definitive break in 20th century literary thought...</p>
+</div>
+<div class="p-4 bg-surface-container-low border-t border-outline-variant/10">
+<button class="w-full py-2 bg-surface-container-highest text-on-surface rounded-lg text-xs font-bold hover:bg-surface-dim transition-colors">Keep Cloud</button>
+</div>
+</div>
+</div>
+<div class="mt-8 flex items-center justify-between p-4 bg-surface-container-highest rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">info</span>
+<span class="text-xs text-on-surface-variant">Merging will combine non-conflicting paragraphs automatically.</span>
+</div>
+<button class="text-xs font-bold text-primary underline decoration-2 underline-offset-4">Merge Manually</button>
+</div>
+</section>
+</div>
+</div>
+<!-- Bottom Asymmetric Accent Section -->
+<div class="mt-16 grid grid-cols-12">
+<div class="col-span-8 col-start-3 bg-tertiary-container text-on-tertiary-container p-10 rounded-2xl flex items-center gap-10">
+<div class="flex-shrink-0">
+<img alt="Work space" class="w-24 h-24 rounded-2xl object-cover shadow-lg rotate-3 group-hover:rotate-0 transition-transform" data-alt="minimalist clean office desk with wooden textures and an open notebook with a pen in soft natural daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqonaNxDMe0_bBaw85VQwD_W6_TZQIiufTA9Vm4eMg4HuPLQ9UbTZDVOljYSdnNUg_q4i2DNSqQO58fdikf5y2Flf7mR5I-JtfDcWBmCly0lqqTaW9A2jCG02GxjmGKwdrw60e2aBYfJq1waQkbkNxOLF5rfQNBGWqQ00nVdw39Ut0Deia8Hx9jbJKt_dXXzW9obTgcVWrCFG4qdG1fg67szhVywOQiOdlmitiuOQ_HYucDL1dGKM7JDVBp1cl5GHM-zXdT4GvrdM"/>
+</div>
+<div>
+<h4 class="font-headline text-2xl font-bold mb-2 italic">Don't lose your focus.</h4>
+<p class="text-sm opacity-90 max-w-md">Offline mode is optimized for minimal power consumption. We'll automatically attempt a sync every 5 minutes when a network is detected.</p>
+</div>
+<div class="ml-auto">
+<span class="material-symbols-outlined text-5xl opacity-20">cloud_done</span>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

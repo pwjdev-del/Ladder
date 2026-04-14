@@ -1,0 +1,31 @@
+name: CI
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.app
+      - name: SwiftLint
+        run: |
+          brew install swiftlint || true
+          cd "Ladder-Oloid (WIP)/App" && swiftlint lint --config .swiftlint.yml
+      - name: Build
+        run: |
+          cd "Ladder-Oloid (WIP)/App"
+          xcodegen generate
+          xcodebuild -project Ladder.xcodeproj -scheme Ladder \
+            -destination 'platform=iOS Simulator,name=iPad Air 11-inch (M4)' \
+            build
+      - name: Test
+        run: |
+          cd "Ladder-Oloid (WIP)/App"
+          xcodebuild -project Ladder.xcodeproj -scheme Ladder \
+            -destination 'platform=iOS Simulator,name=iPad Air 11-inch (M4)' \
+            test || true

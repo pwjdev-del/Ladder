@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evergreen Ascent | Essay Seed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#516600",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-container": "#566c00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-high": "#efe7dd",
+                        "inverse-surface": "#343029",
+                        "surface-dim": "#e1d9cf",
+                        "secondary-container": "#caf24d",
+                        "surface-container-highest": "#eae1d7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface": "#fff8f2",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-bright": "#fff8f2",
+                        "on-surface": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-primary-fixed": "#052107",
+                        "surface-container": "#f5ede2",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#486644",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "background": "#fff8f2",
+                        "on-background": "#1f1b15",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary-container": "#5a7956",
+                        "secondary-fixed": "#caf24d",
+                        "on-primary-container": "#e2ffda",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c3c8be",
+                        "surface-variant": "#eae1d7",
+                        "primary": "#42603f",
+                        "outline": "#737970",
+                        "tertiary": "#725232",
+                        "primary-fixed": "#c9ecc2",
+                        "on-secondary-fixed": "#161e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .serif-title { font-family: 'Noto Serif', serif; letter-spacing: -0.02em; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .btn-primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #eae1d7; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- SideNavBar (Persistent Sidebar) -->
+<aside class="flex flex-col h-full py-8 px-4 h-screen w-64 bg-[#fbf2e8] dark:bg-stone-900 shrink-0">
+<div class="mb-10 px-4">
+<span class="text-2xl font-serif italic text-[#42603f] dark:text-[#5a7956]">Evergreen Ascent</span>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 mt-1 font-semibold">Academic Atelier</p>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="group flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors cursor-pointer rounded-lg">
+<span class="material-symbols-outlined mr-3" data-icon="home">home</span>
+<span class="text-sm">Home</span>
+</div>
+<div class="group flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors cursor-pointer rounded-lg">
+<span class="material-symbols-outlined mr-3" data-icon="assignment">assignment</span>
+<span class="text-sm">Tasks</span>
+</div>
+<div class="group flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors cursor-pointer rounded-lg">
+<span class="material-symbols-outlined mr-3" data-icon="school">school</span>
+<span class="text-sm">Colleges</span>
+</div>
+<div class="group flex items-center px-4 py-3 text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7]/50 dark:bg-stone-800 transition-colors cursor-pointer rounded-l-lg">
+<span class="material-symbols-outlined mr-3" data-icon="description">description</span>
+<span class="text-sm">Applications</span>
+</div>
+<div class="group flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors cursor-pointer rounded-lg">
+<span class="material-symbols-outlined mr-3" data-icon="person_search">person_search</span>
+<span class="text-sm">Advisor</span>
+</div>
+<div class="group flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors cursor-pointer rounded-lg">
+<span class="material-symbols-outlined mr-3" data-icon="payments">payments</span>
+<span class="text-sm">Financial</span>
+</div>
+<div class="group flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors cursor-pointer rounded-lg">
+<span class="material-symbols-outlined mr-3" data-icon="work">work</span>
+<span class="text-sm">Career</span>
+</div>
+<div class="group flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors cursor-pointer rounded-lg">
+<span class="material-symbols-outlined mr-3" data-icon="home_work">home_work</span>
+<span class="text-sm">Housing</span>
+</div>
+<div class="group flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors cursor-pointer rounded-lg">
+<span class="material-symbols-outlined mr-3" data-icon="insert_chart">insert_chart</span>
+<span class="text-sm">Reports</span>
+</div>
+</nav>
+<div class="mt-auto px-4 py-4 flex items-center gap-3">
+<img alt="Student avatar" class="w-10 h-10 rounded-full border-2 border-[#caf24d]" data-alt="close-up portrait of a thoughtful young man in a library with soft warm academic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0zGpNHqStTN-NzxOFMqs6Rrsk7bdhNJeXcdTSvk9noMbPcgOb5OJuVXkJJVMEBPflnXAjkpbUdidvA_eAnlVBNaOTuPrUQNMyZ6B3NVDcVY1ZkukZwr4Jik9MlK-kmrlc3O_pbCXcMhAbsFyR5jyXFJajJ5P4joGqL0Ng3829uZ2l79d4jrblIL4eU78Rsy-EOyQQvRaRmfytwanaBRIkZucwSPN7OJ68YyFkdup_knIuvUiPimOEY45gOJZ2DzX_gPjUI_HH3bs"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Julian Thorne</p>
+<p class="text-[10px] text-stone-500">Junior Year</p>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col relative overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-12 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl shrink-0 z-10">
+<div class="flex items-center gap-2">
+<span class="text-2xl serif-title font-bold text-[#42603f]">Essay Seed</span>
+<span class="text-xs px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed font-bold tracking-tight">V3 AI ENGINE</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-lg" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-xs w-64 focus:ring-1 focus:ring-primary" placeholder="Search templates..." type="text"/>
+</div>
+<div class="flex gap-4">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary transition-all" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-stone-400 hover:text-primary transition-all" data-icon="settings">settings</button>
+</div>
+</div>
+</header>
+<!-- Content Grid -->
+<div class="flex flex-1 overflow-hidden p-8 gap-8">
+<!-- Left Column: 45% (College & Connections) -->
+<section class="w-[45%] flex flex-col gap-8 custom-scrollbar overflow-y-auto pr-4">
+<!-- College Selector -->
+<div class="p-8 rounded-xl bg-surface-container-low">
+<label class="text-[10px] uppercase font-bold text-stone-500 tracking-[0.2em] mb-4 block">Target Institution</label>
+<div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-highest cursor-pointer hover:bg-surface-variant transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h3 class="text-lg font-bold leading-tight">Stanford University</h3>
+<p class="text-xs text-stone-500">Palo Alto, California</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-stone-400 group-hover:text-primary transition-transform group-hover:translate-x-1" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- AI Connections Section -->
+<div class="space-y-6">
+<div class="flex items-baseline justify-between">
+<h2 class="serif-title text-2xl font-bold italic">Essay Connections</h2>
+<span class="text-xs text-primary font-bold">5 Matches Found</span>
+</div>
+<!-- Connection Cards -->
+<div class="space-y-4">
+<!-- Research Card -->
+<div class="p-6 rounded-xl bg-surface-container-low group hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg" data-icon="biotech">biotech</span>
+<h4 class="font-bold text-sm">Undergraduate Research Focus</h4>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-[10px] font-bold text-on-secondary-fixed hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[14px]" data-icon="add" data-weight="fill">add</span>
+                                        USE THIS
+                                    </button>
+</div>
+<p class="text-xs text-stone-600 leading-relaxed italic mb-4">"Stanford’s CURIS program perfectly mirrors my interest in Human-Computer Interaction through the AI + Design initiative."</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-0.5 bg-surface-container-highest text-[10px] text-stone-500 rounded uppercase font-bold">Lab Focus</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-[10px] text-stone-500 rounded uppercase font-bold">Faculty Lead</span>
+</div>
+</div>
+<!-- Hands-On Learning -->
+<div class="p-6 rounded-xl bg-surface-container-low group hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg" data-icon="precision_manufacturing">precision_manufacturing</span>
+<h4 class="font-bold text-sm">Hands-On Learning</h4>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-highest text-[10px] font-bold text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+                                        ADDED
+                                    </button>
+</div>
+<p class="text-xs text-stone-600 leading-relaxed italic mb-4">"The d.school’s design thinking methodology aligns with my portfolio of sustainable tech prototypes."</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-0.5 bg-surface-container-highest text-[10px] text-stone-500 rounded uppercase font-bold">Workshops</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-[10px] text-stone-500 rounded uppercase font-bold">Creative Hub</span>
+</div>
+</div>
+<!-- Interdisciplinary -->
+<div class="p-6 rounded-xl bg-surface-container-low group hover:bg-surface-container-high transition-all opacity-60 grayscale-[0.5]">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg" data-icon="psychology">psychology</span>
+<h4 class="font-bold text-sm">Interdisciplinary Scope</h4>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-[10px] font-bold text-on-secondary-fixed hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[14px]" data-icon="add">add</span>
+                                        USE THIS
+                                    </button>
+</div>
+<p class="text-xs text-stone-600 leading-relaxed italic">"Blending Philosophy with Data Science via the Symbolic Systems major..."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: 55% (Essay Outline) -->
+<section class="w-[55%] flex flex-col bg-surface-container-highest rounded-3xl p-10 relative shadow-sm">
+<div class="flex items-center justify-between mb-10">
+<div>
+<h2 class="serif-title text-3xl font-bold tracking-tight">Your Essay Outline</h2>
+<p class="text-sm text-stone-500 mt-1">Refining your narrative arc for Stanford</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-xl text-xs font-bold bg-surface-container-low border-2 border-primary/10 text-primary hover:bg-white transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="content_copy">content_copy</span>
+                                Copy Outline
+                            </button>
+<button class="px-5 py-2.5 rounded-xl text-xs font-bold text-white btn-primary-gradient shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="edit_note">edit_note</span>
+                                Open in Editor
+                            </button>
+</div>
+</div>
+<!-- Outline Building Blocks -->
+<div class="flex-1 custom-scrollbar overflow-y-auto pr-6 space-y-12 pb-10">
+<!-- Hook -->
+<div class="relative pl-12">
+<div class="absolute left-0 top-0 bottom-[-48px] w-1 bg-secondary-fixed rounded-full shadow-[0_0_12px_rgba(202,242,77,0.5)]"></div>
+<div class="absolute left-[-6px] top-0 w-4 h-4 rounded-full bg-secondary-fixed border-4 border-surface-container-highest"></div>
+<h5 class="text-[10px] uppercase font-extrabold text-primary tracking-[0.25em] mb-3">01 / THE HOOK</h5>
+<div class="p-6 bg-white/60 rounded-2xl border-b-2 border-transparent focus-within:border-primary transition-all">
+<p class="text-sm font-medium leading-loose text-on-surface italic">"Open with the moment I first saw the glitch in the sensor array during the high school robotics regional."</p>
+<div class="mt-4 flex gap-4 text-[10px] text-stone-400 font-bold">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="history_edu">history_edu</span> NARRATIVE START</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="timer">timer</span> 150 WORDS EST.</span>
+</div>
+</div>
+</div>
+<!-- Why School -->
+<div class="relative pl-12">
+<div class="absolute left-0 top-[-48px] bottom-[-48px] w-1 bg-secondary-fixed rounded-full shadow-[0_0_12px_rgba(202,242,77,0.3)]"></div>
+<div class="absolute left-[-6px] top-0 w-4 h-4 rounded-full bg-secondary-fixed border-4 border-surface-container-highest"></div>
+<h5 class="text-[10px] uppercase font-extrabold text-primary tracking-[0.25em] mb-3">02 / WHY STANFORD</h5>
+<div class="p-6 bg-white/60 rounded-2xl border-b-2 border-transparent focus-within:border-primary transition-all">
+<p class="text-sm font-medium leading-loose text-on-surface">Connect the <span class="bg-secondary-fixed/30 px-1 rounded italic text-primary">Hands-On Learning</span> at the d.school to my ambition for human-centric engineering. Mention Professor Fei-Fei Li’s work in Human-Centered AI.</p>
+<div class="mt-4 flex gap-2">
+<span class="px-2 py-1 bg-primary/5 text-primary text-[10px] rounded font-bold">FACULTY CONNECTION</span>
+<span class="px-2 py-1 bg-primary/5 text-primary text-[10px] rounded font-bold">D.SCHOOL SYNERGY</span>
+</div>
+</div>
+</div>
+<!-- Why You -->
+<div class="relative pl-12">
+<div class="absolute left-0 top-[-48px] bottom-[-48px] w-1 bg-secondary-fixed/50 rounded-full"></div>
+<div class="absolute left-[-6px] top-0 w-4 h-4 rounded-full bg-secondary-fixed/50 border-4 border-surface-container-highest"></div>
+<h5 class="text-[10px] uppercase font-extrabold text-stone-400 tracking-[0.25em] mb-3">03 / WHY YOU</h5>
+<div class="p-6 bg-white/20 rounded-2xl border-2 border-dashed border-outline-variant/30 text-stone-400 text-center">
+<p class="text-xs italic">Drag a personal achievement or "Identity Pillar" from your profile to fill this section.</p>
+<button class="mt-4 px-4 py-2 bg-surface-container-low rounded-lg text-xs font-bold text-primary hover:bg-white transition-colors">Select From Profile</button>
+</div>
+</div>
+<!-- Conclusion -->
+<div class="relative pl-12">
+<div class="absolute left-[-6px] top-0 w-4 h-4 rounded-full bg-stone-300 border-4 border-surface-container-highest"></div>
+<h5 class="text-[10px] uppercase font-extrabold text-stone-400 tracking-[0.25em] mb-3">04 / CONCLUSION</h5>
+<div class="p-6 bg-white/20 rounded-2xl border-2 border-dashed border-outline-variant/30 text-stone-400 text-center">
+<p class="text-xs italic">Summarize the 'Future You' at this campus.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Contextual FAB (Only on Home/Application screens) -->
+<button class="absolute bottom-12 right-12 w-14 h-14 rounded-full btn-primary-gradient flex items-center justify-center shadow-2xl text-white hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined text-3xl" data-icon="bolt" data-weight="fill">bolt</span>
+<span class="absolute right-full mr-4 px-3 py-1 bg-on-surface text-surface text-[10px] font-bold rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">AI POLISH</span>
+</button>
+</main>
+</div>
+</body></html>

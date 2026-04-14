@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Academic Atelier - College Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-on-surface": "#f8efe5",
+                "tertiary-fixed": "#ffdcbd",
+                "tertiary": "#725232",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed": "#052107",
+                "on-background": "#1f1b15",
+                "on-surface-variant": "#434840",
+                "surface-variant": "#eae1d7",
+                "surface-container-highest": "#eae1d7",
+                "surface-container-low": "#fbf2e8",
+                "error": "#ba1a1a",
+                "on-primary-fixed-variant": "#304e2e",
+                "inverse-primary": "#aed0a7",
+                "surface-bright": "#fff8f2",
+                "primary-container": "#5a7956",
+                "on-secondary": "#ffffff",
+                "outline-variant": "#c3c8be",
+                "inverse-surface": "#343029",
+                "surface-container-lowest": "#ffffff",
+                "on-surface": "#1f1b15",
+                "on-error": "#ffffff",
+                "secondary-fixed": "#caf24d",
+                "surface-tint": "#486644",
+                "surface-container-high": "#efe7dd",
+                "secondary-fixed-dim": "#afd531",
+                "primary": "#42603f",
+                "surface": "#fff8f2",
+                "on-tertiary-fixed": "#2c1600",
+                "error-container": "#ffdad6",
+                "secondary-container": "#caf24d",
+                "tertiary-fixed-dim": "#e9bf96",
+                "tertiary-container": "#8d6a48",
+                "surface-container": "#f5ede2",
+                "background": "#fff8f2",
+                "primary-fixed-dim": "#aed0a7",
+                "on-primary": "#ffffff",
+                "on-tertiary-fixed-variant": "#5e4122",
+                "primary-fixed": "#c9ecc2",
+                "surface-dim": "#e1d9cf",
+                "on-secondary-container": "#566c00",
+                "secondary": "#516600",
+                "on-secondary-fixed": "#161e00",
+                "on-error-container": "#93000a",
+                "on-tertiary-container": "#fff5ee",
+                "outline": "#737970",
+                "on-secondary-fixed-variant": "#3c4d00",
+                "on-primary-container": "#e2ffda"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "1rem",
+                "xl": "1.5rem",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Noto Serif"],
+                "body": ["Manrope"],
+                "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; color: #1f1b15; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-header { background: rgba(255, 248, 242, 0.7); backdrop-filter: blur(32px); }
+        .primary-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+        .text-shadow-sm { text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen py-8 z-40 h-full w-72 fixed left-0 top-0 bg-[#fbf2e8] border-none">
+<div class="px-8 mb-12">
+<h1 class="text-xl font-bold font-serif text-[#1f1b15]">The Academic Atelier</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-[#42603f] font-bold mt-1">College Prep Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm font-medium">Tasks</span>
+</a>
+<!-- Active Tab: Colleges -->
+<a class="flex items-center gap-4 text-[#42603f] font-bold border-r-4 border-[#42603f] pl-6 py-3 bg-[#eae1d7]/50 transition-all scale-[0.98]" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm">Colleges</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Applications</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-sm font-medium">Advisor</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-sm font-medium">Financial</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-sm font-medium">Career</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full primary-gradient text-white py-4 rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-primary/20 hover:opacity-90 transition-all">
+                Plan Success
+            </button>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="flex justify-end items-center px-12 h-20 w-full ml-72 sticky top-0 z-50 bg-[#fff8f2]/70 backdrop-blur-3xl shadow-sm shadow-[#1f1b15]/5">
+<div class="flex items-center gap-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-6 py-2 text-[10px] tracking-widest font-bold focus:ring-1 focus:ring-primary w-64" placeholder="SEARCH COLLEGES..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-80 transition-opacity">notifications</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-80 transition-opacity">settings</span>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary/10">
+<img alt="Student user portrait" class="h-full w-full object-cover" data-alt="close-up portrait of a young male student with a thoughtful expression against a blurred library background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE7tK5MWRcjh9K_-Iga4Levqp3SEE4Pq3lRormkKWlWqu-IJxpOqVcJpemIBi7iX-7skOIxwqG1ZTB7WnFKKAW4kKg56_xB7H9esQJYGXzR-WY_YFN0L79GedlVbw8HrbtscxnwD_2od18F4T1drna0Pci3Fo5e2HDJ3NZMBysMdOYg1f5nWWm_NCiLovNlhSuDQebcMt-I9782XIGdEbKnusPysocZW5V9UPSFnbjzfUivvLa34Jm8dkYJWqI_i2Os4RaJ2DPAmk"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-72 p-12">
+<div class="grid grid-cols-12 gap-12">
+<!-- Left Column (65%) -->
+<div class="col-span-8 space-y-12">
+<!-- Hero Section -->
+<section class="relative h-[480px] rounded-xl overflow-hidden group">
+<img alt="Stanford University Campus" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="cinematic wide shot of Stanford University Hoover Tower at dusk with elegant sandstone architecture and lush green manicured lawns under a violet sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf8apOMTVydGOp_38rhRCVK9MHRNF1Oy_U6hLzU-BVMGMR9CFeDHCbfZMzoMB_O-wLmhxpBbi3Q8E5fSTypwECZAKIg_mnvz8e4mCAVm66ylXRfYf3UI1c40AqcB8i80sk1esfKWBDHIfPwH3lrnIpVik9uQVKGT_MTZsG7blJ8iuGiPNkNy0mTxGP1gpEK0daQxUv484wbhn8801TzZV8v6EbuXF4HPV1iKA1TNn1sssp7YipjkRB4KkJqByADLKjKPhtpuFhDCk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1f1b15] via-[#1f1b15]/40 to-transparent"></div>
+<div class="absolute top-8 right-8">
+<div class="bg-secondary-fixed text-on-secondary-fixed px-6 py-3 rounded-xl shadow-xl flex flex-col items-center">
+<span class="text-3xl font-bold">98%</span>
+<span class="text-[10px] font-bold tracking-widest uppercase">Match Fit</span>
+</div>
+</div>
+<div class="absolute bottom-12 left-12 right-12">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary-fixed">location_on</span>
+<span class="text-white/80 font-medium tracking-wide">Stanford, California</span>
+</div>
+<h2 class="text-6xl font-serif italic text-white font-bold tracking-tight mb-8">Stanford University</h2>
+<!-- Actions -->
+<div class="flex gap-4">
+<button class="primary-gradient text-white px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-black/20 hover:scale-[1.02] transition-all">
+<span>Start Application</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all flex items-center gap-3">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>Add to My List</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Section Tabs -->
+<nav class="flex gap-12 border-b border-outline-variant/20 pb-4">
+<button class="text-primary font-bold border-b-2 border-primary pb-4 -mb-[18px] px-2">Overview</button>
+<button class="text-stone-400 font-medium hover:text-primary transition-colors pb-4 -mb-[18px] px-2">Deadlines</button>
+<button class="text-stone-400 font-medium hover:text-primary transition-colors pb-4 -mb-[18px] px-2">Personality</button>
+<button class="text-stone-400 font-medium hover:text-primary transition-colors pb-4 -mb-[18px] px-2">Actions</button>
+</nav>
+<!-- Overview Content -->
+<div class="space-y-8 animate-in fade-in duration-500">
+<div class="space-y-4">
+<h3 class="text-2xl font-serif italic text-primary">The Pinnacle of Innovation</h3>
+<p class="text-on-surface-variant leading-relaxed text-lg max-w-2xl">
+                            Located in the heart of Silicon Valley, Stanford University is recognized as one of the world's leading research and teaching institutions. Known for its entrepreneurial character and academic excellence, it fosters an environment where bold ideas transform into reality.
+                        </p>
+</div>
+<div class="space-y-4">
+<h4 class="text-[10px] font-bold tracking-[0.2em] text-stone-500 uppercase">Known For</h4>
+<div class="flex flex-wrap gap-3">
+<span class="bg-surface-container-high text-primary px-5 py-2 rounded-full text-sm font-bold">Entrepreneurship</span>
+<span class="bg-surface-container-high text-primary px-5 py-2 rounded-full text-sm font-bold">Cutting-edge AI</span>
+<span class="bg-surface-container-high text-primary px-5 py-2 rounded-full text-sm font-bold">Interdisciplinary Research</span>
+<span class="bg-surface-container-high text-primary px-5 py-2 rounded-full text-sm font-bold">Olympic Athletics</span>
+<span class="bg-surface-container-high text-primary px-5 py-2 rounded-full text-sm font-bold">Silicon Valley Proximity</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (35%) -->
+<div class="col-span-4 space-y-8">
+<!-- Your Fit Analysis -->
+<div class="bg-surface-container-low rounded-xl p-8 border-l-4 border-secondary-fixed shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-serif italic text-xl text-primary">Your Fit</h3>
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<div class="h-8 w-8 rounded-full bg-secondary-fixed/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm text-secondary-container">check</span>
+</div>
+<div>
+<p class="font-bold text-sm">Academic Alignment</p>
+<p class="text-xs text-on-surface-variant mt-1">Your 4.0 GPA and CS focus align perfectly with their selective engineering track.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="h-8 w-8 rounded-full bg-secondary-fixed/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm text-secondary-container">check</span>
+</div>
+<div>
+<p class="font-bold text-sm">Extracurricular Match</p>
+<p class="text-xs text-on-surface-variant mt-1">Founding the Robotics Club mirrors Stanford's valuation of leadership.</p>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/20">
+<button class="text-xs font-bold text-primary flex items-center gap-2 hover:translate-x-1 transition-transform">
+                                VIEW FULL ANALYSIS <span class="material-symbols-outlined text-xs">trending_flat</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-white rounded-xl p-6 shadow-sm shadow-primary/5 flex items-center gap-6">
+<div class="h-12 w-12 bg-primary/5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">percent</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Acceptance Rate</p>
+<p class="text-2xl font-serif font-bold text-primary">3.9%</p>
+</div>
+</div>
+<div class="bg-white rounded-xl p-6 shadow-sm shadow-primary/5 flex items-center gap-6">
+<div class="h-12 w-12 bg-primary/5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Annual Tuition</p>
+<p class="text-2xl font-serif font-bold text-primary">$56,169</p>
+</div>
+</div>
+<div class="bg-white rounded-xl p-6 shadow-sm shadow-primary/5 flex items-center gap-6">
+<div class="h-12 w-12 bg-primary/5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Avg. SAT / ACT</p>
+<p class="text-2xl font-serif font-bold text-primary">1540 / 35</p>
+</div>
+</div>
+<div class="bg-white rounded-xl p-6 shadow-sm shadow-primary/5 flex items-center gap-6">
+<div class="h-12 w-12 bg-primary/5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">groups</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Total Enrollment</p>
+<p class="text-2xl font-serif font-bold text-primary">17,326</p>
+</div>
+</div>
+</div>
+<!-- Secondary Support Image -->
+<div class="relative h-48 rounded-xl overflow-hidden">
+<img alt="Stanford Arch" class="w-full h-full object-cover" data-alt="warm sunlight streaming through a stone archway at Stanford university campus creating dramatic shadows on the courtyard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASgxLG41O4ijYG8mqKyVx7GhGQf9WuGaa_xEk2RqrBPM3UMgfILkpBRgC9WGFXSG6VhiSoX8YJk3jpnr3D83Md0h_kY2Q13eFMdf9wCJ990NrcrsxlbdI-DxTRXeTK1ZFylp1UfQ3VhKwBqERyYlMQqggWN4faE6JZh0oSl5QwL_axkny560nKMbATKKLO3BJB-1nn2i-_SDg0qqG3Tr5pUm4YSMyuLpxmxC3RuxdtC45hODJpcqWw3OMKzlb1dZX5nquN4dIXiEw"/>
+<div class="absolute inset-0 bg-primary/20 backdrop-multiply"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<button class="bg-white/90 backdrop-blur text-primary h-12 w-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

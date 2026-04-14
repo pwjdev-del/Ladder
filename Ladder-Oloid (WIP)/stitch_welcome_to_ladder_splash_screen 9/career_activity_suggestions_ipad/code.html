@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Career Activity Suggestions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container": "#f5ede2",
+                        "surface-variant": "#eae1d7",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed": "#161e00",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed": "#caf24d",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-secondary-container": "#566c00",
+                        "surface-tint": "#486644",
+                        "on-primary-fixed": "#052107",
+                        "tertiary-container": "#8d6a48",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-bright": "#fff8f2",
+                        "inverse-surface": "#343029",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fff8f2",
+                        "secondary-container": "#caf24d",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f2",
+                        "on-tertiary-fixed": "#2c1600",
+                        "outline-variant": "#c3c8be",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "tertiary": "#725232",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary": "#42603f",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface": "#1f1b15",
+                        "on-background": "#1f1b15",
+                        "inverse-primary": "#aed0a7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .tonal-shift { background-color: #fbf2e8; }
+        .glass-header { backdrop-filter: blur(20px); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #eae1d7; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 h-screen w-72 flex-shrink-0 border-r-0 bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="mb-12">
+<h1 class="text-3xl font-noto-serif italic font-bold text-[#42603f] dark:text-[#caf24d]">Ladder</h1>
+<p class="font-manrope text-sm text-stone-500 tracking-tight">College Prep Platform</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm">Academic Tracker</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="text-sm">Transcript</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm">Course Guide</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined">calendar_view_month</span>
+<span class="text-sm">AI Scheduler</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-sm">Research</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-sm">Essay Hub</span>
+</a>
+<!-- Active State: Career Explorer -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 bg-[#eae1d7] text-[#42603f] font-bold border-r-4 border-[#caf24d]" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-sm">Career Explorer</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-sm">Post-Grad</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-semibold shadow-lg hover:scale-98 transition-all active:opacity-80">
+                Upgrade to Pro
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-stone-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-xs uppercase tracking-widest font-bold">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-stone-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="text-xs uppercase tracking-widest font-bold">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 backdrop-blur-xl shadow-sm dark:shadow-none opacity-90">
+<div class="flex items-center gap-8">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search resources..." type="text"/>
+</div>
+<nav class="flex gap-6">
+<a class="text-stone-600 hover:text-primary transition-all font-semibold font-noto-serif" href="#">Dashboard</a>
+<a class="text-stone-600 hover:text-primary transition-all font-semibold font-noto-serif" href="#">Analytics</a>
+<a class="text-[#42603f] border-b-2 border-[#caf24d] pb-1 font-semibold font-noto-serif" href="#">Community</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-600 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-stone-200 overflow-hidden ring-2 ring-primary/10">
+<img alt="Student profile picture" class="w-full h-full object-cover" data-alt="close-up portrait of a thoughtful teenage student in a library setting with warm ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu0B7bsYvjbicU3AbiAI8R4DQ8mmhxaJjS9mnQXNfJgIPuJrvXXOUJx78CTFQCDZvPd6ppi6EBrQE84a8-e5noPZ_3z2h6YOFoDGbjuxzQ6_7KO9ftZ3gCZglrszHjeRV3mzR3i5X2EGE1SiUonSybXxjfC9w5fQuNHxh8kwsGuEz_tQlLvRfhkaAn38kOG9QWg2KcZk6ckG93VYPTzEvWMb6OVlGFsT8zjlR_Co27sSw9gUNc1KV4kd7bYYQy49juuhlnqAesaOs"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-72 mt-20 p-10 w-full h-[calc(100vh-5rem)] overflow-y-auto custom-scrollbar">
+<div class="flex gap-10">
+<!-- Left Column: Suggested for You (55%) -->
+<section class="w-[55%] flex flex-col gap-10">
+<div class="flex justify-between items-end">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-primary material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="text-3xl font-bold tracking-tighter text-on-surface">Suggested for You</h2>
+</div>
+<p class="text-on-surface-variant font-medium">Curated opportunities to strengthen your profile.</p>
+</div>
+<div class="bg-secondary-fixed text-on-secondary-fixed px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">medical_services</span>
+                        Pre-Med
+                    </div>
+</div>
+<!-- High Impact Section -->
+<div class="space-y-6">
+<h3 class="text-lg font-bold text-primary flex items-center gap-2">
+                        High Impact
+                        <span class="h-px flex-grow bg-outline-variant/30"></span>
+</h3>
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-surface-container-highest p-6 rounded-xl flex items-start gap-6 group hover:translate-x-2 transition-transform">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-stone-200">
+<img alt="Hospital Internship" class="w-full h-full object-cover" data-alt="modern medical research laboratory with scientists working in clean white surroundings and blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQk21TQXVb-pWSkjkuxS2Pa2RfbDyHcthwz0S-VnEncm-TGtz4gHhHsoHSRvOM0WhHMZ-0mmebaV5naM8sQ7ic1AA5M4GrHaSJ2mthlo4c5dXMZ_n9o7WgV4j4XGO7xDnfxsTd4d-naLOxUWOAbjK1XV8oi4--6d5wRotbLkmQC39tS9tcTANsqyFgbRbmiQMWpzTQ1vhq5VRcEhJqfWoEXatxJYaluWdBBolvqGyIU_Z_loaR4Zi_YKVr09B8ajkQ17jsqM5oOiM"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-xl">Clinical Observation: Metro General</h4>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded font-bold uppercase">Research Heavy</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Shadow attending physicians in the cardiology department. 40+ verified hours for AMCAS alignment.</p>
+<button class="flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-3 transition-all">
+                                    Add to Activities <span class="material-symbols-outlined text-sm">add_circle</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container-highest p-6 rounded-xl flex items-start gap-6 group hover:translate-x-2 transition-transform">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-stone-200">
+<img alt="Biology Lab" class="w-full h-full object-cover" data-alt="microscopic view of glowing colorful cellular structures on a dark background in high resolution" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgVAm1gVCo06hV2N-FY_u-5LI3veRyFNtjP5ac9NkKAgVuRRjVubBqlXErSjp1qXU1m-ikSHJsRiBNy6HWmUwGXPTJYkYFPqCXNWEbZ22ATBkXVVRUJa5868kRNito_HqhGOefjYowBdicaqGNoeQEIBzMyx1o6nwGGxW6DDbCwg7hb6w9jXzYDRfqmyIqsxTt6995OfWnS1JUTAa1JIZO9FkXiEx0Jl75Jx0IHj81LlJbBnEDk5QnyWzMJO66Yo7zFFJkNx_N5dA"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-xl">Bio-Ethics Research Assistant</h4>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded font-bold uppercase">Academic</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Remote literature review for NYU's Medical Ethics center. Focus on AI-driven diagnostics.</p>
+<button class="flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-3 transition-all">
+                                    Add to Activities <span class="material-symbols-outlined text-sm">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Medium Impact Section -->
+<div class="space-y-6">
+<h3 class="text-lg font-bold text-primary-container flex items-center gap-2">
+                        Medium Impact
+                        <span class="h-px flex-grow bg-outline-variant/30"></span>
+</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/20">
+<h4 class="font-bold mb-1">Local Hospice Volunteer</h4>
+<p class="text-xs text-on-surface-variant mb-4">Patient companionship and administrative support.</p>
+<button class="text-primary text-xs font-bold uppercase tracking-tight flex items-center gap-1">Add <span class="material-symbols-outlined text-sm">add</span></button>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/20">
+<h4 class="font-bold mb-1">Science Olympiad Lead</h4>
+<p class="text-xs text-on-surface-variant mb-4">Mentoring juniors in Biology &amp; Chemistry events.</p>
+<button class="text-primary text-xs font-bold uppercase tracking-tight flex items-center gap-1">Add <span class="material-symbols-outlined text-sm">add</span></button>
+</div>
+</div>
+</div>
+<!-- Quick Wins -->
+<div class="space-y-6">
+<h3 class="text-lg font-bold text-on-surface-variant flex items-center gap-2">
+                        Quick Wins
+                        <span class="h-px flex-grow bg-outline-variant/30"></span>
+</h3>
+<div class="flex flex-wrap gap-3">
+<div class="flex items-center gap-4 bg-surface px-4 py-3 rounded-full border border-outline-variant/40 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary text-sm">timer</span>
+<span class="text-sm font-semibold">Online CPR Certification</span>
+<button class="material-symbols-outlined text-primary">add_circle</button>
+</div>
+<div class="flex items-center gap-4 bg-surface px-4 py-3 rounded-full border border-outline-variant/40 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary text-sm">verified</span>
+<span class="text-sm font-semibold">Red Cross Blood Drive Org</span>
+<button class="material-symbols-outlined text-primary">add_circle</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Current & Stats (45%) -->
+<aside class="w-[45%] flex flex-col gap-8">
+<!-- Radar Chart Card -->
+<div class="bg-surface-container p-8 rounded-xl">
+<h3 class="text-xl font-bold mb-6">Profile Coverage</h3>
+<div class="aspect-square w-full relative flex items-center justify-center">
+<!-- Simulated 5-Axis Radar Chart -->
+<div class="absolute inset-0 flex items-center justify-center opacity-10">
+<div class="w-full h-full border border-primary rounded-full"></div>
+<div class="absolute w-[80%] h-[80%] border border-primary rounded-full"></div>
+<div class="absolute w-[60%] h-[60%] border border-primary rounded-full"></div>
+<div class="absolute w-[40%] h-[40%] border border-primary rounded-full"></div>
+</div>
+<svg class="w-[85%] h-[85%] drop-shadow-lg" viewbox="0 0 100 100">
+<polygon fill="#42603f" fill-opacity="0.15" points="50,10 85,35 75,85 25,85 15,35" stroke="#42603f" stroke-width="1.5"></polygon>
+<polygon fill="#caf24d" fill-opacity="0.6" points="50,25 70,40 65,70 35,70 30,40" stroke="#516600" stroke-width="2"></polygon>
+<!-- Labels -->
+<text fill="#434840" font-size="3" font-weight="bold" text-anchor="middle" x="50" y="5">Leadership</text>
+<text fill="#434840" font-size="3" font-weight="bold" text-anchor="start" x="95" y="35">Research</text>
+<text fill="#434840" font-size="3" font-weight="bold" text-anchor="start" x="80" y="90">Clinical</text>
+<text fill="#434840" font-size="3" font-weight="bold" text-anchor="end" x="20" y="90">Service</text>
+<text fill="#434840" font-size="3" font-weight="bold" text-anchor="end" x="5" y="35">Academics</text>
+</svg>
+</div>
+</div>
+<!-- Gaps to Fill Card -->
+<div class="bg-surface-container-low border-2 border-[#ffb049]/40 p-6 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-[#8d6a48]">lightbulb</span>
+<h3 class="font-bold text-[#725232]">Gaps to Fill</h3>
+</div>
+<p class="text-sm text-on-tertiary-fixed-variant leading-relaxed mb-4">Your profile is strong in Research but lacks <strong>direct patient interaction</strong>. Target schools like <em>Johns Hopkins</em> heavily weigh hands-on clinical experience.</p>
+<div class="bg-white/40 p-3 rounded-lg text-xs font-medium text-[#725232] italic">
+                        Recommendation: Prioritize "Metro General Observation" to boost Clinical axis by +25%.
+                    </div>
+</div>
+<!-- Target School Comparison -->
+<div class="bg-surface p-6 rounded-xl border border-outline-variant/30">
+<h3 class="text-lg font-bold mb-4">Target Alignment</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs font-bold uppercase mb-1.5 tracking-wider">
+<span>Stanford University</span>
+<span>88% Match</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 88%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold uppercase mb-1.5 tracking-wider">
+<span>Harvard (Pre-Med)</span>
+<span>72% Match</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 72%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold uppercase mb-1.5 tracking-wider">
+<span>Johns Hopkins</span>
+<span>64% Match</span>
+</div>
+<div class="h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-[#ffb049]" style="width: 64%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Current Activities Summary -->
+<div class="bg-surface-container-highest p-6 rounded-xl">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-bold">Your List</h3>
+<span class="text-xs font-bold text-stone-500 uppercase">4 Total</span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-surface rounded-lg">
+<span class="text-sm font-semibold">Chemistry Club President</span>
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface rounded-lg">
+<span class="text-sm font-semibold">Varsity Tennis</span>
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface rounded-lg">
+<span class="text-sm font-semibold">Hospitality Volunteer</span>
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- FAB (Suppressed based on context rules - not appropriate for detail/settings heavy screens) -->
+</body></html>

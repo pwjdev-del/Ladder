@@ -11,6 +11,7 @@ enum Route: Hashable {
     case matchScore(collegeId: String)
     case collegeFilters
     case collegePersonality(collegeId: String)
+    case savedColleges
 
     // MARK: - Applications
     case deadlinesCalendar

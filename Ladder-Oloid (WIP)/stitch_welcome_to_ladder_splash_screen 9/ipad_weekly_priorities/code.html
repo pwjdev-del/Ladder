@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary-container": "#caf24d",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c3c8be",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-background": "#1f1b15",
+                    "on-secondary-container": "#566c00",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-bright": "#fff8f2",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#e1d9cf",
+                    "on-secondary-fixed": "#161e00",
+                    "secondary-fixed": "#caf24d",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-low": "#fbf2e8",
+                    "surface-tint": "#486644",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface": "#fff8f2",
+                    "primary-container": "#5a7956",
+                    "on-surface": "#1f1b15",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "inverse-surface": "#343029",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-surface-variant": "#434840",
+                    "on-primary-container": "#e2ffda",
+                    "on-primary": "#ffffff",
+                    "outline": "#737970",
+                    "primary-fixed-dim": "#aed0a7",
+                    "secondary": "#516600",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#052107",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "tertiary-fixed": "#ffdcbd",
+                    "tertiary": "#725232",
+                    "surface-variant": "#eae1d7",
+                    "inverse-primary": "#aed0a7",
+                    "primary": "#42603f",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#efe7dd",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface-container": "#f5ede2",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "background": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface antialiased">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="w-[280px] h-screen sticky top-0 left-0 overflow-y-auto bg-[#fbf2e8] dark:bg-stone-900 flex flex-col justify-between py-8 px-6 shadow-[40px_60px_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="space-y-8">
+<div class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#fbf2e8] flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl" data-icon="school">school</span>
+<span class="font-headline italic">Ladder</span>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/70 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-sm tracking-tight">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7]/50" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="text-sm tracking-tight">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/70 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-sm tracking-tight">Colleges</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/70 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-sm tracking-tight">Applications</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/70 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="text-sm tracking-tight">Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/70 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-sm tracking-tight">Financial</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/70 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-sm tracking-tight">Career</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto pt-8 border-t border-outline-variant/10">
+<div class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+<span class="text-sm font-bold text-on-surface">Alex Johnson</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto px-8 md:px-12 py-12">
+<!-- TopAppBar -->
+<header class="w-full mb-16 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-secondary font-semibold tracking-widest text-xs uppercase mb-2">Weekly Focus</span>
+<h1 class="font-headline text-5xl md:text-6xl font-bold italic tracking-tight text-primary">This Week's Priorities</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-3 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-3 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<div class="max-w-[800px] mx-auto space-y-8">
+<!-- Priority Card 1 -->
+<div class="group relative bg-surface-container-low rounded-xl p-8 flex items-center gap-8 transition-all duration-500 hover:bg-surface-container-high shadow-sm">
+<div class="flex-shrink-0 w-24 flex flex-col items-center">
+<span class="text-[10px] uppercase font-bold tracking-tighter text-on-surface-variant mb-1">Priority</span>
+<span class="text-5xl font-headline font-extrabold italic text-secondary-fixed shadow-sm">1</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-2">
+<span class="px-3 py-0.5 bg-surface-container-highest text-primary text-[10px] font-bold rounded-full uppercase tracking-wider">Applications</span>
+<span class="flex items-center gap-1 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="event">event</span>
+                                Due Oct 20
+                            </span>
+</div>
+<h3 class="text-2xl font-semibold text-on-surface mb-2">Finalize FSU Essay</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-md">Complete the final polish of your narrative statement. Focus on the 'Why FSU' section to highlight your community leadership goals.</p>
+</div>
+<div class="flex-shrink-0">
+<button class="bg-primary-gradient text-white px-8 py-3 rounded-full font-bold text-sm tracking-wide transition-transform active:scale-95 hover:scale-105">
+                            Do It
+                        </button>
+</div>
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-fixed rounded-l-xl"></div>
+</div>
+<!-- Priority Card 2 -->
+<div class="group relative bg-surface-container-low rounded-xl p-8 flex items-center gap-8 transition-all duration-500 hover:bg-surface-container-high shadow-sm">
+<div class="flex-shrink-0 w-24 flex flex-col items-center">
+<span class="text-[10px] uppercase font-bold tracking-tighter text-on-surface-variant mb-1">Priority</span>
+<span class="text-5xl font-headline font-extrabold italic text-secondary-fixed/50">2</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-2">
+<span class="px-3 py-0.5 bg-surface-container-highest text-primary text-[10px] font-bold rounded-full uppercase tracking-wider">Extracurricular</span>
+<span class="flex items-center gap-1 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="event">event</span>
+                                Due Oct 22
+                            </span>
+</div>
+<h3 class="text-2xl font-semibold text-on-surface mb-2">Log Volunteer Hours</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-md">Update your service log for the 'Green Initiative' weekend. Requires supervisor signature for the official transcript record.</p>
+</div>
+<div class="flex-shrink-0">
+<button class="bg-primary-gradient text-white px-8 py-3 rounded-full font-bold text-sm tracking-wide transition-transform active:scale-95 hover:scale-105">
+                            Do It
+                        </button>
+</div>
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-fixed/30 rounded-l-xl"></div>
+</div>
+<!-- Priority Card 3 -->
+<div class="group relative bg-surface-container-low rounded-xl p-8 flex items-center gap-8 transition-all duration-500 hover:bg-surface-container-high shadow-sm">
+<div class="flex-shrink-0 w-24 flex flex-col items-center">
+<span class="text-[10px] uppercase font-bold tracking-tighter text-on-surface-variant mb-1">Priority</span>
+<span class="text-5xl font-headline font-extrabold italic text-secondary-fixed/20">3</span>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-3 mb-2">
+<span class="px-3 py-0.5 bg-surface-container-highest text-primary text-[10px] font-bold rounded-full uppercase tracking-wider">Financial</span>
+<span class="flex items-center gap-1 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="event">event</span>
+                                Due Oct 25
+                            </span>
+</div>
+<h3 class="text-2xl font-semibold text-on-surface mb-2">Research Aid Packages</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-md">Compare the merit-based scholarship tiers for out-of-state applicants. Focus on the Presidential Excellence Grant criteria.</p>
+</div>
+<div class="flex-shrink-0">
+<button class="bg-primary-gradient text-white px-8 py-3 rounded-full font-bold text-sm tracking-wide transition-transform active:scale-95 hover:scale-105">
+                            Do It
+                        </button>
+</div>
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-fixed/10 rounded-l-xl"></div>
+</div>
+<!-- Footer Action -->
+<div class="pt-8 text-center">
+<a class="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all duration-300 group" href="#">
+                        See All Tasks
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+<div class="h-[2px] bg-secondary-fixed w-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+</a>
+</div>
+<!-- AI Insight Area -->
+<div class="mt-20 p-8 rounded-xl bg-surface-container-highest/40 backdrop-blur-md relative overflow-hidden">
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-secondary-fixed/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4 text-primary">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-xs font-bold uppercase tracking-[0.2em]">Academic Advisor Insight</span>
+</div>
+<p class="font-headline italic text-xl text-primary-container leading-relaxed">
+                            "Alex, you've completed 80% of your primary tasks this month. Finishing the FSU essay by Sunday will put you two weeks ahead of the early action deadline. Maintain this momentum to reduce stress during midterms."
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

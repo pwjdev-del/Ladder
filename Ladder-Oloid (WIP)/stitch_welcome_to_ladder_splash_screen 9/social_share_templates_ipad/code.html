@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f2",
+                        "tertiary-container": "#8d6a48",
+                        "on-primary-fixed": "#052107",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed": "#c9ecc2",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f2",
+                        "tertiary": "#725232",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-container": "#f5ede2",
+                        "secondary-container": "#caf24d",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-surface": "#1f1b15",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-tint": "#486644",
+                        "on-surface-variant": "#434840",
+                        "outline-variant": "#c3c8be",
+                        "surface-container-high": "#efe7dd",
+                        "surface-variant": "#eae1d7",
+                        "surface-container-low": "#fbf2e8",
+                        "primary": "#42603f",
+                        "inverse-primary": "#aed0a7",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#566c00",
+                        "secondary-fixed": "#caf24d",
+                        "on-secondary-fixed": "#161e00",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "inverse-surface": "#343029",
+                        "secondary": "#516600",
+                        "surface-bright": "#fff8f2",
+                        "secondary-fixed-dim": "#afd531",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-background": "#1f1b15",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary-fixed": "#2c1600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .premium-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-hidden">
+<!-- Sidebar Navigation Shell -->
+<aside class="fixed left-0 top-0 h-full w-72 flex flex-col bg-[#fbf2e8] dark:bg-stone-900 z-40">
+<div class="p-8 mb-4">
+<h1 class="text-2xl font-bold font-serif text-[#42603f] dark:text-emerald-500">Evergreen</h1>
+<p class="text-[0.7rem] uppercase tracking-[0.2em] text-on-surface-variant/60 font-semibold">Academic Atelier</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="text-sm font-medium">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-sm font-medium">Colleges</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#42603f] dark:text-emerald-300 font-bold bg-[#eae1d7] dark:bg-stone-800 rounded-r-2xl" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-sm font-medium">Applications</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="text-sm font-medium">Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-sm font-medium">Financial</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-sm font-medium">Career</span>
+</a>
+</nav>
+<div class="p-6 mt-auto">
+<button class="w-full premium-gradient text-white py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 shadow-xl shadow-primary/10 hover:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-lg" data-icon="support_agent">support_agent</span>
+                Support Advisor
+            </button>
+<div class="mt-8 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-6 py-2 text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+<span class="text-xs font-semibold">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-2 text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="help">help</span>
+<span class="text-xs font-semibold">Help</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-72 min-h-screen p-12 flex flex-col gap-12 max-w-[1400px] mx-auto">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-end gap-6">
+<div class="max-w-2xl">
+<h2 class="text-5xl font-headline font-extrabold tracking-tight text-primary leading-tight">
+                    Share Your <br/>Success Story
+                </h2>
+<p class="mt-4 text-on-surface-variant text-lg max-w-md font-medium leading-relaxed">
+                    Personalized templates designed to celebrate your academic milestones with the Evergreen community.
+                </p>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-highest text-on-surface px-8 py-4 rounded-xl font-bold hover:bg-surface-container-high transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Download Image
+                </button>
+<button class="premium-gradient text-white px-8 py-4 rounded-xl font-bold hover:opacity-90 transition-all flex items-center gap-2 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+                    Share to...
+                </button>
+</div>
+</header>
+<!-- Template Selector (Horizontal) -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xs uppercase tracking-widest font-bold text-on-surface-variant/50">Select Template</h3>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto hide-scrollbar pb-4 snap-x">
+<!-- Accepted! -->
+<div class="snap-start min-w-[280px] bg-primary text-white p-6 rounded-xl flex flex-col justify-between aspect-[4/5] cursor-pointer ring-4 ring-secondary-container ring-offset-4 ring-offset-surface">
+<div class="flex justify-between items-start">
+<span class="text-3xl font-headline font-black italic">Accepted!</span>
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="text-xs opacity-80 uppercase tracking-widest font-bold mb-1">Status</p>
+<p class="text-xl font-bold">Stanford University</p>
+</div>
+</div>
+<!-- By the Numbers -->
+<div class="snap-start min-w-[280px] bg-surface-container-highest p-6 rounded-xl flex flex-col justify-between aspect-[4/5] cursor-pointer hover:bg-surface-container-high transition-colors">
+<div>
+<span class="text-2xl font-headline font-bold text-primary block">By the Numbers</span>
+<div class="mt-4 space-y-2">
+<div class="w-full h-2 bg-primary/10 rounded-full overflow-hidden"><div class="w-[85%] h-full bg-primary"></div></div>
+<div class="w-full h-2 bg-primary/10 rounded-full overflow-hidden"><div class="w-[92%] h-full bg-primary"></div></div>
+<div class="w-full h-2 bg-primary/10 rounded-full overflow-hidden"><div class="w-[78%] h-full bg-primary"></div></div>
+</div>
+</div>
+<p class="text-xs font-bold text-on-surface-variant/60">ACADEMIC PROFILE SNAPSHOT</p>
+</div>
+<!-- Decision Day! -->
+<div class="snap-start min-w-[280px] bg-secondary-container p-6 rounded-xl flex flex-col justify-between aspect-[4/5] cursor-pointer hover:opacity-90 transition-opacity">
+<span class="text-2xl font-headline font-bold text-on-secondary-container">Decision Day!</span>
+<div class="flex items-end justify-between">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="calendar_today">calendar_today</span>
+</div>
+<span class="text-4xl font-black text-on-secondary-container/20">2024</span>
+</div>
+</div>
+<!-- Extra Template -->
+<div class="snap-start min-w-[280px] bg-surface-container-low border-2 border-dashed border-outline-variant p-6 rounded-xl flex flex-col items-center justify-center aspect-[4/5] opacity-50">
+<span class="material-symbols-outlined text-4xl mb-2" data-icon="add_circle">add_circle</span>
+<span class="text-xs font-bold">Custom Layout</span>
+</div>
+</div>
+</section>
+<!-- Live Preview Stage -->
+<section class="flex-1 flex flex-col lg:flex-row gap-12 items-center">
+<!-- Actual Card Preview -->
+<div class="relative group">
+<!-- Shadow/Glow Effect -->
+<div class="absolute -inset-4 bg-primary/5 blur-3xl rounded-[3rem] opacity-50 group-hover:opacity-80 transition-opacity"></div>
+<div class="relative w-[480px] aspect-square bg-[#8C1515] rounded-xl shadow-2xl overflow-hidden flex flex-col p-12 text-white">
+<!-- College Brand Elements (Themed to Stanford Colors) -->
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-6xl font-headline font-black italic tracking-tighter">ACCEPTED.</h4>
+<p class="text-xl font-bold mt-2 opacity-90 tracking-widest uppercase">Class of 2028</p>
+</div>
+<div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center p-3">
+<img alt="Stanford University Logo" class="w-full h-full object-contain" data-alt="clean minimalist logo of Stanford University showing the iconic tree emblem in cardinal red" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLUHey8GMjJo6xnfLfV0aKwl9F-oNA5VVVuHRkyR289bGmmEpJkcdOakb1umJG0Z6erVMJgJatFcS-x4USnbt2bOLEP7OTA-V-FfBcVQND8SrLhKG8lseS9h6hyE6uza1mUcxqv1-kVdI2qFHj1s5Fxych7dEuXnAPiPOGwEG8MrWqGoJ1FuxyfPPRGX6hVdkw6WFYimnVtblplKKt9qy0fICZrcOfzkF8kcps5YXPKYSwiyCGG9Vui0cTVckexlMevXMI1sAIsmI"/>
+</div>
+</div>
+<!-- Student Persona Card -->
+<div class="mt-auto flex items-center gap-6 bg-white/10 backdrop-blur-xl p-6 rounded-xl border border-white/20">
+<div class="w-20 h-20 rounded-full border-4 border-white overflow-hidden shadow-lg">
+<img alt="Student profile" class="w-full h-full object-cover" data-alt="portrait of a confident young female student smiling warmly wearing a cream colored sweater in a bright airy studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-sDYX4IY_VsIm6f0JgNWzPafbeG4GNbn-pOWlsaFXoErhfpRoJesvc5axuNnWqFWTIaDm7GG5e73RHpWmUXDwcGwsONEyDrDXAwEFDd10wjF5QomRZkoVSFjBqw_S-ZYIfdYMXJJbVOY1MCYmb81Zf3p7OIIcHhqjHo4-DNfcYEq-zj50MQ-zBGDLasgEjhcs3pAheOHsM67A3WpJy9b92aQNagPEg3tAgOjSPTWbkqxq5e-5yMWKAgW_ERB7EaiiFDP3AfMFWdQ"/>
+</div>
+<div>
+<p class="text-2xl font-bold leading-none">Maya Henderson</p>
+<p class="text-sm font-medium opacity-80 mt-1 uppercase tracking-wider">Stanford University</p>
+<div class="mt-3 flex gap-4">
+<div class="flex flex-col">
+<span class="text-[0.6rem] font-bold uppercase opacity-60">GPA</span>
+<span class="text-lg font-black">4.2</span>
+</div>
+<div class="w-px h-8 bg-white/20"></div>
+<div class="flex flex-col">
+<span class="text-[0.6rem] font-bold uppercase opacity-60">SAT</span>
+<span class="text-lg font-black">1540</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/10 to-transparent rounded-full -mr-32 -mt-32"></div>
+</div>
+<!-- Preview Label -->
+<div class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[0.6rem] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
+                    Live Preview (1080 x 1080)
+                </div>
+</div>
+<!-- Customization Controls -->
+<div class="flex-1 space-y-8 w-full max-w-md">
+<div>
+<h4 class="text-xs uppercase tracking-[0.2em] font-black text-primary mb-6">Customize Graphic</h4>
+<div class="space-y-6">
+<!-- Stat Toggle -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border-b-2 border-transparent hover:border-primary/20 transition-all">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="monitoring">monitoring</span>
+<div>
+<p class="text-sm font-bold">Display GPA/SAT</p>
+<p class="text-xs text-on-surface-variant/60">Show your academic achievements</p>
+</div>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative p-1 flex items-center justify-end">
+<div class="w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<!-- Color Toggle -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="palette">palette</span>
+<div>
+<p class="text-sm font-bold">University Palette</p>
+<p class="text-xs text-on-surface-variant/60">Auto-match to Stanford Red</p>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="w-6 h-6 rounded-full bg-[#8C1515] ring-2 ring-offset-2 ring-primary"></div>
+<div class="w-6 h-6 rounded-full bg-primary/20"></div>
+</div>
+</div>
+<!-- Image Choice -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="photo_camera">photo_camera</span>
+<div>
+<p class="text-sm font-bold">Profile Photo</p>
+<p class="text-xs text-on-surface-variant/60">Choose a different image</p>
+</div>
+</div>
+<button class="text-primary font-bold text-xs uppercase tracking-wider">Change</button>
+</div>
+</div>
+</div>
+<div class="p-6 bg-secondary-container/10 rounded-xl border-l-4 border-secondary-container">
+<p class="text-xs font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="tips_and_updates">tips_and_updates</span>
+                        PRO TIP
+                    </p>
+<p class="mt-2 text-xs text-on-surface-variant leading-relaxed">
+                        Templates are optimized for Instagram, Twitter, and LinkedIn. Use "By the Numbers" for LinkedIn and "Accepted!" for Stories.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB (Hidden on this transactional/focused screen per suppression rules, 
+         but technically could be 'Help' if it was a dashboard. 
+         Following the suppression logic: Task-focused sub-page should suppress global FAB.) -->
+</body></html>

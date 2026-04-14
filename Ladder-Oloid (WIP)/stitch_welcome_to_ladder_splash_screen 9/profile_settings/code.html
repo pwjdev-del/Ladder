@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "surface-tint": "#486644",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#aed0a7",
+                    "outline-variant": "#c3c8be",
+                    "on-surface-variant": "#434840",
+                    "tertiary-fixed": "#ffdcbd",
+                    "tertiary": "#725232",
+                    "surface-container": "#f5ede2",
+                    "background": "#fff8f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-bright": "#fff8f2",
+                    "outline": "#737970",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "primary": "#42603f",
+                    "on-secondary-container": "#566c00",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "secondary-fixed": "#caf24d",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#2c1600",
+                    "secondary": "#516600",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#fbf2e8",
+                    "surface": "#fff8f2",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-surface": "#1f1b15",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-background": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#052107",
+                    "inverse-on-surface": "#f8efe5",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-variant": "#eae1d7",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e1d9cf"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fff8f2;
+            color: #1f1b15;
+        }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .glass-header {
+            background: rgba(255, 248, 242, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        input:focus {
+            outline: none;
+            border-bottom-color: #42603f !important;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #eae1d7;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- NavigationDrawer -->
+<aside class="fixed left-0 top-0 h-full z-40 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 border-none shadow-none flex flex-col">
+<div class="px-8 py-10">
+<h1 class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#5a7956]">Academic Atelier</h1>
+<div class="mt-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Student avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a young professional student with a confident smile, warm lighting, collegiate atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA38jRoTiB2qor_xBJnTEEWsjnQy-yoRtpgJ3rD60zsmny0C4pXa6NPBKtaeE_vc5_wVLXURrJ8R3QPd_BmHBrghJulN8tZ8n4q4ltqP1uQyoz9rE-udY5Xd69SDie32sN1TtB5Py3fpH9RXEB2KytVLJY0MTTsigRpakIhHSovmLXgdSEpuK_PHIw9GfA0PWGBr9K5E_OUE2Q8J1hnlEtV2YQmdodLZckTPNJ3YSPHQDYgfjuys3DcFDoK-ZuB9mdcPCsW22M2j2o"/>
+</div>
+<div>
+<p class="font-serif italic text-[#42603f] dark:text-[#5a7956] font-bold">Premium Scholar</p>
+<p class="text-xs tracking-tight text-stone-500">Batch 9 Student</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 mt-4">
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+<span class="text-sm font-medium">Roommates</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+<span class="text-sm font-medium">Deadlines</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-[#42603f] dark:text-[#5a7956] font-bold border-l-4 border-[#caf24d] hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-sm font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-8">
+<div class="bg-surface-container-highest p-4 rounded-xl">
+<p class="text-xs font-bold text-primary tracking-widest uppercase mb-1">Status</p>
+<p class="text-sm font-serif italic text-on-surface">Curating Excellence</p>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-72 min-h-screen flex flex-col relative">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-72 z-30 glass-header flex justify-between items-center px-12 py-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f]" data-icon="menu">menu</span>
+<h2 class="font-serif text-3xl tracking-tight text-[#1f1b15] dark:text-stone-100">The Academic Atelier</h2>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-stone-400 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary-fixed overflow-hidden">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="Portrait of a young female student with soft sunlight, collegiate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU79vEmRj8ulnmPl5wq4onsLbl_iJeHEzcUeBqFWBUeWGXWEjoNYuXaVtwDrN2RODR3IdttweH2Jdad7oLAvso_BBZREBJyjzGTXzPn9aY_0vPBoFxaQzbFfWEgHm5hY0GWtNIyJ4BrizqC017GVt8dIi-433WeK8yMg08bnvbTRMXb9ldnzUm5oqvosd1E-ljaXbRnfT_BVqh70023VD5WhhjvJ8qTazUxlsEOuARF8v2YLUekjn0Smvn1pwQ2ns--bpsZ2_XaNQ"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="pt-32 pb-20 px-12 flex justify-center w-full overflow-y-auto custom-scrollbar">
+<div class="w-full max-w-[680pt] space-y-12">
+<!-- Hero Section: Profile Intro -->
+<div class="flex flex-col md:flex-row gap-8 items-end justify-between border-b border-outline-variant/15 pb-8">
+<div class="space-y-2">
+<h3 class="font-serif italic text-4xl text-on-surface">Account Settings</h3>
+<p class="text-on-surface-variant font-medium">Manage your academic identity and preferences.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 rounded-xl text-on-surface bg-surface-container-highest hover:opacity-80 transition-opacity text-sm font-semibold">Cancel</button>
+<button class="px-8 py-3 rounded-xl text-on-primary primary-gradient hover:opacity-90 transition-opacity text-sm font-semibold shadow-sm">Save Changes</button>
+</div>
+</div>
+<!-- Avatar Section -->
+<section class="bg-surface-container-low rounded-xl p-8 flex items-center gap-8">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container-highest shadow-sm">
+<img alt="Student avatar large" class="w-full h-full object-cover" data-alt="High-resolution professional student portrait with natural lighting and soft blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8JV86OvUo49Y5kWrjyYPyPBiy1pn1SAzGBsmNlOS-Bkv8bpmh1DBk2TecewGmyWqUeAhn_UgmNMjdTsASX9fX7HikWABFAXDzp2jei4tnijJtdiVsv3zLIFvMvXzhWAKxTOyYCEzMQhpbmZ35F10wMQt1eMgT_1vidAbqZ7wLeHZq-naCq1b5bwLdMsHvfARLFqhX4mZVBriomig7dK-PoO4tcDekRcr7SG-LMBWa2EMXRnfK_Xc_bicxP-5EFNcucjQmIi7pepY"/>
+</div>
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="photo_camera">photo_camera</span>
+</button>
+</div>
+<div class="space-y-1">
+<h4 class="text-xl font-serif font-bold text-on-surface">Profile Picture</h4>
+<p class="text-sm text-on-surface-variant mb-4">PNG or JPG. Max size 5MB.</p>
+<button class="text-primary font-bold text-sm underline decoration-2 underline-offset-4 hover:opacity-70 transition-opacity">Change Photo</button>
+</div>
+</section>
+<!-- Form Body -->
+<div class="space-y-16">
+<!-- Personal Info -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div>
+<h5 class="font-serif text-2xl text-primary italic">Personal</h5>
+<p class="text-sm text-on-surface-variant mt-2">Basic details about your identity within the Atelier.</p>
+</div>
+<div class="md:col-span-2 space-y-8">
+<div class="space-y-6">
+<div class="w-full">
+<label class="block text-xs font-bold text-tertiary uppercase tracking-widest mb-2">Full Name</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-2 text-on-surface focus:ring-0 transition-colors font-medium" type="text" value="Eleanor Vance"/>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="w-full">
+<label class="block text-xs font-bold text-tertiary uppercase tracking-widest mb-2">Institution</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-2 text-on-surface focus:ring-0 transition-colors font-medium" type="text" value="St. Jude's Academy"/>
+</div>
+<div class="w-full">
+<label class="block text-xs font-bold text-tertiary uppercase tracking-widest mb-2">Grade Level</label>
+<select class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-2 text-on-surface focus:ring-0 transition-colors font-medium appearance-none">
+<option>Freshman</option>
+<option>Sophomore</option>
+<option>Junior</option>
+<option selected="">Senior</option>
+</select>
+</div>
+</div>
+<div class="flex items-center justify-between py-4 bg-surface-container-high/30 px-4 rounded-lg">
+<div>
+<p class="font-semibold text-on-surface">First-Generation Student</p>
+<p class="text-xs text-on-surface-variant">Toggle if you are the first in your family to attend college.</p>
+</div>
+<button class="w-12 h-6 rounded-full bg-secondary-container flex items-center px-1 relative">
+<div class="w-4 h-4 rounded-full bg-on-secondary-container translate-x-6 shadow-sm"></div>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Academic Info -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div>
+<h5 class="font-serif text-2xl text-primary italic">Academic</h5>
+<p class="text-sm text-on-surface-variant mt-2">Quantitative data and future career aspirations.</p>
+</div>
+<div class="md:col-span-2 space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="w-full">
+<label class="block text-xs font-bold text-tertiary uppercase tracking-widest mb-2">Current GPA</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-2 text-on-surface focus:ring-0 transition-colors font-medium" placeholder="e.g. 3.98" type="text" value="3.92"/>
+</div>
+<div class="w-full">
+<label class="block text-xs font-bold text-tertiary uppercase tracking-widest mb-2">SAT/ACT Score</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-2 text-on-surface focus:ring-0 transition-colors font-medium" placeholder="e.g. 1540" type="text" value="1480"/>
+</div>
+</div>
+<div class="w-full">
+<label class="block text-xs font-bold text-tertiary uppercase tracking-widest mb-2">Career Path</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-2 text-on-surface focus:ring-0 transition-colors font-medium" type="text" value="Biomedical Engineering &amp; Research"/>
+</div>
+</div>
+</div>
+<!-- Contact Info -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div>
+<h5 class="font-serif text-2xl text-primary italic">Contact</h5>
+<p class="text-sm text-on-surface-variant mt-2">Where the institution and peers can reach you.</p>
+</div>
+<div class="md:col-span-2 space-y-8">
+<div class="space-y-6">
+<div class="w-full">
+<label class="block text-xs font-bold text-tertiary uppercase tracking-widest mb-2">Email Address</label>
+<div class="flex items-center gap-3 border-b border-outline-variant/40 py-2 group focus-within:border-primary">
+<span class="material-symbols-outlined text-stone-400 text-sm" data-icon="mail">mail</span>
+<input class="flex-1 bg-transparent border-0 p-0 text-on-surface focus:ring-0 font-medium" type="email" value="e.vance@atelier.edu"/>
+</div>
+</div>
+<div class="w-full">
+<label class="block text-xs font-bold text-tertiary uppercase tracking-widest mb-2">Phone Number</label>
+<div class="flex items-center gap-3 border-b border-outline-variant/40 py-2 group focus-within:border-primary">
+<span class="material-symbols-outlined text-stone-400 text-sm" data-icon="call">call</span>
+<input class="flex-1 bg-transparent border-0 p-0 text-on-surface focus:ring-0 font-medium" type="tel" value="+1 (555) 234-8901"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions Mobile -->
+<div class="flex md:hidden flex-col gap-4 pt-12">
+<button class="w-full py-4 rounded-xl text-on-primary primary-gradient font-bold shadow-md">Save Changes</button>
+<button class="w-full py-4 rounded-xl text-on-surface bg-surface-container-high font-bold">Cancel</button>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed on settings as per mandate) -->
+</body></html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Atelier AI | Essay Review</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#c9ecc2",
+                    "tertiary-container": "#8d6a48",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary": "#725232",
+                    "surface-container-highest": "#eae1d7",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdcbd",
+                    "secondary": "#516600",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-container": "#caf24d",
+                    "primary-container": "#5a7956",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1f1b15",
+                    "on-primary-container": "#e2ffda",
+                    "surface": "#fff8f2",
+                    "on-primary-fixed": "#052107",
+                    "surface-container": "#f5ede2",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-tint": "#486644",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "on-background": "#1f1b15",
+                    "secondary-fixed": "#caf24d",
+                    "on-secondary-container": "#566c00",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "primary": "#42603f",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "inverse-on-surface": "#f8efe5",
+                    "background": "#fff8f2",
+                    "surface-dim": "#e1d9cf",
+                    "outline": "#737970",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-container-low": "#fbf2e8",
+                    "surface-container-high": "#efe7dd",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-bright": "#fff8f2",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"],
+                    "ui": ["Montserrat"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; color: #1f1b15; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .font-ui { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-glow {
+            box-shadow: 20px 0 40px -10px rgba(90, 121, 86, 0.1);
+        }
+        .glass-panel {
+            background: rgba(234, 225, 215, 0.7);
+            backdrop-filter: blur(32px);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cta-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #eae1d7; border-radius: 10px; }
+    </style>
+</head>
+<body class="antialiased overflow-hidden">
+<!-- Persistent SideNavBar (Left) -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col py-8 px-6 bg-[#fbf2e8] dark:bg-stone-900 h-full w-72 border-r-0 z-50">
+<div class="mb-12">
+<h1 class="text-2xl font-serif italic text-[#42603f] dark:text-[#fbf2e8]">The Atelier</h1>
+<p class="text-[10px] font-ui uppercase tracking-widest text-stone-500 mt-1">Ad Astra Per Aspera</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-colors hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50 group" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-ui text-sm font-medium tracking-tight">Home</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-colors hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50 group" href="#">
+<span class="material-symbols-outlined" data-icon="checklist">checklist</span>
+<span class="font-ui text-sm font-medium tracking-tight">Tasks</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-colors hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50 group" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-ui text-sm font-medium tracking-tight">Colleges</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-colors hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50 group" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-ui text-sm font-medium tracking-tight">Applications</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-[#1f1b15] dark:text-[#fbf2e8] font-bold border-r-4 border-[#5A7956] bg-[#eae1d7] dark:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-ui text-sm font-medium tracking-tight">Advisor</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-colors hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50 group" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-ui text-sm font-medium tracking-tight">Financial</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-colors hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50 group" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="font-ui text-sm font-medium tracking-tight">Career</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-colors hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50 group" href="#">
+<span class="material-symbols-outlined" data-icon="home_pin">home_pin</span>
+<span class="font-ui text-sm font-medium tracking-tight">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-colors hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50 group" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-ui text-sm font-medium tracking-tight">Reports</span>
+</a>
+</nav>
+<div class="mt-auto">
+<button class="w-full cta-gradient text-white py-4 rounded-xl font-ui text-[10px] uppercase tracking-widest font-bold flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-[0.98]">
+                Direct Message Advisor
+            </button>
+<div class="mt-6 flex items-center gap-3 px-2">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Close-up portrait of a student in a library with soft natural lighting and scholarly atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjTKWIInqRh3RewZHR8vexv_DQqEz7QpiKmsTldZRsrZEUZEgJT_PtJaG3Xo_-20WsshsJckfh13NpNICw_jxgOJbuqZ7Suf-OmRYpRp33BDcQUrqJwm4ijveIzerJ7XFGY7u93mHaNSGGGdT2LaFRmZV83IN7bQp8kdfjCDCtJ5Z1ROS92KhWfn-TZfKeU8P7OBteOa1r880XgABUWVnO04lviL2VxobZtIanfee2dKwJo8WWKxM7kK_3TEg0USNpW3JEGMAyAwk"/>
+<div>
+<p class="text-xs font-bold text-on-surface">Alex Rivera</p>
+<p class="text-[10px] text-stone-400">Class of 2025</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen relative flex flex-col">
+<!-- TopNavBar Cluster -->
+<header class="flex justify-between items-center w-full px-12 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-3xl z-40">
+<div class="flex gap-8">
+<a class="text-stone-500 dark:text-stone-400 text-xs uppercase tracking-widest font-ui transition-all hover:text-[#5A7956]" href="#">Dashboard</a>
+<a class="text-stone-500 dark:text-stone-400 text-xs uppercase tracking-widest font-ui transition-all hover:text-[#5A7956]" href="#">Chat</a>
+<a class="text-[#1f1b15] dark:text-[#fbf2e8] border-b-2 border-[#caf24d] pb-2 text-xs uppercase tracking-widest font-ui font-bold" href="#">Essay Hub</a>
+<a class="text-stone-500 dark:text-stone-400 text-xs uppercase tracking-widest font-ui transition-all hover:text-[#5A7956]" href="#">Review</a>
+<a class="text-stone-500 dark:text-stone-400 text-xs uppercase tracking-widest font-ui transition-all hover:text-[#5A7956]" href="#">Scores</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-xs font-ui focus:ring-1 focus:ring-primary-container w-64" placeholder="Search resources..." type="text"/>
+</div>
+<div class="flex gap-4 text-primary">
+<span class="material-symbols-outlined cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer" data-icon="settings">settings</span>
+</div>
+</div>
+</header>
+<!-- Essay AI Review Screen Overlay -->
+<div class="flex-1 p-8 flex gap-8 h-[calc(100vh-5rem)] overflow-hidden">
+<!-- Left: Editor (55%) -->
+<section class="w-[55%] flex flex-col bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 border-b border-outline-variant/10 flex justify-between items-center">
+<div>
+<h2 class="font-serif text-2xl text-on-surface">Common App Main Statement</h2>
+<p class="text-[10px] font-ui uppercase tracking-widest text-stone-400 mt-1 italic">V3.2 Updated 2 hours ago</p>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-stone-400 hover:text-primary cursor-pointer p-2 rounded-lg" data-icon="share">share</span>
+<span class="material-symbols-outlined text-stone-400 hover:text-primary cursor-pointer p-2 rounded-lg" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+<div class="flex-1 p-10 overflow-y-auto leading-relaxed text-on-surface-variant font-body">
+<p class="mb-6">The scent of <span class="bg-primary-fixed/40 border-b-2 border-primary cursor-help">burnt ozone and solder</span> has always felt more like home than any traditional living room. Since I was seven, my weekends were spent hunched over my grandfather’s workbench, navigating a labyrinth of resistors and capacitors.</p>
+<p class="mb-6"><span class="bg-error-container/60 border-b-2 border-error cursor-help">This is where I learned that failure isn't just an option; it's a necessary diagnostic tool.</span> When my first attempt at building a FM radio resulted in a puff of smoke instead of jazz, I didn't feel defeated. I felt curious. <span class="bg-tertiary-fixed/60 border-b-2 border-tertiary cursor-help">Why did the circuit fail? Where was the short?</span></p>
+<p class="mb-6">As I grew, so did the complexity of my projects. What began as simple radios evolved into autonomous drones and low-cost environmental sensors for my local community. However, the most profound lesson didn't come from a successful flight, but from a collaborative disaster during the 2023 Regional Robotics Finals.</p>
+<p class="mb-6">Our team’s lead programmer had to leave suddenly, and we were left with a half-written codebase and <span class="bg-error-container/60 border-b-2 border-error cursor-help">a lot of stress and confusion among the group members about what we should do next to win the competition.</span></p>
+<p class="mb-6">I stepped into the gap, not because I was the best coder, but because I understood the underlying architecture of our bot. I realized that leadership in a technical environment isn't about having all the answers—it’s about asking the right questions and creating a space where every sub-system—both mechanical and human—can function optimally.</p>
+</div>
+</section>
+<!-- Right: Analysis Panel (45%) -->
+<section class="w-[45%] flex flex-col gap-6 overflow-y-auto pr-2">
+<!-- Score Ring Card -->
+<div class="bg-surface-container-high p-8 rounded-xl flex items-center gap-8 relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-secondary-fixed/20 rounded-full blur-3xl"></div>
+<div class="relative">
+<svg class="w-32 h-32 transform -rotate-90">
+<circle class="text-surface-container-highest" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="65.6" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-serif text-3xl font-bold">82</span>
+<span class="text-[10px] font-ui uppercase font-bold tracking-tighter opacity-60">Composite</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="font-serif text-xl mb-1">Strong Progress</h3>
+<p class="text-xs text-on-surface-variant leading-tight">Your narrative voice is compelling and unique. Focus on tightening the climax to reach Elite status.</p>
+<div class="mt-4 flex gap-2">
+<span class="px-2 py-1 bg-primary-fixed text-on-primary-fixed text-[9px] font-ui font-bold rounded uppercase tracking-wider">Tone: Academic</span>
+<span class="px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[9px] font-ui font-bold rounded uppercase tracking-wider">Complexity: High</span>
+</div>
+</div>
+</div>
+<!-- Strengths & Weaknesses (Asymmetric Bento) -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-[#f2f8f1] p-5 rounded-xl flex flex-col">
+<div class="flex items-center gap-2 mb-3 text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-ui text-[10px] font-bold uppercase tracking-widest">Strengths</span>
+</div>
+<p class="text-xs font-bold mb-1">Sensory Language</p>
+<p class="text-[11px] text-stone-600 leading-normal">Opening imagery creates immediate immersion for the admissions officer.</p>
+</div>
+<div class="bg-[#fff2f2] p-5 rounded-xl flex flex-col">
+<div class="flex items-center gap-2 mb-3 text-error">
+<span class="material-symbols-outlined text-lg" data-icon="error" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="font-ui text-[10px] font-bold uppercase tracking-widest">To Improve</span>
+</div>
+<p class="text-xs font-bold mb-1">Word Economy</p>
+<p class="text-[11px] text-stone-600 leading-normal">Paragraph 4 contains redundant phrases that dilute the urgency.</p>
+</div>
+</div>
+<!-- Structure Analysis Ladder -->
+<div class="bg-surface-container-high p-6 rounded-xl">
+<h4 class="font-ui text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-6">Structural Integrity</h4>
+<div class="space-y-6 relative">
+<div class="absolute left-[9px] top-2 bottom-2 w-1 bg-secondary-fixed shadow-[0_0_12px_#caf24d] rounded-full"></div>
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-5 h-5 bg-secondary-fixed rounded-full border-4 border-surface-container-high z-10"></div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold">Introduction &amp; Hook</span>
+<span class="text-[10px] font-ui font-bold text-primary">95%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[95%] h-full bg-primary"></div>
+</div>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-5 h-5 bg-secondary-fixed rounded-full border-4 border-surface-container-high z-10"></div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold">Narrative Arc</span>
+<span class="text-[10px] font-ui font-bold text-primary">78%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[78%] h-full bg-primary"></div>
+</div>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-5 h-5 bg-surface-container-highest rounded-full border-4 border-surface-container-high z-10"></div>
+<div class="flex justify-between items-center mb-1 text-stone-400">
+<span class="text-xs font-bold">The "Why Us" Integration</span>
+<span class="text-[10px] font-ui font-bold">62%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[62%] h-full bg-tertiary"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Items Glass Card -->
+<div class="glass-panel p-6 rounded-xl flex-1 flex flex-col">
+<h4 class="font-ui text-[10px] font-bold uppercase tracking-widest text-on-surface mb-4">Recommended Actions</h4>
+<div class="space-y-4 flex-1">
+<div class="flex gap-3 items-start">
+<input checked="" class="mt-1 rounded text-primary focus:ring-primary border-outline-variant/40" type="checkbox"/>
+<div>
+<p class="text-xs font-bold">Recast "Diagnostic Tool" sentence</p>
+<p class="text-[11px] text-on-surface-variant">Suggestion: "Failure became my most reliable diagnostic tool."</p>
+</div>
+</div>
+<div class="flex gap-3 items-start">
+<input class="mt-1 rounded text-primary focus:ring-primary border-outline-variant/40" type="checkbox"/>
+<div>
+<p class="text-xs font-bold">Trim redundancy in Paras 4 &amp; 5</p>
+<p class="text-[11px] text-on-surface-variant">Combine the struggle with the immediate leadership pivot.</p>
+</div>
+</div>
+<div class="flex gap-3 items-start">
+<input class="mt-1 rounded text-primary focus:ring-primary border-outline-variant/40" type="checkbox"/>
+<div>
+<p class="text-xs font-bold">Clarify the "Environmental Sensors" impact</p>
+<p class="text-[11px] text-on-surface-variant">Add one sentence about the specific outcome for the community.</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-4 rounded-xl cta-gradient text-white font-ui text-[10px] uppercase font-extrabold tracking-widest shadow-xl shadow-primary/10 hover:brightness-110 active:scale-[0.98] transition-all">
+                        Apply AI Suggestions (3)
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating Navigation for iPad context (hidden on large desktop layouts but here for shell integrity) -->
+<div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] bg-white/80 backdrop-blur-xl h-16 rounded-2xl flex justify-around items-center px-4 shadow-2xl z-[100]">
+<span class="material-symbols-outlined text-primary" data-icon="home">home</span>
+<span class="material-symbols-outlined text-stone-400" data-icon="school">school</span>
+<div class="w-12 h-12 cta-gradient rounded-full -translate-y-6 flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+<span class="material-symbols-outlined text-stone-400" data-icon="description">description</span>
+<span class="material-symbols-outlined text-stone-400" data-icon="person">person</span>
+</div>
+</body></html>

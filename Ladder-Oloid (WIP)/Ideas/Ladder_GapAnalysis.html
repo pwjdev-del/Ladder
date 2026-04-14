@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ladder — Vision vs Reality Gap Analysis</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f0f; color: #f0ede8; }
+
+  .header { background: #1a1a1a; border-bottom: 1px solid #2a2a2a; padding: 28px 36px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: #caf24d; margin-bottom: 4px; }
+  .header p { color: #888; font-size: 14px; }
+
+  .summary-bar { display: flex; gap: 12px; padding: 20px 36px; background: #141414; border-bottom: 1px solid #222; flex-wrap: wrap; }
+  .stat { background: #1c1c1c; border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 120px; border: 1px solid #2a2a2a; }
+  .stat .num { font-size: 28px; font-weight: 800; line-height: 1; }
+  .stat .label { font-size: 12px; color: #777; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat.built .num { color: #4ade80; }
+  .stat.partial .num { color: #facc15; }
+  .stat.unknown .num { color: #60a5fa; }
+  .stat.notbuilt .num { color: #f87171; }
+
+  .controls { padding: 16px 36px; display: flex; gap: 10px; flex-wrap: wrap; background: #111; border-bottom: 1px solid #222; }
+  .filter-btn { padding: 7px 16px; border-radius: 20px; border: 1px solid #333; background: #1c1c1c; color: #aaa; font-size: 13px; cursor: pointer; transition: all 0.15s; }
+  .filter-btn.active, .filter-btn:hover { color: #fff; }
+  .filter-btn.all.active { background: #333; border-color: #555; color: #fff; }
+  .filter-btn.built.active { background: #14532d; border-color: #4ade80; color: #4ade80; }
+  .filter-btn.partial.active { background: #422006; border-color: #facc15; color: #facc15; }
+  .filter-btn.unknown.active { background: #1e3a5f; border-color: #60a5fa; color: #60a5fa; }
+  .filter-btn.notbuilt.active { background: #4c0519; border-color: #f87171; color: #f87171; }
+
+  .content { padding: 24px 36px; max-width: 1400px; margin: 0 auto; }
+
+  .section { margin-bottom: 32px; }
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 12px; padding-left: 4px; }
+
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 10px; }
+
+  .card { background: #1a1a1a; border-radius: 12px; padding: 14px 16px; border: 1px solid #252525; transition: border-color 0.15s; position: relative; }
+  .card:hover { border-color: #333; }
+
+  .card-top { display: flex; align-items: flex-start; gap: 10px; }
+  .badge { flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .badge.built { background: #14532d; color: #4ade80; }
+  .badge.partial { background: #422006; color: #facc15; }
+  .badge.unknown { background: #1e3a5f; color: #60a5fa; }
+  .badge.notbuilt { background: #4c0519; color: #f87171; }
+
+  .card-title { font-size: 14px; font-weight: 600; color: #e8e4df; line-height: 1.4; }
+  .card-note { font-size: 12px; color: #666; margin-top: 6px; line-height: 1.5; padding-left: 2px; }
+
+  .verify-block { margin-top: 28px; background: #0e1a2e; border: 1px solid #1e3a5f; border-radius: 14px; padding: 20px 24px; }
+  .verify-block h2 { color: #60a5fa; font-size: 16px; margin-bottom: 12px; }
+  .verify-block p { color: #8aadcf; font-size: 13px; margin-bottom: 14px; line-height: 1.6; }
+  pre { background: #060f1e; border-radius: 10px; padding: 18px; overflow-x: auto; font-size: 12px; line-height: 1.7; color: #a8d5ff; border: 1px solid #1e3a5f; white-space: pre-wrap; word-break: break-word; }
+
+  .legend { display: flex; gap: 16px; padding: 0 36px 16px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #666; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  @media (max-width: 600px) {
+    .header, .summary-bar, .controls, .content { padding-left: 16px; padding-right: 16px; }
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Ladder — Vision vs Reality Gap Analysis</h1>
+  <p>Every feature ever discussed in brainstorm sessions, mapped against what's actually in the app &nbsp;·&nbsp; Generated April 7, 2026</p>
+</div>
+
+<div class="summary-bar">
+  <div class="stat built"><div class="num" id="cnt-built">0</div><div class="label">✅ Built</div></div>
+  <div class="stat partial"><div class="num" id="cnt-partial">0</div><div class="label">🔶 Partial</div></div>
+  <div class="stat unknown"><div class="num" id="cnt-unknown">0</div><div class="label">❓ Needs Verification</div></div>
+  <div class="stat notbuilt"><div class="num" id="cnt-notbuilt">0</div><div class="label">❌ Not Built</div></div>
+</div>
+
+<div class="controls">
+  <button class="filter-btn all active" onclick="filter('all')">Show All</button>
+  <button class="filter-btn built" onclick="filter('built')">✅ Built</button>
+  <button class="filter-btn partial" onclick="filter('partial')">🔶 Partial</button>
+  <button class="filter-btn unknown" onclick="filter('unknown')">❓ Unknown</button>
+  <button class="filter-btn notbuilt" onclick="filter('notbuilt')">❌ Not Built</button>
+</div>
+
+<div class="content">
+
+<!-- ONBOARDING -->
+<div class="section" data-section="onboarding">
+<div class="section-title">🚀 Onboarding</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">5-step onboarding wizard</span></div><div class="card-note">OnboardingContainerView — name, grade, school, firstGen, GPA/SAT, dream colleges, career interests</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Name, grade, school, isFirstGen collection</span></div><div class="card-note">Step 2 of onboarding stores to StudentProfileModel</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">GPA, SAT/ACT scores, AP courses input</span></div><div class="card-note">Step 3 of onboarding → stored in StudentProfileModel</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Dream school selections (100+ colleges)</span></div><div class="card-note">Step 4 tap-to-save → savedCollegeIds in StudentProfileModel</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Career interests + extracurriculars collection</span></div><div class="card-note">Step 5 → careerPath and extracurriculars stored</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">COPPA age gate + 6 legal documents</span></div><div class="card-note">ConsentView — age gate wired into signup after audit fix</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Middle school transcript upload at onboarding start</span></div><div class="card-note">Transcripts discussed as wanting middle school data; unclear if upload exists in current onboarding</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Academic resume upload (LRPA template — hobbies, accomplishments)</span></div><div class="card-note">Discussed as school having students fill out LRPA academic resume that gets uploaded to app</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">AI questionnaire during onboarding ("Do you have plans for your future?")</span></div><div class="card-note">Discussed as AI asking follow-up questions after transcript upload to clarify major intent</div></div>
+  <div class="card" data-status="partial"><div class="card-top"><span class="badge partial">Partial</span><span class="card-title">Parent income / education data (FAFSA-like)</span></div><div class="card-note">isFirstGen flag exists; parent household income and education level for scholarship filtering discussed but not confirmed built</div></div>
+</div>
+</div>
+
+<!-- CAREER QUIZ -->
+<div class="section" data-section="career">
+<div class="section-title">🎯 Career Quiz & Discovery</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Career quiz (STEM / Medical / Business / Humanities / Sports)</span></div><div class="card-note">RIASEC-based quiz producing career archetypes — core feature, built</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Quiz includes hobbies, interests, lifestyle/money preferences</span></div><div class="card-note">Discussed explicitly: hobbies + money/lifestyle + college interests in quiz</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Quiz results shown as suggestions (not mandates)</span></div><div class="card-note">Core design principle — "these are suggestions, you can change anytime"</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Career quiz retaken every year</span></div><div class="card-note">Yearly retake confirmed built; ConnectionEngine.onCareerPathChanged() fires on each save; same-day dedup guard added in audit</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Career pivot detection — old path replaced, history tracked</span></div><div class="card-note">onCareerPathChanged() replaces current path and appends one entry to career history for year-over-year tracking</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Career quiz → shows potential jobs + salary estimates</span></div><div class="card-note">CareerExplorer — "show jobs and salaries in that field" listed as ConnectionEngine cascade but unclear if CareerExplorerView is built</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Major dropdown menu after picking career category</span></div><div class="card-note">Discussed: pick STEM → dropdown of STEM majors; unclear if implemented in quiz or discovery UI</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Student can override AI suggestion ("I want Medical not STEM")</span></div><div class="card-note">Explicitly discussed: student inputs additional info after quiz to say "actually I want medical" and AI adapts</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">College Board quiz redirect + screenshot upload to import college list</span></div><div class="card-note">Discussed: send kids to College Board quiz → take screenshots → upload to Ladder. Not a built feature.</div></div>
+</div>
+</div>
+
+<!-- ACTIVITIES -->
+<div class="section" data-section="activities">
+<div class="section-title">🏃 Activity Suggestion System</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">4 general activities for all students</span></div><div class="card-note">Athletics, Volunteers (120hrs / Bright Futures), Clubs (1/yr), Leadership — ActivitySuggestionEngine built</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">6 career-specific activities rated 1–10</span></div><div class="card-note">ActivitySuggestionEngine — career path drives which 6 activities are suggested with importance rating</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Research paper as mandatory activity for all students</span></div><div class="card-note">"Everyone's got to do a research paper no matter what" — included in ActivitySuggestionEngine</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Internship / jobs as career-specific activity</span></div><div class="card-note">Listed as career-specific with high rating (9/10); in ActivitySuggestionEngine</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Awards / competitions as career-specific activity</span></div><div class="card-note">"Awards, 9.5 out of 10" — in ActivitySuggestionEngine</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Journals / portfolio as career-specific activity</span></div><div class="card-note">Journals rating 7–10 depending on career path — in ActivitySuggestionEngine</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Professional interviews as career activity</span></div><div class="card-note">Discussed: interview a professional in your field + record it = shows active passion for that career</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Science fair projects specifically for STEM students</span></div><div class="card-note">Mentioned as career-specific activity for bio/STEM path; may be under awards category</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Activity longevity tracking (4-year clubs vs 1-year join)</span></div><div class="card-note">Discussed heavily: longevity + loyalty of clubs matters to college apps; does the app track start date of activities?</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">NCAA athletic recruitment path (team manager, scorekeeper options)</span></div><div class="card-note">Discussed: NCAA route — maintain GPA, highlights video, different requirements; unclear if dedicated NCAA track exists</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Activities completed by end of sophomore year goal</span></div><div class="card-note">Discussed: push to finish extracurriculars before junior year so SAT prep can be focus; does the app communicate this timeline?</div></div>
+</div>
+</div>
+
+<!-- CLASS PLANNING -->
+<div class="section" data-section="classes">
+<div class="section-title">📚 Class Planning & Academic Guidance</div>
+<div class="feature-grid">
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Class planner — AI suggests next year's classes based on career + transcript</span></div><div class="card-note">Listed as ConnectionEngine cascade: "careerPath → ClassPlanner: recommend AP classes aligned with career." Unclear if ClassPlannerView is built.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Easy / moderate / hard class difficulty recommendations</span></div><div class="card-note">Discussed in detail: AI says "this AP class would be moderate for you based on your past grades." Needs transcript upload to work.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Annual transcript upload → drives class + activity updates</span></div><div class="card-note">Core loop: upload transcript each year → AI updates suggestions. Transcript upload is listed as Sprint 3 but unclear if upload UI exists.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Class preference selection sent to counselor</span></div><div class="card-note">Discussed: student picks preferred classes in app → data goes to counselor so they know what you want before scheduling meeting</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">School admin profile (upload classes, clubs, sports, tryout dates)</span></div><div class="card-note">Heavily discussed — schools upload their class catalog + club/sport offerings + dates so AI can tailor to that school's offerings. Requires institutional partnership.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Focus / PowerSchool SSO integration</span></div><div class="card-note">Student enters Focus number → profile auto-populates. Manatee County uses Focus. Requires county partnership — not possible before credibility is established.</div></div>
+</div>
+</div>
+
+<!-- COLLEGE DISCOVERY -->
+<div class="section" data-section="colleges">
+<div class="section-title">🎓 College Discovery & Research</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">College discovery with search and filters</span></div><div class="card-note">CollegeDiscoveryView — 6,500 colleges (mock seed), search + filter chips</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Match / Reach / Safety auto-calculation</span></div><div class="card-note">CollegeMatchCalculator — GPA + SAT vs acceptance rate + SAT range → Safety/Match/Reach badge. Wired and audited.</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">College personality archetypes (AI-generated)</span></div><div class="card-note">CollegePersonalityModel — archetypeName, traits, testPolicy, rigorImportance, essayImportance</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Save / unsave colleges → auto-creates application + essay slots</span></div><div class="card-note">Heart button fires ConnectionEngine.onCollegeSaved() → creates ApplicationModel + essay slots. Audited.</div></div>
+  <div class="card" data-status="partial"><div class="card-top"><span class="badge partial">Partial</span><span class="card-title">College preference quiz (dorm size, campus type, urban/suburban)</span></div><div class="card-note">StudentProfileModel has preferences fields but unclear if a dedicated "college preference quiz" UI exists vs just filter chips in discovery</div></div>
+  <div class="card" data-status="partial"><div class="card-top"><span class="badge partial">Partial</span><span class="card-title">Test-driven vs extracurricular-driven college differentiation</span></div><div class="card-note">CollegePersonalityModel has rigorImportance + essayImportance; unclear if "UF is test-score driven, RIT is extracurricular-based" is surfaced clearly in UI</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Tips on choosing a college (college tour guidance)</span></div><div class="card-note">Discussed: "give them tips on choosing a college" including tour recommendations; unclear if CollegeProfile view has this</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Admissions portal link per college (direct link to apply)</span></div><div class="card-note">Discussed: each college page has a link to their admissions portal + Common App link. Unclear if CollegeModel has a portalURL field.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">AI-generated college page if not in database (Firecrawl + Lambda)</span></div><div class="card-note">If student selects a college not in the database, Lambda fires Firecrawl to scrape their admissions page and AI generates the college profile. Planned but not built.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">College Scorecard API (real data replacing mock seed)</span></div><div class="card-note">API key configured, 6,500 colleges are still static mock JSON. Real API wiring is post-AWS task.</div></div>
+</div>
+</div>
+
+<!-- APPLICATION SYSTEM -->
+<div class="section" data-section="applications">
+<div class="section-title">📋 Application Tracking</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Application tracker with full status machine</span></div><div class="card-note">ApplicationModel — planning → inProgress → submitted → accepted → rejected → waitlisted → committed</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Per-college pre-application checklist auto-generated</span></div><div class="card-note">onCollegeSaved() → ChecklistItemModel items auto-created. Audited for duplicate guard.</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Post-acceptance checklist auto-generated on .accepted status</span></div><div class="card-note">9 items: deposit, transcripts, immunization, housing, FAFSA, orientation, meal plan, portal login, decline others. Wired and audited.</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Application platform tracking (Common App, Coalition, direct)</span></div><div class="card-note">ApplicationModel.platform field — "Common App" | "Coalition" | direct</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Confirmation alert before reverting accepted status</span></div><div class="card-note">Added in audit — "Are you sure? This will remove your post-acceptance checklist."</div></div>
+  <div class="card" data-status="partial"><div class="card-top"><span class="badge partial">Partial</span><span class="card-title">STARS vs school portal tracking per college</span></div><div class="card-note">Discussed: USF uses STARS, FSU uses their own portal. ChecklistItemModel has platform field but unclear if STARS is a distinct option with specific guidance</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">"Colleges can revoke acceptance" senior year warning</span></div><div class="card-note">"You have to keep your senior year grades up even after being accepted" — is there any warning/reminder in the app for this?</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">"Apply before November 1st" early application deadline warning</span></div><div class="card-note">Discussed: early application is before Nov 1. Does the app proactively warn about this or is it just in the deadlines calendar?</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Letters of recommendation tracking</span></div><div class="card-note">Explicitly mentioned: "get letters of recommendation — that's going to be on our checklist for colleges"</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Decision Portal (LOCI — Letter of Continued Interest)</span></div><div class="card-note">LOCI listed as one of 7 grade-gated routes in the audit; unclear how complete this feature is</div></div>
+</div>
+</div>
+
+<!-- ESSAY HUB -->
+<div class="section" data-section="essays">
+<div class="section-title">✍️ Essay Hub</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Essay tracker with per-college essay slots</span></div><div class="card-note">Essay slots auto-created on college save; EssayTracker is one of the 7 grade-gated routes (grade 12)</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">AI-generated "Why [field]?" essay talking points</span></div><div class="card-note">Listed as ConnectionEngine cascade: careerPath → EssayHub: generate "Why [field]?" talking points. Unclear if this cascade is wired.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Mock interview with recording</span></div><div class="card-note">Listed in Sprint 3 backlog: "Essay Hub real AI + Mock Interview with recording." Not built.</div></div>
+</div>
+</div>
+
+<!-- DEADLINES -->
+<div class="section" data-section="deadlines">
+<div class="section-title">📅 Deadlines & Calendar</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Deadlines calendar — per-college deadlines</span></div><div class="card-note">DeadlinesCalendar — reads from savedCollegeIds. Only feature that was already working before wiring.</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Urgency card — "MIT EA in 47 days" on Dashboard</span></div><div class="card-note">Dashboard urgency card reads next approaching deadline from saved colleges</div></div>
+  <div class="card" data-status="partial"><div class="card-top"><span class="badge partial">Partial</span><span class="card-title">Housing application deadline tracking (Jan/Feb open, Mar/Apr close)</span></div><div class="card-note">DeadlineModel exists; CollegeDeadlineModel has deadlineType. Housing-specific deadlines would need to be in the data — unclear if populated.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">App Season Dashboard (one of the 7 grade-gated routes)</span></div><div class="card-note">Listed as grade-gated route in audit but unclear how complete it is as a feature</div></div>
+</div>
+</div>
+
+<!-- SCHOLARSHIPS & FINANCIAL AID -->
+<div class="section" data-section="scholarships">
+<div class="section-title">💰 Scholarships & Financial Aid</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Scholarship search view</span></div><div class="card-note">ScholarshipSearchView — ScholarshipModel with matchPercent, isSaved. Grade-gated: grade 11+.</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">FAFSA guidance (grade-gated, grade 12)</span></div><div class="card-note">FAFSA listed as one of 7 grade-gated routes — exists as feature</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">CSS Profile (grade-gated, grade 12)</span></div><div class="card-note">CSS Profile listed as one of 7 grade-gated routes — exists as feature</div></div>
+  <div class="card" data-status="partial"><div class="card-top"><span class="badge partial">Partial</span><span class="card-title">Financial aid comparison table across saved colleges</span></div><div class="card-note">Listed as ConnectionEngine cascade on college save. Unclear if FinancialAidComparisonView is fully built or skeleton.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">scholarshipsearch.net redirect + screenshot import workflow</span></div><div class="card-note">Discussed: link to scholarshipsearch.net, student takes quiz there, uploads screenshot of results to Ladder</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">SAT fee waiver detection (free lunch = free SAT eligibility)</span></div><div class="card-note">Students on free lunch program are eligible for free SAT. Does the app check eligibility and inform students?</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">First-gen scholarship filtering based on parent income/education</span></div><div class="card-note">Discussed: collect parent education + household income (FAFSA-like) to filter first-gen scholarships</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Sponsor / SAT tutoring company integration</span></div><div class="card-note">Business model idea: sponsors pay, app recommends their SAT tutoring services to students. Not a product feature yet.</div></div>
+</div>
+</div>
+
+<!-- AI ADVISOR -->
+<div class="section" data-section="ai">
+<div class="section-title">🤖 AI Advisor</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">AI advisor chat (Gemini via Supabase Edge Function)</span></div><div class="card-note">AdvisorChatViewModel + AIService.swift — streaming via AsyncThrowingStream. Currently uses keyword fallback; Bearer token is TODO.</div></div>
+  <div class="card" data-status="partial"><div class="card-top"><span class="badge partial">Partial</span><span class="card-title">Student context injected into AI system prompt</span></div><div class="card-note">AIService.swift architected for context injection; actual injection is TODO. Risk #3: force unwrap on URL. Pre-AWS fix needed.</div></div>
+  <div class="card" data-status="partial"><div class="card-top"><span class="badge partial">Partial</span><span class="card-title">AI generates college-specific checklist from their website</span></div><div class="card-note">Planned: AI scans college website, creates page with admissions checklist. Architecture designed; Lambda + Firecrawl not built.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">AI advisor branches on yes/no questions about future plans</span></div><div class="card-note">Discussed: AI asks "Do you know what college/major you want?" — if no → AI dialogue to figure out hobbies → career. Is this a structured flow or free chat?</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">AI updates every day with latest college info</span></div><div class="card-note">Discussed: "AI is trained as a college counselor, updates every single day." Implies continuous knowledge updating — not built.</div></div>
+</div>
+</div>
+
+<!-- GRADE-GATED FEATURES -->
+<div class="section" data-section="grades">
+<div class="section-title">🔒 Grade-Based Progression</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">GradeFeatureManager — lock/unlock features by grade</span></div><div class="card-note">GradeFeatureManager built; default grade fixed to 9 in audit. 7 routes gated.</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">LockedFeatureView with blurred preview + "Unlocks in Xth Grade"</span></div><div class="card-note">LockedFeatureView built; back button added in audit so users can't get trapped.</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">9th grade: career quiz focus, no college apps</span></div><div class="card-note">Grade gating confirmed: Essay Tracker, Decision Portal, FAFSA, CSS Profile, Financial Aid, LOCI, App Season Dashboard all gated</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">SAT Strategy (grade 10+)</span></div><div class="card-note">SATStrategy feature unlocks grade 10 per GradeFeatureManager</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Scholarship apply mode (grade 11+)</span></div><div class="card-note">ScholarshipApply feature unlocks grade 11 per GradeFeatureManager</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Dashboard changes greeting/hero/quick actions by grade</span></div><div class="card-note">Listed as ConnectionEngine cascade: grade → Dashboard: change greeting, subtitle, quick actions. Is DashboardView grade-aware?</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Roadmap highlights current year's milestones</span></div><div class="card-note">RoadmapMilestoneModel exists — 4-year milestone journey. Described as "pre-seeded, not grade-adaptive yet" in earlier planning docs.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Tasks show grade-appropriate checklist items</span></div><div class="card-note">TasksView — is it grade-aware? Does a 9th grader see different tasks than a 12th grader?</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">By junior year: "Have you decided your major?" re-prompt</span></div><div class="card-note">Discussed: when student reaches junior year, app reprompts "okay, have you made any changes in your decision of being a medical major?"</div></div>
+</div>
+</div>
+
+<!-- RESUME / PORTFOLIO -->
+<div class="section" data-section="resume">
+<div class="section-title">📄 Resume & Portfolio</div>
+<div class="feature-grid">
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Resume builder with 1-page templates</span></div><div class="card-note">Discussed: resume builder, 1-page only, teach students to personalize it. Unclear if this view exists.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Resume brand color personalization tips (Canva-style)</span></div><div class="card-note">"Personalize to company brand colors" tip suggested — unclear if in app</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">PDF portfolio export</span></div><div class="card-note">Listed in Sprint 4 backlog — confirmed not built yet. Goal: export full 4-year portfolio as PDF.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Jobs database by field/degree</span></div><div class="card-note">Discussed: "put in what degree you have → get jobs you can do in that field." Post-college feature, not built.</div></div>
+</div>
+</div>
+
+<!-- ALTERNATIVE PATHS -->
+<div class="section" data-section="paths">
+<div class="section-title">🔀 Alternative Paths (Non-4-Year College)</div>
+<div class="feature-grid">
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Community college 2-year path branch</span></div><div class="card-note">Discussed: senior year branch for "go community college, get grades up, transfer to 4-year." Mentioned as a planned branch, not built.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Trade school path branch</span></div><div class="card-note">Explicitly discussed as alternative path option. Not built.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Military path branch</span></div><div class="card-note">Explicitly discussed. Not built.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Gap year path branch</span></div><div class="card-note">Mentioned as option. Not built.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Career life coach mode for seniors who are undecided</span></div><div class="card-note">"Branch off into a career life coach as well as being a Ladder to college" — specific mode for seniors still figuring out life. Not built.</div></div>
+</div>
+</div>
+
+<!-- SCHOOL / COUNSELOR SIDE -->
+<div class="section" data-section="counselors">
+<div class="section-title">🏫 School & Counselor Side</div>
+<div class="feature-grid">
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">School admin creates profile (clubs, sports, classes, tryout dates)</span></div><div class="card-note">Heavily discussed but requires Manatee County / CSUSA partnership. Not buildable without institutional approval. Sprint 4+ item.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Counselor marketplace (top 50 per state, within 100mi radius)</span></div><div class="card-note">Freelance counselors listed in app; students can select one within 100 miles. Requires counselor onboarding flow. Not built.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Counselor portal (see student profiles)</span></div><div class="card-note">Counselor-side portal listed in Sprint 4. Not built.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Parent access mode (view-only)</span></div><div class="card-note">Parent profile concept discussed. Listed in Sprint 4 backlog. Not built.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Parental consent email (real email service)</span></div><div class="card-note">Risk #1 from audit — TODO stub exists, no real email service wired. Wait until AWS.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">DPA consent for School Admin onboarding (FERPA compliance)</span></div><div class="card-note">Risk #2 from audit — DPA not wired for school admins. FERPA compliance gap.</div></div>
+</div>
+</div>
+
+<!-- ENGAGEMENT -->
+<div class="section" data-section="engagement">
+<div class="section-title">🎮 Gamification & Engagement</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Streak counter (Duolingo-style daily streak)</span></div><div class="card-note">StudentProfileModel.streakCount — built. Discussed as key engagement mechanic.</div></div>
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">Points system</span></div><div class="card-note">StudentProfileModel.totalPoints — built</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Level system (Duolingo-style levels)</span></div><div class="card-note">Discussed: "Duolingo levels, keep students engaged" — does the app have a level/tier system beyond just points?</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Push notifications (deadlines + streak reminders)</span></div><div class="card-note">Listed in Sprint 4 backlog. Not built.</div></div>
+</div>
+</div>
+
+<!-- STATE REQUIREMENTS -->
+<div class="section" data-section="state">
+<div class="section-title">🗺️ State-Specific Requirements</div>
+<div class="feature-grid">
+  <div class="card" data-status="built"><div class="card-top"><span class="badge built">Built</span><span class="card-title">StateRequirementsEngine (Florida first)</span></div><div class="card-note">StateRequirementsEngine confirmed built — FL graduation requirements, Bright Futures (120 volunteer hours). One of the 4 core engines.</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">Bright Futures scholarship integration (Florida-specific)</span></div><div class="card-note">120 hours volunteer requirement for FL Bright Futures — does app specifically flag when student qualifies / is on track?</div></div>
+  <div class="card" data-status="unknown"><div class="card-top"><span class="badge unknown">Unknown</span><span class="card-title">stateOfResidence changes → swap graduation requirements</span></div><div class="card-note">Listed as ConnectionEngine cascade but earlier note says stateOfResidence is currently hardcoded "FL." Is this wired?</div></div>
+</div>
+</div>
+
+<!-- AWS / BACKEND -->
+<div class="section" data-section="backend">
+<div class="section-title">☁️ Backend (AWS — Scheduled Friday April 11)</div>
+<div class="feature-grid">
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">AWS Cognito authentication (live)</span></div><div class="card-note">Auth is currently mocked. AWS Cognito wiring scheduled for Friday April 11, 2026.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">DynamoDB cloud sync for student profiles</span></div><div class="card-note">Everything is local SwiftData. Sync to DynamoDB is post-AWS wiring.</div></div>
+  <div class="card" data-status="notbuilt"><div class="card-top"><span class="badge notbuilt">Not Built</span><span class="card-title">Transcript upload + Gemini Vision parse</span></div><div class="card-note">Listed in Sprint 3. Requires AWS storage. Not built.</div></div>
+</div>
+</div>
+
+<!-- CLAUDE CODE VERIFICATION PROMPT -->
+<div class="verify-block">
+  <h2>🔍 Claude Code Verification Prompt</h2>
+  <p>Copy the prompt below and paste it into Claude Code at your Xcode project root. It will verify every ❓ UNKNOWN item and tell you exactly what's built, where, and how complete it is.</p>
+<pre>
+You are doing a feature existence audit of the Ladder iOS app.
+For each item below, search the codebase and tell me:
+- EXISTS: Yes/No
+- WHERE: file name(s)
+- HOW COMPLETE: fully built / skeleton / placeholder / partially done
+- ANY ISSUES worth noting
+
+Search thoroughly — check Views, ViewModels, Models, and Engine files.
+
+---
+
+1. CareerExplorerView or CareerExplorer feature
+   Search for: CareerExplorer, careerExplorer, "jobs in", "salaries", "job salary"
+   Question: Does the app show potential jobs and salary estimates based on career path?
+
+2. Major dropdown after career path selection
+   Search for: major, dropdown, majors, stemMajors, medicalMajors
+   Question: After quiz gives STEM result, does it show a dropdown of STEM majors?
+
+3. Student career override input ("I want Medical not STEM")
+   Search for: override, careerOverride, additionalInfo, "additional request"
+   Question: Can students type in a correction after the AI suggests a career path?
+
+4. Academic resume upload (LRPA template)
+   Search for: academicResume, lrpa, resumeUpload, "academic resume"
+   Question: Is there an upload or input for an academic resume with hobbies/accomplishments?
+
+5. Middle school transcript upload
+   Search for: middleSchool, middleSchoolTranscript, transcript, transcriptUpload
+   Question: Is there any transcript upload UI (middle school or otherwise) in onboarding?
+
+6. AI onboarding questionnaire ("Do you have plans for your future?")
+   Search for: OnboardingQuestionnaire, "future plans", "what are your plans", AIQuestionnaire
+   Question: Is there an AI-driven questionnaire step in onboarding about future goals?
+
+7. ClassPlanner or class recommendation feature
+   Search for: ClassPlanner, ClassPlannerView, classSuggestion, recommendedClasses, "AP classes"
+   Question: Does the app suggest specific AP/elective classes based on career + past grades?
+
+8. Easy/Moderate/Hard class difficulty recommendations
+   Search for: ClassDifficulty, classDifficulty, easy, moderate, hard (in class context)
+   Question: Does any view show class difficulty levels (easy/moderate/hard) per student?
+
+9. Annual transcript upload UI
+   Search for: TranscriptUploadView, transcriptUpload, uploadTranscript, transcript (in Views)
+   Question: Is there a UI for students to upload their transcript each year?
+
+10. Class preference selection sent to counselor
+    Search for: classPreference, counselorPreference, schedulingPreference
+    Question: Can students pick their preferred classes in the app to share with their counselor?
+
+11. Professional interview as activity type
+    Search for: interview (in ActivitySuggestion context), professionalInterview, ActivityType
+    Question: Is "professional interview" listed as one of the 6 career-specific activity options?
+
+12. Science fair project as activity type
+    Search for: scienceFair, "science fair", ActivityType
+    Question: Is science fair listed as a career-specific activity option for STEM students?
+
+13. Activity longevity / start date tracking
+    Search for: ActivityModel, activityStartDate, longevity, startDate (in activity context)
+    Question: Do activity entries have a start date so longevity can be tracked?
+
+14. NCAA athlete track
+    Search for: NCAA, athletic recruitment, athleticRecruitment, teamManager, scorekeeper
+    Question: Is there any NCAA-specific path or athletic recruitment guidance?
+
+15. College preference quiz UI
+    Search for: CollegePreferenceQuiz, collegePreference, dormPreference, campusSize, urbanRural
+    Question: Is there a dedicated college preference quiz (campus size, dorm type, location)?
+
+16. College admissions portal link per college
+    Search for: portalURL, admissionsPortal, portalLink, CollegeModel (look at all fields)
+    Question: Does CollegeModel have a portalURL field? Do college profile pages show a link to apply?
+
+17. College tour / choosing a college tips
+    Search for: collegeTips, tourTips, choosingCollege, "choosing a college"
+    Question: Is there guidance on touring or choosing a college in the app?
+
+18. "Colleges can revoke acceptance" warning
+    Search for: revoke, revokeAcceptance, "senior year grades", "keep your grades"
+    Question: Is there any warning that colleges can revoke after acceptance if senior grades drop?
+
+19. Early application November 1st warning
+    Search for: earlyApplication, "November 1", "Nov 1", earlyDeadline, earlyWarning
+    Question: Does the app warn students about applying early before November 1st?
+
+20. Letters of recommendation tracking
+    Search for: LetterOfRecommendation, LOR, lor, letterOfRec, recommendation
+    Question: Is there any LOR tracking in the checklist or as a separate feature?
+
+21. Decision Portal / LOCI feature completeness
+    Search for: LOCIView, DecisionPortalView, LOCI, "letter of continued interest"
+    Question: How complete is the LOCI / Decision Portal view? Is it a real screen or placeholder?
+
+22. App Season Dashboard feature
+    Search for: AppSeasonDashboard, appSeason, applicationSeason
+    Question: Is there an App Season Dashboard view? How complete is it?
+
+23. Essay Hub AI "Why [field]?" talking points
+    Search for: whyField, careerTalkingPoints, essayTalkingPoints (in EssayHub)
+    Question: Does ConnectionEngine.onCareerPathChanged() actually populate any essay talking points?
+
+24. Financial Aid Comparison view completeness
+    Search for: FinancialAidComparison, financialAidComparison, FinancialAid (Views)
+    Question: Is FinancialAidComparisonView a fully built view or a placeholder?
+
+25. STARS application platform in checklist
+    Search for: STARS, "USF", platform (in ChecklistItemModel/ApplicationModel context)
+    Question: Is STARS listed as a platform option? Is there specific guidance for STARS vs Common App?
+
+26. scholarshipsearch.net redirect or screenshot import
+    Search for: scholarshipsearch, scholarshipRedirect, "screenshot", "external scholarship"
+    Question: Is there any link to scholarshipsearch.net or a way to import scholarship results?
+
+27. SAT fee waiver detection
+    Search for: feeWaiver, satFeeWaiver, freeLunch, "free SAT", freeMeals
+    Question: Does the app inform students about SAT fee waivers if they qualify?
+
+28. First-gen scholarship parent income input
+    Search for: parentIncome, householdIncome, parentEducation, firstGenScholarship
+    Question: Is there any collection of parent income/education beyond just the isFirstGen flag?
+
+29. Resume builder feature
+    Search for: ResumeBuilder, ResumeBuilderView, resumeTemplate, resumeExport
+    Question: Is there a resume builder or template in the app?
+
+30. Level system (beyond streak + points)
+    Search for: level, userLevel, levelUp, LevelSystem
+    Question: Is there a level/tier system beyond streakCount and totalPoints?
+
+31. Dashboard grade-awareness (different content per grade)
+    Search for: DashboardView, gradeManager (in DashboardView), grade (in Dashboard context)
+    Question: Does DashboardView change greeting, subtitle, or quick action cards based on student's grade?
+
+32. Roadmap grade-adaptive milestones
+    Search for: RoadmapView, RoadmapMilestoneModel, gradeAdaptive, currentGrade (in Roadmap)
+    Question: Does the Roadmap highlight milestones based on current grade, or are all milestones always visible?
+
+33. TasksView grade-awareness
+    Search for: TasksView (look at filtering logic), grade (in TasksView/TasksViewModel)
+    Question: Does TasksView filter tasks by student grade, or shows all tasks regardless of grade?
+
+34. Junior year major re-prompt
+    Search for: juniorPrompt, majorConfirmation, "11th grade", "have you decided"
+    Question: Is there any trigger that asks students to confirm their major when they reach 11th grade?
+
+35. Bright Futures FL-specific tracking
+    Search for: brightFutures, BrightFutures, "bright futures", volunteerHours (in FL context)
+    Question: Does the app specifically track Bright Futures eligibility and inform FL students?
+
+36. stateOfResidence ConnectionEngine cascade
+    Search for: onStateChanged, stateOfResidence (in ConnectionEngine), StateRequirementsEngine wiring
+    Question: Is the stateOfResidence hardcoded to "FL" still? Is there any UI to set it? Is the cascade wired?
+
+37. AI advisor branching on yes/no future plans
+    Search for: AdvisorChatViewModel, planningFlow, branchingFlow (in AdvisorHub)
+    Question: Is there a structured yes/no questionnaire in the AI advisor, or is it purely free chat?
+
+---
+
+After checking all 37 items, give me:
+- CONFIRMED BUILT list (exists and complete)
+- SKELETON / PARTIAL list (exists but incomplete or placeholder)
+- NOT FOUND list (does not exist in the codebase)
+- Any NEW risks or issues you spotted while searching
+</pre>
+</div>
+
+</div><!-- end content -->
+
+<script>
+  // Count features
+  const cards = document.querySelectorAll('.card[data-status]');
+  let counts = { built: 0, partial: 0, unknown: 0, notbuilt: 0 };
+  cards.forEach(c => {
+    const s = c.dataset.status;
+    if (counts[s] !== undefined) counts[s]++;
+  });
+  document.getElementById('cnt-built').textContent = counts.built;
+  document.getElementById('cnt-partial').textContent = counts.partial;
+  document.getElementById('cnt-unknown').textContent = counts.unknown;
+  document.getElementById('cnt-notbuilt').textContent = counts.notbuilt;
+
+  function filter(status) {
+    // Update buttons
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    const btn = document.querySelector(`.filter-btn.${status === 'notbuilt' ? 'notbuilt' : status}`);
+    if (btn) btn.classList.add('active');
+    if (status === 'all') document.querySelector('.filter-btn.all').classList.add('active');
+
+    // Show/hide cards
+    cards.forEach(c => {
+      if (status === 'all' || c.dataset.status === status) {
+        c.style.display = '';
+      } else {
+        c.style.display = 'none';
+      }
+    });
+
+    // Show/hide sections that have no visible cards
+    document.querySelectorAll('.section').forEach(section => {
+      const visibleCards = section.querySelectorAll('.card[style=""],.card:not([style])');
+      const allCards = section.querySelectorAll('.card');
+      let anyVisible = false;
+      allCards.forEach(c => { if (c.style.display !== 'none') anyVisible = true; });
+      section.style.display = anyVisible ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

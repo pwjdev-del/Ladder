@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Language Preferences - The Academic Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "surface-tint": "#486644",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#aed0a7",
+                    "outline-variant": "#c3c8be",
+                    "on-surface-variant": "#434840",
+                    "tertiary-fixed": "#ffdcbd",
+                    "tertiary": "#725232",
+                    "surface-container": "#f5ede2",
+                    "background": "#fff8f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-bright": "#fff8f2",
+                    "outline": "#737970",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "primary": "#42603f",
+                    "on-secondary-container": "#566c00",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "secondary-fixed": "#caf24d",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#2c1600",
+                    "secondary": "#516600",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#fbf2e8",
+                    "surface": "#fff8f2",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-surface": "#1f1b15",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-background": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#052107",
+                    "inverse-on-surface": "#f8efe5",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-variant": "#eae1d7",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e1d9cf"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- NavigationDrawer (The Shell) -->
+<aside class="fixed left-0 top-0 h-screen w-72 z-40 bg-[#fbf2e8] dark:bg-stone-900 flex flex-col">
+<div class="p-8">
+<div class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#5a7956]">Academic Atelier</div>
+<div class="mt-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a scholarly student wearing glasses and a tweed jacket in a library setting with warm bokeh lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8yC2b53NzG84R0KRSLp_shZfXp6uwKBYnAwxgpSYa9SbO1gsFSjp967E_c5wLJ3Kl-k_g9delVC66Yq7qnrRqPJI8zeztk8MLolS55rRWxA73tqYlbkEv2gPXIHozBvjIQvg92AEoG9TC1N8ceP6PICd4eHy70w8SQ_Bn-Uv6ubIQwX8er1lycKeQcqgH58XT_CZWDCm24w7cQbJC9pbx4_FqCtgr4ZkxMK8PpLSfRgExmzfVaC8W9vzAuJAnIGhS7x2Qs38NwfI"/>
+</div>
+<div>
+<p class="font-serif italic text-sm text-[#42603f]">Academic Atelier</p>
+<p class="text-[10px] tracking-tight text-stone-500 uppercase">Premium Scholar</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 mt-4">
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+<span class="text-sm font-medium">Roommates</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+<span class="text-sm font-medium">Deadlines</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-sm font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-[#42603f] font-bold border-l-4 border-[#caf24d] bg-[#eae1d7] transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-8 mt-auto">
+<div class="bg-surface-container-high p-4 rounded-xl">
+<p class="text-xs text-stone-500 mb-2">Batch 9 Student</p>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-3/4 shadow-[0_0_8px_#caf24d]"></div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen relative">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 py-6 sticky top-0 z-30 bg-[#fff8f2]/70 backdrop-blur-xl transition-opacity duration-200">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#42603f] hover:opacity-80" data-icon="menu">menu</button>
+<h1 class="font-serif text-3xl tracking-tight text-[#1f1b15]">The Academic Atelier</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="professional headshot of a user with a friendly expression in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXj0k_aHlWzd7Nt2lg7V9GZbfmHW229V4d-2yQSStpguYxu0uRbKu9pCx-SaFw5Mq7IpJ7nBqwReaBycwkmwejpiYspySD2DOfrph5a3fBEXCMUm9PqdRQHZr9BfsqtsKpBJpxhPPtFUyCSbFFlMZxIi75gQYh8UsP_SZOin43_WFVI5e8qkTLvuvGJiHfMZZDAO2NtQeLv0v3OW_9_timwqBGrnMAiXqA9QsisAQZTspMUXTsXbjrGVnrktpMy2N_o8qTcEsm-OI"/>
+</div>
+</header>
+<!-- Canvas -->
+<section class="p-8 flex flex-col items-center justify-center">
+<!-- Language Preference Container (400pt wide) -->
+<div class="w-full max-w-[400pt] bg-surface-container-low rounded-xl p-10 mt-12">
+<div class="mb-10 text-center">
+<h2 class="text-4xl font-serif italic text-primary leading-tight -tracking-[2%]">Language Preference</h2>
+<p class="text-stone-500 font-body text-sm mt-3 tracking-tight">Select your primary academic and social communication medium.</p>
+</div>
+<form class="space-y-4">
+<!-- Radio Option 1: English (Selected) -->
+<label class="group relative flex items-center justify-between p-6 rounded-xl bg-surface-container-highest border-2 border-primary cursor-pointer transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="language">language</span>
+</div>
+<div>
+<span class="block font-bold text-on-surface">English</span>
+<span class="text-xs text-stone-500">Standard Academic</span>
+</div>
+</div>
+<input checked="" class="w-5 h-5 text-primary focus:ring-primary border-outline-variant bg-surface-container-lowest" name="language" type="radio" value="english"/>
+</label>
+<!-- Radio Option 2: Espanol -->
+<label class="group relative flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container-high border-2 border-transparent transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-600" data-icon="translate">translate</span>
+</div>
+<div>
+<span class="block font-medium text-on-surface">Espanol</span>
+<span class="text-xs text-stone-500">Castellano Regional</span>
+</div>
+</div>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant bg-surface-container-lowest" name="language" type="radio" value="espanol"/>
+</label>
+<!-- Radio Option 3: Kreyol Ayisyen -->
+<label class="group relative flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container-high border-2 border-transparent transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-600" data-icon="public">public</span>
+</div>
+<div>
+<span class="block font-medium text-on-surface">Kreyol Ayisyen</span>
+<span class="text-xs text-stone-500">Creole Heritage</span>
+</div>
+</div>
+<input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant bg-surface-container-lowest" name="language" type="radio" value="kreyol"/>
+</label>
+<!-- Save Action -->
+<div class="pt-8 flex flex-col items-center">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-4 px-8 rounded-xl font-bold tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 transform active:scale-95" type="submit">
+                            Update Preferences
+                        </button>
+<button class="mt-4 text-primary font-medium text-sm border-b-2 border-secondary-fixed/50 pb-1 hover:border-secondary-fixed transition-colors" type="button">
+                            Dismiss changes
+                        </button>
+</div>
+</form>
+</div>
+<!-- Background Decorative Element -->
+<div class="fixed bottom-0 right-0 p-12 -z-10 opacity-10">
+<span class="material-symbols-outlined text-[300px] text-primary select-none" data-icon="auto_stories">auto_stories</span>
+</div>
+</section>
+</main>
+</body></html>

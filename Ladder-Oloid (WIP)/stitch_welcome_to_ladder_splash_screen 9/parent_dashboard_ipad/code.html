@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "surface": "#fff8f2",
+                    "tertiary-container": "#8d6a48",
+                    "on-primary-fixed": "#052107",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "primary-fixed": "#c9ecc2",
+                    "error": "#ba1a1a",
+                    "background": "#fff8f2",
+                    "tertiary": "#725232",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-container": "#f5ede2",
+                    "secondary-container": "#caf24d",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-surface": "#1f1b15",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-tint": "#486644",
+                    "on-surface-variant": "#434840",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-high": "#efe7dd",
+                    "surface-variant": "#eae1d7",
+                    "surface-container-low": "#fbf2e8",
+                    "primary": "#42603f",
+                    "inverse-primary": "#aed0a7",
+                    "surface-dim": "#e1d9cf",
+                    "primary-container": "#5a7956",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#566c00",
+                    "secondary-fixed": "#caf24d",
+                    "on-secondary-fixed": "#161e00",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "inverse-surface": "#343029",
+                    "secondary": "#516600",
+                    "surface-bright": "#fff8f2",
+                    "secondary-fixed-dim": "#afd531",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-background": "#1f1b15",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "outline": "#737970",
+                    "on-tertiary-fixed": "#2c1600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Manrope', sans-serif; }
+      h1, h2, h3 { font-family: 'Noto Serif', serif; }
+      .glass-nav {
+        background: rgba(234, 225, 215, 0.7);
+        backdrop-filter: blur(24px);
+      }
+      .primary-gradient {
+        background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c3c8be;
+        border-radius: 10px;
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full z-40 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 flex flex-col border-r-0">
+<div class="p-8">
+<h1 class="text-2xl font-bold font-serif text-[#42603f] dark:text-emerald-500">Evergreen</h1>
+<p class="text-xs uppercase tracking-widest text-on-surface-variant/60 font-medium">Academic Atelier</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-[#42603f] dark:text-emerald-300 font-bold bg-[#eae1d7] dark:bg-stone-800 rounded-r-2xl" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-sm">Home</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm">Colleges</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm">Applications</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="text-sm">Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm">Financial</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-sm">Career</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="text-sm">Housing</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="text-sm">Reports</span>
+</a>
+</nav>
+<div class="p-6 mt-auto border-t border-outline-variant/10">
+<button class="w-full flex items-center justify-center gap-2 primary-gradient text-white py-3 rounded-xl text-sm font-bold shadow-lg shadow-primary/10 mb-6 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">support_agent</span>
+                Support Advisor
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-6 py-2 text-on-surface-variant/70 text-sm hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 px-6 py-2 text-on-surface-variant/70 text-sm hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+                    Help
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 p-10 max-w-[1400px] mx-auto">
+<!-- Top Bar / Child Switcher -->
+<header class="flex justify-between items-center mb-12">
+<div>
+<h2 class="text-4xl font-extrabold tracking-tight text-primary">Parent Dashboard</h2>
+<p class="text-on-surface-variant font-medium mt-1">Overseeing academic trajectories.</p>
+</div>
+<!-- Child Switcher -->
+<div class="flex items-center gap-3 bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/15">
+<div class="flex -space-x-2">
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="portrait of a teenage girl with glasses smiling warmly in a library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiVL8cftVM6ot37G8yPyaTBAVEdUGD6RnCUV8Rbs6QYotQUlKJSYbw1HqTLe_m3besdCoEo92PMUnY57_XsIpnGJU_3IpSEHYw7I7k6M-24jyiG6uqzci6J0nV-JY_suBSewjhjtLESP33v1KBOZOnieQnmrY41Qpgkkro9DhUDZrLv8uX8tmqvb20qPX8aqiTuDiXjQzWWghi073DomnkW7aU32A5J08En3NfCsy9NMel4cgyNDiAF9NUzBfxoYfYgbP3mtYmi3I"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover grayscale opacity-60" data-alt="close up portrait of a young man with curly hair looking confident against an ivy wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2kSgl67XBKbvj8vQB4ZKfi0RNWwo0HRT-KX1WLLqeH0MQ15u81DaJJ8Sz2-X8mhGv3wJaHGkddLqpuB6zW8M4ZwJDRg3jWEEX_NlAovdgyoDpsPqMw7TefSvJ7fg-K3tLr4o5DWRwAlz1mZAtY5NGYGmECFrubVFxQN_xnKDKlEbQF626q_LeRq932Wh6QFt6RH7ywXatvPUTTXUtwCVqlqN4aqH5YbD82PYbVpBkslqSyDW9uYCYR0ZydKXar4BX07-OH7_gt8M"/>
+</div>
+<div class="pl-2">
+<p class="text-xs text-on-surface-variant font-bold leading-none">Viewing for</p>
+<p class="text-sm font-bold text-primary">Julianne Sterling</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">unfold_more</button>
+</div>
+</header>
+<!-- Stats Grid (Bento Style) -->
+<div class="grid grid-cols-3 gap-6 mb-10">
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between group hover:bg-surface-container-high transition-colors">
+<div>
+<span class="material-symbols-outlined text-tertiary-container mb-4">school</span>
+<h3 class="text-on-surface-variant text-sm font-bold uppercase tracking-wider">Schools Applied</h3>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="text-5xl font-bold font-serif text-primary">12</span>
+<span class="text-on-surface-variant/60 font-medium">/ 15 Total</span>
+</div>
+</div>
+<div class="bg-primary p-8 rounded-xl flex flex-col justify-between text-white relative overflow-hidden">
+<div class="relative z-10">
+<span class="material-symbols-outlined mb-4 opacity-70">verified</span>
+<h3 class="text-white/70 text-sm font-bold uppercase tracking-wider">Acceptances</h3>
+</div>
+<div class="mt-4 relative z-10 flex items-baseline gap-2">
+<span class="text-5xl font-bold font-serif">04</span>
+<span class="text-white/60 font-medium">Decisions pending</span>
+</div>
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-primary-container rounded-full opacity-20 blur-2xl"></div>
+</div>
+<div class="bg-secondary-container p-8 rounded-xl flex flex-col justify-between group">
+<div>
+<span class="material-symbols-outlined text-on-secondary-container mb-4">payments</span>
+<h3 class="text-on-secondary-container/80 text-sm font-bold uppercase tracking-wider">Total Aid</h3>
+</div>
+<div class="mt-4 flex flex-col">
+<span class="text-4xl font-bold font-serif text-on-secondary-container">$142,500</span>
+<span class="text-on-secondary-container/60 text-xs font-bold mt-1">+24% from last update</span>
+</div>
+</div>
+</div>
+<!-- Main Dashboard Split -->
+<div class="grid grid-cols-12 gap-10">
+<!-- Left Column: Application Status -->
+<div class="col-span-8">
+<div class="flex justify-between items-end mb-6">
+<h3 class="text-2xl font-bold text-on-surface">College Application Status</h3>
+<button class="text-sm font-bold text-primary flex items-center gap-1 hover:underline">
+                        View Full List <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50">
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-wider text-on-surface-variant">Institution</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-wider text-on-surface-variant">Deadline</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-wider text-on-surface-variant">Status</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-wider text-on-surface-variant">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-white p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">account_balance</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Stanford University</p>
+<p class="text-xs text-on-surface-variant">Early Action</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium">Nov 1, 2024</td>
+<td class="px-8 py-5">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold">Accepted</span>
+</td>
+<td class="px-8 py-5">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">more_horiz</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-white p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">account_balance</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">University of Chicago</p>
+<p class="text-xs text-on-surface-variant">Regular Decision</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium">Jan 1, 2025</td>
+<td class="px-8 py-5">
+<span class="bg-secondary-container/50 text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold">Submitted</span>
+</td>
+<td class="px-8 py-5">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">more_horiz</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-white p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">account_balance</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Northwestern</p>
+<p class="text-xs text-on-surface-variant">Regular Decision</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium">Jan 1, 2025</td>
+<td class="px-8 py-5">
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-xs font-bold">In Progress</span>
+</td>
+<td class="px-8 py-5">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">more_horiz</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column -->
+<div class="col-span-4 space-y-10">
+<!-- Financial Summary -->
+<section>
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        Financial Summary
+                        <span class="material-symbols-outlined text-lg text-primary">analytics</span>
+</h3>
+<div class="bg-surface-container-highest p-6 rounded-xl space-y-6">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium text-on-surface-variant">Scholarships</span>
+<span class="text-sm font-bold text-primary">$85,000</span>
+</div>
+<div class="w-full bg-outline-variant/20 h-1 rounded-full">
+<div class="bg-primary h-1 rounded-full w-[65%]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium text-on-surface-variant">Federal Grants</span>
+<span class="text-sm font-bold text-primary">$42,500</span>
+</div>
+<div class="w-full bg-outline-variant/20 h-1 rounded-full">
+<div class="bg-primary h-1 rounded-full w-[40%]"></div>
+</div>
+<div class="flex justify-between items-center border-t border-outline-variant/20 pt-4">
+<span class="font-bold text-on-surface">Net Cost Est.</span>
+<span class="font-bold text-tertiary">$32,400 / yr</span>
+</div>
+</div>
+</section>
+<!-- Upcoming Deadlines Timeline -->
+<section>
+<h3 class="text-xl font-bold mb-6">Upcoming Deadlines</h3>
+<div class="relative pl-8 space-y-8">
+<!-- Ladder Tracker Line -->
+<div class="absolute left-0 top-1 bottom-1 w-1 bg-secondary-fixed shadow-[0_0_15px_rgba(202,242,77,0.4)]"></div>
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-secondary-fixed border-4 border-surface ring-4 ring-secondary-fixed/20"></div>
+<p class="text-xs font-bold text-primary uppercase">Oct 15</p>
+<h4 class="font-bold text-on-surface">Fafsa Submission</h4>
+<p class="text-sm text-on-surface-variant">National Priority Deadline</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-surface-container-highest border-4 border-surface"></div>
+<p class="text-xs font-bold text-on-surface-variant uppercase">Nov 01</p>
+<h4 class="font-bold text-on-surface">Early Action: Stanford</h4>
+<p class="text-sm text-on-surface-variant">Common App Final Review</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-surface-container-highest border-4 border-surface"></div>
+<p class="text-xs font-bold text-on-surface-variant uppercase">Nov 15</p>
+<h4 class="font-bold text-on-surface">Scholarship Essays</h4>
+<p class="text-sm text-on-surface-variant">Merit-based applications due</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Floating Action Buttons Area (Fixed Bottom) -->
+<div class="fixed bottom-10 right-10 flex gap-4">
+<button class="bg-surface-container-highest text-on-surface px-6 py-4 rounded-full font-bold flex items-center gap-3 shadow-xl shadow-on-surface/5 hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined">forum</span>
+                Message Julianne
+            </button>
+<button class="primary-gradient text-white px-8 py-4 rounded-full font-bold flex items-center gap-3 shadow-xl shadow-primary/20 hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+                Contact Advisor
+            </button>
+</div>
+</main>
+</body></html>

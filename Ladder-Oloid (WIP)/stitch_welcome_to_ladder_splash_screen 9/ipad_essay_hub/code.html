@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Atelier AI | Essay Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;700&amp;family=Montserrat:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#c9ecc2",
+                    "tertiary-container": "#8d6a48",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary": "#725232",
+                    "surface-container-highest": "#eae1d7",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdcbd",
+                    "secondary": "#516600",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-container": "#caf24d",
+                    "primary-container": "#5a7956",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1f1b15",
+                    "on-primary-container": "#e2ffda",
+                    "surface": "#fff8f2",
+                    "on-primary-fixed": "#052107",
+                    "surface-container": "#f5ede2",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-tint": "#486644",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "on-background": "#1f1b15",
+                    "secondary-fixed": "#caf24d",
+                    "on-secondary-container": "#566c00",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "primary": "#42603f",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "inverse-on-surface": "#f8efe5",
+                    "background": "#fff8f2",
+                    "surface-dim": "#e1d9cf",
+                    "outline": "#737970",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-container-low": "#fbf2e8",
+                    "surface-container-high": "#efe7dd",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-bright": "#fff8f2",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Montserrat"],
+                    "ui": ["Montserrat"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grown-serif { font-family: 'Noto Serif', serif; }
+        .ui-montserrat { font-family: 'Montserrat', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen flex">
+<!-- SideNavBar Component -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col py-8 px-6 h-full w-72 border-r-0 bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="mb-10 px-2">
+<h1 class="text-2xl font-serif italic text-[#42603f] dark:text-[#fbf2e8]">The Atelier</h1>
+<p class="text-[10px] tracking-widest uppercase opacity-60 mt-1 ui-montserrat">Ad Astra Per Aspera</p>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto no-scrollbar">
+<!-- Navigation Items -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="ui-montserrat font-medium tracking-tight">Home</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="checklist">checklist</span>
+<span class="ui-montserrat font-medium tracking-tight">Tasks</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="ui-montserrat font-medium tracking-tight">Colleges</span>
+</a>
+<!-- Active Tab: Essay Hub maps to Applications or specific navigation -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-l-xl transition-all text-[#1f1b15] dark:text-[#fbf2e8] font-bold border-r-4 border-[#5A7956] bg-[#eae1d7] dark:bg-stone-800 active:scale-[0.98] transition-[transform]" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="ui-montserrat font-bold tracking-tight">Applications</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="ui-montserrat font-medium tracking-tight">Advisor</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="ui-montserrat font-medium tracking-tight">Financial</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="ui-montserrat font-medium tracking-tight">Career</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="home_pin">home_pin</span>
+<span class="ui-montserrat font-medium tracking-tight">Housing</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="ui-montserrat font-medium tracking-tight">Reports</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-stone-200/20">
+<button class="w-full py-4 px-4 bg-primary text-white rounded-xl ui-montserrat text-xs font-bold tracking-widest hover:brightness-110 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="chat">chat</span>
+                Direct Message Advisor
+            </button>
+<div class="mt-6 flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Student profile picture" class="w-full h-full object-cover" data-alt="close-up portrait of a young college student with a friendly expression in a sunlit university library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5Yk_dXKtLasjmJgFPtO0i6bqUByRiL8EQgZhLYuXPLf1EGYhT3-9V2TK4VIGI9BaxjwblwTMl49uPeKkg73hk-W-O4j95rxjzg3-2GuWYbesZqXdHINTTAnrn7EkKsj-_q6biR_Ou4acSHGI_xd2G_kqdBSNUfA3hVqdyb3R7yTKUhuOnR1TvqvxMpd-WsAbWApmaQsg1k6EeSxYALnmMfrWHqyW8ZxA4AyjN8WrUocfE72wu1l0ulUIiO9hpBOutoICUPk6AhHI"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold truncate">Alex Sterling</p>
+<p class="text-[10px] opacity-60">Class of 2025</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 flex-1 min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center w-full px-12 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-3xl sticky top-0 z-40">
+<div class="flex items-center gap-8">
+<span class="text-primary grown-serif italic text-xl">Academic Atelier AI</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="ui-montserrat text-xs uppercase tracking-widest text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-all" href="#">Dashboard</a>
+<a class="ui-montserrat text-xs uppercase tracking-widest text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-all" href="#">Chat</a>
+<a class="ui-montserrat text-xs uppercase tracking-widest text-[#1f1b15] dark:text-[#fbf2e8] border-b-2 border-[#caf24d] pb-2" href="#">Essay Hub</a>
+<a class="ui-montserrat text-xs uppercase tracking-widest text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-all" href="#">Review</a>
+<a class="ui-montserrat text-xs uppercase tracking-widest text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-all" href="#">Scores</a>
+<a class="ui-montserrat text-xs uppercase tracking-widest text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-all" href="#">Interviews</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined text-stone-400" data-icon="search">search</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="settings">settings</span>
+</div>
+</div>
+</header>
+<!-- Canvas Area -->
+<div class="p-12 grid grid-cols-2 gap-12 max-w-[1400px] mx-auto w-full">
+<!-- Left Column: Prompts & Header -->
+<section class="space-y-10">
+<!-- AI Header Card -->
+<div class="bg-surface-container-low rounded-xl p-10 relative overflow-hidden flex flex-col justify-between min-h-[320px] shadow-sm">
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
+<div class="relative z-10">
+<h2 class="grown-serif text-4xl font-bold text-primary leading-tight mb-4 tracking-tight">AI-Powered Essay Assistant</h2>
+<p class="text-on-surface-variant max-w-md leading-relaxed text-sm opacity-80">
+                            Craft compelling narratives with structured feedback, real-time stylistic analysis, and prompt-specific alignment tools. Your unique voice, elevated by intelligence.
+                        </p>
+</div>
+<div class="relative z-10 pt-8">
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-8 py-4 rounded-xl ui-montserrat text-xs font-bold tracking-widest flex items-center gap-3 active:scale-95 transition-transform">
+                            START NEW ESSAY
+                            <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<!-- Common App Prompts -->
+<div>
+<div class="flex items-baseline justify-between mb-6">
+<h3 class="grown-serif text-2xl font-bold">Common App Prompts</h3>
+<span class="ui-montserrat text-[10px] tracking-widest opacity-40">7 OPTIONS AVAILABLE</span>
+</div>
+<div class="space-y-4">
+<div class="group bg-surface-container-high hover:bg-surface-container-highest p-5 rounded-xl transition-all cursor-pointer">
+<div class="flex gap-4 items-start">
+<span class="ui-montserrat text-xs font-bold text-secondary">01</span>
+<p class="text-sm font-medium leading-relaxed">Share a story of your background, identity, interest, or talent that is so meaningful your application would be incomplete without it.</p>
+</div>
+</div>
+<div class="group bg-surface-container-high hover:bg-surface-container-highest p-5 rounded-xl transition-all cursor-pointer">
+<div class="flex gap-4 items-start">
+<span class="ui-montserrat text-xs font-bold text-secondary">02</span>
+<p class="text-sm font-medium leading-relaxed">The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time you faced a challenge.</p>
+</div>
+</div>
+<div class="group bg-surface-container-high hover:bg-surface-container-highest p-5 rounded-xl transition-all cursor-pointer">
+<div class="flex gap-4 items-start">
+<span class="ui-montserrat text-xs font-bold text-secondary">03</span>
+<p class="text-sm font-medium leading-relaxed">Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</p>
+</div>
+</div>
+<!-- ...more prompts would follow -->
+</div>
+</div>
+<!-- Supplemental Prompts -->
+<div>
+<h3 class="grown-serif text-2xl font-bold mb-6">Supplemental Prompts</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-primary">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary scale-75" data-icon="account_balance">account_balance</span>
+<span class="ui-montserrat text-[10px] font-bold tracking-widest opacity-60">STANFORD UNIVERSITY</span>
+</div>
+<p class="text-xs font-bold line-clamp-2">"What is the most significant challenge that society faces today?"</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-secondary">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-secondary scale-75" data-icon="account_balance">account_balance</span>
+<span class="ui-montserrat text-[10px] font-bold tracking-widest opacity-60">UPENN</span>
+</div>
+<p class="text-xs font-bold line-clamp-2">"How will you explore your intellectual and academic interests at Penn?"</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: My Essays -->
+<section class="space-y-8 bg-surface-container-high/30 p-8 rounded-xl">
+<div class="flex items-center justify-between mb-2">
+<h3 class="grown-serif text-2xl font-bold">My Essays</h3>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded-full flex items-center justify-center bg-surface-container-highest text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Essay List -->
+<div class="space-y-6">
+<!-- Essay Item 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="bg-primary-fixed text-on-primary-fixed text-[9px] font-bold px-2 py-1 rounded-full ui-montserrat uppercase tracking-wider">In Review</span>
+<h4 class="font-bold text-lg mt-2">The Architecture of Curiosity</h4>
+<p class="text-xs text-stone-500">Common App • Prompt 1</p>
+</div>
+<button class="bg-surface-container text-primary ui-montserrat text-[10px] font-bold px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">OPEN</button>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] ui-montserrat font-bold">
+<span>PROGRESS</span>
+<span>582 / 650 WORDS</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 89%;"></div>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-4 text-[10px] text-stone-400 ui-montserrat">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="update">update</span>
+                                EDITED 2H AGO
+                            </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="forum">forum</span>
+                                12 ADVISOR COMMENTS
+                            </div>
+</div>
+</div>
+<!-- Essay Item 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="bg-secondary-container text-on-secondary-container text-[9px] font-bold px-2 py-1 rounded-full ui-montserrat uppercase tracking-wider">Draft</span>
+<h4 class="font-bold text-lg mt-2">Sustainable Fractals</h4>
+<p class="text-xs text-stone-500">MIT Supplemental • Why MIT?</p>
+</div>
+<button class="bg-surface-container text-primary ui-montserrat text-[10px] font-bold px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">OPEN</button>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] ui-montserrat font-bold">
+<span>PROGRESS</span>
+<span>120 / 250 WORDS</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 48%;"></div>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-4 text-[10px] text-stone-400 ui-montserrat">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="update">update</span>
+                                EDITED 1D AGO
+                            </div>
+</div>
+</div>
+<!-- Essay Item 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-all opacity-80">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="bg-stone-200 text-stone-600 text-[9px] font-bold px-2 py-1 rounded-full ui-montserrat uppercase tracking-wider">Complete</span>
+<h4 class="font-bold text-lg mt-2">The Piano &amp; The Pulse</h4>
+<p class="text-xs text-stone-500">Yale Supplemental • Short Answer</p>
+</div>
+<button class="bg-surface-container text-primary ui-montserrat text-[10px] font-bold px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">OPEN</button>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] ui-montserrat font-bold">
+<span>PROGRESS</span>
+<span>200 / 200 WORDS</span>
+</div>
+<div class="w-full h-2 bg-stone-100 rounded-full overflow-hidden">
+<div class="h-full bg-stone-400" style="width: 100%;"></div>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-4 text-[10px] text-stone-400 ui-montserrat">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+                                SUBMITTED OCT 15
+                            </div>
+</div>
+</div>
+</div>
+<!-- Empty State Suggestion / Inspiration -->
+<div class="mt-12 p-8 border-2 border-dashed border-stone-200 rounded-xl flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-4xl text-stone-300 mb-4" data-icon="auto_awesome">auto_awesome</span>
+<h5 class="grown-serif font-bold text-lg">Running out of ideas?</h5>
+<p class="text-xs text-stone-500 mt-2 max-w-[200px]">Let the Atelier AI analyze your transcript to suggest personalized essay hooks.</p>
+<button class="mt-6 text-primary ui-montserrat text-[10px] font-bold border-b-2 border-secondary-fixed pb-1">GENERATE HOOKS</button>
+</div>
+</section>
+</div>
+</main>
+</body></html>

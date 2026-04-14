@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent Financial Overview - Evergreen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "surface": "#fff8f2",
+                    "tertiary-container": "#8d6a48",
+                    "on-primary-fixed": "#052107",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "primary-fixed": "#c9ecc2",
+                    "error": "#ba1a1a",
+                    "background": "#fff8f2",
+                    "tertiary": "#725232",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-container": "#f5ede2",
+                    "secondary-container": "#caf24d",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-surface": "#1f1b15",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-tint": "#486644",
+                    "on-surface-variant": "#434840",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-high": "#efe7dd",
+                    "surface-variant": "#eae1d7",
+                    "surface-container-low": "#fbf2e8",
+                    "primary": "#42603f",
+                    "inverse-primary": "#aed0a7",
+                    "surface-dim": "#e1d9cf",
+                    "primary-container": "#5a7956",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#566c00",
+                    "secondary-fixed": "#caf24d",
+                    "on-secondary-fixed": "#161e00",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "inverse-surface": "#343029",
+                    "secondary": "#516600",
+                    "surface-bright": "#fff8f2",
+                    "secondary-fixed-dim": "#afd531",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-background": "#1f1b15",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "outline": "#737970",
+                    "on-tertiary-fixed": "#2c1600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .premium-shadow {
+            box-shadow: 0 20px 50px -12px rgba(31, 27, 21, 0.06);
+        }
+        .glass-nav {
+            background-color: rgba(234, 225, 215, 0.7);
+            backdrop-filter: blur(32px);
+        }
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; color: #1f1b15; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-surface selection:bg-secondary-container/30">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full z-40 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 flex flex-col border-r-0">
+<div class="px-8 py-10">
+<h1 class="text-2xl font-bold font-serif text-[#42603f] dark:text-emerald-500 tracking-tight">Evergreen</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold mt-1">Academic Atelier</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-semibold">Home</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm font-semibold">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-semibold">Colleges</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-semibold">Applications</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#42603f] dark:text-emerald-300 font-bold bg-[#eae1d7] dark:bg-stone-800 rounded-r-2xl" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-semibold">Financial</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-sm font-semibold">Career</span>
+</a>
+</nav>
+<div class="p-6 mt-auto">
+<div class="bg-surface-container-highest rounded-xl p-4 mb-6">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">person_search</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Support Advisor</p>
+<p class="text-[10px] text-on-surface-variant">Available Now</p>
+</div>
+</div>
+<button class="w-full py-2 bg-primary text-on-primary rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Message</button>
+</div>
+<div class="flex flex-col gap-1 border-t border-outline-variant/20 pt-4">
+<a class="flex items-center gap-3 px-4 py-2 text-sm text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-sm text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+<span>Help</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen pb-20">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-30 glass-nav px-12 py-6 flex justify-between items-center">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface">Financial Overview</h2>
+<p class="text-sm text-on-surface-variant">Manage your investments in student success</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/10">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="text-xs font-bold uppercase tracking-wider text-on-surface">FAFSA: Submitted</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/10">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<span class="text-xs font-bold uppercase tracking-wider text-on-surface">Scholarships: 4 Active</span>
+</div>
+<div class="w-10 h-10 rounded-xl overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional woman with a warm, confident expression in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7dpVSnxxNldSncR2hkdwmQncOW2w8MmgnndTXiAF_5CMlJuTP4XLjkI4halKW7sAE4qFxQ41Qi_r__ush05WqyqahLq8m1G8OYy873JusZY7eCh204iqkb4aawUipl9X1PZN78v3-nkdOOVwfCzqV_hvjX1vovDyYavZB8vT-1VW7iEFjklJBVS9DdWYKfkSSbXynz9WbYxlRcFt01p4AJhKjUyKiL-HjK8Hbd7L4s0SynesPbgWAqNx_p3_obXEO6ch8dBZ01xI"/>
+</div>
+</div>
+</header>
+<div class="max-w-4xl mx-auto px-12 mt-12 space-y-12">
+<!-- Best Value Hero Comparison -->
+<section class="relative">
+<div class="bg-primary-container rounded-xl p-8 text-on-primary-container premium-shadow overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/10 rounded-full -mr-20 -mt-20 blur-3xl transition-transform duration-700 group-hover:scale-110"></div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-end gap-8">
+<div class="flex-1">
+<span class="text-xs font-bold uppercase tracking-[0.2em] opacity-70">Best Value Recommendation</span>
+<h3 class="text-4xl font-extrabold mt-2 mb-4 leading-tight">Northwestern University</h3>
+<div class="flex gap-10">
+<div>
+<p class="text-sm opacity-70">Net Price / Year</p>
+<p class="text-2xl font-bold">$22,450</p>
+</div>
+<div class="w-px h-10 bg-on-primary-container/20 self-center"></div>
+<div>
+<p class="text-sm opacity-70">Projected ROI (10yr)</p>
+<p class="text-2xl font-bold">+184%</p>
+</div>
+</div>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-8 py-4 rounded-xl font-bold text-sm hover:scale-[0.98] transition-transform flex items-center gap-2">
+<span>View Full Breakdown</span>
+<span class="material-symbols-outlined">trending_up</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Application Costs Table -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h4 class="text-2xl font-bold tracking-tight">Application Costs</h4>
+<span class="text-sm text-on-surface-variant font-medium">Total Spent: $645.00</span>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden premium-shadow">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-highest/50 border-b border-outline-variant/10">
+<tr>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/70">Institution</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/70 text-right">App Fee</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/70 text-right">Test Reports</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/70 text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-highest/30 transition-colors">
+<td class="px-8 py-5 font-bold">Stanford University</td>
+<td class="px-8 py-5 text-right font-medium">$90.00</td>
+<td class="px-8 py-5 text-right font-medium">$24.00</td>
+<td class="px-8 py-5 text-right">
+<span class="text-[10px] font-extrabold px-2 py-1 bg-primary-container/10 text-primary rounded-full">PAID</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest/30 transition-colors">
+<td class="px-8 py-5 font-bold">Northwestern University</td>
+<td class="px-8 py-5 text-right font-medium">$75.00</td>
+<td class="px-8 py-5 text-right font-medium">$0.00</td>
+<td class="px-8 py-5 text-right">
+<span class="text-[10px] font-extrabold px-2 py-1 bg-primary-container/10 text-primary rounded-full">PAID</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest/30 transition-colors">
+<td class="px-8 py-5 font-bold">University of Michigan</td>
+<td class="px-8 py-5 text-right font-medium">$75.00</td>
+<td class="px-8 py-5 text-right font-medium">$12.00</td>
+<td class="px-8 py-5 text-right">
+<span class="text-[10px] font-extrabold px-2 py-1 bg-tertiary-container/10 text-tertiary rounded-full">PENDING</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Aid Breakdown Cards (Asymmetric Stacked Visuals) -->
+<section class="space-y-8">
+<h4 class="text-2xl font-bold tracking-tight">Institutional Aid Packages</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Stanford Card -->
+<div class="bg-surface-container-low rounded-xl p-8 premium-shadow relative overflow-hidden flex flex-col justify-between min-h-[320px]">
+<div>
+<div class="flex justify-between items-start mb-6">
+<h5 class="text-xl font-bold text-on-surface">Stanford</h5>
+<span class="text-xs text-on-surface-variant">Est. Package</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Total Cost</span>
+<span class="font-bold">$82,160</span>
+</div>
+<div class="w-full h-8 bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-primary" style="width: 45%;"></div>
+<div class="h-full bg-tertiary-container" style="width: 15%;"></div>
+<div class="h-full bg-secondary-container" style="width: 10%;"></div>
+</div>
+<div class="grid grid-cols-3 gap-2 text-[10px] font-bold uppercase tracking-wider">
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary"></span> Grant</div>
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span> Loan</div>
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Work</div>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-outline-variant/10 mt-6 flex justify-between items-center">
+<p class="text-xs text-on-surface-variant italic">Waiting for final award letter</p>
+<p class="text-xl font-bold text-primary">$32,864 <span class="text-[10px] text-on-surface-variant font-medium">Net Price</span></p>
+</div>
+</div>
+<!-- Northwestern Card (Offset Highlight) -->
+<div class="bg-white rounded-xl p-8 premium-shadow relative overflow-hidden flex flex-col justify-between min-h-[320px] border border-secondary-container/20">
+<div class="absolute top-0 right-0 p-3 bg-secondary-container rounded-bl-xl text-[10px] font-extrabold uppercase tracking-widest text-on-secondary-container">Best Value</div>
+<div>
+<div class="flex justify-between items-start mb-6">
+<h5 class="text-xl font-bold text-on-surface">Northwestern</h5>
+<span class="text-xs text-on-surface-variant">Official Package</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Total Cost</span>
+<span class="font-bold">$78,654</span>
+</div>
+<div class="w-full h-8 bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-primary" style="width: 65%;"></div>
+<div class="h-full bg-tertiary-container" style="width: 5%;"></div>
+<div class="h-full bg-secondary-container" style="width: 5%;"></div>
+</div>
+<div class="grid grid-cols-3 gap-2 text-[10px] font-bold uppercase tracking-wider">
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary"></span> Grant</div>
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span> Loan</div>
+<div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Work</div>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-outline-variant/10 mt-6 flex justify-between items-center">
+<button class="text-[10px] font-bold uppercase tracking-widest text-on-surface flex items-center gap-1 hover:text-primary transition-colors">
+                                Review Details <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+<p class="text-xl font-bold text-primary">$22,450 <span class="text-[10px] text-on-surface-variant font-medium">Net Price</span></p>
+</div>
+</div>
+</div>
+</section>
+<!-- Total Comparison (The "Ladder" Tracker) -->
+<section class="space-y-8">
+<h4 class="text-2xl font-bold tracking-tight">4-Year Comparison</h4>
+<div class="bg-surface-container-low rounded-xl p-10 premium-shadow">
+<div class="relative pl-12 border-l-4 border-secondary-fixed">
+<div class="absolute -left-[14px] top-0 w-6 h-6 rounded-full bg-secondary-fixed shadow-[0_0_15px_rgba(202,242,77,0.5)] flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-on-secondary-fixed font-bold">check</span>
+</div>
+<div class="grid grid-cols-3 gap-12">
+<div class="space-y-2">
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/70">Stanford</p>
+<p class="text-2xl font-bold">$131,456</p>
+<p class="text-xs text-on-surface-variant">Estimated total debt: $42k</p>
+</div>
+<div class="space-y-2">
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary font-extrabold">Northwestern</p>
+<p class="text-2xl font-bold">$89,800</p>
+<p class="text-xs text-on-surface-variant font-bold text-secondary">Zero debt path available</p>
+</div>
+<div class="space-y-2">
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/70">UMich</p>
+<p class="text-2xl font-bold">$118,200</p>
+<p class="text-xs text-on-surface-variant">Estimated total debt: $18k</p>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-outline-variant/10">
+<div class="flex items-center gap-4 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">info</span>
+<p>Calculations include projected 3% annual tuition inflation and maintaining current GPA for merit scholarships.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom CTA Area -->
+<footer class="flex justify-center pt-8">
+<button class="bg-surface-container-highest text-on-surface px-10 py-5 rounded-xl font-bold flex items-center gap-3 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">file_download</span>
+<span>Download Financial Summary PDF</span>
+</button>
+</footer>
+</div>
+</main>
+<!-- FAB (Suppressed on this transactional screen as per protocol) -->
+</body></html>

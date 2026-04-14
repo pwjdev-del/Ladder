@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "surface-tint": "#486644",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#aed0a7",
+                    "outline-variant": "#c3c8be",
+                    "on-surface-variant": "#434840",
+                    "tertiary-fixed": "#ffdcbd",
+                    "tertiary": "#725232",
+                    "surface-container": "#f5ede2",
+                    "background": "#fff8f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-bright": "#fff8f2",
+                    "outline": "#737970",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "primary": "#42603f",
+                    "on-secondary-container": "#566c00",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "secondary-fixed": "#caf24d",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#2c1600",
+                    "secondary": "#516600",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#fbf2e8",
+                    "surface": "#fff8f2",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-surface": "#1f1b15",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-background": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#052107",
+                    "inverse-on-surface": "#f8efe5",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-variant": "#eae1d7",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e1d9cf"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .glass-nav {
+            background: rgba(255, 248, 242, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #eae1d7;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-container">
+<!-- Navigation Drawer (Sidebar) -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-[#fbf2e8] dark:bg-stone-900 z-40 hidden md:flex flex-col">
+<div class="px-8 py-10">
+<span class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#5a7956]">Academic Atelier</span>
+<div class="mt-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Student avatar" data-alt="Close up portrait of a serious yet bright-eyed university student in a library setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpJ4uMqx5anL-7oRN-f1AeY_UUydRn30teYoFRoIKVbIAgED6Ec1I9NssVE-qNFEur2QY17xwgmfscEhLtXbvxVcpjBh6S9D1bSnR5l1p-qCZcYy3Kqt5U86jRNPMhBsibiZ1_FmdDJEaFt5mRiXvU62MK9nGR_dOCrgYnoEoIjXML2RTddzsACgdp1m9wr73UiprsX-AOuA6HYuEA2PmpiBpcQYcRt3JnR1Fgw6pSu7AiB9TZ5Aq_JJaU2TGHs3n3JJACXBIZWyk"/>
+</div>
+<div>
+<p class="font-headline italic text-lg text-[#42603f]">Academic Atelier</p>
+<p class="text-xs tracking-tight text-stone-500 uppercase">Batch 9 Student</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-2">
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+<span class="text-sm font-medium">Roommates</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+<span class="text-sm font-medium">Deadlines</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-sm font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-[#42603f] dark:text-[#5a7956] font-bold border-l-4 border-[#caf24d] hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-8">
+<div class="p-4 rounded-xl bg-surface-container-high">
+<p class="text-[10px] uppercase tracking-widest text-stone-400 font-bold mb-2">Membership</p>
+<p class="text-sm font-headline italic text-primary">Premium Scholar</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-72 min-h-screen relative">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-30 glass-nav flex justify-between items-center w-full px-8 py-6">
+<h1 class="font-serif text-3xl tracking-tight text-[#1f1b15]">Privacy Settings</h1>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary text-xs font-bold">
+                    AA
+                </div>
+</div>
+</header>
+<!-- Centered Settings Container (600pt / ~800px) -->
+<div class="max-w-[800px] mx-auto px-6 py-12">
+<section class="mb-12">
+<h2 class="font-headline italic text-4xl mb-2 text-primary leading-tight">Your Digital Sanctuary</h2>
+<p class="text-stone-500 text-sm max-w-md">Control how your academic journey is shared and protected within the Atelier ecosystem.</p>
+</section>
+<div class="space-y-6">
+<!-- Visibility Section -->
+<div class="bg-surface-container-low rounded-xl p-8 transition-transform hover:scale-[1.01] duration-300">
+<h3 class="text-xs font-bold tracking-[0.2em] text-stone-400 uppercase mb-8">Visibility &amp; Sharing</h3>
+<div class="space-y-8">
+<!-- Toggle: Usage Data -->
+<div class="flex items-center justify-between">
+<div class="pr-8">
+<p class="font-semibold text-on-surface">Anonymous Usage Data</p>
+<p class="text-xs text-stone-500 mt-1">Help us improve the platform by sharing non-identifiable activity logs.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-8 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Toggle: Peer Comparison -->
+<div class="flex items-center justify-between">
+<div class="pr-8">
+<p class="font-semibold text-on-surface">Peer Comparison</p>
+<p class="text-xs text-stone-500 mt-1">Include your anonymized metrics in global scholarship benchmarks.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-8 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Toggle: Counselor Access -->
+<div class="flex items-center justify-between">
+<div class="pr-8">
+<p class="font-semibold text-on-surface">Visible to Counselor</p>
+<p class="text-xs text-stone-500 mt-1">Allow your assigned academic advisor to view your progress and deadlines.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-8 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Toggle: Parent Access -->
+<div class="flex items-center justify-between">
+<div class="pr-8">
+<p class="font-semibold text-on-surface">Visible to Parent/Guardian</p>
+<p class="text-xs text-stone-500 mt-1">Share housing and deadline status with your registered emergency contact.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-8 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Your Data Section -->
+<div class="bg-surface-container-low rounded-xl p-8">
+<h3 class="text-xs font-bold tracking-[0.2em] text-stone-400 uppercase mb-6">Your Data</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<button class="flex items-center justify-between p-6 rounded-xl bg-surface-container-highest group hover:bg-stone-200 transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">download</span>
+<div class="text-left">
+<p class="font-semibold text-sm">Download Archive</p>
+<p class="text-[10px] text-stone-500 uppercase tracking-tighter">Full JSON/CSV export</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-stone-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-6 rounded-xl bg-error-container/20 border-error/5 group hover:bg-error-container/40 transition-colors">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-error">delete_forever</span>
+<div class="text-left">
+<p class="font-semibold text-sm text-error">Request Deletion</p>
+<p class="text-[10px] text-error/60 uppercase tracking-tighter">Permanent account removal</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-error/30 group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Legal Compliance -->
+<div class="p-8">
+<h3 class="text-xs font-bold tracking-[0.2em] text-stone-400 uppercase mb-4">Legal &amp; Compliance</h3>
+<div class="flex flex-wrap gap-x-12 gap-y-4">
+<a class="text-sm text-primary font-medium border-b-2 border-secondary-fixed/30 hover:border-secondary-fixed transition-colors pb-1 flex items-center gap-2" href="#">
+                            Privacy Policy
+                            <span class="material-symbols-outlined text-xs">open_in_new</span>
+</a>
+<a class="text-sm text-primary font-medium border-b-2 border-secondary-fixed/30 hover:border-secondary-fixed transition-colors pb-1 flex items-center gap-2" href="#">
+                            FERPA Rights
+                            <span class="material-symbols-outlined text-xs">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Footer / Disclaimer -->
+<footer class="mt-20 pt-10 border-t border-outline-variant/10 text-center">
+<p class="text-[11px] text-stone-400 uppercase tracking-widest leading-loose">
+                    The Academic Atelier strictly adheres to global data protection standards.<br/>
+                    Last updated: October 2023.
+                </p>
+</footer>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed on Settings Page as per Rule) -->
+<!-- Navigation for Mobile -->
+<div class="md:hidden fixed bottom-0 left-0 w-full glass-nav flex justify-around items-center py-4 z-50">
+<a class="flex flex-col items-center text-stone-400" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="text-[10px] mt-1 uppercase font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center text-stone-400" href="#">
+<span class="material-symbols-outlined">group_add</span>
+<span class="text-[10px] mt-1 uppercase font-bold">Peers</span>
+</a>
+<a class="flex flex-col items-center text-primary" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] mt-1 uppercase font-bold">Setup</span>
+</a>
+<a class="flex flex-col items-center text-stone-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] mt-1 uppercase font-bold">Me</span>
+</a>
+</div>
+</body></html>

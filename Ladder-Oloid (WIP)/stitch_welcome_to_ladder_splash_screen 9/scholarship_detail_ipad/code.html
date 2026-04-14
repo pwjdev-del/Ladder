@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-primary": "#aed0a7",
+                    "primary-fixed-dim": "#aed0a7",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#caf24d",
+                    "surface-bright": "#fff8f2",
+                    "primary": "#42603f",
+                    "surface-container-high": "#efe7dd",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#f5ede2",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#8d6a48",
+                    "inverse-surface": "#343029",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-primary-fixed": "#052107",
+                    "secondary-fixed": "#caf24d",
+                    "primary-fixed": "#c9ecc2",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#e1d9cf",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-fixed": "#161e00",
+                    "background": "#fff8f2",
+                    "on-background": "#1f1b15",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "surface": "#fff8f2",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#516600",
+                    "outline": "#737970",
+                    "on-secondary-container": "#566c00",
+                    "surface-tint": "#486644",
+                    "surface-container-highest": "#eae1d7",
+                    "primary-container": "#5a7956",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "outline-variant": "#c3c8be",
+                    "on-surface": "#1f1b15",
+                    "on-tertiary-fixed-variant": "#5e4122"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .serif-italic { font-family: 'Noto Serif', serif; font-style: italic; }
+        .glass-nav {
+            background: rgba(255, 248, 242, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        .cta-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .ladder-line {
+            width: 4px;
+            background: #caf24d;
+            box-shadow: 0 0 12px rgba(202, 242, 77, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-6 h-screen w-72 rounded-r-3xl border-r-0 bg-[#fbf2e8] dark:bg-stone-900 shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)]">
+<div class="mb-10 px-4">
+<span class="text-xl font-serif italic text-[#42603f] dark:text-stone-100">Academic Atelier</span>
+<p class="font-sans text-xs uppercase tracking-widest text-stone-500 mt-1">Class of 2025</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Nav Items from JSON -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="monetization_on">monetization_on</span>
+<span class="font-sans text-sm">Financial Aid</span>
+</a>
+<!-- Scholarships Active -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#42603f] text-[#fbf2e8] rounded-xl transition-all scale-95 active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-sans text-sm">Scholarships</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-sans text-sm">Match Score</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="compare_arrows">compare_arrows</span>
+<span class="font-sans text-sm">Aid Comparison</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-sans text-sm">Test Prep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-sans text-sm">Score Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-sans text-sm">Schedule</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/10 flex items-center gap-4 px-4">
+<img class="w-10 h-10 rounded-full bg-surface-variant object-cover" data-alt="close-up portrait of a diverse university student looking confident and academic with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfMqijxT0i8rjCl5dwfImfmKCwo2dO3zf4iWQi-1uSfvxMy_cLK0qXp9ObckSQ46Lnlb6Cgqf-TrnZeRhsmo6ra5ZqWRmhur_5QxjLY0Cg8VAYHKQaRfi6Jk5hG1Qi-heCYEqKbNoTqomuMM-qRXpyEXYwmvwmlVtbbZQdrYleCtcO5ukoM7xZetgB9EekvnI7mWHTs09A-DqMb-j2XqpLEOMrVB8_8G_sgBryBYNssrmCS0HWT6lfImAH-hN9hegO5hBzZ4bVh30"/>
+<div>
+<p class="font-bold text-sm text-on-surface">Alex Rivera</p>
+<p class="text-xs text-stone-500">Premium Access</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-8 py-6 sticky top-0 z-30 bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+</button>
+<h2 class="font-serif text-3xl font-light tracking-tight text-[#42603f]">Scholarship Detail</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</div>
+</header>
+<!-- Centered Column (700pt / ~933px) -->
+<div class="max-w-[700pt] mx-auto px-8 pt-12">
+<!-- Hero Header Section -->
+<section class="flex flex-col md:flex-row gap-8 items-start mb-16">
+<div class="w-32 h-32 rounded-xl bg-surface-container-highest flex items-center justify-center shrink-0 shadow-sm">
+<img class="w-20 h-20 object-contain" data-alt="minimalist professional logo of a philanthropic foundation featuring an abstract torch symbol in deep green" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLikqtUAHp823Am6l-dZd4IzdsCPm0OIHDwjDxPypOW9ZxBizuPUFfGXA1VWHxk7F5bum5KReFkkT394QKqGvgKTPdfiPQhRhAnNWfXofWrhstQ07W-WxqK94r21IRfjlu49LLIR27sI1fKzzmRYhvr215nCjO7p2xSehurjqH5dj6NqF0tepXA8T9vTpteZJrRvhaVWlmGmHO-aAlotQyGjDWcSkNsrspF9drDV3rt9KcSI7kkbM1sM7tM9d2y7GGVmpM7S1RNbc"/>
+</div>
+<div class="flex-1">
+<h1 class="text-5xl leading-tight mb-4 text-on-background">The Meridian Global Scholars Grant</h1>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold font-body text-secondary-container bg-primary px-3 py-1 rounded-lg">$45,000</span>
+<span class="text-on-surface-variant font-medium">Per Academic Year</span>
+</div>
+</div>
+</section>
+<!-- Deadline Grid / Asymmetric Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16">
+<div class="md:col-span-7 bg-surface-container-low rounded-xl p-8 relative overflow-hidden border-none">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="alarm">alarm</span>
+</div>
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-6">Application Deadline</p>
+<div class="flex gap-6 items-center">
+<div>
+<p class="text-4xl font-serif">14</p>
+<p class="text-xs text-on-surface-variant">Days</p>
+</div>
+<div class="h-8 w-px bg-outline-variant/30"></div>
+<div>
+<p class="text-4xl font-serif">22</p>
+<p class="text-xs text-on-surface-variant">Hours</p>
+</div>
+<div class="h-8 w-px bg-outline-variant/30"></div>
+<div>
+<p class="text-4xl font-serif">08</p>
+<p class="text-xs text-on-surface-variant">Min</p>
+</div>
+</div>
+<p class="mt-8 text-sm text-on-surface-variant italic">Closes November 15, 2024 at 11:59 PM PST</p>
+</div>
+<div class="md:col-span-5 bg-surface-container-highest rounded-xl p-8 flex flex-col justify-center">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-xs font-bold uppercase tracking-widest">Your Match</span>
+</div>
+<div class="text-5xl font-serif text-primary">94%</div>
+<p class="text-sm text-on-surface-variant mt-2">Highly Compatible based on your Profile &amp; Academic Goals.</p>
+</div>
+</div>
+<!-- About Section -->
+<section class="mb-16">
+<h3 class="text-3xl mb-6">About the Program</h3>
+<p class="text-lg text-on-surface-variant leading-relaxed font-light">
+                    The Meridian Global Scholars Grant was established to empower the next generation of visionary leaders who demonstrate a profound commitment to sustainable development and cross-cultural communication. This prestigious award goes beyond financial assistance, providing recipients with a dedicated mentor from our global alumni network and exclusive access to the annual Meridian Leadership Summit in Geneva.
+                </p>
+</section>
+<!-- Eligibility Grid -->
+<section class="mb-16">
+<h3 class="text-3xl mb-6">Eligibility Requirements</h3>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center justify-between p-5 bg-surface-container rounded-xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-medium">Minimum GPA of 3.8</span>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase">Met</span>
+</div>
+<div class="flex items-center justify-between p-5 bg-surface-container rounded-xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-error" data-icon="error" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="font-medium">Citizen of an OECD Member Country</span>
+</div>
+<span class="px-3 py-1 bg-error/10 text-error rounded-full text-xs font-bold uppercase">Review Needed</span>
+</div>
+<div class="flex items-center justify-between p-5 bg-surface-container rounded-xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-medium">Currently enrolled as a Full-time Undergraduate</span>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase">Met</span>
+</div>
+</div>
+</section>
+<!-- Application Ladder -->
+<section class="mb-16">
+<h3 class="text-3xl mb-8">Application Process</h3>
+<div class="relative pl-12">
+<div class="absolute left-5 top-2 bottom-2 ladder-line"></div>
+<div class="space-y-12">
+<div class="relative">
+<div class="absolute -left-12 top-0 w-10 h-10 bg-primary text-white flex items-center justify-center rounded-full font-bold z-10 shadow-sm">1</div>
+<h4 class="text-xl font-bold mb-2">Initial Registration</h4>
+<p class="text-on-surface-variant">Create your profile on the Meridian portal and verify your institutional enrollment via ClearedID.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-12 top-0 w-10 h-10 bg-primary text-white flex items-center justify-center rounded-full font-bold z-10 shadow-sm">2</div>
+<h4 class="text-xl font-bold mb-2">Essay Submission</h4>
+<p class="text-on-surface-variant">Submit a 1,500-word personal statement addressing "The Future of Global Cooperation."</p>
+</div>
+<div class="relative opacity-40">
+<div class="absolute -left-12 top-0 w-10 h-10 bg-surface-container-highest text-on-surface-variant flex items-center justify-center rounded-full font-bold z-10 shadow-sm">3</div>
+<h4 class="text-xl font-bold mb-2">Finalist Interview</h4>
+<p class="text-on-surface-variant">Selected candidates will be invited for a virtual panel interview with the board of directors.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Checklist Section -->
+<section class="mb-24">
+<div class="bg-surface-container-low rounded-xl p-8 border-none">
+<h3 class="text-2xl mb-6">Materials Checklist</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded border-2 border-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check">check</span>
+</div>
+<span class="text-on-surface">Official Academic Transcripts (PDF)</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded border-2 border-outline flex items-center justify-center"></div>
+<span class="text-on-surface">Two Letters of Recommendation</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded border-2 border-outline flex items-center justify-center"></div>
+<span class="text-on-surface">Curriculum Vitae / Resume</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded border-2 border-outline flex items-center justify-center"></div>
+<span class="text-on-surface">Proof of Financial Need (FSA Form)</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Sticky Bottom Row -->
+<div class="fixed bottom-0 right-0 left-72 bg-surface/80 backdrop-blur-md px-12 py-6 flex items-center justify-between z-40">
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-6 py-3 border-2 border-outline-variant text-on-surface rounded-xl font-bold hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span>Save</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-3 border-2 border-outline-variant text-on-surface rounded-xl font-bold hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+<span>Share</span>
+</button>
+</div>
+<button class="cta-gradient px-12 py-4 text-white rounded-xl font-bold text-lg shadow-lg hover:opacity-90 transition-all active:scale-95 flex items-center gap-3">
+<span>Apply Now</span>
+<span class="material-symbols-outlined" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</main>
+</body></html>

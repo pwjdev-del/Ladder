@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#fff8f2",
+                    "primary-container": "#5a7956",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c3c8be",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "inverse-primary": "#aed0a7",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#caf24d",
+                    "surface-tint": "#486644",
+                    "surface-container-high": "#efe7dd",
+                    "secondary-fixed-dim": "#afd531",
+                    "primary": "#42603f",
+                    "inverse-surface": "#343029",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1f1b15",
+                    "tertiary": "#725232",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#052107",
+                    "inverse-on-surface": "#f8efe5",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface-container-low": "#fbf2e8",
+                    "on-background": "#1f1b15",
+                    "on-surface-variant": "#434840",
+                    "surface-variant": "#eae1d7",
+                    "surface-container-highest": "#eae1d7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-dim": "#e1d9cf",
+                    "on-secondary-container": "#566c00",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#fff5ee",
+                    "outline": "#737970",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-primary-container": "#e2ffda",
+                    "secondary": "#516600",
+                    "on-secondary-fixed": "#161e00",
+                    "on-error-container": "#93000a",
+                    "surface": "#fff8f2",
+                    "on-tertiary-fixed": "#2c1600",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#caf24d",
+                    "background": "#fff8f2",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container": "#f5ede2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Suppression of Navigation Shells for Onboarding Intent as per Mandate -->
+<main class="min-h-screen flex flex-col items-center justify-start pt-12 pb-20 px-8">
+<!-- Header & Progress -->
+<div class="w-full max-w-[600px] mb-16">
+<div class="flex justify-between items-end mb-4">
+<div>
+<span class="text-primary font-bold tracking-widest text-xs uppercase mb-2 block">Step 02 of 05</span>
+<h1 class="font-headline text-4xl font-bold tracking-tight text-on-surface">Tell us about yourself</h1>
+</div>
+<div class="h-12 w-12 bg-surface-container-high rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person_edit</span>
+</div>
+</div>
+<!-- Progress Bar Tracker -->
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[40%] rounded-full shadow-[0_0_8px_rgba(202,242,77,0.4)]"></div>
+</div>
+</div>
+<!-- Onboarding Form Container -->
+<div class="w-full max-w-[600px] space-y-10">
+<!-- Name Section -->
+<div class="grid grid-cols-2 gap-6">
+<div class="relative">
+<label class="block text-xs font-bold text-tertiary mb-2 uppercase tracking-tighter">First Name</label>
+<input class="w-full bg-transparent border-b-2 border-outline-variant/40 focus:border-primary focus:ring-0 transition-all py-2 px-0 text-lg placeholder:text-outline-variant" placeholder="Alex" type="text"/>
+</div>
+<div class="relative">
+<label class="block text-xs font-bold text-tertiary mb-2 uppercase tracking-tighter">Last Name</label>
+<input class="w-full bg-transparent border-b-2 border-outline-variant/40 focus:border-primary focus:ring-0 transition-all py-2 px-0 text-lg placeholder:text-outline-variant" placeholder="Chen" type="text"/>
+</div>
+</div>
+<!-- School Section (Autocomplete Look) -->
+<div class="relative">
+<label class="block text-xs font-bold text-tertiary mb-2 uppercase tracking-tighter">School Name</label>
+<div class="relative group">
+<input class="w-full bg-transparent border-b-2 border-outline-variant/40 focus:border-primary focus:ring-0 transition-all py-2 px-0 text-lg" type="text" value="St. Ignatius College Preparatory"/>
+<div class="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Verified</span>
+</div>
+</div>
+<!-- Subtle Autocomplete Suggestion -->
+<div class="mt-2 flex gap-2">
+<span class="text-[10px] text-tertiary/60">Did you mean:</span>
+<button class="text-[10px] font-bold text-primary hover:underline">St. Ignatius Academy</button>
+</div>
+</div>
+<!-- Student ID Section -->
+<div class="relative">
+<label class="block text-xs font-bold text-tertiary mb-2 uppercase tracking-tighter">Student ID</label>
+<input class="w-full bg-transparent border-b-2 border-outline-variant/40 focus:border-primary focus:ring-0 transition-all py-2 px-0 text-lg placeholder:text-outline-variant" placeholder="000-00-000" type="text"/>
+<p class="mt-2 text-[10px] text-tertiary italic">Used only for official college application matching.</p>
+</div>
+<!-- Grade Selector Section -->
+<div class="space-y-4">
+<label class="block text-xs font-bold text-tertiary mb-2 uppercase tracking-tighter">Current Grade</label>
+<div class="grid grid-cols-4 gap-3">
+<button class="group flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container-low hover:bg-surface-container-highest transition-all aspect-square border-2 border-transparent">
+<span class="text-2xl font-headline font-bold text-on-surface">9</span>
+<span class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Freshman</span>
+</button>
+<button class="group flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container-low hover:bg-surface-container-highest transition-all aspect-square border-2 border-transparent">
+<span class="text-2xl font-headline font-bold text-on-surface">10</span>
+<span class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Sophomore</span>
+</button>
+<!-- ACTIVE STATE -->
+<button class="group flex flex-col items-center justify-center p-4 rounded-xl bg-primary text-white transition-all aspect-square border-2 border-secondary-fixed shadow-xl shadow-primary/20">
+<span class="text-2xl font-headline font-bold">11</span>
+<span class="text-[10px] font-bold text-secondary-fixed uppercase tracking-widest mt-1">Junior</span>
+</button>
+<button class="group flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container-low hover:bg-surface-container-highest transition-all aspect-square border-2 border-transparent">
+<span class="text-2xl font-headline font-bold text-on-surface">12</span>
+<span class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Senior</span>
+</button>
+</div>
+</div>
+<!-- First Gen Toggle -->
+<div class="flex items-center justify-between p-6 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined text-tertiary">family_restroom</span>
+</div>
+<div>
+<p class="font-bold text-sm text-on-surface">First-generation student</p>
+<p class="text-xs text-on-surface-variant">Neither of my parents graduated from a 4-year college.</p>
+</div>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary-container">
+<span class="sr-only">Toggle First Gen</span>
+<span class="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-6"></span>
+</button>
+</div>
+<!-- Actions -->
+<div class="pt-8 flex items-center justify-between gap-6">
+<button class="px-8 py-4 rounded-xl text-primary font-bold text-sm hover:bg-surface-container-highest transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                    Back
+                </button>
+<button class="flex-1 max-w-[280px] bg-primary-gradient py-4 rounded-xl text-white font-bold text-sm shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex justify-center items-center gap-2">
+                    Continue to Academics
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Motivational Quote (Editorial Touch) -->
+<div class="mt-24 w-full max-w-[600px] border-t border-outline-variant/20 pt-8 opacity-40">
+<p class="font-headline italic text-on-surface-variant text-center text-sm leading-relaxed">
+                "The beautiful thing about learning is that no one can take it away from you."
+            </p>
+<p class="text-[10px] font-bold text-center uppercase tracking-widest mt-2 text-tertiary">— B.B. King</p>
+</div>
+</main>
+<!-- Contextual FAB Suppression as per Mandate (Onboarding screen) -->
+</body></html>

@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Onboarding ViewModel
 // Manages the 5-step onboarding flow data
@@ -78,12 +79,48 @@ final class OnboardingViewModel {
 
     // MARK: - Save Profile
 
-    func completeOnboarding(authManager: AuthManager) async {
-        // TODO: Save to Supabase
-        // let profile = StudentProfileModel(firstName: firstName, lastName: lastName)
-        // profile.grade = grade
-        // profile.gpa = gpa
-        // etc.
+    /// Persists the onboarding data into SwiftData as a brand-new StudentProfileModel
+    /// scoped to the current authManager.userId. Wipes any existing profile for strict
+    /// sandboxing between accounts.
+    @MainActor
+    func completeOnboarding(authManager: AuthManager, modelContext: ModelContext) async {
+        // Ensure we have a userId — generate if missing (offline/dev mode)
+        if authManager.userId == nil {
+            authManager.userId = UUID().uuidString
+        }
+        let currentUserId = authManager.userId!
+
+        // STRICT SANDBOX: delete any leftover profile from a previous account on this device
+        let fetch = FetchDescriptor<StudentProfileModel>()
+        if let existing = try? modelContext.fetch(fetch) {
+            for profile in existing {
+                modelContext.delete(profile)
+            }
+        }
+
+        // Create and populate the new profile
+        let profile = StudentProfileModel(firstName: firstName, lastName: lastName)
+        profile.userId = currentUserId
+        profile.grade = grade
+        profile.schoolName = schoolName.isEmpty ? nil : schoolName
+        profile.studentId = studentId.isEmpty ? nil : studentId
+        profile.isFirstGen = isFirstGen
+        profile.gpa = gpa > 0 ? gpa : nil
+        profile.satScore = Int(satScore)
+        profile.actScore = Int(actScore)
+        profile.apCourses = apCourses
+        profile.interests = interests
+        profile.extracurriculars = extracurriculars
+        profile.savedCollegeIds = Array(selectedCollegeIds)
+
+        modelContext.insert(profile)
+
+        do {
+            try modelContext.save()
+        } catch {
+            print("[Onboarding] Failed to save profile: \(error)")
+        }
+
         authManager.completeOnboarding()
     }
 }

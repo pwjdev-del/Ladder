@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Noto+Serif+Display:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#caf24d",
+                    "outline-variant": "#c3c8be",
+                    "surface-container": "#f5ede2",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-container": "#566c00",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "surface-dim": "#e1d9cf",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "tertiary-container": "#8d6a48",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-fixed-dim": "#aed0a7",
+                    "surface-variant": "#eae1d7",
+                    "tertiary": "#725232",
+                    "on-secondary-fixed": "#161e00",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-surface": "#1f1b15",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container-low": "#fbf2e8",
+                    "secondary-container": "#caf24d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#516600",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-primary-fixed": "#052107",
+                    "on-primary-container": "#e2ffda",
+                    "outline": "#737970",
+                    "surface-container-highest": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-tertiary-fixed": "#2c1600",
+                    "background": "#fff8f2",
+                    "surface-tint": "#486644",
+                    "primary-container": "#5a7956",
+                    "surface-bright": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "display": ["Noto Serif Display"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .code-input-focus:focus {
+            outline: none;
+            border-bottom: 2px solid #42603f;
+        }
+        .editorial-shadow {
+            box-shadow: 0 40px 60px -15px rgba(31, 27, 21, 0.06);
+        }
+        .asymmetric-layout {
+            grid-template-columns: 1.2fr 1fr;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-background font-body min-h-screen flex items-center justify-center p-8 overflow-hidden">
+<!-- Main Onboarding Shell (Suppressed Nav for Transactional Flow) -->
+<main class="w-full max-w-5xl bg-surface-container-low rounded-xl editorial-shadow overflow-hidden flex flex-col md:flex-row min-h-[600px] relative">
+<!-- Left Side: Illustration & Branding -->
+<div class="md:w-5/12 bg-primary-container p-12 flex flex-col justify-between relative overflow-hidden">
+<!-- Decorative Elements -->
+<div class="absolute top-[-10%] right-[-10%] w-64 h-64 bg-secondary-fixed opacity-10 rounded-full blur-3xl"></div>
+<div class="z-10">
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-secondary-fixed text-3xl" data-icon="school">school</span>
+<span class="text-2xl font-headline italic text-on-primary-container tracking-tighter">Ladder</span>
+</div>
+<h2 class="text-4xl font-display font-semibold text-on-primary-container leading-tight mb-4 -tracking-[0.02em]">
+                    The journey to <br/>excellence is <br/><span class="italic font-normal">shared.</span>
+</h2>
+<p class="text-on-primary-container/80 text-sm max-w-xs leading-relaxed">
+                    Connect with your student to track college applications, scholarship milestones, and academic growth in real-time.
+                </p>
+</div>
+<div class="relative z-10 mt-12">
+<img alt="Parent and student connection" class="w-full h-64 object-cover rounded-lg mix-blend-luminosity opacity-90" data-alt="A warm, candid photo of a parent and teenager smiling together over a digital tablet in a bright library setting with soft natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV8gAWZcbVMhrzhhGYFwpNrKSSgbTrPvOsSk_nNURcJDVNyOCOw-HxVuoyHaIufV87gtp82dJs2Inac7w2VgtZMVfloMi_RMXgk0b4-tRjpnDsz9CFiqWs2qYItL5-fFWuWtPBYSrIssEcaaBQ27plphO_UFXIVpVnKCC4VMTvOkA2cgoRVmGC1c_cxd3pKyjRX9Me3MoceDldLObXtkYp0xVi9-q1aFm8IedmlqEJ8FBts0pocF99JNZqk-A3pQhCTXSTlLTLuNc"/>
+<!-- Signature Ladder Tracker Element -->
+<div class="absolute -right-4 bottom-8 h-32 w-1.5 bg-secondary-fixed rounded-full shadow-[0_0_15px_rgba(202,242,77,0.4)]"></div>
+</div>
+</div>
+<!-- Right Side: Content Canvas (Invite Code Entry) -->
+<div class="md:w-7/12 bg-surface-container-lowest p-12 md:p-20 flex flex-col justify-center">
+<div class="max-w-md mx-auto w-full">
+<div class="mb-10">
+<span class="text-xs font-bold tracking-[0.2em] text-primary uppercase mb-2 block">Parent Access</span>
+<h1 class="text-3xl font-display text-on-surface mb-3 leading-tight">Join Your Child on Ladder</h1>
+<p class="text-on-surface-variant text-sm">Enter the 6-digit invite code provided by your student's advisor or found in their profile settings.</p>
+</div>
+<!-- Invite Code Form -->
+<form class="space-y-10">
+<div class="flex justify-between gap-2">
+<!-- 6-Digit Code Boxes -->
+<div class="w-14 h-20 bg-surface-container-low border-b-2 border-outline-variant/40 flex items-center justify-center text-3xl font-display text-primary transition-all duration-300 focus-within:border-primary">
+<input class="w-full h-full bg-transparent border-none text-center focus:ring-0 p-0 placeholder-surface-dim" maxlength="1" placeholder="0" type="text"/>
+</div>
+<div class="w-14 h-20 bg-surface-container-low border-b-2 border-outline-variant/40 flex items-center justify-center text-3xl font-display text-primary transition-all duration-300 focus-within:border-primary">
+<input class="w-full h-full bg-transparent border-none text-center focus:ring-0 p-0 placeholder-surface-dim" maxlength="1" placeholder="0" type="text"/>
+</div>
+<div class="w-14 h-20 bg-surface-container-low border-b-2 border-outline-variant/40 flex items-center justify-center text-3xl font-display text-primary transition-all duration-300 focus-within:border-primary">
+<input class="w-full h-full bg-transparent border-none text-center focus:ring-0 p-0 placeholder-surface-dim" maxlength="1" placeholder="0" type="text"/>
+</div>
+<div class="w-14 h-20 bg-surface-container-low border-b-2 border-outline-variant/40 flex items-center justify-center text-3xl font-display text-primary transition-all duration-300 focus-within:border-primary">
+<input class="w-full h-full bg-transparent border-none text-center focus:ring-0 p-0 placeholder-surface-dim" maxlength="1" placeholder="0" type="text"/>
+</div>
+<div class="w-14 h-20 bg-surface-container-low border-b-2 border-outline-variant/40 flex items-center justify-center text-3xl font-display text-primary transition-all duration-300 focus-within:border-primary">
+<input class="w-full h-full bg-transparent border-none text-center focus:ring-0 p-0 placeholder-surface-dim" maxlength="1" placeholder="0" type="text"/>
+</div>
+<div class="w-14 h-20 bg-surface-container-low border-b-2 border-outline-variant/40 flex items-center justify-center text-3xl font-display text-primary transition-all duration-300 focus-within:border-primary">
+<input class="w-full h-full bg-transparent border-none text-center focus:ring-0 p-0 placeholder-surface-dim" maxlength="1" placeholder="0" type="text"/>
+</div>
+</div>
+<!-- Error State (Hidden by default, shown for prompt demonstration) -->
+<div class="hidden flex items-center gap-2 text-error bg-error-container/30 p-4 rounded-lg border border-error/10 animate-[shake_0.5s_ease-in-out]">
+<span class="material-symbols-outlined text-lg" data-icon="error">error</span>
+<span class="text-xs font-semibold">Invalid code. Please check and try again.</span>
+</div>
+<div class="space-y-6">
+<p class="text-xs text-on-surface-variant italic">
+                            Tip: Codes are case-sensitive and expire after 24 hours.
+                        </p>
+<button class="w-full py-5 bg-gradient-to-br from-primary to-primary-container text-white font-bold rounded-xl shadow-lg hover:opacity-95 transition-all active:scale-[0.98]" type="submit">
+                            Connect to Student
+                        </button>
+<button class="w-full text-sm font-semibold text-primary/70 hover:text-primary transition-colors flex items-center justify-center gap-2" type="button">
+                            Need help finding your code?
+                            <span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Footer-like Disclaimer -->
+<div class="mt-16 pt-8 border-t border-outline-variant/10 text-center">
+<p class="text-[10px] text-stone-400 font-label tracking-widest uppercase">
+                        Secure Academic Connection © 2024 Ladder Education
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Success Modal Overlay (Hidden for Preview but structured per prompt) -->
+<div class="hidden fixed inset-0 z-50 bg-on-background/10 backdrop-blur-xl flex items-center justify-center p-6">
+<div class="w-full max-w-md bg-surface p-12 rounded-xl editorial-shadow text-center">
+<div class="w-20 h-20 bg-secondary-fixed rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(202,242,77,0.3)]">
+<span class="material-symbols-outlined text-4xl text-on-secondary-fixed font-bold" data-icon="check">check</span>
+</div>
+<h3 class="text-3xl font-display mb-2">Connected to Julian!</h3>
+<p class="text-on-surface-variant mb-10">You now have access to Julian's college dashboard and application tracker.</p>
+<button class="w-full py-5 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-primary-container transition-all">
+                Go to Dashboard
+            </button>
+</div>
+</div>
+<!-- Error Animation Reference (Custom CSS) -->
+<style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</body></html>

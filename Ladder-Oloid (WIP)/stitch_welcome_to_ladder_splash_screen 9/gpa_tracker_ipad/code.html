@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Academic Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container": "#f5ede2",
+                    "surface-variant": "#eae1d7",
+                    "on-surface-variant": "#434840",
+                    "on-secondary-fixed": "#161e00",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#c9ecc2",
+                    "secondary-fixed": "#caf24d",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-secondary-container": "#566c00",
+                    "surface-tint": "#486644",
+                    "on-primary-fixed": "#052107",
+                    "tertiary-container": "#8d6a48",
+                    "surface-dim": "#e1d9cf",
+                    "primary-container": "#5a7956",
+                    "surface-bright": "#fff8f2",
+                    "inverse-surface": "#343029",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-error": "#ffffff",
+                    "outline": "#737970",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fff8f2",
+                    "secondary-container": "#caf24d",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-secondary": "#ffffff",
+                    "background": "#fff8f2",
+                    "on-tertiary-fixed": "#2c1600",
+                    "outline-variant": "#c3c8be",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#aed0a7",
+                    "surface-container-low": "#fbf2e8",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "tertiary": "#725232",
+                    "inverse-on-surface": "#f8efe5",
+                    "primary": "#42603f",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-surface": "#1f1b15",
+                    "on-background": "#1f1b15",
+                    "inverse-primary": "#aed0a7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .tonal-shift {
+            background: linear-gradient(135deg, #fbf2e8 0%, #f5ede2 100%);
+        }
+        .primary-gradient-cta {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .glass-panel {
+            background: rgba(234, 225, 215, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased overflow-hidden">
+<!-- SideNavBar from JSON -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 flex-shrink-0 border-r-0 z-50">
+<div class="mb-10 px-2">
+<h1 class="text-3xl font-noto-serif italic font-bold text-[#42603f] dark:text-[#caf24d]">Ladder</h1>
+<p class="font-manrope text-sm text-stone-500 uppercase tracking-widest mt-1">College Prep Platform</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Academic Tracker -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all scale-98 active:opacity-80 text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7]/50" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-manrope text-sm">Academic Tracker</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+<span class="font-manrope text-sm">Transcript</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-manrope text-sm">Course Guide</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_month">calendar_view_month</span>
+<span class="font-manrope text-sm">AI Scheduler</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span class="font-manrope text-sm">Research</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span class="font-manrope text-sm">Essay Hub</span>
+</a>
+</nav>
+<div class="mt-auto space-y-6">
+<div class="bg-primary-container p-4 rounded-xl text-on-primary-container">
+<p class="text-xs font-bold uppercase tracking-tighter mb-2 opacity-80">Premium Access</p>
+<p class="text-sm font-semibold mb-3">Unlock Ivy League Insights</p>
+<button class="w-full py-2 bg-secondary-fixed text-on-secondary-fixed rounded-lg text-xs font-bold hover:opacity-90 transition-all">Upgrade to Pro</button>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+<span class="font-manrope text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="help_outline">help_outline</span>
+<span class="font-manrope text-sm">Support</span>
+</a>
+</div>
+<div class="flex items-center gap-3 pt-4 border-t border-outline-variant/20">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a thoughtful young student wearing a minimal cream sweater in a bright modern library" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ7Lj9koQC7Z8NWtmTkkGYLI3-16NZHiHPBOiY5TfE3OlmVLJPfVg3rDK_6wg8EvYcOS7dpdCvlHjvqfPlHSHmuCSAqqNsRbyYBnRbHkeWRDzrARtq4U7YVmxDfXnAReTrd1-Wwrjth1pd9eODaB4YWL_P1DV4WYKWA2uVmZwvYMk-uOPNgbteItWiwh0HgBDxekUQV0zb7vrb6oMd2ZZhpYVflIjAA4U9HQOkmGW0cU4S-z-JDaAvTL4oSbhqU0XaRqRsZPOBhEk"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Alex Rivera</p>
+<p class="text-[10px] text-stone-500 uppercase tracking-widest">Junior Year</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar from JSON -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 backdrop-blur-xl shadow-sm">
+<div class="flex-1 max-w-md">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search milestones, courses, or guides..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="flex gap-6">
+<a class="text-stone-600 font-manrope text-sm font-semibold hover:text-[#42603f] transition-all" href="#">Dashboard</a>
+<a class="text-[#42603f] font-manrope text-sm font-bold border-b-2 border-[#caf24d] pb-1" href="#">Analytics</a>
+<a class="text-stone-600 font-manrope text-sm font-semibold hover:text-[#42603f] transition-all" href="#">Community</a>
+</div>
+<div class="flex items-center gap-4 text-primary">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary-fixed rounded-full border-2 border-surface"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pl-72 pt-20 h-screen overflow-hidden flex">
+<!-- Left Panel (55%) - Chart and Stats -->
+<section class="w-[55%] h-full p-10 overflow-y-auto space-y-8 bg-surface border-r border-outline-variant/10">
+<header>
+<h2 class="text-4xl font-headline font-bold tracking-tight text-primary mb-2">GPA Tracker</h2>
+<p class="text-stone-500 font-medium">Visualizing your academic trajectory and eligibility status.</p>
+</header>
+<!-- Semester Chips -->
+<div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+<button class="px-5 py-2 rounded-full bg-surface-container-highest text-primary font-bold text-sm whitespace-nowrap shadow-sm">9th Fall</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-stone-500 font-medium text-sm whitespace-nowrap hover:bg-surface-container-high transition-colors">9th Spring</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-stone-500 font-medium text-sm whitespace-nowrap hover:bg-surface-container-high transition-colors">10th Fall</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-stone-500 font-medium text-sm whitespace-nowrap hover:bg-surface-container-high transition-colors">10th Spring</button>
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-bold text-sm whitespace-nowrap">11th Fall</button>
+</div>
+<!-- Chart Simulation -->
+<div class="relative bg-surface-container-low rounded-xl p-8 h-80 overflow-hidden">
+<div class="absolute inset-0 opacity-10 flex flex-col justify-between p-8 pointer-events-none">
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+</div>
+<div class="relative h-full w-full flex items-end justify-between">
+<!-- SVG Chart Logic (Simplified) -->
+<svg class="absolute inset-0 w-full h-full preserve-3d" viewbox="0 0 500 200">
+<!-- Weighted GPA (Dashed Lime) -->
+<path d="M0,160 Q125,140 250,90 T500,40" fill="none" stroke="#caf24d" stroke-dasharray="8,4" stroke-width="4"></path>
+<!-- Unweighted GPA (Solid Green) -->
+<path d="M0,170 Q125,165 250,140 T500,120" fill="none" stroke="#42603f" stroke-width="4"></path>
+<!-- Data Points -->
+<circle cx="0" cy="170" fill="#42603f" r="5"></circle>
+<circle cx="250" cy="140" fill="#42603f" r="5"></circle>
+<circle cx="500" cy="120" fill="#42603f" r="6" stroke="white" stroke-width="2"></circle>
+<circle cx="0" cy="160" fill="#caf24d" r="5"></circle>
+<circle cx="250" cy="90" fill="#caf24d" r="5"></circle>
+<circle cx="500" cy="40" fill="#caf24d" r="6" stroke="white" stroke-width="2"></circle>
+</svg>
+<div class="absolute bottom-4 left-0 right-0 flex justify-between px-2 text-[10px] font-bold text-stone-400 uppercase tracking-tighter">
+<span>9th Fall</span>
+<span>9th Spr</span>
+<span>10th Fall</span>
+<span>10th Spr</span>
+<span>11th Fall</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- GPA Card -->
+<div class="bg-surface-container-high rounded-xl p-6 flex flex-col justify-between">
+<h3 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-4">Cumulative Performance</h3>
+<div class="flex items-baseline gap-6">
+<div>
+<p class="text-4xl font-headline font-bold text-primary">3.78</p>
+<p class="text-[10px] font-bold text-stone-500 uppercase">Unweighted</p>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant/30"></div>
+<div>
+<p class="text-4xl font-headline font-bold text-primary">4.21</p>
+<p class="text-[10px] font-bold text-stone-500 uppercase">Weighted</p>
+</div>
+</div>
+</div>
+<!-- Bright Futures Card -->
+<div class="border-2 border-secondary-fixed bg-secondary-fixed/5 rounded-xl p-6 relative overflow-hidden">
+<span class="material-symbols-outlined absolute -right-4 -top-4 text-8xl text-secondary-fixed/20 rotate-12" data-icon="workspace_premium">workspace_premium</span>
+<h3 class="text-xs font-bold text-secondary font-bold uppercase tracking-widest mb-2">Scholarship Eligibility</h3>
+<p class="text-xl font-headline font-bold text-primary mb-1">Bright Futures</p>
+<div class="flex items-center gap-2 text-secondary font-bold text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Academic Medallion</span>
+</div>
+<div class="mt-4 h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full w-[88%] bg-secondary-fixed shadow-[0_0_8px_rgba(202,242,77,0.6)]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel (45%) - Semester Detail -->
+<section class="w-[45%] h-full p-10 overflow-y-auto bg-surface-container-low">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="text-2xl font-headline font-bold text-primary">Fall 2023 Detail</h3>
+<p class="text-sm text-stone-500">11th Grade • Current Semester</p>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold text-sm hover:underline">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                    Add Course
+                </button>
+</div>
+<!-- Course Table -->
+<div class="bg-surface rounded-xl overflow-hidden shadow-sm mb-8">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-highest/50 border-b border-outline-variant/10">
+<th class="px-6 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Course Name</th>
+<th class="px-4 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Cred</th>
+<th class="px-4 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Grade</th>
+<th class="px-4 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Weight</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-sm font-bold text-on-surface">AP US History</p>
+<p class="text-[10px] text-stone-400">Social Science</p>
+</td>
+<td class="px-4 py-4 text-sm font-medium">1.0</td>
+<td class="px-4 py-4">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2.5 py-1 rounded-md">A</span>
+</td>
+<td class="px-4 py-4 text-xs font-bold text-secondary">1.0</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-sm font-bold text-on-surface">Honors Pre-Calc</p>
+<p class="text-[10px] text-stone-400">Mathematics</p>
+</td>
+<td class="px-4 py-4 text-sm font-medium">1.0</td>
+<td class="px-4 py-4">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2.5 py-1 rounded-md">A</span>
+</td>
+<td class="px-4 py-4 text-xs font-bold text-secondary">0.5</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-sm font-bold text-on-surface">AP Language</p>
+<p class="text-[10px] text-stone-400">English</p>
+</td>
+<td class="px-4 py-4 text-sm font-medium">1.0</td>
+<td class="px-4 py-4">
+<span class="bg-secondary-fixed/30 text-secondary text-[10px] font-bold px-2.5 py-1 rounded-md">B+</span>
+</td>
+<td class="px-4 py-4 text-xs font-bold text-secondary">1.0</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-sm font-bold text-on-surface">Physics 1 Honors</p>
+<p class="text-[10px] text-stone-400">Science</p>
+</td>
+<td class="px-4 py-4 text-sm font-medium">1.0</td>
+<td class="px-4 py-4">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2.5 py-1 rounded-md">A-</span>
+</td>
+<td class="px-4 py-4 text-xs font-bold text-secondary">0.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Live Calculation Card -->
+<div class="bg-primary-container p-6 rounded-xl text-on-primary-container mb-8 relative overflow-hidden">
+<div class="relative z-10 flex justify-between items-center">
+<div>
+<h4 class="text-xs font-bold uppercase tracking-widest opacity-70 mb-1">Live Semester GPA</h4>
+<p class="text-3xl font-headline font-bold">4.38 <span class="text-xs font-manrope font-medium opacity-60 ml-2">Estimated</span></p>
+</div>
+<div class="text-right">
+<span class="material-symbols-outlined text-4xl opacity-20" data-icon="functions">functions</span>
+</div>
+</div>
+<!-- Abstract Grain Pattern (using CSS) -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHJRgtrUCM0D_odtZSnKTtmlmnhzg6Uf_X-XXc1VZk5hybjZ5HT1K-ARBULeGttVRRk9ip_CmMK8qN1i6NrEAyYxHiKfhR1Q67BY-jTvYBJAPNEbwCnIuj-y5M_uFgg573MyWotVNY_u8w0kq7y99fbjuJxmdugYpmjJZbHqplU6b0VTjjIKlR9Ox06DkticTS_TMrYcqsd4OzamQbe7XLvPDlzZEvO1HVtaOzV8SigcEgYrcKpaVL3BiHhhz59tIoJezGFFZQ20U');"></div>
+</div>
+<div class="space-y-4">
+<button class="w-full primary-gradient-cta py-4 rounded-xl text-on-primary font-bold shadow-lg hover:scale-[1.01] transition-transform active:scale-[0.98]">
+                    Save Semester Data
+                </button>
+<button class="w-full bg-surface-container-highest py-4 rounded-xl text-on-surface font-bold hover:bg-surface-variant transition-colors">
+                    Export Transcript PDF
+                </button>
+</div>
+<!-- Contextual Tip -->
+<div class="mt-12 p-6 border-l-4 border-tertiary-fixed bg-tertiary-fixed/10 rounded-r-xl">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="lightbulb" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<div>
+<p class="text-sm font-bold text-tertiary mb-1">Ladder Insights</p>
+<p class="text-xs text-stone-600 leading-relaxed">Increasing your AP Language grade to an 'A' would boost your cumulative weighted GPA by 0.04 points. Focus on the upcoming mid-term.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB for quick action (contextual) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full primary-gradient-cta text-on-primary flex items-center justify-center shadow-2xl hover:scale-110 transition-transform active:scale-95 z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add_chart">add_chart</span>
+</button>
+</body></html>

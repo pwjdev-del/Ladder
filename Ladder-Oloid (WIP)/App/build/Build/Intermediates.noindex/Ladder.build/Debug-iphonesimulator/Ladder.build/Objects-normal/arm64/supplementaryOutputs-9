@@ -1,0 +1,23 @@
+{
+  "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/Ladder/Core/Legal/LegalTexts.swift" : {
+    "const-values" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LegalTexts.swiftconstvalues",
+    "dependencies" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LegalTexts.d",
+    "diagnostics" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LegalTexts.dia",
+    "object" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LegalTexts.o",
+    "swift-dependencies" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LegalTexts.swiftdeps"
+  },
+  "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/Ladder/Features/Auth/Views/LoginView.swift" : {
+    "const-values" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LoginView.swiftconstvalues",
+    "dependencies" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LoginView.d",
+    "diagnostics" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LoginView.dia",
+    "object" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LoginView.o",
+    "swift-dependencies" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/LoginView.swiftdeps"
+  },
+  "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/Ladder/Navigation/MainTabView.swift" : {
+    "const-values" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/MainTabView.swiftconstvalues",
+    "dependencies" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/MainTabView.d",
+    "diagnostics" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/MainTabView.dia",
+    "object" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/MainTabView.o",
+    "swift-dependencies" : "/Users/kathanpatel/Library/CloudStorage/GoogleDrive-patelkathan134@gmail.com/My Drive/Projects/Ladder/Ladder-Oloid (WIP)/App/build/Build/Intermediates.noindex/Ladder.build/Debug-iphonesimulator/Ladder.build/Objects-normal/arm64/MainTabView.swiftdeps"
+  }
+}

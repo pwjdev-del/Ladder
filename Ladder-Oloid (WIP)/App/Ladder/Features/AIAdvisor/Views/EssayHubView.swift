@@ -5,9 +5,37 @@ import SwiftUI
 struct EssayHubView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AppCoordinator.self) private var coordinator
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var essays: [EssayItem] = EssayItem.samples
+    @State private var selectedEssay: EssayItem? = EssayItem.samples.first
+    @State private var draftText: String = ""
 
     var body: some View {
+        Group {
+            if sizeClass == .regular {
+                iPadLayout
+            } else {
+                iPhoneLayout
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button { dismiss() } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(LadderColors.onSurface)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                Text("Essay Hub")
+                    .font(LadderTypography.titleMedium)
+                    .foregroundStyle(LadderColors.onSurface)
+            }
+        }
+    }
+
+    private var iPhoneLayout: some View {
         ZStack {
             LadderColors.surface.ignoresSafeArea()
 
@@ -67,21 +95,241 @@ struct EssayHubView: View {
                 .padding(.bottom, 120)
             }
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button { dismiss() } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(LadderColors.onSurface)
-                }
-            }
-            ToolbarItem(placement: .principal) {
-                Text("Essay Hub")
-                    .font(LadderTypography.titleMedium)
-                    .foregroundStyle(LadderColors.onSurface)
+    }
+
+    // MARK: - iPad Layout
+
+    private var iPadLayout: some View {
+        ZStack {
+            LadderColors.surface.ignoresSafeArea()
+
+            HStack(spacing: 0) {
+                iPadEssayListColumn
+                    .frame(width: 300)
+                    .background(LadderColors.surfaceContainerLow)
+
+                Rectangle().fill(LadderColors.outlineVariant).frame(width: 1)
+
+                iPadEditorColumn
+                    .frame(maxWidth: .infinity)
+
+                Rectangle().fill(LadderColors.outlineVariant).frame(width: 1)
+
+                iPadFeedbackColumn
+                    .frame(width: 340)
+                    .background(LadderColors.surfaceContainerLow)
             }
         }
+    }
+
+    private var iPadEssayListColumn: some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.md) {
+            HStack {
+                Text("My Essays")
+                    .font(LadderTypography.titleLarge)
+                    .foregroundStyle(LadderColors.onSurface)
+                Spacer()
+                Button {
+                    coordinator.navigate(to: .advisorChat(sessionId: nil))
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 22))
+                        .foregroundStyle(LadderColors.primary)
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.horizontal, LadderSpacing.md)
+            .padding(.top, LadderSpacing.lg)
+
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: LadderSpacing.md) {
+                    iPadEssaySection(title: "DRAFTS", items: essays.filter { $0.status == "Draft" })
+                    iPadEssaySection(title: "IN PROGRESS", items: essays.filter { $0.status == "Not Started" })
+                    iPadEssaySection(title: "COMPLETE", items: [])
+
+                    Divider().padding(.vertical, LadderSpacing.sm)
+
+                    Text("COMMON APP PROMPTS")
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                        .labelTracking()
+                        .padding(.horizontal, LadderSpacing.md)
+
+                    ForEach(CommonAppPrompt.prompts.prefix(4)) { prompt in
+                        Button {
+                            coordinator.navigate(to: .advisorChat(sessionId: nil))
+                        } label: {
+                            HStack(alignment: .top, spacing: LadderSpacing.sm) {
+                                Text("\(prompt.number)")
+                                    .font(LadderTypography.titleSmall)
+                                    .foregroundStyle(LadderColors.primary)
+                                    .frame(width: 20)
+                                Text(prompt.title)
+                                    .font(LadderTypography.bodySmall)
+                                    .foregroundStyle(LadderColors.onSurface)
+                                    .multilineTextAlignment(.leading)
+                                Spacer()
+                            }
+                            .padding(.horizontal, LadderSpacing.md)
+                            .padding(.vertical, LadderSpacing.xs)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.bottom, LadderSpacing.xl)
+            }
+        }
+    }
+
+    private func iPadEssaySection(title: String, items: [EssayItem]) -> some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.xs) {
+            Text(title)
+                .font(LadderTypography.labelSmall)
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+                .labelTracking()
+                .padding(.horizontal, LadderSpacing.md)
+
+            if items.isEmpty {
+                Text("None yet")
+                    .font(LadderTypography.bodySmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant.opacity(0.7))
+                    .padding(.horizontal, LadderSpacing.md)
+                    .padding(.vertical, LadderSpacing.xs)
+            } else {
+                ForEach(items) { essay in
+                    Button { selectedEssay = essay } label: {
+                        VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                            Text(essay.title)
+                                .font(LadderTypography.titleSmall)
+                                .foregroundStyle(LadderColors.onSurface)
+                                .lineLimit(1)
+                            HStack(spacing: LadderSpacing.xs) {
+                                Text(essay.type)
+                                    .font(LadderTypography.labelSmall)
+                                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                                Spacer()
+                                Text("\(essay.wordCount)w")
+                                    .font(LadderTypography.labelSmall)
+                                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                            }
+                            LinearProgressBar(progress: essay.progress)
+                        }
+                        .padding(LadderSpacing.sm)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(
+                            (selectedEssay?.id == essay.id
+                                ? LadderColors.primaryContainer.opacity(0.3)
+                                : LadderColors.surfaceContainer.opacity(0.5))
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: LadderRadius.md, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, LadderSpacing.sm)
+                }
+            }
+        }
+    }
+
+    private var iPadEditorColumn: some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.md) {
+            HStack {
+                VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                    Text(selectedEssay?.title ?? "Untitled Essay")
+                        .font(LadderTypography.headlineSmall)
+                        .foregroundStyle(LadderColors.onSurface)
+                        .editorialTracking()
+                    if let essay = selectedEssay {
+                        Text("\(essay.type) · \(essay.wordCount) words")
+                            .font(LadderTypography.bodySmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                    }
+                }
+                Spacer()
+                LadderAccentButton("Get AI Review", icon: "sparkles") { }
+            }
+            .padding(.horizontal, LadderSpacing.xl)
+            .padding(.top, LadderSpacing.lg)
+
+            ScrollView(showsIndicators: false) {
+                TextEditor(text: $draftText)
+                    .font(LadderTypography.bodyLarge)
+                    .foregroundStyle(LadderColors.onSurface)
+                    .scrollContentBackground(.hidden)
+                    .frame(minHeight: 500)
+                    .padding(LadderSpacing.lg)
+                    .background(LadderColors.surfaceContainerLowest)
+                    .clipShape(RoundedRectangle(cornerRadius: LadderRadius.lg, style: .continuous))
+                    .padding(.horizontal, LadderSpacing.xl)
+                    .padding(.bottom, LadderSpacing.xl)
+            }
+        }
+    }
+
+    private var iPadFeedbackColumn: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: LadderSpacing.md) {
+                HStack(spacing: LadderSpacing.xs) {
+                    Image(systemName: "sparkles")
+                        .foregroundStyle(LadderColors.accentLime)
+                    Text("AI Feedback")
+                        .font(LadderTypography.titleMedium)
+                        .foregroundStyle(LadderColors.onSurface)
+                }
+
+                feedbackCard(
+                    title: "Overall Score",
+                    body: "82 / 100 — strong opening hook, room to deepen reflection.",
+                    icon: "star.fill",
+                    tint: LadderColors.accentLime
+                )
+
+                feedbackCard(
+                    title: "Strengths",
+                    body: "Vivid sensory details in the opening paragraph. Clear voice throughout.",
+                    icon: "checkmark.seal.fill",
+                    tint: LadderColors.primary
+                )
+
+                feedbackCard(
+                    title: "Improve",
+                    body: "Tighten the middle section — cut 40-60 words. Show impact more concretely.",
+                    icon: "exclamationmark.triangle.fill",
+                    tint: LadderColors.tertiary
+                )
+
+                feedbackCard(
+                    title: "Structure",
+                    body: "Intro: Strong. Body: Needs focus. Conclusion: Good callback.",
+                    icon: "square.stack.3d.up.fill",
+                    tint: LadderColors.primary
+                )
+
+                LadderPrimaryButton("Apply Suggestions", icon: "wand.and.stars") { }
+            }
+            .padding(LadderSpacing.md)
+            .padding(.top, LadderSpacing.lg)
+        }
+    }
+
+    private func feedbackCard(title: String, body: String, icon: String, tint: Color) -> some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.xs) {
+            HStack(spacing: LadderSpacing.xs) {
+                Image(systemName: icon)
+                    .font(.system(size: 12))
+                    .foregroundStyle(tint)
+                Text(title)
+                    .font(LadderTypography.labelLarge)
+                    .foregroundStyle(LadderColors.onSurface)
+            }
+            Text(body)
+                .font(LadderTypography.bodySmall)
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(LadderSpacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(LadderColors.surfaceContainerLowest)
+        .clipShape(RoundedRectangle(cornerRadius: LadderRadius.lg, style: .continuous))
     }
 
     private func promptCard(_ prompt: CommonAppPrompt) -> some View {

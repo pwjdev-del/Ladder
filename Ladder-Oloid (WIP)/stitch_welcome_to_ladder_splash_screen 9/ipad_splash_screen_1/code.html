@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Academic Atelier</title>
+<!-- Google Fonts: Noto Serif for headlines, Manrope for body/UI -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#fbf2e8",
+                        "primary": "#42603f",
+                        "inverse-primary": "#aed0a7",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#566c00",
+                        "secondary-fixed": "#caf24d",
+                        "on-secondary-fixed": "#161e00",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "inverse-surface": "#343029",
+                        "secondary": "#516600",
+                        "surface-bright": "#fff8f2",
+                        "secondary-fixed-dim": "#afd531",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-background": "#1f1b15",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f2",
+                        "tertiary-container": "#8d6a48",
+                        "on-primary-fixed": "#052107",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed": "#c9ecc2",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f2",
+                        "tertiary": "#725232",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-container": "#f5ede2",
+                        "secondary-container": "#caf24d",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "on-surface": "#1f1b15",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-tint": "#486644",
+                        "on-surface-variant": "#434840",
+                        "outline-variant": "#c3c8be",
+                        "surface-container-high": "#efe7dd",
+                        "surface-variant": "#eae1d7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>body {
+    font-family: "Manrope", sans-serif;
+    background-color: #fff8f2
+    }
+.font-serif {
+    font-family: "Noto Serif", serif
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+/* Custom glow effect for the splash screen */
+.logo-glow {
+    box-shadow: 0 0 60px 10px rgba(202, 242, 77, 0.15)
+    }
+/* Texture overlay for editorial feel */
+.grain-texture {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCA4jMZiFG9OgSkcLlGM01z2WuuFKO2OE-NiLFJi2AMLF6jOTNLMFUzWn5cIYkZaTXY07AWdwXmezQzDjMZxkXjr0cAhJZCsCjEO9CNPTShMyGofZt_Yk7Hw-YfNPUu1V9Oo8kVShvxC3WzCInoK84tK5MdYsWAZE1_HNdtMdmqnOqLm7sG88BjiQ5kk92ffEaWu-2Y5tlDhZqz79IMDUgbUmIK9hMT39kyAJ4J4HyHtVSweAWp-WMFo6TGb4oIxwYn7aBEhFfPLRA);
+    opacity: 0.05
+    }</style>
+</head>
+<body class="antialiased overflow-hidden">
+<!-- Splash Screen Wrapper: Full Screen Landscape Gradient -->
+<!-- Suppression Logic: Navigation Shell (SideNav/BottomNavBar) is suppressed for this transactional/focused splash state -->
+<div class="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary via-primary-container to-[#304e2e]">
+<!-- Texture Layer for "The Academic Atelier" Editorial Feel -->
+<div class="absolute inset-0 grain-texture pointer-events-none"></div>
+<!-- Ambient Light Background Elements -->
+<div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-secondary-fixed opacity-[0.03] blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-15%] left-[-10%] w-[600px] h-[600px] bg-secondary-fixed opacity-[0.05] blur-[150px] rounded-full"></div>
+<!-- Central Identity Cluster -->
+<div class="relative z-10 flex flex-col items-center text-center space-y-12">
+<!-- Ladder High-Fidelity Logo -->
+<div class="relative flex items-center justify-center w-32 h-32 md:w-40 md:h-40">
+<!-- Outer Glow and Floating Frame -->
+<div class="absolute inset-0 bg-secondary-fixed/10 blur-[40px] rounded-full animate-pulse"></div>
+<!-- The Rotated Square Container -->
+<div class="relative w-full h-full bg-white transform rotate-45 rounded-xl shadow-2xl flex items-center justify-center logo-glow">
+<!-- Graduation Cap Icon (Literal Transcription) -->
+<div class="transform -rotate-45 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-6xl md:text-7xl" data-icon="school" style="font-variation-settings: 'FILL' 1;">
+                            school
+                        </span>
+</div>
+</div>
+</div>
+<!-- Wordmark & Subtitle -->
+<div class="space-y-4">
+<!-- Brand Casing Integrity: LADDER -->
+<h1 class="font-serif text-white text-6xl md:text-8xl font-bold tracking-tighter italic">
+                    LADDER
+                </h1>
+<!-- Subtitle with Small Tracked Caps (Editorial style) -->
+<p class="font-body text-secondary-fixed/90 text-sm md:text-base font-semibold tracking-[0.3em] uppercase">
+                    Leading Students to Their Own Success
+                </p>
+</div>
+</div>
+<!-- Bottom Footer Detail (Optional Premium Branding) -->
+<div class="absolute bottom-12 left-0 w-full flex justify-center">
+<div class="flex items-center space-x-4 opacity-40">
+<div class="h-[1px] w-12 bg-white/50"></div>
+<span class="font-body text-white text-[10px] tracking-widest uppercase">Academic Atelier v2.4</span>
+<div class="h-[1px] w-12 bg-white/50"></div>
+</div>
+</div>
+<!-- Decorative Asymmetry: Off-center Image/Graphic Element -->
+<div class="absolute top-20 right-20 hidden lg:block">
+<div class="w-72 h-96 bg-surface-container-highest/10 backdrop-blur-md rounded-xl p-1 transform rotate-6 overflow-hidden">
+<img alt="Prestigious university library" class="w-full h-full object-cover rounded-lg opacity-40 grayscale" data-alt="dramatic interior of a gothic university library with rows of old books and warm sunlight streaming through arched windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkaHWbtxZrfv0_S7nPMPhNgba0XAGQBpyKUdmYNbhCtfRS18lZ2Z-_75dByIN6mGhx_TI4ZLvsRWh2RpZMQ0RjgQjY5HtRDhofMMlEK70dIVGr0ntgmp0IDEmcmK4LBuuaCQVb34kk1Pe3VXYHHloh3k9ukaLkS_QDx7515o2ekabtxFdeI8V0AUUch8rhEyv1g1FRSaKuXVo8CfMMzAtCESQRyujbhtJyQ0DNlJGqyzo42H8ls-Te-ab3M3fcmQP2LUmFoUoGTfo"/>
+</div>
+</div>
+<div class="absolute bottom-20 left-20 hidden lg:block">
+<div class="w-64 h-64 bg-surface-container-highest/10 backdrop-blur-md rounded-full p-1 transform -rotate-12 overflow-hidden">
+<img alt="Graduation celebration" class="w-full h-full object-cover rounded-full opacity-40 grayscale" data-alt="close-up of university diploma on high-quality parchment paper with traditional wax seal on a dark wooden desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmxtoCtS4bgl6ZApjTh1bfTXXUAf9RON89HTBgw14DqK-xCTC7FdvoLUKBZ3xyPcVEuxrbiKMVXBhdLRdadznQGm5dtcf7lRX6H63sLoR9ht72kBHmZ_muon8dM_HzPHqv1x5HB9ilbj3o4AWLBR_CyuLNHyuvRYVXPmP-jII4fUguB6KWeYDBFwvWizwpyZB7Ua8_kXQ_Bqe9LORcRP6fXMM5OnCA14mRwmO-w0BLMAAVgI6qibaTOCrwBVmOgb6qyqFC8AS6JCE"/>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "surface-tint": "#486644",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "outline-variant": "#c3c8be",
+                        "on-surface-variant": "#434840",
+                        "tertiary-fixed": "#ffdcbd",
+                        "tertiary": "#725232",
+                        "surface-container": "#f5ede2",
+                        "background": "#fff8f2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-container": "#5a7956",
+                        "on-secondary-fixed": "#161e00",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-bright": "#fff8f2",
+                        "outline": "#737970",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "primary": "#42603f",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "secondary-fixed": "#caf24d",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#2c1600",
+                        "secondary": "#516600",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#fbf2e8",
+                        "surface": "#fff8f2",
+                        "surface-container-high": "#efe7dd",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface": "#1f1b15",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-background": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "inverse-on-surface": "#f8efe5",
+                        "inverse-primary": "#aed0a7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-variant": "#eae1d7",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#e1d9cf"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-glow {
+            box-shadow: 0 0 20px -5px rgba(202, 242, 77, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-secondary-fixed/30">
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-screen w-72 z-40 bg-[#fbf2e8] dark:bg-stone-900 flex flex-col">
+<div class="p-8">
+<h1 class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#5a7956]">Academic Atelier</h1>
+<div class="mt-8 flex flex-col items-start gap-1">
+<div class="w-12 h-12 rounded-full overflow-hidden mb-2">
+<img alt="Student avatar" data-alt="Close-up portrait of a professional-looking male student with glasses in a warm, sunlit library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyLR44fWtJxjLj-F-EY_ja2gxMODRg9nyu3Swrl_Ob8ZBfvvMGojcF5qSmZXhCzusChTj9RwupWgazDqUK6R4RLFG73d7BhGSklFsOK6omv__1mVq5Zcz4qb51hm97eX_Z4SGrQXd9d8NBC59ImDoubrLmslg9SVwkYLWxgnEpr3r9btebOQ2aBCQsE3aIiGuFbqOUbv2tH8N_uH3dQ62M_I5YeUMmpXhliPV8iusPO0IvLX2G8-0rgNU5AVFiHdOMVkt-fN01GVo"/>
+</div>
+<p class="font-headline italic text-lg text-on-surface leading-tight">Batch 9 Student</p>
+<span class="text-xs tracking-widest uppercase text-tertiary font-semibold">Premium Scholar</span>
+</div>
+</div>
+<nav class="flex-1 mt-4">
+<a class="flex items-center gap-4 py-3 px-6 text-[#42603f] dark:text-[#5a7956] font-bold border-l-4 border-[#caf24d] bg-[#eae1d7] transition-transform scale-95 origin-left" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-sm tracking-tight">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+<span class="text-sm tracking-tight">Roommates</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+<span class="text-sm tracking-tight">Deadlines</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-sm tracking-tight">Profile</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] transition-colors duration-300 mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm tracking-tight">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-72 z-30 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl px-8 py-6 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="compare_arrows">compare_arrows</span>
+<h2 class="font-headline text-3xl tracking-tight text-[#1f1b15] dark:text-stone-100">Compare Dorms</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full border border-outline-variant/20 overflow-hidden">
+<img alt="User profile photo" data-alt="Minimalist professional profile photo of a person with calm expression, neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwQO98Faf2zlVylI_PqAv5Bp4FQXicxD2fQZMEnM1wJh_gm_2qBQH5hi3683qk5wzadtXVGOiNpxeb700g3IItM6c7sKX_EcLFoPZl2Xy_0DCwqrdazt3Jgd7vjV93RAzCzeCsj5iSlItmBkjx_RKg26KBpoZlr-thtO8iLPouMtWhKhC2Wsk0QPBdVE7mzdrSR1NtbeEg-BOmz4KSsFcyk7AE6vaBeUSWEbX4_sGzFJJCfFeFjb9O-NohFwkLzldYl36dzyzedFM"/>
+</div>
+</div>
+</header>
+<div class="pt-32 pb-12 px-8 max-w-7xl mx-auto">
+<!-- Comparison Grid -->
+<div class="grid grid-cols-12 gap-0 bg-surface-container-low rounded-xl overflow-hidden shadow-sm border border-outline-variant/10">
+<!-- Labels Column (Hidden on mobile) -->
+<div class="col-span-3 border-r border-outline-variant/10">
+<div class="h-72 p-6 flex flex-col justify-end bg-surface-container-high/30">
+<span class="text-xs font-bold uppercase tracking-widest text-tertiary">Feature Comparison</span>
+</div>
+<div class="flex flex-col">
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-on-surface-variant font-medium text-sm">Estimated Cost</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-on-surface-variant font-medium text-sm">Room Type</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-on-surface-variant font-medium text-sm">Campus Distance</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-on-surface-variant font-medium text-sm">Meal Plan Inclusion</div>
+<div class="h-32 px-6 flex items-top pt-5 border-b border-outline-variant/10 text-on-surface-variant font-medium text-sm">Amenities</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-on-surface-variant font-medium text-sm">Move-in Date</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-on-surface-variant font-medium text-sm">Student Rating</div>
+<div class="h-24 px-6 flex items-center">Action</div>
+</div>
+</div>
+<!-- Dorm 1: The Ivy Manor -->
+<div class="col-span-4.5 border-r border-outline-variant/10 group transition-all duration-500 hover:bg-surface-container">
+<div class="h-72 relative overflow-hidden">
+<img alt="The Ivy Manor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Classic collegiate brick dormitory building with ivy-covered walls during golden hour with warm sunlight filtering through leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0RKy-ye2bQXhV951vjnrkA39IkyZdfj8nOeUu9Fhr6EpYEe72dCwUAvgxTmvgIS16HOKjJGbkm0_06AD9zDjgaZoAEK8ELTROjusjHfwk37CRR1aA8wLN3xA6_nDq6_aDWmRMSWM-37SFV7Ouq2DjPeM3K1C4QNqa5y5VwnZmmW5_3SM2TfpQVVuf_0WRA_Vm5HmbT3xtrPDQ3NlACwpTwK472krTp0VF2bOLIMozWedGQEhwvfrt3BtWvd3GixZYpAvl_cKzxd4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<p class="text-xs font-bold uppercase tracking-widest opacity-80">Heritage Wing</p>
+<h3 class="font-headline text-2xl">The Ivy Manor</h3>
+<p class="text-sm font-light">St. Jude's College</p>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 font-bold text-primary">$1,250 <span class="text-xs font-normal text-on-surface-variant/60 ml-1">/mo</span></div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-sm">Single Studio</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-sm">0.2 miles (Main Quad)</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-sm">Full Premium</div>
+<div class="h-32 px-6 flex flex-wrap gap-2 items-top pt-5 border-b border-outline-variant/10">
+<span class="px-2 py-1 bg-surface-container-highest rounded-lg text-[10px] font-bold text-primary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="wifi">wifi</span> Gig-Fiber</span>
+<span class="px-2 py-1 bg-surface-container-highest rounded-lg text-[10px] font-bold text-primary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="local_laundry_service">local_laundry_service</span> In-suite</span>
+<span class="px-2 py-1 bg-surface-container-highest rounded-lg text-[10px] font-bold text-primary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="fitness_center">fitness_center</span> 24/7 Gym</span>
+</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-sm">August 24, 2024</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10">
+<div class="flex text-secondary-fixed">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+<span class="ml-2 text-xs text-on-surface-variant font-medium">4.8 (212)</span>
+</div>
+<div class="h-24 px-6 flex items-center">
+<button class="w-full py-3 bg-gradient-to-r from-primary to-primary-container text-white rounded-xl font-bold text-sm tracking-wide transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/10">Select Preferred</button>
+</div>
+</div>
+</div>
+<!-- Dorm 2: Horizon Heights -->
+<div class="col-span-4.5 group transition-all duration-500 hover:bg-surface-container">
+<div class="h-72 relative overflow-hidden">
+<img alt="Horizon Heights" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Ultra-modern student residence with large glass windows, sleek gray panels, and contemporary landscaping under a clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8-uyg5WQgxTY9ZSDAcIUWATJBq0ENsCh8x2Vi9f3iYE61B-GRhvR_6GLqATEqqdCRZVlR1yMYoT07iuYcFaVvI-EW58qaa9XrOnEuxgN6wIHoCtckXxmcCGzRnbwL6XmdKqnWdwSSrjRLt_N5Yw0xzTlSEi0GaXQyhN59XpLeaFsWL3NkpgLaUwXQ2KnaEMX0lM3Zogg8dXS4fCOKpJOKjDvNwij0LL6PUUjJ2AdyTM5MqOh4HTX9uXlFj-ShYweMPvwMCqz_RgQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<p class="text-xs font-bold uppercase tracking-widest opacity-80">Modernist Hub</p>
+<h3 class="font-headline text-2xl">Horizon Heights</h3>
+<p class="text-sm font-light">St. Jude's College</p>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 font-bold text-primary">$1,080 <span class="text-xs font-normal text-on-surface-variant/60 ml-1">/mo</span></div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-sm">Double Occupancy</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-sm">0.8 miles (Shuttle Req.)</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-sm">Flexi-Points Only</div>
+<div class="h-32 px-6 flex flex-wrap gap-2 items-top pt-5 border-b border-outline-variant/10">
+<span class="px-2 py-1 bg-surface-container-highest rounded-lg text-[10px] font-bold text-primary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="roofing">roofing</span> Sky Lounge</span>
+<span class="px-2 py-1 bg-surface-container-highest rounded-lg text-[10px] font-bold text-primary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="videogame_asset">videogame_asset</span> Gaming Zone</span>
+</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10 text-sm">September 02, 2024</div>
+<div class="h-16 px-6 flex items-center border-b border-outline-variant/10">
+<div class="flex text-secondary-fixed">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+<span class="ml-2 text-xs text-on-surface-variant font-medium">4.2 (89)</span>
+</div>
+<div class="h-24 px-6 flex items-center">
+<button class="w-full py-3 bg-surface-container-highest text-on-surface rounded-xl font-bold text-sm tracking-wide transition-all hover:bg-outline-variant/20">Select Preferred</button>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Recommendation Section -->
+<section class="mt-12 relative">
+<div class="absolute -top-6 -left-6 w-12 h-12 bg-secondary-fixed rounded-full flex items-center justify-center active-glow z-10">
+<span class="material-symbols-outlined text-on-secondary-fixed text-xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="bg-primary text-on-primary-container p-8 rounded-xl shadow-2xl overflow-hidden relative border border-primary-container/20">
+<!-- Subtle pattern overlay -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, #fff 1px, transparent 0); background-size: 24px 24px;"></div>
+<div class="relative z-10">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="max-w-2xl">
+<h4 class="font-headline text-2xl text-white mb-2">Academic Atelier Analysis</h4>
+<p class="text-sm leading-relaxed opacity-90 font-light">
+                                    Based on your focus on <span class="font-bold text-secondary-fixed">Quiet Study Environments</span> and your <span class="font-bold text-secondary-fixed">Architecture Major</span>, we recommend <span class="underline decoration-secondary-fixed decoration-2 underline-offset-4">The Ivy Manor</span>. The historical high-ceiling layouts and proximity to the design studio provide 14% higher academic focus scores among senior scholars.
+                                </p>
+</div>
+<div class="flex-shrink-0">
+<a class="inline-flex items-center gap-2 text-secondary-fixed font-bold text-sm hover:opacity-80 group" href="#">
+                                    View Full AI Breakdown
+                                    <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Floating Action -->
+<div class="mt-16 flex justify-center">
+<div class="flex items-center gap-8 bg-surface-container-high/80 backdrop-blur-md px-8 py-4 rounded-full border border-outline-variant/20 shadow-lg">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Still deciding?</span>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="share">share</span>
+                            Share Report
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+                            Export PDF
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

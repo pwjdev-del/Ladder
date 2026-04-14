@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>School Comparison | Ladder Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#725232",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-fixed": "#caf24d",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "surface-tint": "#486644",
+                        "primary": "#42603f",
+                        "on-background": "#1f1b15",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container": "#f5ede2",
+                        "surface-bright": "#fff8f2",
+                        "on-secondary-container": "#566c00",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-fixed": "#161e00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-primary-fixed": "#052107",
+                        "background": "#fff8f2",
+                        "outline": "#737970",
+                        "on-surface": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#fbf2e8",
+                        "inverse-surface": "#343029",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "surface-dim": "#e1d9cf",
+                        "outline-variant": "#c3c8be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { background: rgba(255, 248, 242, 0.7); backdrop-filter: blur(20px); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fbf2e8; }
+        ::-webkit-scrollbar-thumb { background: #5a7956; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-container">
+<!-- Sidebar Navigation -->
+<aside class="fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] flex flex-col py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-50 hidden md:flex">
+<div class="mb-12 px-2">
+<div class="flex items-center gap-4 mb-2">
+<div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-2xl">auto_stories</span>
+</div>
+<div>
+<h1 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+<p class="font-noto-serif text-xs uppercase tracking-widest text-[#1f1b15]/60">District Administration</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7] transition-transform duration-300 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">domain</span>
+                Schools
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                District Stats
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">group</span>
+                Staff Directory
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+                Curriculum
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">construction</span>
+                Utility Tools
+            </a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/20 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform duration-300 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Log Out
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-[280pt] min-h-screen">
+<!-- Top Bar -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-8 py-4 w-full bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex items-center gap-8">
+<span class="font-noto-serif text-xl font-bold italic text-[#1f1b15]">Ladder Admin</span>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low rounded-full border-none focus:ring-2 focus:ring-primary text-sm w-64" placeholder="Search analytics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-[#eae1d7] rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<button class="p-2 hover:bg-[#eae1d7] rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Administrator profile" class="w-full h-full object-cover" data-alt="professional headshot of a middle-aged academic administrator with glasses in a soft-lit office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8VQsqw8xLdh2-30jpW60Tmq4j0arUYQE3BPQq4cZjqvzwsrQ67EtT8btyz3dLeGK8Pe8_FZPIJHsqWTqdWpCZeXbzOtCb8NKtoxi1MvvGe9yB6nDcnKLXMm7vEJVXZNrwVHw71O2eSrJMNA9wRQvCTZTUqxx4OOldwQkO_IcyIOtxhmZyNeeVzhaMaozf6nNqua40nfn6UV6GCGyHuvzS2hslIRjq7IGt9NipLTXPkJ9Wi7mbTHj7mDlwEWlzpMuZHttpsnSQClY"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Hero Header Section -->
+<section class="mb-12 flex justify-between items-end gap-12">
+<div class="max-w-2xl">
+<span class="text-primary font-semibold tracking-widest uppercase text-xs mb-2 block">Institutional Analytics</span>
+<h2 class="font-noto-serif text-5xl font-bold tracking-tight text-on-surface mb-4">Comparison <br/><span class="italic text-primary/80">Matrix</span></h2>
+<p class="text-on-surface-variant leading-relaxed">Juxtapose institutional performance metrics to identify growth opportunities and resource allocation efficiencies across the district.</p>
+</div>
+<div class="flex flex-col items-end gap-4">
+<button class="flex items-center gap-2 bg-gradient-to-br from-primary to-primary-container text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-primary/10 hover:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">ios_share</span>
+                        Export Report
+                    </button>
+</div>
+</section>
+<!-- School Selectors -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-surface-container-low p-1 rounded-xl">
+<div class="p-4 flex items-center justify-between border-b border-outline-variant/10">
+<span class="text-xs font-bold uppercase tracking-tighter text-on-surface-variant">Primary Institution</span>
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+</div>
+<select class="w-full bg-transparent border-none p-4 font-noto-serif text-lg focus:ring-0">
+<option selected="">St. Jude's Academy</option>
+<option>The Heights School</option>
+<option>Riverside Collegiate</option>
+</select>
+</div>
+<div class="bg-surface-container-low p-1 rounded-xl">
+<div class="p-4 flex items-center justify-between border-b border-outline-variant/10">
+<span class="text-xs font-bold uppercase tracking-tighter text-on-surface-variant">Secondary Comparison</span>
+<span class="w-3 h-3 rounded-full bg-secondary-fixed"></span>
+</div>
+<select class="w-full bg-transparent border-none p-4 font-noto-serif text-lg focus:ring-0">
+<option>St. Jude's Academy</option>
+<option selected="">The Heights School</option>
+<option>Riverside Collegiate</option>
+</select>
+</div>
+<div class="bg-surface-container-low p-1 rounded-xl border-2 border-dashed border-outline-variant/40 flex items-center justify-center group cursor-pointer hover:bg-surface-container-high transition-colors">
+<div class="text-center">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">add_circle</span>
+<p class="text-xs font-bold text-outline-variant uppercase tracking-tighter mt-1">Add School</p>
+</div>
+</div>
+</section>
+<!-- Comparison Matrix -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm border border-outline-variant/5">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="p-6 text-xs font-black uppercase tracking-widest text-on-surface-variant">Performance Metric</th>
+<th class="p-6 text-xs font-black uppercase tracking-widest text-on-surface-variant">St. Jude's Academy</th>
+<th class="p-6 text-xs font-black uppercase tracking-widest text-on-surface-variant">The Heights School</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-6 font-semibold">Total Enrollment</td>
+<td class="p-6 text-primary font-bold">1,420</td>
+<td class="p-6">1,180</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-6 font-semibold">Average GPA</td>
+<td class="p-6">3.72</td>
+<td class="p-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container rounded-full text-secondary font-bold text-sm">
+                                    3.85
+                                    <span class="material-symbols-outlined text-xs">trending_up</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-6 font-semibold">Average SAT Score</td>
+<td class="p-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container rounded-full text-secondary font-bold text-sm">
+                                    1380
+                                    <span class="material-symbols-outlined text-xs">star</span>
+</div>
+</td>
+<td class="p-6">1320</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-6 font-semibold">College-Bound %</td>
+<td class="p-6">94%</td>
+<td class="p-6 font-bold text-primary">96%</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-6 font-semibold">University Accept Rate</td>
+<td class="p-6 text-primary font-bold">82%</td>
+<td class="p-6">79%</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-6 font-semibold">Financial Aid Yield</td>
+<td class="p-6">$2.4M</td>
+<td class="p-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container rounded-full text-secondary font-bold text-sm">
+                                    $3.1M
+                                </div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-6 font-semibold">At-Risk Students</td>
+<td class="p-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container rounded-full text-secondary font-bold text-sm">
+                                    4.2%
+                                </div>
+</td>
+<td class="p-6">6.8%</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors border-none">
+<td class="p-6 font-semibold">Counselor Ratio</td>
+<td class="p-6">1:250</td>
+<td class="p-6 font-bold text-primary">1:180</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Visualization Section -->
+<section class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Bar Chart Comparison -->
+<div class="bg-surface-container-low p-8 rounded-xl relative overflow-hidden">
+<h3 class="font-noto-serif text-xl font-bold mb-8">Performance Volume Index</h3>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between text-xs font-bold uppercase mb-2">
+<span>Academic Rigor</span>
+<span class="text-primary">88% vs 92%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full flex overflow-hidden">
+<div class="h-full bg-primary" style="width: 88%"></div>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full mt-2 flex overflow-hidden">
+<div class="h-full bg-secondary-fixed" style="width: 92%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold uppercase mb-2">
+<span>Extracurricular Reach</span>
+<span class="text-primary">74% vs 61%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full flex overflow-hidden">
+<div class="h-full bg-primary" style="width: 74%"></div>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full mt-2 flex overflow-hidden">
+<div class="h-full bg-secondary-fixed" style="width: 61%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold uppercase mb-2">
+<span>Resource Allocation</span>
+<span class="text-primary">91% vs 84%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full flex overflow-hidden">
+<div class="h-full bg-primary" style="width: 91%"></div>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full mt-2 flex overflow-hidden">
+<div class="h-full bg-secondary-fixed" style="width: 84%"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex gap-6">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-xs font-bold uppercase opacity-60">St. Jude's</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-fixed"></span>
+<span class="text-xs font-bold uppercase opacity-60">The Heights</span>
+</div>
+</div>
+</div>
+<!-- Descriptive Visual Card -->
+<div class="relative rounded-xl overflow-hidden group">
+<img alt="Academic comparison" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="high-angle architectural shot of a modern clean university library with warm wooden furniture and green plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ_eSl5tRAlWU32QttoFBVq7p_fArUK3zx7jYz4aGLz0RX_C4-cLEe2xM5Dl9Kc4yuxCK4n2tZeGNxOQTFWJPaUmfO1DUzQUVg64O6LKT6Zf_tWiUx4Jg5vMwv8i4pNyCv9lEk6TwPAby2GZrZNv3HahaZwah03n2Zly7dmBmK4WZeVzCU046MxnxIWiM8pZM8JBZ5llInyqwYjhR4M_sXIzdLODJkN4ENv6Dhh89-06dQnyWysFQHKaG8xbAwEbC0XMBaiIdLrUQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent p-8 flex flex-col justify-end">
+<div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20">
+<h4 class="text-white font-noto-serif text-xl font-bold mb-2">Strategic Insight</h4>
+<p class="text-white/80 text-sm leading-relaxed">St. Jude's Academy shows a 12% higher yield in elite university admissions despite a slightly lower average GPA compared to The Heights.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 glass-nav z-50 flex justify-around items-center px-4 py-3 border-t border-outline-variant/10">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold uppercase">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface/40">
+<span class="material-symbols-outlined">domain</span>
+<span class="text-[10px] font-bold uppercase">Schools</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface/40">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-bold uppercase">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface/40">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</button>
+</nav>
+</body></html>

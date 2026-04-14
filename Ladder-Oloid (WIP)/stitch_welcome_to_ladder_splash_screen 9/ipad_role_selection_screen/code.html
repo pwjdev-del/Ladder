@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Role Selection</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#fff8f2",
+                      "primary-container": "#5a7956",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c3c8be",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "inverse-primary": "#aed0a7",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#caf24d",
+                      "surface-tint": "#486644",
+                      "surface-container-high": "#efe7dd",
+                      "secondary-fixed-dim": "#afd531",
+                      "primary": "#42603f",
+                      "inverse-surface": "#343029",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#1f1b15",
+                      "tertiary": "#725232",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#052107",
+                      "inverse-on-surface": "#f8efe5",
+                      "tertiary-fixed": "#ffdcbd",
+                      "surface-container-low": "#fbf2e8",
+                      "on-background": "#1f1b15",
+                      "on-surface-variant": "#434840",
+                      "surface-variant": "#eae1d7",
+                      "surface-container-highest": "#eae1d7",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "primary-fixed": "#c9ecc2",
+                      "surface-dim": "#e1d9cf",
+                      "on-secondary-container": "#566c00",
+                      "primary-fixed-dim": "#aed0a7",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-container": "#fff5ee",
+                      "outline": "#737970",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "on-primary-container": "#e2ffda",
+                      "secondary": "#516600",
+                      "on-secondary-fixed": "#161e00",
+                      "on-error-container": "#93000a",
+                      "surface": "#fff8f2",
+                      "on-tertiary-fixed": "#2c1600",
+                      "error-container": "#ffdad6",
+                      "secondary-container": "#caf24d",
+                      "background": "#fff8f2",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "tertiary-container": "#8d6a48",
+                      "surface-container": "#f5ede2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": [ "Noto Serif" ],
+                      "body": [ "Manrope" ],
+                      "label": [ "Manrope" ]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .glass-bg {
+            background: rgba(234, 225, 215, 0.7);
+            backdrop-filter: blur(32px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface min-h-screen relative overflow-hidden flex items-center justify-center">
+<!-- Ambient Background Elements -->
+<div class="absolute inset-0 z-0">
+<div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-primary/5 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary-fixed/10 blur-[100px]"></div>
+<img alt="campus architecture" class="w-full h-full object-cover opacity-10 grayscale" data-alt="Blurred editorial shot of a classic ivy league university stone building with morning light filtering through autumn trees" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxMCLBV5MhDrh75ZS1P0jjRAQP5-Onot_ai1a_NYDohRjDaxhAYuWy-5K8ko6x7qj9e39eDG6q8EjBZ9L178vrhhNqkyjELXC6YIq9lgmHWe9jJiEX3GjjVkXvJJr75xtAF4EJftzcr38XKUzgDGak7Vl_jvxGE_L6HOszypeeqZ5gbghSBi7Kx5HR_tDkPIQKc-hmzixUCC1_9t_dseETI88v_90O5zuhXsIrL8HR9B4V7jCm0cM4E-RG_C7PPlRhUH_UDnp9790"/>
+</div>
+<!-- Role Selection Card -->
+<main class="relative z-10 w-full max-w-4xl px-8">
+<div class="glass-bg rounded-[32px] p-12 shadow-2xl shadow-on-surface/5 flex flex-col items-center">
+<!-- Branding/Identity -->
+<div class="flex items-center gap-2 mb-10">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="account_balance">account_balance</span>
+<span class="text-2xl font-serif font-bold text-primary tracking-tighter">Ladder</span>
+</div>
+<!-- Headline -->
+<div class="text-center mb-12">
+<h1 class="font-serif text-4xl md:text-5xl text-on-surface tracking-tight mb-4">How will you use Ladder?</h1>
+<p class="text-on-surface-variant font-medium tracking-wide">Select the path that best describes your college journey.</p>
+</div>
+<!-- Role Grid -->
+<div class="grid grid-cols-2 gap-6 w-full max-w-3xl mb-12">
+<!-- Student (Selected) -->
+<button class="relative flex flex-col items-start p-8 rounded-3xl text-left transition-all duration-300 ring-2 ring-primary bg-surface-container-lowest shadow-lg scale-[1.02]">
+<div class="absolute top-4 right-4 bg-primary text-white rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div class="w-16 h-16 rounded-2xl bg-primary-fixed flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Student</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">Organize applications, track deadlines, and discover colleges tailored to your goals.</p>
+</button>
+<!-- Parent -->
+<button class="flex flex-col items-start p-8 rounded-3xl text-left transition-all duration-300 hover:bg-surface-container-high bg-surface-container-low group">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl" data-icon="favorite" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Parent</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">Support your student’s progress and stay updated on important financial and academic milestones.</p>
+</button>
+<!-- Counselor -->
+<button class="flex flex-col items-start p-8 rounded-3xl text-left transition-all duration-300 hover:bg-surface-container-high bg-surface-container-low group">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl" data-icon="person_add" style="font-variation-settings: 'FILL' 0;">person_add</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Counselor</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">Manage student rosters, review applications, and provide strategic advice in real-time.</p>
+</button>
+<!-- School Admin -->
+<button class="flex flex-col items-start p-8 rounded-3xl text-left transition-all duration-300 hover:bg-surface-container-high bg-surface-container-low group">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl" data-icon="corporate_fare" style="font-variation-settings: 'FILL' 0;">corporate_fare</span>
+</div>
+<h3 class="text-xl font-bold text-on-surface mb-2">School Admin</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">Access high-level data reports, manage staff permissions, and oversee district success rates.</p>
+</button>
+</div>
+<!-- Primary Action -->
+<div class="w-full max-w-sm">
+<button class="primary-gradient w-full py-5 rounded-full text-white font-bold text-lg shadow-xl shadow-primary/20 active:scale-95 transition-transform">
+                    Continue to Ladder
+                </button>
+<div class="mt-6 text-center">
+<button class="text-on-surface-variant text-sm font-medium border-b-2 border-transparent hover:border-outline-variant transition-colors py-1">
+                        Already have an account? Log in
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Decoration -->
+<div class="fixed bottom-10 left-10 text-on-surface-variant/40 flex items-center gap-4">
+<span class="text-xs font-bold tracking-[0.2em]">EDITION 2024</span>
+<div class="w-12 h-[1px] bg-outline-variant/30"></div>
+<span class="text-xs font-bold tracking-[0.2em]">ADMISSIONS ENGINE</span>
+</div>
+</body></html>

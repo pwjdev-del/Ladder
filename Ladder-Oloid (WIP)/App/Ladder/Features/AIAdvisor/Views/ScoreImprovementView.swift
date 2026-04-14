@@ -1,13 +1,48 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Score Improvement View
 
 struct ScoreImprovementView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var currentScore = 1250
-    @State private var targetScore = 1400
+    @Environment(\.horizontalSizeClass) private var sizeClass
+    @Query private var profiles: [StudentProfileModel]
+    @State private var currentScoreOverride: Int?
+    @State private var targetScoreOverride: Int?
+
+    private var currentScore: Int {
+        currentScoreOverride ?? profiles.first?.satScore ?? 1250
+    }
+    private var targetScore: Int {
+        targetScoreOverride ?? max((profiles.first?.satScore ?? 1200) + 100, 1500)
+    }
 
     var body: some View {
+        Group {
+            if sizeClass == .regular {
+                iPadLayout
+            } else {
+                iPhoneLayout
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button { dismiss() } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(LadderColors.onSurface)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                Text("Score Strategy")
+                    .font(LadderTypography.titleMedium)
+                    .foregroundStyle(LadderColors.onSurface)
+            }
+        }
+    }
+
+    private var iPhoneLayout: some View {
         ZStack {
             LadderColors.surface.ignoresSafeArea()
 
@@ -86,20 +121,252 @@ struct ScoreImprovementView: View {
                 .padding(.bottom, 120)
             }
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button { dismiss() } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(LadderColors.onSurface)
+    }
+
+    // MARK: - iPad Layout
+
+    private var iPadLayout: some View {
+        ZStack {
+            LadderColors.surface.ignoresSafeArea()
+
+            ScrollView(showsIndicators: false) {
+                HStack(alignment: .top, spacing: LadderSpacing.xl) {
+                    iPadScoresColumn
+                        .frame(maxWidth: .infinity)
+                    iPadTimelineColumn
+                        .frame(maxWidth: .infinity)
+                }
+                .padding(LadderSpacing.xl)
+                .frame(maxWidth: 1400)
+                .frame(maxWidth: .infinity)
+            }
+        }
+    }
+
+    private var iPadScoresColumn: some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.lg) {
+            // Hero card
+            VStack(spacing: LadderSpacing.lg) {
+                Text("YOUR SAT JOURNEY")
+                    .font(LadderTypography.labelSmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                    .labelTracking()
+
+                HStack(spacing: LadderSpacing.xl) {
+                    iPadScoreCircle(value: currentScore, label: "Current", color: LadderColors.onSurfaceVariant, size: 140)
+
+                    VStack(spacing: LadderSpacing.xs) {
+                        Image(systemName: "arrow.right")
+                            .font(.system(size: 32, weight: .bold))
+                            .foregroundStyle(LadderColors.accentLime)
+                        Text("+\(targetScore - currentScore)")
+                            .font(LadderTypography.titleLarge)
+                            .foregroundStyle(LadderColors.primary)
+                        Text("points to go")
+                            .font(LadderTypography.labelSmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                            .labelTracking()
+                    }
+
+                    iPadScoreCircle(value: targetScore, label: "Target", color: LadderColors.accentLime, size: 140)
                 }
             }
-            ToolbarItem(placement: .principal) {
-                Text("Score Strategy")
+            .frame(maxWidth: .infinity)
+            .padding(LadderSpacing.xl)
+            .background(LadderColors.surfaceContainerLow)
+            .clipShape(RoundedRectangle(cornerRadius: LadderRadius.xxl, style: .continuous))
+            .ladderShadow(LadderElevation.ambient)
+
+            // Gap analysis cards
+            VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                Text("GAP ANALYSIS")
+                    .font(LadderTypography.labelSmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                    .labelTracking()
+
+                HStack(spacing: LadderSpacing.md) {
+                    gapCard(label: "Reading & Writing", current: 620, target: 700)
+                    gapCard(label: "Math", current: 630, target: 700)
+                }
+            }
+
+            // Resources
+            VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                Text("FREE RESOURCES")
+                    .font(LadderTypography.labelSmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                    .labelTracking()
+
+                resourceRow("Khan Academy SAT Prep", description: "Free, official practice from College Board", icon: "graduationcap")
+                resourceRow("College Board Practice Tests", description: "8 free official practice tests", icon: "doc.text")
+                resourceRow("Fee Waivers", description: "If eligible, take the SAT for free (2 attempts)", icon: "dollarsign.circle")
+            }
+        }
+    }
+
+    private var iPadTimelineColumn: some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.md) {
+            HStack {
+                Text("8-WEEK STUDY PLAN")
+                    .font(LadderTypography.labelSmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                    .labelTracking()
+                Spacer()
+                Text("~6 hrs/week")
+                    .font(LadderTypography.labelMedium)
+                    .foregroundStyle(LadderColors.primary)
+                    .labelTracking()
+            }
+
+            timelinePhase(
+                weekRange: "Weeks 1-2",
+                title: "Diagnostic Phase",
+                hours: "4 hrs/week",
+                icon: "magnifyingglass",
+                color: LadderColors.primary,
+                tasks: [
+                    "Take a full-length practice test",
+                    "Identify your weakest sections",
+                    "Set up Khan Academy SAT Prep"
+                ]
+            )
+
+            timelinePhase(
+                weekRange: "Weeks 3-6",
+                title: "Targeted Practice",
+                hours: "6 hrs/week",
+                icon: "target",
+                color: LadderColors.accentLime,
+                tasks: [
+                    "30-45 min daily focused practice",
+                    "Review every wrong answer",
+                    "Focus on Reading: evidence-based questions",
+                    "Focus on Math: algebra and data analysis"
+                ]
+            )
+
+            timelinePhase(
+                weekRange: "Weeks 7-8",
+                title: "Full Practice Tests",
+                hours: "8 hrs/week",
+                icon: "timer",
+                color: LadderColors.tertiary,
+                tasks: [
+                    "Take 2-3 practice tests under real conditions",
+                    "Review timing strategies",
+                    "Identify remaining weak spots"
+                ]
+            )
+
+            timelinePhase(
+                weekRange: "Test Day",
+                title: "Final Preparation",
+                hours: "Rest",
+                icon: "star.fill",
+                color: LadderColors.secondaryFixed,
+                tasks: [
+                    "Light review only the night before",
+                    "Get 8+ hours of sleep",
+                    "Bring calculator, #2 pencils, ID, admission ticket"
+                ],
+                isLast: true
+            )
+        }
+    }
+
+    private func iPadScoreCircle(value: Int, label: String, color: Color, size: CGFloat) -> some View {
+        VStack(spacing: LadderSpacing.sm) {
+            ZStack {
+                Circle()
+                    .stroke(color.opacity(0.2), lineWidth: 8)
+                    .frame(width: size, height: size)
+                Text("\(value)")
+                    .font(LadderTypography.headlineLarge)
+                    .foregroundStyle(color)
+                    .editorialTracking()
+            }
+            Text(label)
+                .font(LadderTypography.labelMedium)
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+                .labelTracking()
+        }
+    }
+
+    private func gapCard(label: String, current: Int, target: Int) -> some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.xs) {
+            Text(label)
+                .font(LadderTypography.titleSmall)
+                .foregroundStyle(LadderColors.onSurface)
+            HStack(alignment: .firstTextBaseline, spacing: LadderSpacing.xs) {
+                Text("\(current)")
+                    .font(LadderTypography.headlineSmall)
+                    .foregroundStyle(LadderColors.onSurface)
+                Text("→ \(target)")
+                    .font(LadderTypography.bodyMedium)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+            }
+            LinearProgressBar(progress: Double(current) / Double(target))
+            Text("+\(target - current) to target")
+                .font(LadderTypography.labelSmall)
+                .foregroundStyle(LadderColors.primary)
+        }
+        .padding(LadderSpacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(LadderColors.surfaceContainerLow)
+        .clipShape(RoundedRectangle(cornerRadius: LadderRadius.lg, style: .continuous))
+    }
+
+    private func timelinePhase(weekRange: String, title: String, hours: String, icon: String, color: Color, tasks: [String], isLast: Bool = false) -> some View {
+        HStack(alignment: .top, spacing: LadderSpacing.md) {
+            VStack(spacing: 0) {
+                ZStack {
+                    Circle()
+                        .fill(color.opacity(0.2))
+                        .frame(width: 44, height: 44)
+                    Image(systemName: icon)
+                        .font(.system(size: 18))
+                        .foregroundStyle(color)
+                }
+                if !isLast {
+                    Rectangle()
+                        .fill(LadderColors.outlineVariant)
+                        .frame(width: 2)
+                        .frame(maxHeight: .infinity)
+                        .padding(.vertical, LadderSpacing.xs)
+                }
+            }
+
+            VStack(alignment: .leading, spacing: LadderSpacing.xs) {
+                HStack {
+                    Text(weekRange)
+                        .font(LadderTypography.labelMedium)
+                        .foregroundStyle(color)
+                        .labelTracking()
+                    Spacer()
+                    Text(hours)
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                }
+                Text(title)
                     .font(LadderTypography.titleMedium)
                     .foregroundStyle(LadderColors.onSurface)
+
+                ForEach(tasks, id: \.self) { task in
+                    HStack(alignment: .top, spacing: LadderSpacing.sm) {
+                        Image(systemName: "checkmark.circle")
+                            .font(.system(size: 14))
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                        Text(task)
+                            .font(LadderTypography.bodyMedium)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                    }
+                }
             }
+            .padding(LadderSpacing.md)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(LadderColors.surfaceContainerLow)
+            .clipShape(RoundedRectangle(cornerRadius: LadderRadius.lg, style: .continuous))
+            .padding(.bottom, isLast ? 0 : LadderSpacing.sm)
         }
     }
 

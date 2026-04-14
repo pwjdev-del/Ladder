@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#566c00",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary": "#42603f",
+                    "surface-container": "#f5ede2",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "surface-container-low": "#fbf2e8",
+                    "on-tertiary-container": "#fff5ee",
+                    "surface-tint": "#486644",
+                    "secondary": "#516600",
+                    "primary-fixed": "#c9ecc2",
+                    "on-primary-container": "#e2ffda",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "secondary-fixed": "#caf24d",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#fff8f2",
+                    "surface": "#fff8f2",
+                    "on-surface-variant": "#434840",
+                    "primary-fixed-dim": "#aed0a7",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "secondary-container": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "outline-variant": "#c3c8be",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "inverse-on-surface": "#f8efe5",
+                    "tertiary-container": "#8d6a48",
+                    "on-error-container": "#93000a",
+                    "background": "#fff8f2",
+                    "primary-container": "#5a7956",
+                    "on-surface": "#1f1b15",
+                    "on-primary-fixed": "#052107",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-container-high": "#efe7dd",
+                    "outline": "#737970",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "tertiary": "#725232",
+                    "secondary-fixed-dim": "#afd531",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e1d9cf"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .paper-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03), 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        body {
+            background-color: #fff8f2;
+            font-family: 'Manrope', sans-serif;
+            color: #1f1b15;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="w-full sticky top-0 bg-[#fbf2e8] z-50 flex items-center justify-between px-6 py-4 shadow-none">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f] cursor-pointer" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-serif text-2xl tracking-tight text-[#1f1b15]">My Portfolio</h1>
+</div>
+<span class="material-symbols-outlined text-[#42603f] cursor-pointer" data-icon="share">share</span>
+</header>
+<main class="max-w-md mx-auto px-6 py-8 space-y-10">
+<!-- PDF Preview Card -->
+<section class="relative">
+<div class="bg-white paper-shadow rounded-sm aspect-[1/1.414] w-full p-8 flex flex-col space-y-4 border border-outline-variant/10">
+<!-- Inner PDF Header -->
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-1">
+<div class="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+<span class="text-[10px] text-white font-bold italic">L</span>
+</div>
+<span class="text-[10px] font-bold text-primary tracking-widest">LADDER</span>
+</div>
+<span class="text-[8px] uppercase tracking-widest text-outline">Student Portfolio</span>
+</div>
+<div class="pt-4">
+<h2 class="font-serif text-3xl text-on-surface leading-none">Kathan Patel</h2>
+<div class="flex gap-4 mt-2 text-[11px] font-medium text-on-surface-variant uppercase tracking-wider">
+<span>Grade 11</span>
+<span class="text-primary-container">•</span>
+<span>GPA: 3.96</span>
+</div>
+</div>
+<div class="h-[1px] w-full bg-primary/20"></div>
+<!-- Academic Summary Section -->
+<div class="space-y-2">
+<h3 class="text-[10px] font-bold text-primary uppercase tracking-widest">Academic Summary</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<p class="text-[9px] text-on-surface-variant font-bold uppercase">SAT Score</p>
+<p class="text-xs font-semibold">1540 <span class="text-[8px] font-normal text-outline-variant">(780M, 760RW)</span></p>
+</div>
+<div class="space-y-1">
+<p class="text-[9px] text-on-surface-variant font-bold uppercase">Career Path</p>
+<p class="text-xs font-semibold">The Healer</p>
+</div>
+</div>
+<div class="mt-2">
+<p class="text-[9px] text-on-surface-variant font-bold uppercase">AP Courses</p>
+<p class="text-[10px] leading-relaxed">AP Bio, AP Chem, AP Calc BC, AP Psych, AP Lang</p>
+</div>
+</div>
+<!-- Activities Section -->
+<div class="space-y-2">
+<h3 class="text-[10px] font-bold text-primary uppercase tracking-widest">Activities (4 of 6)</h3>
+<ul class="space-y-2">
+<li class="flex items-start gap-2">
+<span class="text-[9px] font-bold text-outline">01</span>
+<div>
+<p class="text-[10px] font-bold">Volunteering: Orlando Health</p>
+<p class="text-[9px] text-on-surface-variant">120 Hours • Tier 1: Leadership</p>
+</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-[9px] font-bold text-outline">02</span>
+<div>
+<p class="text-[10px] font-bold">HOSA Club President</p>
+<p class="text-[9px] text-on-surface-variant">45 Hours • Tier 1: Leadership</p>
+</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-[9px] font-bold text-outline">03</span>
+<div>
+<p class="text-[10px] font-bold">Varsity Swimming</p>
+<p class="text-[9px] text-on-surface-variant">250 Hours • Tier 2: Competition</p>
+</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-[9px] font-bold text-outline">04</span>
+<div>
+<p class="text-[10px] font-bold">Peer Tutoring (STEM)</p>
+<p class="text-[9px] text-on-surface-variant">30 Hours • Tier 3: Service</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Colleges Applied Section -->
+<div class="space-y-2">
+<h3 class="text-[10px] font-bold text-primary uppercase tracking-widest">Colleges Applied</h3>
+<div class="flex gap-4">
+<div class="px-2 py-1 bg-surface-container rounded-sm border border-outline-variant/10">
+<p class="text-[9px] font-bold">UF <span class="font-normal text-primary ml-1">Applied</span></p>
+</div>
+<div class="px-2 py-1 bg-surface-container rounded-sm border border-outline-variant/10">
+<p class="text-[9px] font-bold">FSU <span class="font-normal text-primary ml-1">Applied</span></p>
+</div>
+<div class="px-2 py-1 bg-surface-container rounded-sm border border-outline-variant/10">
+<p class="text-[9px] font-bold">UCF <span class="font-normal text-primary ml-1">In Review</span></p>
+</div>
+</div>
+</div>
+<!-- PDF Footer -->
+<div class="mt-auto pt-4 border-t border-outline-variant/10 flex justify-between">
+<span class="text-[8px] text-outline italic">Generated by Ladder • April 2026</span>
+<span class="text-[8px] text-outline">Page 1 of 1</span>
+</div>
+</div>
+<!-- Contextual Hint -->
+<div class="absolute -bottom-4 right-4 bg-primary-container text-white px-3 py-1 rounded-full text-[10px] font-bold shadow-lg">
+                PREVIEW MODE
+            </div>
+</section>
+<!-- Section Toggles -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Include in Export</h3>
+<button class="text-xs font-bold text-primary">Select All</button>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-2 space-y-1">
+<!-- Toggle Item: Active -->
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="summarize">summarize</span>
+<span class="text-sm font-medium">Academic Summary</span>
+</div>
+<div class="w-12 h-6 bg-secondary-container rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full ml-auto shadow-sm"></div>
+</div>
+</div>
+<!-- Toggle Item: Active -->
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="rocket_launch">rocket_launch</span>
+<span class="text-sm font-medium">Activities</span>
+</div>
+<div class="w-12 h-6 bg-secondary-container rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full ml-auto shadow-sm"></div>
+</div>
+</div>
+<!-- Toggle Item: Active -->
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="school">school</span>
+<span class="text-sm font-medium">College Applications</span>
+</div>
+<div class="w-12 h-6 bg-secondary-container rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full ml-auto shadow-sm"></div>
+</div>
+</div>
+<!-- Toggle Item: Inactive -->
+<div class="flex items-center justify-between p-4 rounded-xl opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="history_edu">history_edu</span>
+<span class="text-sm font-medium">Test Score History</span>
+</div>
+<div class="w-12 h-6 bg-surface-variant rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+<!-- Toggle Item: Inactive -->
+<div class="flex items-center justify-between p-4 rounded-xl opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="text-sm font-medium">Service Hours</span>
+</div>
+<div class="w-12 h-6 bg-surface-variant rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+<!-- Toggle Item: Inactive -->
+<div class="flex items-center justify-between p-4 rounded-xl opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="description">description</span>
+<span class="text-sm font-medium">Essays</span>
+</div>
+<div class="w-12 h-6 bg-surface-variant rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<section class="space-y-4 pt-4">
+<button class="w-full py-5 bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white font-bold rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-primary/10 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+                Export as PDF
+            </button>
+<button class="w-full py-5 border-2 border-primary/20 text-primary font-bold rounded-2xl flex items-center justify-center gap-3 hover:bg-primary/5 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                Share with Counselor
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-3 bg-[#fff8f2]/70 backdrop-blur-xl rounded-t-3xl shadow-[0_-4px_40px_rgba(31,27,21,0.06)]">
+<div class="flex flex-col items-center justify-center text-[#1f1b15] px-5 py-2 transition-transform duration-300">
+<span class="material-symbols-outlined text-2xl" data-icon="school">school</span>
+<span class="font-sans text-[10px] font-medium tracking-wide">Guidance</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-2xl px-5 py-2 transition-transform duration-300">
+<span class="material-symbols-outlined text-2xl" data-icon="folder_shared" style="font-variation-settings: 'FILL' 1;">folder_shared</span>
+<span class="font-sans text-[10px] font-medium tracking-wide">Portfolio</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15] px-5 py-2 transition-transform duration-300">
+<span class="material-symbols-outlined text-2xl" data-icon="menu_book">menu_book</span>
+<span class="font-sans text-[10px] font-medium tracking-wide">Resources</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15] px-5 py-2 transition-transform duration-300">
+<span class="material-symbols-outlined text-2xl" data-icon="account_circle">account_circle</span>
+<span class="font-sans text-[10px] font-medium tracking-wide">Profile</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ladder — Full Architecture & Connection Map</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0c0c12;
+    --surface: #13131e;
+    --border: rgba(255,255,255,0.07);
+    --text: #e2e2e8;
+    --muted: #6b7280;
+    --built: #22c55e;
+    --partial: #f59e0b;
+    --missing: #ef4444;
+    --ladder-green: #42603f;
+    --ladder-lime: #caf24d;
+    --purple: #8b5cf6;
+    --blue: #3b82f6;
+    --orange: #f97316;
+    --pink: #ec4899;
+    --teal: #14b8a6;
+    --yellow: #eab308;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 36px 32px 24px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #13131e 0%, var(--bg) 100%);
+  }
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo-mark {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--ladder-green), var(--ladder-lime));
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.4rem; color: #0c0c12;
+  }
+  .logo h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
+  .logo p { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+  .legend {
+    display: flex; gap: 20px; flex-wrap: wrap; align-items: center;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.75rem; color: var(--muted);
+  }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+
+  .progress-bar-outer {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px; height: 8px;
+    overflow: hidden; margin-bottom: 8px;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--built), var(--partial));
+    width: 45%;
+    border-radius: 8px;
+  }
+  .progress-label {
+    font-size: 0.72rem; color: var(--muted);
+  }
+  .progress-label strong { color: var(--ladder-lime); }
+
+  /* ── TABS ── */
+  .view-tabs {
+    display: flex; gap: 6px; padding: 16px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    overflow-x: auto;
+  }
+  .view-tab {
+    padding: 8px 18px; border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem; font-weight: 500;
+    cursor: pointer; white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .view-tab:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+  .view-tab.active {
+    background: rgba(202,242,77,0.1);
+    border-color: rgba(202,242,77,0.3);
+    color: var(--ladder-lime);
+  }
+
+  .view { display: none; padding: 28px 32px; }
+  .view.active { display: block; }
+
+  /* ── SHARED NODE STYLES ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 22px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(255,255,255,0.13); }
+
+  .card-title {
+    font-size: 0.85rem; font-weight: 700;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title .status-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .card ul {
+    list-style: none; padding: 0;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .card ul li {
+    font-size: 0.72rem; color: var(--muted);
+    display: flex; align-items: flex-start; gap: 7px;
+    line-height: 1.4;
+  }
+  .card ul li::before { content: "›"; color: #444; font-weight: 700; flex-shrink: 0; }
+  .card ul li.ok::before { content: "✓"; color: var(--built); }
+  .card ul li.warn::before { content: "~"; color: var(--partial); }
+  .card ul li.miss::before { content: "✗"; color: var(--missing); }
+
+  .badge {
+    display: inline-flex; align-items: center;
+    padding: 2px 8px; border-radius: 5px;
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .badge.built { background: rgba(34,197,94,0.12); color: var(--built); }
+  .badge.partial { background: rgba(245,158,11,0.12); color: var(--partial); }
+  .badge.missing { background: rgba(239,68,68,0.12); color: var(--missing); }
+  .badge.critical { background: rgba(239,68,68,0.2); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #a78bfa; }
+
+  /* ── GRID LAYOUTS ── */
+  .grid { display: grid; gap: 14px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .g5 { grid-template-columns: repeat(5, 1fr); }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 2px; font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ── STATE MACHINE ── */
+  .states {
+    display: flex; align-items: center; gap: 0;
+    flex-wrap: wrap; margin-bottom: 28px;
+  }
+  .state-node {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 0.78rem; font-weight: 600;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-align: center;
+    min-width: 130px;
+  }
+  .state-node .file { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-top: 4px; }
+  .state-arrow {
+    padding: 0 8px; color: #333; font-size: 1.4rem; flex-shrink: 0;
+  }
+
+  /* ── CONNECTION ARROWS ── */
+  .arrow-right { text-align: center; color: #2d2d2d; font-size: 0.9rem; padding: 8px 0; }
+
+  /* ── CONNECTION ENGINE DIAGRAM ── */
+  .connection-hub {
+    background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(59,130,246,0.08));
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .connection-hub h3 {
+    font-size: 1rem; font-weight: 800;
+    color: #c4b5fd;
+    margin-bottom: 6px;
+  }
+  .connection-hub p {
+    font-size: 0.75rem; color: var(--muted); margin-bottom: 16px;
+  }
+  .hub-badge {
+    display: inline-block;
+    padding: 3px 12px; border-radius: 20px;
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #fca5a5; font-size: 0.7rem; font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  /* ── TRIGGER TABLE ── */
+  .trigger-table {
+    width: 100%; border-collapse: collapse; margin-top: 8px;
+  }
+  .trigger-table th {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--muted); font-weight: 600;
+    padding: 8px 12px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .trigger-table td {
+    font-size: 0.73rem; padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .trigger-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .trigger-table .source { color: #c4b5fd; font-family: 'JetBrains Mono', monospace; }
+  .trigger-table .triggers { color: var(--ladder-lime); font-size: 0.68rem; }
+  .trigger-table .triggers span {
+    display: inline-block;
+    background: rgba(202,242,77,0.08);
+    border: 1px solid rgba(202,242,77,0.15);
+    border-radius: 4px; padding: 2px 7px;
+    margin: 2px 3px 2px 0;
+  }
+  .trigger-table .status-col { text-align: center; }
+
+  /* ── SPRINT PLAN ── */
+  .sprint-card {
+    border-radius: 14px;
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+  }
+  .sprint-1 { background: rgba(59,130,246,0.04); border-color: rgba(59,130,246,0.2); }
+  .sprint-2 { background: rgba(139,92,246,0.04); border-color: rgba(139,92,246,0.2); }
+  .sprint-3 { background: rgba(249,115,22,0.04); border-color: rgba(249,115,22,0.2); }
+  .sprint-4 { background: rgba(20,184,166,0.04); border-color: rgba(20,184,166,0.2); }
+
+  .sprint-header {
+    font-size: 0.9rem; font-weight: 700;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sprint-num {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 800;
+  }
+  .s1 .sprint-num { background: rgba(59,130,246,0.2); color: #93c5fd; }
+  .s2 .sprint-num { background: rgba(139,92,246,0.2); color: #c4b5fd; }
+  .s3 .sprint-num { background: rgba(249,115,22,0.2); color: #fdba74; }
+  .s4 .sprint-num { background: rgba(20,184,166,0.2); color: #5eead4; }
+
+  .sprint-task {
+    font-size: 0.75rem; color: var(--muted);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .sprint-task:last-child { border-bottom: none; }
+  .sprint-task .num {
+    font-size: 0.65rem; background: rgba(255,255,255,0.05);
+    width: 20px; height: 20px; border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: var(--muted); font-family: 'JetBrains Mono', monospace;
+  }
+  .sprint-task strong { color: var(--text); display: block; margin-bottom: 3px; }
+  .sprint-task .why { font-size: 0.68rem; color: #4b5563; line-height: 1.4; }
+
+  /* ── DATA FLOW ── */
+  .flow-chain {
+    display: flex; align-items: stretch; gap: 0;
+    flex-wrap: wrap;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .flow-item {
+    flex: 1; min-width: 120px;
+    padding: 14px 16px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .flow-item:last-child { border-right: none; }
+  .flow-item .fi-label { font-size: 0.65rem; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+  .flow-item .fi-value { font-size: 0.78rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #a5b4fc; }
+  .flow-item .fi-desc { font-size: 0.68rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+  .flow-arrow-between {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 6px; color: #2d2d2d; font-size: 1.1rem;
+    border-right: 1px solid var(--border);
+    background: rgba(255,255,255,0.01);
+  }
+
+  /* ── MISSING FEATURES LIST ── */
+  .missing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .missing-item {
+    background: rgba(239,68,68,0.04);
+    border: 1px solid rgba(239,68,68,0.12);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .missing-item h4 { font-size: 0.78rem; font-weight: 700; color: #fca5a5; margin-bottom: 6px; }
+  .missing-item p { font-size: 0.7rem; color: var(--muted); line-height: 1.5; }
+  .missing-item .impact {
+    margin-top: 8px; font-size: 0.65rem;
+    color: var(--partial); font-weight: 600;
+  }
+
+  /* ── TABS ── */
+  .tab-nav {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+    margin-bottom: 24px;
+  }
+  .tab-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 14px;
+  }
+  .tab-card .tab-icon {
+    font-size: 1.4rem; margin-bottom: 8px;
+  }
+  .tab-card h3 { font-size: 0.78rem; font-weight: 700; margin-bottom: 6px; }
+  .tab-card .tab-file { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: #6b7280; margin-bottom: 8px; }
+
+  @media (max-width: 900px) {
+    .g3, .g4, .g5 { grid-template-columns: 1fr 1fr; }
+    .tab-nav { grid-template-columns: 1fr 1fr; }
+    .missing-grid { grid-template-columns: 1fr; }
+    .view { padding: 20px 16px; }
+    .view-tabs { padding: 12px 16px; }
+    .header { padding: 24px 16px; }
+  }
+  @media (max-width: 600px) {
+    .g2, .g3, .g4, .g5 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════ HEADER ══ -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-mark">L</div>
+      <div>
+        <h1>LADDER</h1>
+        <p>Full Architecture &amp; Connection Map &mdash; iOS App</p>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--built)"></div> Built (UI complete)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--partial)"></div> Partial / Mocked</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--missing)"></div> Not built</div>
+    </div>
+  </div>
+  <div style="max-width:400px">
+    <div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+    <div class="progress-label">
+      <strong>~65 of 145 features built</strong> &mdash; UI complete, backend &amp; connections are the gap
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ TAB NAV ══ -->
+<div class="view-tabs">
+  <button class="view-tab active" onclick="switchView('overview', this)">Overview</button>
+  <button class="view-tab" onclick="switchView('auth', this)">Auth Flow</button>
+  <button class="view-tab" onclick="switchView('connections', this)">Connection Engine</button>
+  <button class="view-tab" onclick="switchView('data', this)">Data Models</button>
+  <button class="view-tab" onclick="switchView('features', this)">Features</button>
+  <button class="view-tab" onclick="switchView('sprints', this)">Sprint Plan</button>
+  <button class="view-tab" onclick="switchView('gaps', this)">Critical Gaps</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════ VIEW: OVERVIEW ══ -->
+<div id="view-overview" class="view active">
+
+  <div class="section-label">5-Tab App Structure</div>
+  <div class="tab-nav">
+    <div class="tab-card">
+      <div class="tab-icon">🏠</div>
+      <h3>Home / Dashboard</h3>
+      <div class="tab-file">DashboardView.swift</div>
+      <ul class="card"><li class="warn">Progress rings (mocked)</li><li class="warn">Urgent deadline card (mocked)</li><li class="warn">Daily AI tip (hardcoded)</li><li class="miss">Career path in header</li><li class="miss">Real task feed</li></ul>
+    </div>
+    <div class="tab-card">
+      <div class="tab-icon">✅</div>
+      <h3>Tasks</h3>
+      <div class="tab-file">TasksView.swift</div>
+      <ul class="card"><li class="ok">Task list UI + filters</li><li class="ok">Roadmap (4-year)</li><li class="ok">Deadlines calendar</li><li class="miss">Real task generation</li><li class="miss">Cross-college sync</li></ul>
+    </div>
+    <div class="tab-card">
+      <div class="tab-icon">🎓</div>
+      <h3>Colleges</h3>
+      <div class="tab-file">CollegeDiscoveryView.swift</div>
+      <ul class="card"><li class="ok">Search + filter chips</li><li class="ok">College profiles</li><li class="ok">Save to list</li><li class="miss">Real 6,500 colleges</li><li class="miss">Chances calculator</li></ul>
+    </div>
+    <div class="tab-card">
+      <div class="tab-icon">🤖</div>
+      <h3>Advisor</h3>
+      <div class="tab-file">AdvisorHubView.swift</div>
+      <ul class="card"><li class="ok">Chat UI + streaming</li><li class="ok">Quick actions hub</li><li class="warn">AIService.swift wired but not authed</li><li class="miss">Real Gemini responses</li><li class="miss">Essay hub, mock interview</li></ul>
+    </div>
+    <div class="tab-card">
+      <div class="tab-icon">👤</div>
+      <h3>Profile</h3>
+      <div class="tab-file">ProfileView.swift</div>
+      <ul class="card"><li class="ok">Profile display</li><li class="ok">All settings views</li><li class="ok">Legal docs / consent</li><li class="miss">Transcript upload</li><li class="miss">Real data edit</li></ul>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:28px">What's Working vs What's Not</div>
+  <div class="grid g2">
+    <div class="card" style="border-color: rgba(34,197,94,0.2);">
+      <div class="card-title"><div class="status-dot" style="background:var(--built)"></div>Built &amp; Working UI (~65 features)</div>
+      <ul>
+        <li class="ok">Full auth flow &mdash; 5-state machine</li>
+        <li class="ok">5-step onboarding wizard</li>
+        <li class="ok">Career quiz (RIASEC) with archetypes</li>
+        <li class="ok">College discovery + profile views</li>
+        <li class="ok">Deadlines calendar (reads savedCollegeIds)</li>
+        <li class="ok">Tasks view, roadmap, app detail + checklist</li>
+        <li class="ok">Advisor chat UI (streaming ready)</li>
+        <li class="ok">Essay hub UI (placeholder)</li>
+        <li class="ok">Scholarship search view</li>
+        <li class="ok">All 49 Route enum cases defined</li>
+        <li class="ok">Full design system (all components)</li>
+        <li class="ok">Legal + consent system (COPPA, FERPA)</li>
+        <li class="ok">All SwiftData models defined</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color: rgba(239,68,68,0.2);">
+      <div class="card-title"><div class="status-dot" style="background:var(--missing)"></div>Not Built (~80 features)</div>
+      <ul>
+        <li class="miss">Supabase auth + data persistence (BACKEND #1)</li>
+        <li class="miss">ConnectionEngine — nothing talks to anything</li>
+        <li class="miss">Real AI (Gemini proxy not authed)</li>
+        <li class="miss">GradeFeatureManager (9th vs 12th different UX)</li>
+        <li class="miss">State Requirements Engine (FL vs CA)</li>
+        <li class="miss">Activity Suggestion System (4 generals + 6 specific)</li>
+        <li class="miss">Transcript upload + AI parse</li>
+        <li class="miss">College Scorecard API (real data)</li>
+        <li class="miss">Post-acceptance checklist generation</li>
+        <li class="miss">College auto-page (Firecrawl + Lambda)</li>
+        <li class="miss">Push notifications</li>
+        <li class="miss">Counselor portal + Parent access mode</li>
+        <li class="miss">PDF portfolio export</li>
+        <li class="miss">Housing + roommate finder</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ VIEW: AUTH FLOW ══ -->
+<div id="view-auth" class="view">
+  <div class="section-label">Auth State Machine (LadderApp.swift → AuthManager.swift)</div>
+
+  <div class="states">
+    <div class="state-node" style="border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.05)">
+      <div style="color:#93c5fd; font-weight:700">.loading</div>
+      <div class="file">SplashScreenView<br/>1s session check</div>
+    </div>
+    <div class="state-arrow">→</div>
+    <div class="state-node" style="border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.05)">
+      <div style="color:#fca5a5; font-weight:700">.unauthenticated</div>
+      <div class="file">LoginView.swift<br/>Email + social login</div>
+    </div>
+    <div class="state-arrow">→ new user</div>
+    <div class="state-node" style="border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.05)">
+      <div style="color:#fcd34d; font-weight:700">.consentRequired</div>
+      <div class="file">ConsentView.swift<br/>COPPA + 6 legal docs</div>
+    </div>
+    <div class="state-arrow">→</div>
+    <div class="state-node" style="border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05)">
+      <div style="color:#c4b5fd; font-weight:700">.onboarding</div>
+      <div class="file">OnboardingContainerView<br/>5-step wizard</div>
+    </div>
+    <div class="state-arrow">→</div>
+    <div class="state-node" style="border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.05)">
+      <div style="color:#86efac; font-weight:700">.authenticated</div>
+      <div class="file">MainTabView.swift<br/>5-tab app</div>
+    </div>
+  </div>
+
+  <div class="section-label">Onboarding 5-Step Wizard — What It Collects</div>
+  <div class="grid g5">
+    <div class="card" style="border-color: rgba(139,92,246,0.2)">
+      <div class="card-title" style="color:#c4b5fd">Step 1</div>
+      <ul><li>Welcome screen</li><li>App overview</li></ul>
+    </div>
+    <div class="card" style="border-color: rgba(59,130,246,0.2)">
+      <div class="card-title" style="color:#93c5fd">Step 2</div>
+      <ul><li>Name</li><li>Grade (9-12)</li><li>School name</li><li>isFirstGen flag</li></ul>
+    </div>
+    <div class="card" style="border-color: rgba(249,115,22,0.2)">
+      <div class="card-title" style="color:#fdba74">Step 3</div>
+      <ul><li>GPA</li><li>SAT/ACT scores</li><li>AP courses taken</li></ul>
+    </div>
+    <div class="card" style="border-color: rgba(20,184,166,0.2)">
+      <div class="card-title" style="color:#5eead4">Step 4</div>
+      <ul><li>Dream school tap-to-save</li><li>100+ colleges shown</li><li>Pre-populates savedCollegeIds</li></ul>
+    </div>
+    <div class="card" style="border-color: rgba(236,72,153,0.2)">
+      <div class="card-title" style="color:#f9a8d4">Step 5</div>
+      <ul><li>Career interests</li><li>Extracurriculars</li><li>Sets careerPath on profile</li></ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 16px; padding: 16px 20px; background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2); border-radius: 12px;">
+    <div style="font-size:0.8rem; font-weight:700; color:#fcd34d; margin-bottom:6px;">⚠ Current Problem</div>
+    <p style="font-size:0.75rem; color:var(--muted); line-height:1.6">All 5 steps save to <span class="mono">StudentProfileModel</span> via SwiftData. But <strong style="color:var(--text)">zero features downstream actually read it to personalize themselves.</strong> The dashboard shows the same thing for a 9th grader vs a 12th grader. The AI advisor has no context. The college filter doesn't use career path. This is the core fix needed.</p>
+  </div>
+
+  <div class="section-label" style="margin-top:28px">Backend: Currently Mocked → What Needs to Be Wired</div>
+  <div class="grid g3">
+    <div class="card">
+      <div class="card-title"><span class="badge missing">NOT WIRED</span> Supabase Auth</div>
+      <ul>
+        <li class="miss">SPM package not added yet</li>
+        <li class="miss">AuthManager just sets state directly</li>
+        <li>Wire: <span class="mono">supabase.auth.signIn()</span></li>
+        <li>Wire: <span class="mono">supabase.auth.signUp()</span></li>
+        <li>Wire: session persistence across app restarts</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge missing">NOT WIRED</span> Supabase DB + Storage</div>
+      <ul>
+        <li class="miss">StudentProfile not synced to cloud</li>
+        <li class="miss">College saves are local only</li>
+        <li class="miss">Chat sessions not persisted</li>
+        <li>Wire: Supabase Realtime for sync</li>
+        <li>Wire: Storage bucket for transcripts</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge partial">TODO</span> Gemini AI Proxy</div>
+      <ul>
+        <li class="warn">AIService.swift exists + structured</li>
+        <li class="warn">Edge Function endpoint configured</li>
+        <li class="miss">Bearer token auth is TODO</li>
+        <li class="miss">Student context not passed to AI</li>
+        <li>Wire: inject profile context in system prompt</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ VIEW: CONNECTION ENGINE ══ -->
+<div id="view-connections" class="view">
+
+  <div class="connection-hub">
+    <div class="hub-badge">🚨 NOT BUILT — Most Critical Missing Piece</div>
+    <h3>ConnectionEngine.swift</h3>
+    <p>An <span style="color:#c4b5fd">@Observable service</span> that observes <span style="color:#c4b5fd">StudentProfileModel</span> changes and fires cascading updates across all features.<br>Without this, the app is 9 isolated screens with no shared intelligence.</p>
+  </div>
+
+  <div class="section-label">Every Trigger → Every Effect (What ConnectionEngine Must Do)</div>
+
+  <table class="trigger-table">
+    <thead>
+      <tr>
+        <th>When this changes…</th>
+        <th>It MUST cascade into…</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="source">careerPath</span><br><span style="font-size:0.68rem; color:var(--muted)">Set by Career Quiz</span></td>
+        <td><div class="triggers">
+          <span>College Discovery filter auto-enable</span>
+          <span>Activity suggestions (4 generals + 6 specific)</span>
+          <span>AI class planner: AP suggestions by field</span>
+          <span>Scholarship filter to matching field</span>
+          <span>Dashboard quick actions update</span>
+          <span>Essay talking points generation</span>
+          <span>Career Explorer: show jobs + salaries</span>
+        </div></td>
+        <td class="status-col"><span class="badge missing">missing</span></td>
+      </tr>
+      <tr>
+        <td><span class="source">savedCollegeIds</span><br><span style="font-size:0.68rem; color:var(--muted)">Set when user hearts a college</span></td>
+        <td><div class="triggers">
+          <span>Deadlines Calendar: add college deadlines ✓ (only this works)</span>
+          <span>Essay Tracker: create essay slots per college</span>
+          <span>Financial Aid Comparison: add to table</span>
+          <span>Admission Checklist: generate per-college task list</span>
+          <span>Dashboard: "MIT EA in 47 days" urgency card</span>
+          <span>ApplicationModel: create record per college</span>
+        </div></td>
+        <td class="status-col"><span class="badge partial">1/6</span></td>
+      </tr>
+      <tr>
+        <td><span class="source">gpa + satScore</span><br><span style="font-size:0.68rem; color:var(--muted)">From Onboarding Step 3</span></td>
+        <td><div class="triggers">
+          <span>College chances calculator (acceptance probability)</span>
+          <span>Scholarship filter by GPA threshold</span>
+          <span>College Discovery: MATCH / REACH / SAFETY chip auto-sort</span>
+          <span>AI context: "Your SAT is 1280, here's a strategy..."</span>
+          <span>Roadmap milestone unlocks/locks</span>
+        </div></td>
+        <td class="status-col"><span class="badge missing">missing</span></td>
+      </tr>
+      <tr>
+        <td><span class="source">grade</span><br><span style="font-size:0.68rem; color:var(--muted)">9th / 10th / 11th / 12th</span></td>
+        <td><div class="triggers">
+          <span>GradeFeatureManager: lock/unlock features by grade</span>
+          <span>Dashboard greeting + context changes</span>
+          <span>Roadmap: highlight current year's milestones</span>
+          <span>Tasks: show grade-appropriate checklist items</span>
+          <span>College section: hide for 9th/10th, surface for 11th/12th</span>
+          <span>Career quiz: different depth by grade year</span>
+        </div></td>
+        <td class="status-col"><span class="badge missing">missing</span></td>
+      </tr>
+      <tr>
+        <td><span class="source">transcript upload</span><br><span style="font-size:0.68rem; color:var(--muted)">Annual upload → AI parse</span></td>
+        <td><div class="triggers">
+          <span>Class suggestion engine refreshes</span>
+          <span>AI advisor gets updated academic context</span>
+          <span>Chances calculator updates per college</span>
+          <span>Scholarship eligibility re-evaluated</span>
+          <span>AP suggestions update based on new grades</span>
+        </div></td>
+        <td class="status-col"><span class="badge missing">missing</span></td>
+      </tr>
+      <tr>
+        <td><span class="source">applicationStatus</span><br><span style="font-size:0.68rem; color:var(--muted)">planning→submitted→accepted</span></td>
+        <td><div class="triggers">
+          <span>Checklist transforms (pre-app → post-acceptance)</span>
+          <span>Dashboard urgency card updates</span>
+          <span>Tasks filter changes</span>
+          <span>Financial Aid Comparison updates</span>
+          <span>Committed college: triggers post-acceptance flow</span>
+        </div></td>
+        <td class="status-col"><span class="badge missing">missing</span></td>
+      </tr>
+      <tr>
+        <td><span class="source">stateOfResidence</span><br><span style="font-size:0.68rem; color:var(--muted)">FL vs CA vs TX etc.</span></td>
+        <td><div class="triggers">
+          <span>Graduation requirements engine: FL = Bright Futures 120hrs</span>
+          <span>Scholarship filter: FL Bright Futures, state-specific awards</span>
+          <span>Roadmap milestones: state-specific deadlines</span>
+          <span>STARS vs Common App logic (FL-specific)</span>
+        </div></td>
+        <td class="status-col"><span class="badge missing">missing</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label" style="margin-top:28px">ConnectionEngine Architecture Sketch</div>
+  <div class="card" style="background: rgba(0,0,0,0.3)">
+    <pre style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#c4b5fd; line-height:1.8; overflow-x:auto">
+@Observable
+final class ConnectionEngine {
+  private let profile: StudentProfileModel
+  private var cancellables: Set&lt;AnyCancellable&gt; = []
+
+  init(profile: StudentProfileModel) {
+    self.profile = profile
+    observeChanges()
+  }
+
+  private func observeChanges() {
+    // When career path changes
+    observe(\.careerPath) { [weak self] path in
+      self?.updateCollegeFilters(for: path)     // ← College Discovery
+      self?.regenerateActivitySuggestions()     // ← Activity System
+      self?.updateAIContext()                   // ← AI Advisor
+      self?.refreshScholarshipFilters()         // ← Scholarships
+    }
+
+    // When college is saved
+    observe(\.savedCollegeIds) { [weak self] ids in
+      self?.syncDeadlinesCalendar(ids)          // ← Already built ✓
+      self?.generateApplicationRecords(ids)     // ← Applications
+      self?.generateEssaySlots(ids)             // ← Essay Hub
+      self?.updateDashboardUrgencyCard()        // ← Dashboard
+    }
+
+    // When grade changes or transcript uploaded
+    observe(\.grade) { [weak self] grade in
+      self?.updateGradeVisibility(grade)        // ← GradeFeatureManager
+      self?.refreshRoadmapMilestones(grade)     // ← Roadmap
+    }
+  }
+}</pre>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ VIEW: DATA MODELS ══ -->
+<div id="view-data" class="view">
+
+  <div class="section-label">SwiftData Models — Relationships &amp; Connections</div>
+
+  <div class="grid g3">
+    <div class="card" style="border-color: rgba(139,92,246,0.3); grid-column: span 3;">
+      <div class="card-title" style="color:#c4b5fd">🧠 StudentProfileModel — The Central Model Everything Should Read</div>
+      <div class="grid g3">
+        <ul>
+          <li class="ok">name, email, grade (9-12)</li>
+          <li class="ok">gpa, satScore, actScore</li>
+          <li class="ok">careerPath (set by quiz)</li>
+          <li class="ok">isFirstGen flag</li>
+        </ul>
+        <ul>
+          <li class="ok">savedCollegeIds [String]</li>
+          <li class="ok">interests [String]</li>
+          <li class="ok">extracurriculars [String]</li>
+          <li class="miss">stateOfResidence (hardcoded FL)</li>
+        </ul>
+        <ul>
+          <li class="ok">streakCount, totalPoints</li>
+          <li class="miss">transcriptData (not uploaded)</li>
+          <li class="miss">parsedGrades (AI output)</li>
+          <li class="miss">activityLog entries</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card">
+      <div class="card-title" style="color:#86efac">🎓 CollegeModel</div>
+      <ul>
+        <li class="ok">name, state, city, imageURL</li>
+        <li class="ok">acceptanceRate, enrollment</li>
+        <li class="ok">tuitionInState, tuitionOutState</li>
+        <li class="ok">satRange, actAvg</li>
+        <li class="ok">completionRate, medianEarnings</li>
+        <li class="ok">isHBCU, programs [String]</li>
+        <li class="warn">data is seeded mock (not real API)</li>
+        <li class="miss">→ CollegePersonalityModel (1:1)</li>
+        <li class="miss">→ CollegeDeadlineModel (1:many)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#7dd3fc">📋 ApplicationModel</div>
+      <ul>
+        <li class="ok">collegeName, collegeId</li>
+        <li class="ok">status: planning→submitted→accepted→committed</li>
+        <li class="ok">deadlineType (EA/ED/RD/Rolling)</li>
+        <li class="ok">platform (Common App / Coalition)</li>
+        <li class="ok">→ ChecklistItemModel (cascade)</li>
+        <li class="miss">Auto-generated from savedCollegeIds</li>
+        <li class="miss">Post-acceptance checklist auto-transform</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#fdba74">💬 ChatSessionModel</div>
+      <ul>
+        <li class="ok">sessionType (college_list/essay/sat/etc.)</li>
+        <li class="ok">title, collegeId (optional)</li>
+        <li class="ok">→ ChatMessageModel (cascade)</li>
+        <li class="ok">role: user / assistant</li>
+        <li class="ok">content (String)</li>
+        <li class="miss">Student context injected into system prompt</li>
+        <li class="miss">Real Gemini responses</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#5eead4">🗓 RoadmapMilestoneModel</div>
+      <ul>
+        <li class="ok">grade (9/10/11/12)</li>
+        <li class="ok">title, category, status</li>
+        <li class="ok">Standalone, pre-seeded</li>
+        <li class="miss">Doesn't adapt to user's actual grade</li>
+        <li class="miss">No state-specific milestones</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#f9a8d4">🎯 CollegePersonalityModel</div>
+      <ul>
+        <li class="ok">archetypeName ("The Builder/Maker")</li>
+        <li class="ok">traits [String]</li>
+        <li class="ok">testPolicy, rigorImportance</li>
+        <li class="ok">essayImportance</li>
+        <li class="warn">Defined but not AI-generated yet</li>
+        <li class="warn">Will use Gemini to generate per college</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#fde68a">💰 ScholarshipModel</div>
+      <ul>
+        <li class="ok">name, provider, amount</li>
+        <li class="ok">deadline, eligibility [String]</li>
+        <li class="ok">matchPercent, isSaved</li>
+        <li class="miss">Real scholarship data (not seeded)</li>
+        <li class="miss">GPA-based match filtering</li>
+        <li class="miss">State-specific scholarships (Bright Futures)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:28px">External Services — Status Map</div>
+  <div class="grid g4">
+    <div class="card">
+      <div class="card-title"><span class="badge missing">NOT WIRED</span> Supabase</div>
+      <ul>
+        <li>Auth (signup, login, session)</li>
+        <li>DB (profiles, colleges, apps)</li>
+        <li>Storage (transcripts, photos)</li>
+        <li>Realtime sync</li>
+        <li>Edge Functions (AI proxy)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge partial">PARTIAL</span> Gemini AI</div>
+      <ul>
+        <li class="ok">AIService.swift structured</li>
+        <li class="ok">Streaming via AsyncThrowingStream</li>
+        <li class="warn">Edge Function endpoint configured</li>
+        <li class="miss">Bearer token auth TODO</li>
+        <li class="miss">Student context in system prompt</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge missing">NOT WIRED</span> College Scorecard API</div>
+      <ul>
+        <li class="ok">API key configured</li>
+        <li class="warn">6,500 colleges seeded as mock JSON</li>
+        <li class="miss">Real API call not implemented</li>
+        <li class="miss">Live data refresh logic</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="badge missing">NOT BUILT</span> Firecrawl + Lambda</div>
+      <ul>
+        <li class="miss">College auto-page generation</li>
+        <li class="miss">Post-acceptance checklist scraping</li>
+        <li class="miss">AWS Lambda function not written</li>
+        <li class="miss">Crowdsource fallback not built</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ VIEW: FEATURES ══ -->
+<div id="view-features" class="view">
+
+  <div class="section-label">Features Across the Student Journey</div>
+
+  <!-- Row: 9th Grade -->
+  <div style="margin-bottom:6px; font-size:0.7rem; font-weight:700; color:#86efac; text-transform:uppercase; letter-spacing:1.5px;">9th Grade &mdash; Foundation</div>
+  <div class="flow-chain" style="margin-bottom:20px">
+    <div class="flow-item"><div class="fi-label">Onboarding</div><div class="fi-value">5-step wizard</div><div class="fi-desc">Name, grade, GPA, dream schools, interests → StudentProfileModel</div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">Career Quiz</div><div class="fi-value">RIASEC archetype</div><div class="fi-desc">"The Ambitious Healer" → sets careerPath → should cascade everywhere</div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">Class Planner</div><div class="fi-value">AI suggestions</div><div class="fi-desc">Based on careerPath + transcript → "Take AP Bio for Medical track" <span style="color:var(--missing)">[NOT BUILT]</span></div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">Activity System</div><div class="fi-value">4 generals + 6 specific</div><div class="fi-desc">Athletics, Volunteer (120h), Clubs, Leadership + 6 career-specific <span style="color:var(--missing)">[NOT BUILT]</span></div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">Roadmap</div><div class="fi-value">4-year milestones</div><div class="fi-desc">PSAT → SAT → Apps → Graduation. UI built, not grade-adaptive</div></div>
+  </div>
+
+  <!-- Row: 11th Grade -->
+  <div style="margin-bottom:6px; font-size:0.7rem; font-weight:700; color:#fdba74; text-transform:uppercase; letter-spacing:1.5px;">11th Grade &mdash; Decision Year</div>
+  <div class="flow-chain" style="margin-bottom:20px">
+    <div class="flow-item"><div class="fi-label">Quiz Retake</div><div class="fi-value">Yearly update</div><div class="fi-desc">Year 3 quiz → pivot detection → "You shifted from Medical to Tech" <span style="color:var(--missing)">[NOT BUILT]</span></div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">SAT Track</div><div class="fi-value">2-4x recommended</div><div class="fi-desc">Fee waiver detection (free lunch = free SAT). Study timeline. <span style="color:var(--missing)">[NOT BUILT]</span></div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">College Discovery</div><div class="fi-value">6,500 colleges</div><div class="fi-desc">Filter by major, MATCH/REACH/SAFETY based on GPA+SAT. UI built, logic mocked</div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">Scholarships</div><div class="fi-value">Merit + need-based</div><div class="fi-desc">Match % by GPA, field, state (Bright Futures FL). UI built, matching not wired</div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">LOR Tracker</div><div class="fi-value">Letters of Rec</div><div class="fi-desc">"Bug your counselor by March 1st for LOR" with specific deadline. <span style="color:var(--missing)">[NOT BUILT]</span></div></div>
+  </div>
+
+  <!-- Row: 12th Grade / Applications -->
+  <div style="margin-bottom:6px; font-size:0.7rem; font-weight:700; color:#f9a8d4; text-transform:uppercase; letter-spacing:1.5px;">12th Grade &mdash; Application Season</div>
+  <div class="flow-chain" style="margin-bottom:20px">
+    <div class="flow-item"><div class="fi-label">College Pages</div><div class="fi-value">Auto-generated</div><div class="fi-desc">Save college → auto-create app page with Common App link + checklist. <span style="color:var(--missing)">[NOT BUILT]</span></div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">App Checklist</div><div class="fi-value">Per-college tasks</div><div class="fi-desc">Transcript, SAT, essay, LOR, deposit. ApplicationDetailView built, not auto-generated</div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">Essay Hub</div><div class="fi-value">AI-assisted</div><div class="fi-desc">Draft tracking, word count, AI feedback, LOCI, thank-you notes. UI placeholder only</div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">Status Tracker</div><div class="fi-value">Applied → Accepted</div><div class="fi-desc">planning→in_progress→submitted→accepted→committed. ApplicationModel built</div></div>
+    <div class="flow-arrow-between">→</div>
+    <div class="flow-item"><div class="fi-label">Post-Accept</div><div class="fi-value">New checklist</div><div class="fi-desc">Deposit, immunization, housing, official transcripts. Auto-transform on .accepted <span style="color:var(--missing)">[NOT BUILT]</span></div></div>
+  </div>
+
+  <div class="section-label" style="margin-top:8px">GradeFeatureManager — What Locks/Unlocks by Grade</div>
+  <table class="trigger-table">
+    <thead>
+      <tr><th>Feature</th><th>9th</th><th>10th</th><th>11th</th><th>12th</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Career Quiz</td><td style="color:var(--built)">Full</td><td style="color:var(--built)">Full (retake)</td><td style="color:var(--built)">Full (retake)</td><td style="color:var(--built)">Full</td><td><span class="badge built">built</span></td></tr>
+      <tr><td>College Discovery</td><td style="color:var(--partial)">Preview only</td><td style="color:var(--partial)">Preview only</td><td style="color:var(--built)">Full access</td><td style="color:var(--built)">Full access</td><td><span class="badge missing">not wired</span></td></tr>
+      <tr><td>Application Tracker</td><td style="color:var(--missing)">Hidden</td><td style="color:var(--missing)">Hidden</td><td style="color:var(--partial)">Prep mode</td><td style="color:var(--built)">Full</td><td><span class="badge missing">not wired</span></td></tr>
+      <tr><td>SAT Strategy</td><td style="color:var(--missing)">Hidden</td><td style="color:var(--partial)">PSAT prep</td><td style="color:var(--built)">Full SAT</td><td style="color:var(--built)">Score improvement</td><td><span class="badge missing">not built</span></td></tr>
+      <tr><td>Scholarship Search</td><td style="color:var(--partial)">Browse only</td><td style="color:var(--partial)">Browse only</td><td style="color:var(--built)">Apply mode</td><td style="color:var(--built)">Full</td><td><span class="badge missing">not wired</span></td></tr>
+      <tr><td>Essay Hub</td><td style="color:var(--missing)">Hidden</td><td style="color:var(--missing)">Hidden</td><td style="color:var(--partial)">Practice essays</td><td style="color:var(--built)">Full</td><td><span class="badge missing">not built</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════ VIEW: SPRINT PLAN ══ -->
+<div id="view-sprints" class="view">
+
+  <div class="section-label">4-Sprint Build Plan — Priority Order</div>
+
+  <div class="grid g2">
+    <div class="sprint-card sprint-1 s1">
+      <div class="sprint-header">
+        <div class="sprint-num">1</div>
+        Backend Foundation
+        <span class="badge critical">DO THIS FIRST</span>
+      </div>
+      <div class="sprint-task"><div class="num">1</div><div><strong>Add Supabase SPM package + wire auth</strong><div class="why">AuthManager mocks set state directly. Nothing persists across app restarts. No user exists in any real system.</div></div></div>
+      <div class="sprint-task"><div class="num">2</div><div><strong>Sync StudentProfileModel to Supabase DB</strong><div class="why">Every downstream feature depends on profile data being real and persistent. Right now it lives only in local SwiftData and dies on reinstall.</div></div></div>
+      <div class="sprint-task"><div class="num">3</div><div><strong>Wire Bearer token for Gemini Edge Function</strong><div class="why">AIService.swift is architecturally complete. One TODO: auth header. This unblocks the entire AI layer.</div></div></div>
+      <div class="sprint-task"><div class="num">4</div><div><strong>Inject student context into AI system prompt</strong><div class="why">"Your student is a 11th grader, GPA 3.8, interested in CS, saved MIT/GT/CMU" — without this the AI knows nothing about the user.</div></div></div>
+      <div class="sprint-task"><div class="num">5</div><div><strong>Wire College Scorecard API (replace mock seed)</strong><div class="why">6,500 real colleges. Currently seeded as static mock JSON. Real API key is already configured.</div></div></div>
+    </div>
+
+    <div class="sprint-card sprint-2 s2">
+      <div class="sprint-header">
+        <div class="sprint-num">2</div>
+        ConnectionEngine
+        <span class="badge missing">CORE ARCHITECTURE</span>
+      </div>
+      <div class="sprint-task"><div class="num">1</div><div><strong>Build ConnectionEngine.swift</strong><div class="why">The single most important architectural piece. Observes StudentProfileModel and fires cascading updates. Without it, 9 screens never talk to each other.</div></div></div>
+      <div class="sprint-task"><div class="num">2</div><div><strong>careerPath → College filter + activity suggestions</strong><div class="why">First and most visible cascade. Quiz gives you "STEM" → College Discovery auto-enables "Best for STEM" chip → Activity system shows robotics/coding clubs.</div></div></div>
+      <div class="sprint-task"><div class="num">3</div><div><strong>savedCollegeIds → ApplicationModel auto-creation</strong><div class="why">Hearthing RIT should auto-create an Application record, generate a checklist, add deadlines to calendar, and put an essay slot in Essay Hub.</div></div></div>
+      <div class="sprint-task"><div class="num">4</div><div><strong>GradeFeatureManager — lock/unlock by grade</strong><div class="why">A 9th grader and a 12th grader should see completely different UX. Currently identical. This is a major user experience gap.</div></div></div>
+      <div class="sprint-task"><div class="num">5</div><div><strong>GPA + SAT → Chances calculator + MATCH/REACH/SAFETY</strong><div class="why">The MATCH/REACH/SAFETY filter chips exist in the UI but they're all manual. This should auto-calculate based on stored GPA/SAT vs college acceptance data.</div></div></div>
+      <div class="sprint-task"><div class="num">6</div><div><strong>State Requirements Engine (FL default → user-set)</strong><div class="why">Hardcoded FL graduation rules. Bright Futures 120h volunteer requirement. Multi-state support needed for scale.</div></div></div>
+    </div>
+
+    <div class="sprint-card sprint-3 s3">
+      <div class="sprint-header">
+        <div class="sprint-num">3</div>
+        25 Missing Features
+        <span class="badge partial">AFTER ENGINE</span>
+      </div>
+      <div class="sprint-task"><div class="num">1</div><div><strong>Activity Suggestion System</strong><div class="why">4 generals (athletics, volunteering 120h, clubs, leadership) + 6 career-specific (research paper, internship, interviews, competitions, awards, journals). Rated 1-10. Central to the entire app value prop.</div></div></div>
+      <div class="sprint-task"><div class="num">2</div><div><strong>Transcript upload + AI parse (vision model)</strong><div class="why">Upload screenshot/PDF → Gemini Vision extracts GPA, classes, grades → updates profile → cascades to class suggestions + AI context.</div></div></div>
+      <div class="sprint-task"><div class="num">3</div><div><strong>Post-acceptance checklist auto-generation</strong><div class="why">applicationStatus → .accepted triggers checklist transform. Old pre-app tasks deleted. New: deposit, immunization, housing, official transcripts, orientation.</div></div></div>
+      <div class="sprint-task"><div class="num">4</div><div><strong>College auto-page via Firecrawl + Lambda</strong><div class="why">Student saves unlisted college → Lambda fires → Firecrawl scrapes admissions page → AI generates checklist → page appears in app.</div></div></div>
+      <div class="sprint-task"><div class="num">5</div><div><strong>Career quiz yearly retake + pivot detection</strong><div class="why">Compare year 1 vs year 3 quiz. "You shifted from Medical to Tech — here's what changes." Core engagement mechanic.</div></div></div>
+      <div class="sprint-task"><div class="num">6</div><div><strong>Essay Hub + Mock Interview (real AI)</strong><div class="why">Essay draft tracking, word count, AI feedback. Mock interview with recording + AI coaching. Both UI placeholders exist.</div></div></div>
+    </div>
+
+    <div class="sprint-card sprint-4 s4">
+      <div class="sprint-header">
+        <div class="sprint-num">4</div>
+        Scale &amp; Polish
+        <span class="badge built">AFTER MVP</span>
+      </div>
+      <div class="sprint-task"><div class="num">1</div><div><strong>Counselor portal</strong><div class="why">Counselors manage multiple students. See each student's journey, add notes, approve transcripts. Marketplace with top 50 per state.</div></div></div>
+      <div class="sprint-task"><div class="num">2</div><div><strong>Parent access mode</strong><div class="why">Parents can view (not edit) their child's journey. Email digest with weekly progress. Important for first-gen families.</div></div></div>
+      <div class="sprint-task"><div class="num">3</div><div><strong>Push notifications</strong><div class="why">"MIT EA deadline in 7 days." "You haven't logged volunteer hours in 2 weeks." Duolingo-style streak reminders.</div></div></div>
+      <div class="sprint-task"><div class="num">4</div><div><strong>PDF portfolio export</strong><div class="why">4-year activity portfolio, formatted resume-style. Can be shared with counselors and colleges.</div></div></div>
+      <div class="sprint-task"><div class="num">5</div><div><strong>Housing + roommate finder</strong><div class="why">Post-acceptance: integrate with college housing portals. Roommate preference matching.</div></div></div>
+      <div class="sprint-task"><div class="num">6</div><div><strong>App Store prep + TestFlight</strong><div class="why">Privacy nutrition label, app screenshots, review COPPA compliance, submission workflow.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ VIEW: CRITICAL GAPS ══ -->
+<div id="view-gaps" class="view">
+
+  <div class="section-label">Critical Gaps — Ranked by Impact</div>
+
+  <div class="missing-grid">
+    <div class="missing-item">
+      <h4>🔴 #1 — No Backend (Supabase not wired)</h4>
+      <p>AuthManager mocks state directly. StudentProfileModel lives in local SwiftData only. No user identity, no cloud persistence, no real data survives a reinstall.</p>
+      <div class="impact">Blocks: everything. Every single feature depends on real auth + persisted data.</div>
+    </div>
+    <div class="missing-item">
+      <h4>🔴 #2 — ConnectionEngine doesn't exist</h4>
+      <p>Career quiz result is stored but zero features read it. GPA is stored but AI doesn't know it. Saved colleges don't auto-generate application records. The app is 9 disconnected screens.</p>
+      <div class="impact">Blocks: personalization, auto-checklists, MATCH/REACH/SAFETY, activity suggestions.</div>
+    </div>
+    <div class="missing-item">
+      <h4>🟠 #3 — AI is mocked with keyword matching</h4>
+      <p>AdvisorChatViewModel hardcodes responses based on keyword detection. AIService.swift is correctly architected (streaming ready), but Bearer token auth is TODO and student context is never injected.</p>
+      <div class="impact">Blocks: the entire core value prop. AI counselor = most important feature.</div>
+    </div>
+    <div class="missing-item">
+      <h4>🟠 #4 — Grade doesn't change anything</h4>
+      <p>A freshman and a senior see identical UX. GradeFeatureManager doesn't exist. The app should be radically different at each grade — hiding application features from 9th graders, unlocking them for juniors/seniors.</p>
+      <div class="impact">Blocks: appropriate UX, grade-based feature locking, roadmap adaptivity.</div>
+    </div>
+    <div class="missing-item">
+      <h4>🟡 #5 — Activity System not built</h4>
+      <p>The 4 generals (athletics, volunteering, clubs, leadership) + 6 career-specific activities are the main differentiator from every other college app. Tracked per year. Rated 1-10. None of it exists yet.</p>
+      <div class="impact">Blocks: the core "start freshman year not senior year" pitch to users.</div>
+    </div>
+    <div class="missing-item">
+      <h4>🟡 #6 — Transcript upload + AI parse missing</h4>
+      <p>The whole class suggestion engine depends on reading past transcript grades. Right now GPA is a self-reported number in onboarding. Transcript upload → Gemini Vision parse → profile update is all missing.</p>
+      <div class="impact">Blocks: class suggestions, AP recommendations, AI academic context.</div>
+    </div>
+    <div class="missing-item">
+      <h4>🟡 #7 — Post-acceptance checklist doesn't auto-generate</h4>
+      <p>When application status flips to .accepted, the pre-app checklist should transform into a post-acceptance checklist (deposit, housing, immunization, official transcripts). This cascading transform isn't built.</p>
+      <div class="impact">Blocks: the second half of the product — what happens AFTER you get in.</div>
+    </div>
+    <div class="missing-item">
+      <h4>🟡 #8 — College data is mock seed (not real API)</h4>
+      <p>6,500 colleges are seeded as static mock JSON. The College Scorecard API key is configured but the actual API call is never made. Acceptance rates, tuition, SAT ranges could be stale or wrong.</p>
+      <div class="impact">Blocks: real MATCH/REACH/SAFETY, accurate chances calculator, live deadline data.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px; padding:20px 24px; background:rgba(202,242,77,0.05); border:1px solid rgba(202,242,77,0.2); border-radius:14px;">
+    <div style="font-size:0.85rem; font-weight:800; color:var(--ladder-lime); margin-bottom:12px;">🎯 The Two Things That Unlock Everything</div>
+    <div class="grid g2">
+      <div>
+        <div style="font-size:0.8rem; font-weight:700; color:var(--text); margin-bottom:6px;">1. Wire Supabase (Sprint 1)</div>
+        <p style="font-size:0.73rem; color:var(--muted); line-height:1.6">Real auth + real data persistence is the foundation. Add the SPM package, wire AuthManager to supabase.auth, sync StudentProfile to the DB, add Bearer token to AIService. Estimated: 1-2 days of focused work.</p>
+      </div>
+      <div>
+        <div style="font-size:0.8rem; font-weight:700; color:var(--text); margin-bottom:6px;">2. Build ConnectionEngine (Sprint 2)</div>
+        <p style="font-size:0.73rem; color:var(--muted); line-height:1.6">The @Observable service that makes everything talk to everything. Start with the two highest-leverage cascades: <strong style="color:var(--ladder-lime)">careerPath → college filters + activities</strong> and <strong style="color:var(--ladder-lime)">savedCollegeIds → application records</strong>. Everything else branches from there.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchView(name, btn) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('view-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Announcement Manager | Ladder Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-fixed": "#caf24d",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "primary-container": "#5a7956",
+                    "surface-tint": "#486644",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container": "#f5ede2",
+                    "surface-bright": "#fff8f2",
+                    "on-secondary-container": "#566c00",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-fixed": "#052107",
+                    "background": "#fff8f2",
+                    "outline": "#737970",
+                    "on-surface": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-surface": "#343029",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar Anchor -->
+<nav class="fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] flex flex-col py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="mb-12">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="auto_stories">auto_stories</span>
+</div>
+<h1 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+</div>
+<p class="font-noto-serif text-sm opacity-60 px-1">District Administration</p>
+</div>
+<div class="space-y-2 flex-grow">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-noto-serif text-base">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="font-noto-serif text-base">Schools</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-noto-serif text-base">District Stats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-noto-serif text-base">Staff Directory</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7]" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-noto-serif text-base">Curriculum</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+<span class="font-noto-serif text-base">Utility Tools</span>
+</a>
+</div>
+<button class="mt-8 mb-12 bg-primary-container text-on-primary-container py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            Quick Report
+        </button>
+<div class="border-t border-outline-variant/10 pt-6 space-y-2">
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-noto-serif text-sm">Support</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-error/80 hover:text-error" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-noto-serif text-sm">Log Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="ml-[280pt] min-h-screen">
+<!-- TopNavBar Anchor -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-12 py-6 w-full bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex items-center gap-8">
+<h2 class="font-noto-serif text-xl font-bold italic text-[#1f1b15]">Ladder Admin</h2>
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined opacity-40" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-6 py-2 text-sm focus:ring-2 focus:ring-primary/20 w-64 transition-all group-hover:w-80" placeholder="Search systems..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-[#eae1d7] transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary-fixed rounded-full"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#eae1d7] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="h-10 w-[1px] bg-outline-variant/20"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Dr. Elena Vance</p>
+<p class="text-[10px] opacity-60">Superintendent</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover border-2 border-surface-container-highest" data-alt="Portrait of a female administrator with a professional smile in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVJlzvL4WmVjhaCl6mYWBu15MW8bcONK954UbMJ5kHdb_0evQlXomB_gZsxzJeua0q48jk_cxgAKD1WOGl9iyVzhsFWvcx-DxKLFELCDPoNzdXV5L2iVK_2fJfzmNZ1kRq0716sBiZEQgEcxnw4Pcgri_QSo33M1DQQANRlVhQCyQdbxruF0hTeJ-JnOZVL81m1sD_VXYt3_1tLRjGHEjS3_7kbGeEE0Sn742hPS8vdL_Si6IzGTrBlr-P29FaYTHoG2zgrwWlEsg"/>
+</div>
+</div>
+</header>
+<div class="px-12 py-8 flex gap-8">
+<!-- Left Column: Announcement Management -->
+<div class="flex-grow space-y-8">
+<!-- Header & New Announcement -->
+<div class="flex justify-between items-end mb-6">
+<div>
+<h3 class="font-headline text-4xl font-bold tracking-tight mb-2">Announcements</h3>
+<p class="text-on-surface-variant font-medium opacity-70">Broadcast updates across the academic network.</p>
+</div>
+<button class="flex items-center gap-3 px-6 py-4 bg-secondary-container text-on-secondary-container rounded-xl font-bold shadow-sm hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined" data-icon="campaign" style="font-variation-settings: 'FILL' 1;">campaign</span>
+                        New Announcement
+                    </button>
+</div>
+<!-- Bento Composer Preview (Draft) -->
+<section class="grid grid-cols-3 gap-6">
+<div class="col-span-2 bg-surface-container-low rounded-xl p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+<h4 class="font-headline text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="edit_note">edit_note</span>
+                            Active Draft: Winter Break Schedule
+                        </h4>
+<div class="space-y-4">
+<div class="h-[1px] bg-outline-variant/30 w-full"></div>
+<p class="text-on-surface-variant leading-relaxed">
+                                Please be advised that the winter recess will begin on December 20th...
+                            </p>
+<div class="flex gap-3">
+<span class="px-3 py-1 bg-surface-container-highest text-xs font-semibold rounded-full">All Schools</span>
+<span class="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">High Priority</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-xl p-6 flex flex-col justify-between">
+<div>
+<p class="text-xs uppercase tracking-widest font-bold opacity-40 mb-4">Target Audience</p>
+<div class="space-y-3">
+<div class="flex items-center justify-between text-sm">
+<span>Faculty</span>
+<span class="material-symbols-outlined text-primary text-lg" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span>Students</span>
+<span class="material-symbols-outlined text-primary text-lg" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex items-center justify-between text-sm opacity-40">
+<span>Parents</span>
+<span class="material-symbols-outlined text-lg" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-bold text-sm">Continue Drafting</button>
+</div>
+</section>
+<!-- Past Announcements List -->
+<div class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h4 class="font-headline text-lg font-bold">Past Announcements</h4>
+<button class="text-sm font-bold text-primary flex items-center gap-1">
+                            Filter by Date <span class="material-symbols-outlined text-base" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<!-- List Items -->
+<div class="space-y-3">
+<!-- Item 1 -->
+<div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-secondary-fixed flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<div class="bg-surface-container-highest w-12 h-12 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="science">science</span>
+</div>
+<div>
+<h5 class="font-bold text-lg">District-Wide STEM Grant Application Open</h5>
+<div class="flex items-center gap-4 text-xs mt-1 opacity-60 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span> Oct 12, 2023</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-primary">Audience: Science Dept</span>
+<span class="text-secondary font-bold uppercase tracking-tighter italic">Normal Priority</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="text-primary text-xs font-bold hover:underline">View</button>
+<button class="text-primary text-xs font-bold hover:underline">Resend</button>
+<button class="text-error text-xs font-bold hover:underline">Delete</button>
+</div>
+</div>
+<!-- Analytics Row -->
+<div class="grid grid-cols-3 gap-8 mt-2 p-4 bg-surface-container-lowest/50 rounded-lg">
+<div>
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold opacity-40 uppercase">Sent</span>
+<span class="text-xs font-bold">100%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[100%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold opacity-40 uppercase">Read</span>
+<span class="text-xs font-bold">84%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[84%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold opacity-40 uppercase">Clicked</span>
+<span class="text-xs font-bold">42%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[42%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-error/40 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<div class="bg-surface-container-highest w-12 h-12 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="health_and_safety">health_and_safety</span>
+</div>
+<div>
+<h5 class="font-bold text-lg">Emergency: Power Outage at West Campus</h5>
+<div class="flex items-center gap-4 text-xs mt-1 opacity-60 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span> Oct 08, 2023</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-primary">Audience: All Staff</span>
+<span class="text-error font-extrabold uppercase tracking-widest italic">Critical</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="text-primary text-xs font-bold hover:underline">View</button>
+<button class="text-primary text-xs font-bold hover:underline">Resend</button>
+<button class="text-error text-xs font-bold hover:underline">Delete</button>
+</div>
+</div>
+<!-- Analytics Row -->
+<div class="grid grid-cols-3 gap-8 mt-2 p-4 bg-surface-container-lowest/50 rounded-lg">
+<div>
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold opacity-40 uppercase">Sent</span>
+<span class="text-xs font-bold">100%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[100%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold opacity-40 uppercase">Read</span>
+<span class="text-xs font-bold">98%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[98%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-1">
+<span class="text-[10px] font-bold opacity-40 uppercase">Clicked</span>
+<span class="text-xs font-bold">91%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[91%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Activity Sidebar Logic -->
+<aside class="w-80 flex-shrink-0 space-y-8">
+<!-- System Health Widget -->
+<div class="bg-surface-container-highest p-6 rounded-xl">
+<h5 class="font-bold mb-4 flex items-center justify-between">
+                        Reach Health
+                        <span class="material-symbols-outlined text-primary" data-icon="network_check">network_check</span>
+</h5>
+<div class="flex items-center gap-4 mb-6">
+<div class="text-4xl font-noto-serif font-bold italic text-primary">94%</div>
+<div class="text-[10px] leading-tight font-medium opacity-60">Avg. Open Rate across all districts this month.</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-xs font-bold">
+<span>Email Delivery</span>
+<span class="text-primary">Healthy</span>
+</div>
+<div class="flex justify-between text-xs font-bold">
+<span>SMS Gateway</span>
+<span class="text-primary">Healthy</span>
+</div>
+<div class="flex justify-between text-xs font-bold">
+<span>Push Notifications</span>
+<span class="text-tertiary">Delayed</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity Timeline -->
+<div class="space-y-6">
+<h5 class="font-bold flex items-center justify-between">
+                        Recent Activity
+                        <span class="text-[10px] font-bold text-primary uppercase">Live</span>
+</h5>
+<div class="relative space-y-8 pl-4">
+<!-- Vertical line anchor -->
+<div class="absolute left-[5px] top-2 bottom-2 w-[2px] bg-secondary-fixed/30"></div>
+<div class="relative">
+<div class="absolute -left-[14px] top-1 w-3 h-3 bg-secondary-fixed rounded-full border-2 border-background"></div>
+<div>
+<p class="text-xs font-bold">Dr. Elena Vance</p>
+<p class="text-[11px] opacity-60">Scheduled "Winter Break Schedule" for Dec 1st.</p>
+<p class="text-[9px] mt-1 text-primary">2 minutes ago</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[14px] top-1 w-3 h-3 bg-secondary-fixed-dim rounded-full border-2 border-background"></div>
+<div>
+<p class="text-xs font-bold">System Automator</p>
+<p class="text-[11px] opacity-60">Delivered STEM Grant reminder to 42 users.</p>
+<p class="text-[9px] mt-1 text-primary">1 hour ago</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[14px] top-1 w-3 h-3 bg-outline-variant/40 rounded-full border-2 border-background"></div>
+<div>
+<p class="text-xs font-bold">Marcus Thorne</p>
+<p class="text-[11px] opacity-60">Deleted draft "Summer Internship Prep".</p>
+<p class="text-[9px] mt-1 text-primary">3 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Tips / Editorial Accent -->
+<div class="bg-primary/5 p-6 rounded-xl border border-primary/10">
+<h6 class="font-noto-serif italic font-bold mb-2">Editorial Insight</h6>
+<p class="text-xs leading-relaxed opacity-70">
+                        Higher click rates are recorded for announcements sent between 8:00 AM and 9:30 AM local district time. Consider scheduling your next broadcast during this window.
+                    </p>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary-container": "#caf24d",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c3c8be",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-background": "#1f1b15",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "surface-bright": "#fff8f2",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#e1d9cf",
+                        "on-secondary-fixed": "#161e00",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-tint": "#486644",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface": "#fff8f2",
+                        "primary-container": "#5a7956",
+                        "on-surface": "#1f1b15",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "inverse-surface": "#343029",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-surface-variant": "#434840",
+                        "on-primary-container": "#e2ffda",
+                        "on-primary": "#ffffff",
+                        "outline": "#737970",
+                        "primary-fixed-dim": "#aed0a7",
+                        "secondary": "#516600",
+                        "primary-fixed": "#c9ecc2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "tertiary-fixed": "#ffdcbd",
+                        "tertiary": "#725232",
+                        "surface-variant": "#eae1d7",
+                        "inverse-primary": "#aed0a7",
+                        "primary": "#42603f",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-container": "#f5ede2",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-nav {
+            background: rgba(255, 248, 242, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex overflow-hidden">
+<!-- Persistent SideNavBar -->
+<aside class="w-[280px] h-screen sticky top-0 left-0 overflow-y-auto bg-[#fbf2e8] flex flex-col justify-between py-8 px-6 shadow-[40px_60px_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="flex flex-col gap-10">
+<!-- Brand Header -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="text-2xl font-headline font-bold italic text-primary leading-none">Ladder</h1>
+<p class="text-[10px] uppercase tracking-widest font-bold opacity-60">College Prep</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2">
+<!-- Active Tab: Home -->
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-primary font-bold border-r-4 border-secondary-fixed bg-surface-container-highest/50 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-sm font-sans tracking-tight">Home</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-on-surface/70 font-medium hover:bg-surface-container-highest transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm font-sans tracking-tight">Tasks</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-on-surface/70 font-medium hover:bg-surface-container-highest transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-sans tracking-tight">Colleges</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-on-surface/70 font-medium hover:bg-surface-container-highest transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-sans tracking-tight">Applications</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-on-surface/70 font-medium hover:bg-surface-container-highest transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="text-sm font-sans tracking-tight">Advisor</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-on-surface/70 font-medium hover:bg-surface-container-highest transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-sans tracking-tight">Financial</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-on-surface/70 font-medium hover:bg-surface-container-highest transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-sm font-sans tracking-tight">Career</span>
+</a>
+</nav>
+</div>
+<!-- Footer User Tab -->
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container-highest transition-colors cursor-pointer">
+<div class="relative">
+<img alt="Alex Johnson Profile" class="w-10 h-10 rounded-full object-cover" data-alt="Close-up portrait of a young male student with a bright, motivated expression in a sunlit library background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkewrDVvWrudUX1Seyx2dk7fHbtirR1BIgZQA0rBfGOSxaIpG6ikTF4qp3uYdl4U6ebUrrDa_j6WJVZ6-bt-AGcB3Prpv9_w-jfseLMQzlOUNS0pu0vHQuRR6zDXUL4XNy9xC0EFLHtM8C-VD8iVZ_llJZUsHMUa91UjPgWVTzclQLPZKQOPNuXfUXdNMErE-7qOPSSvMW2d7miRrgbLdbb64Q2J0pRECQg8-ox7j5YRQR_BtyjkmbPvJzEmzgvVWFbtnKgf455mw"/>
+<div class="absolute -top-1 -right-1 bg-secondary-fixed text-on-secondary-container rounded-full p-0.5 shadow-sm">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Alex Johnson</span>
+<span class="text-[10px] text-on-surface/60">View Profile</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-on-surface/40">more_vert</span>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 h-screen overflow-y-auto scroll-smooth">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-40 bg-[#fff8f2]/70 backdrop-blur-xl flex items-center justify-between px-12 py-8">
+<h2 class="font-headline text-2xl font-bold tracking-tight text-primary italic">The Academic Atelier</h2>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface/40">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-6 text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search tasks or colleges..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors text-primary">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Dashboard Grid -->
+<div class="px-12 pb-12 grid grid-cols-10 gap-8">
+<!-- Left Column (60%) -->
+<div class="col-span-6 flex flex-col gap-8">
+<!-- Welcome Header Card -->
+<section class="relative bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl overflow-hidden text-on-primary">
+<div class="relative z-10 flex flex-col gap-6">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<h3 class="font-headline text-4xl font-bold italic tracking-tight">Good morning, Alex</h3>
+<p class="font-body opacity-90">Your medical journey is progressing beautifully.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">11th Grade</span>
+<span class="bg-secondary-fixed text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Pre-Med</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex -space-x-3">
+<img class="w-12 h-12 rounded-full border-4 border-primary object-cover" data-alt="student headshot profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX-DbY3FESB24yUL5IQ4CPaj4M0nuAGlahea0XxBkiqTkuWZ8aQf7CdD9s9A7T7IYnDF8GGTAUQiIW-STNzBcoIuMB9GtbBlWB9bynYDHPGjuewVLPjG17In8rlHtZrZRf9klOanJ1bXgYS0Y2Pj2LTfcPEiTGVGr1oM9y5c6GQQEvUj-P9uWjIqL8ybF8oVT8Cg7vbGlCeseVY1jaqaL9C1OByyW1FfFLuoh4dUzJVlGz4ZTF5gGn7B2yaZfDKvDXCndlGxK_ZuU"/>
+</div>
+<div class="bg-white/10 backdrop-blur-sm rounded-xl py-2 px-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-bold">14-day streak</span>
+</div>
+</div>
+</div>
+<!-- Decorative Graphic -->
+<div class="absolute right-[-10%] top-[-20%] opacity-10">
+<span class="material-symbols-outlined text-[300px]" style="font-variation-settings: 'wght' 100;">school</span>
+</div>
+</section>
+<!-- Next Up Card -->
+<section class="bg-surface-container-low p-8 rounded-xl flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold tracking-[0.2em] text-on-surface/40 mb-1">Next Up</span>
+<h4 class="text-xl font-headline font-bold">Complete 20 volunteer hours</h4>
+</div>
+<span class="bg-surface-container-highest px-4 py-1 rounded-full text-[12px] font-semibold text-primary">Extracurricular</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-xs font-bold text-on-surface/60 uppercase tracking-tighter">
+<span>Progress</span>
+<span>45%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-1000" style="width: 45%"></div>
+</div>
+</div>
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-4 rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                        Continue Task
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</section>
+<!-- Daily Tip Card -->
+<section class="bg-gradient-to-br from-[#A1C621] to-[#afd531] p-8 rounded-xl relative overflow-hidden group">
+<div class="relative z-10 flex gap-6 items-start">
+<div class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<div class="flex-1">
+<h5 class="text-on-secondary-container font-headline text-lg font-bold italic mb-2">Daily Tip</h5>
+<p class="text-on-secondary-container/80 text-sm leading-relaxed max-w-[80%]">
+                                Did you know? Researching your major early can help you pick the right AP courses and demonstrate focused interest to recruiters.
+                            </p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (40%) -->
+<div class="col-span-4 flex flex-col gap-8">
+<!-- Checklist Progress Card -->
+<section class="bg-surface-container-low p-8 rounded-xl flex flex-col items-center gap-6">
+<div class="relative w-[140px] h-[140px] flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-highest" cx="70" cy="70" fill="transparent" r="60" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-secondary-fixed drop-shadow-[0_0_8px_rgba(202,242,77,0.6)]" cx="70" cy="70" fill="transparent" r="60" stroke="currentColor" stroke-dasharray="377" stroke-dashoffset="150" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-3xl font-headline font-bold text-primary">60%</span>
+</div>
+</div>
+<div class="text-center">
+<h4 class="font-headline font-bold text-lg mb-1">6 of 10 Activities Complete</h4>
+<p class="text-xs text-on-surface/60">You're ahead of 75% of your peers this week.</p>
+</div>
+<button class="text-primary font-bold text-sm border-b-2 border-secondary-fixed pb-1 hover:border-primary transition-all">
+                        View All Tasks
+                    </button>
+</section>
+<!-- Urgent Deadline Card -->
+<section class="bg-inverse-surface p-6 rounded-xl border-l-4 border-error relative overflow-hidden">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-black tracking-widest text-error-container bg-error/20 px-2 py-0.5 rounded uppercase">Urgent</span>
+<span class="text-[10px] text-on-tertiary-container/60 ml-auto">Due in 5 days</span>
+</div>
+<div>
+<h4 class="text-on-tertiary-container font-headline text-lg font-bold">SAT Registration</h4>
+<p class="text-on-tertiary-container/60 text-sm">University of Florida</p>
+</div>
+<div class="flex items-center gap-2 text-error-container">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<span class="text-xs font-bold">October 15, 2023</span>
+</div>
+</div>
+</section>
+<!-- Quick Stats Grid -->
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col gap-2">
+<span class="material-symbols-outlined text-primary text-xl">grade</span>
+<div class="mt-2">
+<p class="text-[10px] uppercase font-bold text-on-surface/40">Unweighted GPA</p>
+<p class="text-2xl font-headline font-bold text-primary">3.78</p>
+</div>
+</div>
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col gap-2">
+<span class="material-symbols-outlined text-primary text-xl">description</span>
+<div class="mt-2">
+<p class="text-[10px] uppercase font-bold text-on-surface/40">Practice SAT</p>
+<p class="text-2xl font-headline font-bold text-primary">1340</p>
+</div>
+</div>
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col gap-2">
+<span class="material-symbols-outlined text-primary text-xl">account_balance</span>
+<div class="mt-2">
+<p class="text-[10px] uppercase font-bold text-on-surface/40">Saved Colleges</p>
+<p class="text-2xl font-headline font-bold text-primary">5</p>
+</div>
+</div>
+<div class="bg-surface-container-high p-5 rounded-xl flex flex-col gap-2">
+<span class="material-symbols-outlined text-secondary text-xl">local_fire_department</span>
+<div class="mt-2">
+<p class="text-[10px] uppercase font-bold text-on-surface/40">Daily Streak</p>
+<p class="text-2xl font-headline font-bold text-primary">14</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- FAB for quick action (Optional based on intent) -->
+<button class="fixed bottom-8 right-8 bg-primary text-on-primary w-14 h-14 rounded-full shadow-[40px_60px_60px_-15px_rgba(31,27,21,0.2)] flex items-center justify-center scale-100 hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+</body></html>

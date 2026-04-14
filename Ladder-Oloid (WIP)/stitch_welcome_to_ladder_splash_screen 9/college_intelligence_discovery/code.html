@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f8efe5",
+                    "tertiary-fixed": "#ffdcbd",
+                    "tertiary": "#725232",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#052107",
+                    "on-background": "#1f1b15",
+                    "on-surface-variant": "#434840",
+                    "surface-variant": "#eae1d7",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-container-low": "#fbf2e8",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "inverse-primary": "#aed0a7",
+                    "surface-bright": "#fff8f2",
+                    "primary-container": "#5a7956",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c3c8be",
+                    "inverse-surface": "#343029",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1f1b15",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#caf24d",
+                    "surface-tint": "#486644",
+                    "surface-container-high": "#efe7dd",
+                    "secondary-fixed-dim": "#afd531",
+                    "primary": "#42603f",
+                    "surface": "#fff8f2",
+                    "on-tertiary-fixed": "#2c1600",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#caf24d",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container": "#f5ede2",
+                    "background": "#fff8f2",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-dim": "#e1d9cf",
+                    "on-secondary-container": "#566c00",
+                    "secondary": "#516600",
+                    "on-secondary-fixed": "#161e00",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#fff5ee",
+                    "outline": "#737970",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-primary-container": "#e2ffda"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": [
+                            "Noto Serif"
+                    ],
+                    "body": [
+                            "Manrope"
+                    ],
+                    "label": [
+                            "Manrope"
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fff8f2;
+        }
+        h1, h2, h3, .serif-ital {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen py-8 z-40 bg-[#fbf2e8] dark:bg-stone-900 h-full w-72 fixed left-0 top-0 border-none">
+<div class="px-8 mb-10">
+<h1 class="text-xl font-bold font-serif text-[#1f1b15] dark:text-[#eae1d7]">The Academic Atelier</h1>
+<p class="text-xs uppercase tracking-widest text-[#42603f] mt-1">College Prep Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center space-x-3 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="text-sm font-medium">Tasks</span>
+</a>
+<!-- Active Tab: Colleges -->
+<a class="flex items-center space-x-3 text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#42603f] dark:border-[#caf24d] pl-6 py-3 transition-all scale-[0.98]" href="#">
+<span class="material-symbols-outlined filled-icon" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="text-sm font-medium">Colleges</span>
+</a>
+<a class="flex items-center space-x-3 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-sm font-medium">Applications</span>
+</a>
+<a class="flex items-center space-x-3 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-sm font-medium">Advisor</span>
+</a>
+<a class="flex items-center space-x-3 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="text-sm font-medium">Financial</span>
+</a>
+<a class="flex items-center space-x-3 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-sm font-medium">Career</span>
+</a>
+<a class="flex items-center space-x-3 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center space-x-3 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-3 rounded-xl font-medium tracking-wide shadow-sm hover:opacity-90 transition-all">
+                    Plan Success
+                </button>
+<div class="flex items-center mt-8 space-x-3 border-t border-outline-variant/20 pt-6">
+<img alt="Student profile avatar" class="w-10 h-10 rounded-full object-cover grayscale" data-alt="close-up portrait of a young college student with a thoughtful expression in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlwcCMZx4h-Rj-B8aMYCy9zfD30Lalu-sGEcLEWjut-IcbBzHbYES6H83sGAHZbUVEvaowN785mQi8r5rUmvq47m8evtVaPXn_xy4SM0yH9VV4TayLvU9xLc5XizihGzA7WOVDsoXWaQlJlcvez89X0EA8Xy11PrZFUfq9xQnttcL7yt08dtVYTldpQy-iPpEm9ee7v8z-taX8AQzUQXGzT2Oh46nvkS6fo83Ove0Y3NP7is2vDTlxwerO0UgRD58n3JuHHSu0RWc"/>
+<div>
+<p class="text-xs font-bold text-on-surface">Elena Rossi</p>
+<p class="text-[10px] text-on-surface/60 uppercase">Class of 2025</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area (Scrollable) -->
+<main class="ml-72 flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-end items-center px-12 h-20 w-full bg-[#fff8f2]/70 backdrop-blur-3xl sticky top-0 z-50 shadow-sm shadow-[#1f1b15]/5">
+<div class="flex items-center space-x-8">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-stone-400 text-lg" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-6 text-xs w-64 focus:ring-1 focus:ring-primary/20 placeholder:text-stone-400" placeholder="Search Colleges..." type="text"/>
+</div>
+<div class="flex space-x-6 text-stone-500">
+<button class="hover:opacity-80 transition-opacity"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:opacity-80 transition-opacity"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+</div>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden">
+<!-- Center Panel: College Grid -->
+<div class="flex-1 overflow-y-auto p-12 bg-surface">
+<div class="mb-12">
+<h2 class="text-4xl font-headline italic tracking-tighter text-on-surface mb-2">College Discovery</h2>
+<p class="text-sm text-on-surface/60 font-body">Find the institution that fits your vision.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- College Card 1: Stanford (Active) -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:bg-surface-container-high transition-all border-2 border-primary">
+<div class="relative h-48">
+<img class="w-full h-full object-cover" data-alt="architectural view of classic stanford university arcade with sandstone arches and warm sunlit courtyard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpif3e9v1q0-qOcbQbbPit26BZRPeRgbL9cSSS8a3VfjSlH1pWF8MrzhwCPSZtYjMKcRtndIwuH9w_LtpzpFnvj220gqJU1jvqIe_14Li2CgWFUhPx7pEf52gHFWAI3ObE5WB79nHUlUFRLuuq-EuYS1tpIMi6Ef5QrKxYwChTffAXgxYOpdlWGbnk13Spm8dbQthTYKOqu4ydnaWGfMlMXgCvMETuXisKsfVy16S511CY7mRtUvyRxD3PhE1_xYMsuwRjIQT0GIM"/>
+<div class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">
+                                    98% Match
+                                </div>
+<button class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined filled-icon text-error text-xl" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-headline font-bold text-on-surface">Stanford University</h3>
+<div class="flex items-center text-xs text-on-surface/60 mt-1">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="location_on">location_on</span>
+                                    Stanford, California
+                                </div>
+</div>
+</div>
+<!-- College Card 2 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:bg-surface-container-high transition-all">
+<div class="relative h-48">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" data-alt="stately colonial brick architecture of harvard university campus during autumn with golden leaves on the ground" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYkRO0BVGHyVlpi7XOEyQrzZk6tTtOCgunQXO-5gTLD3McvaQr77q6K6RTDlJc7ksyW4TF6S3jZXGF04fIdlkk77YTDg2cXjVPbSbe1nLgnuTBMs7VPcSpV78BSoHAVh47QbH09M9r_gphJydj4uGvaH6oO2Rv8MC7T9eK0F8qUAH-iBjEMSSDDk3GK9jHk11WUtJhFkkT6XSkz9zS53Q-AOTiSeP4ArSWaogTJ7552-G9eif4ThQtKreOnqGm_HA4BvmycQAIrqo"/>
+<div class="absolute top-4 left-4 bg-surface-container-highest/80 backdrop-blur-sm text-on-surface px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">
+                                    92% Match
+                                </div>
+<button class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-headline font-bold text-on-surface">Harvard University</h3>
+<div class="flex items-center text-xs text-on-surface/60 mt-1">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="location_on">location_on</span>
+                                    Cambridge, Massachusetts
+                                </div>
+</div>
+</div>
+<!-- College Card 3 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden hover:bg-surface-container-high transition-all">
+<div class="relative h-48">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" data-alt="majestic gothic spires of yale university library tower against a clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMl_fsGFalhJITJqjZLi35csAay_Mp6Wy2kqSbTDtYeTMzzUBG7P6KBkiR5LkwJixlVT1laHw4rea2oFUezc6TdmxNwe-gH2vR1uXbdn_YiY-ZEwZSTO3qb39d77iiQt3Br3eveWLZT0qmvkCOvLPxROEYNunQqUnQAM75JIZHih2rMUtTMKlGJd71e7E1Nj8rA3HH87XB231RK9WZY_xAck629l0bwb8-EEj3HVdXWGiVrFegPfg-DPEDHVhuZpG2oMjgnzF5lyY"/>
+<div class="absolute top-4 left-4 bg-surface-container-highest/80 backdrop-blur-sm text-on-surface px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">
+                                    87% Match
+                                </div>
+<button class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-headline font-bold text-on-surface">Yale University</h3>
+<div class="flex items-center text-xs text-on-surface/60 mt-1">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="location_on">location_on</span>
+                                    New Haven, Connecticut
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: College Profile Detail -->
+<div class="w-[450px] bg-surface-container-low shadow-2xl z-10 flex flex-col border-l border-outline-variant/10">
+<div class="relative h-64">
+<img class="w-full h-full object-cover" data-alt="wide angle sunset shot of Stanford university memorial church facade and palm trees" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNou7BXVzWGrZG78epgOnfEa5AMyAukJBOtj73vv2Cw5fyN9LEF5RsylFl8NFCQlOfDJq2Bb7xbAAS0uVhRFimjDadaFky0BENTfiPLdub35BkejXyotTjNnZWm9N1TO2Qv3GID1i9zpFAXK6b2WOPMIz9I1lCXHEMFS-10AWZAvpVt0BzwC89-fdjif4BN8kD3D1hPsgcKIHuuytwhtOaTqBvm1iEOhNQq4ZDYUQ_EJ3tvnrWR1urhPiVNlZG_DgfSh6CIUB2R1Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-8 right-8">
+<h2 class="text-3xl font-headline font-bold text-white leading-tight">Stanford University</h2>
+<p class="text-sm text-white/80 font-body">Palo Alto, CA • Private Research</p>
+</div>
+</div>
+<div class="p-8 flex-1 overflow-y-auto">
+<!-- Stats Row -->
+<div class="grid grid-cols-3 gap-4 mb-10">
+<div class="bg-surface p-4 rounded-xl text-center shadow-sm">
+<p class="text-[10px] uppercase tracking-widest text-on-surface/40 mb-1">Acceptance</p>
+<p class="text-xl font-bold text-primary">4.3%</p>
+</div>
+<div class="bg-surface p-4 rounded-xl text-center shadow-sm">
+<p class="text-[10px] uppercase tracking-widest text-on-surface/40 mb-1">Tuition</p>
+<p class="text-xl font-bold text-primary">$56k</p>
+</div>
+<div class="bg-surface p-4 rounded-xl text-center shadow-sm">
+<p class="text-[10px] uppercase tracking-widest text-on-surface/40 mb-1">Avg SAT</p>
+<p class="text-xl font-bold text-primary">1540</p>
+</div>
+</div>
+<!-- Section Tabs -->
+<div class="flex border-b border-outline-variant/30 mb-8 space-x-8">
+<button class="pb-3 border-b-2 border-primary text-primary text-xs font-bold uppercase tracking-wider">Overview</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface/40 hover:text-on-surface/70 text-xs font-bold uppercase tracking-wider transition-colors">Deadlines</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface/40 hover:text-on-surface/70 text-xs font-bold uppercase tracking-wider transition-colors">Personality</button>
+</div>
+<!-- Content Overview -->
+<div class="space-y-6">
+<div>
+<h4 class="text-sm font-bold text-on-surface mb-3 flex items-center">
+<span class="material-symbols-outlined text-lg mr-2 text-primary" data-icon="auto_awesome">auto_awesome</span>
+                                    Academic DNA
+                                </h4>
+<p class="text-sm leading-relaxed text-on-surface/70 font-body">
+                                    Stanford is recognized for its proximity to Silicon Valley, fostering an ecosystem of innovation, entrepreneurship, and interdisciplinary study. It offers a unique "Liberal Arts within a Research University" experience.
+                                </p>
+</div>
+<!-- Ladder Tracker for Application Progress -->
+<div class="relative pl-8 mt-12 mb-12">
+<div class="absolute left-3 top-0 bottom-0 w-1.5 bg-outline-variant/20 rounded-full"></div>
+<div class="absolute left-3 top-0 h-1/2 w-1.5 bg-secondary-fixed rounded-full shadow-[0_0_15px_rgba(202,242,77,0.5)]"></div>
+<div class="space-y-8">
+<div class="relative">
+<div class="absolute -left-[26px] top-1 w-4 h-4 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-secondary-container font-bold" data-icon="check">check</span>
+</div>
+<p class="text-xs font-bold text-on-surface uppercase tracking-wide">Research Phase</p>
+<p class="text-[10px] text-on-surface/40">Completed Oct 12</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[26px] top-1 w-4 h-4 rounded-full bg-secondary-fixed"></div>
+<p class="text-xs font-bold text-on-surface uppercase tracking-wide">Personal Statement</p>
+<p class="text-[10px] text-on-surface/40">In progress - 2 drafts remaining</p>
+</div>
+<div class="relative opacity-40">
+<div class="absolute -left-[26px] top-1 w-4 h-4 rounded-full bg-outline-variant"></div>
+<p class="text-xs font-bold text-on-surface uppercase tracking-wide">Final Submission</p>
+<p class="text-[10px] text-on-surface/40">Deadline: Jan 1st</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="p-8 bg-surface-container-high grid grid-cols-2 gap-4">
+<button class="bg-surface-container-lowest text-on-surface border border-outline-variant/30 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-surface transition-colors">
+                            Add to List
+                        </button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary py-3 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+                            Apply Now
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Atelier - Bulk Import Preview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#161e00",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-container": "#e2ffda",
+                    "inverse-primary": "#aed0a7",
+                    "on-primary-fixed": "#052107",
+                    "secondary-container": "#caf24d",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#725232",
+                    "secondary-fixed": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "surface-bright": "#fff8f2",
+                    "on-surface-variant": "#434840",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#486644",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container": "#f5ede2",
+                    "primary": "#42603f",
+                    "background": "#fff8f2",
+                    "surface-container-highest": "#eae1d7",
+                    "on-secondary-container": "#566c00",
+                    "outline": "#737970",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1f1b15",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container-low": "#fbf2e8",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-primary": "#ffffff",
+                    "secondary": "#516600",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-container": "#8d6a48",
+                    "surface": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen">
+<!-- SideNavBar (Execution from JSON) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 h-screen w-72 border-r-0 bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="mb-10">
+<h1 class="font-serif text-2xl font-bold text-[#1f1b15] dark:text-[#eae1d7]">Counselor Hub</h1>
+<p class="font-sans text-sm text-[#1f1b15]/60 dark:text-[#eae1d7]/60">Senior Academic Lead</p>
+</div>
+<nav class="flex-grow space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-sans text-sm">Caseload</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-sans text-sm">Approvals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-sans text-sm">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-[#5A7956] dark:text-[#caf24d] font-bold border-r-4 border-[#5A7956] dark:border-[#caf24d] scale-98" href="#">
+<span class="material-symbols-outlined">person_add</span>
+<span class="font-sans text-sm">Students</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-sans text-sm">Announcements</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 border-t border-[#c3c8be]/15 pt-6">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#eae1d7] transition-colors text-[#1f1b15]/60" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-sans text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#eae1d7] transition-colors text-[#1f1b15]/60" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-sans text-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar (Execution from JSON) -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl shadow-sm opacity-6 shadow-[#1f1b15]">
+<div class="flex items-center gap-8">
+<span class="text-[#1f1b15] dark:text-[#eae1d7] font-serif font-black text-xl">Academic Atelier</span>
+<div class="hidden lg:flex items-center gap-6">
+<a class="font-serif italic text-lg text-[#1f1b15]/70" href="#">Overview</a>
+<a class="font-serif italic text-lg text-[#1f1b15]/70" href="#">Messages</a>
+<a class="font-serif italic text-lg text-[#1f1b15]/70" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined cursor-pointer text-[#1f1b15]/70">notifications</span>
+<span class="material-symbols-outlined cursor-pointer text-[#1f1b15]/70">history</span>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-full font-medium text-sm transition-all hover:scale-105 active:scale-95">
+                Bulk Import
+            </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-fixed">
+<img alt="Counselor Avatar" class="w-full h-full object-cover" data-alt="professional portrait of a confident female academic counselor in a bright modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_9lika6yi3Uwwur0zVp2wKfVeN3QPjLvnyZWviBRA6f4MS5iiBcaa3SMzg3kkwZ7xoKuSqe2-La9mAUW1TqV93ppx60jDpjmAZva-DXMVmwSRmYnzN1MDOBNEBTHb3gOTSeM-fvnDMTpbGOlRy3EiujPIogxSZz06WpUxIPAgeAiFkPNIz4j1vWGfbMaWukL-wHVklQvd1twyZ65zb12IAfbZbBFDGpC7kCyK7GPl8szW0PQ6xJ8lP8dxw5tbXqPF19Sp3IaCkRo"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pl-72 pt-20 min-h-screen flex flex-col">
+<div class="p-10 flex-grow max-w-[1400px] mx-auto w-full">
+<!-- Stepper Header -->
+<div class="mb-12 flex flex-col gap-6">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-headline font-bold tracking-tight text-on-surface">Data Verification</h2>
+<p class="text-on-surface-variant font-body mt-2">Step 2: Previewing student records before finalizing import</p>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 rounded-xl font-semibold bg-surface-container-highest text-on-surface hover:bg-surface-dim transition-colors">Fix Errors</button>
+<button class="px-10 py-3 rounded-xl font-semibold bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-xl shadow-primary/10 hover:scale-[1.02] transition-transform">Next</button>
+</div>
+</div>
+<!-- Stepper Ladder -->
+<div class="relative py-4">
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full w-2/3 bg-secondary-fixed shadow-[0_0_15px_rgba(202,242,77,0.4)]"></div>
+</div>
+<div class="flex justify-between mt-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">
+<span class="text-primary">01 Upload</span>
+<span class="text-primary">02 Preview &amp; Cleanse</span>
+<span>03 Finalize</span>
+</div>
+</div>
+</div>
+<!-- Summary Bar -->
+<div class="grid grid-cols-12 gap-6 mb-8">
+<div class="col-span-8 bg-surface-container-low rounded-xl p-6 flex items-center justify-between">
+<div class="flex gap-12">
+<div class="flex flex-col">
+<span class="text-xs uppercase tracking-tighter font-bold text-on-surface-variant/60">Total Records</span>
+<span class="text-3xl font-headline font-black text-on-surface">251</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs uppercase tracking-tighter font-bold text-on-surface-variant/60">Valid</span>
+<span class="text-3xl font-headline font-black text-primary">248</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs uppercase tracking-tighter font-bold text-on-surface-variant/60">Errors</span>
+<span class="text-3xl font-headline font-black text-error">3</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-sm font-medium text-error bg-error-container/30 px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-lg">warning</span>
+                        3 formatting errors found in DOB and Grade fields.
+                    </div>
+</div>
+<div class="col-span-4 bg-secondary-fixed/10 border border-secondary-fixed/20 rounded-xl p-6 flex items-center gap-4">
+<div class="bg-secondary-fixed p-3 rounded-lg text-on-secondary-fixed">
+<span class="material-symbols-outlined">auto_fix_high</span>
+</div>
+<div>
+<p class="font-bold text-on-surface text-sm">Smart Cleanse Active</p>
+<p class="text-xs text-on-surface-variant">Auto-formatted 12 telephone numbers and addresses.</p>
+</div>
+</div>
+</div>
+<!-- Data Table Section -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest/50">
+<th class="px-8 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Status</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">First Name</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Last Name</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Date of Birth</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Grade</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Valid Row -->
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface">Eleanor</td>
+<td class="px-6 py-6 font-medium text-on-surface">Vance</td>
+<td class="px-6 py-6 text-on-surface-variant">04/12/2008</td>
+<td class="px-6 py-6 text-on-surface-variant font-bold">11th</td>
+<td class="px-6 py-6">
+<span class="material-symbols-outlined text-on-surface-variant/40 cursor-pointer hover:text-primary">edit</span>
+</td>
+</tr>
+<!-- Error Row -->
+<tr class="bg-error-container/20 hover:bg-error-container/30 transition-colors">
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">error</span>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface">Julian</td>
+<td class="px-6 py-6 font-medium text-on-surface">Blackwood</td>
+<td class="px-6 py-6 text-error font-bold underline decoration-error/30 underline-offset-4">2007-31-02</td>
+<td class="px-6 py-6 text-on-surface-variant font-bold">12th</td>
+<td class="px-6 py-6">
+<span class="material-symbols-outlined text-error cursor-pointer">rule</span>
+</td>
+</tr>
+<!-- Valid Row -->
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface">Clara</td>
+<td class="px-6 py-6 font-medium text-on-surface">Oswald</td>
+<td class="px-6 py-6 text-on-surface-variant">11/23/2009</td>
+<td class="px-6 py-6 text-on-surface-variant font-bold">10th</td>
+<td class="px-6 py-6">
+<span class="material-symbols-outlined text-on-surface-variant/40 cursor-pointer hover:text-primary">edit</span>
+</td>
+</tr>
+<!-- Error Row -->
+<tr class="bg-error-container/20 hover:bg-error-container/30 transition-colors">
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">error</span>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface">Theodore</td>
+<td class="px-6 py-6 font-medium text-on-surface">Winchester</td>
+<td class="px-6 py-6 text-on-surface-variant">05/05/2010</td>
+<td class="px-6 py-6 text-error font-bold underline decoration-error/30 underline-offset-4">Grade Missing</td>
+<td class="px-6 py-6">
+<span class="material-symbols-outlined text-error cursor-pointer">rule</span>
+</td>
+</tr>
+<!-- Valid Row -->
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-6">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface">Amara</td>
+<td class="px-6 py-6 font-medium text-on-surface">Saito</td>
+<td class="px-6 py-6 text-on-surface-variant">08/14/2007</td>
+<td class="px-6 py-6 text-on-surface-variant font-bold">12th</td>
+<td class="px-6 py-6">
+<span class="material-symbols-outlined text-on-surface-variant/40 cursor-pointer hover:text-primary">edit</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-6 bg-surface-container border-t border-outline-variant/10 flex justify-between items-center">
+<p class="text-xs font-medium text-on-surface-variant/60">Showing 5 of 251 records</p>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container-highest text-on-surface hover:bg-surface-dim">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-4 h-10 rounded-lg flex items-center justify-center bg-primary text-on-primary">1</button>
+<button class="px-4 h-10 rounded-lg flex items-center justify-center bg-surface-container-highest text-on-surface">2</button>
+<button class="px-4 h-10 rounded-lg flex items-center justify-center bg-surface-container-highest text-on-surface">3</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container-highest text-on-surface hover:bg-surface-dim">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer for iPad focused action -->
+<div class="mt-auto p-10 bg-surface-container-low border-t border-outline-variant/5 flex justify-end items-center gap-6">
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">248/251 Ready</p>
+<p class="text-xs text-on-surface-variant">Please address errors to complete the sync.</p>
+</div>
+<button class="px-12 py-4 rounded-xl font-bold bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-2xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                Proceed to Finalize
+            </button>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evergreen Ascent - Deadline Heatmap</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#516600",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-container": "#566c00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-high": "#efe7dd",
+                        "inverse-surface": "#343029",
+                        "surface-dim": "#e1d9cf",
+                        "secondary-container": "#caf24d",
+                        "surface-container-highest": "#eae1d7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface": "#fff8f2",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-bright": "#fff8f2",
+                        "on-surface": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-primary-fixed": "#052107",
+                        "surface-container": "#f5ede2",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#486644",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "background": "#fff8f2",
+                        "on-background": "#1f1b15",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary-container": "#5a7956",
+                        "secondary-fixed": "#caf24d",
+                        "on-primary-container": "#e2ffda",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c3c8be",
+                        "surface-variant": "#eae1d7",
+                        "primary": "#42603f",
+                        "outline": "#737970",
+                        "tertiary": "#725232",
+                        "primary-fixed": "#c9ecc2",
+                        "on-secondary-fixed": "#161e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Montserrat"],
+                        "label": ["Montserrat"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-container">
+<div class="flex h-screen overflow-hidden">
+<!-- SIDE NAVIGATION SHELL -->
+<!-- Logic: "Tasks" is the closest semantic match for Deadlines/Calendar -->
+<aside class="flex flex-col h-full py-8 px-4 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-64 border-r-0 shrink-0">
+<div class="mb-10 px-4">
+<h1 class="text-2xl font-serif italic text-[#42603f] dark:text-[#5a7956] leading-none">Evergreen Ascent</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 mt-1 font-medium">Academic Atelier</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Home -->
+<a class="flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl group" href="#">
+<span class="material-symbols-outlined mr-3">home</span>
+<span class="text-sm">Home</span>
+</a>
+<!-- Tasks (ACTIVE) -->
+<a class="flex items-center px-4 py-3 text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d] hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors group" href="#">
+<span class="material-symbols-outlined mr-3">assignment</span>
+<span class="text-sm">Tasks</span>
+</a>
+<!-- Colleges -->
+<a class="flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl group" href="#">
+<span class="material-symbols-outlined mr-3">school</span>
+<span class="text-sm">Colleges</span>
+</a>
+<!-- Applications -->
+<a class="flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl group" href="#">
+<span class="material-symbols-outlined mr-3">description</span>
+<span class="text-sm">Applications</span>
+</a>
+<!-- Advisor -->
+<a class="flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl group" href="#">
+<span class="material-symbols-outlined mr-3">person_search</span>
+<span class="text-sm">Advisor</span>
+</a>
+<!-- Financial -->
+<a class="flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl group" href="#">
+<span class="material-symbols-outlined mr-3">payments</span>
+<span class="text-sm">Financial</span>
+</a>
+<!-- Career -->
+<a class="flex items-center px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl group" href="#">
+<span class="material-symbols-outlined mr-3">work</span>
+<span class="text-sm">Career</span>
+</a>
+</nav>
+<div class="mt-auto px-4 py-4 bg-surface-container-highest/50 rounded-2xl flex items-center gap-3">
+<img alt="Student avatar" class="w-10 h-10 rounded-full object-cover" data-alt="Close-up portrait of a thoughtful young man in a library setting with warm, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC9C5A-nkGPWI4QhgLhJaD38FxQmlGnS7aaxTCArn-ZJYrsWAAFnT3YBGJ5bavsREzXE0Nrp4QWYsXgyjIF0BPSRVIxoK998vwz5HUXeKReC1N6oz6HKvlJG1ECR0KYBTG2ShHgZ0yNdGLgemkIqFToEuaxe-3SjVuor36o0dhk6Gu6Y-mTdJeS9pftXJfquu_3lVA3g4gvxj2Dmc60Hbtrvwi1kY5Pm_H4ot-ZGxX2zf1BQfkyaPos2iD3ftNfPbuQl_fM2HGcKc"/>
+<div>
+<p class="text-xs font-bold text-on-surface">Alex Mercer</p>
+<p class="text-[10px] text-stone-500 font-medium">Class of 2025</p>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT CANVAS -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- TOP NAV SHELL -->
+<header class="flex justify-between items-center w-full px-8 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl shrink-0 z-10">
+<div class="flex items-center gap-4">
+<h2 class="text-2xl font-headline tracking-tight text-primary">Deadline Heatmap</h2>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full tracking-wider uppercase">November 2024</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-stone-400 text-lg">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="Search milestones..." type="text"/>
+</div>
+<div class="flex gap-4">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary transition-all">notifications</button>
+<button class="material-symbols-outlined text-stone-400 hover:text-primary transition-all">settings</button>
+</div>
+</div>
+</header>
+<!-- ASYMMETRIC GRID CONTENT -->
+<section class="flex-1 flex overflow-hidden">
+<!-- LEFT: CALENDAR GRID (65%) -->
+<div class="w-[65%] p-8 overflow-y-auto bg-surface">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="text-4xl font-headline text-on-surface -tracking-[2%] leading-tight">Focus Period</h3>
+<p class="text-stone-500 mt-2 font-medium">Visualization of upcoming college application submission windows.</p>
+</div>
+<div class="flex gap-2 p-1 bg-surface-container-low rounded-xl">
+<button class="px-4 py-2 text-xs font-bold bg-white text-primary rounded-lg shadow-sm">Heatmap</button>
+<button class="px-4 py-2 text-xs font-medium text-stone-400 hover:text-primary">List</button>
+</div>
+</div>
+<!-- HEATMAP LEGEND -->
+<div class="flex items-center gap-4 mb-6 text-[10px] font-bold tracking-widest uppercase text-stone-400">
+<span>Intensity:</span>
+<div class="flex items-center gap-1.5">
+<div class="w-4 h-4 bg-surface-container-low rounded-[4px]"></div>
+<span>0</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-4 h-4 bg-primary/20 rounded-[4px]"></div>
+<span>1</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-4 h-4 bg-primary/60 rounded-[4px]"></div>
+<span>2-3</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-4 h-4 bg-primary rounded-[4px]"></div>
+<span>4+</span>
+</div>
+</div>
+<!-- CALENDAR GRID -->
+<div class="grid grid-cols-7 gap-3">
+<!-- Header Days -->
+<div class="text-center pb-4 text-[11px] font-bold text-stone-400 tracking-widest uppercase">Mon</div>
+<div class="text-center pb-4 text-[11px] font-bold text-stone-400 tracking-widest uppercase">Tue</div>
+<div class="text-center pb-4 text-[11px] font-bold text-stone-400 tracking-widest uppercase">Wed</div>
+<div class="text-center pb-4 text-[11px] font-bold text-stone-400 tracking-widest uppercase">Thu</div>
+<div class="text-center pb-4 text-[11px] font-bold text-stone-400 tracking-widest uppercase">Fri</div>
+<div class="text-center pb-4 text-[11px] font-bold text-stone-400 tracking-widest uppercase">Sat</div>
+<div class="text-center pb-4 text-[11px] font-bold text-stone-400 tracking-widest uppercase">Sun</div>
+<!-- Grid Cells -->
+<!-- Row 1 -->
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">1</div>
+<div class="aspect-square bg-primary/20 rounded-xl p-3 font-bold text-primary transition-all hover:scale-95 cursor-pointer">2</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">3</div>
+<div class="aspect-square bg-primary/60 rounded-xl p-3 font-bold text-white transition-all hover:scale-95 cursor-pointer">4</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">5</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">6</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">7</div>
+<!-- Row 2 -->
+<div class="aspect-square bg-primary rounded-xl p-3 font-bold text-white ring-4 ring-secondary-fixed ring-offset-2 transition-all hover:scale-95 cursor-pointer">8</div>
+<div class="aspect-square bg-primary/60 rounded-xl p-3 font-bold text-white transition-all hover:scale-95 cursor-pointer">9</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">10</div>
+<div class="aspect-square bg-primary/20 rounded-xl p-3 font-bold text-primary transition-all hover:scale-95 cursor-pointer">11</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">12</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">13</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">14</div>
+<!-- Row 3 -->
+<div class="aspect-square bg-primary/60 rounded-xl p-3 font-bold text-white transition-all hover:scale-95 cursor-pointer">15</div>
+<div class="aspect-square bg-primary/20 rounded-xl p-3 font-bold text-primary transition-all hover:scale-95 cursor-pointer">16</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">17</div>
+<div class="aspect-square bg-primary/20 rounded-xl p-3 font-bold text-primary transition-all hover:scale-95 cursor-pointer">18</div>
+<div class="aspect-square bg-primary rounded-xl p-3 font-bold text-white transition-all hover:scale-95 cursor-pointer">19</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">20</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">21</div>
+<!-- Row 4 -->
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">22</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">23</div>
+<div class="aspect-square bg-primary/60 rounded-xl p-3 font-bold text-white transition-all hover:scale-95 cursor-pointer">24</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">25</div>
+<div class="aspect-square bg-primary/20 rounded-xl p-3 font-bold text-primary transition-all hover:scale-95 cursor-pointer">26</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">27</div>
+<div class="aspect-square bg-surface-container-low rounded-xl p-3 text-stone-400 transition-all hover:scale-95 cursor-pointer">28</div>
+<!-- Row 5 -->
+<div class="aspect-square bg-primary/20 rounded-xl p-3 font-bold text-primary transition-all hover:scale-95 cursor-pointer">29</div>
+<div class="aspect-square bg-primary rounded-xl p-3 font-bold text-white transition-all hover:scale-95 cursor-pointer">30</div>
+<div class="aspect-square bg-surface-container-low/40 rounded-xl p-3 text-stone-300 transition-all cursor-not-allowed italic">1</div>
+<div class="aspect-square bg-surface-container-low/40 rounded-xl p-3 text-stone-300 transition-all cursor-not-allowed italic">2</div>
+<div class="aspect-square bg-surface-container-low/40 rounded-xl p-3 text-stone-300 transition-all cursor-not-allowed italic">3</div>
+<div class="aspect-square bg-surface-container-low/40 rounded-xl p-3 text-stone-300 transition-all cursor-not-allowed italic">4</div>
+<div class="aspect-square bg-surface-container-low/40 rounded-xl p-3 text-stone-300 transition-all cursor-not-allowed italic">5</div>
+</div>
+</div>
+<!-- RIGHT: DETAILS & INSIGHTS (35%) -->
+<aside class="w-[35%] bg-surface-container-low border-l-0 p-8 flex flex-col gap-8 overflow-y-auto shadow-sm">
+<!-- Selected Date Header -->
+<div class="space-y-2">
+<span class="text-xs font-bold text-primary tracking-widest uppercase bg-primary-fixed/50 px-3 py-1 rounded-full">Active Selection</span>
+<h4 class="text-4xl font-headline text-on-surface">Nov 08, 2024</h4>
+<p class="text-sm text-stone-500 font-medium italic">High Intensity Day: 4 Critical Submissions</p>
+</div>
+<!-- Deadline Cards -->
+<div class="space-y-4">
+<div class="p-5 bg-surface-container-highest rounded-xl group transition-all hover:translate-x-2">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h5 class="font-bold text-on-surface">Stanford University</h5>
+<p class="text-xs text-stone-500 font-medium">Early Action II</p>
+</div>
+<span class="bg-error text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">Urgent</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-error w-[90%] h-full"></div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] font-bold text-stone-400">
+<span>90% Complete</span>
+<span>14:00 PST</span>
+</div>
+</div>
+<div class="p-5 bg-surface-container-highest rounded-xl group transition-all hover:translate-x-2">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h5 class="font-bold text-on-surface">Yale College</h5>
+<p class="text-xs text-stone-500 font-medium">Supplemental Essay 3</p>
+</div>
+<span class="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">In Review</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary w-[45%] h-full"></div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] font-bold text-stone-400">
+<span>45% Complete</span>
+<span>23:59 EST</span>
+</div>
+</div>
+<div class="p-5 bg-surface-container-highest rounded-xl group transition-all hover:translate-x-2 border-l-4 border-secondary-fixed">
+<div class="flex justify-between items-start">
+<div>
+<h5 class="font-bold text-on-surface italic">Brown University</h5>
+<p class="text-xs text-stone-500 font-medium">Financial Aid Profile</p>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Urgency Weekly Bar Chart -->
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<h6 class="text-xs font-bold text-stone-500 tracking-widest uppercase mb-6">Urgency This Week</h6>
+<div class="flex items-end justify-between h-32 gap-3">
+<!-- Mon -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/10 h-[20%] rounded-t-lg"></div>
+<span class="text-[9px] font-bold text-stone-400">M</span>
+</div>
+<!-- Tue -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/40 h-[55%] rounded-t-lg"></div>
+<span class="text-[9px] font-bold text-stone-400">T</span>
+</div>
+<!-- Wed -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/10 h-[30%] rounded-t-lg"></div>
+<span class="text-[9px] font-bold text-stone-400">W</span>
+</div>
+<!-- Thu -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/80 h-[85%] rounded-t-lg"></div>
+<span class="text-[9px] font-bold text-stone-400">T</span>
+</div>
+<!-- Fri -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary h-[100%] rounded-t-lg ring-2 ring-secondary-fixed ring-offset-2"></div>
+<span class="text-[9px] font-bold text-primary">F</span>
+</div>
+<!-- Sat -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 h-[40%] rounded-t-lg"></div>
+<span class="text-[9px] font-bold text-stone-400">S</span>
+</div>
+<!-- Sun -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/10 h-[15%] rounded-t-lg"></div>
+<span class="text-[9px] font-bold text-stone-400">S</span>
+</div>
+</div>
+</div>
+</aside>
+</section>
+</main>
+</div>
+</body></html>

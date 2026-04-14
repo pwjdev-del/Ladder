@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f2",
+                        "tertiary-container": "#8d6a48",
+                        "on-primary-fixed": "#052107",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed": "#c9ecc2",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f2",
+                        "tertiary": "#725232",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-container": "#f5ede2",
+                        "secondary-container": "#caf24d",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-surface": "#1f1b15",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-tint": "#486644",
+                        "on-surface-variant": "#434840",
+                        "outline-variant": "#c3c8be",
+                        "surface-container-high": "#efe7dd",
+                        "surface-variant": "#eae1d7",
+                        "surface-container-low": "#fbf2e8",
+                        "primary": "#42603f",
+                        "inverse-primary": "#aed0a7",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#566c00",
+                        "secondary-fixed": "#caf24d",
+                        "on-secondary-fixed": "#161e00",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "inverse-surface": "#343029",
+                        "secondary": "#516600",
+                        "surface-bright": "#fff8f2",
+                        "secondary-fixed-dim": "#afd531",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-background": "#1f1b15",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary-fixed": "#2c1600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .journey-line-glow {
+            box-shadow: 0 0 20px rgba(202, 242, 77, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-hidden">
+<!-- Side Navigation Shell (from JSON) -->
+<aside class="fixed left-0 top-0 h-full w-72 flex flex-col border-r-0 bg-[#fbf2e8] dark:bg-stone-900 z-40">
+<div class="p-8 flex flex-col gap-1">
+<h1 class="text-2xl font-bold font-serif text-[#42603f] dark:text-emerald-500">Evergreen</h1>
+<p class="text-[0.7rem] uppercase tracking-widest text-[#42603f]/60 font-semibold">Academic Atelier</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Home -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<!-- Tasks -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm font-medium">Tasks</span>
+</a>
+<!-- Colleges -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-medium">Colleges</span>
+</a>
+<!-- Applications -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Applications</span>
+</a>
+<!-- Advisor -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="text-sm font-medium">Advisor</span>
+</a>
+<!-- Financial -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Financial</span>
+</a>
+<!-- Career -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-sm font-medium">Career</span>
+</a>
+<!-- Housing -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<!-- Reports (ACTIVE) -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#42603f] dark:text-emerald-300 font-bold bg-[#eae1d7] dark:bg-stone-800 rounded-r-2xl" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="text-sm">Reports</span>
+</a>
+</nav>
+<div class="p-6 mt-auto space-y-4">
+<button class="w-full bg-[#42603f] text-white py-3 rounded-xl font-semibold text-sm hover:scale-95 transition-transform duration-150 ease-in-out">
+                Support Advisor
+            </button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-6 py-2 text-[#1f1b15]/60 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-2 text-[#1f1b15]/60 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="text-sm">Help</span>
+</a>
+</div>
+<div class="flex items-center gap-3 px-4 pt-4 border-t border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden">
+<img alt="Student avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a young college student with a friendly expression in a sunlit university library" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ0tatbRzJGQSuRVT1pmMrcjA1-8W1cW4fwZViT7TYp2LuyKIH2o1IDArfEhaIVXXLYVu7iMm7MRj2O-7FimGyNepXcmHfvwiYzAoyblsThDjMnk6V8vdOqbT_NNdFFwLNHnm_5gGxv1NYlQRgL0nOiUFEdms7FDr1q4JFthjlZRlZh2Q4SAH2bdSZlQx90C4cG9OZe_fPijnZbM02OEMVDejvjIPGrEJ4uwdmS_PZsI_mDl6-RLrQv_nZBQVIpMimb0MM7eJ_8io"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Julianne V.</span>
+<span class="text-[0.7rem] text-on-surface-variant">Class of 2025</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-72 min-h-screen p-10 overflow-y-auto">
+<!-- Editorial Header -->
+<header class="mb-12 flex items-baseline justify-between">
+<div class="max-w-2xl">
+<h2 class="font-headline text-5xl font-extrabold tracking-tight text-primary mb-2">Impact Report</h2>
+<p class="text-on-surface-variant text-lg">Visualizing your trajectory toward the Ivy League.</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-label-sm font-bold bg-secondary-container px-4 py-1 rounded-full text-on-secondary-container">Fall Quarter 2024</span>
+</div>
+</header>
+<!-- Stats Row: Bento Grid Style -->
+<section class="grid grid-cols-3 gap-6 mb-10">
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-colors duration-300">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">calendar_today</span>
+<span class="text-xs font-bold text-primary bg-primary-container/20 px-2 py-1 rounded">+12%</span>
+</div>
+<div>
+<h3 class="text-4xl font-headline font-bold text-on-surface mb-1">214</h3>
+<p class="text-sm text-on-surface-variant font-medium tracking-wide">Days Active</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container transition-colors duration-300">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">check_circle</span>
+<span class="text-xs font-bold text-primary bg-primary-container/20 px-2 py-1 rounded">Top 5%</span>
+</div>
+<div>
+<h3 class="text-4xl font-headline font-bold text-on-surface mb-1">1,482</h3>
+<p class="text-sm text-on-surface-variant font-medium tracking-wide">Tasks Done</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-surface-container transition-colors duration-300">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">volunteer_activism</span>
+<span class="text-xs font-bold text-primary bg-primary-container/20 px-2 py-1 rounded">Target Met</span>
+</div>
+<div>
+<h3 class="text-4xl font-headline font-bold text-on-surface mb-1">120</h3>
+<p class="text-sm text-on-surface-variant font-medium tracking-wide">Service Hours</p>
+</div>
+</div>
+</section>
+<!-- Journey Timeline: Ladder Tracker Signature Component -->
+<section class="bg-surface-container-highest p-10 rounded-xl mb-10 overflow-hidden relative">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-9xl">auto_graph</span>
+</div>
+<h4 class="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-12">Academic Journey Timeline</h4>
+<div class="relative px-4">
+<!-- The Glow Line -->
+<div class="absolute top-1/2 left-0 w-full h-1.5 bg-secondary-container journey-line-glow -translate-y-1/2 rounded-full"></div>
+<div class="relative flex justify-between">
+<!-- Point 1 -->
+<div class="flex flex-col items-center gap-6">
+<div class="w-4 h-4 rounded-full bg-primary ring-8 ring-white z-10"></div>
+<div class="text-center">
+<p class="text-[0.7rem] font-bold text-primary uppercase mb-1">Sep 2023</p>
+<h5 class="text-sm font-bold text-on-surface">Joined Ladder</h5>
+</div>
+</div>
+<!-- Point 2 -->
+<div class="flex flex-col items-center gap-6">
+<div class="w-4 h-4 rounded-full bg-primary ring-8 ring-white z-10"></div>
+<div class="text-center">
+<p class="text-[0.7rem] font-bold text-primary uppercase mb-1">Jan 2024</p>
+<h5 class="text-sm font-bold text-on-surface">SAT Mastery</h5>
+</div>
+</div>
+<!-- Point 3 -->
+<div class="flex flex-col items-center gap-6">
+<div class="w-4 h-4 rounded-full bg-primary ring-8 ring-white z-10"></div>
+<div class="text-center">
+<p class="text-[0.7rem] font-bold text-primary uppercase mb-1">May 2024</p>
+<h5 class="text-sm font-bold text-on-surface">Internship Secured</h5>
+</div>
+</div>
+<!-- Point 4 (Current) -->
+<div class="flex flex-col items-center gap-6">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center ring-8 ring-white z-10 shadow-lg scale-125">
+<span class="material-symbols-outlined text-primary text-sm font-bold">school</span>
+</div>
+<div class="text-center">
+<p class="text-[0.7rem] font-bold text-primary uppercase mb-1">Oct 2024</p>
+<h5 class="text-sm font-extrabold text-on-surface">Accepted!</h5>
+<p class="text-[0.6rem] text-on-surface-variant font-medium">Early Action Success</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Growth Charts 2-Column Grid -->
+<section class="grid grid-cols-2 gap-8">
+<!-- GPA Trend -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex items-center justify-between mb-8">
+<h4 class="font-headline text-2xl font-bold">GPA Trend</h4>
+<span class="text-xs font-bold text-primary py-1 px-3 bg-primary-container/10 rounded-full italic">Weighted: 4.38</span>
+</div>
+<div class="h-48 w-full flex items-end gap-4 px-2">
+<!-- Custom Chart Bars -->
+<div class="flex-1 bg-primary/20 h-[70%] rounded-t-lg relative group transition-all hover:bg-primary">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.6rem] font-bold opacity-0 group-hover:opacity-100">3.8</span>
+</div>
+<div class="flex-1 bg-primary/40 h-[75%] rounded-t-lg relative group transition-all hover:bg-primary">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.6rem] font-bold opacity-0 group-hover:opacity-100">4.0</span>
+</div>
+<div class="flex-1 bg-primary/60 h-[85%] rounded-t-lg relative group transition-all hover:bg-primary">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.6rem] font-bold opacity-0 group-hover:opacity-100">4.12</span>
+</div>
+<div class="flex-1 bg-primary h-[100%] rounded-t-lg relative group transition-all">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.6rem] font-bold">4.38</span>
+</div>
+</div>
+<div class="flex justify-between mt-4 text-[0.65rem] font-bold text-on-surface-variant uppercase tracking-widest px-1">
+<span>9th</span>
+<span>10th</span>
+<span>11th</span>
+<span>12th (Current)</span>
+</div>
+</div>
+<!-- Test Score Growth -->
+<div class="bg-surface-container-low p-8 rounded-xl relative overflow-hidden">
+<div class="flex items-center justify-between mb-8">
+<h4 class="font-headline text-2xl font-bold">Test Score Growth</h4>
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between items-baseline mb-2">
+<span class="text-sm font-bold text-on-surface">SAT Score</span>
+<span class="text-sm font-headline italic font-extrabold text-primary">1560 / 1600</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container w-[97.5%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-baseline mb-2">
+<span class="text-sm font-bold text-on-surface">ACT Composite</span>
+<span class="text-sm font-headline italic font-extrabold text-primary">34 / 36</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container w-[94.4%]"></div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/20">
+<p class="text-xs text-on-surface-variant italic leading-relaxed">
+                            "Julianne's test prep consistency is in the top 2% of the Evergreen applicant pool."
+                        </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual Floating Action Button -->
+<button class="fixed bottom-10 right-10 flex items-center gap-3 bg-[#42603f] text-white px-8 py-5 rounded-full shadow-[0_20px_60px_-15px_rgba(31,27,21,0.2)] hover:scale-105 transition-transform duration-300 z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">share</span>
+<span class="font-bold tracking-wide">Share Impact Report</span>
+</button>
+</body></html>

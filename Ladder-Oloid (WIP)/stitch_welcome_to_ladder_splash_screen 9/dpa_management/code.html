@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-fixed": "#caf24d",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "primary-container": "#5a7956",
+                    "surface-tint": "#486644",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container": "#f5ede2",
+                    "surface-bright": "#fff8f2",
+                    "on-secondary-container": "#566c00",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-fixed": "#052107",
+                    "background": "#fff8f2",
+                    "outline": "#737970",
+                    "on-surface": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-surface": "#343029",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "16px",
+                    "xl": "24px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .font-noto-serif { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<aside class="fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] flex flex-col py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="mb-12">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-secondary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<h1 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+</div>
+<p class="font-noto-serif text-sm text-on-surface/60 px-1">District Administration</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-noto-serif text-base">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined">domain</span>
+<span class="font-noto-serif text-base">Schools</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-noto-serif text-base">District Stats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7]" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-noto-serif text-base">Curriculum</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-noto-serif text-base">Staff Directory</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined">construction</span>
+<span class="font-noto-serif text-base">Utility Tools</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/20 space-y-2">
+<button class="w-full mb-4 bg-primary text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined">add_chart</span>
+                Quick Report
+            </button>
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-[#42603f] transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-noto-serif text-base">Support</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-[#42603f] transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-noto-serif text-base">Log Out</span>
+</a>
+</div>
+</aside>
+<main class="ml-[280pt] min-h-screen">
+<header class="sticky top-0 z-40 flex justify-between items-center px-12 py-6 w-full bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex flex-col">
+<span class="text-xs font-bold tracking-[0.2em] text-primary uppercase mb-1">Contract Management</span>
+<h2 class="font-noto-serif text-3xl font-bold italic text-[#1f1b15]">DPA Management</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined text-primary scale-90">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-medium placeholder:text-outline w-48" placeholder="Search agreements..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#eae1d7] transition-colors text-on-surface/60">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#eae1d7] transition-colors text-on-surface/60">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-primary/20 overflow-hidden">
+<img alt="Administrator profile" class="w-full h-full object-cover" data-alt="professional headshot of a mature school administrator with glasses and a friendly expression in a brightly lit office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIPSyfhjYSOuFyZbkifdDFAk6OGIafz1rFb-h9A0PyXaWOVQqX9UMFRmz57XwbQj5A_Zu-X56C1R_Zv3uATX3YxLxXD9xMi5f35bxAYqaI0Mv8EiSi-H1HScFz80YleeJsw1cIVz6hOUDG_ne_GvbaG823DqFeOU-bkK6RrlZ7UXEEBY1J6Touq_H8aRmIg-3LC4hKXgbcRFaP7M59fMzgdSQIB2N_50neH9YgVogSXNIQE4qjLH1sR1uFdV1AXWnj-htIbtCKIBY"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-12 flex gap-8">
+<section class="w-[55%] space-y-6">
+<div class="flex items-center justify-between mb-8">
+<div class="flex gap-4">
+<button class="px-6 py-2 rounded-full bg-primary text-white text-sm font-bold">All DPAs</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface/70 text-sm font-bold hover:bg-surface-container-highest transition-colors">Pending</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface/70 text-sm font-bold hover:bg-surface-container-highest transition-colors">Archived</button>
+</div>
+<button class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-base">filter_list</span>
+                        Sort by Date
+                    </button>
+</div>
+<div class="space-y-4">
+<div class="group relative bg-surface-container-low p-6 rounded-xl border-l-4 border-secondary-fixed hover:bg-surface-container-high transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-noto-serif text-lg font-bold text-on-surface">Data Privacy Agreement: Pearson Vue</h3>
+<p class="text-sm text-on-surface/60">Reference: #DPA-2024-0082</p>
+</div>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-black uppercase tracking-wider rounded-full">Active</span>
+</div>
+<div class="flex items-center gap-8 mt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">person</span>
+<span class="text-xs font-medium">Signatory: Dr. Helena Vance</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface/60">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span class="text-xs">Issued: Jan 12, 2024</span>
+</div>
+</div>
+</div>
+<div class="group relative bg-surface-container-low p-6 rounded-xl border-l-4 border-tertiary-container hover:bg-surface-container-high transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-noto-serif text-lg font-bold text-on-surface">Canvas Learning Management Shell</h3>
+<p class="text-sm text-on-surface/60">Reference: #DPA-2023-1190</p>
+</div>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface/60 text-[10px] font-black uppercase tracking-wider rounded-full">Pending</span>
+</div>
+<div class="flex items-center gap-8 mt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">person</span>
+<span class="text-xs font-medium">Signatory: Marcus Thorne</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface/60">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span class="text-xs">Issued: Dec 04, 2023</span>
+</div>
+</div>
+</div>
+<div class="group relative bg-surface-container-low p-6 rounded-xl border-l-4 border-error/40 hover:bg-surface-container-high transition-all cursor-pointer opacity-80">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-noto-serif text-lg font-bold text-on-surface">Zoom Education Portal (Legacy)</h3>
+<p class="text-sm text-on-surface/60">Reference: #DPA-2021-0402</p>
+</div>
+<span class="px-3 py-1 bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider rounded-full">Expired</span>
+</div>
+<div class="flex items-center gap-8 mt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">person</span>
+<span class="text-xs font-medium">Signatory: Julian Frost</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface/60">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span class="text-xs">Issued: Mar 15, 2021</span>
+</div>
+</div>
+</div>
+<div class="group relative bg-surface-container-low p-6 rounded-xl border-l-4 border-secondary-fixed hover:bg-surface-container-high transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-noto-serif text-lg font-bold text-on-surface">Clever SSO District Hub</h3>
+<p class="text-sm text-on-surface/60">Reference: #DPA-2024-0015</p>
+</div>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-black uppercase tracking-wider rounded-full">Active</span>
+</div>
+<div class="flex items-center gap-8 mt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">person</span>
+<span class="text-xs font-medium">Signatory: Dr. Helena Vance</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface/60">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span class="text-xs">Issued: Jan 03, 2024</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-[45%]">
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-2xl shadow-on-surface/5 flex flex-col h-fit sticky top-32">
+<div class="p-8 bg-white border-b border-outline-variant/10">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-noto-serif text-xl font-bold">Document Preview</h3>
+<div class="flex items-center gap-2 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-lg text-xs font-bold italic">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                VERIFIED ASSET
+                            </div>
+</div>
+<div class="h-[300pt] bg-surface-container-lowest rounded-lg border-2 border-dashed border-outline-variant/30 flex items-center justify-center relative group overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex flex-col items-center text-center p-12 pointer-events-none">
+<span class="material-symbols-outlined text-6xl text-primary/20 mb-4">description</span>
+<p class="font-noto-serif italic text-on-surface/40">Secure Render Engine: <br/>Agreement #DPA-2024-0082</p>
+</div>
+<div class="absolute bottom-4 right-4 flex gap-2">
+<button class="p-2 bg-white rounded-lg shadow-sm hover:bg-surface transition-colors">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="p-2 bg-white rounded-lg shadow-sm hover:bg-surface transition-colors">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+<div class="p-8 space-y-8">
+<div>
+<span class="text-[10px] font-black uppercase tracking-widest text-primary mb-3 block">Agreement Status</span>
+<div class="flex items-center gap-4">
+<div class="h-16 w-16 bg-secondary-container rounded-2xl flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h4 class="text-2xl font-bold">Active &amp; Compliant</h4>
+<p class="text-sm text-on-surface/60">Renewal due in 342 days</p>
+</div>
+</div>
+</div>
+<div>
+<span class="text-[10px] font-black uppercase tracking-widest text-primary mb-3 block">Key Terms Summary</span>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg mt-0.5">verified_user</span>
+<span>FERPA/COPPA compliant data handling protocols in effect.</span>
+</li>
+<li class="flex items-start gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg mt-0.5">history</span>
+<span>30-day data retention policy after account termination.</span>
+</li>
+<li class="flex items-start gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-lg mt-0.5">location_on</span>
+<span>Data residency restricted to CONUS servers only.</span>
+</li>
+</ul>
+</div>
+<div class="grid grid-cols-2 gap-6 pt-4 border-t border-outline-variant/10">
+<div>
+<span class="text-[10px] font-black uppercase tracking-widest text-on-surface/40 mb-1 block">District Authority</span>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed"></div>
+<span class="text-sm font-bold">Dr. Helena Vance</span>
+</div>
+</div>
+<div>
+<span class="text-[10px] font-black uppercase tracking-widest text-on-surface/40 mb-1 block">Vendor Representative</span>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed"></div>
+<span class="text-sm font-bold">Elias Strand (Pearson)</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4 pt-4">
+<button class="flex-1 py-4 bg-primary text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">refresh</span>
+                                Renew Early
+                            </button>
+<button class="flex-1 py-4 bg-surface-container-highest text-on-surface rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">download</span>
+                                Download PDF
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<div class="fixed bottom-12 right-12 md:hidden">
+<button class="w-16 h-16 bg-primary-container text-on-primary-container rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</body></html>

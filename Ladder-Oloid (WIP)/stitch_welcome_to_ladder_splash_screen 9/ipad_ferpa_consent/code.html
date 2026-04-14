@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | FERPA Consent Flow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#caf24d",
+                        "outline-variant": "#c3c8be",
+                        "surface-container": "#f5ede2",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-secondary-container": "#566c00",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary": "#42603f",
+                        "on-background": "#1f1b15",
+                        "inverse-surface": "#343029",
+                        "surface-dim": "#e1d9cf",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-container": "#8d6a48",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-variant": "#eae1d7",
+                        "tertiary": "#725232",
+                        "on-secondary-fixed": "#161e00",
+                        "inverse-primary": "#aed0a7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-surface": "#1f1b15",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container-low": "#fbf2e8",
+                        "secondary-container": "#caf24d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#516600",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-primary-fixed": "#052107",
+                        "on-primary-container": "#e2ffda",
+                        "outline": "#737970",
+                        "surface-container-highest": "#eae1d7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary-fixed": "#2c1600",
+                        "background": "#fff8f2",
+                        "surface-tint": "#486644",
+                        "primary-container": "#5a7956",
+                        "surface-bright": "#fff8f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 60px -15px rgba(31, 27, 21, 0.06);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .signature-line {
+            border-bottom: 1.5px solid rgba(115, 121, 112, 0.4);
+        }
+        .signature-line:focus-within {
+            border-bottom-color: #42603f;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col">
+<!-- TopNavBar (Suppressed as per "The Destination Rule" for Transactional Flows, but maintaining brand presence) -->
+<header class="w-full py-8 px-12 flex justify-between items-center z-50">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-headline italic font-bold text-primary tracking-tighter">Ladder</span>
+<span class="text-xs font-label uppercase tracking-widest text-outline ml-2">Compliance Portal</span>
+</div>
+<div class="flex items-center gap-4 text-outline-variant">
+<span class="material-symbols-outlined">security</span>
+<span class="text-xs font-medium uppercase tracking-tight">Encrypted Session</span>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center px-6 pb-12">
+<!-- Main Consent Card -->
+<div class="max-w-4xl w-full bg-surface-container-low rounded-[2rem] p-10 md:p-16 editorial-shadow relative overflow-hidden">
+<!-- Asymmetric Decorative Element -->
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-secondary-fixed/10 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col gap-8">
+<!-- Header Section -->
+<div class="flex flex-col gap-3">
+<h1 class="text-4xl md:text-5xl font-headline italic font-bold text-on-surface tracking-tight leading-tight">
+                        Data Sharing Consent
+                    </h1>
+<p class="text-sm font-label text-on-surface-variant max-w-xl">
+                        Family Educational Rights and Privacy Act (FERPA) Authorization for Academic Progress &amp; College Advisory Services.
+                    </p>
+</div>
+<!-- Legal Text Container -->
+<div class="grid md:grid-cols-12 gap-10">
+<div class="md:col-span-7 flex flex-col gap-6">
+<div class="h-[320px] overflow-y-auto pr-6 no-scrollbar text-on-surface-variant leading-relaxed text-[0.9375rem] bg-surface-container-highest/30 rounded-xl p-6">
+<p class="mb-4 font-semibold text-on-surface">Official Notice of Disclosure</p>
+<p class="mb-4">
+                                Under the Family Educational Rights and Privacy Act (FERPA), student education records are generally private and may not be disclosed without written consent. By proceeding, you authorize Ladder (the "Service") to share relevant academic information with designated collegiate advisors and institutions.
+                            </p>
+<p class="mb-4">
+                                This authorization remains in effect until the completion of the current application cycle or until revoked in writing. The information disclosed may include transcript data, standardized test scores, behavioral assessments, and extracurricular records necessary for the college preparation process.
+                            </p>
+<p class="mb-4">
+                                Ladder maintains strict adherence to the highest security standards. Your data is encrypted in transit and at rest. We do not sell student data to third-party marketing firms; sharing is limited exclusively to the educational entities you explicitly select within your portal.
+                            </p>
+<p>
+                                I understand that my consent is voluntary and that I may revoke this authorization at any time by contacting the Ladder Compliance Office. Revocation will not affect any disclosures made prior to the receipt of the written revocation notice.
+                            </p>
+</div>
+<!-- Rights Bullet Points -->
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="font-bold text-sm text-on-surface">Right to Inspect</h4>
+<p class="text-xs text-on-surface-variant">Review all records shared via the platform at any time.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="font-bold text-sm text-on-surface">Right to Correct</h4>
+<p class="text-xs text-on-surface-variant">Request amendments to inaccurate or misleading data.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Sidebar -->
+<div class="md:col-span-5 flex flex-col justify-between bg-surface-container rounded-3xl p-8">
+<div class="flex flex-col gap-8">
+<!-- Checkbox -->
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center mt-1">
+<input class="peer h-5 w-5 appearance-none rounded border-2 border-outline-variant checked:bg-primary checked:border-primary transition-all cursor-pointer" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-white opacity-0 peer-checked:opacity-100 left-0 text-[20px] pointer-events-none">check</span>
+</div>
+<span class="text-xs font-medium text-on-surface-variant leading-snug select-none group-hover:text-on-surface transition-colors">
+                                    I have read and agree to the FERPA disclosure and data sharing terms.
+                                </span>
+</label>
+<!-- Signature Field -->
+<div class="flex flex-col gap-2">
+<label class="text-[10px] uppercase tracking-widest font-bold text-primary">Digital Signature</label>
+<div class="signature-line pb-2 transition-all">
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-lg font-headline italic placeholder:text-outline-variant/50 placeholder:italic" placeholder="Type full legal name" type="text"/>
+</div>
+<p class="text-[10px] text-outline italic">By typing your name, you acknowledge this as a binding legal signature.</p>
+</div>
+</div>
+<!-- Buttons -->
+<div class="flex flex-col gap-3 mt-12">
+<button class="w-full py-4 px-6 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-bold tracking-wide text-sm shadow-lg shadow-primary/10 hover:opacity-90 active:scale-95 transition-all">
+                                I Agree
+                            </button>
+<button class="w-full py-4 px-6 bg-transparent text-on-surface-variant font-medium text-sm hover:text-primary transition-colors">
+                                Decline &amp; Exit
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Contextual Footer (Embedded in Card) -->
+<div class="mt-12 pt-8 border-t border-outline-variant/10 flex justify-between items-center text-[10px] uppercase tracking-widest text-outline">
+<span>Document ID: LDR-2024-FERPA-V2</span>
+<div class="flex gap-4">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">lock</span> ISO 27001 Certified</span>
+<span>© 2024 Ladder Education</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Background Decoration -->
+<div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+<div class="absolute top-0 right-0 w-[60vw] h-[614px] bg-[#fbf2e8] rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4"></div>
+<div class="absolute bottom-0 left-0 w-[40vw] h-[409px] bg-[#f5ede2] rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
+</div>
+</body></html>

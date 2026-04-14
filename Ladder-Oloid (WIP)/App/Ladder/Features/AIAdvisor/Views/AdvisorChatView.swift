@@ -1,14 +1,33 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - AI Advisor Chat View
 
 struct AdvisorChatView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var sizeClass
+    @Query private var profiles: [StudentProfileModel]
     @State private var viewModel = AdvisorChatViewModel()
     @FocusState private var isInputFocused: Bool
     let sessionId: String?
 
+    // Sample session history for iPad left rail (UI only)
+    private let sessionHistory: [ChatSessionPreview] = ChatSessionPreview.samples
+
     var body: some View {
+        Group {
+            if sizeClass == .regular {
+                iPadLayout
+            } else {
+                iPhoneLayout
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar { toolbarContent }
+        .onAppear { viewModel.configure(with: profiles.first) }
+    }
+
+    private var iPhoneLayout: some View {
         ZStack {
             LadderColors.surface.ignoresSafeArea()
 
@@ -47,8 +66,183 @@ struct AdvisorChatView: View {
                 inputBar
             }
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
+    }
+
+    // MARK: - iPad Layout
+
+    private var iPadLayout: some View {
+        ZStack {
+            LadderColors.surface.ignoresSafeArea()
+
+            HStack(spacing: 0) {
+                iPadSessionRail
+                    .frame(width: 320)
+                    .background(LadderColors.surfaceContainerLow)
+
+                Rectangle()
+                    .fill(LadderColors.outlineVariant)
+                    .frame(width: 1)
+
+                iPadChatPane
+                    .frame(maxWidth: .infinity)
+            }
+        }
+    }
+
+    private var iPadSessionRail: some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.md) {
+            HStack(spacing: LadderSpacing.xs) {
+                Image(systemName: "sparkles")
+                    .font(.system(size: 14))
+                    .foregroundStyle(LadderColors.accentLime)
+                Text("AI Advisor")
+                    .font(LadderTypography.titleMedium)
+                    .foregroundStyle(LadderColors.onSurface)
+                Spacer()
+            }
+            .padding(.horizontal, LadderSpacing.md)
+            .padding(.top, LadderSpacing.lg)
+
+            Button {
+                viewModel.messages = []
+                viewModel.inputText = ""
+            } label: {
+                HStack(spacing: LadderSpacing.sm) {
+                    Image(systemName: "plus.bubble")
+                        .font(.system(size: 14, weight: .semibold))
+                    Text("New Chat")
+                        .font(LadderTypography.labelLarge)
+                    Spacer()
+                }
+                .foregroundStyle(LadderColors.primary)
+                .padding(.horizontal, LadderSpacing.md)
+                .padding(.vertical, LadderSpacing.sm)
+                .background(LadderColors.primaryContainer.opacity(0.25))
+                .clipShape(RoundedRectangle(cornerRadius: LadderRadius.md, style: .continuous))
+            }
+            .buttonStyle(.plain)
+            .padding(.horizontal, LadderSpacing.md)
+
+            Text("RECENT")
+                .font(LadderTypography.labelSmall)
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+                .labelTracking()
+                .padding(.horizontal, LadderSpacing.md)
+                .padding(.top, LadderSpacing.sm)
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: LadderSpacing.xs) {
+                    ForEach(sessionHistory) { session in
+                        iPadSessionRow(session)
+                    }
+                }
+                .padding(.horizontal, LadderSpacing.sm)
+                .padding(.bottom, LadderSpacing.lg)
+            }
+
+            Divider()
+                .padding(.horizontal, LadderSpacing.md)
+
+            VStack(alignment: .leading, spacing: LadderSpacing.xs) {
+                Text("QUICK TOOLS")
+                    .font(LadderTypography.labelSmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                    .labelTracking()
+                    .padding(.horizontal, LadderSpacing.md)
+                    .padding(.top, LadderSpacing.xs)
+
+                ForEach(viewModel.quickPrompts.prefix(3)) { prompt in
+                    Button {
+                        viewModel.sendQuickPrompt(prompt)
+                    } label: {
+                        HStack(spacing: LadderSpacing.sm) {
+                            Image(systemName: prompt.icon)
+                                .font(.system(size: 12))
+                                .foregroundStyle(LadderColors.primary)
+                            Text(prompt.title)
+                                .font(LadderTypography.bodySmall)
+                                .foregroundStyle(LadderColors.onSurface)
+                            Spacer()
+                        }
+                        .padding(.horizontal, LadderSpacing.md)
+                        .padding(.vertical, LadderSpacing.xs)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.bottom, LadderSpacing.md)
+        }
+    }
+
+    private func iPadSessionRow(_ session: ChatSessionPreview) -> some View {
+        Button { } label: {
+            VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                HStack {
+                    Text(session.title)
+                        .font(LadderTypography.titleSmall)
+                        .foregroundStyle(LadderColors.onSurface)
+                        .lineLimit(1)
+                    Spacer()
+                    Text(session.timestamp)
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                }
+                Text(session.preview)
+                    .font(LadderTypography.bodySmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                    .lineLimit(2)
+            }
+            .padding(LadderSpacing.sm)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(LadderColors.surfaceContainer.opacity(0.6))
+            .clipShape(RoundedRectangle(cornerRadius: LadderRadius.md, style: .continuous))
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var iPadChatPane: some View {
+        VStack(spacing: 0) {
+            ScrollViewReader { proxy in
+                ScrollView(showsIndicators: false) {
+                    LazyVStack(spacing: LadderSpacing.md) {
+                        if viewModel.messages.isEmpty {
+                            welcomeSection
+                        }
+
+                        ForEach(viewModel.messages) { message in
+                            ChatBubbleView(message: message)
+                                .id(message.id)
+                        }
+
+                        if viewModel.isTyping {
+                            typingIndicator
+                        }
+                    }
+                    .padding(.horizontal, LadderSpacing.xl)
+                    .padding(.top, LadderSpacing.lg)
+                    .padding(.bottom, LadderSpacing.lg)
+                    .frame(maxWidth: 900)
+                    .frame(maxWidth: .infinity)
+                }
+                .onChange(of: viewModel.messages.count) {
+                    if let last = viewModel.messages.last {
+                        withAnimation {
+                            proxy.scrollTo(last.id, anchor: .bottom)
+                        }
+                    }
+                }
+            }
+
+            inputBar
+                .frame(maxWidth: 900)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, LadderSpacing.xl)
+                .padding(.bottom, LadderSpacing.md)
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button { dismiss() } label: {
                     Image(systemName: "chevron.left")
@@ -66,7 +260,6 @@ struct AdvisorChatView: View {
                         .foregroundStyle(LadderColors.onSurface)
                 }
             }
-        }
     }
 
     // MARK: - Welcome Section (empty state)
@@ -98,7 +291,7 @@ struct AdvisorChatView: View {
 
             // Quick prompt chips
             VStack(spacing: LadderSpacing.sm) {
-                ForEach(AdvisorChatViewModel.quickPrompts.prefix(4)) { prompt in
+                ForEach(viewModel.quickPrompts.prefix(4)) { prompt in
                     Button {
                         viewModel.sendQuickPrompt(prompt)
                     } label: {
@@ -217,6 +410,23 @@ struct ChatBubbleView: View {
             if message.role == .assistant { Spacer(minLength: 60) }
         }
     }
+}
+
+// MARK: - iPad Session Preview Model (UI only)
+
+struct ChatSessionPreview: Identifiable {
+    let id = UUID()
+    let title: String
+    let timestamp: String
+    let preview: String
+
+    static let samples: [ChatSessionPreview] = [
+        ChatSessionPreview(title: "Building my college list", timestamp: "Today", preview: "Help me find reach, match, and safety schools..."),
+        ChatSessionPreview(title: "Common App essay ideas", timestamp: "Yesterday", preview: "I was thinking about writing about my robotics team..."),
+        ChatSessionPreview(title: "SAT Math prep", timestamp: "Mon", preview: "How should I approach the no-calculator section?"),
+        ChatSessionPreview(title: "EC strategy for junior year", timestamp: "Mar 30", preview: "What extracurriculars should I focus on to stand out..."),
+        ChatSessionPreview(title: "Financial aid & scholarships", timestamp: "Mar 22", preview: "Looking into merit aid options for out-of-state..."),
+    ]
 }
 
 #Preview {

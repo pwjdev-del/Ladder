@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Age Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#caf24d",
+                        "outline-variant": "#c3c8be",
+                        "surface-container": "#f5ede2",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-secondary-container": "#566c00",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary": "#42603f",
+                        "on-background": "#1f1b15",
+                        "inverse-surface": "#343029",
+                        "surface-dim": "#e1d9cf",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-container": "#8d6a48",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-variant": "#eae1d7",
+                        "tertiary": "#725232",
+                        "on-secondary-fixed": "#161e00",
+                        "inverse-primary": "#aed0a7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-surface": "#1f1b15",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container-low": "#fbf2e8",
+                        "secondary-container": "#caf24d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#516600",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-primary-fixed": "#052107",
+                        "on-primary-container": "#e2ffda",
+                        "outline": "#737970",
+                        "surface-container-highest": "#eae1d7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary-fixed": "#2c1600",
+                        "background": "#fff8f2",
+                        "surface-tint": "#486644",
+                        "primary-container": "#5a7956",
+                        "surface-bright": "#fff8f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"],
+                        "ui": ["Montserrat"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .picker-wheel-mask {
+            mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+        }
+        .academic-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex items-center justify-center p-6 overflow-hidden">
+<!-- Subtle Background Texture Decor -->
+<div class="fixed inset-0 pointer-events-none opacity-20">
+<div class="absolute top-[-10%] left-[-5%] w-96 h-96 rounded-full bg-primary-fixed blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-96 h-96 rounded-full bg-secondary-fixed blur-[120px]"></div>
+</div>
+<!-- Main Age Gate Canvas -->
+<main class="relative z-10 w-full max-w-4xl aspect-[4/3] md:aspect-video flex items-center justify-center">
+<!-- Center Card -->
+<div class="bg-surface-container-low w-full max-w-2xl rounded-xl p-12 flex flex-col items-center text-center shadow-sm">
+<!-- Brand Anchor -->
+<div class="mb-10 flex flex-col items-center gap-2">
+<span class="text-2xl font-headline italic text-primary tracking-tighter">Ladder</span>
+<div class="h-0.5 w-12 bg-secondary-fixed rounded-full"></div>
+</div>
+<!-- Header Section -->
+<div class="mb-8 space-y-3">
+<h1 class="text-4xl font-headline italic text-on-surface tracking-tight leading-tight">Before We Begin</h1>
+<p class="text-on-surface-variant font-label text-sm max-w-sm mx-auto">
+                    To ensure the best and safest experience for your educational journey, please verify your age.
+                </p>
+</div>
+<!-- Verification Content Area -->
+<div class="w-full space-y-10">
+<!-- Date Picker Interaction Shell -->
+<div class="space-y-6">
+<label class="block font-ui font-semibold text-xs uppercase tracking-widest text-primary">What is your date of birth?</label>
+<div class="flex justify-center items-center gap-4 py-4 px-8 bg-surface-container-highest rounded-xl relative overflow-hidden h-40 picker-wheel-mask">
+<!-- Selection Highlight Overlay -->
+<div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-10 bg-surface-container-high/50 border-y border-outline-variant/10 pointer-events-none"></div>
+<!-- Month Wheel -->
+<div class="flex-1 flex flex-col gap-3 font-ui text-lg text-on-surface/40 overflow-hidden">
+<div class="opacity-30">January</div>
+<div>February</div>
+<div class="text-primary font-bold opacity-100 scale-110 transition-transform">March</div>
+<div>April</div>
+<div class="opacity-30">May</div>
+</div>
+<!-- Day Wheel -->
+<div class="flex-1 flex flex-col gap-3 font-ui text-lg text-on-surface/40 overflow-hidden">
+<div class="opacity-30">12</div>
+<div>13</div>
+<div class="text-primary font-bold opacity-100 scale-110 transition-transform">14</div>
+<div>15</div>
+<div class="opacity-30">16</div>
+</div>
+<!-- Year Wheel -->
+<div class="flex-1 flex flex-col gap-3 font-ui text-lg text-on-surface/40 overflow-hidden">
+<div class="opacity-30">2010</div>
+<div>2011</div>
+<div class="text-primary font-bold opacity-100 scale-110 transition-transform">2012</div>
+<div>2013</div>
+<div class="opacity-30">2014</div>
+</div>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full max-w-xs academic-gradient text-white py-4 px-8 rounded-xl font-ui font-bold shadow-lg shadow-primary/10 hover:opacity-90 transition-all active:scale-95">
+                    Continue
+                </button>
+</div>
+<!-- COPPA Secondary Flow (Hidden by default, shown here as part of the task requirement) -->
+<!-- This section would toggle visibility based on date selection logic -->
+<div class="mt-12 pt-8 border-t border-outline-variant/10 w-full hidden">
+<div class="space-y-6">
+<div class="flex items-center justify-center gap-2 text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="lock">lock</span>
+<h2 class="font-ui font-bold text-sm">Parental Consent Required</h2>
+</div>
+<p class="text-on-surface-variant text-xs max-w-sm mx-auto leading-relaxed">
+                        Based on your date of birth, we need a parent or legal guardian to approve your account setup.
+                    </p>
+<div class="relative w-full max-w-sm mx-auto">
+<input class="w-full bg-transparent border-b border-outline-variant/40 py-3 px-1 text-on-surface focus:outline-none focus:border-primary transition-colors font-body placeholder:text-outline/50" placeholder="Parent's email address" type="email"/>
+<span class="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-ui text-tertiary">Required</span>
+</div>
+<button class="w-full max-w-xs bg-surface-container-highest text-on-surface py-4 px-8 rounded-xl font-ui font-semibold hover:bg-surface-container-high transition-colors active:scale-95">
+                        Send Consent Request
+                    </button>
+</div>
+</div>
+<!-- Security Footer -->
+<div class="mt-8 flex items-center justify-center gap-4 text-[10px] text-outline font-ui uppercase tracking-[0.2em]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified_user">verified_user</span> 
+                    COPPA Compliant
+                </span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="shield">shield</span> 
+                    Secure Processing
+                </span>
+</div>
+</div>
+<!-- Asymmetric Editorial Image Decoration (Offset) -->
+<div class="absolute -right-20 top-1/4 w-64 h-80 rounded-xl overflow-hidden shadow-2xl rotate-3 hidden lg:block">
+<img alt="Higher education campus architecture" class="w-full h-full object-cover" data-alt="Stately stone library building with arched windows surrounded by lush green ivy and mature trees in soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBp0L1ky_5Wewefp64X4F-1R-N5_ZIHJjOCRlcI_X-Ogk6RqwqqoJNBxGLMlukSpwg0vTeZQJedmhgGKBOs-kdXtPnFE0nkf0uJuxcY9AM1kbgpgbN8zbmrWAQeVvnvZKn5_wunJdY8zBAOvcDiW6xNAW3VkAWq_e96jn5t-pfM6uXgpk-zISweGVfP230q0d91rq8w1IGvRapjXfIXN956UB3UIVvjxlA0cNSIa8u5tTyuSzLxdNdCbD8A7cAIj48SnPP3DCPQ1k"/>
+</div>
+<div class="absolute -left-16 bottom-1/4 w-48 h-48 rounded-xl overflow-hidden shadow-xl -rotate-6 hidden lg:block bg-surface-container-highest p-4 flex flex-col justify-end">
+<div class="space-y-2">
+<div class="w-12 h-1 bg-secondary-fixed rounded-full"></div>
+<div class="w-20 h-1 bg-outline-variant rounded-full"></div>
+<div class="w-16 h-1 bg-outline-variant rounded-full"></div>
+<p class="font-headline italic text-primary text-lg mt-4 leading-tight">Invest in<br/>your future.</p>
+</div>
+</div>
+</main>
+</body></html>

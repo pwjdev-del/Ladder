@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | AI Class Scheduler</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container": "#f5ede2",
+                        "surface-variant": "#eae1d7",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed": "#161e00",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed": "#caf24d",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-secondary-container": "#566c00",
+                        "surface-tint": "#486644",
+                        "on-primary-fixed": "#052107",
+                        "tertiary-container": "#8d6a48",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-bright": "#fff8f2",
+                        "inverse-surface": "#343029",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fff8f2",
+                        "secondary-container": "#caf24d",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f2",
+                        "on-tertiary-fixed": "#2c1600",
+                        "outline-variant": "#c3c8be",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "tertiary": "#725232",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary": "#42603f",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface": "#1f1b15",
+                        "on-background": "#1f1b15",
+                        "inverse-primary": "#aed0a7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { background: rgba(255, 248, 242, 0.7); backdrop-filter: blur(24px); }
+        .tonal-shift { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+        .dashed-ai-border { background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='%2342603f' stroke-width='2' stroke-dasharray='8%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"); border-radius: 16px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 h-screen w-72 flex-shrink-0 border-r-0 bg-[#fbf2e8] z-50">
+<div class="mb-10 px-2">
+<span class="text-3xl font-noto-serif italic font-bold text-[#42603f]">Ladder</span>
+<p class="font-manrope text-xs text-stone-500 tracking-wider mt-1">College Prep Platform</p>
+</div>
+<div class="flex-grow space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm">Academic Tracker</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="text-sm">Transcript</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm">Course Guide</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#42603f] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">calendar_view_month</span>
+<span class="text-sm">AI Scheduler</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-sm">Research</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-sm">Essay Hub</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-sm">Career Explorer</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-sm">Post-Grad</span>
+</a>
+</div>
+<div class="mt-auto space-y-1">
+<div class="px-4 py-6 bg-surface-container-highest rounded-2xl mb-4 text-center">
+<p class="text-xs font-bold text-primary mb-2">Upgrade to Pro</p>
+<p class="text-[10px] text-stone-600 mb-3 leading-relaxed">Unlock advanced AI insights and counselor reviews.</p>
+<button class="w-full py-2 bg-primary text-white rounded-lg text-xs font-bold transition-all scale-98 active:opacity-80">Get Started</button>
+</div>
+<a class="flex items-center gap-3 px-4 py-2 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-xs">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-xl text-stone-500 font-medium hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+<span class="text-xs">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-72 flex w-full">
+<!-- Center Canvas (70%) -->
+<div class="w-[70%] min-h-screen px-10 pt-28 pb-12 overflow-y-auto">
+<!-- TopNavBar Integrated Logic -->
+<header class="fixed top-0 right-[30%] left-72 z-40 flex justify-between items-center px-10 h-20 glass-nav shadow-sm">
+<div class="flex items-center gap-4 bg-surface-container rounded-full px-4 py-2 w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-stone-400" placeholder="Search courses or topics..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-8 text-stone-600 font-noto-serif text-sm">
+<a class="hover:text-primary transition-all" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-[#caf24d] pb-1 font-semibold" href="#">Analytics</a>
+<a class="hover:text-primary transition-all" href="#">Community</a>
+</div>
+<div class="flex items-center gap-4 border-l border-outline-variant pl-6">
+<span class="material-symbols-outlined text-stone-600 cursor-pointer">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Student profile picture" data-alt="Student profile portrait in academic setting with soft library lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7af5mfRM-xwN8ZGsV0A_zx4pJQbXP03ByzHmqgyHreUWfXDfsGOKT9eVICqvHeTlAXB2FBPEsgwE-PSRsy3WKG0BHXPWowrFVKTw0ebVaDI3r1kLe5CUXfQF4T3hUHIJTUMs4D0-r4MlfK4JS9AwZNPb0aoDLVrQgJLKpuSJnn1xZbbJSyVYFtGPPt0HBtgc2UMXLsAtk_OCSPB4LVTzrxJ4-tYnZV5Ad0X1E-dvDeU9DzcFJhLp4MKZYbt0bWbN6GqgBrx9XTnY"/>
+</div>
+</div>
+</div>
+</header>
+<div class="mb-10 mt-4">
+<h1 class="text-4xl font-noto-serif font-bold tracking-tighter text-primary">Fall Semester 2024</h1>
+<p class="text-stone-500 font-body mt-2">AI-optimized schedule for <span class="font-bold">Biomedical Engineering</span> track.</p>
+</div>
+<!-- Weekly Schedule Grid -->
+<div class="grid grid-cols-6 gap-4">
+<!-- Header Row -->
+<div class="h-10"></div>
+<div class="text-center font-noto-serif text-sm font-bold text-stone-400 uppercase tracking-widest pb-4">Mon</div>
+<div class="text-center font-noto-serif text-sm font-bold text-stone-400 uppercase tracking-widest pb-4">Tue</div>
+<div class="text-center font-noto-serif text-sm font-bold text-stone-400 uppercase tracking-widest pb-4">Wed</div>
+<div class="text-center font-noto-serif text-sm font-bold text-stone-400 uppercase tracking-widest pb-4">Thu</div>
+<div class="text-center font-noto-serif text-sm font-bold text-stone-400 uppercase tracking-widest pb-4">Fri</div>
+<!-- Periods 1-7 -->
+<!-- P1 -->
+<div class="flex items-center justify-end pr-4 text-xs font-bold text-stone-400">P1</div>
+<div class="bg-primary-container p-3 rounded-2xl text-on-primary-container h-28 relative shadow-sm border-l-4 border-secondary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">STEM</p>
+<p class="text-sm font-bold leading-tight mt-1">AP Biology</p>
+<p class="text-[10px] absolute bottom-3 left-3 opacity-80">Room 402</p>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-2xl flex items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary transition-colors">add</span>
+</div>
+<div class="bg-primary-container p-3 rounded-2xl text-on-primary-container h-28 relative shadow-sm border-l-4 border-secondary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">STEM</p>
+<p class="text-sm font-bold leading-tight mt-1">AP Biology</p>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-2xl flex items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary transition-colors">add</span>
+</div>
+<div class="bg-primary-container p-3 rounded-2xl text-on-primary-container h-28 relative shadow-sm border-l-4 border-secondary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">STEM</p>
+<p class="text-sm font-bold leading-tight mt-1">AP Biology</p>
+</div>
+<!-- P2 -->
+<div class="flex items-center justify-end pr-4 text-xs font-bold text-stone-400">P2</div>
+<div class="border-2 border-dashed border-outline-variant rounded-2xl flex items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-stone-300">add</span>
+</div>
+<div class="bg-tertiary-container p-3 rounded-2xl text-on-tertiary-container h-28 relative shadow-sm border-l-4 border-tertiary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">Humanities</p>
+<p class="text-sm font-bold leading-tight mt-1">World History</p>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-2xl flex items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-stone-300">add</span>
+</div>
+<div class="bg-tertiary-container p-3 rounded-2xl text-on-tertiary-container h-28 relative shadow-sm border-l-4 border-tertiary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">Humanities</p>
+<p class="text-sm font-bold leading-tight mt-1">World History</p>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-2xl flex items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-stone-300">add</span>
+</div>
+<!-- P3 - AI RECOMMENDED -->
+<div class="flex items-center justify-end pr-4 text-xs font-bold text-stone-400">P3</div>
+<div class="dashed-ai-border p-3 h-28 relative bg-[#fbf2e8] group cursor-pointer overflow-hidden">
+<div class="flex justify-between items-start">
+<p class="text-[10px] font-bold uppercase tracking-tighter text-primary">AI PICK</p>
+<span class="material-symbols-outlined text-xs text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<p class="text-sm font-bold leading-tight mt-1 text-primary">Biotech Ethics</p>
+<p class="text-[9px] text-stone-500 mt-1">Strengthens Johns Hopkins Application</p>
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-5 transition-opacity"></div>
+</div>
+<div class="bg-surface-container-highest p-3 rounded-2xl text-on-surface h-28 relative shadow-sm border-l-4 border-outline">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">Language</p>
+<p class="text-sm font-bold leading-tight mt-1">Spanish III</p>
+</div>
+<div class="dashed-ai-border p-3 h-28 relative bg-[#fbf2e8] group cursor-pointer overflow-hidden">
+<div class="flex justify-between items-start">
+<p class="text-[10px] font-bold uppercase tracking-tighter text-primary">AI PICK</p>
+<span class="material-symbols-outlined text-xs text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<p class="text-sm font-bold leading-tight mt-1 text-primary">Biotech Ethics</p>
+</div>
+<div class="bg-surface-container-highest p-3 rounded-2xl text-on-surface h-28 relative shadow-sm border-l-4 border-outline">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">Language</p>
+<p class="text-sm font-bold leading-tight mt-1">Spanish III</p>
+</div>
+<div class="dashed-ai-border p-3 h-28 relative bg-[#fbf2e8] group cursor-pointer overflow-hidden">
+<div class="flex justify-between items-start">
+<p class="text-[10px] font-bold uppercase tracking-tighter text-primary">AI PICK</p>
+<span class="material-symbols-outlined text-xs text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<p class="text-sm font-bold leading-tight mt-1 text-primary">Biotech Ethics</p>
+</div>
+<!-- Rest of periods would follow similar logic -->
+<div class="flex items-center justify-end pr-4 text-xs font-bold text-stone-400">P4</div>
+<div class="col-span-5 bg-surface-container text-stone-400 flex items-center justify-center rounded-2xl h-14 font-bold tracking-[0.3em] text-[10px] uppercase">Lunch Break</div>
+<div class="flex items-center justify-end pr-4 text-xs font-bold text-stone-400">P5</div>
+<div class="bg-primary-container p-3 rounded-2xl text-on-primary-container h-28 relative shadow-sm border-l-4 border-secondary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">STEM</p>
+<p class="text-sm font-bold leading-tight mt-1">Multivariable Calc</p>
+</div>
+<div class="bg-primary-container p-3 rounded-2xl text-on-primary-container h-28 relative shadow-sm border-l-4 border-secondary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">STEM</p>
+<p class="text-sm font-bold leading-tight mt-1">Multivariable Calc</p>
+</div>
+<div class="bg-primary-container p-3 rounded-2xl text-on-primary-container h-28 relative shadow-sm border-l-4 border-secondary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">STEM</p>
+<p class="text-sm font-bold leading-tight mt-1">Multivariable Calc</p>
+</div>
+<div class="bg-primary-container p-3 rounded-2xl text-on-primary-container h-28 relative shadow-sm border-l-4 border-secondary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">STEM</p>
+<p class="text-sm font-bold leading-tight mt-1">Multivariable Calc</p>
+</div>
+<div class="bg-primary-container p-3 rounded-2xl text-on-primary-container h-28 relative shadow-sm border-l-4 border-secondary-fixed">
+<p class="text-[10px] font-bold uppercase tracking-tighter opacity-70">STEM</p>
+<p class="text-sm font-bold leading-tight mt-1">Multivariable Calc</p>
+</div>
+</div>
+</div>
+<!-- Right Sidebar (30%) -->
+<aside class="w-[30%] min-h-screen bg-surface-container-low border-l border-surface-variant p-8 flex flex-col pt-24">
+<!-- Career Alignment Chart -->
+<div class="bg-surface rounded-[2rem] p-6 mb-6 shadow-sm">
+<h3 class="font-noto-serif font-bold text-primary mb-6">Career Alignment</h3>
+<div class="relative w-32 h-32 mx-auto">
+<!-- Ring Chart Simulation -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#eae1d7" stroke-width="3"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#42603f" stroke-dasharray="88, 100" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-bold font-noto-serif text-primary leading-none">88%</span>
+<span class="text-[8px] uppercase tracking-widest text-stone-500 font-bold">Match</span>
+</div>
+</div>
+<p class="text-center text-xs text-stone-500 mt-4 leading-relaxed px-4">This schedule hits <span class="text-primary font-bold">14/16</span> target prerequisites for MIT and Stanford Bio-E programs.</p>
+</div>
+<!-- Bright Futures Progress -->
+<div class="bg-surface rounded-[2rem] p-6 mb-6 shadow-sm">
+<div class="flex justify-between items-end mb-4">
+<h3 class="font-noto-serif font-bold text-primary">Bright Futures</h3>
+<span class="text-xs font-bold text-secondary">Level 04</span>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full rounded-full shadow-[0_0_12px_rgba(202,242,77,0.5)]" style="width: 72%"></div>
+</div>
+<p class="text-[10px] text-stone-500 mt-2 flex justify-between">
+<span>940 Service Hours Tracked</span>
+<span class="font-bold">Next Milestone: Scholarship Tier II</span>
+</p>
+</div>
+<!-- Difficulty & AI Sugestions -->
+<div class="bg-surface-container-highest rounded-[2rem] p-6 mb-8 flex-grow">
+<div class="flex items-center gap-3 mb-6">
+<div class="bg-white p-2 rounded-xl">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">speed</span>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase tracking-tighter text-stone-500">Mental Load</p>
+<p class="text-sm font-bold text-primary">High Efficiency</p>
+</div>
+<div class="ml-auto bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-full">Optimal</div>
+</div>
+<div class="space-y-4">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<p class="text-xs text-stone-600 leading-relaxed">Consider swapping <span class="font-bold">Spanish III</span> with <span class="font-bold">Honors Latin</span> for Ivy medical prestige.</p>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<p class="text-xs text-stone-600 leading-relaxed">Schedule includes 2 "Focus" blocks on Tuesday to prevent burn-out.</p>
+</div>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full py-5 tonal-shift text-white rounded-[1.5rem] font-bold text-sm tracking-wide shadow-xl shadow-primary/20 flex items-center justify-center gap-3 scale-98 active:opacity-90 transition-all">
+<span class="material-symbols-outlined">send</span>
+                Submit to Counselor
+            </button>
+<p class="text-center text-[10px] text-stone-400 mt-6 italic">Submission deadline: Friday, Sept 15th</p>
+</aside>
+</main>
+<!-- Floating Sparkle Logic for AI cells -->
+<div class="fixed pointer-events-none opacity-20 inset-0 z-0">
+<!-- Abstract gradient for organic atelier feel -->
+<div class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] bg-[#caf24d]/10"></div>
+</div>
+</body></html>

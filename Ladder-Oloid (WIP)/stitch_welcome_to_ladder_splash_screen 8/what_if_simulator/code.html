@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>What If Simulator - Ladder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#fff8f2",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-surface-variant": "#434840",
+                        "outline-variant": "#c3c8be",
+                        "tertiary": "#725232",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#8d6a48",
+                        "surface-tint": "#486644",
+                        "on-secondary-container": "#566c00",
+                        "inverse-surface": "#343029",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-container": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f5ede2",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#fbf2e8",
+                        "surface": "#fff8f2",
+                        "surface-container-highest": "#eae1d7",
+                        "background": "#fff8f2",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-secondary-fixed": "#161e00",
+                        "on-surface": "#1f1b15",
+                        "inverse-primary": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary": "#516600",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#eae1d7",
+                        "surface-dim": "#e1d9cf",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "primary": "#42603f",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-container": "#5a7956",
+                        "outline": "#737970",
+                        "on-primary-fixed": "#052107",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#e2ffda"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Custom Slider Styling */
+        input[type=range] { -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #eae1d7; border-radius: 3px; }
+        input[type=range]::-webkit-slider-thumb { height: 24px; width: 24px; border-radius: 50%; background: #42603f; cursor: pointer; -webkit-appearance: none; margin-top: -9px; border: 4px solid #ffffff; box-shadow: 0 4px 12px rgba(31,27,21,0.1); }
+        
+        .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased pb-32">
+<!-- Header Section -->
+<header class="bg-gradient-to-br from-primary to-primary-container pt-14 pb-8 px-6 rounded-b-[32px] shadow-lg">
+<div class="flex items-center gap-4 mb-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div>
+<h1 class="text-2xl font-serif font-bold italic text-white tracking-tight">What If Simulator</h1>
+<p class="text-on-primary-container/80 text-sm font-medium">See how changes affect your chances</p>
+</div>
+</div>
+</header>
+<main class="px-6 -mt-6 space-y-6">
+<!-- Current Stats Card -->
+<section class="bg-surface-container-low rounded-xl p-5 shadow-sm border border-outline-variant/10">
+<div class="flex justify-between items-center mb-4">
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary/60">Current Profile</span>
+<span class="material-symbols-outlined text-primary text-sm">verified_user</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4 gap-x-8">
+<div class="space-y-0.5">
+<p class="text-xs text-stone-500 font-semibold">GPA</p>
+<p class="text-lg font-bold text-on-surface">3.78</p>
+</div>
+<div class="space-y-0.5">
+<p class="text-xs text-stone-500 font-semibold">SAT</p>
+<p class="text-lg font-bold text-on-surface">1340</p>
+</div>
+<div class="space-y-0.5">
+<p class="text-xs text-stone-500 font-semibold">APs</p>
+<p class="text-lg font-bold text-on-surface">4 Courses</p>
+</div>
+<div class="space-y-0.5">
+<p class="text-xs text-stone-500 font-semibold">Activities</p>
+<p class="text-lg font-bold text-on-surface">6 Items</p>
+</div>
+</div>
+</section>
+<!-- Simulator Section -->
+<section class="space-y-4">
+<h2 class="text-lg font-serif font-bold text-primary pl-1">Adjust Parameters</h2>
+<!-- GPA Slider -->
+<div class="bg-surface-container-highest rounded-xl p-5 space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-sm font-bold text-on-surface">What if my GPA was...</label>
+<div class="flex items-center gap-2">
+<span class="text-xl font-extrabold text-primary">4.00</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold px-2 py-0.5 rounded-full">+0.22</span>
+</div>
+</div>
+<input class="w-full" max="4.0" min="2.0" step="0.01" type="range" value="4.0"/>
+<div class="flex justify-between text-[10px] font-bold text-stone-400 uppercase tracking-tighter">
+<span>2.0 GPA</span>
+<span>4.0 GPA</span>
+</div>
+</div>
+<!-- SAT Slider -->
+<div class="bg-surface-container-highest rounded-xl p-5 space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-sm font-bold text-on-surface">What if my SAT was...</label>
+<div class="flex items-center gap-2">
+<span class="text-xl font-extrabold text-primary">1400</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold px-2 py-0.5 rounded-full">+60</span>
+</div>
+</div>
+<input class="w-full" max="1600" min="800" step="10" type="range" value="1400"/>
+<div class="flex justify-between text-[10px] font-bold text-stone-400 uppercase tracking-tighter">
+<span>800 Score</span>
+<span>1600 Score</span>
+</div>
+</div>
+<!-- Steppers Grid -->
+<div class="grid grid-cols-2 gap-4">
+<!-- APs Stepper -->
+<div class="bg-surface-container-highest rounded-xl p-4 flex flex-col justify-between h-32">
+<label class="text-xs font-bold text-stone-500 uppercase">Extra APs</label>
+<div class="flex items-center justify-between">
+<span class="text-2xl font-extrabold text-primary">+2</span>
+<div class="flex flex-col gap-1">
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-primary">
+<span class="material-symbols-outlined text-sm font-bold">add</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-stone-300">
+<span class="material-symbols-outlined text-sm font-bold">remove</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Activities Stepper -->
+<div class="bg-surface-container-highest rounded-xl p-4 flex flex-col justify-between h-32">
+<label class="text-xs font-bold text-stone-500 uppercase">New Activities</label>
+<div class="flex items-center justify-between">
+<span class="text-2xl font-extrabold text-primary">+1</span>
+<div class="flex flex-col gap-1">
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-primary">
+<span class="material-symbols-outlined text-sm font-bold">add</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-stone-300">
+<span class="material-symbols-outlined text-sm font-bold">remove</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Impact Results Section -->
+<section class="space-y-4">
+<div class="flex items-center justify-between pl-1">
+<h2 class="text-lg font-serif font-bold text-primary">How Your Chances Change</h2>
+<span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Simulated Forecast</span>
+</div>
+<div class="grid grid-cols-1 gap-3">
+<!-- School Row 1 -->
+<div class="bg-white rounded-xl p-4 flex items-center justify-between shadow-sm border border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">school</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">University of Florida</p>
+<p class="text-xs text-stone-400">Target School</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<p class="text-[10px] font-bold text-stone-400 uppercase leading-none mb-1">Impact</p>
+<p class="text-lg font-extrabold text-secondary">+22%</p>
+</div>
+<div class="relative w-12 h-12">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-stone-100" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-secondary-fixed" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="40" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold">68%</div>
+</div>
+</div>
+</div>
+<!-- School Row 2 -->
+<div class="bg-white rounded-xl p-4 flex items-center justify-between shadow-sm border border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Florida State University</p>
+<p class="text-xs text-stone-400">Target School</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<p class="text-[10px] font-bold text-stone-400 uppercase leading-none mb-1">Impact</p>
+<p class="text-lg font-extrabold text-secondary">+13%</p>
+</div>
+<div class="relative w-12 h-12">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-stone-100" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-secondary-fixed" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="25" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold">81%</div>
+</div>
+</div>
+</div>
+<!-- School Row 3 -->
+<div class="bg-white rounded-xl p-4 flex items-center justify-between shadow-sm border border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">diversity_3</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">UCF</p>
+<p class="text-xs text-stone-400">Likely School</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<p class="text-[10px] font-bold text-stone-400 uppercase leading-none mb-1">Impact</p>
+<p class="text-lg font-extrabold text-secondary">+6%</p>
+</div>
+<div class="relative w-12 h-12">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-stone-100" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-secondary-fixed" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="10" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold">92%</div>
+</div>
+</div>
+</div>
+<!-- School Row 4 -->
+<div class="bg-white rounded-xl p-4 flex items-center justify-between shadow-sm border border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">biotech</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">MIT</p>
+<p class="text-xs text-stone-400">Reach School</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<p class="text-[10px] font-bold text-stone-400 uppercase leading-none mb-1">Impact</p>
+<p class="text-lg font-extrabold text-secondary">+3%</p>
+</div>
+<div class="relative w-12 h-12">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-stone-100" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-secondary-fixed" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="118" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold">6%</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Insight Card -->
+<section class="bg-primary/5 border border-primary/10 rounded-xl p-5 flex gap-4">
+<div class="w-10 h-10 shrink-0 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-primary mb-1">Biggest impact</h3>
+<p class="text-sm text-stone-700 leading-relaxed">
+                    Raising your SAT by <span class="font-bold text-primary">60 points</span> would improve your <span class="font-bold">UF</span> chances by <span class="font-bold text-secondary">22%</span>.
+                </p>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Contextual/Fixed) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 glass-nav bg-surface/70 rounded-t-[24px] shadow-[0_-4px_40px_rgba(31,27,21,0.06)]">
+<a class="flex flex-col items-center justify-center text-stone-500 px-5 py-2" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest">Mission</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 px-5 py-2" href="#">
+<span class="material-symbols-outlined mb-1">calendar_month</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest">Deadlines</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-primary to-primary-container text-white rounded-2xl px-5 py-2 scale-90" href="#">
+<span class="material-symbols-outlined mb-1">school</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest">Schools</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 px-5 py-2" href="#">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest">Scholarships</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 px-5 py-2" href="#">
+<span class="material-symbols-outlined mb-1">group</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest">Peer</span>
+</a>
+</nav>
+</body></html>

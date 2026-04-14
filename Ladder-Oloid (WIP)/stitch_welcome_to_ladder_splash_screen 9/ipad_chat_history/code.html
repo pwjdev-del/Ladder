@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Atelier AI | Chat History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;700&amp;family=Montserrat:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#c9ecc2",
+                    "tertiary-container": "#8d6a48",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary": "#725232",
+                    "surface-container-highest": "#eae1d7",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdcbd",
+                    "secondary": "#516600",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-container": "#caf24d",
+                    "primary-container": "#5a7956",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1f1b15",
+                    "on-primary-container": "#e2ffda",
+                    "surface": "#fff8f2",
+                    "on-primary-fixed": "#052107",
+                    "surface-container": "#f5ede2",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-tint": "#486644",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "on-background": "#1f1b15",
+                    "secondary-fixed": "#caf24d",
+                    "on-secondary-container": "#566c00",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "primary": "#42603f",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "inverse-on-surface": "#f8efe5",
+                    "background": "#fff8f2",
+                    "surface-dim": "#e1d9cf",
+                    "outline": "#737970",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-container-low": "#fbf2e8",
+                    "surface-container-high": "#efe7dd",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-bright": "#fff8f2",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"],
+                    "ui": ["Montserrat"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .font-ui { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed">
+<aside class="fixed left-0 top-0 h-screen flex flex-col py-8 px-6 h-full w-72 bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="mb-12 px-2">
+<h1 class="text-2xl font-serif italic text-[#42603f] dark:text-[#fbf2e8]">The Atelier</h1>
+<p class="font-ui text-[10px] uppercase tracking-widest text-stone-500 mt-1">Ad Astra Per Aspera</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 group" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-ui text-sm font-medium tracking-tight">Home</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 group" href="#">
+<span class="material-symbols-outlined">checklist</span>
+<span class="font-ui text-sm font-medium tracking-tight">Tasks</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 group" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-ui text-sm font-medium tracking-tight">Colleges</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 group" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-ui text-sm font-medium tracking-tight">Applications</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-[#1f1b15] dark:text-[#fbf2e8] font-bold border-r-4 border-[#5A7956] bg-[#eae1d7] dark:bg-stone-800 group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-ui text-sm font-medium tracking-tight">Advisor</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 group" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-ui text-sm font-medium tracking-tight">Financial</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 group" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="font-ui text-sm font-medium tracking-tight">Career</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 group" href="#">
+<span class="material-symbols-outlined">home_pin</span>
+<span class="font-ui text-sm font-medium tracking-tight">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 group" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-ui text-sm font-medium tracking-tight">Reports</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-stone-200/50">
+<button class="w-full flex items-center justify-center gap-2 py-4 px-6 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-ui text-xs font-bold uppercase tracking-widest shadow-xl shadow-primary/10 transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg">chat_bubble</span>
+                Direct Message Advisor
+            </button>
+<div class="mt-8 flex items-center gap-4 px-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Student profile picture" class="w-full h-full object-cover" data-alt="portrait of a young college student with glasses and a thoughtful expression in a soft-lit indoor library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcCPUNKc2gGoAKw1QjnvgiUmfvnwMmrMPkwySRzhFesTuD8QLdco8rrGLoo9wcN8d37G2NbX7cpG4A7wikdnC9WBINXadumXCJkMGhrt7oGxX2ftPKknopFZzD15hPoz1NiNdCRVDVYgL1y1S_p4RrGsTu34syrIBhSVCgcGVxbeye4j94DpPX0FKap-TEFHrqB1qn0VxJ7O7SgH7zWXb2hp4zlLX_fx7SVce-JmGNmrNMJP5_QyFYCc1qm2dJzYg2kngYCPWhVN8"/>
+</div>
+<div>
+<p class="font-ui text-sm font-bold text-on-surface">Alex Rivera</p>
+<p class="font-ui text-[10px] text-stone-400 uppercase tracking-tighter">Undergraduate Class of '26</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="ml-72 min-h-screen">
+<header class="sticky top-0 z-40 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-3xl flex justify-between items-center w-full px-12 h-20">
+<div class="flex items-center gap-8">
+<span class="font-serif italic text-2xl text-primary">Chat History</span>
+<nav class="flex gap-6">
+<a class="font-ui text-xs uppercase tracking-widest text-[#1f1b15] dark:text-[#fbf2e8] border-b-2 border-[#caf24d] pb-2" href="#">Chat</a>
+<a class="font-ui text-xs uppercase tracking-widest text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-all" href="#">Essay Hub</a>
+<a class="font-ui text-xs uppercase tracking-widest text-stone-500 dark:text-stone-400 hover:text-[#5A7956] transition-all" href="#">Review</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<input class="w-64 bg-surface-container-low border-none rounded-full px-6 py-2 text-sm font-ui focus:ring-2 focus:ring-primary/20 placeholder-stone-400" placeholder="Search archives..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-stone-400">search</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-stone-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<section class="max-w-[700pt] mx-auto py-16 px-8">
+<div class="mb-12 flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-serif font-bold text-on-surface tracking-tight leading-tight">Journal of <br/><span class="italic text-primary">Academic Inquiry</span></h2>
+<p class="text-stone-500 font-ui text-sm mt-4 uppercase tracking-[0.2em]">Archived Dialogues with Atelier AI</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high text-on-surface text-xs font-ui font-bold uppercase tracking-wider hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                        Filter
+                    </button>
+</div>
+</div>
+<div class="space-y-6">
+<!-- Chat Card 1 -->
+<div class="relative group">
+<div class="absolute inset-0 bg-error/10 rounded-xl flex items-center justify-end px-8 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined">delete</span>
+<span class="font-ui font-bold text-xs uppercase tracking-widest">Swipe to archive</span>
+</div>
+</div>
+<div class="relative bg-surface-container-low hover:bg-surface-container-highest transition-all p-8 rounded-xl flex items-start gap-6 cursor-pointer group-hover:-translate-x-2">
+<div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 text-secondary">
+<span class="material-symbols-outlined text-3xl">auto_awesome</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-serif text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Structuring the Yale Supplemental Essay</h3>
+<span class="font-ui text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-1">OCT 12, 2023</span>
+</div>
+<p class="text-stone-600 line-clamp-2 text-sm leading-relaxed mb-4 italic">"I've outlined three potential hooks for the 'Why Yale' prompt. The first focuses on the residential college system..."</p>
+<div class="flex items-center gap-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary text-[10px] font-ui font-bold uppercase tracking-widest shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">forum</span>
+                                    18 messages
+                                </span>
+<span class="font-ui text-[10px] text-stone-400 font-bold uppercase tracking-widest">2.4m Read</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Card 2 -->
+<div class="relative group">
+<div class="relative bg-surface-container-low hover:bg-surface-container-highest transition-all p-8 rounded-xl flex items-start gap-6 cursor-pointer group-hover:-translate-x-2">
+<div class="w-14 h-14 rounded-full bg-primary-fixed-dim flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined text-3xl">history_edu</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-serif text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Research Methodology: Behavioral Economics</h3>
+<span class="font-ui text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-1">SEP 28, 2023</span>
+</div>
+<p class="text-stone-600 line-clamp-2 text-sm leading-relaxed mb-4 italic">"Based on your interest in nudge theory, we should explore how choice architecture affects college savings plans..."</p>
+<div class="flex items-center gap-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary text-[10px] font-ui font-bold uppercase tracking-widest shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">forum</span>
+                                    42 messages
+                                </span>
+<span class="font-ui text-[10px] text-stone-400 font-bold uppercase tracking-widest">8.1m Read</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Card 3 -->
+<div class="relative group">
+<div class="relative bg-surface-container-low hover:bg-surface-container-highest transition-all p-8 rounded-xl flex items-start gap-6 cursor-pointer group-hover:-translate-x-2">
+<div class="w-14 h-14 rounded-full bg-tertiary-fixed flex items-center justify-center flex-shrink-0 text-tertiary">
+<span class="material-symbols-outlined text-3xl">emoji_objects</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-serif text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Common App Personal Statement - Draft 2</h3>
+<span class="font-ui text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-1">AUG 15, 2023</span>
+</div>
+<p class="text-stone-600 line-clamp-2 text-sm leading-relaxed mb-4 italic">"The transition between the third and fourth paragraph feels a bit abrupt. Let's try connecting the sourdough metaphor to..."</p>
+<div class="flex items-center gap-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary text-[10px] font-ui font-bold uppercase tracking-widest shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">forum</span>
+                                    124 messages
+                                </span>
+<span class="font-ui text-[10px] text-stone-400 font-bold uppercase tracking-widest">15.5m Read</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Card 4 -->
+<div class="relative group opacity-60">
+<div class="relative bg-surface-container-low hover:bg-surface-container-highest transition-all p-8 rounded-xl flex items-start gap-6 cursor-pointer group-hover:-translate-x-2">
+<div class="w-14 h-14 rounded-full bg-surface-variant flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined text-3xl">school</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-serif text-xl font-bold text-on-surface">Standardized Testing Strategy</h3>
+<span class="font-ui text-[10px] text-stone-400 font-bold uppercase tracking-widest mt-1">JUN 02, 2023</span>
+</div>
+<p class="text-stone-600 line-clamp-2 text-sm leading-relaxed mb-4 italic">"Considering the test-optional policies of your reach schools, we should focus on the AP exams as primary rigor indicators..."</p>
+<div class="flex items-center gap-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary text-[10px] font-ui font-bold uppercase tracking-widest shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">forum</span>
+                                    5 messages
+                                </span>
+<span class="font-ui text-[10px] text-stone-400 font-bold uppercase tracking-widest">1.1m Read</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / Pagination Hint -->
+<div class="mt-20 border-t border-stone-200/50 pt-12 flex flex-col items-center">
+<div class="mb-4 flex -space-x-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border-4 border-surface overflow-hidden">
+<img alt="advisor 1" class="w-full h-full object-cover" data-alt="close-up of a smiling academic professional with grey hair and glasses in a brightly lit office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4XJR2RIM-cAixT3ouOQncKsKKjl8t56b71tvrZfG_YVkfnJduXtjakcmLTLuZ3u_GjCrkuQ0y718W0qycAA-Lba6JUN1O8pIZ3b2PnqMJt98U2Aq5Rj1TP2BeczZFH43EFtHOjvVpFp-2fFX1SqsOHydBE1WRqkx8Ah1ccwuFWi44xYFMGzXxe92crWr3xrjApcMCa7JYvnZ9rX2_h_hQDxx0Efr7umqZW1GUXVOKl1GCA4HFieYwJmgcM0kPRV33ZbqfpJ2Kttc"/>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border-4 border-surface overflow-hidden">
+<img alt="advisor 2" class="w-full h-full object-cover" data-alt="professional portrait of a young woman with a warm expression and curly hair in an editorial office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8mvjz372hNxvAl2PbvkRQa0eyhu4r7LdDEn7zuv7-QuU9vL_s_va7e8vpqwMwa9_Zg-g21PRFGXkusKkAEy0mDYNqK4lptbVsTA6mUxp1azGcaHRCK4VG8RLhnwfHj_L43-Rp57NzDEDSaLv8PnYAErA1eX9ge6BNF3ZaVkNb16KeHoZRKuhbnYLwHe0f0hbDzXNxcJdu2kXC9eW5rZUrCPHZ0NzmrztQfso69FfIQ-pHOMYBuC0IUTtZbVWdT9zP9MUZ370Sc08"/>
+</div>
+</div>
+<p class="font-serif italic text-stone-500 text-center max-w-sm">"The archive is not a destination, but a springboard for your next great insight."</p>
+<button class="mt-8 px-8 py-3 rounded-xl border border-primary/20 text-primary font-ui text-xs font-bold uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-all">Load Earlier Archives</button>
+</div>
+</section>
+</main>
+<!-- Ladder Progress Accent -->
+<div class="fixed right-0 top-0 w-1 h-screen bg-surface-container-highest z-50">
+<div class="w-full h-2/3 bg-secondary-fixed shadow-[0_0_20px_rgba(202,242,77,0.4)]"></div>
+</div>
+</body></html>

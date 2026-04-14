@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-primary": "#aed0a7",
+                    "primary-fixed-dim": "#aed0a7",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#caf24d",
+                    "surface-bright": "#fff8f2",
+                    "primary": "#42603f",
+                    "surface-container-high": "#efe7dd",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#f5ede2",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#8d6a48",
+                    "inverse-surface": "#343029",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-primary-fixed": "#052107",
+                    "secondary-fixed": "#caf24d",
+                    "primary-fixed": "#c9ecc2",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#e1d9cf",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-fixed": "#161e00",
+                    "background": "#fff8f2",
+                    "on-background": "#1f1b15",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "surface": "#fff8f2",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#516600",
+                    "outline": "#737970",
+                    "on-secondary-container": "#566c00",
+                    "surface-tint": "#486644",
+                    "surface-container-highest": "#eae1d7",
+                    "primary-container": "#5a7956",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "outline-variant": "#c3c8be",
+                    "on-surface": "#1f1b15",
+                    "on-tertiary-fixed-variant": "#5e4122"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif-italic { font-family: 'Noto Serif', serif; font-style: italic; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { backdrop-filter: blur(20px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Navigation Drawer (SideNav) -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-6 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 rounded-r-3xl border-r-0 shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)]">
+<!-- Profile Header -->
+<div class="flex flex-col mb-10">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Student Portrait" class="w-full h-full object-cover" data-alt="professional portrait of a confident university student in a library setting with warm academic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl0S2Lam1Dy5m-O9bzvjfp_mh51kGWbN2zhzRS_dXjjN536WlDzKyJCwGQ6Z6hMHiTTRyI4iNqGR-gBPWkR3_0DlpQDS28VXkw-McmDcmb1HbNrX8gIq_b93IdJIO5v7hLFm4pthen9cjyXD67D4fMzV7Rrily_VMByAXgh9LC3UkhPrhcMv2Zu-D9l4ky5kW-WCt1ep7G1_SdBXpMLuCWC9Zstrf2x1sEX9-_pUhRoR69D7wxKcRjYqPjONhMiF1k0x6v3-89ioI"/>
+</div>
+<div>
+<h2 class="text-xl font-serif italic text-[#42603f] dark:text-stone-100">Academic Atelier</h2>
+<p class="text-xs font-sans text-stone-500">Class of 2025</p>
+</div>
+</div>
+<span class="text-[10px] tracking-widest uppercase font-bold text-[#42603f]/60">Premium Access</span>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">monetization_on</span>
+<span class="text-sm font-sans">Financial Aid</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-sm font-sans">Scholarships</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-sm font-sans">Match Score</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#42603f] text-[#fbf2e8] rounded-xl transition-all scale-95 active:opacity-80" href="#">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="text-sm font-sans">Aid Comparison</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-sm font-sans">Test Prep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-sm font-sans">Score Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-sm font-sans">Schedule</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-12 py-8 sticky top-0 z-30 bg-[#fff8f2]/70 backdrop-blur-xl">
+<h1 class="font-serif text-4xl font-light tracking-tight text-[#42603f]">Financial Aid Comparison</h1>
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary/5 transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-xl">add</span>
+<span class="text-sm uppercase tracking-wider">Add School</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden cursor-pointer active:scale-95 transition-transform">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close-up headshot of a student with a friendly expression, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCypWuJer8tyBxyvBD42sEAaVJHPMCQcUGnNQfHibzDH0YKwmdV_bo9IxwDpcIdYp8Uy6rcfFeCD18-MqyYSWdjPWS26XEkixAKi0WLEFWdOpVgyNGpEdg_cXwBuPjlkQBWPSBAuoeXbN5WBbnQsm8NlMmu2iAdypJA2zqysSWLoT_Wr2fuizcBhcIBmGiOJx-MB1PTdAcFPfB5fkD-pLSI6e3MHb2bcrWRTbo0u4ClunEpKBzzcfUwAfu-BF4Spco91rGRSkCjSw"/>
+</div>
+</div>
+</header>
+<!-- Comparison Canvas -->
+<div class="px-12 pb-16">
+<!-- Table Container with Asymmetric spacing and Tonal Layering -->
+<div class="bg-surface-container-low rounded-3xl overflow-hidden mb-8">
+<div class="overflow-x-auto no-scrollbar">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="p-8 text-left w-1/4">
+<span class="font-serif italic text-2xl text-primary/40 block mb-1">Metrics</span>
+<span class="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant/60">Annual Assessment</span>
+</th>
+<!-- School 1 -->
+<th class="p-8 text-center min-w-[240px]">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-4">
+<span class="material-symbols-outlined text-3xl text-[#1d4e89]">school</span>
+</div>
+<h3 class="font-serif text-xl text-on-surface">Stanford University</h3>
+</div>
+</th>
+<!-- School 2 -->
+<th class="p-8 text-center min-w-[240px]">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-4">
+<span class="material-symbols-outlined text-3xl text-[#990000]">account_balance</span>
+</div>
+<h3 class="font-serif text-xl text-on-surface">Harvard College</h3>
+</div>
+</th>
+<!-- School 3 -->
+<th class="p-8 text-center min-w-[240px]">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-4">
+<span class="material-symbols-outlined text-3xl text-[#00356b]">location_city</span>
+</div>
+<h3 class="font-serif text-xl text-on-surface">Yale University</h3>
+</div>
+</th>
+</tr>
+</thead>
+<tbody class="text-sm font-medium">
+<!-- COA Section -->
+<tr class="bg-surface-container-high/30">
+<td class="px-8 py-4 font-bold text-primary tracking-widest uppercase text-[11px]" colspan="4">Cost of Attendance (COA)</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-semibold">Tuition &amp; Fees</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$62,484</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$54,269</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$64,700</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-semibold">Room &amp; Board</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$19,922</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$20,250</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$18,450</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-semibold">Books &amp; Personal</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$3,150</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$2,800</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$3,200</td>
+</tr>
+<!-- Financial Aid Section -->
+<tr class="bg-surface-container-high/30">
+<td class="px-8 py-4 font-bold text-primary tracking-widest uppercase text-[11px]" colspan="4">Financial Aid &amp; Awards</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-semibold">University Grants</td>
+<td class="px-8 py-5 text-right font-body text-secondary font-bold">-$58,200</td>
+<td class="px-8 py-5 text-right font-body text-secondary font-bold">-$62,500</td>
+<td class="px-8 py-5 text-right font-body text-secondary font-bold">-$54,000</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-semibold">Federal Loans</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$0</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$3,500</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$2,500</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-5 text-on-surface-variant font-semibold">Work Study</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$3,000</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$2,500</td>
+<td class="px-8 py-5 text-right font-body text-on-surface">$2,800</td>
+</tr>
+<!-- Totals Section -->
+<tr class="bg-primary/5">
+<td class="px-8 py-6 font-serif text-lg text-primary italic">Net Cost (Annual)</td>
+<td class="px-8 py-6 text-right font-body text-xl font-bold text-on-surface">$27,356</td>
+<td class="px-8 py-6 text-right font-body text-xl font-bold text-secondary">
+<div class="flex items-center justify-end gap-2">
+<span>$14,819</span>
+<span class="material-symbols-outlined text-secondary scale-75" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+</td>
+<td class="px-8 py-6 text-right font-body text-xl font-bold text-on-surface">$32,650</td>
+</tr>
+<tr class="bg-primary text-white">
+<td class="px-8 py-6 font-serif text-xl italic">4-Year Projected Total</td>
+<td class="px-8 py-6 text-right font-body text-2xl font-bold">$109,424</td>
+<td class="px-8 py-6 text-right font-body text-2xl font-bold text-secondary-container">$59,276</td>
+<td class="px-8 py-6 text-right font-body text-2xl font-bold">$130,600</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Asymmetric Grid for Recommendations and Actions -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- AI recommendation card -->
+<div class="col-span-8 bg-surface-container-highest rounded-3xl p-8 relative overflow-hidden group">
+<div class="absolute -right-12 -top-12 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[160px]">auto_awesome</span>
+</div>
+<div class="flex items-start gap-6 relative z-10">
+<div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-secondary-fixed shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-serif text-2xl text-primary italic mb-3">AI Strategic Recommendation</h4>
+<p class="text-on-surface-variant leading-relaxed text-sm mb-4 max-w-2xl">
+                                Harvard College offers the strongest financial outlook with a <span class="text-primary font-bold">46% lower total cost</span> compared to Yale. Based on your family contribution and intended major in Architecture, the high grant ratio at Harvard minimizes future debt load significantly.
+                            </p>
+<div class="flex gap-4">
+<button class="text-xs font-bold uppercase tracking-wider text-primary py-2 px-4 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors">Deep Dive Analysis</button>
+<button class="text-xs font-bold uppercase tracking-wider text-on-surface-variant py-2 px-4 hover:underline">Dismiss</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Export & Side Actions -->
+<div class="col-span-4 flex flex-col gap-4">
+<button class="w-full py-6 rounded-2xl border-2 border-outline-variant text-on-surface font-bold flex items-center justify-center gap-3 hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">ios_share</span>
+<span class="uppercase tracking-widest text-sm">Export Comparison</span>
+</button>
+<div class="p-6 rounded-2xl bg-secondary-container/10 border-2 border-secondary-container/20">
+<p class="text-[10px] font-bold uppercase tracking-tighter text-secondary mb-2">Pro Tip</p>
+<p class="text-xs text-on-surface-variant">Update your FAFSA status to see real-time changes in federal loan eligibility across all tracked schools.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Sparkle Element -->
+<div class="fixed bottom-10 right-10 z-50">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-[0_20px_40px_rgba(66,96,63,0.3)] cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</div>
+</div>
+</body></html>

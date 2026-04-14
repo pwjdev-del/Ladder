@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ladder - Complete Product Flowchart</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    overflow-x: hidden;
+  }
+
+  .header {
+    text-align: center;
+    padding: 40px 20px 20px;
+    background: linear-gradient(180deg, #12121a 0%, #0a0a0f 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+  }
+  .header p {
+    color: #888;
+    margin-top: 8px;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+  .header .subtitle {
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    flex-wrap: wrap;
+  }
+  .controls button {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    color: #aaa;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .controls button:hover, .controls button.active {
+    background: rgba(99,102,241,0.2);
+    border-color: rgba(99,102,241,0.5);
+    color: #c4b5fd;
+  }
+
+  .canvas {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* FLOW SECTION */
+  .flow-section {
+    margin-bottom: 40px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+  }
+  .flow-section.hidden { display: none; }
+
+  .section-header {
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .section-header .icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    flex: 1;
+  }
+  .section-header .phase-tag {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .section-header .toggle {
+    color: #555;
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+  }
+  .section-header .toggle.open { transform: rotate(180deg); }
+
+  .section-body {
+    padding: 0 28px 28px;
+  }
+  .section-body.collapsed { display: none; }
+
+  /* FLOW NODES */
+  .flow-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+  }
+  .flow-col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .node {
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    transition: all 0.2s;
+  }
+  .node:hover {
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-1px);
+  }
+  .node h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .node p, .node li {
+    font-size: 0.75rem;
+    color: #999;
+    line-height: 1.5;
+  }
+  .node ul {
+    list-style: none;
+    padding: 0;
+  }
+  .node ul li::before {
+    content: ">";
+    margin-right: 6px;
+    color: #555;
+    font-weight: 700;
+  }
+
+  /* CONNECTOR */
+  .connector {
+    text-align: center;
+    padding: 6px 0;
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+  .connector.arrow-down::after { content: ""; }
+
+  /* DECISION NODE */
+  .node.decision {
+    border-style: dashed;
+    background: rgba(251,191,36,0.04);
+    border-color: rgba(251,191,36,0.2);
+  }
+  .node.decision h4::before {
+    content: "?  ";
+    color: #fbbf24;
+  }
+
+  /* COLOR THEMES */
+  .theme-purple .icon { background: rgba(99,102,241,0.15); color: #818cf8; }
+  .theme-purple .section-header { background: rgba(99,102,241,0.04); }
+  .theme-purple .phase-tag { background: rgba(99,102,241,0.1); color: #a5b4fc; }
+  .theme-purple .node { background: rgba(99,102,241,0.03); }
+  .theme-purple .node h4 { color: #c4b5fd; }
+
+  .theme-green .icon { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .theme-green .section-header { background: rgba(34,197,94,0.04); }
+  .theme-green .phase-tag { background: rgba(34,197,94,0.1); color: #86efac; }
+  .theme-green .node { background: rgba(34,197,94,0.03); }
+  .theme-green .node h4 { color: #86efac; }
+
+  .theme-blue .icon { background: rgba(56,189,248,0.15); color: #38bdf8; }
+  .theme-blue .section-header { background: rgba(56,189,248,0.04); }
+  .theme-blue .phase-tag { background: rgba(56,189,248,0.1); color: #7dd3fc; }
+  .theme-blue .node { background: rgba(56,189,248,0.03); }
+  .theme-blue .node h4 { color: #7dd3fc; }
+
+  .theme-orange .icon { background: rgba(251,146,60,0.15); color: #fb923c; }
+  .theme-orange .section-header { background: rgba(251,146,60,0.04); }
+  .theme-orange .phase-tag { background: rgba(251,146,60,0.1); color: #fdba74; }
+  .theme-orange .node { background: rgba(251,146,60,0.03); }
+  .theme-orange .node h4 { color: #fdba74; }
+
+  .theme-pink .icon { background: rgba(236,72,153,0.15); color: #f472b6; }
+  .theme-pink .section-header { background: rgba(236,72,153,0.04); }
+  .theme-pink .phase-tag { background: rgba(236,72,153,0.1); color: #f9a8d4; }
+  .theme-pink .node { background: rgba(236,72,153,0.03); }
+  .theme-pink .node h4 { color: #f9a8d4; }
+
+  .theme-teal .icon { background: rgba(45,212,191,0.15); color: #2dd4bf; }
+  .theme-teal .section-header { background: rgba(45,212,191,0.04); }
+  .theme-teal .phase-tag { background: rgba(45,212,191,0.1); color: #5eead4; }
+  .theme-teal .node { background: rgba(45,212,191,0.03); }
+  .theme-teal .node h4 { color: #5eead4; }
+
+  .theme-red .icon { background: rgba(239,68,68,0.15); color: #f87171; }
+  .theme-red .section-header { background: rgba(239,68,68,0.04); }
+  .theme-red .phase-tag { background: rgba(239,68,68,0.1); color: #fca5a5; }
+  .theme-red .node { background: rgba(239,68,68,0.03); }
+  .theme-red .node h4 { color: #fca5a5; }
+
+  .theme-yellow .icon { background: rgba(250,204,21,0.15); color: #facc15; }
+  .theme-yellow .section-header { background: rgba(250,204,21,0.04); }
+  .theme-yellow .phase-tag { background: rgba(250,204,21,0.1); color: #fde68a; }
+  .theme-yellow .node { background: rgba(250,204,21,0.03); }
+  .theme-yellow .node h4 { color: #fde68a; }
+
+  /* GRID LAYOUT */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+  .big-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    font-size: 0.8rem;
+    color: #444;
+    gap: 8px;
+    font-weight: 500;
+  }
+  .big-arrow .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #333, transparent);
+  }
+
+  .note-box {
+    background: rgba(251,191,36,0.04);
+    border: 1px dashed rgba(251,191,36,0.15);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 12px;
+    font-size: 0.75rem;
+    color: #a89050;
+    line-height: 1.6;
+  }
+  .note-box strong { color: #fbbf24; }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .header h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>LADDER</h1>
+  <p>The Student-to-College Pathway Platform</p>
+  <div class="subtitle">Complete Product Flowchart &mdash; Every idea, every feature, mapped out</div>
+</div>
+
+<div class="controls">
+  <button class="active" onclick="showAll(this)">All Phases</button>
+  <button onclick="filterPhase('onboarding', this)">Onboarding</button>
+  <button onclick="filterPhase('freshman', this)">9th Grade</button>
+  <button onclick="filterPhase('sophomore', this)">10th Grade</button>
+  <button onclick="filterPhase('junior', this)">11th Grade</button>
+  <button onclick="filterPhase('senior', this)">12th Grade</button>
+  <button onclick="filterPhase('college', this)">College Prep</button>
+  <button onclick="filterPhase('ai', this)">AI System</button>
+  <button onclick="filterPhase('data', this)">Data &amp; Privacy</button>
+  <button onclick="filterPhase('business', this)">Business</button>
+</div>
+
+<div class="canvas">
+
+  <!-- ============================================================ -->
+  <!-- 1. ONBOARDING -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-purple" data-phase="onboarding">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">1</div>
+      <h2>Student Onboarding &amp; Profile Creation</h2>
+      <span class="phase-tag">Phase 1 &mdash; Entry Point</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="node">
+          <h4>Account Creation</h4>
+          <ul>
+            <li>Sign up with Focus / PowerSchool account (school-based SSO)</li>
+            <li>Or manual email sign-up for non-integrated schools</li>
+            <li>Student ID number links to school system</li>
+            <li>Parent/guardian data collected (education, household income &mdash; like FAFSA)</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Transcript Upload</h4>
+          <ul>
+            <li>Student uploads unofficial transcript (from Focus/PowerSchool)</li>
+            <li>OR school uploads &amp; auto-approves official transcript</li>
+            <li>If student uploads &rarr; school must approve</li>
+            <li>AI parses grades, credits, GPA from transcript</li>
+            <li>Re-upload each year to update suggestions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="connector">&#8595;</div>
+      <div class="node">
+        <h4>Career Interest Quiz (Core Feature)</h4>
+        <ul>
+          <li>Short, entertaining, gamified quiz (not boring &mdash; think Duolingo vibes)</li>
+          <li>Covers: hobbies, potential college interests, money/lifestyle preferences</li>
+          <li>Outputs one of 5 broad pathways: <strong>STEM, Medical, Business, Humanities, Sports</strong></li>
+          <li>Results are SUGGESTIONS only &mdash; never forced &mdash; "passive" framing</li>
+          <li>Shows dropdown of potential majors under chosen pathway</li>
+          <li>Shows suggested jobs per field (with AI-generated descriptions)</li>
+          <li>"Wheel of Career" concept &mdash; visual representation of where student fits</li>
+          <li>Student can override: "Actually I want Medical, not STEM" &rarr; AI adapts</li>
+          <li>Quiz retaken EVERY YEAR to track evolving interests</li>
+        </ul>
+      </div>
+      <div class="note-box">
+        <strong>Key Decision from Brainstorm:</strong> Quizzes could also be created by freelance college counselors on the platform. Counselors ranked by quality. Top 50 counselors per state get featured. Students choose which counselor's quiz to take.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 2. FRESHMAN YEAR -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-green" data-phase="freshman">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">2</div>
+      <h2>Freshman Year (9th Grade) &mdash; Foundation Building</h2>
+      <span class="phase-tag">Phase 2</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="node">
+          <h4>Class Suggestions Engine</h4>
+          <ul>
+            <li>Based on career quiz + transcript analysis</li>
+            <li>AI categorizes classes: Easy / Moderate / Hard (AP)</li>
+            <li>"We think you will excel in AP Biology based on your 8th grade science grades"</li>
+            <li>Students pick classes in-app &rarr; data goes to counselor</li>
+            <li>If counselor changes schedule, app flags differences</li>
+            <li>Suggests AP classes to boost GPA ("even if you don't pass, having AP on transcript helps")</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Activity Tracker &mdash; The Big One</h4>
+          <p style="margin-bottom:8px; color:#86efac; font-weight:600;">4 General Categories (Required):</p>
+          <ul>
+            <li><strong>Athletics</strong> &mdash; sports, team manager, scorekeeper</li>
+            <li><strong>Volunteering</strong> &mdash; min 120 hours (Bright Futures FL)</li>
+            <li><strong>Clubs</strong> &mdash; at least 1 per year, show longevity</li>
+            <li><strong>Leadership</strong> &mdash; overarching across all categories</li>
+          </ul>
+          <p style="margin-top:10px; margin-bottom:8px; color:#86efac; font-weight:600;">6 Major-Specific Activities (Rated 1-10):</p>
+          <ul>
+            <li>1 Research Paper (mandatory for everyone)</li>
+            <li>Internship / Job experience</li>
+            <li>Interviews with professionals in field</li>
+            <li>Science fair projects / competitions</li>
+            <li>Awards &amp; competitions</li>
+            <li>Journals / portfolio pieces</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note-box">
+        <strong>Engagement Strategy:</strong> Duolingo-style streaks, levels, and gamification to keep students coming back. The earlier they start (freshman year), the bigger competitive advantage in college apps. Most students don't think about college until 11th grade &mdash; Ladder changes that.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 3. SOPHOMORE YEAR -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-blue" data-phase="sophomore">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">3</div>
+      <h2>Sophomore Year (10th Grade) &mdash; Refinement</h2>
+      <span class="phase-tag">Phase 3</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-3">
+        <div class="node">
+          <h4>Career Quiz Re-take</h4>
+          <ul>
+            <li>Updated hobbies &amp; interests</li>
+            <li>AI compares year-over-year changes</li>
+            <li>"You shifted from Medical to Tech &mdash; here's what that means for your classes"</li>
+            <li>Pivot suggestions if interests changed</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Updated Class Suggestions</h4>
+          <ul>
+            <li>Based on new transcript + updated quiz</li>
+            <li>"You're not taking Bio but want Medical? Try AP Bio"</li>
+            <li>Prereq tracking &mdash; what you need before junior year</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Continue Activity Building</h4>
+          <ul>
+            <li>Track volunteer hours (target: 120+ total)</li>
+            <li>Club membership continuity tracking</li>
+            <li>Start thinking about leadership roles</li>
+            <li>Early internship suggestions by field</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 4. JUNIOR YEAR -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-orange" data-phase="junior">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">4</div>
+      <h2>Junior Year (11th Grade) &mdash; Decision Time</h2>
+      <span class="phase-tag">Phase 4 &mdash; Critical Year</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="node" style="margin-bottom:16px;">
+        <h4>Major Decision Point</h4>
+        <p>"By junior year, you SHOULD know what you want. We've been suggesting for 2 years. Now it's time to commit to a direction."</p>
+      </div>
+      <div class="grid-2">
+        <div class="node">
+          <h4>SAT Preparation Track</h4>
+          <ul>
+            <li>Take SAT minimum 2x, suggested 3-4x</li>
+            <li>Fee waiver detection &mdash; auto-check if eligible (free lunch = free SAT)</li>
+            <li>Study timeline integration</li>
+            <li>Activities should mostly be DONE before SAT season so student can focus</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>College Preference Quiz</h4>
+          <ul>
+            <li>Separate from career quiz &mdash; focuses on college environment</li>
+            <li>OR: direct students to College Board's existing college quiz</li>
+            <li>Student takes screenshot of College Board results &rarr; uploads to Ladder</li>
+            <li>AI reads screenshot and creates personalized college list</li>
+          </ul>
+        </div>
+      </div>
+      <div class="connector">&#8595;</div>
+      <div class="node">
+        <h4>College Matching &amp; Suggestions</h4>
+        <ul>
+          <li>"Based on your grades, transcripts, career quiz, and SAT &mdash; here are top colleges for your major"</li>
+          <li>Best colleges by major AND by preference (size, location, vibe)</li>
+          <li>Tips on choosing &mdash; "go tour," visit campus suggestions</li>
+          <li>Differentiation: "College A is test-driven, College B values extracurriculars more"</li>
+          <li>Application essay prep begins</li>
+          <li>Letters of recommendation &mdash; checklist item ("go bug your counselor by X date")</li>
+        </ul>
+      </div>
+      <div class="note-box">
+        <strong>Scholarship Section:</strong> Links to scholarship search sites (like scholarshipsearch.net). Student takes quiz on external site &rarr; uploads matched scholarships to Ladder. AI creates action checklist for each scholarship. Also: detect if student qualifies for fee waivers, federal funding, or discounts based on parent background/income.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 5. SENIOR YEAR -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-pink" data-phase="senior">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">5</div>
+      <h2>Senior Year (12th Grade) &mdash; Application Season</h2>
+      <span class="phase-tag">Phase 5</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="node decision" style="margin-bottom:16px;">
+        <h4>Student has NOT been preparing since freshman year?</h4>
+        <p>Branch into alternative pathways: community college for 2 years &rarr; transfer, trade school, military, gap year to build prerequisites. Ladder still helps them &mdash; just a different track.</p>
+      </div>
+      <div class="grid-2">
+        <div class="node">
+          <h4>Application Checklist</h4>
+          <ul>
+            <li>Early Application: before Nov 1</li>
+            <li>Common App link per college</li>
+            <li>Each college gets its own page in Ladder</li>
+            <li>Virtual or in-person campus visits</li>
+            <li>Strong recommendation letters</li>
+            <li>"Keep grades up &mdash; colleges CAN revoke acceptance"</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Resume &amp; Portfolio Builder</h4>
+          <ul>
+            <li>One-page resume templates (Canva-style)</li>
+            <li>Personalization tips: match company/school brand colors</li>
+            <li>Portfolio of 4 years of activities, research papers, awards</li>
+            <li>Jobs &amp; internship listing by field + degree</li>
+          </ul>
+        </div>
+      </div>
+      <div class="connector">&#8595;</div>
+      <div class="node">
+        <h4>Housing Applications</h4>
+        <ul>
+          <li>Open Jan/Feb, close Mar/Apr typically</li>
+          <li>Tracked on each college's page</li>
+          <li>Reminders &amp; deadlines integrated</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 6. COLLEGE PAGES SYSTEM -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-teal" data-phase="college">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">6</div>
+      <h2>College Pages &amp; Post-Acceptance System</h2>
+      <span class="phase-tag">Phase 6 &mdash; Core Product</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="node decision" style="margin-bottom:16px;">
+        <h4>Student selects "I want to go to RIT" &mdash; does RIT page exist?</h4>
+        <p>If <strong>NO</strong> &rarr; AI creates the page automatically with link + starting checklist.<br>If <strong>YES</strong> &rarr; Student uses existing page. Original checklist available globally for other students.</p>
+      </div>
+      <div class="grid-2">
+        <div class="node">
+          <h4>College Page Contents (Pre-Application)</h4>
+          <ul>
+            <li>Direct link to admissions portal</li>
+            <li>Common App or institution-specific platform</li>
+            <li>Application checklist: transcripts, SAT, essays, recommendations</li>
+            <li>Deadlines: Early Action, Early Decision, Regular</li>
+            <li>Testing policy: test-optional vs required</li>
+            <li>Transcript type: SSAR vs official</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Application Status Tracking</h4>
+          <ul>
+            <li>Student marks: Applied / Deferred / Accepted / Denied</li>
+            <li>If applied but missing items &rarr; checklist stays active</li>
+            <li>If applied complete &rarr; "Awaiting Decision" state</li>
+            <li>Student stores their portal login link in Ladder</li>
+            <li>Student stores their student ID in Ladder ("so you don't forget")</li>
+          </ul>
+        </div>
+      </div>
+      <div class="big-arrow">
+        <span class="line"></span>
+        ACCEPTED
+        <span class="line"></span>
+      </div>
+      <div class="node" style="margin-bottom:16px;">
+        <h4>Post-Acceptance Checklist (Auto-Generated)</h4>
+        <ul>
+          <li>AI deletes completed pre-application items</li>
+          <li>Creates NEW checklist for enrolled students:</li>
+        </ul>
+        <div class="grid-2" style="margin-top:10px;">
+          <div>
+            <ul>
+              <li>Pay deposit (generalized if exact $ unknown)</li>
+              <li>Submit official transcripts (school sends directly)</li>
+              <li>Immunization forms</li>
+              <li>Apply for housing</li>
+            </ul>
+          </div>
+          <div>
+            <ul>
+              <li>Financial aid / FAFSA completion</li>
+              <li>Orientation sign-up</li>
+              <li>Meal plan selection</li>
+              <li>Final transcript submission after graduation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="note-box">
+        <strong>The Hard Problem:</strong> Post-acceptance checklists are behind login walls (admitted student portals). Every college is different, confusing, bad UI. Solution: generalize checklist items ("pay deposit" not "$50 deposit"). Over time, as hundreds of students upload their portal screenshots/emails, AI learns each college's specific checklist. Crowdsourced accuracy.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 7. AI SYSTEM -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-yellow" data-phase="ai">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">7</div>
+      <h2>AI Counselor System</h2>
+      <span class="phase-tag">Core Intelligence</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="node">
+          <h4>Personal AI Counselor</h4>
+          <ul>
+            <li>Present throughout the entire app experience</li>
+            <li>"Its brain is to be a college counselor"</li>
+            <li>Expert in colleges, updates every single day</li>
+            <li>Knows deadlines, requirements, checklists</li>
+            <li>Gives specific actionable advice, not vague ("go bug your counselor by March 1st")</li>
+            <li>Adapts suggestions based on quiz changes year-over-year</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>AI Capabilities</h4>
+          <ul>
+            <li>Parse transcripts (vision + text)</li>
+            <li>Read uploaded screenshots of college portals</li>
+            <li>Auto-create college pages from web data</li>
+            <li>Generate checklists from college websites</li>
+            <li>Scholarship matching from uploaded results</li>
+            <li>Resume building suggestions by field</li>
+            <li>Job research by degree (&rarr; "put in your degree, see jobs")</li>
+          </ul>
+        </div>
+      </div>
+      <div class="node" style="margin-top:12px;">
+        <h4>Prompt Engineering Principle</h4>
+        <p>"Make sure you always suggest &mdash; it feels like suggestion more than force. At any given point." The AI must frame EVERYTHING as suggestions, never mandates. Students always have final say.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 8. DATA & PRIVACY -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-red" data-phase="data">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">8</div>
+      <h2>Data Architecture &amp; Privacy</h2>
+      <span class="phase-tag">Technical Foundation</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="node">
+          <h4>Databases Needed</h4>
+          <ul>
+            <li>Supabase / Firebase for student data (uploads/downloads)</li>
+            <li>Login / auth system</li>
+            <li>College pages database (AI-generated, crowdsourced)</li>
+            <li>Student activities / portfolio storage</li>
+            <li>School information &amp; class catalog</li>
+            <li>Scholarship database</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Privacy &amp; FERPA Compliance</h4>
+          <ul>
+            <li>Student data (names, grades, IDs) protected by FL Dept of Ed law</li>
+            <li>Cannot get data publicly &mdash; need student consent</li>
+            <li>Start as individual students (not school-integrated)</li>
+            <li>Students upload their OWN data (consent at sign-up)</li>
+            <li>Encrypted storage &mdash; student ID + school API handshake</li>
+            <li>"The data you put in is your responsibility" disclaimer</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:12px;">
+        <div class="node">
+          <h4>Data Collection Strategy</h4>
+          <ul>
+            <li>Pre-admissions data: scrape public college websites (Firecrawl)</li>
+            <li>Post-admissions data: crowdsourced from students</li>
+            <li>Students forward "Welcome to X University" emails</li>
+            <li>Upload portal screenshots &rarr; AI extracts checklist</li>
+            <li>Over time: app "learns" each college's default checklists</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Firecrawl Scraping Plan</h4>
+          <ul>
+            <li>Top 300 US universities + all Florida state schools</li>
+            <li>Extract: name, location, acceptance rate, platforms, testing policy, deadlines</li>
+            <li>Build initial JSON database</li>
+            <li>NCES API for school district info (aggregate only)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 9. BUSINESS & GTM -->
+  <!-- ============================================================ -->
+  <div class="flow-section theme-purple" data-phase="business">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="icon">9</div>
+      <h2>Business Model &amp; Go-To-Market</h2>
+      <span class="phase-tag">Strategy</span>
+      <span class="toggle open">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="grid-2">
+        <div class="node">
+          <h4>Target Audience</h4>
+          <ul>
+            <li>Primary: first-generation college students</li>
+            <li>"Develop America through education" &mdash; solve the bottom layer problem</li>
+            <li>Students without access to good counselors</li>
+            <li>Parents who want kids to go to college but don't know the process</li>
+            <li>Florida-first focus, then expand state by state</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Dual User: Students + Counselors</h4>
+          <ul>
+            <li>Student-facing: full journey tracker</li>
+            <li>Counselor-facing: tool to manage students faster</li>
+            <li>"We want to make it student AND counselor"</li>
+            <li>Pitch to investors: counselor tool + student access</li>
+            <li>Counselor endorsement = credibility for adoption</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-top:12px;">
+        <div class="node">
+          <h4>Credibility Path</h4>
+          <ul>
+            <li>Start with individual students</li>
+            <li>Get counselor ambassadors (Ms. Gaber, Ms. Demlek)</li>
+            <li>Build engagement &rarr; millions of users</li>
+            <li>Then pitch to school districts / county</li>
+            <li>"If county makes you download this app..."</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Counselor Marketplace</h4>
+          <ul>
+            <li>Freelance counselors on the platform</li>
+            <li>Top 50 per state &mdash; ranked/published</li>
+            <li>Students find counselors within 100mi radius</li>
+            <li>Counselors create custom quizzes</li>
+            <li>Side business for counselors</li>
+          </ul>
+        </div>
+        <div class="node">
+          <h4>Revenue Ideas</h4>
+          <ul>
+            <li>Sponsor integration (scholarships, financial aid)</li>
+            <li>Counselor subscription fees</li>
+            <li>School district licensing</li>
+            <li>Freemium student access</li>
+          </ul>
+        </div>
+      </div>
+      <div class="node" style="margin-top:12px;">
+        <h4>Development Plan</h4>
+        <ul>
+          <li>2 weeks of pure research &amp; UI design before ANY code</li>
+          <li>Perplexity deep research &rarr; Claude Opus 4.6 implementation plan</li>
+          <li>"First prompt should get you 90% of the way there"</li>
+          <li>Platform: mobile app preferred (Duolingo-style UX), web app as backup</li>
+          <li>Tech: Supabase, Firebase, AI APIs, Firecrawl for scraping</li>
+        </ul>
+      </div>
+      <div class="note-box">
+        <strong>The Narrative:</strong> "Making America Smart Again." You're not just building an app &mdash; you're solving a country-level problem. There is a lot of money and information out there. Only thing is people don't know. And people don't want to because they get into the wrong places. Ladder fixes that.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleSection(header) {
+    const body = header.nextElementSibling;
+    const toggle = header.querySelector('.toggle');
+    body.classList.toggle('collapsed');
+    toggle.classList.toggle('open');
+  }
+
+  function showAll(btn) {
+    document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.flow-section').forEach(s => s.classList.remove('hidden'));
+  }
+
+  function filterPhase(phase, btn) {
+    document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.flow-section').forEach(s => {
+      s.classList.toggle('hidden', s.dataset.phase !== phase);
+    });
+  }
+</script>
+</body>
+</html>

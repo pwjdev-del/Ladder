@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>College Comparison | The Academic Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#f8efe5",
+                      "tertiary-fixed": "#ffdcbd",
+                      "tertiary": "#725232",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#052107",
+                      "on-background": "#1f1b15",
+                      "on-surface-variant": "#434840",
+                      "surface-variant": "#eae1d7",
+                      "surface-container-highest": "#eae1d7",
+                      "surface-container-low": "#fbf2e8",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "inverse-primary": "#aed0a7",
+                      "surface-bright": "#fff8f2",
+                      "primary-container": "#5a7956",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c3c8be",
+                      "inverse-surface": "#343029",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#1f1b15",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#caf24d",
+                      "surface-tint": "#486644",
+                      "surface-container-high": "#efe7dd",
+                      "secondary-fixed-dim": "#afd531",
+                      "primary": "#42603f",
+                      "surface": "#fff8f2",
+                      "on-tertiary-fixed": "#2c1600",
+                      "error-container": "#ffdad6",
+                      "secondary-container": "#caf24d",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "tertiary-container": "#8d6a48",
+                      "surface-container": "#f5ede2",
+                      "background": "#fff8f2",
+                      "primary-fixed-dim": "#aed0a7",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "primary-fixed": "#c9ecc2",
+                      "surface-dim": "#e1d9cf",
+                      "on-secondary-container": "#566c00",
+                      "secondary": "#516600",
+                      "on-secondary-fixed": "#161e00",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-container": "#fff5ee",
+                      "outline": "#737970",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "on-primary-container": "#e2ffda"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "1rem",
+                      "xl": "1.5rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Noto Serif"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .serif-italic { font-family: 'Noto Serif', serif; }
+        .glass-nav { backdrop-filter: blur(32px); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- SideNavBar Shell -->
+<aside class="flex flex-col h-screen py-8 z-40 h-full w-72 fixed left-0 top-0 bg-[#fbf2e8] dark:bg-stone-900 border-none">
+<div class="px-8 mb-12">
+<h1 class="text-xl font-bold font-serif text-[#1f1b15] dark:text-[#eae1d7] tracking-tight">The Academic Atelier</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-[#42603f] dark:text-[#5a7956] font-medium mt-1">College Prep Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="home">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="assignment">assignment</span>
+<span class="text-sm font-medium">Tasks</span>
+</a>
+<a class="flex items-center text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#42603f] dark:border-[#caf24d] pl-6 py-3 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="text-sm">Colleges</span>
+</a>
+<a class="flex items-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="description">description</span>
+<span class="text-sm font-medium">Applications</span>
+</a>
+<a class="flex items-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-sm font-medium">Advisor</span>
+</a>
+<a class="flex items-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="account_balance">account_balance</span>
+<span class="text-sm font-medium">Financial</span>
+</a>
+<a class="flex items-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="work">work</span>
+<span class="text-sm font-medium">Career</span>
+</a>
+<a class="flex items-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="home_work">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center text-[#1f1b15]/60 dark:text-[#eae1d7]/60 pl-6 py-3 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="bar_chart">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-8">
+<button class="w-full bg-primary text-white py-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+                Plan Success
+            </button>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="flex justify-end items-center px-12 h-20 w-full ml-72 sticky top-0 z-50 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-3xl shadow-sm shadow-[#1f1b15]/5">
+<div class="flex items-center gap-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-xs font-medium tracking-wide w-64 focus:ring-1 focus:ring-primary" placeholder="Search colleges..." type="text"/>
+</div>
+<div class="flex gap-4">
+<button class="text-stone-500 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-stone-500 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Student user portrait" class="w-full h-full object-cover" data-alt="Close-up portrait of an ambitious young student with a warm smile in a sunlit university library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2OQKegI6YJWTqXCc8b0VBisbGhD_rESKMCkrlRTAOhdqqPznQL7Wiucn1R4o_Lxy_rNLQLhlP27HxKjSjdkH7ALUZjGk7wASD2yf5rjZvbMoqI5hEd65q8kh5CN0f0joBi2lJwOLOyeedRvUoVdFDxKPgw0iSanr5nZIKcsM8ubZ93jRVP7tDhPeogz6RwQbgvU-wcduobsjLZJj86fsO0mDyWuGmYVCCYdE2ySCHMEBmSYzx1ByZp_eYChVabq7ewHOiLPAZkTo"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-72 p-12 bg-surface min-h-[calc(100vh-5rem)]">
+<!-- Header Section -->
+<div class="mb-12 flex items-baseline justify-between">
+<div>
+<h2 class="text-5xl font-bold tracking-tight text-on-background mb-2">College Comparison</h2>
+<p class="text-on-surface-variant font-medium serif-italic text-lg">Side-by-side analysis of your top academic targets.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs uppercase tracking-widest text-primary font-bold">Last Updated: Sep 12</span>
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span>
+</div>
+</div>
+<!-- Bento Grid: School Selectors -->
+<div class="grid grid-cols-4 gap-6 mb-12">
+<!-- Selector Base -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col justify-center items-center">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/40 mb-2">Metrics Layer</span>
+<span class="material-symbols-outlined text-4xl text-primary/30" data-icon="layers">layers</span>
+</div>
+<!-- Stanford -->
+<div class="bg-surface-container-highest rounded-xl p-8 flex flex-col items-center group cursor-pointer transition-all hover:scale-[1.02]">
+<div class="h-16 w-16 bg-white rounded-full flex items-center justify-center text-primary font-bold text-2xl shadow-sm mb-4">S</div>
+<h3 class="font-bold text-lg">Stanford University</h3>
+<span class="text-xs text-primary font-bold flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    Primary Target
+                </span>
+</div>
+<!-- Harvard -->
+<div class="bg-surface-container-highest rounded-xl p-8 flex flex-col items-center group cursor-pointer transition-all hover:scale-[1.02]">
+<div class="h-16 w-16 bg-white rounded-full flex items-center justify-center text-tertiary font-bold text-2xl shadow-sm mb-4">H</div>
+<h3 class="font-bold text-lg">Harvard University</h3>
+<span class="text-xs text-on-surface-variant/60 font-medium mt-1">High Reach</span>
+</div>
+<!-- MIT -->
+<div class="bg-surface-container-highest rounded-xl p-8 flex flex-col items-center group cursor-pointer transition-all hover:scale-[1.02]">
+<div class="h-16 w-16 bg-white rounded-full flex items-center justify-center text-blue-900 font-bold text-2xl shadow-sm mb-4">M</div>
+<h3 class="font-bold text-lg">MIT</h3>
+<span class="text-xs text-on-surface-variant/60 font-medium mt-1">Technical Target</span>
+</div>
+</div>
+<!-- Comparison Table Shell -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden mb-12">
+<div class="grid grid-cols-4 border-b border-outline-variant/10">
+<div class="p-6 font-bold uppercase text-[10px] tracking-widest text-on-surface-variant/60 bg-surface-container-high/50">Metric</div>
+<div class="p-6 font-bold uppercase text-[10px] tracking-widest text-on-surface-variant/60">Stanford</div>
+<div class="p-6 font-bold uppercase text-[10px] tracking-widest text-on-surface-variant/60">Harvard</div>
+<div class="p-6 font-bold uppercase text-[10px] tracking-widest text-on-surface-variant/60">MIT</div>
+</div>
+<!-- Acceptance Rate -->
+<div class="grid grid-cols-4 border-b border-outline-variant/10 items-center">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="group_add">group_add</span>
+<span class="text-sm font-semibold">Acceptance Rate</span>
+</div>
+<div class="p-6 text-sm font-medium">3.9%</div>
+<div class="p-6 text-sm font-medium">3.4%</div>
+<div class="p-6 text-sm font-bold text-primary flex items-center gap-2">
+                    4.1%
+                    <span class="bg-secondary-fixed/30 text-[10px] px-2 py-0.5 rounded-full text-on-secondary-container">BEST ODDS</span>
+</div>
+</div>
+<!-- Tuition -->
+<div class="grid grid-cols-4 border-b border-outline-variant/10 items-center">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+<span class="text-sm font-semibold">Annual Tuition</span>
+</div>
+<div class="p-6 text-sm font-medium">$56,169</div>
+<div class="p-6 text-sm font-medium">$54,768</div>
+<div class="p-6 text-sm font-bold text-primary flex items-center gap-2">
+                    $53,790
+                    <span class="material-symbols-outlined text-sm" data-icon="trending_down">trending_down</span>
+</div>
+</div>
+<!-- SAT Middle 50% -->
+<div class="grid grid-cols-4 border-b border-outline-variant/10 items-center">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="grade">grade</span>
+<span class="text-sm font-semibold">SAT (Mid 50%)</span>
+</div>
+<div class="p-6 text-sm font-medium">1440–1550</div>
+<div class="p-6 text-sm font-bold text-primary bg-secondary-fixed/10">1460–1580</div>
+<div class="p-6 text-sm font-medium">1510–1580</div>
+</div>
+<!-- ACT Range -->
+<div class="grid grid-cols-4 border-b border-outline-variant/10 items-center">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="task">task</span>
+<span class="text-sm font-semibold">ACT Range</span>
+</div>
+<div class="p-6 text-sm font-medium">32–35</div>
+<div class="p-6 text-sm font-medium">33–35</div>
+<div class="p-6 text-sm font-bold text-primary bg-secondary-fixed/10">34–36</div>
+</div>
+<!-- Enrollment -->
+<div class="grid grid-cols-4 border-b border-outline-variant/10 items-center">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="groups">groups</span>
+<span class="text-sm font-semibold">Enrollment</span>
+</div>
+<div class="p-6 text-sm font-medium">17,353</div>
+<div class="p-6 text-sm font-medium">23,731</div>
+<div class="p-6 text-sm font-medium">11,858</div>
+</div>
+<!-- Match % (Proprietary Algorithm) -->
+<div class="grid grid-cols-4 bg-primary/5 items-center">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="handshake" style="font-variation-settings: 'FILL' 1;">handshake</span>
+<span class="text-sm font-bold">Personal Match %</span>
+</div>
+<div class="p-6">
+<div class="w-full bg-surface h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[94%]"></div>
+</div>
+<span class="text-[10px] font-bold mt-1 block">94% — EXCELLENT</span>
+</div>
+<div class="p-6">
+<div class="w-full bg-surface h-2 rounded-full overflow-hidden">
+<div class="bg-stone-300 h-full w-[82%]"></div>
+</div>
+<span class="text-[10px] font-bold mt-1 block text-stone-400">82% — STRONG</span>
+</div>
+<div class="p-6">
+<div class="w-full bg-surface h-2 rounded-full overflow-hidden">
+<div class="bg-stone-300 h-full w-[78%]"></div>
+</div>
+<span class="text-[10px] font-bold mt-1 block text-stone-400">78% — MODERATE</span>
+</div>
+</div>
+</section>
+<!-- AI Recommendation Section -->
+<div class="grid grid-cols-12 gap-8 items-stretch">
+<div class="col-span-8 bg-surface-container-highest rounded-xl p-8 relative overflow-hidden flex items-center gap-8">
+<!-- AI Backdrop Glow -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-secondary-fixed/20 blur-[100px] rounded-full"></div>
+<div class="relative z-10 w-24 h-24 flex-shrink-0 bg-primary rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-5xl" data-icon="psychology">psychology</span>
+</div>
+<div class="relative z-10">
+<h3 class="text-2xl font-bold mb-2">Which is right for me?</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-4">
+                        Based on your profile—4.2 GPA, heavy focus on Computer Science, and preference for Silicon Valley networking—<span class="text-primary font-bold">Stanford University</span> emerges as your optimal match. Its proximity to tech hubs and flexible curriculum aligns perfectly with your "Entrepreneurship" goal tag.
+                    </p>
+<div class="flex gap-4">
+<button class="bg-primary text-white px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-primary-container transition-colors">Generate Full Report</button>
+<button class="text-primary text-xs font-bold uppercase tracking-wider border-b-2 border-primary/20 pb-0.5 hover:border-primary transition-all">Ask AI Follow-up</button>
+</div>
+</div>
+</div>
+<div class="col-span-4 bg-primary text-white rounded-xl p-8 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute right-[-10%] top-[-10%] opacity-10">
+<span class="material-symbols-outlined text-[160px]" data-icon="military_tech">military_tech</span>
+</div>
+<div>
+<span class="text-[10px] uppercase tracking-[0.3em] font-bold opacity-60">Success Strategy</span>
+<h4 class="text-xl font-bold mt-2 leading-tight">Focus your early action on Stanford.</h4>
+</div>
+<div class="mt-8">
+<div class="flex justify-between text-xs mb-2">
+<span>Profile Readiness</span>
+<span>88%</span>
+</div>
+<div class="w-full bg-white/20 h-1 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[88%]"></div>
+</div>
+<p class="text-[10px] mt-4 opacity-70 italic font-medium">Complete your STEM essay by Oct 1st to hit peak readiness.</p>
+</div>
+</div>
+</div>
+<!-- Footer Spacer -->
+<div class="h-24"></div>
+</main>
+<!-- Floating Action Button Contextual -->
+<button class="fixed bottom-12 right-12 bg-primary text-on-primary w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform" data-icon="compare_arrows">compare_arrows</span>
+<span class="absolute right-20 bg-on-background text-white px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">New Comparison</span>
+</button>
+</body></html>

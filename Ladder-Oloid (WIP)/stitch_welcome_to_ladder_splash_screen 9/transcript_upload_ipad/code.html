@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed-variant": "#5e4122",
+            "on-primary-container": "#e2ffda",
+            "on-tertiary-container": "#fff5ee",
+            "tertiary-fixed": "#ffdcbd",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-high": "#efe7dd",
+            "surface-container": "#f5ede2",
+            "surface-variant": "#eae1d7",
+            "on-surface-variant": "#434840",
+            "on-secondary-fixed": "#161e00",
+            "error-container": "#ffdad6",
+            "primary-fixed": "#c9ecc2",
+            "secondary-fixed": "#caf24d",
+            "tertiary-fixed-dim": "#e9bf96",
+            "on-secondary-container": "#566c00",
+            "surface-tint": "#486644",
+            "on-primary-fixed": "#052107",
+            "tertiary-container": "#8d6a48",
+            "surface-dim": "#e1d9cf",
+            "primary-container": "#5a7956",
+            "surface-bright": "#fff8f2",
+            "inverse-surface": "#343029",
+            "on-primary-fixed-variant": "#304e2e",
+            "on-error": "#ffffff",
+            "outline": "#737970",
+            "on-tertiary": "#ffffff",
+            "surface": "#fff8f2",
+            "secondary-container": "#caf24d",
+            "surface-container-highest": "#eae1d7",
+            "secondary": "#516600",
+            "on-secondary": "#ffffff",
+            "background": "#fff8f2",
+            "on-tertiary-fixed": "#2c1600",
+            "outline-variant": "#c3c8be",
+            "on-error-container": "#93000a",
+            "error": "#ba1a1a",
+            "primary-fixed-dim": "#aed0a7",
+            "surface-container-low": "#fbf2e8",
+            "on-secondary-fixed-variant": "#3c4d00",
+            "tertiary": "#725232",
+            "inverse-on-surface": "#f8efe5",
+            "primary": "#42603f",
+            "secondary-fixed-dim": "#afd531",
+            "on-surface": "#1f1b15",
+            "on-background": "#1f1b15",
+            "inverse-primary": "#aed0a7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Noto Serif"],
+            "body": ["Manrope"],
+            "label": ["Manrope"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .serif-display { font-family: 'Noto Serif', serif; }
+    .manrope { font-family: 'Manrope', sans-serif; }
+    .tonal-shift { background: linear-gradient(135deg, #fbf2e8 0%, #f5ede2 100%); }
+    .primary-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-background text-on-surface manrope selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-full w-72 flex flex-col py-8 px-6 bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="mb-12">
+<h1 class="text-3xl font-noto-serif italic font-bold text-[#42603f] dark:text-[#caf24d]">Ladder</h1>
+<p class="text-xs font-manrope tracking-widest text-stone-500 uppercase mt-1">College Prep Platform</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm">Academic Tracker</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7]/50 dark:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">upload_file</span>
+<span class="text-sm">Transcript</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm">Course Guide</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">calendar_view_month</span>
+<span class="text-sm">AI Scheduler</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-sm">Research</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-sm">Essay Hub</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-sm">Career Explorer</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-sm">Post-Grad</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/20 space-y-1">
+<button class="w-full primary-gradient text-white font-bold py-3 px-4 rounded-xl scale-98 active:opacity-80 transition-all mb-6">
+        Upgrade to Pro
+      </button>
+<a class="flex items-center gap-4 px-4 py-2 text-stone-500 dark:text-stone-400 text-sm hover:bg-[#eae1d7] rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-stone-500 dark:text-stone-400 text-sm hover:bg-[#eae1d7] rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen pt-20 pb-12 px-10">
+<!-- TopNavBar Anchor (Restricted to Canvas Area) -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex items-center bg-surface-container rounded-full px-4 py-2 w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full ml-2 text-on-surface" placeholder="Search transcript files..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-8 items-center mr-8">
+<a class="text-stone-600 dark:text-stone-400 font-medium text-sm hover:text-[#42603f]" href="#">Dashboard</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium text-sm hover:text-[#42603f]" href="#">Analytics</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium text-sm hover:text-[#42603f]" href="#">Community</a>
+</div>
+<button class="p-2 text-primary hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center gap-2 p-1 pl-3 bg-surface-container-high rounded-full">
+<span class="text-sm font-bold text-primary">Alex Chen</span>
+<img alt="Student profile picture" class="w-8 h-8 rounded-full bg-primary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBegqNoS7bSZ4fUSaiaFQ0W6e8sqgpw3RzrWW1GjPnhJ4qUtZzziyLtbIpWhmdVY-PnAP0iVWRcx5Th0dTvqsveQmrDZ0oJaTzwHAlX62m7ggnYzACEr6bpvJW6qejSHCPgOPxd9t3OL2MAPjkMzDG17xPUw5vSimykpsx_X64utL45p82ypt8PCVHp5RypK1bh3DUkwUotaqEOZ6KKIInntql_6sXvlHnZKR80-EjLG93tesM7-4PwdmMrB7Z7Y75Ds-O8g-yaWw"/>
+</button>
+</div>
+</header>
+<!-- Content Grid (Two-panel split 40/60) -->
+<div class="grid grid-cols-12 gap-8 mt-4 h-[calc(100vh-160px)]">
+<!-- Left Panel: Upload (Col span 5) -->
+<section class="col-span-5 flex flex-col gap-6">
+<div class="bg-white/40 rounded-xl p-8 h-full flex flex-col">
+<header class="mb-8">
+<h2 class="serif-display text-4xl font-bold tracking-tighter text-primary">Upload Transcript</h2>
+<p class="text-sm text-outline mt-2 leading-relaxed">Ladder's AI parses your school documents to build your academic profile instantly.</p>
+</header>
+<!-- Large Dashed Upload Zone -->
+<div class="flex-1 border-2 border-dashed border-outline-variant/40 rounded-xl flex flex-col items-center justify-center p-8 bg-surface-container-lowest/50 hover:bg-surface-container-low transition-colors group">
+<div class="w-20 h-20 bg-primary-fixed/30 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 0;">cloud_upload</span>
+</div>
+<p class="text-lg font-bold text-on-surface">Drag and drop file</p>
+<p class="text-xs text-outline mb-8">PDF, PNG, or JPEG (Max 10MB)</p>
+<div class="flex flex-col w-full gap-3">
+<button class="primary-gradient text-white py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-3 active:scale-95 transition-all">
+<span class="material-symbols-outlined">camera_alt</span>
+                Take Photo
+              </button>
+<button class="bg-surface-container-highest text-on-surface py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-surface-dim transition-all">
+<span class="material-symbols-outlined">attach_file</span>
+                Choose File
+              </button>
+</div>
+</div>
+<!-- Upload History -->
+<div class="mt-8">
+<h3 class="text-xs font-bold uppercase tracking-widest text-outline mb-4">Upload History</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">description</span>
+<div>
+<p class="text-sm font-semibold">Junior_Year_Final.pdf</p>
+<p class="text-[10px] text-outline">Uploaded Oct 12, 2023</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">description</span>
+<div>
+<p class="text-sm font-semibold">Sophomore_Fall.png</p>
+<p class="text-[10px] text-outline">Uploaded June 04, 2023</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Parsed Results (Col span 7) -->
+<section class="col-span-7 bg-white/60 rounded-xl p-8 flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<h2 class="serif-display text-2xl font-bold text-primary">Parsed Results</h2>
+<div class="flex gap-2">
+<button class="bg-secondary-fixed text-on-secondary-fixed px-5 py-2.5 rounded-full text-sm font-bold active:scale-95 transition-all shadow-sm">Confirm All</button>
+<button class="bg-surface-container-highest text-on-surface px-5 py-2.5 rounded-full text-sm font-bold hover:bg-surface-dim transition-all">Edit</button>
+</div>
+</div>
+<!-- Semester Chips -->
+<div class="flex gap-3 mb-8 overflow-x-auto pb-2 hide-scrollbar">
+<button class="bg-primary text-white px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap">Fall 2023</button>
+<button class="bg-surface-container-high text-on-surface-variant px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-surface-container-highest transition-colors">Spring 2023</button>
+<button class="bg-surface-container-high text-on-surface-variant px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-surface-container-highest transition-colors">Fall 2022</button>
+<button class="bg-surface-container-high text-on-surface-variant px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-surface-container-highest transition-colors">Spring 2022</button>
+</div>
+<!-- Course Table -->
+<div class="flex-1 overflow-y-auto pr-2 hide-scrollbar">
+<table class="w-full border-separate border-spacing-y-3">
+<thead>
+<tr class="text-left text-[10px] uppercase tracking-widest text-outline">
+<th class="pb-2 pl-4">Course Name</th>
+<th class="pb-2">Credit</th>
+<th class="pb-2">Grade</th>
+<th class="pb-2">Weight</th>
+<th class="pb-2 text-right pr-4">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 pl-4 rounded-l-xl font-bold text-sm">AP Calculus BC</td>
+<td class="py-4 text-sm">1.0</td>
+<td class="py-4 text-sm font-bold text-primary">A</td>
+<td class="py-4 text-sm text-outline">5.0</td>
+<td class="py-4 text-right pr-4 rounded-r-xl">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 pl-4 rounded-l-xl font-bold text-sm">Honors English III</td>
+<td class="py-4 text-sm">1.0</td>
+<td class="py-4 text-sm font-bold text-primary">A-</td>
+<td class="py-4 text-sm text-outline">4.5</td>
+<td class="py-4 text-right pr-4 rounded-r-xl">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 pl-4 rounded-l-xl font-bold text-sm">Physics 1 (Reg)</td>
+<td class="py-4 text-sm">1.0</td>
+<td class="py-4 text-sm font-bold text-primary">B+</td>
+<td class="py-4 text-sm text-outline">4.0</td>
+<td class="py-4 text-right pr-4 rounded-r-xl">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+</td>
+</tr>
+<tr class="bg-surface-container-high/50 border-2 border-error-container/40 group hover:bg-surface-container-high transition-colors">
+<td class="py-4 pl-4 rounded-l-xl font-bold text-sm text-on-error-container">AP Computer Science</td>
+<td class="py-4 text-sm italic text-outline">Pending</td>
+<td class="py-4 text-sm font-bold text-error">--</td>
+<td class="py-4 text-sm text-outline">5.0</td>
+<td class="py-4 text-right pr-4 rounded-r-xl">
+<span class="material-symbols-outlined text-error text-lg" title="AI uncertainty: Please verify grade">warning</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 pl-4 rounded-l-xl font-bold text-sm">US History II</td>
+<td class="py-4 text-sm">1.0</td>
+<td class="py-4 text-sm font-bold text-primary">A</td>
+<td class="py-4 text-sm text-outline">4.0</td>
+<td class="py-4 text-right pr-4 rounded-r-xl">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Summary Cards and Footer -->
+<div class="mt-8 pt-8 border-t border-outline-variant/20 flex flex-col gap-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 bg-surface-container-low rounded-xl">
+<p class="text-[10px] uppercase tracking-widest text-outline mb-1">Semester GPA</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-primary">3.92</span>
+<span class="text-xs text-secondary font-bold">+0.12 vs last</span>
+</div>
+</div>
+<div class="p-4 bg-primary-container text-on-primary-container rounded-xl shadow-lg shadow-primary-container/20">
+<p class="text-[10px] uppercase tracking-widest opacity-70 mb-1">Cumulative GPA</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold">4.08</span>
+<span class="text-xs font-bold opacity-80">WTD</span>
+</div>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-3 bg-tertiary-container text-on-tertiary-container py-4 rounded-xl font-bold hover:brightness-110 transition-all">
+<span class="material-symbols-outlined">sync_alt</span>
+            Import to GPA Tracker
+          </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Decorative Texture Overlay -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] z-0"></div>
+</body></html>

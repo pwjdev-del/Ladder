@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-primary": "#aed0a7",
+                    "primary-fixed-dim": "#aed0a7",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#caf24d",
+                    "surface-bright": "#fff8f2",
+                    "primary": "#42603f",
+                    "surface-container-high": "#efe7dd",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#f5ede2",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#8d6a48",
+                    "inverse-surface": "#343029",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-primary-fixed": "#052107",
+                    "secondary-fixed": "#caf24d",
+                    "primary-fixed": "#c9ecc2",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#e1d9cf",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-fixed": "#161e00",
+                    "background": "#fff8f2",
+                    "on-background": "#1f1b15",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "surface": "#fff8f2",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#516600",
+                    "outline": "#737970",
+                    "on-secondary-container": "#566c00",
+                    "surface-tint": "#486644",
+                    "surface-container-highest": "#eae1d7",
+                    "primary-container": "#5a7956",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "outline-variant": "#c3c8be",
+                    "on-surface": "#1f1b15",
+                    "on-tertiary-fixed-variant": "#5e4122"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Shared Navigation Drawer -->
+<nav class="fixed left-0 top-0 h-full z-40 flex flex-col p-6 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 rounded-r-3xl border-r-0 shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)]">
+<div class="mb-10 pl-4">
+<span class="text-xl font-serif italic text-[#42603f] dark:text-stone-100">Academic Atelier</span>
+<div class="flex items-center gap-3 mt-6">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a serious yet hopeful young student in a quiet library setting with warm natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJIlGY0e0in7cHIpLs0PhU6l2r7ppNXH9fK7WjVp9xcc727Lw28tvrWbeCDmae65Y2xYrzXO_kDKO6HytzHJMWJ13AtwtLOpmydpP3nnwNcHSQTjjzMbab59Rfxe2hLk8uAS5O4FboUhnPMmvwKTpyQY08bfCkJTUsABj4A5L9r1hlVm_QYckttJ-B2q_d3_TqTMbAWZd3G3rCNVAuxHuWxhuZ8lG648t_0qkkeT0Ep-Ff4ZL2JYkbf45RGXO9vDjA7GWmxx37uV4"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Class of 2025</p>
+<p class="text-[10px] text-primary font-bold tracking-widest uppercase">Premium Access</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">monetization_on</span>
+<span class="text-sm font-sans">Financial Aid</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-sm font-sans">Scholarships</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-sm font-sans">Match Score</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="text-sm font-sans">Aid Comparison</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-sm font-sans">Test Prep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-sm font-sans">Score Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#42603f] text-[#fbf2e8] rounded-xl transition-all scale-95 active:opacity-80" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-sm font-sans">Schedule</span>
+</a>
+</div>
+</nav>
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-8 py-6 ml-72 sticky top-0 z-30 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl no-border tonal-shift">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#42603f] cursor-pointer active:scale-95">menu</span>
+<h1 class="font-serif text-3xl font-light tracking-tight text-[#42603f]">Financial Intelligence</h1>
+</div>
+<div class="w-10 h-10 rounded-full border border-outline-variant/30 overflow-hidden cursor-pointer active:scale-95">
+<img class="w-full h-full object-cover" data-alt="Modern close up profile of a student with soft natural lighting and a minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqa_ZN-Ef5dkb5HKsYadNA5l2VsmGk688zcKhBja7dUld_ZFVcGVsh2jxKyf48TrhPTtkWNp2H_wd81T9k2m7NHhVhuCichtyjswJBZ9gAY5iAISAK1ductjEVfS6SivIchPPVsQhvVNfrNt1-myBL44AttOaVsoVSjKh6ZL4IAcbPX2yP2Us6iQomWlJ3_A1QWS5nrs5_l9zhYrrFmEhWaQVY-TIyqwfZreAOhIkNwqrmsVjnWqC70Odm7aACcV-XdvGJh1C5sEc"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-72 p-8 min-h-screen bg-surface">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+<!-- Left Panel: Calendar Grid (60%) -->
+<section class="lg:w-3/5 space-y-8">
+<div class="flex items-end justify-between">
+<div>
+<h2 class="font-serif text-5xl italic tracking-tight text-on-surface">April 2024</h2>
+<p class="text-on-surface-variant font-body text-sm mt-2">12 focus blocks remaining this month.</p>
+</div>
+<div class="flex gap-4 mb-2">
+<button class="p-2 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Monthly Grid -->
+<div class="grid grid-cols-7 gap-3">
+<!-- Days Header -->
+<div class="text-center text-xs font-bold text-outline py-2 uppercase tracking-widest">Mon</div>
+<div class="text-center text-xs font-bold text-outline py-2 uppercase tracking-widest">Tue</div>
+<div class="text-center text-xs font-bold text-outline py-2 uppercase tracking-widest">Wed</div>
+<div class="text-center text-xs font-bold text-outline py-2 uppercase tracking-widest">Thu</div>
+<div class="text-center text-xs font-bold text-outline py-2 uppercase tracking-widest">Fri</div>
+<div class="text-center text-xs font-bold text-outline py-2 uppercase tracking-widest">Sat</div>
+<div class="text-center text-xs font-bold text-outline py-2 uppercase tracking-widest">Sun</div>
+<!-- Calendar Cells -->
+<div class="aspect-square bg-surface-container-low rounded-xl flex flex-col p-3 text-sm text-outline opacity-40">28</div>
+<div class="aspect-square bg-surface-container-low rounded-xl flex flex-col p-3 text-sm text-outline opacity-40">29</div>
+<div class="aspect-square bg-surface-container-low rounded-xl flex flex-col p-3 text-sm text-outline opacity-40">30</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">1</div>
+<div class="aspect-square bg-secondary-container/20 rounded-xl flex flex-col p-3 text-sm relative group overflow-hidden border-2 border-secondary-fixed">
+<span>2</span>
+<div class="mt-auto flex gap-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">3</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">4</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">5</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">6</div>
+<div class="aspect-square bg-primary-container rounded-xl flex flex-col p-3 text-sm text-on-primary-container relative shadow-lg shadow-primary/10">
+<span>7</span>
+<div class="mt-auto self-end">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+</div>
+<div class="aspect-square bg-secondary-container/20 rounded-xl flex flex-col p-3 text-sm border-2 border-secondary-fixed">8</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">9</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">10</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">11</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">12</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">13</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">14</div>
+<div class="aspect-square bg-primary-container rounded-xl flex flex-col p-3 text-sm text-on-primary-container relative shadow-lg shadow-primary/10 ring-4 ring-primary/20">
+<span>15</span>
+<div class="mt-auto self-end">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">16</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">17</div>
+<div class="aspect-square bg-secondary-container/20 rounded-xl flex flex-col p-3 text-sm border-2 border-secondary-fixed">18</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">19</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">20</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">21</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">22</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">23</div>
+<div class="aspect-square bg-secondary-container/20 rounded-xl flex flex-col p-3 text-sm border-2 border-secondary-fixed">24</div>
+<div class="aspect-square bg-surface-container-lowest rounded-xl flex flex-col p-3 text-sm border border-outline-variant/10">25</div>
+</div>
+<!-- Legend -->
+<div class="flex items-center gap-8 pt-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container border border-secondary"></div>
+<span class="text-xs font-body text-on-surface-variant uppercase tracking-wider">Scheduled Study</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+<span class="text-xs font-body text-on-surface-variant uppercase tracking-wider">AI Optimized Block</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-surface-container-lowest border border-outline-variant/30"></div>
+<span class="text-xs font-body text-on-surface-variant uppercase tracking-wider">Open Slot</span>
+</div>
+</div>
+</section>
+<!-- Right Panel: Day Detail & Stats (40%) -->
+<aside class="lg:w-2/5 space-y-6">
+<!-- Day Detail Header -->
+<div class="bg-surface-container-high p-8 rounded-xl">
+<h3 class="font-serif text-3xl font-light text-primary">Monday, April 15</h3>
+<p class="text-on-surface-variant mt-1">Intensive AI-Guided Financial Aid Prep</p>
+<div class="mt-8 space-y-4">
+<!-- Session Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col gap-3 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start">
+<div>
+<span class="text-[10px] uppercase tracking-widest text-primary font-bold">09:00 AM — 10:30 AM</span>
+<h4 class="font-semibold text-on-surface mt-1">FAFSA Documentation Review</h4>
+</div>
+<input class="rounded-full w-6 h-6 text-primary border-outline-variant focus:ring-primary" type="checkbox"/>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>90 min</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">link</span>
+<a class="underline decoration-secondary-fixed decoration-2 underline-offset-4" href="#">Resource Portal</a>
+</div>
+</div>
+</div>
+<!-- Session Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col gap-3 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary-fixed"></div>
+<div class="flex justify-between items-start">
+<div>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">11:00 AM — 12:30 PM</span>
+<h4 class="font-semibold text-on-surface mt-1">Scholarship Essay Workshop</h4>
+</div>
+<input class="rounded-full w-6 h-6 text-primary border-outline-variant focus:ring-primary" type="checkbox"/>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>90 min</span>
+</div>
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">auto_stories</span>
+<span>Creative Writing Focus</span>
+</div>
+</div>
+</div>
+<!-- Session Card 3 (Completed) -->
+<div class="bg-surface-container p-5 rounded-xl flex flex-col gap-3 relative overflow-hidden opacity-60">
+<div class="flex justify-between items-start">
+<div>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Completed</span>
+<h4 class="font-semibold text-on-surface mt-1 line-through">Loan Comparison Logic</h4>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Weekly Stats Card -->
+<div class="bg-primary text-on-primary p-8 rounded-xl shadow-xl shadow-primary/20 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-container/20 rounded-full blur-2xl"></div>
+<div class="relative z-10">
+<h4 class="text-xs uppercase tracking-[0.2em] font-bold text-inverse-primary/80">Weekly Overview</h4>
+<div class="grid grid-cols-3 gap-4 mt-6">
+<div class="flex flex-col">
+<span class="text-3xl font-serif">14</span>
+<span class="text-[10px] uppercase tracking-widest text-inverse-primary">Sessions</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-serif">22.5</span>
+<span class="text-[10px] uppercase tracking-widest text-inverse-primary">Hours</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-serif flex items-center gap-1">
+                                    12
+                                    <span class="material-symbols-outlined text-secondary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</span>
+<span class="text-[10px] uppercase tracking-widest text-inverse-primary">Day Streak</span>
+</div>
+</div>
+<!-- Progress Bar (The Ladder Tracker) -->
+<div class="mt-8 pt-8 border-t border-inverse-primary/10">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-medium">Monthly Goal Progress</span>
+<span class="text-xs font-bold text-secondary-fixed">82%</span>
+</div>
+<div class="h-3 w-full bg-on-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed shadow-[0_0_12px_rgba(202,242,77,0.4)]" style="width: 82%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full py-4 rounded-xl bg-surface-container-highest text-on-surface font-bold text-sm tracking-widest uppercase hover:bg-surface-container-high transition-all active:scale-95">
+                    Reschedule Blocks
+                </button>
+</aside>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-primary": "#aed0a7",
+                    "primary-fixed-dim": "#aed0a7",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#caf24d",
+                    "surface-bright": "#fff8f2",
+                    "primary": "#42603f",
+                    "surface-container-high": "#efe7dd",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#f5ede2",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#8d6a48",
+                    "inverse-surface": "#343029",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-primary-fixed": "#052107",
+                    "secondary-fixed": "#caf24d",
+                    "primary-fixed": "#c9ecc2",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#e1d9cf",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-fixed": "#161e00",
+                    "background": "#fff8f2",
+                    "on-background": "#1f1b15",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "surface": "#fff8f2",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#516600",
+                    "outline": "#737970",
+                    "on-secondary-container": "#566c00",
+                    "surface-tint": "#486644",
+                    "surface-container-highest": "#eae1d7",
+                    "primary-container": "#5a7956",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "outline-variant": "#c3c8be",
+                    "on-surface": "#1f1b15",
+                    "on-tertiary-fixed-variant": "#5e4122"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Manrope', sans-serif; }
+      .font-serif-italic { font-family: 'Noto Serif', serif; font-style: italic; }
+      .glass-nav { backdrop-filter: blur(24px); }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .timeline-line {
+        width: 4px;
+        background: #caf24d;
+        box-shadow: 0 0 15px rgba(202, 242, 77, 0.4);
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-6 h-screen w-72 rounded-r-3xl border-r-0 bg-[#fbf2e8] dark:bg-stone-900 shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)]">
+<div class="mb-10 px-4">
+<h1 class="text-xl font-serif italic text-[#42603f] dark:text-stone-100">Academic Atelier</h1>
+<p class="font-sans text-sm text-stone-500">Class of 2025</p>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">monetization_on</span>
+<span class="font-sans text-sm">Financial Aid</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-sans text-sm">Scholarships</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-sans text-sm">Match Score</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="font-sans text-sm">Aid Comparison</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-sans text-sm">Test Prep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-sans text-sm">Score Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#42603f] text-[#fbf2e8] rounded-xl transition-all scale-95 active:opacity-80" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-sans text-sm font-bold">Schedule</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 px-4 flex items-center gap-3 border-t border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Student Portrait" data-alt="close-up portrait of a focused student in a library with soft warm lighting and blurred books in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKv69xnrb3p1oDRNQsxg87XOAEXtYCUvE1d3G3WZP7FaUcl2a8h-zvKCdpmZmXF7IH6hKDuJRXyvEq7hHDNKzOjM92S153D487R72Yy59LzazJDNCLjPI_wy_lYWcAiKbCviCJ1Um73PG1ympinSlJru4kbapfuQZXXt9Y5WHPQyaj32eyZR0bRAsJYxKnCP-oJ3fA6XlqVeTjHK-pq0Z5jsm7zI6I2pJeVu3DpgxgHBwbVSsy2YpvD-hq49xemRfiKh5CRAzq9_8"/>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Academic Atelier</p>
+<p class="text-[10px] text-primary uppercase tracking-widest font-bold">Premium Access</p>
+</div>
+</div>
+</aside>
+<!-- TopAppBar Shell -->
+<header class="flex justify-between items-center px-8 py-6 ml-72 w-full sticky top-0 z-30 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl no-border tonal-shift">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f] cursor-pointer active:scale-95">menu</span>
+<h2 class="font-serif text-3xl font-light tracking-tight text-[#42603f]">Financial Intelligence</h2>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold cursor-pointer hover:opacity-70 transition-opacity active:scale-95">
+            JS
+        </div>
+</header>
+<!-- Main Content -->
+<main class="ml-72 p-12 flex justify-center">
+<div class="w-full max-w-[700px] flex flex-col gap-10">
+<!-- Headline Section -->
+<section class="space-y-2">
+<h1 class="text-5xl font-serif-italic tracking-tighter text-on-background">Test Registration</h1>
+<p class="text-on-surface-variant font-medium tracking-wide">Stay ahead of deadlines and secure your preferred testing center.</p>
+</section>
+<!-- Urgent Alert Banner -->
+<div class="bg-error-container p-6 rounded-3xl flex items-center justify-between gap-6 transition-all hover:translate-x-1 duration-300">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-error text-3xl">emergency_home</span>
+<div>
+<h4 class="font-bold text-on-error-container">Urgent: October SAT Deadline</h4>
+<p class="text-sm text-on-error-container/80">The regular registration window for the October 5th session closes in 48 hours.</p>
+</div>
+</div>
+<button class="bg-error text-white px-6 py-3 rounded-xl text-sm font-bold shadow-lg hover:opacity-90 transition-all active:scale-95 whitespace-nowrap">
+                    Register Now
+                </button>
+</div>
+<!-- Vertical Timeline Container -->
+<div class="relative pl-12 pb-20">
+<!-- Main Vertical Line -->
+<div class="absolute left-[22px] top-4 bottom-0 timeline-line rounded-full opacity-40"></div>
+<!-- AUGUST MONTH -->
+<div class="relative mb-16">
+<div class="absolute -left-12 top-0 flex items-center">
+<div class="w-12 h-[2px] bg-outline-variant/30"></div>
+<span class="ml-2 text-xs font-bold tracking-widest text-primary uppercase">August</span>
+</div>
+<!-- Test Card 1 -->
+<div class="bg-surface-container-low p-8 rounded-3xl space-y-6 transition-all hover:bg-surface-container-high">
+<div class="flex justify-between items-start">
+<div class="space-y-3">
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-primary text-on-primary text-[10px] font-extrabold rounded-full tracking-tighter">SAT</span>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant text-[10px] font-extrabold rounded-full tracking-tighter">Digital</span>
+</div>
+<h3 class="text-2xl font-serif font-bold text-on-surface">Saturday, Aug 24</h3>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase font-extrabold tracking-widest text-on-surface-variant mb-1">Registration</p>
+<p class="text-error font-bold flex items-center gap-1 text-sm justify-end">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                    Closed
+                                </p>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/10 pt-6">
+<div class="flex gap-8">
+<div>
+<p class="text-[10px] uppercase font-bold text-stone-400">Regular Fee</p>
+<p class="font-bold text-on-surface">$60.00</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-stone-400">Late Fee</p>
+<p class="font-bold text-on-surface">$30.00</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium text-stone-500">Reminder</span>
+<div class="w-10 h-5 bg-stone-300 rounded-full relative cursor-pointer opacity-50">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- OCTOBER MONTH -->
+<div class="relative mb-16">
+<!-- Anchor Node -->
+<div class="absolute -left-[31px] top-1 w-5 h-5 bg-secondary-fixed rounded-full border-4 border-surface ring-4 ring-secondary-fixed/20 z-10"></div>
+<div class="absolute -left-12 top-0 flex items-center">
+<div class="w-12 h-[2px] bg-outline-variant/30"></div>
+<span class="ml-2 text-xs font-bold tracking-widest text-primary uppercase">October</span>
+</div>
+<!-- Test Card 2 (Urgent) -->
+<div class="bg-surface-container-low p-8 rounded-3xl space-y-6 ring-2 ring-secondary-fixed shadow-xl shadow-secondary-fixed/5">
+<div class="flex justify-between items-start">
+<div class="space-y-3">
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-primary text-on-primary text-[10px] font-extrabold rounded-full tracking-tighter">SAT</span>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant text-[10px] font-extrabold rounded-full tracking-tighter">Paper-based</span>
+</div>
+<h3 class="text-2xl font-serif font-bold text-on-surface">Saturday, Oct 05</h3>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase font-extrabold tracking-widest text-on-surface-variant mb-1">Registration</p>
+<p class="text-error font-bold flex items-center gap-1 text-sm justify-end">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                    2 days left
+                                </p>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/10 pt-6">
+<div class="flex gap-8">
+<div>
+<p class="text-[10px] uppercase font-bold text-stone-400">Regular Fee</p>
+<p class="font-bold text-on-surface">$60.00</p>
+</div>
+<a class="flex items-center gap-2 text-primary font-bold group" href="#">
+<span class="border-b-2 border-secondary-fixed pb-0.5">Register Now</span>
+<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium text-on-surface">Reminder</span>
+<div class="w-10 h-5 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- NOVEMBER MONTH -->
+<div class="relative mb-16">
+<!-- Anchor Node -->
+<div class="absolute -left-[31px] top-1 w-5 h-5 bg-stone-300 rounded-full border-4 border-surface z-10"></div>
+<div class="absolute -left-12 top-0 flex items-center">
+<div class="w-12 h-[2px] bg-outline-variant/30"></div>
+<span class="ml-2 text-xs font-bold tracking-widest text-primary uppercase">November</span>
+</div>
+<!-- Test Card 3 (PSAT) -->
+<div class="bg-surface-container-low p-8 rounded-3xl space-y-6 transition-all hover:bg-surface-container-high opacity-80 hover:opacity-100">
+<div class="flex justify-between items-start">
+<div class="space-y-3">
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-[10px] font-extrabold rounded-full tracking-tighter">PSAT/NMSQT</span>
+</div>
+<h3 class="text-2xl font-serif font-bold text-on-surface">Wednesday, Nov 13</h3>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase font-extrabold tracking-widest text-on-surface-variant mb-1">Registration</p>
+<p class="text-primary font-bold flex items-center gap-1 text-sm justify-end">
+<span class="material-symbols-outlined text-sm">event_available</span>
+                                    Open
+                                </p>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/10 pt-6">
+<div class="flex gap-8">
+<div>
+<p class="text-[10px] uppercase font-bold text-stone-400">Regular Fee</p>
+<p class="font-bold text-on-surface">$18.00</p>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant italic text-sm">
+                                    School-administered exam
+                                </div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium text-stone-500">Reminder</span>
+<div class="w-10 h-5 bg-stone-300 rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- DECEMBER MONTH -->
+<div class="relative">
+<!-- Anchor Node -->
+<div class="absolute -left-[31px] top-1 w-5 h-5 bg-stone-300 rounded-full border-4 border-surface z-10"></div>
+<div class="absolute -left-12 top-0 flex items-center">
+<div class="w-12 h-[2px] bg-outline-variant/30"></div>
+<span class="ml-2 text-xs font-bold tracking-widest text-primary uppercase">December</span>
+</div>
+<!-- Test Card 4 (ACT) -->
+<div class="bg-surface-container-low p-8 rounded-3xl space-y-6 transition-all hover:bg-surface-container-high opacity-80 hover:opacity-100">
+<div class="flex justify-between items-start">
+<div class="space-y-3">
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-[#2c1600] text-[#ffdcbd] text-[10px] font-extrabold rounded-full tracking-tighter">ACT</span>
+</div>
+<h3 class="text-2xl font-serif font-bold text-on-surface">Saturday, Dec 14</h3>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase font-extrabold tracking-widest text-on-surface-variant mb-1">Registration</p>
+<p class="text-primary font-bold flex items-center gap-1 text-sm justify-end">
+<span class="material-symbols-outlined text-sm">event_available</span>
+                                    Open
+                                </p>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/10 pt-6">
+<div class="flex gap-8">
+<div>
+<p class="text-[10px] uppercase font-bold text-stone-400">Regular Fee</p>
+<p class="font-bold text-on-surface">$68.00</p>
+</div>
+<a class="flex items-center gap-2 text-primary font-bold group" href="#">
+<span class="border-b-2 border-secondary-fixed pb-0.5">Register Now</span>
+<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium text-stone-500">Reminder</span>
+<div class="w-10 h-5 bg-stone-300 rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Meta Info -->
+<div class="bg-surface-container-highest/40 p-8 rounded-3xl border-l-4 border-primary">
+<h5 class="font-bold text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">info</span>
+                    Important Note
+                </h5>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                    Test dates and registration deadlines are subject to change by the College Board and ACT. Check official websites frequently for the most up-to-date information regarding testing center availability and COVID-19 protocols in your specific region.
+                </p>
+</div>
+</div>
+</main>
+</body></html>

@@ -8,12 +8,12 @@ final class DashboardViewModel {
     var studentName = "Kathan"
     var careerPath = "Medical Path"
     var grade = 10
-    var streak = 14
+    var streak = 0
 
     // Checklist
-    var checklistProgress: Double = 0.6
-    var completedTasks = 6
-    var totalTasks = 10
+    var checklistProgress: Double = 0.0
+    var completedTasks = 0
+    var totalTasks = 0
 
     // Next task
     var nextTaskTitle = "Log Volunteering Hours"
@@ -21,9 +21,9 @@ final class DashboardViewModel {
     var nextTaskProgress: Double = 0.45
 
     // Urgent deadline
-    var urgentDeadlineTitle = "SAT Registration"
-    var urgentDeadlineDate = "April 15, 2026"
-    var daysUntilDeadline = 13
+    var urgentDeadlineTitle = ""
+    var urgentDeadlineDate = ""
+    var daysUntilDeadline = 0
 
     // Daily tip
     var dailyTip = "Start building your college list by researching schools that match your interests and academic profile."

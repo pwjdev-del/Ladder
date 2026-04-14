@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Match Score Detail - The Academic Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-fixed": "#ffdcbd",
+                        "tertiary": "#725232",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "on-background": "#1f1b15",
+                        "on-surface-variant": "#434840",
+                        "surface-variant": "#eae1d7",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-container-low": "#fbf2e8",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "inverse-primary": "#aed0a7",
+                        "surface-bright": "#fff8f2",
+                        "primary-container": "#5a7956",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c3c8be",
+                        "inverse-surface": "#343029",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1f1b15",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#caf24d",
+                        "surface-tint": "#486644",
+                        "surface-container-high": "#efe7dd",
+                        "secondary-fixed-dim": "#afd531",
+                        "primary": "#42603f",
+                        "surface": "#fff8f2",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#caf24d",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container": "#f5ede2",
+                        "background": "#fff8f2",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "primary-fixed": "#c9ecc2",
+                        "surface-dim": "#e1d9cf",
+                        "on-secondary-container": "#566c00",
+                        "secondary": "#516600",
+                        "on-secondary-fixed": "#161e00",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#fff5ee",
+                        "outline": "#737970",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-primary-container": "#e2ffda"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(32px);
+        }
+        .asymmetric-mask {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Sidebar Navigation Shell -->
+<aside class="flex flex-col h-screen py-8 z-40 h-full w-72 fixed left-0 top-0 bg-[#fbf2e8] border-none">
+<div class="px-8 mb-10">
+<h1 class="text-xl font-bold font-serif text-[#1f1b15] dark:text-[#eae1d7]">The Academic Atelier</h1>
+<p class="font-body text-xs tracking-wider opacity-60 uppercase mt-1">College Prep Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-4 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 pl-6 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-medium text-sm">Home</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 pl-6 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-medium text-sm">Tasks</span>
+</a>
+<a class="flex items-center space-x-4 text-[#42603f] font-bold border-r-4 border-[#42603f] pl-6 py-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-medium text-sm">Colleges</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 pl-6 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-medium text-sm">Applications</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 pl-6 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-medium text-sm">Advisor</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 pl-6 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-medium text-sm">Financial</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 pl-6 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="font-medium text-sm">Career</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 pl-6 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="font-medium text-sm">Housing</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:bg-[#eae1d7] transition-colors duration-300 pl-6 py-3" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="font-medium text-sm">Reports</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-4 bg-primary text-white rounded-xl font-bold text-sm tracking-wide shadow-sm flex items-center justify-center space-x-2">
+<span>Plan Success</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen pb-12">
+<!-- Top Navigation -->
+<header class="flex justify-end items-center px-12 h-20 w-full sticky top-0 z-50 glass-header bg-[#fff8f2]/70">
+<div class="flex items-center space-x-8">
+<div class="relative group">
+<input class="bg-surface-container-low border-none rounded-full px-6 py-2 text-xs w-64 focus:ring-1 focus:ring-primary/20 transition-all" placeholder="Search Universities..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-2 text-stone-400 text-sm" data-icon="search">search</span>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-stone-500 cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-stone-500 cursor-pointer" data-icon="settings">settings</span>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container/20">
+<img alt="Student user portrait" class="w-full h-full object-cover" data-alt="Portrait of a young male student in a library setting with soft warm light reflecting off bookshelves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlMFKHUSW6EgMgnbSAeHqf5V6CPX-ipfZC1xv24wK7lZU0pdRxXSOYO1IlOfPBxXyiR3vsqSLJZWT2j6Sipb_HZg8cEyPeO6LQ72hFHyhqYkKE8hLJaMyI0xhW0hEReRfLtgWcI2ED7-HcHnwQrTvpqxZad5zOw4yNhU3hidIpWSEebZbtqPZg82Hs5NPu9dL-fZZ4F146dMyGuGMmBk9Jxi8_f9jGv9iq7mL0aYayrlT_PSvuIyhz2oWjN4SXR8_Ji43SAzlGHm4"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Editorial Hero Section -->
+<section class="px-12 pt-8 pb-12">
+<div class="flex items-end justify-between mb-12">
+<div>
+<nav class="flex items-center space-x-2 text-xs font-label tracking-widest text-primary mb-4 uppercase">
+<span>Colleges</span>
+<span class="material-symbols-outlined text-[10px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-surface-variant">Stanford University</span>
+</nav>
+<h2 class="text-6xl font-serif italic tracking-tighter leading-tight">Stanford University</h2>
+<p class="text-stone-500 font-body mt-2 max-w-md">Palo Alto, CA • Private Research University • 4.8% Acceptance Rate</p>
+</div>
+<div class="text-right">
+<span class="text-[8rem] font-serif font-bold text-secondary-fixed leading-none -mb-8 block opacity-20">92%</span>
+</div>
+</div>
+<!-- Main Asymmetric Grid -->
+<div class="grid grid-cols-10 gap-8">
+<!-- Left Column: Match Score Breakdown (55%) -->
+<div class="col-span-10 lg:col-span-6 space-y-8">
+<div class="bg-surface-container-low rounded-xl p-10 relative overflow-hidden">
+<div class="relative z-10 grid grid-cols-2 gap-12">
+<div class="flex flex-col items-center justify-center">
+<div class="relative w-56 h-56 flex items-center justify-center">
+<!-- Match Ring SVG -->
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="112" cy="112" fill="transparent" r="100" stroke="currentColor" stroke-width="12"></circle>
+<circle class="drop-shadow-[0_0_15px_rgba(202,242,77,0.3)]" cx="112" cy="112" fill="transparent" r="100" stroke="url(#paint0_linear)" stroke-dasharray="628" stroke-dashoffset="50" stroke-linecap="round" stroke-width="12"></circle>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear" x1="0" x2="224" y1="0" y2="224">
+<stop stop-color="#42603f"></stop>
+<stop offset="1" stop-color="#caf24d"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-6xl font-serif font-bold tracking-tighter">92<span class="text-2xl">%</span></span>
+<span class="text-[10px] uppercase font-label tracking-widest text-primary font-bold">Overall Match</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-serif mb-6">How We Calculate Fit</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-8">
+                                    Our proprietary "Atelier Fit" algorithm analyzes 140+ data points from your profile against the incoming freshman profile.
+                                </p>
+<div class="space-y-6">
+<div class="group">
+<div class="flex justify-between text-xs font-bold uppercase tracking-widest mb-2">
+<span>GPA &amp; Academics</span>
+<span class="text-primary">98%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[98%] rounded-full"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between text-xs font-bold uppercase tracking-widest mb-2">
+<span>Test Scores</span>
+<span class="text-secondary">85%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[85%] rounded-full"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between text-xs font-bold uppercase tracking-widest mb-2">
+<span>Major Alignment</span>
+<span class="text-primary">92%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[92%] rounded-full"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between text-xs font-bold uppercase tracking-widest mb-2">
+<span>Financial Fit</span>
+<span class="text-amber-600">65%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-amber-500 w-[65%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Background Accents -->
+<div class="absolute -right-12 -top-12 w-64 h-64 bg-[#caf24d]/10 rounded-full blur-3xl"></div>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="bg-surface-container-high rounded-xl p-8">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="location_on">location_on</span>
+<h4 class="font-serif text-lg mb-2">Location Fit</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                Stanford is 2,400 miles from your hometown. High match based on your preference for California.
+                            </p>
+</div>
+<div class="bg-surface-container-high rounded-xl p-8">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="diversity_3">diversity_3</span>
+<h4 class="font-serif text-lg mb-2">Campus Culture</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                Active entrepreneurial community aligns with your declared Computer Science interest.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Right Column: AI Recommendations & Similar (45%) -->
+<div class="col-span-10 lg:col-span-4 space-y-8">
+<!-- AI recommendation card -->
+<div class="bg-primary text-white rounded-xl p-8 relative overflow-hidden shadow-xl">
+<div class="relative z-10">
+<div class="flex items-center space-x-2 mb-6">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-[10px] font-bold uppercase tracking-[0.2em]">Advisor Insight</span>
+</div>
+<h3 class="text-3xl font-serif italic mb-4">How to Improve</h3>
+<p class="text-primary-fixed/80 text-sm leading-relaxed mb-8">
+                                Your academic rigor is excellent. To reach a 96% match, we recommend strengthening your extracurricular leadership portfolio.
+                            </p>
+<ul class="space-y-4 mb-10">
+<li class="flex items-start space-x-3 text-xs">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" data-icon="check_circle">check_circle</span>
+<span>Target SAT Math: 780+</span>
+</li>
+<li class="flex items-start space-x-3 text-xs">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" data-icon="add_circle">add_circle</span>
+<span>Engage in one high-impact STEM internship</span>
+</li>
+</ul>
+<a class="inline-flex items-center space-x-2 text-secondary-fixed text-sm font-bold group" href="#">
+<span>Access What-If Simulator</span>
+<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="absolute bottom-0 right-0 w-32 h-32 opacity-10">
+<span class="material-symbols-outlined text-[10rem]" data-icon="psychology">psychology</span>
+</div>
+</div>
+<!-- Similar Colleges -->
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="text-xl font-serif">Similar Profiles</h3>
+<button class="text-xs font-bold uppercase tracking-widest text-primary border-b-2 border-secondary-fixed">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Mini Card 1 -->
+<div class="flex items-center p-4 bg-surface-container-low rounded-xl group hover:bg-surface-container-highest transition-colors">
+<div class="w-16 h-16 rounded-lg bg-white p-2 flex items-center justify-center mr-4">
+<img alt="MIT Logo" class="w-full h-full object-contain" data-alt="A clean graphic university logo for MIT in minimalist architectural style with bold typography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDywgbEn51bfaqfhaLiLhiXfMdnn2PXDyJcfCEBS8QJM3FOIeQQvJ-gcSNbquHS4Ny24g6TpLRFWk9JNm0Iua8tQz9HyazyOJlc2PnqoScKPaSwzf2vfLchoRoFaQ5gazoIozFvMYYn0OcriFOgEKL7TMYqGmCz83WBBWep85LNvwMFtm_ZVNSPZzdr19_xcNUfni6X11DP91XbPbNBzUm6amweCnttAL0kr4ZlxEMIcJWhPX2Y6McI940dIQeDuZxVSiSx7Wdalrk"/>
+</div>
+<div class="flex-1">
+<h4 class="font-serif text-sm">MIT</h4>
+<p class="text-[10px] text-on-surface-variant font-label tracking-wide">Cambridge, MA</p>
+</div>
+<div class="text-right">
+<span class="block text-lg font-serif font-bold text-primary">89%</span>
+<span class="text-[8px] uppercase tracking-widest font-bold opacity-40">Match</span>
+</div>
+</div>
+<!-- Mini Card 2 -->
+<div class="flex items-center p-4 bg-surface-container-low rounded-xl group hover:bg-surface-container-highest transition-colors">
+<div class="w-16 h-16 rounded-lg bg-white p-2 flex items-center justify-center mr-4">
+<img alt="UC Berkeley Logo" class="w-full h-full object-contain" data-alt="University seal style logo for UC Berkeley with classic academic symbols and golden accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAofIrR-9HdEYE0TAEwR9XqUNkVUpmJWXrhNRJke_u7gmHcTx6wzZLsp9-aoHFWwXJS6HCPQbY81uiL8mKiCcO1H1KG_1t5nlINvU6o6yn03aWm5w1Z347Fh0o-bvpYi3SGZ9E37S8R2LWrtrn_aI1FMydyAQOmet4k7u6wCSczTXrC2MXMCPtrIMQXXduX88ybtypHLuQW2DiX152IX98pGusx-HfeXJ53bsbYkM446qii2UYmmNKb55AN0yYKdyuk37wn9_VaE-E"/>
+</div>
+<div class="flex-1">
+<h4 class="font-serif text-sm">UC Berkeley</h4>
+<p class="text-[10px] text-on-surface-variant font-label tracking-wide">Berkeley, CA</p>
+</div>
+<div class="text-right">
+<span class="block text-lg font-serif font-bold text-primary">94%</span>
+<span class="text-[8px] uppercase tracking-widest font-bold opacity-40">Match</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Campus Life Snapshot (Editorial Break) -->
+<div class="rounded-xl overflow-hidden relative h-48">
+<img alt="Stanford Quad" class="w-full h-full object-cover" data-alt="Wide angle view of Stanford Main Quad's iconic architecture with red tile roofs and palm trees at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI1VM_c3bVo4h6HQDbL-n1XZ56v3vc-h4ZxA3uBU94iOQSLlghY4vIq8scJk7Y3xsPv6yAP85Uwiqm8Y4RG2Jw7rA2YCuzmee2ic9HXWEKEA99zuNYjPqUJJXHG9ThfHINSFKI0KjT4x5YSsyey0-zI0LLjnojna_5qetNOX4Viqa8Q0p06TVwZKaNLjVac2xB7eQy6-ciEsBe13z7APYb2tCORfr_FQmEdd3t0CW4Y3hxO1OrhMYaTN0Lvtw5HEOXIxB_qGUc30g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 to-transparent flex items-end p-6">
+<div class="text-white">
+<p class="text-[10px] font-bold uppercase tracking-widest text-secondary-fixed mb-1">Campus Insight</p>
+<h4 class="font-serif text-lg italic">Explore the Palo Alto lifestyle</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

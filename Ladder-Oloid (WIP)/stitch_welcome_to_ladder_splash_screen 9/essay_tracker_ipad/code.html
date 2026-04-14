@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Supplemental Essay Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container": "#f5ede2",
+                        "surface-variant": "#eae1d7",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed": "#161e00",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed": "#caf24d",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-secondary-container": "#566c00",
+                        "surface-tint": "#486644",
+                        "on-primary-fixed": "#052107",
+                        "tertiary-container": "#8d6a48",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-bright": "#fff8f2",
+                        "inverse-surface": "#343029",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fff8f2",
+                        "secondary-container": "#caf24d",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f2",
+                        "on-tertiary-fixed": "#2c1600",
+                        "outline-variant": "#c3c8be",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "tertiary": "#725232",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary": "#42603f",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface": "#1f1b15",
+                        "on-background": "#1f1b15",
+                        "inverse-primary": "#aed0a7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; color: #1f1b15; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .btn-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #eae1d7; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 h-screen w-72 flex-shrink-0 border-r-0 bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="mb-12">
+<h1 class="text-3xl font-noto-serif italic font-bold text-[#42603f] dark:text-[#caf24d]">Ladder</h1>
+<p class="font-noto-serif text-xs tracking-tighter text-stone-500 uppercase mt-1">College Prep Platform</p>
+</div>
+<nav class="flex-grow space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-manrope">Academic Tracker</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="text-sm font-manrope">Transcript</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-manrope">Course Guide</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">calendar_view_month</span>
+<span class="text-sm font-manrope">AI Scheduler</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-sm font-manrope">Research</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7]/50" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-sm font-manrope">Essay Hub</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-sm font-manrope">Career Explorer</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-sm font-manrope">Post-Grad</span>
+</a>
+</nav>
+<div class="mt-auto space-y-6">
+<div class="p-4 rounded-3xl bg-primary-container text-on-primary-container">
+<p class="text-xs font-bold mb-2">Upgrade to Pro</p>
+<p class="text-[10px] opacity-80 leading-relaxed mb-4">Unlock expert AI essay feedback and premium college guides.</p>
+<button class="w-full py-2 bg-secondary-fixed text-on-secondary-fixed text-xs font-bold rounded-full">Upgrade</button>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-2 text-stone-500 text-sm" href="#"><span class="material-symbols-outlined">settings</span> Settings</a>
+<a class="flex items-center gap-4 px-4 py-2 text-stone-500 text-sm" href="#"><span class="material-symbols-outlined">help_outline</span> Support</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl shadow-sm dark:shadow-none opacity-90">
+<div class="flex items-center gap-6">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary" placeholder="Search essays..." type="text"/>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="font-noto-serif text-lg font-semibold text-stone-600 dark:text-stone-400 hover:text-[#42603f] transition-all" href="#">Dashboard</a>
+<a class="font-noto-serif text-lg font-semibold text-[#42603f] dark:text-[#caf24d] border-b-2 border-[#caf24d] pb-1" href="#">Analytics</a>
+<a class="font-noto-serif text-lg font-semibold text-stone-600 dark:text-stone-400 hover:text-[#42603f] transition-all" href="#">Community</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-600 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="Student profile" class="w-full h-full object-cover" data-alt="close-up portrait of a thoughtful young university student in a sunny library setting with soft focus books in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnWFfxD-jDfNAk7uPGOaeSPtC_MbR25C-9z1gSB-xknDpreZmAPye-oE-ob9kb8rHVpD8gyobhZO3XOyMXtpO8v4_XHP3zDdLgjYDKUlBpefrpefRwMAjIRuWP6ci5SmVXLEeHQya-Po49BydkQTMKRZ-vWtd8p20_rxPQhX95LQlkx_Gi7L87ZN1QW5-fLjfdvOb7hOyo8CLJAt2b3OQZSbc6twOQdE2dzpPrvGk19srYqb5T3BYvcFRfx952MTHWYvpdoU75Sak"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pl-72 pt-20 h-screen flex overflow-hidden">
+<!-- Left Section: Essay Tracker (35%) -->
+<section class="w-[35%] h-full flex flex-col bg-surface-container-low p-8 overflow-y-auto">
+<div class="mb-8">
+<h2 class="text-4xl font-noto-serif font-bold tracking-tight text-primary mb-2">Essay Tracker</h2>
+<p class="text-sm text-outline-variant font-medium">8 Colleges • 12 Essays Remaining</p>
+</div>
+<div class="flex flex-col gap-4 mb-20">
+<!-- Selected College Card -->
+<div class="p-6 rounded-3xl bg-surface shadow-sm border-l-8 border-secondary-fixed flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<img alt="University logo" class="w-12 h-12 rounded-xl object-cover" data-alt="heraldic shield emblem with deep crimson and gold accents representing a prestigious ivy league university" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgTQRDPkRExINoks5Sp69FoTQfUgTk4KefdDdthcml81luAVpaHz5TrThgmuhmPRgv9CLNFkMZILF2OD2fDcE_eiBeTZKwkv5-miehxV_JrJVHKdalUDqWgz5_zBZyfPVUDkxYfbw6cur78M2a-ZpHVhrXiFr3RKwQX5YYSeozVzvH43n4AXe1WKKZOskEdgehQb1WRxl2zH8_gUWemeYNHcfVhV3P-FGea1_gK8CHWPi0zmz0HkNru48GNHrjpwd91U7UQiwiSt8"/>
+<div>
+<h3 class="font-noto-serif font-bold text-lg leading-tight">Stanford University</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed/20 text-[10px] font-bold text-secondary tracking-wider uppercase">Active</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary">more_horiz</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold text-outline">
+<span>Progress</span>
+<span>3 / 5 Essays</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[60%]"></div>
+</div>
+</div>
+</div>
+<!-- College Card 2 -->
+<div class="p-6 rounded-3xl bg-surface-container-high/50 hover:bg-surface-container-high transition-colors flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex gap-4 opacity-70">
+<img alt="University logo" class="w-12 h-12 rounded-xl object-cover grayscale" data-alt="modern minimalist circular university logo with deep navy and silver architectural elements" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoGPKQlYi1FaasCgWyY5eWIIsHRDcSkNOPbQxLOA7qy3q6MGxIOJEtQwZBz5EZhYm2KG9ePJxgWCziMw-tcWZsrfTbcMRB8JIk3BQ9u3E6Sw5LVBB00FPwy1SXQ15mruv3C9xZ9byYECuDoXluq1Ew1LeMrCTVeumEUJIpswEUyNfsS90PfxacuFLUkzj2efaTI15ey6iT7mpsYCL_UVG7LI2T96lC3p6htShbU6ng_BfMve3iEQREfu5FQUX5kLql6Ss14NXrvy0"/>
+<div>
+<h3 class="font-noto-serif font-bold text-lg leading-tight">Yale University</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-[10px] font-bold text-outline tracking-wider uppercase">2 Pending</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">check_circle</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold text-outline opacity-70">
+<span>Progress</span>
+<span>1 / 3 Essays</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-outline h-full w-[33%]"></div>
+</div>
+</div>
+</div>
+<!-- College Card 3 -->
+<div class="p-6 rounded-3xl bg-surface-container-high/50 hover:bg-surface-container-high transition-colors flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex gap-4 opacity-70">
+<img alt="University logo" class="w-12 h-12 rounded-xl object-cover grayscale" data-alt="classic university insignia with dark blue and white colors and laurel wreath borders" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBQ38jNWN1uRTCfgJLSutT3KYZBMdBq1zBg2Aae_Wx9cfHv5Kiil6YLQmMEmEn_gSzzbzfOandJ3AExflxFXUkfTf-S6WoYt5GfEV8GcD1KKBKfKRO6oFPHOWHIOKEpKj6cTPP4yyFGcRW-agJzwPgbbweCv76nk39K9C5h8x60onZPDH1hY8VtO2gAhz1Bp7zFA-9r_4E-EGvUmYypoaAX_ZPCRfYDzT52e_fcEruWpx3hWZmagyi8QDTaOByufdcMNkK_DsfDNI"/>
+<div>
+<h3 class="font-noto-serif font-bold text-lg leading-tight">Columbia University</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-[10px] font-bold text-outline tracking-wider uppercase">Not Started</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom CTA for Sidebar -->
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<button class="w-full py-5 btn-gradient text-on-primary font-bold rounded-3xl flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined">auto_awesome</span>
+                    Start All Essays
+                </button>
+</div>
+</section>
+<!-- Right Section: Master-Detail Detail View (65%) -->
+<section class="w-[65%] h-full bg-surface p-12 overflow-y-auto">
+<div class="max-w-4xl mx-auto">
+<header class="mb-12 flex justify-between items-end">
+<div>
+<nav class="flex gap-2 text-xs font-bold text-outline-variant uppercase tracking-widest mb-4">
+<span>Stanford University</span>
+<span>/</span>
+<span class="text-primary">Supplemental Essays</span>
+</nav>
+<h1 class="text-5xl font-noto-serif font-bold text-on-surface leading-none">Drafting Phase</h1>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2 rounded-full border border-outline/20 text-sm font-bold hover:bg-surface-container-low transition-colors">Export PDF</button>
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary text-sm font-bold hover:opacity-90 transition-opacity">Submit to Mentor</button>
+</div>
+</header>
+<div class="space-y-8">
+<!-- Essay Prompt Item 1 -->
+<article class="p-8 rounded-[2rem] bg-surface-container flex flex-col gap-6 border-l border-t border-white/40">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<span class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-on-secondary-fixed">01</span>
+<div>
+<h4 class="text-xl font-noto-serif font-bold text-on-surface">The Community Essay</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">In Review</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-primary">245 / 250 words</p>
+<div class="w-32 h-1 bg-surface-container-highest rounded-full mt-1 overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[98%]"></div>
+</div>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed italic border-l-2 border-primary/20 pl-4 py-1">
+                            "Stanford's community is academic and residential. Describe an experience where you helped a group of people. What did you learn about yourself? (250 words)"
+                        </p>
+<div class="flex justify-between items-center mt-4">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface object-cover" data-alt="headshot of a smiling female advisor with glasses in an office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm-Acom1Q1PzlJBROLnbOg_-XWbip3ffF8LngVMum8gE-JAsP_GD-6gtHp1wPdzJg80iSdKoX8y8udSpsgv6cWF_ecaqPbvLVl0NyEVvMaZVsLpWtSgWK5TVaqiklSEh37fqraegBoNTiYsKDEae9iJT7-oUlo433DHC6OJ-lRfkQaAoIQP_E2RxH8jofGbLBCFYB5SjLRTwy-G6eZeTVakuVXsYkdPxofOOu-PnZmUAgBDu2ElFvo_G17Ms6mBTyXy3oaKEBz7is"/>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center text-[10px] font-bold">+2</div>
+</div>
+<button class="px-6 py-3 bg-primary-container text-on-primary-container font-bold rounded-full flex items-center gap-2 text-sm hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-base">edit</span>
+                                Open in Editor
+                            </button>
+</div>
+</article>
+<!-- Essay Prompt Item 2 -->
+<article class="p-8 rounded-[2rem] bg-surface-container-low flex flex-col gap-6 opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex justify-between items-start">
+<div class="flex gap-4">
+<span class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-outline">02</span>
+<div>
+<h4 class="text-xl font-noto-serif font-bold text-on-surface">The Roommate Note</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-stone-300"></span>
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Drafting</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-outline">12 / 250 words</p>
+<div class="w-32 h-1 bg-surface-container-highest rounded-full mt-1 overflow-hidden">
+<div class="bg-outline h-full w-[5%]"></div>
+</div>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed italic border-l-2 border-outline/10 pl-4 py-1">
+                            "Virtually all Stanford undergraduates live on campus. Write a note to your future roommate that reveals something about you or that will help your roommate – and us – get to know you better. (250 words)"
+                        </p>
+<div class="flex justify-end items-center mt-4">
+<button class="px-6 py-3 bg-surface-container-highest text-on-surface font-bold rounded-full flex items-center gap-2 text-sm hover:brightness-95 transition-all">
+<span class="material-symbols-outlined text-base">ink_pen</span>
+                                Resume Draft
+                            </button>
+</div>
+</article>
+<!-- Bento Detail: Resources -->
+<div class="grid grid-cols-2 gap-4 mt-12">
+<div class="p-6 rounded-3xl bg-primary-container/10 border border-primary/5">
+<span class="material-symbols-outlined text-primary mb-2">lightbulb</span>
+<h5 class="font-noto-serif font-bold mb-1">Stanford Guide</h5>
+<p class="text-xs text-on-surface-variant">Read our breakdown of what Stanford admissions looks for in supplemental responses.</p>
+</div>
+<div class="p-6 rounded-3xl bg-secondary-fixed/10 border border-secondary/5">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">stars</span>
+<h5 class="font-noto-serif font-bold mb-1">AI Reviewer</h5>
+<p class="text-xs text-on-surface-variant">Get instant feedback on your tone, clarity, and thematic resonance with AI Pro.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button for Tasks (Hidden on desktop sidebar but kept for context) -->
+<div class="fixed bottom-10 right-10 flex flex-col gap-4">
+<button class="w-14 h-14 rounded-full btn-gradient shadow-2xl flex items-center justify-center text-on-primary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</div>
+</body></html>

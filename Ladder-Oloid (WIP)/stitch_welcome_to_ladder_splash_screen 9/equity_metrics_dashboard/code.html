@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Equity Metrics Dashboard | Ladder Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#725232",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-fixed": "#caf24d",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "surface-tint": "#486644",
+                        "primary": "#42603f",
+                        "on-background": "#1f1b15",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container": "#f5ede2",
+                        "surface-bright": "#fff8f2",
+                        "on-secondary-container": "#566c00",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-fixed": "#161e00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-primary-fixed": "#052107",
+                        "background": "#fff8f2",
+                        "outline": "#737970",
+                        "on-surface": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#fbf2e8",
+                        "inverse-surface": "#343029",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "surface-dim": "#e1d9cf",
+                        "outline-variant": "#c3c8be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-container">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] dark:bg-[#1f1b15] shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] flex flex-col py-8 px-6 overflow-y-auto z-50">
+<div class="mb-12">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<h1 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+</div>
+<p class="font-noto-serif text-sm opacity-60">District Administration</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active: District Stats -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-noto-serif text-base">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="font-noto-serif text-base">Schools</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7]" href="#">
+<span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-noto-serif text-base">District Stats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-noto-serif text-base">Staff Directory</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-noto-serif text-base">Curriculum</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-transform duration-300 ease-out text-[#1f1b15]/70 hover:translate-x-1 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+<span class="font-noto-serif text-base">Utility Tools</span>
+</a>
+</nav>
+<div class="mt-auto space-y-6">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-4 rounded-xl font-bold tracking-tight shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add_chart">add_chart</span>
+                Quick Report
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-noto-serif text-base">Support</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-noto-serif text-base">Log Out</span>
+</a>
+</div>
+</div>
+</aside>
+<main class="ml-[280pt] min-h-screen">
+<!-- TopAppBar (Authority: JSON) -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-12 py-6 w-full bg-[#fff8f2]/70 backdrop-blur-xl transition-colors">
+<div class="flex items-center gap-8">
+<span class="font-noto-serif text-xl font-bold italic text-[#1f1b15]">Ladder Admin</span>
+<div class="flex items-center gap-6">
+<a class="text-[#5A7956] font-bold font-noto-serif text-sm tracking-tight" href="#">Equity Dashboard</a>
+<a class="text-[#1f1b15]/60 font-noto-serif text-sm tracking-tight hover:bg-[#eae1d7] px-3 py-1 rounded transition-colors" href="#">Compliance</a>
+<a class="text-[#1f1b15]/60 font-noto-serif text-sm tracking-tight hover:bg-[#eae1d7] px-3 py-1 rounded transition-colors" href="#">Funding</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined p-2 rounded-full hover:bg-[#eae1d7] transition-colors cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined p-2 rounded-full hover:bg-[#eae1d7] transition-colors cursor-pointer" data-icon="settings">settings</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest border-2 border-primary/10 overflow-hidden">
+<img alt="Administrator profile" data-alt="Professional portrait of a male administrator in a clean modern office setting with natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkyPmSWtmt3rqaN-aTrb2C1ngQxyPAo8VAFl8if3AGSRnMUNC63hIj724S5d8uWvGOFt6qek67sCgj4Y9oCD0ZAG7XhEOU7k5D_dQ_rCiwUP816-8zDO5Gn5rBpqCaHLv-gY1lLH2YvboTJnh05fvMseLlMon7iV_Fvo3HoBwlJCgWAcwnd2GGo37V7XXXGyrR2lOYKKCLbJictSfUfzTb-tFpRBCBRMyw-LGESNbPiQaZfupOCjM-EyewGwspicdYTjo0EnP53BA"/>
+</div>
+</div>
+</header>
+<div class="px-12 py-8 space-y-12">
+<!-- Hero Title & Export -->
+<div class="flex justify-between items-end">
+<div class="space-y-2">
+<h2 class="font-headline text-5xl font-bold tracking-tight text-on-surface">Equity Metrics <span class="italic font-light">2024</span></h2>
+<p class="text-on-surface-variant font-medium tracking-wide">Monitoring access and achievement across district demographics.</p>
+</div>
+<button class="px-8 py-3 bg-surface-container-highest text-on-surface rounded-xl font-bold border-2 border-primary/5 flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="ios_share">ios_share</span>
+                    Export Equity Report
+                </button>
+</div>
+<!-- Metric Cards: Top Row -->
+<section class="grid grid-cols-5 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold tracking-widest text-primary/70 uppercase">First-Gen %</span>
+<span class="material-symbols-outlined text-secondary font-bold" data-icon="trending_up">trending_up</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-3xl font-bold font-headline">34.2%</h3>
+<p class="text-xs text-on-surface-variant">+2.1% from LY</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold tracking-widest text-primary/70 uppercase">Free/Reduced</span>
+<span class="material-symbols-outlined text-secondary font-bold" data-icon="trending_up">trending_up</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-3xl font-bold font-headline">58.9%</h3>
+<p class="text-xs text-on-surface-variant">+0.4% from LY</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4 border-l-4 border-secondary-fixed">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold tracking-widest text-primary/70 uppercase">SAT Gap</span>
+<span class="material-symbols-outlined text-error font-bold" data-icon="trending_down">trending_down</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-3xl font-bold font-headline">142 pts</h3>
+<p class="text-xs text-error font-medium">-12 pts improvement</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold tracking-widest text-primary/70 uppercase">AP Access</span>
+<span class="material-symbols-outlined text-secondary font-bold" data-icon="trending_up">trending_up</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-3xl font-bold font-headline">76%</h3>
+<p class="text-xs text-on-surface-variant">+8% from LY</p>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold tracking-widest text-primary/70 uppercase">Enrollment Gap</span>
+<span class="material-symbols-outlined text-secondary font-bold" data-icon="trending_down">trending_down</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-3xl font-bold font-headline">4.2%</h3>
+<p class="text-xs text-on-surface-variant">-0.8% narrow</p>
+</div>
+</div>
+</section>
+<!-- Main Dashboard Grid -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: Charts -->
+<div class="col-span-8 space-y-8">
+<!-- College-Going Bar Chart Placeholder -->
+<div class="bg-surface-container-low p-8 rounded-xl space-y-6">
+<div class="flex justify-between items-center">
+<h4 class="font-headline text-xl font-bold">College-Going Rates by Demographic</h4>
+<div class="flex gap-3">
+<div class="flex items-center gap-2 text-xs font-medium"><span class="w-3 h-3 bg-primary rounded-full"></span> 4-Year</div>
+<div class="flex items-center gap-2 text-xs font-medium"><span class="w-3 h-3 bg-secondary-fixed rounded-full"></span> 2-Year</div>
+</div>
+</div>
+<div class="space-y-6">
+<!-- Bar 1 -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-widest opacity-60"><span>Hispanic/Latino</span><span>82%</span></div>
+<div class="w-full h-10 bg-surface-container-highest rounded-full flex overflow-hidden">
+<div class="h-full bg-primary" style="width: 55%"></div>
+<div class="h-full bg-secondary-fixed" style="width: 27%"></div>
+</div>
+</div>
+<!-- Bar 2 -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-widest opacity-60"><span>Black/African American</span><span>78%</span></div>
+<div class="w-full h-10 bg-surface-container-highest rounded-full flex overflow-hidden">
+<div class="h-full bg-primary" style="width: 48%"></div>
+<div class="h-full bg-secondary-fixed" style="width: 30%"></div>
+</div>
+</div>
+<!-- Bar 3 -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-widest opacity-60"><span>White</span><span>91%</span></div>
+<div class="w-full h-10 bg-surface-container-highest rounded-full flex overflow-hidden">
+<div class="h-full bg-primary" style="width: 72%"></div>
+<div class="h-full bg-secondary-fixed" style="width: 19%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Line Chart for Year-Over-Year Trends -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="mb-8">
+<h4 class="font-headline text-xl font-bold">Year-Over-Year Equity Progression</h4>
+<p class="text-sm opacity-60">Relative improvement in core achievement benchmarks</p>
+</div>
+<div class="h-64 relative flex items-end gap-1">
+<!-- Visual placeholder for a sophisticated line chart -->
+<div class="absolute inset-0 flex items-end">
+<svg class="w-full h-full opacity-30" preserveaspectratio="none" viewbox="0 0 1000 200">
+<path d="M0,180 Q100,160 200,140 T400,100 T600,60 T800,40 T1000,20" fill="none" stroke="#42603f" stroke-linecap="round" stroke-width="4"></path>
+<path d="M0,195 Q100,185 200,170 T400,150 T600,140 T800,135 T1000,120" fill="none" stroke="#caf24d" stroke-dasharray="8 4" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</div>
+<div class="flex-1 border-b-2 border-outline-variant/20 h-full flex flex-col justify-end text-[10px] uppercase font-bold opacity-40 px-2"><span>2020</span></div>
+<div class="flex-1 border-b-2 border-outline-variant/20 h-full flex flex-col justify-end text-[10px] uppercase font-bold opacity-40 px-2"><span>2021</span></div>
+<div class="flex-1 border-b-2 border-outline-variant/20 h-full flex flex-col justify-end text-[10px] uppercase font-bold opacity-40 px-2"><span>2022</span></div>
+<div class="flex-1 border-b-2 border-outline-variant/20 h-full flex flex-col justify-end text-[10px] uppercase font-bold opacity-40 px-2"><span>2023</span></div>
+<div class="flex-1 border-b-2 border-secondary-fixed h-full flex flex-col justify-end text-[10px] uppercase font-bold text-secondary-fixed px-2 bg-secondary-fixed/5"><span>2024</span></div>
+</div>
+</div>
+</div>
+<!-- Right Column: AI & Secondary Charts -->
+<div class="col-span-4 space-y-8">
+<!-- AI Action Plan Card -->
+<div class="bg-gradient-to-br from-[#42603f] to-[#5a7956] p-8 rounded-xl text-white shadow-2xl shadow-primary/30 relative overflow-hidden">
+<div class="relative z-10 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-fixed animate-pulse" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h4 class="font-headline text-xl font-bold">AI Action Plan</h4>
+</div>
+<p class="text-sm font-medium leading-relaxed opacity-90">
+                                Enrollment gaps in AP STEM courses are widening at East High. Recommend diverting $45k from general curriculum to specialized outreach for First-Gen students.
+                            </p>
+<ul class="space-y-3">
+<li class="flex gap-3 text-xs">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" data-icon="check_circle">check_circle</span>
+<span>Targeted SAT prep for low-SES juniors</span>
+</li>
+<li class="flex gap-3 text-xs">
+<span class="material-symbols-outlined text-secondary-fixed text-sm" data-icon="check_circle">check_circle</span>
+<span>Bilingual counselor recruitment</span>
+</li>
+</ul>
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed py-3 rounded-lg font-bold text-sm tracking-tight hover:brightness-110 transition-all">
+                                Execute Recommendations
+                            </button>
+</div>
+<!-- Abstract glow -->
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-secondary-fixed opacity-10 rounded-full blur-3xl"></div>
+</div>
+<!-- Aid Distribution Chart -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+<h4 class="font-headline font-bold text-lg">Aid Distribution</h4>
+<div class="flex items-center justify-center py-4">
+<div class="relative w-32 h-32">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="64" cy="64" fill="transparent" r="54" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="64" cy="64" fill="transparent" r="54" stroke="currentColor" stroke-dasharray="339" stroke-dashoffset="100" stroke-width="12"></circle>
+<circle class="text-secondary-fixed" cx="64" cy="64" fill="transparent" r="54" stroke="currentColor" stroke-dasharray="339" stroke-dashoffset="250" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="text-xl font-bold">$4.2M</span>
+<span class="text-[8px] uppercase font-bold opacity-50">Total Pool</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary"></span> Merit-Based</span>
+<span class="font-bold">62%</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-secondary-fixed"></span> Need-Based</span>
+<span class="font-bold">38%</span>
+</div>
+</div>
+</div>
+<!-- Small AP Enrollment List -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+<h4 class="font-headline font-bold text-lg">AP Enrollment Gap</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">STEM Fields</span>
+<span class="text-xs font-bold text-error">-14% disparity</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full">
+<div class="bg-error h-full rounded-full" style="width: 45%"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Humanities</span>
+<span class="text-xs font-bold text-secondary">+2% parity</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full">
+<div class="bg-secondary-fixed h-full rounded-full" style="width: 88%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

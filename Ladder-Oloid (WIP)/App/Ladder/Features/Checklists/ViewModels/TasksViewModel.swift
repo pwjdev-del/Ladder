@@ -23,6 +23,10 @@ final class TasksViewModel {
 
     var tasks: [TaskItem] = TaskItem.sampleTasks
 
+    func loadTasks(for grade: Int) {
+        tasks = TaskItem.tasksForGrade(grade)
+    }
+
     var filteredTasks: [TaskItem] {
         var result = tasks
         if selectedFilter != .all {
@@ -72,7 +76,7 @@ struct TaskItem: Identifiable {
     var isCompleted: Bool = false
     var completedAt: Date?
     var priority: Priority = .medium
-    var icon: String
+    var icon: String = "checkmark.circle"
 
     enum Priority: String {
         case high, medium, low
@@ -90,109 +94,55 @@ struct TaskItem: Identifiable {
         return formatter.string(from: dueDate)
     }
 
-    static var sampleTasks: [TaskItem] {
-        let cal = Calendar.current
-        let now = Date()
-        return [
-            TaskItem(
-                title: "Register for SAT",
-                description: "Sign up on College Board website. Fee waivers available.",
-                category: "Testing",
-                dueDate: cal.date(byAdding: .day, value: 13, to: now),
-                priority: .high,
-                icon: "pencil.and.list.clipboard"
-            ),
-            TaskItem(
-                title: "Request Transcript from Counselor",
-                description: "Ask your school counselor to send official transcripts.",
-                category: "Applications",
-                dueDate: cal.date(byAdding: .day, value: 30, to: now),
-                priority: .high,
-                icon: "doc.text"
-            ),
-            TaskItem(
-                title: "Log Volunteering Hours",
-                description: "Update your activity log with recent community service.",
-                category: "Extracurriculars",
-                dueDate: cal.date(byAdding: .day, value: 7, to: now),
-                priority: .medium,
-                icon: "heart.circle"
-            ),
-            TaskItem(
-                title: "Study for AP Biology Exam",
-                description: "Review chapters 12-18 and complete practice tests.",
-                category: "Academics",
-                dueDate: cal.date(byAdding: .day, value: 21, to: now),
-                priority: .high,
-                icon: "book"
-            ),
-            TaskItem(
-                title: "Update Common App Activities",
-                description: "Add new extracurriculars and update descriptions.",
-                category: "Applications",
-                dueDate: cal.date(byAdding: .day, value: 45, to: now),
-                priority: .medium,
-                icon: "square.and.pencil"
-            ),
-            TaskItem(
-                title: "Research Scholarship Opportunities",
-                description: "Check Fastweb and local community foundations.",
-                category: "Financial",
-                dueDate: cal.date(byAdding: .day, value: 14, to: now),
-                priority: .medium,
-                icon: "dollarsign.circle"
-            ),
-            TaskItem(
-                title: "Complete FAFSA Application",
-                description: "Gather tax documents and fill out FAFSA.",
-                category: "Financial",
-                dueDate: cal.date(byAdding: .day, value: 60, to: now),
-                priority: .high,
-                icon: "banknote"
-            ),
-            TaskItem(
-                title: "Join a Club or Organization",
-                description: "Look for clubs that align with your interests.",
-                category: "Extracurriculars",
-                isCompleted: true,
-                completedAt: cal.date(byAdding: .day, value: -5, to: now),
-                priority: .low,
-                icon: "person.3"
-            ),
-            TaskItem(
-                title: "Take Practice SAT",
-                description: "Complete a full-length practice test under timed conditions.",
-                category: "Testing",
-                isCompleted: true,
-                completedAt: cal.date(byAdding: .day, value: -3, to: now),
-                priority: .medium,
-                icon: "timer"
-            ),
-            TaskItem(
-                title: "Set Up College Board Account",
-                description: "Create account for SAT registration and score reports.",
-                category: "Testing",
-                isCompleted: true,
-                completedAt: cal.date(byAdding: .day, value: -10, to: now),
-                priority: .high,
-                icon: "person.badge.key"
-            ),
-            TaskItem(
-                title: "Draft Personal Statement",
-                description: "Write first draft of your Common App essay.",
-                category: "Applications",
-                dueDate: cal.date(byAdding: .day, value: 90, to: now),
-                priority: .medium,
-                icon: "text.alignleft"
-            ),
-            TaskItem(
-                title: "Build College List",
-                description: "Research and create a balanced list of reach, match, and safety schools.",
-                category: "Applications",
-                dueDate: cal.date(byAdding: .day, value: 60, to: now),
-                priority: .medium,
-                icon: "list.bullet.rectangle"
-            ),
-        ]
+    static func tasksForGrade(_ grade: Int) -> [TaskItem] {
+        switch grade {
+        case 9:
+            return [
+                TaskItem(title: "Keep GPA above 3.5", category: "Academics", isCompleted: false),
+                TaskItem(title: "Join 2-3 school clubs", category: "Extracurriculars", isCompleted: false),
+                TaskItem(title: "Explore career interests (take career quiz)", category: "Career", isCompleted: false),
+                TaskItem(title: "Read for pleasure (build vocabulary)", category: "Academics", isCompleted: false),
+                TaskItem(title: "Research summer programs", category: "Planning", isCompleted: false),
+                TaskItem(title: "Attend career fair at school", category: "Career", isCompleted: false)
+            ]
+        case 10:
+            return [
+                TaskItem(title: "Maintain strong GPA (target 3.7+)", category: "Academics", isCompleted: false),
+                TaskItem(title: "Take PSAT (practice)", category: "Testing", isCompleted: false),
+                TaskItem(title: "Deepen involvement in 1-2 activities (leadership)", category: "Extracurriculars", isCompleted: false),
+                TaskItem(title: "Start 30-40 hours of community service", category: "Service", isCompleted: false),
+                TaskItem(title: "Research college types (public/private/liberal arts)", category: "Planning", isCompleted: false),
+                TaskItem(title: "Plan AP or Honors courses for junior year", category: "Academics", isCompleted: false),
+                TaskItem(title: "Summer job or enrichment program", category: "Summer", isCompleted: false)
+            ]
+        case 11:
+            return [
+                TaskItem(title: "Register for SAT or ACT", category: "Testing", isCompleted: false),
+                TaskItem(title: "Take SAT/ACT (first attempt spring)", category: "Testing", isCompleted: false),
+                TaskItem(title: "Take AP exams", category: "Testing", isCompleted: false),
+                TaskItem(title: "Build college list (10-15 schools)", category: "Planning", isCompleted: false),
+                TaskItem(title: "Visit 3-5 colleges", category: "Planning", isCompleted: false),
+                TaskItem(title: "Ask teachers for recommendation letters (spring)", category: "Applications", isCompleted: false),
+                TaskItem(title: "Draft Common App personal statement (summer)", category: "Essays", isCompleted: false),
+                TaskItem(title: "Attend Junior Parent Night", category: "Planning", isCompleted: false)
+            ]
+        case 12:
+            return [
+                TaskItem(title: "Finalize college list (balance reach/match/safety)", category: "Applications", isCompleted: false),
+                TaskItem(title: "Complete Common App activities section", category: "Applications", isCompleted: false),
+                TaskItem(title: "Finalize personal statement", category: "Essays", isCompleted: false),
+                TaskItem(title: "Submit EA/ED applications by Nov 1", category: "Applications", isCompleted: false),
+                TaskItem(title: "Submit regular decision apps by Jan 1", category: "Applications", isCompleted: false),
+                TaskItem(title: "Complete FAFSA (opens Oct 1)", category: "Financial Aid", isCompleted: false),
+                TaskItem(title: "Request final transcripts", category: "Applications", isCompleted: false),
+                TaskItem(title: "Compare financial aid packages (April)", category: "Financial Aid", isCompleted: false),
+                TaskItem(title: "Submit enrollment deposit by May 1", category: "Post-Admission", isCompleted: false)
+            ]
+        default:
+            return []
+        }
     }
+
+    // Keep the original static var sampleTasks but point it at a default grade for previews
+    static var sampleTasks: [TaskItem] { tasksForGrade(10) }
 }

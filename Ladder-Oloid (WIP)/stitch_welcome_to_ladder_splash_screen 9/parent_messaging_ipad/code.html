@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "surface": "#fff8f2",
+                    "tertiary-container": "#8d6a48",
+                    "on-primary-fixed": "#052107",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "primary-fixed": "#c9ecc2",
+                    "error": "#ba1a1a",
+                    "background": "#fff8f2",
+                    "tertiary": "#725232",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-container": "#f5ede2",
+                    "secondary-container": "#caf24d",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-surface": "#1f1b15",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-tint": "#486644",
+                    "on-surface-variant": "#434840",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-high": "#efe7dd",
+                    "surface-variant": "#eae1d7",
+                    "surface-container-low": "#fbf2e8",
+                    "primary": "#42603f",
+                    "inverse-primary": "#aed0a7",
+                    "surface-dim": "#e1d9cf",
+                    "primary-container": "#5a7956",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#566c00",
+                    "secondary-fixed": "#caf24d",
+                    "on-secondary-fixed": "#161e00",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "inverse-surface": "#343029",
+                    "secondary": "#516600",
+                    "surface-bright": "#fff8f2",
+                    "secondary-fixed-dim": "#afd531",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-background": "#1f1b15",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "outline": "#737970",
+                    "on-tertiary-fixed": "#2c1600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fff8f2;
+            color: #1f1b15;
+        }
+        .serif-heading {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- App Shell (SideNav from JSON) -->
+<aside class="fixed left-0 top-0 h-full z-40 h-screen w-72 flex flex-col border-r-0 bg-[#fbf2e8] dark:bg-stone-900 overflow-hidden">
+<div class="p-8 flex flex-col gap-1">
+<h1 class="text-2xl font-bold font-serif text-[#42603f] dark:text-emerald-500">Evergreen</h1>
+<p class="text-xs uppercase tracking-widest text-on-surface/50 font-semibold">Academic Atelier</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm font-medium">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-medium">Colleges</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Applications</span>
+</a>
+<!-- Advisor is active context for messaging -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#42603f] dark:text-emerald-300 font-bold bg-[#eae1d7] dark:bg-stone-800 rounded-r-2xl" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="text-sm">Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Financial</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-sm font-medium">Career</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="mt-auto p-4 space-y-4">
+<button class="w-full py-4 px-6 bg-primary-container text-white rounded-xl font-bold flex items-center justify-center gap-2 scale-95 duration-150 ease-in-out hover:scale-100">
+<span class="material-symbols-outlined">chat_bubble</span>
+                Support Advisor
+            </button>
+<div class="flex items-center gap-4 px-4 py-6">
+<img alt="Student avatar" class="w-12 h-12 rounded-full object-cover" data-alt="close-up portrait of a professional woman with a warm smile and sophisticated office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6C-pPq2Ku10xctr9natCAshG1_oxViA6JcMgx9YZOVyBKaMFGOBwdx_EhDrDypVOTYmjaOJ5CPbWmDjP_t-ZjkGzw-OFOx1ZGTpT0U6gsaxiMQhhQxIMkVbaRA5lI82i2-I5kJcKizMaidqIaAA0oz0oYW8En7zuNttEasQQ-Jo3VYd59-zQXpZE_I0Gx2HeZkxwa1IRbaemf83Py0QSoVb6qm8R4bzuiszHWnFmzkLlGqXmdNhAtgCgL51KHjV8zDWLW9ugHRGM"/>
+<div>
+<p class="text-sm font-bold">Eleanor Vance</p>
+<p class="text-xs text-on-surface/60">Parent Account</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen flex flex-col">
+<!-- Parent Messaging Screen -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Master Area: Contact List -->
+<section class="w-96 bg-surface-container-low flex flex-col">
+<div class="p-8 pb-4">
+<h2 class="serif-heading text-4xl font-bold tracking-tight mb-2">Messages</h2>
+<p class="text-sm text-on-surface-variant font-medium">Stay updated with the academic circle.</p>
+</div>
+<div class="p-4 px-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface/40">search</span>
+<input class="w-full bg-surface-container-highest border-none rounded-xl pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface/30" placeholder="Search contacts..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-4 py-2 space-y-2">
+<!-- Active Contact -->
+<div class="p-4 bg-surface-container-highest rounded-2xl flex items-center gap-4 cursor-pointer">
+<div class="relative">
+<img alt="Counselor" class="w-14 h-14 rounded-full object-cover" data-alt="professional woman in corporate attire with soft natural lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzWHoyj44UVm5HDt33ZUVGygQ8IBEEvckOBDcQZxsbKL1E1x3IYJER8jo74PhCSRDO9VscbxTQeZViklSbznuWUrlcD5RzLzWYRDeJ9Zxpnb6oHQScy_4DMaRFgx2VGVuw19uhLyjlVkjdywja39KTEik5AuGK8-nNTQRZG4ww3tgrCA6rdLhKvQOf2mmsr6904s4sfKz2fxnBRYGJ33bm5kLRyKJy44oaA94z7PcAuOG33JE19R0YxfBo4bYDh-L6IE3hWltoM_g"/>
+<span class="absolute bottom-0 right-0 w-4 h-4 bg-secondary-container border-2 border-surface-container-highest rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-0.5">
+<h3 class="font-bold text-on-surface truncate">Dr. Sarah Jenkins</h3>
+<span class="text-[10px] text-on-surface/40 uppercase font-bold">12:45 PM</span>
+</div>
+<p class="text-sm text-primary font-semibold truncate">Meeting link for tomorrow...</p>
+</div>
+<div class="w-5 h-5 bg-primary text-white text-[10px] flex items-center justify-center rounded-full font-bold">2</div>
+</div>
+<!-- Other Contact -->
+<div class="p-4 hover:bg-surface-container/50 rounded-2xl flex items-center gap-4 cursor-pointer transition-colors group">
+<div class="relative">
+<img alt="Student" class="w-14 h-14 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="teenage boy in a casual collegiate sweater smiling outdoors in a sunlit campus park" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAIMS1Kiij9LEa9N0wN-uL5orty1XNt9CfGfORjikCf5p4NdAAk1dhmEBi6jQNsMFMMHMGlRHkkevvpg6e4awC_2NRrKjDFWWk5FWouC3U3pMxNpoJ2D0qTMo0BVrQHFHOECByikBadDOwLOeob4UE6qmS3HpegqP5-96Pxis_oNqv9_tSdT-taHxsyo2KZc5U1bho5TX4-Eny4daEfpPaTSNE9IGf-ic78KKT8W8yWeeZjg2EM-QAFmPhmt5QwDc3CwwbZWmko4g"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-0.5">
+<h3 class="font-bold text-on-surface/80 truncate">Julian Vance</h3>
+<span class="text-[10px] text-on-surface/40 uppercase font-bold">Yesterday</span>
+</div>
+<p class="text-sm text-on-surface/50 truncate">Thanks for the financial aid info, Mom!</p>
+</div>
+</div>
+<div class="p-4 hover:bg-surface-container/50 rounded-2xl flex items-center gap-4 cursor-pointer transition-colors group">
+<div class="relative">
+<div class="w-14 h-14 rounded-full bg-tertiary-fixed-dim flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant">groups</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-0.5">
+<h3 class="font-bold text-on-surface/80 truncate">Financial Aid Office</h3>
+<span class="text-[10px] text-on-surface/40 uppercase font-bold">Oct 24</span>
+</div>
+<p class="text-sm text-on-surface/50 truncate">Application status updated...</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Detail Area: Conversation Thread -->
+<section class="flex-1 bg-surface flex flex-col relative">
+<!-- Chat Header -->
+<header class="h-24 px-10 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex items-center gap-4">
+<img alt="Counselor Small" class="w-10 h-10 rounded-full object-cover" data-alt="professional portrait of woman with gentle gaze and soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjZ0ElF3-RQm8QpQQVJKgaM1Sh3SEd5KfCZIwinGiGVbffOOaHVTVdbGLKgkeG7ZhlTE5Pffw_3SZmbzJZyAVBwfrT6kVW0cln5lRMigfhUaTHlJLBIKD_M4CcCgrmfZ8JonMrLIYA6U3sQxVZNnMu8JV2HFpzCu81_O_IJEwWGngy59NguqNymAbJLW5fKsaNZXSUboBiy4X5pbNwL7Zhwyg6WnHvZsyUJL6De8vN3_cW-7s-8bL1JEnN168_oE7HsX2xuWVJRg0"/>
+<div>
+<h2 class="font-bold text-lg">Dr. Sarah Jenkins</h2>
+<p class="text-xs text-secondary font-bold uppercase tracking-widest">Senior College Advisor</p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-on-surface/60">videocam</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-on-surface/60">info</span>
+</button>
+</div>
+</header>
+<!-- Thread Content -->
+<div class="flex-1 overflow-y-auto p-10 space-y-8">
+<!-- Visibility Rule Notice -->
+<div class="max-w-2xl mx-auto">
+<div class="bg-surface-container-low rounded-2xl p-6 flex items-start gap-4 border border-primary/5">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">policy</span>
+<div>
+<h4 class="text-sm font-bold text-on-surface mb-1">Transparency Policy</h4>
+<p class="text-sm text-on-surface/70 leading-relaxed">
+                                    To ensure Julian's academic autonomy, all messages in this thread are visible to the student. Counselors will maintain a holistic record of parental involvement.
+                                </p>
+</div>
+</div>
+</div>
+<!-- Received Message -->
+<div class="flex flex-col items-start gap-2 max-w-[70%]">
+<div class="bg-surface-container-highest text-on-surface p-5 rounded-2xl rounded-tl-none shadow-sm">
+<p class="text-sm leading-relaxed">Good morning, Mrs. Vance. I've reviewed Julian's college list. The reach schools look solid, but we might want to consider two more safety options in-state.</p>
+</div>
+<span class="text-[10px] text-on-surface/40 font-bold uppercase ml-1">11:02 AM</span>
+</div>
+<!-- Sent Message -->
+<div class="flex flex-col items-end gap-2 max-w-[70%] ml-auto">
+<div class="bg-primary text-white p-5 rounded-2xl rounded-tr-none shadow-md bg-gradient-to-br from-primary to-primary-container">
+<p class="text-sm leading-relaxed">Thank you, Dr. Jenkins. We were looking at University of Oregon as a safety. Does that align with his current GPA trajectory?</p>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] text-on-surface/40 font-bold uppercase">11:15 AM</span>
+<span class="material-symbols-outlined text-xs text-secondary-container" style="font-variation-settings: 'FILL' 1;">done_all</span>
+</div>
+</div>
+<!-- Received Message -->
+<div class="flex flex-col items-start gap-2 max-w-[70%]">
+<div class="bg-surface-container-highest text-on-surface p-5 rounded-2xl rounded-tl-none shadow-sm">
+<p class="text-sm leading-relaxed">Absolutely. Their business program is excellent for his interests. I've sent Julian the meeting link for our deep-dive session tomorrow. Would you like to join the first 15 minutes to discuss the financial logistics?</p>
+</div>
+<span class="text-[10px] text-on-surface/40 font-bold uppercase ml-1">12:45 PM</span>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-8 pt-4">
+<div class="max-w-4xl mx-auto bg-surface-container-low rounded-3xl p-2 flex items-center gap-2 shadow-sm border border-outline-variant/20">
+<button class="w-12 h-12 flex items-center justify-center text-on-surface/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-3 px-2 placeholder:text-on-surface/30" placeholder="Draft your message..." type="text"/>
+<button class="w-12 h-12 flex items-center justify-center text-on-surface/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">mood</span>
+</button>
+<button class="bg-primary text-white w-12 h-12 rounded-2xl flex items-center justify-center hover:scale-105 transition-transform bg-gradient-to-br from-primary to-primary-container">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<p class="text-center text-[10px] text-on-surface/30 uppercase font-bold tracking-widest mt-4">Press enter to send • Shift + enter for new line</p>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed on Details as per Logic) -->
+<!-- The FAB is not rendered here as the user is focused on a specific detail view (Messaging). -->
+</body></html>

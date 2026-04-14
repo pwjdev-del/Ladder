@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "surface-tint": "#486644",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "outline-variant": "#c3c8be",
+                        "on-surface-variant": "#434840",
+                        "tertiary-fixed": "#ffdcbd",
+                        "tertiary": "#725232",
+                        "surface-container": "#f5ede2",
+                        "background": "#fff8f2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-container": "#5a7956",
+                        "on-secondary-fixed": "#161e00",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-bright": "#fff8f2",
+                        "outline": "#737970",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "primary": "#42603f",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "secondary-fixed": "#caf24d",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#2c1600",
+                        "secondary": "#516600",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#fbf2e8",
+                        "surface": "#fff8f2",
+                        "surface-container-high": "#efe7dd",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface": "#1f1b15",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-background": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "inverse-on-surface": "#f8efe5",
+                        "inverse-primary": "#aed0a7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-variant": "#eae1d7",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#e1d9cf"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .custom-glass {
+            background: rgba(234, 225, 215, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- NavigationDrawer -->
+<aside class="fixed left-0 top-0 h-full z-40 h-screen w-72 bg-[#fbf2e8] dark:bg-stone-900 border-none transition-transform -translate-x-full md:translate-x-0">
+<div class="flex flex-col h-full py-8">
+<div class="px-8 mb-12">
+<h1 class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#5a7956]">Academic Atelier</h1>
+<p class="text-xs font-sans tracking-tight text-stone-500 mt-1 uppercase tracking-widest">Premium Scholar</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-[#42603f] dark:text-[#5a7956] font-bold border-l-4 border-[#caf24d] hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+<span class="text-sm font-medium">Roommates</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+<span class="text-sm font-medium">Deadlines</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-sm font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-high/50">
+<img alt="Student avatar" class="w-10 h-10 rounded-full bg-primary-container object-cover" data-alt="Close up portrait of a young student with a warm smile and scholarly glasses in a bright academic hall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGKuto8wIRo9f2AvdH4o71SmUao-eapQz1mP-cE1Ou0nvjUkPJIL9r-dbDtwodu2ylZxfitF6-G0FiMWT1DZW06agPiC_Lmq7i9WovJ8KnM5t2YQ8kK1dAlWtFMpCEl33vhsWK75J4XDuqJTNBLfzk0Jedcf4_wd8WzQjC9d2b9BuXRgeDc-GX_yQewErhGR5BXfVRm13EJdABAywwrGL6zp1IKWeoodyS14Z3n0g6TMnZ1z5S3blIZh32ZliCDuK07b7H9SY-XTY"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Batch 9 Student</p>
+<p class="text-xs text-stone-500">View Account</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-0 md:ml-72 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-30 flex justify-between items-center w-full px-8 py-6 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl transition-opacity duration-200">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined md:hidden text-[#42603f]" data-icon="menu">menu</span>
+<h2 class="font-serif text-3xl tracking-tight text-[#1f1b15] dark:text-stone-100 italic">Roommate Finder</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden sm:flex items-center gap-2 text-stone-500">
+<span class="material-symbols-outlined text-xl" data-icon="search">search</span>
+<span class="text-sm">Filter matches</span>
+</div>
+<img alt="User profile photo" class="w-10 h-10 rounded-full object-cover border-2 border-primary-container" data-alt="High resolution professional portrait photo of an university professor in a library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsWOBBAirLkp43bHyRVuKS8doAyp1xoYeOAItdCUu3Y4XH4TDYW5zpU1kCew4RkCkpM6S2Qy6Mo7fk7dimI3-Spee3MDeYy15RZh2dAs7rkJJ-9Hj7_--rL3N_5gs4adfawTcIaJ0DfRV_0sqHZEBHvgFR6XY8t6Eq-mpjC32gM0gXzfnVz-znGolZ8mHuH3nBbmDKePSBFWEtWiJc-70z-aISBLRY0hHBOwsRWJFA57luj-97UpaMNAnjys1Ldhev1LqrhA40ujM"/>
+</div>
+</header>
+<!-- Screen Content: Master-Detail Layout -->
+<div class="flex-1 flex flex-col lg:flex-row h-[calc(100vh-88px)] overflow-hidden">
+<!-- Sidebar: List of Potential Roommates -->
+<section class="w-full lg:w-[400px] bg-surface-container-low overflow-y-auto no-scrollbar border-r border-transparent">
+<div class="p-6 space-y-4">
+<div class="flex justify-between items-end mb-6">
+<p class="text-xs font-bold text-stone-400 uppercase tracking-[0.2em]">14 Matches found</p>
+<span class="text-xs text-primary font-bold underline underline-offset-4 decoration-2">Sort by Best Fit</span>
+</div>
+<!-- Roommate Card: Active -->
+<div class="bg-surface-container-highest p-5 rounded-xl border-l-4 border-secondary-fixed shadow-sm cursor-pointer scale-[1.02] transition-transform">
+<div class="flex gap-4">
+<img alt="Julianne" class="w-14 h-14 rounded-full object-cover" data-alt="Close-up of a smiling woman with curly hair wearing a green sweater in a sunlit room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUVJGYMEWK38bRyoWjJeBl_caLYrwRgOsQevRks8BXadt8a7EpCa7e5ROUwwD3Gyv0PQ8ifJXUECtQU_4mLpLLorQzZfnKfeq4RMIFiQu8It43UDoQZYf9rT8gZOKyBPi8P5it0BSM9_qQDjdKciQju9lJsbn7RCjkWlDmkc89DJaw8VUHyJG5L4L-BYj90srDUICvzNH56lkuv-u-8rSFZ2tO0hIRoCytZ3dVnRpgPwotRq_zdtMOJadAHoKDwhBLosM0kwN3AmM"/>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-lg text-on-surface">Julianne Vance</h3>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded-full">94% MATCH</span>
+</div>
+<p class="text-xs text-stone-500 mb-2 italic">Faculty of Arts &amp; Sciences</p>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="text-[10px] px-2 py-1 bg-surface-container rounded-full text-stone-600">Night Owl</span>
+<span class="text-[10px] px-2 py-1 bg-surface-container rounded-full text-stone-600">Classical Music</span>
+<span class="text-[10px] px-2 py-1 bg-surface-container rounded-full text-stone-600">Vegan</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Roommate Card: Inactive -->
+<div class="bg-surface p-5 rounded-xl hover:bg-surface-container-high transition-all cursor-pointer">
+<div class="flex gap-4">
+<img alt="Marcus" class="w-14 h-14 rounded-full object-cover" data-alt="Portrait of a young man with glasses and a thoughtful expression, wearing a linen shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCndZvprjk2tg-cbFPujlgziDLJBlwJl0AFd-i64fvu_N_auFIWIa6IBex-FcKORt02WcT4BAqKpmimniEj263QYs0xIEyutyafhC5B2DJR0mdIWCjwFbT2V81gCRPih_8xwOnwMfBOVecjiU3Iblm3Hf43FBMKWh7ZmQuZ9xonbSQvPy2sdDNCiFMKdAy878NW7qjh2ki8nWUXO-NZveWJ15PuRW-k-W156Oo0rpQJmriY8REnt5_GFY-nZOmbhAHSG4LEGyj20gg"/>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-lg text-on-surface">Marcus Kael</h3>
+<span class="bg-surface-container-highest text-stone-500 text-[10px] font-bold px-2 py-0.5 rounded-full">87% MATCH</span>
+</div>
+<p class="text-xs text-stone-500 mb-2 italic">School of Engineering</p>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="text-[10px] px-2 py-1 bg-surface-container-low rounded-full text-stone-500">Early Bird</span>
+<span class="text-[10px] px-2 py-1 bg-surface-container-low rounded-full text-stone-500">Quiet Study</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface p-5 rounded-xl hover:bg-surface-container-high transition-all cursor-pointer opacity-80">
+<div class="flex gap-4">
+<img alt="Elena" class="w-14 h-14 rounded-full object-cover" data-alt="Young woman with a bright smile outdoors in a botanical garden setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMYEyMbLBKYzIn2VXCMehOVWB3PlH8_Ht1WjmS1csG_KBfYIrdlIdIStoyWJptQDqGBiX-9ENGGdXmHa-j73t9B55binlpjUqI85xRX8T1z0cYofjEWZnqSYNxyqyje3X6aBIojwYtL51OYVaxg4NU62a4j1WJ5KAGiTTCmpxFt_ZM200Pi8RdZuX5OJc16pi_4AseAEsmzSEcpdVMNP5uOh1T13avneiIBpWZUQz0sJKLoEC7JgccnUEcOzmm-E1YMriokixVN-M"/>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-lg text-on-surface">Elena Lavoie</h3>
+<span class="bg-surface-container-highest text-stone-500 text-[10px] font-bold px-2 py-0.5 rounded-full">82% MATCH</span>
+</div>
+<p class="text-xs text-stone-500 mb-2 italic">Medical Sciences</p>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="text-[10px] px-2 py-1 bg-surface-container-low rounded-full text-stone-500">Chef</span>
+<span class="text-[10px] px-2 py-1 bg-surface-container-low rounded-full text-stone-500">Minimalist</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Detail View -->
+<section class="flex-1 bg-surface overflow-y-auto no-scrollbar">
+<div class="max-w-4xl mx-auto p-8 lg:p-12">
+<!-- Hero/Header Detail -->
+<div class="flex flex-col md:flex-row gap-12 items-start mb-16">
+<div class="relative">
+<div class="w-48 h-48 rounded-full border-8 border-surface-container-low flex items-center justify-center relative">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle class="text-secondary-fixed" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="33.17" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="text-center">
+<span class="block text-4xl font-serif font-bold text-primary">94%</span>
+<span class="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Compatibility</span>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-white p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-secondary font-bold" data-icon="verified">verified</span>
+</div>
+</div>
+<div class="flex-1">
+<h2 class="text-5xl font-serif italic text-on-surface mb-2">Julianne Vance</h2>
+<p class="text-lg text-stone-500 mb-6 max-w-md">"Looking for a peaceful academic environment. I'm a Ph.D. candidate who values deep focus and weekend hiking trips."</p>
+<div class="flex gap-4">
+<button class="primary-gradient px-8 py-3 rounded-xl text-white font-bold flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-xl" data-icon="send">send</span>
+                                    Send Intro
+                                </button>
+<button class="bg-surface-container-highest px-8 py-3 rounded-xl text-on-surface font-bold border border-transparent hover:border-outline-variant transition-all">
+                                    Pass
+                                </button>
+</div>
+</div>
+</div>
+<!-- Comparison Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Radar Chart Comparison (Conceptual Visualization) -->
+<div class="bg-surface-container-low p-8 rounded-xl relative overflow-hidden h-80 flex flex-col justify-center items-center">
+<h4 class="absolute top-6 left-8 font-serif italic text-xl text-primary">Aesthetic Alignment</h4>
+<!-- Mock Radar Chart SVG -->
+<svg class="w-48 h-48" viewbox="0 0 200 200">
+<polygon fill="transparent" points="100,20 180,70 150,160 50,160 20,70" stroke="#c3c8be" stroke-width="1"></polygon>
+<polygon fill="transparent" points="100,50 150,85 130,140 70,140 50,85" stroke="#c3c8be" stroke-width="1"></polygon>
+<!-- Match Shape -->
+<polygon fill="rgba(81, 102, 0, 0.2)" points="100,30 160,80 140,150 60,145 40,75" stroke="#516600" stroke-width="2"></polygon>
+<!-- User Shape -->
+<polygon fill="rgba(66, 96, 63, 0.1)" points="100,40 145,75 130,140 80,135 60,85" stroke="#42603f" stroke-dasharray="4" stroke-width="2"></polygon>
+</svg>
+<div class="absolute bottom-6 flex gap-6 text-[10px] font-bold uppercase tracking-tighter">
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-secondary"></span> Julianne</div>
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full border border-primary border-dashed"></span> You</div>
+</div>
+</div>
+<!-- Preferences & Differences -->
+<div class="space-y-6">
+<!-- Shared Preferences -->
+<div class="bg-surface-container-high/50 p-6 rounded-xl">
+<h4 class="font-bold text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Shared Preferences
+                                </h4>
+<ul class="space-y-3">
+<li class="flex items-center justify-between text-sm">
+<span class="text-stone-600">Quiet hours after 10PM</span>
+<span class="material-symbols-outlined text-secondary text-base" data-icon="task_alt">task_alt</span>
+</li>
+<li class="flex items-center justify-between text-sm">
+<span class="text-stone-600">No indoor smoking</span>
+<span class="material-symbols-outlined text-secondary text-base" data-icon="task_alt">task_alt</span>
+</li>
+<li class="flex items-center justify-between text-sm">
+<span class="text-stone-600">Bi-weekly cleaning schedule</span>
+<span class="material-symbols-outlined text-secondary text-base" data-icon="task_alt">task_alt</span>
+</li>
+</ul>
+</div>
+<!-- Conflict Points -->
+<div class="bg-tertiary-fixed/30 p-6 rounded-xl border border-tertiary-fixed/50">
+<h4 class="font-bold text-tertiary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                    Minor Differences
+                                </h4>
+<ul class="space-y-3">
+<li class="flex items-center justify-between text-sm">
+<span class="text-stone-700">Temperature (Likes it cold)</span>
+<span class="px-2 py-0.5 bg-tertiary text-white text-[10px] rounded">68°F vs 72°F</span>
+</li>
+<li class="flex items-center justify-between text-sm">
+<span class="text-stone-700">Guest Frequency</span>
+<span class="px-2 py-0.5 bg-tertiary text-white text-[10px] rounded">Occasional</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Additional Details -->
+<div class="mt-12">
+<h4 class="font-serif italic text-2xl mb-6">Lifestyle Profile</h4>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="p-4 bg-surface-container-low rounded-xl">
+<span class="text-[10px] text-stone-400 font-bold uppercase block mb-1">Study Habit</span>
+<span class="font-medium text-on-surface">Library-bound</span>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl">
+<span class="text-[10px] text-stone-400 font-bold uppercase block mb-1">Kitchen</span>
+<span class="font-medium text-on-surface">Active Cook</span>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl">
+<span class="text-[10px] text-stone-400 font-bold uppercase block mb-1">Social</span>
+<span class="font-medium text-on-surface">Introverted</span>
+</div>
+<div class="p-4 bg-surface-container-low rounded-xl">
+<span class="text-[10px] text-stone-400 font-bold uppercase block mb-1">Pet Friendly</span>
+<span class="font-medium text-on-surface">Fish only</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed based on rules for Details Screen, but would sit here if home) -->
+<!-- <button class="fixed bottom-8 right-8 w-14 h-14 primary-gradient rounded-full shadow-2xl flex items-center justify-center text-white">
+        <span class="material-symbols-outlined" data-icon="add">add</span>
+    </button> -->
+</body></html>

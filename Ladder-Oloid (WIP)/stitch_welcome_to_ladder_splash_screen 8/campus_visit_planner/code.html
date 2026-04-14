@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Campus Visit Planner - Ladder</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#fff8f2",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-surface-variant": "#434840",
+                    "outline-variant": "#c3c8be",
+                    "tertiary": "#725232",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#8d6a48",
+                    "surface-tint": "#486644",
+                    "on-secondary-container": "#566c00",
+                    "inverse-surface": "#343029",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-container": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#2c1600",
+                    "error": "#ba1a1a",
+                    "surface-container": "#f5ede2",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#fbf2e8",
+                    "surface": "#fff8f2",
+                    "surface-container-highest": "#eae1d7",
+                    "background": "#fff8f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-secondary-fixed": "#161e00",
+                    "on-surface": "#1f1b15",
+                    "inverse-primary": "#aed0a7",
+                    "primary-fixed": "#c9ecc2",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary": "#516600",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface-variant": "#eae1d7",
+                    "surface-dim": "#e1d9cf",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "primary": "#42603f",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#aed0a7",
+                    "primary-container": "#5a7956",
+                    "outline": "#737970",
+                    "on-primary-fixed": "#052107",
+                    "secondary-fixed": "#caf24d",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#e2ffda"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .asymmetric-shadow {
+            box-shadow: 12px 12px 40px rgba(31, 27, 21, 0.06);
+        }
+        body {
+            background-color: #fff8f2;
+            color: #1f1b15;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center w-full px-6 py-4 bg-[#fff8f2] dark:bg-stone-950 sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#42603f]" data-icon="menu">menu</span>
+<h1 class="text-2xl font-serif italic font-bold text-[#42603f] dark:text-[#fbf2e8]">Ladder</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container-highest">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a student smiling, soft natural lighting with warm academic tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkxoEcBcLBHNkAH252o81Hryz3RWeonkZUcL3viKeyO0hHWzJhBYv2iGh8c47GnmJN0kpRnJJzjYXOzJYPq7uYVDFZrWL0gMXMxM-KvCdHw13sWqugj3quxeRAZwuvaKRHxqYeh20HaElexQPXT4YMs0-BIKzveOPuZy0RiXY73YnuvVGs7Mylk3scycEp6ou2BRStaLHx0Uedk9E5RL8wVISAuuNobmgNY9aYY4a_Bfz_vJAltePuIY8Bcp8BqnagKgrdUApOkI8"/>
+</div>
+</header>
+<main class="flex-grow pb-32">
+<!-- Map View Container -->
+<section class="relative h-[397px] w-full overflow-hidden">
+<div class="absolute inset-0 bg-[#e5e7eb]">
+<img class="w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="Stylized illustrative map of Florida with a warm cream and olive green vintage aesthetic and subtle paper texture" data-location="Florida" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAKzkq681MwCorxn_tyl2OILxu6H7tjFbWpY9wEToOxxwD9OjFsNRRRD2yoDFqZc7fuZ3j_jMVxCf5U9xQghL0Zzswmw18lYTZp9ivmaS9au2GAUXAn1U8cnsh3ikOKe9ZAP0sMu8v_wAzWza-Y4N3UYcq0y1m6wFRnrNiZnFejZaROXNtmJOM-Fc-fpqlnhChXkD6Y9HtxEQPqdeUOnEtpM-r5bg2-H5apR4b9PVJyi0-Zq4JJY8ry7GJTFwa6yOWqfVUrNeyCJY"/>
+<!-- Map Overlay Pins and Routes (CSS Drawn) -->
+<div class="absolute inset-0 pointer-events-none">
+<svg class="w-full h-full" fill="none" viewbox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+<!-- Dotted Route Line -->
+<path d="M280 420 Q 240 380 220 320 T 150 200 T 120 120" stroke="#42603f" stroke-dasharray="6 6" stroke-linecap="round" stroke-width="3"></path>
+<!-- UF (Gainesville) -->
+<circle cx="210" cy="280" fill="#42603f" r="8"></circle>
+<circle cx="210" cy="280" r="14" stroke="#42603f" stroke-opacity="0.3" stroke-width="2"></circle>
+<!-- FSU (Tallahassee) -->
+<circle cx="120" cy="120" fill="#42603f" r="8"></circle>
+<!-- UCF (Orlando) -->
+<circle cx="280" cy="420" fill="#caf24d" r="8"></circle>
+<circle cx="280" cy="420" r="14" stroke="#caf24d" stroke-opacity="0.5" stroke-width="4"></circle>
+<!-- USF (Tampa) -->
+<circle cx="220" cy="460" fill="#42603f" r="8"></circle>
+<!-- FIU (Miami) -->
+<circle cx="330" cy="550" fill="#42603f" r="8"></circle>
+</svg>
+</div>
+</div>
+<!-- Header Floating Over Map -->
+<div class="absolute top-6 left-6 right-6">
+<div class="bg-surface-bright/80 backdrop-blur-md rounded-2xl p-4 asymmetric-shadow flex justify-between items-center">
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-stone-500 mb-1">Current Journey</p>
+<h2 class="font-headline text-xl font-bold italic text-primary">Campus Visit Planner</h2>
+</div>
+<button class="bg-primary text-white p-2 rounded-xl">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Trip Summary Card -->
+<section class="px-6 -mt-8 relative z-10">
+<div class="bg-surface-container-highest rounded-xl p-6 asymmetric-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="max-w-[70%]">
+<h3 class="font-headline text-2xl font-bold leading-tight text-on-surface">Florida College Tour — 5 Schools</h3>
+<p class="font-body text-sm text-stone-600 mt-2">Drive Time: 12h 45m Total</p>
+</div>
+<div class="bg-secondary-fixed text-on-secondary-fixed text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
+                        3-Day Trip
+                    </div>
+</div>
+<div class="flex gap-4 mt-6">
+<button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm" data-icon="edit_calendar">edit_calendar</span>
+                        Plan My Trip
+                    </button>
+<button class="flex-1 bg-surface-container-low text-primary font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="ios_share">ios_share</span>
+                        Share with Parent
+                    </button>
+</div>
+</div>
+</section>
+<!-- Visit Cards List -->
+<section class="mt-8 px-6 space-y-4">
+<h4 class="font-headline text-lg font-bold italic text-primary ml-2 mb-4">Itinerary Order</h4>
+<!-- UCF: Visited -->
+<div class="flex gap-4 items-center bg-surface-container-low p-4 rounded-xl">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-stone-200 shrink-0">
+<img class="w-full h-full object-cover" data-alt="Modern architectural campus building at the University of Central Florida under a bright blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiUhA3a3e_wI_OVj1n1zu4RdQEKTubXaK-SpcNnBKxpLwFLM5sjJcgYLf3tKzch4xgbuqZRe-4PXuh6QYecO6WCLbFI8cx_gFfd7V0Aji2nRvRxNuGe3e-UT6GnzxDxQ__hOf3bfAk1DJGTPcomk_fZyc6iI4yRdh9rijytJzPMhTQa26O_dzNX5tLeb8SNW4k-xWI6arsuyQ5K5i-lflk6C2ExE7Jqx_jJNhjlxABcBej13DZaftlqRtun4Jk_nG5t2dCLLvH5sU"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-bold text-on-surface">University of Central Florida</h5>
+<p class="text-xs text-stone-500 font-medium">Orlando, FL</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="flex items-center gap-1 text-[#42603f] font-bold text-xs">
+<span class="material-symbols-outlined text-sm filled-icon" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Visited
+                    </div>
+<span class="text-[10px] text-stone-400 font-bold uppercase">Oct 12</span>
+</div>
+</div>
+<!-- UF: Scheduled -->
+<div class="flex gap-4 items-center bg-surface-container-highest p-4 rounded-xl border-l-4 border-secondary-fixed">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-stone-200 shrink-0">
+<img class="w-full h-full object-cover" data-alt="Gothic style brick college library with clock tower surrounded by oak trees" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA47lctCYHjlRhM9VLjyaIffDevjxMJfC8W7UGRZZf7WYalNyl9V9xzljSRuU6UORhTHf4i_ZIm0Ncyj0_KVdMJrOBsxmWPg3Og0IdCPkEHnKofhxGvHeRHZHm1EhgHGk6ksxuc1OuYXMcTP5Ro8iK17GIHj_maWhHGNRvA8TAxgXkDlRDAMaN3OgGdYv7VWvWFNRReUcKAFV50XHxTAmqCNnN1i_CGIfIaTEf6Z7F3ceuiIbH0WIGFI21nn8H6TfqJ4utiV_4HDcg"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-bold text-on-surface">University of Florida</h5>
+<p class="text-xs text-stone-500 font-medium">Gainesville, FL</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="flex items-center gap-1 text-blue-600 font-bold text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+                        Scheduled
+                    </div>
+<span class="text-[10px] text-on-surface font-bold uppercase">Tomorrow</span>
+</div>
+</div>
+<!-- FSU: Not Scheduled -->
+<div class="flex gap-4 items-center bg-surface p-4 rounded-xl border border-outline-variant/15 opacity-60">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-stone-200 shrink-0 grayscale">
+<img class="w-full h-full object-cover" data-alt="Tallahasee state capitol building and campus surroundings with historic oaks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYHcE9nC4KRZ0rUk-G9lO6EKo0wQkduSQVe0jerx1dbM0yA-fEFX6AMNA8CrYZiO_Q4OKO5CpoF2BqFEMQILC06w-ltUWOhLLELRQ8nwZSuRVY-eYJgtGpJodlMzxe-EX5t8M9JEyJnGdCtzHLRwAv1RSi1juYX94umcpBHu4agiezlN56enjAVBuBTa20CuVE4ZGv9HdcYl_h6ARcV1oVS9xI0h-lsnYQlMxtpNLoLLF4rbcZPWI1nHx2S1IGiE-1t1G-UmQYOGg"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-bold text-on-surface">Florida State University</h5>
+<p class="text-xs text-stone-500 font-medium">Tallahassee, FL</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="flex items-center gap-1 text-stone-400 font-bold text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                        Pending
+                    </div>
+</div>
+</div>
+<!-- USF: Not Scheduled -->
+<div class="flex gap-4 items-center bg-surface p-4 rounded-xl border border-outline-variant/15 opacity-60">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-stone-200 shrink-0 grayscale">
+<img class="w-full h-full object-cover" data-alt="Aerial view of a contemporary university campus with lush green quads" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7glRjosG5qWD5346-XE3Sne9B7eo_RCuMvfrx9yGytPJLZ-hrLBUawaM3wzP31SYRHl43ZZOo5mDX_P_yDS_sCNzUAOSM1N1htLrwG5x5vvMUqk_uFjV4tqHLByN9oFZqjNTpAF8fstV-D1tCR1LDityfbP0nosVZPVkZmfKKnsRjs1wRs0lD05xp_wPivF25NlQvPI85J6SQG-F3r40GvYtAQqwZpnR6XCPKTcT6Q-dJRnlH5dm5eJ_jrJNQdc9M0v6jJS5cVWA"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-bold text-on-surface">University of South Florida</h5>
+<p class="text-xs text-stone-500 font-medium">Tampa, FL</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="flex items-center gap-1 text-stone-400 font-bold text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                        Pending
+                    </div>
+</div>
+</div>
+<!-- FIU: Not Scheduled -->
+<div class="flex gap-4 items-center bg-surface p-4 rounded-xl border border-outline-variant/15 opacity-60">
+<div class="w-14 h-14 rounded-lg overflow-hidden bg-stone-200 shrink-0 grayscale">
+<img class="w-full h-full object-cover" data-alt="Sunlit university palms and glass architecture in Miami" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBct3eNdeuCMLztbuti5GP156aHeSlfy5m5bdefNHi9ZE9tDEAR8XP5s-g_TricgP_g1ioo6jf_7L3cdupQcXjXW79RTMvOBGvv8ncGdZuJwq84zOunJY579H18lbg6q1mN2sFnwrLkl87mzz9O_Qf7_IkRn6hoFJQ72SN77m1mHIvHg0H5M5xSUWEwC9DmcwEcgo_l2TBwI-XNRwn3SX9xCvENJ-XG_uSKoyJ9C1HmSe_ly6P5_TsEwKEUeUl84Vc08oAvc41v6iY"/>
+</div>
+<div class="flex-grow">
+<h5 class="font-bold text-on-surface">Florida International University</h5>
+<p class="text-xs text-stone-500 font-medium">Miami, FL</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="flex items-center gap-1 text-stone-400 font-bold text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                        Pending
+                    </div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f2]/70 dark:bg-stone-900/70 backdrop-blur-xl rounded-t-[24px] shadow-[0_-4px_40px_rgba(31,27,21,0.06)]">
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-colors">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Mission</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-2xl px-5 py-2 scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Deadlines</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-colors">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Schools</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-colors">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Scholarships</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-colors">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Peer</span>
+</div>
+</nav>
+</body></html>

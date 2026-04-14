@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#caf24d",
+                    "outline-variant": "#c3c8be",
+                    "surface-container": "#f5ede2",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-container": "#566c00",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "surface-dim": "#e1d9cf",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "tertiary-container": "#8d6a48",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-fixed-dim": "#aed0a7",
+                    "surface-variant": "#eae1d7",
+                    "tertiary": "#725232",
+                    "on-secondary-fixed": "#161e00",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-surface": "#1f1b15",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container-low": "#fbf2e8",
+                    "secondary-container": "#caf24d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#516600",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-primary-fixed": "#052107",
+                    "on-primary-container": "#e2ffda",
+                    "outline": "#737970",
+                    "surface-container-highest": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-tertiary-fixed": "#2c1600",
+                    "background": "#fff8f2",
+                    "surface-tint": "#486644",
+                    "primary-container": "#5a7956",
+                    "surface-bright": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"],
+                    "montserrat": ["Montserrat"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 40px 60px -15px rgba(31, 27, 21, 0.06);
+        }
+        .glass-panel {
+            background: rgba(234, 225, 215, 0.7);
+            backdrop-filter: blur(32px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex items-center justify-center p-6">
+<!-- Onboarding Container -->
+<main class="w-full max-w-[800px] flex flex-col items-center">
+<!-- Progress Bar Section -->
+<div class="w-[600px] mb-12">
+<div class="flex justify-between items-center mb-3">
+<span class="font-montserrat text-[10px] uppercase tracking-widest text-primary font-bold">Step 5 of 5</span>
+<span class="font-montserrat text-[10px] uppercase tracking-widest text-primary font-bold">Completion 100%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full w-full bg-secondary-fixed shadow-[0_0_12px_rgba(202,242,77,0.4)]"></div>
+</div>
+</div>
+<!-- Success Header -->
+<div class="flex flex-col items-center text-center mb-10">
+<div class="w-24 h-24 rounded-full primary-gradient flex items-center justify-center mb-6 editorial-shadow">
+<span class="material-symbols-outlined text-white text-5xl" style="font-variation-settings: 'FILL' 1;">trophy</span>
+</div>
+<h1 class="font-headline italic text-5xl text-primary -tracking-[0.02em] leading-tight mb-2">Ready to Lead?</h1>
+<p class="text-on-surface-variant font-body text-lg max-w-md">Your academic trajectory is locked and loaded. The road to the Ivy League starts now.</p>
+</div>
+<!-- Profile Summary Card (Bento/Editorial Style) -->
+<div class="w-[700px] bg-surface-container-low rounded-xl p-8 editorial-shadow flex flex-col gap-8 mb-12 relative overflow-hidden">
+<!-- Subtle Decorative Element -->
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-secondary-fixed opacity-10 rounded-full blur-3xl"></div>
+<div class="grid grid-cols-3 gap-8 relative z-10">
+<!-- Column 1: Identity -->
+<div class="flex flex-col items-start border-r border-outline-variant/20 pr-4">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-16 h-16 rounded-xl overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a confident young student with glasses in a library setting, soft morning light, editorial feel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMmrZ_5sYnu72hGhXjgvfGtEH5ZdtQQ1jGXetaRP7PKJiIE6kx9d92rX_jNZ3lKw96oK-Ci9cw9aIL1m-tmPgTYZeUPqn0IlHU_pR_a1RFReaJrO1WrtXeFHklORC8CRr7OO7v3U4_Vppmb_rUhpD0YB8YyfuqgfXOgo1UbAgrNnR9W5xEtV5QGIZMYrvZXRqQ1Hf10dcY5fQxiwrZeLhfCLiTnuyIr3DNlcTWulGUFBLALDC2lmnyym2q5mUKRWyLLNw_1J1p0lI"/>
+</div>
+<div>
+<h3 class="font-montserrat font-bold text-primary">Julian Vance</h3>
+<p class="text-sm text-on-surface-variant">Grade 11 • Honors</p>
+</div>
+</div>
+<div class="mt-auto">
+<span class="inline-block px-3 py-1 bg-primary/5 text-primary text-[10px] font-bold font-montserrat uppercase tracking-wider rounded-full">Primary Candidate</span>
+</div>
+</div>
+<!-- Column 2: Stats -->
+<div class="flex flex-col justify-center border-r border-outline-variant/20 pr-4">
+<div class="space-y-4">
+<div>
+<p class="text-[10px] font-montserrat uppercase tracking-widest text-on-surface-variant mb-1">Academic Pulse</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-headline font-bold text-primary">4.2</span>
+<span class="text-sm text-on-surface-variant">GPA</span>
+</div>
+</div>
+<div>
+<p class="text-[10px] font-montserrat uppercase tracking-widest text-on-surface-variant mb-1">Standardized</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-headline font-bold text-primary">1540</span>
+<span class="text-sm text-on-surface-variant">SAT Target</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Career/Milestones -->
+<div class="flex flex-col justify-center">
+<div class="space-y-4">
+<div>
+<p class="text-[10px] font-montserrat uppercase tracking-widest text-on-surface-variant mb-1">Intended Path</p>
+<p class="font-medium text-on-surface">Biomedical Engineering</p>
+</div>
+<div class="flex gap-2 items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed flex items-center justify-center border-2 border-surface-container-low">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-secondary-fixed flex items-center justify-center border-2 border-surface-container-low">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center border-2 border-surface-container-low">
+<span class="text-[10px] font-bold">12</span>
+</div>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">Milestones Ready</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col items-center gap-6 w-full max-w-[400px]">
+<button class="w-full h-16 bg-secondary-fixed text-on-secondary-fixed font-montserrat font-bold text-sm tracking-widest uppercase rounded-xl hover:opacity-90 transition-all hover:scale-[1.02] active:scale-95 editorial-shadow">
+                Enter Dashboard
+            </button>
+<button class="font-montserrat text-sm font-semibold text-primary hover:opacity-80 transition-opacity flex items-center gap-2 group">
+                Review Full Profile
+                <span class="w-5 h-[2px] bg-secondary-fixed group-hover:w-8 transition-all"></span>
+</button>
+</div>
+</main>
+<!-- Background Accents -->
+<div class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40">
+<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary-fixed/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[35%] h-[35%] bg-tertiary-fixed/20 rounded-full blur-[120px]"></div>
+</div>
+</body></html>

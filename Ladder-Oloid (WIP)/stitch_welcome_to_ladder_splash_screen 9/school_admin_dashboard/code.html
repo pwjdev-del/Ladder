@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder Admin | The Atelier District Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#725232",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-fixed": "#caf24d",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "surface-tint": "#486644",
+                        "primary": "#42603f",
+                        "on-background": "#1f1b15",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container": "#f5ede2",
+                        "surface-bright": "#fff8f2",
+                        "on-secondary-container": "#566c00",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-fixed": "#161e00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-primary-fixed": "#052107",
+                        "background": "#fff8f2",
+                        "outline": "#737970",
+                        "on-surface": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#fbf2e8",
+                        "inverse-surface": "#343029",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "surface-dim": "#e1d9cf",
+                        "outline-variant": "#c3c8be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex min-h-screen overflow-hidden">
+<!-- SideNavBar (The Anchor) -->
+<aside class="fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] flex flex-col h-full py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="mb-12 flex items-center gap-4">
+<div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</div>
+<div>
+<h1 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+<p class="font-noto-serif text-xs opacity-60">District Administration</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active: Dashboard -->
+<a class="flex items-center gap-4 px-4 py-3.5 text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3.5 text-[#1f1b15]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span>Schools</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3.5 text-[#1f1b15]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>District Stats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3.5 text-[#1f1b15]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Staff Directory</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3.5 text-[#1f1b15]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span>Curriculum</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3.5 text-[#1f1b15]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+<span>Utility Tools</span>
+</a>
+</nav>
+<div class="mt-8">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-4 rounded-xl font-bold tracking-tight shadow-lg shadow-primary/10">
+                Quick Report
+            </button>
+</div>
+<div class="mt-auto pt-8 border-t border-outline-variant/10 space-y-2">
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-error font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-[280pt] flex-1 h-screen overflow-y-auto bg-surface relative">
+<!-- TopNavBar (Fixed) -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-12 py-6 w-full bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex items-center gap-8">
+<h2 class="font-noto-serif text-xl font-bold italic text-[#1f1b15]">District Pulse</h2>
+<div class="flex gap-6">
+<a class="text-[#5A7956] font-bold font-noto-serif text-sm tracking-tight" href="#">Overview</a>
+<a class="text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors px-2 py-1 rounded font-noto-serif text-sm tracking-tight" href="#">Insights</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary/60 hover:text-primary cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-primary/60 hover:text-primary cursor-pointer">settings</span>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden ml-4">
+<img alt="Administrator profile" class="w-full h-full object-cover" data-alt="close up professional portrait of a school administrator in a bright modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj8VckyI0SYQCnQHcIGOOm9CtM8f0GJBH-WdM5iK7Ml1CK8AfC7CDGAFieWwBxvS_PYuMBoMgX4P0DBCAbgIZM_ENSFatGU5EAuBqz_zY2k7fkFM5GVhQh_lLCNlf-I0em_BKoqCUI-QlyrQ64e9KX7UBTruKJ7_ZkRWqD1TqVr3NWhReyo-YlnchetnA9uSJ0XKw69RJEhGvCekAJ9ZaNftZXQ9MxSRfCCYL7CUflTr2n7FRcaWuU6xNS_MyGUJwW_4kFOU0xicg"/>
+</div>
+</div>
+</header>
+<div class="p-12 space-y-12 pb-32">
+<!-- Row 1: 4 Metric Cards (Bento Style) -->
+<section class="grid grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-low p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl">group</span>
+</div>
+<p class="text-on-surface-variant font-medium text-xs tracking-widest uppercase mb-2">Total Students</p>
+<h3 class="text-4xl font-noto-serif font-black text-primary">2,840</h3>
+<div class="mt-4 flex items-center gap-1 text-primary font-bold text-sm">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+<span>+4.2%</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-highest p-6 rounded-xl border-l-4 border-secondary-fixed">
+<p class="text-on-surface-variant font-medium text-xs tracking-widest uppercase mb-2">College-Bound</p>
+<h3 class="text-4xl font-noto-serif font-black text-on-surface">92.4%</h3>
+<div class="mt-4 h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[92.4%]"></div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-low p-6 rounded-xl">
+<p class="text-on-surface-variant font-medium text-xs tracking-widest uppercase mb-2">Apps Sent</p>
+<h3 class="text-4xl font-noto-serif font-black text-on-surface">14,208</h3>
+<p class="mt-4 text-sm text-on-surface-variant/60 font-medium">Avg. 5 per student</p>
+</div>
+<!-- Card 4 -->
+<div class="bg-primary p-6 rounded-xl text-white">
+<p class="text-white/60 font-medium text-xs tracking-widest uppercase mb-2">Aid Secured</p>
+<h3 class="text-4xl font-noto-serif font-black">$4.2M</h3>
+<p class="mt-4 text-sm text-white/80 font-medium">Pending: $1.1M</p>
+</div>
+</section>
+<!-- Row 2: 60/40 Split (Bar Chart & Donut Chart) -->
+<section class="grid grid-cols-10 gap-8">
+<!-- Acceptance by Type Bar Chart -->
+<div class="col-span-6 bg-surface-container-low p-8 rounded-xl shadow-sm">
+<div class="flex justify-between items-baseline mb-8">
+<h4 class="font-noto-serif text-xl font-bold">Acceptance by Institution Type</h4>
+<span class="text-xs text-on-surface-variant tracking-widest uppercase">Academic Year 24/25</span>
+</div>
+<div class="space-y-6">
+<!-- Public Research -->
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold">
+<span>Public Research</span>
+<span>42%</span>
+</div>
+<div class="h-8 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-[#725232] w-[42%]"></div>
+</div>
+</div>
+<!-- Liberal Arts -->
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold">
+<span>Liberal Arts</span>
+<span>28%</span>
+</div>
+<div class="h-8 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-[#42603f] w-[28%]"></div>
+</div>
+</div>
+<!-- Ivy League / Elite -->
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold">
+<span>Ivy League / Elite</span>
+<span>12%</span>
+</div>
+<div class="h-8 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-[#5a7956] w-[12%]"></div>
+</div>
+</div>
+<!-- Community / Tech -->
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold">
+<span>Community / Tech</span>
+<span>18%</span>
+</div>
+<div class="h-8 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-[#caf24d] w-[18%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Grade Distribution Donut Chart (Simulated) -->
+<div class="col-span-4 bg-surface-container-low p-8 rounded-xl shadow-sm flex flex-col items-center">
+<h4 class="font-noto-serif text-xl font-bold self-start mb-12">Grade Distribution</h4>
+<div class="relative w-56 h-56 flex items-center justify-center">
+<!-- Simulated Donut using conic-gradient -->
+<div class="w-full h-full rounded-full" style="background: conic-gradient(#42603f 0% 35%, #5a7956 35% 65%, #725232 65% 85%, #caf24d 85% 100%);"></div>
+<div class="absolute inset-8 bg-surface-container-low rounded-full flex flex-col items-center justify-center text-center">
+<span class="text-3xl font-black font-noto-serif">3.6</span>
+<span class="text-[10px] uppercase tracking-tighter opacity-60">Avg. GPA</span>
+</div>
+</div>
+<div class="mt-12 grid grid-cols-2 gap-x-8 gap-y-3 w-full">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#42603f]"></div>
+<span class="text-xs font-bold">High Honors</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#5a7956]"></div>
+<span class="text-xs font-bold">Honors</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#725232]"></div>
+<span class="text-xs font-bold">On-Track</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#caf24d]"></div>
+<span class="text-xs font-bold">Support Needed</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Row 3: 50/50 Split (At-Risk Alerts & Top Destinations) -->
+<section class="grid grid-cols-2 gap-8">
+<!-- At-Risk Alerts Mini Table -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-noto-serif text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+                            Critical Alerts
+                        </h4>
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold">12 Action Required</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-white/40 rounded-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold">JB</div>
+<div>
+<p class="text-sm font-bold">Julianne Byrne</p>
+<p class="text-[10px] opacity-60">Financial Aid Deadline (48h)</p>
+</div>
+</div>
+<button class="text-primary text-xs font-black uppercase tracking-widest">Nudge</button>
+</div>
+<div class="flex items-center justify-between p-4 bg-white/40 rounded-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold">MS</div>
+<div>
+<p class="text-sm font-bold">Marcus Sterling</p>
+<p class="text-[10px] opacity-60">Transcript Request Missing</p>
+</div>
+</div>
+<button class="text-primary text-xs font-black uppercase tracking-widest">Nudge</button>
+</div>
+<div class="flex items-center justify-between p-4 bg-white/40 rounded-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-xs font-bold">AL</div>
+<div>
+<p class="text-sm font-bold">Amara Okafor</p>
+<p class="text-[10px] opacity-60">Essays Under Review (Stagnant)</p>
+</div>
+</div>
+<button class="text-primary text-xs font-black uppercase tracking-widest">Nudge</button>
+</div>
+</div>
+</div>
+<!-- Top Destinations Ranked List -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<h4 class="font-noto-serif text-xl font-bold mb-6">Top Destinations</h4>
+<div class="space-y-1">
+<div class="flex items-center gap-4 py-3 group cursor-default">
+<span class="text-2xl font-noto-serif font-black text-secondary-fixed/50 italic w-8">01</span>
+<div class="flex-1 flex justify-between items-center border-b border-outline-variant/10 pb-3 group-hover:border-primary/30 transition-colors">
+<span class="font-bold">Stanford University</span>
+<div class="flex items-center gap-2">
+<span class="text-sm opacity-60">84 Apps</span>
+<span class="text-xs bg-primary-container text-white px-2 py-0.5 rounded">12 Acc.</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-3 group cursor-default">
+<span class="text-2xl font-noto-serif font-black text-secondary-fixed/50 italic w-8">02</span>
+<div class="flex-1 flex justify-between items-center border-b border-outline-variant/10 pb-3 group-hover:border-primary/30 transition-colors">
+<span class="font-bold">UC Berkeley</span>
+<div class="flex items-center gap-2">
+<span class="text-sm opacity-60">72 Apps</span>
+<span class="text-xs bg-primary-container text-white px-2 py-0.5 rounded">24 Acc.</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-3 group cursor-default">
+<span class="text-2xl font-noto-serif font-black text-secondary-fixed/50 italic w-8">03</span>
+<div class="flex-1 flex justify-between items-center border-b border-outline-variant/10 pb-3 group-hover:border-primary/30 transition-colors">
+<span class="font-bold">University of Michigan</span>
+<div class="flex items-center gap-2">
+<span class="text-sm opacity-60">68 Apps</span>
+<span class="text-xs bg-primary-container text-white px-2 py-0.5 rounded">18 Acc.</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-3 group cursor-default">
+<span class="text-2xl font-noto-serif font-black text-secondary-fixed/50 italic w-8">04</span>
+<div class="flex-1 flex justify-between items-center border-b border-outline-variant/10 pb-3 group-hover:border-primary/30 transition-colors">
+<span class="font-bold">NYU</span>
+<div class="flex items-center gap-2">
+<span class="text-sm opacity-60">56 Apps</span>
+<span class="text-xs bg-primary-container text-white px-2 py-0.5 rounded">9 Acc.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Sticky Bottom Row Buttons -->
+<footer class="fixed bottom-0 left-[280pt] right-0 bg-[#fff8f2]/90 backdrop-blur-md p-8 flex justify-end gap-6 z-40">
+<button class="px-8 py-3 bg-surface-container-highest text-on-surface font-bold rounded-xl border border-outline-variant/10 hover:bg-[#eae1d7] transition-all">
+                View All Students
+            </button>
+<button class="px-8 py-3 bg-surface-container-highest text-on-surface font-bold rounded-xl border border-outline-variant/10 hover:bg-[#eae1d7] transition-all">
+                View Counselors
+            </button>
+<button class="px-8 py-3 bg-primary text-white font-bold rounded-xl flex items-center gap-2 shadow-xl shadow-primary/20 hover:scale-105 duration-200">
+<span class="material-symbols-outlined text-sm">download</span>
+                Download Report
+            </button>
+</footer>
+</main>
+<!-- Background Decoration -->
+<div class="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-secondary-fixed/10 blur-[120px] rounded-full -z-10"></div>
+<div class="fixed bottom-[-5%] left-[20%] w-[400px] h-[400px] bg-primary/5 blur-[100px] rounded-full -z-10"></div>
+</body></html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Intelligence | FAFSA Readiness</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#fbf2e8",
+                      "inverse-primary": "#aed0a7",
+                      "primary-fixed-dim": "#aed0a7",
+                      "tertiary-fixed": "#ffdcbd",
+                      "on-secondary": "#ffffff",
+                      "secondary-container": "#caf24d",
+                      "surface-bright": "#fff8f2",
+                      "primary": "#42603f",
+                      "surface-container-high": "#efe7dd",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#f5ede2",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#8d6a48",
+                      "inverse-surface": "#343029",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#eae1d7",
+                      "on-tertiary-fixed": "#2c1600",
+                      "on-primary-fixed": "#052107",
+                      "secondary-fixed": "#caf24d",
+                      "primary-fixed": "#c9ecc2",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#e1d9cf",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#f8efe5",
+                      "on-tertiary-container": "#fff5ee",
+                      "on-secondary-fixed": "#161e00",
+                      "background": "#fff8f2",
+                      "on-background": "#1f1b15",
+                      "on-surface-variant": "#434840",
+                      "secondary-fixed-dim": "#afd531",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "tertiary": "#725232",
+                      "on-primary-container": "#e2ffda",
+                      "surface": "#fff8f2",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#516600",
+                      "outline": "#737970",
+                      "on-secondary-container": "#566c00",
+                      "surface-tint": "#486644",
+                      "surface-container-highest": "#eae1d7",
+                      "primary-container": "#5a7956",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "outline-variant": "#c3c8be",
+                      "on-surface": "#1f1b15",
+                      "on-tertiary-fixed-variant": "#5e4122"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Noto Serif"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ring-gradient {
+            background: conic-gradient(from 0deg, #42603f 0%, #42603f 85%, #eae1d7 85%, #eae1d7 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased">
+<!-- NavigationDrawer -->
+<nav class="fixed left-0 top-0 h-full z-40 flex flex-col p-6 h-screen w-72 rounded-r-3xl border-r-0 bg-[#fbf2e8] dark:bg-stone-900 shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)]">
+<div class="mb-10 pl-4">
+<h1 class="text-xl font-serif italic text-[#42603f] dark:text-stone-100">Academic Atelier</h1>
+</div>
+<div class="flex items-center gap-4 px-4 mb-8">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Student Portrait" class="w-full h-full object-cover" data-alt="professional portrait of a confident young student with warm lighting and a soft architectural background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu7kqm3ZQbRpXvH1_8ikZm6aJek7Qi6T_pYBeVmSJtvG3OVA-k4Kl8vBxS6QEFPi5xyMxT3A1VeS-NC3D4gRYF-3bskN_E2u1mPa8Amy2XCaiy14aSzz3MTbBv5ghQaAtBHfSyATdJJSg2OqVIzVmZtmn6gVGSgDln-wJjpUrh3WZzzSW8zJ3QlWwf_IlBX4vk4h_yXbCRP7eOk-U6BrHCaQAYz0mAXQamttxmT5VWJn0d5QKuljvZTKMEF3gxGhdn4dSnsb_P6kQ"/>
+</div>
+<div>
+<p class="font-serif italic tracking-tight text-on-surface">Class of 2025</p>
+<p class="text-[10px] uppercase tracking-widest text-primary font-bold">Premium Access</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-grow overflow-y-auto">
+<!-- Active: Financial Aid -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#42603f] text-[#fbf2e8] rounded-xl transition-all scale-95 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="monetization_on">monetization_on</span>
+<span class="text-sm font-sans">Financial Aid</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="text-sm font-sans">Scholarships</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="text-sm font-sans">Match Score</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="compare_arrows">compare_arrows</span>
+<span class="text-sm font-sans">Aid Comparison</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="text-sm font-sans">Test Prep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="text-sm font-sans">Score Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="text-sm font-sans">Schedule</span>
+</a>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-8 py-6 sticky top-0 z-30 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<button class="cursor-pointer active:scale-95 text-[#42603f]">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<h2 class="font-serif text-3xl font-light tracking-tight text-[#42603f]">Financial Intelligence</h2>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary-fixed overflow-hidden cursor-pointer active:scale-95">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close-up of a smiling young woman with natural light, representing a student profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGApBRfmMS-yMhD4wqWR9wDPv9kilfsje78hOOEJ3EgA1PiTKm86gLLxi2MbctHtycKZGileocqU8HnWGmN-DRewHwFjgUG7Uch_JUO0CsESvrnlNPXTZnM79r_tHkMF8K68Ws9FBS2UFgFbVu1jvuP3Pmt0DUEVFelVeEAMNdOGWvzKnN02_7khC3S5onNephmiDKhE8r9Oxcpt6NdLVPXbvFDZAsxg6a5j8NaAur7afWUNRIGwD2ddrAgXNs4S0Iox4IsPGqXR8"/>
+</div>
+</header>
+<!-- Content Shell -->
+<div class="p-8 flex flex-col md:flex-row gap-8">
+<!-- Left Panel (55%) Readiness -->
+<section class="w-full md:w-[55%] flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h1 class="font-headline text-5xl italic tracking-tight text-on-surface">FAFSA Readiness</h1>
+<p class="text-on-surface-variant font-medium">Your progress toward maximum federal aid eligibility.</p>
+</div>
+<div class="bg-surface-container-low rounded-3xl p-8 flex items-center justify-between shadow-sm">
+<div class="flex flex-col gap-1">
+<h3 class="text-2xl font-headline italic">Current Score</h3>
+<p class="text-on-surface-variant text-sm">8 items verified of 10 total.</p>
+<div class="mt-4 flex gap-2">
+<span class="px-3 py-1 bg-primary text-on-primary rounded-full text-xs font-bold">ON TRACK</span>
+<span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold">PRIORITY</span>
+</div>
+</div>
+<div class="relative flex items-center justify-center w-32 h-32">
+<div class="absolute inset-0 rounded-full ring-gradient opacity-20"></div>
+<div class="w-28 h-28 rounded-full bg-surface-container-low flex flex-col items-center justify-center border-4 border-primary">
+<span class="text-4xl font-headline font-bold text-primary">85</span>
+<span class="text-[10px] uppercase tracking-tighter font-bold text-primary">Ready</span>
+</div>
+</div>
+</div>
+<!-- Checklist Cards -->
+<div class="grid grid-cols-1 gap-4">
+<!-- FSA ID Card -->
+<div class="bg-surface-container-highest rounded-2xl p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">fingerprint</span>
+</div>
+<h4 class="font-bold text-on-surface">FSA ID Verification</h4>
+</div>
+<span class="px-3 py-1 bg-primary text-on-primary rounded-full text-[10px] font-bold">COMPLETED</span>
+</div>
+<p class="text-sm text-on-surface-variant">Verified on March 12, 2024. Your credentials are active for the 2025-26 cycle.</p>
+<a class="text-primary text-xs font-bold flex items-center gap-1 hover:underline" href="#">
+                            Learn More <span class="material-symbols-outlined text-xs">arrow_outward</span>
+</a>
+</div>
+<!-- Tax Returns Card -->
+<div class="bg-surface-container-highest rounded-2xl p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<h4 class="font-bold text-on-surface">2023 Tax Returns</h4>
+</div>
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-bold">PENDING</span>
+</div>
+<p class="text-sm text-on-surface-variant">IRS Direct Data Exchange consent needed. Ensure parent records are accessible.</p>
+<a class="text-primary text-xs font-bold flex items-center gap-1 hover:underline" href="#">
+                            Learn More <span class="material-symbols-outlined text-xs">arrow_outward</span>
+</a>
+</div>
+<!-- Assets Card -->
+<div class="bg-surface-container-highest rounded-2xl p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<h4 class="font-bold text-on-surface">Asset Documentation</h4>
+</div>
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold">ACTION REQUIRED</span>
+</div>
+<p class="text-sm text-on-surface-variant">Updated valuation for non-retirement investments required by deadline.</p>
+<a class="text-primary text-xs font-bold flex items-center gap-1 hover:underline" href="#">
+                            Learn More <span class="material-symbols-outlined text-xs">arrow_outward</span>
+</a>
+</div>
+</div>
+<!-- Deadline Banner -->
+<div class="mt-4 bg-primary rounded-3xl p-6 text-on-primary flex items-center justify-between overflow-hidden relative">
+<div class="flex flex-col gap-1 z-10">
+<h3 class="text-xl font-headline italic">Federal Deadline</h3>
+<p class="text-on-primary/80 text-sm">June 30, 2025. Recommended state filing: March 1st.</p>
+</div>
+<div class="z-10 bg-on-primary text-primary px-6 py-3 rounded-xl font-bold text-sm">
+                        72 Days Left
+                    </div>
+<div class="absolute -right-4 -top-8 w-32 h-32 bg-primary-container rounded-full opacity-30"></div>
+</div>
+</section>
+<!-- Right Panel (45%) Calculator -->
+<section class="w-full md:w-[45%] flex flex-col gap-6">
+<div class="bg-surface-container p-8 rounded-[2.5rem] flex flex-col gap-8 sticky top-28 border border-outline-variant/15 shadow-xl">
+<div class="flex flex-col gap-1">
+<h2 class="font-headline text-2xl italic tracking-tight text-on-surface">Net Cost Calculator</h2>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Estimate your actual expense</p>
+</div>
+<!-- Input Controls -->
+<div class="flex flex-col gap-8">
+<!-- Dropdown -->
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase">Target Institution</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-b border-outline-variant/40 focus:border-primary px-4 py-3 rounded-t-xl appearance-none outline-none font-medium">
+<option>Harvard University</option>
+<option>Stanford University</option>
+<option>UC Berkeley</option>
+<option>Georgia Tech</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Slider: Income -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<label class="text-xs font-bold text-on-surface-variant uppercase">Household Income</label>
+<span class="font-headline italic text-primary">$120,000</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary" max="500000" min="0" type="range" value="120000"/>
+</div>
+<!-- Slider: Assets -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<label class="text-xs font-bold text-on-surface-variant uppercase">Liquid Assets</label>
+<span class="font-headline italic text-primary">$45,000</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary" max="250000" min="0" type="range" value="45000"/>
+</div>
+<!-- Stepper: Family Size -->
+<div class="flex justify-between items-center">
+<label class="text-xs font-bold text-on-surface-variant uppercase">Family Size</label>
+<div class="flex items-center gap-4 bg-surface-container-low rounded-2xl p-1">
+<button class="w-10 h-10 rounded-xl hover:bg-surface-container-high flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="font-headline text-xl">4</span>
+<button class="w-10 h-10 rounded-xl hover:bg-surface-container-high flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Result Card -->
+<div class="mt-4 bg-white dark:bg-stone-800 rounded-3xl p-6 shadow-[0_20px_50px_rgba(31,27,21,0.08)]">
+<div class="flex flex-col items-center gap-1 mb-6 text-center">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Estimated Net Cost</p>
+<h2 class="text-5xl font-headline font-bold text-primary">$18,450<span class="text-sm font-sans font-normal text-on-surface-variant">/year</span></h2>
+</div>
+<!-- Aid Breakdown Chart -->
+<div class="flex flex-col gap-3 mb-8">
+<div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase">
+<span>Aid Composition</span>
+<span>$64,000 Total Value</span>
+</div>
+<div class="h-4 w-full flex rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[60%]" title="Grants &amp; Scholarships"></div>
+<div class="h-full bg-secondary-container w-[25%]" title="Work Study"></div>
+<div class="h-full bg-surface-container-highest w-[15%]" title="Loans"></div>
+</div>
+<div class="flex gap-4 mt-1">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-[10px] font-medium">Grants</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+<span class="text-[10px] font-medium">Work-Study</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-surface-container-highest"></div>
+<span class="text-[10px] font-medium">Loans</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-4 rounded-2xl font-bold hover:bg-primary-container transition-all flex items-center justify-center gap-2">
+                            Compare Across Schools
+                            <span class="material-symbols-outlined">dashboard_customize</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed on this deep-dive calculator/details page per protocol, but implied in navigation if it were a dashboard) -->
+</body></html>

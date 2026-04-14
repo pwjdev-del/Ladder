@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Caseload - Ladder</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;family=Montserrat:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#fff8f2",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-surface-variant": "#434840",
+                    "outline-variant": "#c3c8be",
+                    "tertiary": "#725232",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#8d6a48",
+                    "surface-tint": "#486644",
+                    "on-secondary-container": "#566c00",
+                    "inverse-surface": "#343029",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-container": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#2c1600",
+                    "error": "#ba1a1a",
+                    "surface-container": "#f5ede2",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#fbf2e8",
+                    "surface": "#fff8f2",
+                    "surface-container-highest": "#eae1d7",
+                    "background": "#fff8f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-secondary-fixed": "#161e00",
+                    "on-surface": "#1f1b15",
+                    "inverse-primary": "#aed0a7",
+                    "primary-fixed": "#c9ecc2",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary": "#516600",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface-variant": "#eae1d7",
+                    "surface-dim": "#e1d9cf",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "primary": "#42603f",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#aed0a7",
+                    "primary-container": "#5a7956",
+                    "outline": "#737970",
+                    "on-primary-fixed": "#052107",
+                    "secondary-fixed": "#caf24d",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#e2ffda"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "16px",
+                    "xl": "24px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"],
+                    "sans": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased min-h-screen pb-32">
+<!-- Top Navigation Shell (Counselor Context) -->
+<header class="bg-[#fff8f2] flex justify-between items-center w-full px-6 py-4 sticky top-0 z-40">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#42603f]" data-icon="menu">menu</span>
+<h1 class="text-2xl font-headline italic font-bold text-[#42603f]">Ladder</h1>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden bg-surface-container-highest flex items-center justify-center">
+<img alt="Admin Profile" class="h-full w-full object-cover" data-alt="Professional headshot of a female counselor with a warm smile in a brightly lit office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0315XfAY3L58oHQSv4mtxi-P0F8Yhuj5V7oiGOBzaH-aGbcypBd8s5fflVHIadbLibnPRqMscy6EPhr2QTdPDEG3m2znfZ4G7tJKi95qVwBvqJgOp7dGiOdo76feHCR8EEzgQasvYKI-kzuEREo22pFFfyrXfxiRknjs-DI488J3DdE49lEzDsORHnfYLbBu_QR1nt7QbTJsnCUy_YdnruUJ-0rP-elvrOQG1kAK3v6jwzYpHXlqcl1AZm7jPJpeJWK3Fveu0gEU"/>
+</div>
+</header>
+<main class="px-6 max-w-md mx-auto">
+<!-- Header Section -->
+<section class="mt-4 mb-8">
+<div class="flex flex-col gap-1">
+<h2 class="text-3xl font-headline font-bold tracking-tight text-on-surface">My Caseload</h2>
+<p class="text-sm font-sans tracking-tight text-stone-500">Ms. Rodriguez — 87 Students</p>
+</div>
+<!-- Filter Pills -->
+<div class="flex gap-2 mt-6 overflow-x-auto no-scrollbar pb-2">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary text-xs font-bold font-sans">All</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold font-sans transition-colors hover:bg-surface-container-highest">Needs Action</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold font-sans transition-colors hover:bg-surface-container-highest">On Track</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold font-sans transition-colors hover:bg-surface-container-highest">At Risk</button>
+</div>
+</section>
+<!-- Urgency Summary Grid -->
+<section class="mb-10">
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-red-50 border-l-4 border-red-500 p-3 rounded-xl">
+<span class="text-lg">🔴</span>
+<p class="text-[10px] uppercase tracking-widest font-bold text-red-700 mt-1">8 Urgent</p>
+</div>
+<div class="bg-amber-50 border-l-4 border-amber-500 p-3 rounded-xl">
+<span class="text-lg">🟡</span>
+<p class="text-[10px] uppercase tracking-widest font-bold text-amber-700 mt-1">15 Action</p>
+</div>
+<div class="bg-green-50 border-l-4 border-green-500 p-3 rounded-xl">
+<span class="text-lg">🟢</span>
+<p class="text-[10px] uppercase tracking-widest font-bold text-green-700 mt-1">64 Track</p>
+</div>
+</div>
+</section>
+<!-- Bulk Action Button (In-context) -->
+<div class="mb-8">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-primary/10 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-xl" data-icon="campaign">campaign</span>
+<span class="text-sm">Send Deadline Reminders to All Urgent</span>
+</button>
+</div>
+<!-- Student Cards List -->
+<section class="space-y-6">
+<!-- Student: Marcus (Urgent) -->
+<div class="bg-surface-container-low rounded-xl p-5 relative overflow-hidden ring-1 ring-error/20 border-l-[6px] border-error shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Marcus" class="h-full w-full object-cover" data-alt="Close-up portrait of a young male student with glasses looking thoughtfully off-camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9gv2ECriyCjlhx5jb9HyqtLU3l7x2L3KNTrMDqyrcVicL4jhIVjmNfB0e00U8ll7ASwamx0go8h1LVKcRex4lXmGBp3SFLJmrXDH-UCOcB6GoNkwBIhgww0jK0Nr8YKyK2y8CDAigPBz16B3U77tqy9xP7dWeq7z4RWu_pf1RF3xKo9rdsQuIF6R6pHJHGDItQMvB7N80ru5udXuMXp0tHMAR-cYDGNqnK5nVIVX3kgmTH009fp664FSy4lodvZD1ZiM7porZ410"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface">Marcus</h3>
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-error uppercase tracking-tighter">Urgent • Deadline 3d</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-xs font-bold text-primary">3.9 GPA</span>
+<span class="block text-[10px] text-stone-500">1420 SAT</span>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant font-medium bg-red-50 p-3 rounded-lg mb-4">
+                    UF EA deadline in 3 days — missing transcript
+                </p>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-container-highest py-2 px-3 rounded-lg text-xs font-bold text-primary transition-colors hover:bg-surface-container">Send Reminder</button>
+<button class="flex-1 bg-primary py-2 px-3 rounded-lg text-xs font-bold text-white transition-opacity active:opacity-80">Schedule Meeting</button>
+</div>
+</div>
+<!-- Student: Aisha (Action Needed) -->
+<div class="bg-surface-container-low rounded-xl p-5 border-l-[6px] border-amber-400 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Aisha" class="h-full w-full object-cover" data-alt="Young smiling woman of color wearing a headscarf, bright studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6aastdAUBfAAWo_ooI0DgME8bfywiieVIShPslGBx30ICVl_XYG2gwQ8QdTb9385U8gOLrO7Vvc9l3kimRz5-81PskHSRyvEINTcHDIxOG4yNJ7g5HvLeEzI0TIXzvW1jhFkPMEUqXSAE-RhR6WA0jJKF5aP-SXYWgkIRylVJm-e3SqMGDa2hnEPgOeGf21cikkKB4fVy5OVPN0gUDeLbNlza3Qqpxfjx3llk5N1D6QtOMyQ1GwtaHPhyRd_ADmva0M0Iv6S0Vog"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface">Aisha</h3>
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-amber-600 uppercase tracking-tighter">Action Needed</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-xs font-bold text-primary">4.1 GPA</span>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant mb-4">No SAT registration detected in portal. Missing testing data.</p>
+<button class="w-full bg-surface-container-highest py-2 px-3 rounded-lg text-xs font-bold text-primary">Send SAT Info</button>
+</div>
+<!-- Student: Emma (On Track) -->
+<div class="bg-surface-container-low rounded-xl p-5 border-l-[6px] border-secondary-fixed-dim shadow-sm opacity-80">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest grayscale">
+<img alt="Emma" class="h-full w-full object-cover" data-alt="Portrait of a young woman with blonde hair in soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6aaIE6iZb5w-avHnIUeVbUYJ4rwnc9XmPPwOExvKpJOHpFH9T91JDAzGS2hWFgYlEy03mN7XJnKBtBZT8kZCTOU_hiSNXOq48NS8tsuq9V-ZTlQN1GBeERld8gjT25STWwUS7P7YLc81OwkyQw4nGgaRtwpgVLfawlV5EDd0292ScIzrf3WKIHHyWVv_65Todo4j1Pf6oAOQ5Ct1KFGTZjoIbgbYvISJrCEdUcuww6xmA7QXEvm7i-df_UK-5du1ZJAR2t0rgK10"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-lg text-on-surface">Emma</h3>
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">On Track</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-[10px] text-stone-500">8 Apps Submitted</span>
+<span class="block text-[10px] font-bold text-green-600">2 Acceptances</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Stats Bottom Card -->
+<section class="my-10">
+<div class="bg-[#eae1d7] rounded-xl p-6">
+<h4 class="font-headline font-bold text-on-surface mb-4">Weekly Snapshot</h4>
+<div class="grid grid-cols-3 gap-4">
+<div class="text-center">
+<span class="block text-2xl font-bold text-primary">12</span>
+<span class="text-[10px] text-stone-600 font-sans uppercase tracking-widest">Meetings</span>
+</div>
+<div class="text-center">
+<span class="block text-2xl font-bold text-primary">45</span>
+<span class="text-[10px] text-stone-600 font-sans uppercase tracking-widest">Transcripts</span>
+</div>
+<div class="text-center">
+<span class="block text-2xl font-bold text-primary">08</span>
+<span class="text-[10px] text-stone-600 font-sans uppercase tracking-widest">LoR Letters</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation Drawer (Represented as Bottom NavBar for Mobile Context) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f2]/70 backdrop-blur-xl rounded-t-[24px] shadow-[0_-4px_40px_rgba(31,27,21,0.06)]">
+<a class="flex flex-col items-center justify-center text-stone-500 px-5 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Mission</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-2xl px-5 py-2 scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Caseload</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 px-5 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Deadlines</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 px-5 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Impact</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 px-5 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

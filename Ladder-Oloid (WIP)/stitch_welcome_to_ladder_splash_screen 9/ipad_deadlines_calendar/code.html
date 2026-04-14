@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#fff8f2",
+                    "on-primary-container": "#e2ffda",
+                    "background": "#fff8f2",
+                    "outline": "#737970",
+                    "surface-container-highest": "#eae1d7",
+                    "tertiary": "#725232",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-secondary-container": "#566c00",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#eae1d7",
+                    "surface": "#fff8f2",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#e1d9cf",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container": "#f5ede2",
+                    "secondary-fixed": "#caf24d",
+                    "on-surface": "#1f1b15",
+                    "error": "#ba1a1a",
+                    "on-background": "#1f1b15",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "secondary": "#516600",
+                    "inverse-primary": "#aed0a7",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-surface-variant": "#434840",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-tint": "#486644",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-container": "#8d6a48",
+                    "outline-variant": "#c3c8be",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#fbf2e8",
+                    "secondary-container": "#caf24d",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#052107",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "primary": "#42603f",
+                    "inverse-on-surface": "#f8efe5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif-italic { font-family: 'Noto Serif', serif; font-style: italic; }
+        .premium-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+        .glass-header { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- NavigationDrawer: Persistent Left Sidebar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col p-8 bg-stone-50 dark:bg-stone-950 h-full w-72 border-r-0 rounded-r-none z-50">
+<div class="mb-12">
+<span class="font-serif italic text-2xl tracking-tighter text-emerald-900 dark:text-emerald-100">Ladder</span>
+</div>
+<div class="flex flex-col space-y-4">
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-sans tracking-tight text-sm">Home</span>
+</a>
+<a class="flex items-center gap-4 text-emerald-900 dark:text-emerald-50 font-bold border-b-2 border-lime-400 mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">checklist</span>
+<span class="font-sans tracking-tight text-sm">Tasks</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-sans tracking-tight text-sm">Colleges</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-sans tracking-tight text-sm">Applications</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="font-sans tracking-tight text-sm">Advisor</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-sans tracking-tight text-sm">Financial</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="font-sans tracking-tight text-sm">Career</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="font-sans tracking-tight text-sm">Housing</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors p-2 rounded-xl scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-sans tracking-tight text-sm">Reports</span>
+</a>
+</div>
+<div class="mt-auto pt-8">
+<div class="bg-surface-container-low rounded-xl p-4">
+<p class="font-serif italic text-emerald-900 text-sm mb-2">Next Step</p>
+<p class="font-sans text-xs text-on-surface-variant leading-relaxed">Submit Stanford Early Action by Nov 1st.</p>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-72 flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center pl-12 pr-12 py-6 w-full sticky top-0 z-40 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-xl transition-all duration-300">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-emerald-900 dark:text-emerald-100">menu_open</span>
+<h1 class="font-serif text-xl text-emerald-900 dark:text-emerald-100">Deadlines Calendar</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center bg-surface-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">calendar_today</span>
+<span class="ml-2 font-label text-xs font-semibold">October 2023</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Student Profile Avatar" class="w-full h-full object-cover" data-alt="professional portrait of a young student in a collegiate environment with soft natural lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtDywJweMjIH2oGna8YC8H3-1BcZZ5HXbzcXx94xgUd57d5aZ3qHjBc7XwlT-CkLDdRd7Io9so2GwiatZDDBBmW1AUUCts5GJSSh_eNewoeS2t4MzeaVDo6A9BkhszHWQaIlpW9QS4E8qcYrnrBuRSlojn22bgoyKqXTSHrKVt9NeHoMpOpuXxZdYUmKJGZU6u378MzV99qQhyjUDsRSi5cCpZmy9d8as1upotVD2sF7ihKXf2MIVJDUJ09cJ765kWRUK80lqevGc"/>
+</div>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden">
+<!-- Calendar Grid (65%) -->
+<section class="w-[65%] p-10 overflow-y-auto bg-surface-container-low">
+<div class="flex items-center justify-between mb-8">
+<div class="space-y-1">
+<h2 class="font-serif text-4xl italic tracking-tight text-on-surface">October</h2>
+<p class="font-sans text-sm text-on-surface-variant font-medium">Critical Application Window</p>
+</div>
+<div class="flex gap-2">
+<button class="p-3 bg-surface-container-highest rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-3 bg-surface-container-highest rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-px bg-outline-variant/15 rounded-2xl overflow-hidden shadow-sm">
+<!-- Day Headers -->
+<div class="bg-surface py-4 text-center font-label text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">Sun</div>
+<div class="bg-surface py-4 text-center font-label text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">Mon</div>
+<div class="bg-surface py-4 text-center font-label text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">Tue</div>
+<div class="bg-surface py-4 text-center font-label text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">Wed</div>
+<div class="bg-surface py-4 text-center font-label text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">Thu</div>
+<div class="bg-surface py-4 text-center font-label text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">Fri</div>
+<div class="bg-surface py-4 text-center font-label text-[10px] uppercase tracking-widest text-on-surface-variant opacity-60">Sat</div>
+<!-- Calendar Days - Simplified Rendering -->
+<div class="bg-surface-container-low/30 h-32 p-3 text-on-surface/20 font-sans text-sm">26</div>
+<div class="bg-surface-container-low/30 h-32 p-3 text-on-surface/20 font-sans text-sm">27</div>
+<div class="bg-surface-container-low/30 h-32 p-3 text-on-surface/20 font-sans text-sm">28</div>
+<div class="bg-surface-container-low/30 h-32 p-3 text-on-surface/20 font-sans text-sm">29</div>
+<div class="bg-surface-container-low/30 h-32 p-3 text-on-surface/20 font-sans text-sm">30</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm relative">1
+                        <div class="absolute bottom-3 left-3 flex gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+</div>
+</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">2</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">3</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">4</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">5</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm relative">6
+                         <div class="absolute bottom-3 left-3 flex gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+</div>
+</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">7</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">8</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm relative">9
+                         <div class="absolute bottom-3 left-3 flex gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+</div>
+</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">10</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">11</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm relative ring-2 ring-inset ring-secondary-fixed bg-surface-container-highest">12
+                        <span class="absolute top-2 right-2 flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<div class="mt-4 flex flex-col gap-1">
+<div class="h-1 w-full rounded-full bg-error"></div>
+<div class="h-1 w-2/3 rounded-full bg-tertiary"></div>
+</div>
+<p class="mt-auto text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Selected</p>
+</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">13</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">14</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">15</div>
+<div class="bg-surface h-32 p-3 text-on-surface font-sans text-sm">16</div>
+<!-- Additional days following same pattern... -->
+</div>
+</section>
+<!-- Deadline Sidebar (35%) -->
+<aside class="w-[35%] bg-surface border-l-0 p-8 overflow-y-auto">
+<div class="flex items-baseline justify-between mb-8">
+<h3 class="font-serif text-2xl text-on-surface">October 12</h3>
+<span class="font-label text-xs text-on-surface-variant font-bold tracking-widest uppercase">Thursday</span>
+</div>
+<div class="space-y-6">
+<!-- Deadline Card 1: Urgent -->
+<div class="bg-surface-container-high rounded-xl p-5 border-l-4 border-error relative overflow-hidden group hover:bg-surface-container-highest transition-all duration-300 cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div class="space-y-0.5">
+<p class="font-sans text-[10px] font-extrabold text-error uppercase tracking-widest">Urgent</p>
+<h4 class="font-serif text-lg text-emerald-900">Harvard University</h4>
+</div>
+<span class="bg-error/10 text-error px-2 py-1 rounded text-[10px] font-bold">11:59 PM</span>
+</div>
+<p class="font-sans text-sm text-on-surface-variant mb-4 leading-snug">Personal Statement final draft and Common App completion.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">description</span>
+<span class="font-label text-xs text-on-surface-variant">Common App</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Deadline Card 2: Moderate -->
+<div class="bg-surface-container-low rounded-xl p-5 border-l-4 border-tertiary hover:bg-surface-container-high transition-all duration-300 cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div class="space-y-0.5">
+<p class="font-sans text-[10px] font-extrabold text-tertiary uppercase tracking-widest">Moderate</p>
+<h4 class="font-serif text-lg text-emerald-900">UC Berkeley</h4>
+</div>
+</div>
+<p class="font-sans text-sm text-on-surface-variant mb-4 leading-snug">Supplemental Essay: "The Power of Curiosity" (Draft 2).</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">link</span>
+<span class="font-label text-xs text-on-surface-variant">UC Portal</span>
+</div>
+</div>
+<!-- Deadline Card 3: Information -->
+<div class="bg-surface-container-low rounded-xl p-5 border-l-4 border-secondary transition-all duration-300 opacity-80 grayscale-[0.3] cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div class="space-y-0.5">
+<p class="font-sans text-[10px] font-extrabold text-secondary uppercase tracking-widest">Planned</p>
+<h4 class="font-serif text-lg text-emerald-900">Yale University</h4>
+</div>
+</div>
+<p class="font-sans text-sm text-on-surface-variant mb-4 leading-snug">Self-Reported Academic Record (SRAR) submission.</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">verified</span>
+<span class="font-label text-xs text-on-surface-variant">Direct Portal</span>
+</div>
+</div>
+</div>
+<!-- Empty State / Add Task -->
+<div class="mt-12 p-8 border-2 border-dashed border-outline-variant/30 rounded-2xl flex flex-col items-center text-center group hover:border-primary/40 transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">add</span>
+</div>
+<p class="font-serif italic text-on-surface-variant">Add new deadline</p>
+<p class="font-sans text-[10px] text-on-surface-variant/60 mt-1 uppercase tracking-widest">Sync from College Board</p>
+</div>
+</aside>
+</div>
+</main>
+<!-- Floating Action Button - Only for main screens -->
+<button class="fixed bottom-10 right-10 premium-gradient text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center z-50 hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl">edit_calendar</span>
+</button>
+</body></html>

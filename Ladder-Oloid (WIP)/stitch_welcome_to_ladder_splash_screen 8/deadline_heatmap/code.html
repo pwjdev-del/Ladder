@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#fff8f2",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-surface-variant": "#434840",
+                    "outline-variant": "#c3c8be",
+                    "tertiary": "#725232",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#8d6a48",
+                    "surface-tint": "#486644",
+                    "on-secondary-container": "#566c00",
+                    "inverse-surface": "#343029",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-container": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#2c1600",
+                    "error": "#ba1a1a",
+                    "surface-container": "#f5ede2",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#fbf2e8",
+                    "surface": "#fff8f2",
+                    "surface-container-highest": "#eae1d7",
+                    "background": "#fff8f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-secondary-fixed": "#161e00",
+                    "on-surface": "#1f1b15",
+                    "inverse-primary": "#aed0a7",
+                    "primary-fixed": "#c9ecc2",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary": "#516600",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface-variant": "#eae1d7",
+                    "surface-dim": "#e1d9cf",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "primary": "#42603f",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#aed0a7",
+                    "primary-container": "#5a7956",
+                    "outline": "#737970",
+                    "on-primary-fixed": "#052107",
+                    "secondary-fixed": "#caf24d",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#e2ffda"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-[#fff8f2] dark:bg-stone-950 flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#42603f] dark:text-[#5a7956]">menu</span>
+<span class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#fbf2e8] italic">Ladder</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a diverse young female student smiling with soft natural lighting and warm tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBztgWq0omThd3yXWHdAy8qedoRyyCdESUObG5XJ2czJzlrb7S9MH0AJGvL5zzOuEQ7bou85zgkfcpacNegP3ZnnDQzshzJMbEruGqZNWNzyr57qCxva6p2xcfwP7UcgLzWiz9tHjuA8wrN91SOTQVl5ZYNe8ATNbBLNfiwlY5pcqo464dZmCFDRcP3jl493d4LJhATLjIpXVtVjm6SNsKuNhftNeRPmRDU2buOyU3lfdonqUdM9NuUUqG_kjqDAclwP0TOinDBvtQ"/>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-md mx-auto">
+<!-- Section Header -->
+<div class="mb-6">
+<span class="text-[10px] font-bold tracking-[0.2em] text-primary uppercase block mb-1">DEADLINE HEATMAP</span>
+<div class="flex items-center justify-between">
+<h1 class="text-3xl font-serif italic font-bold text-on-surface">October 2026</h1>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low hover:bg-[#fbf2e8] transition-colors">
+<span class="material-symbols-outlined text-primary">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low hover:bg-[#fbf2e8] transition-colors">
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Month Grid (Bento Style Layout) -->
+<div class="bg-surface-container-low p-5 rounded-xl mb-8">
+<div class="grid grid-cols-7 gap-2 mb-4">
+<!-- Day Labels -->
+<div class="text-center text-[10px] font-bold text-stone-400 uppercase tracking-widest">S</div>
+<div class="text-center text-[10px] font-bold text-stone-400 uppercase tracking-widest">M</div>
+<div class="text-center text-[10px] font-bold text-stone-400 uppercase tracking-widest">T</div>
+<div class="text-center text-[10px] font-bold text-stone-400 uppercase tracking-widest">W</div>
+<div class="text-center text-[10px] font-bold text-stone-400 uppercase tracking-widest">T</div>
+<div class="text-center text-[10px] font-bold text-stone-400 uppercase tracking-widest">F</div>
+<div class="text-center text-[10px] font-bold text-stone-400 uppercase tracking-widest">S</div>
+<!-- Week 1 (Partial) -->
+<div class="aspect-square bg-transparent"></div>
+<div class="aspect-square bg-transparent"></div>
+<div class="aspect-square bg-transparent"></div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium text-stone-400">1</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium text-stone-400">2</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium text-stone-400">3</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium text-stone-400">4</div>
+<!-- Week 2 -->
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">5</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">6</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">7</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">8</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">9</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">10</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">11</div>
+<!-- Week 3 -->
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium ring-2 ring-primary ring-offset-2 ring-offset-surface-container-low">12</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">13</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">14</div>
+<!-- Oct 15: Dark Green (3+) -->
+<div class="aspect-square bg-primary text-white rounded-lg flex items-center justify-center text-xs font-bold shadow-lg shadow-primary/10">15</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">16</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">17</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">18</div>
+<!-- Week 4 -->
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">19</div>
+<!-- Oct 20: Light Green (1) -->
+<div class="aspect-square bg-[#c9ecc2] text-primary rounded-lg flex items-center justify-center text-xs font-bold">20</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">21</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">22</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">23</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">24</div>
+<div class="aspect-square bg-surface rounded-lg flex items-center justify-center text-xs font-medium">25</div>
+</div>
+<!-- Legend -->
+<div class="flex items-center justify-end gap-3 px-1">
+<span class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Less</span>
+<div class="flex gap-1.5">
+<div class="w-3.5 h-3.5 rounded-sm bg-surface"></div>
+<div class="w-3.5 h-3.5 rounded-sm bg-[#c9ecc2]"></div>
+<div class="w-3.5 h-3.5 rounded-sm bg-[#5a7956]"></div>
+<div class="w-3.5 h-3.5 rounded-sm bg-primary"></div>
+</div>
+<span class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">More</span>
+</div>
+</div>
+<!-- Selected Day Detail Card -->
+<section class="mb-8">
+<div class="flex items-baseline justify-between mb-4">
+<h2 class="text-xl font-serif font-bold text-on-surface">Oct 15 Deadlines</h2>
+<span class="text-xs font-bold text-primary bg-primary-container/20 px-3 py-1 rounded-full">3 TASKS</span>
+</div>
+<div class="space-y-4">
+<!-- Deadline Item 1 -->
+<div class="bg-surface-container-highest p-5 rounded-xl transition-transform active:scale-[0.98]">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-bold text-on-surface text-lg">UCF EA</h3>
+<p class="text-sm text-stone-500 font-medium">University of Central Florida</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-weight="fill">school</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-surface-container-low text-primary rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-[#fff8f2] transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_add_on</span>
+                        Add to Calendar
+                    </button>
+</div>
+<!-- Deadline Item 2 -->
+<div class="bg-surface-container-highest p-5 rounded-xl transition-transform active:scale-[0.98]">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-bold text-on-surface text-lg">FAMU EA</h3>
+<p class="text-sm text-stone-500 font-medium">Florida A&amp;M University</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-weight="fill">school</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-surface-container-low text-primary rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-[#fff8f2] transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_add_on</span>
+                        Add to Calendar
+                    </button>
+</div>
+<!-- Deadline Item 3 -->
+<div class="bg-surface-container-highest p-5 rounded-xl transition-transform active:scale-[0.98]">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h3 class="font-bold text-on-surface text-lg">Gates Scholarship</h3>
+<p class="text-sm text-stone-500 font-medium">The Gates Millennium Foundation</p>
+</div>
+<span class="material-symbols-outlined text-tertiary" data-weight="fill">payments</span>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-surface-container-low text-primary rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-[#fff8f2] transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_add_on</span>
+                        Add to Calendar
+                    </button>
+</div>
+</div>
+</section>
+<!-- Upcoming Urgency Strip -->
+<section class="-mx-6">
+<h2 class="px-6 text-[10px] font-bold tracking-[0.2em] text-stone-400 uppercase mb-4">CRITICAL URGENCY</h2>
+<div class="flex overflow-x-auto pb-4 gap-4 px-6 no-scrollbar">
+<!-- Urgency Card 1 -->
+<div class="min-w-[140px] bg-white border-l-4 border-orange-500 p-4 rounded-xl shadow-sm">
+<p class="text-[10px] font-bold text-stone-400 uppercase mb-1">UCF EA</p>
+<p class="text-sm font-extrabold text-on-surface">10 days</p>
+</div>
+<!-- Urgency Card 2 -->
+<div class="min-w-[140px] bg-white border-l-4 border-orange-500 p-4 rounded-xl shadow-sm">
+<p class="text-[10px] font-bold text-stone-400 uppercase mb-1">FAMU EA</p>
+<p class="text-sm font-extrabold text-on-surface">10 days</p>
+</div>
+<!-- Urgency Card 3 -->
+<div class="min-w-[140px] bg-white border-l-4 border-orange-400 p-4 rounded-xl shadow-sm">
+<p class="text-[10px] font-bold text-stone-400 uppercase mb-1">GATES SCH</p>
+<p class="text-sm font-extrabold text-on-surface">12 days</p>
+</div>
+<!-- Urgency Card 4 -->
+<div class="min-w-[140px] bg-white border-l-4 border-stone-300 p-4 rounded-xl shadow-sm">
+<p class="text-[10px] font-bold text-stone-400 uppercase mb-1">FSU RD</p>
+<p class="text-sm font-extrabold text-on-surface">25 days</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f2]/70 dark:bg-stone-900/70 backdrop-blur-xl rounded-t-[24px] shadow-[0_-4px_40px_rgba(31,27,21,0.06)] md:hidden">
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Mission</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-2xl px-5 py-2 scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mb-1">calendar_month</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Deadlines</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined mb-1">school</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Schools</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Scholarships</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined mb-1">group</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Peer</span>
+</a>
+</nav>
+<style>
+        /* Custom scrollbar hiding */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

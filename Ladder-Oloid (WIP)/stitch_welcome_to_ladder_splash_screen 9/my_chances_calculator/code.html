@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Chances Calculator | Evergreen Ascent</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#516600",
+                    "on-tertiary-fixed": "#2c1600",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#fbf2e8",
+                    "on-secondary-container": "#566c00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface-container-high": "#efe7dd",
+                    "inverse-surface": "#343029",
+                    "surface-dim": "#e1d9cf",
+                    "secondary-container": "#caf24d",
+                    "surface-container-highest": "#eae1d7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface": "#fff8f2",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "on-tertiary-container": "#fff5ee",
+                    "surface-bright": "#fff8f2",
+                    "on-surface": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-surface-variant": "#434840",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-primary-fixed": "#052107",
+                    "surface-container": "#f5ede2",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#486644",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#aed0a7",
+                    "background": "#fff8f2",
+                    "on-background": "#1f1b15",
+                    "inverse-on-surface": "#f8efe5",
+                    "primary-container": "#5a7956",
+                    "secondary-fixed": "#caf24d",
+                    "on-primary-container": "#e2ffda",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c3c8be",
+                    "surface-variant": "#eae1d7",
+                    "primary": "#42603f",
+                    "outline": "#737970",
+                    "tertiary": "#725232",
+                    "primary-fixed": "#c9ecc2",
+                    "on-secondary-fixed": "#161e00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Montserrat"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 40px 60px -15px rgba(31, 27, 21, 0.06);
+        }
+        .glass-nav {
+            background: rgba(255, 248, 242, 0.7);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-fixed/30 overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col h-full py-8 px-4 w-64 bg-[#fbf2e8] dark:bg-stone-900 shrink-0">
+<div class="mb-10 px-4">
+<h1 class="text-2xl font-serif italic text-[#42603f] dark:text-[#5a7956] leading-tight">Evergreen Ascent</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-400 font-bold mt-1">Academic Atelier</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Nav items following JSON keys and styles -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-sm">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="text-sm">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-sm">Colleges</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d]" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-sm">Applications</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="text-sm">Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-sm">Financial</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-sm">Career</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-sm">Housing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="insert_chart">insert_chart</span>
+<span class="text-sm">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-4 flex items-center gap-3">
+<img alt="Student avatar" class="w-10 h-10 rounded-full object-cover grayscale" data-alt="Close up portrait of a smiling student with glasses in a library setting with soft bookshelf background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaRbRkE5aI3H0R5EarkwLLG-fILsjL4t_GrW-9cli0qW2HqbNtqu-9WstOQaW4YjQjztfEQk9Bol4lZBCxIkx0oFCpFruSn2Be3B3y5TuGzC8Wk3vIflHjQTYuJS56PFyHhq97zHxyrztOIBBrSXQJNnGQbdz7i7sTvH_uMrY7MPJZfabzUwiKKd-zKwFj0nz5W9ObrAAB-wP99wdGv8MyfQXOyKEWNtUzWdLpMd5kTSBQkixs7boSIyLaIZU4q8iU8cmwLxaVmQg"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold text-on-surface truncate">Elena Vance</p>
+<p class="text-xs text-stone-400">Class of 2025</p>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar Component -->
+<header class="flex justify-between items-center w-full px-8 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl shrink-0 z-10">
+<div class="flex flex-col">
+<h2 class="text-2xl font-headline font-bold -tracking-[2%] text-[#42603f]">My Chances</h2>
+<p class="text-[10px] font-label text-stone-500">DYNAMIC ADMISSIONS PROBABILITY MODEL</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-lg">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm w-64 focus:ring-1 focus:ring-primary" placeholder="Search institutions..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-stone-400">
+<span class="material-symbols-outlined hover:text-[#5a7956] cursor-pointer transition-all" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined hover:text-[#5a7956] cursor-pointer transition-all" data-icon="settings">settings</span>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<section class="flex-1 overflow-y-auto p-8 space-y-10 custom-scrollbar">
+<!-- Probability Rings Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Reach Card -->
+<div class="bg-surface-container-low rounded-xl p-8 editorial-shadow border-t-4 border-tertiary flex flex-col items-center">
+<div class="relative w-40 h-40 mb-6">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="42" stroke="#eae1d7" stroke-width="8"></circle>
+<circle cx="50" cy="50" fill="transparent" r="42" stroke="#725232" stroke-dasharray="264" stroke-dashoffset="220" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-headline font-bold text-tertiary">15%</span>
+<span class="text-[10px] font-label font-bold text-stone-400 uppercase tracking-tighter">Avg Prob</span>
+</div>
+</div>
+<h3 class="text-lg font-headline font-bold mb-2">Reach Schools</h3>
+<p class="text-center text-sm text-on-surface-variant font-label leading-relaxed">Institutions where your profile is within the bottom 25th percentile.</p>
+</div>
+<!-- Match Card -->
+<div class="bg-surface-container-low rounded-xl p-8 editorial-shadow border-t-4 border-primary flex flex-col items-center">
+<div class="relative w-40 h-40 mb-6">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="42" stroke="#eae1d7" stroke-width="8"></circle>
+<circle cx="50" cy="50" fill="transparent" r="42" stroke="#42603f" stroke-dasharray="264" stroke-dashoffset="140" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-headline font-bold text-primary">48%</span>
+<span class="text-[10px] font-label font-bold text-stone-400 uppercase tracking-tighter">Avg Prob</span>
+</div>
+</div>
+<h3 class="text-lg font-headline font-bold mb-2">Target Matches</h3>
+<p class="text-center text-sm text-on-surface-variant font-label leading-relaxed">Balanced institutions where your profile aligns with 50th-75th percentile.</p>
+</div>
+<!-- Safety Card -->
+<div class="bg-surface-container-low rounded-xl p-8 editorial-shadow border-t-4 border-secondary-fixed flex flex-col items-center">
+<div class="relative w-40 h-40 mb-6">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="42" stroke="#eae1d7" stroke-width="8"></circle>
+<circle cx="50" cy="50" fill="transparent" r="42" stroke="#caf24d" stroke-dasharray="264" stroke-dashoffset="45" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-headline font-bold text-secondary">82%</span>
+<span class="text-[10px] font-label font-bold text-stone-400 uppercase tracking-tighter">Avg Prob</span>
+</div>
+</div>
+<h3 class="text-lg font-headline font-bold mb-2">Safety Options</h3>
+<p class="text-center text-sm text-on-surface-variant font-label leading-relaxed">Strong likelihood of admission based on academic and extracurricular profile.</p>
+</div>
+</div>
+<!-- Three Column College Lists -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Reach Column -->
+<div class="space-y-6">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-6 bg-tertiary rounded-full"></div>
+<h4 class="font-headline font-bold uppercase tracking-widest text-xs text-tertiary">Dream Institutions</h4>
+</div>
+<!-- College Card -->
+<div class="bg-surface-container-highest rounded-xl p-5 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<h5 class="font-headline font-bold leading-tight">Columbia University</h5>
+<span class="text-xs font-label bg-tertiary/10 text-tertiary px-2 py-1 rounded">8% Chance</span>
+</div>
+<div class="space-y-3">
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[8%]"></div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">GPA Gap: -0.2</span>
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Extracurricular: High</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-xl p-5 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<h5 class="font-headline font-bold leading-tight">Stanford University</h5>
+<span class="text-xs font-label bg-tertiary/10 text-tertiary px-2 py-1 rounded">12% Chance</span>
+</div>
+<div class="space-y-3">
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[12%]"></div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Test Scores: Match</span>
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Essays: Critical</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Match Column -->
+<div class="space-y-6">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-6 bg-primary rounded-full"></div>
+<h4 class="font-headline font-bold uppercase tracking-widest text-xs text-primary">Strategic Matches</h4>
+</div>
+<div class="bg-surface-container-highest rounded-xl p-5 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<h5 class="font-headline font-bold leading-tight">University of Michigan</h5>
+<span class="text-xs font-label bg-primary/10 text-primary px-2 py-1 rounded">42% Chance</span>
+</div>
+<div class="space-y-3">
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[42%]"></div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">GPA: Above Avg</span>
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Alumni Link: No</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-xl p-5 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<h5 class="font-headline font-bold leading-tight">Boston College</h5>
+<span class="text-xs font-label bg-primary/10 text-primary px-2 py-1 rounded">54% Chance</span>
+</div>
+<div class="space-y-3">
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[54%]"></div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Recs: Strength</span>
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Major: Competitive</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Safety Column -->
+<div class="space-y-6">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-6 bg-secondary-fixed rounded-full"></div>
+<h4 class="font-headline font-bold uppercase tracking-widest text-xs text-secondary">Foundational Safeties</h4>
+</div>
+<div class="bg-surface-container-highest rounded-xl p-5 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<h5 class="font-headline font-bold leading-tight">University of Vermont</h5>
+<span class="text-xs font-label bg-secondary-fixed/30 text-secondary px-2 py-1 rounded">88% Chance</span>
+</div>
+<div class="space-y-3">
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[88%]"></div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Auto-Admit Range</span>
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Scholarship: Likely</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-xl p-5 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<h5 class="font-headline font-bold leading-tight">Loyola University</h5>
+<span class="text-xs font-label bg-secondary-fixed/30 text-secondary px-2 py-1 rounded">76% Chance</span>
+</div>
+<div class="space-y-3">
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[76%]"></div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">Core Profile: Over</span>
+<span class="text-[10px] bg-white/50 px-2 py-0.5 rounded-full text-stone-500">In-State: N/A</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Summary Note -->
+<div class="relative bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl text-white editorial-shadow overflow-hidden group">
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-secondary-fixed/10 rounded-full blur-3xl"></div>
+<div class="relative flex items-start gap-6">
+<div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div>
+<h4 class="font-headline text-xl font-bold mb-2">Advisor Insight: Balanced Strategy</h4>
+<p class="font-body text-sm leading-relaxed text-primary-fixed opacity-90 max-w-2xl">
+                                Your current list of 12 institutions is exceptionally well-balanced. You have maintained a 1:2:1 ratio across Reach, Match, and Safety categories. The model predicts a 94% probability of receiving at least 3 offers of admission. To further optimize, consider adding one more "Mid-Match" institution in the Northeast region to capitalize on your strong regional recommendation letters.
+                            </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

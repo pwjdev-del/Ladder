@@ -1,0 +1,39 @@
+disabled_rules:
+  - line_length
+  - file_length
+  - type_body_length
+  - function_body_length
+opt_in_rules:
+  - empty_count
+  - explicit_init
+  - first_where
+  - sorted_first_last
+
+excluded:
+  - build
+  - .build
+
+custom_rules:
+  hardcoded_user_data:
+    name: "Hardcoded user data forbidden"
+    regex: "(\"Kathan\"|\"Medical Path\"|\"Wharton High School\"|3\\.78|1340|1250)"
+    message: "Use live StudentProfileModel via @Query — no hardcoded user data"
+    severity: error
+
+  empty_button_closure:
+    name: "Empty Button closure"
+    regex: "Button \\{\\s*\\}\\s*label:"
+    message: "Empty Button closures are forbidden — wire to a real action or use a disabled state"
+    severity: warning
+
+  todo_in_button:
+    name: "TODO inside button action"
+    regex: "Button \\{\\s*//\\s*TODO"
+    message: "TODO buttons must have at least a temporary action (alert/sheet)"
+    severity: warning
+
+  hardcoded_year:
+    name: "Hardcoded year near deadline"
+    regex: "(deadline|date|year).{0,40}\"20(2[6-9]|3\\d)\""
+    message: "Use Calendar.current.component(.year, from: Date()) — no hardcoded years"
+    severity: warning

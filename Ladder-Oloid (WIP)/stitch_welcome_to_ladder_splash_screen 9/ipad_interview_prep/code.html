@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Atelier AI | Interview Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#c9ecc2",
+                        "tertiary-container": "#8d6a48",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "tertiary": "#725232",
+                        "surface-container-highest": "#eae1d7",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdcbd",
+                        "secondary": "#516600",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-container": "#caf24d",
+                        "primary-container": "#5a7956",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1f1b15",
+                        "on-primary-container": "#e2ffda",
+                        "surface": "#fff8f2",
+                        "on-primary-fixed": "#052107",
+                        "surface-container": "#f5ede2",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-tint": "#486644",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-fixed": "#161e00",
+                        "on-background": "#1f1b15",
+                        "secondary-fixed": "#caf24d",
+                        "on-secondary-container": "#566c00",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "primary": "#42603f",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "inverse-on-surface": "#f8efe5",
+                        "background": "#fff8f2",
+                        "surface-dim": "#e1d9cf",
+                        "outline": "#737970",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-container-high": "#efe7dd",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-bright": "#fff8f2",
+                        "outline-variant": "#c3c8be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Montserrat"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-item {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex">
+<!-- SideNavBar (Persistent) -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col py-8 px-6 h-full w-72 border-r-0 bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="mb-10 px-2">
+<h1 class="text-2xl font-serif italic text-[#42603f] dark:text-[#fbf2e8]">The Atelier</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 mt-1 font-montserrat">Ad Astra Per Aspera</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 font-montserrat font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3">home</span>
+<span>Home</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 font-montserrat font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3">checklist</span>
+<span>Tasks</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 font-montserrat font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3">school</span>
+<span>Colleges</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 font-montserrat font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3">description</span>
+<span>Applications</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 font-montserrat font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3">psychology</span>
+<span>Advisor</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 font-montserrat font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3">payments</span>
+<span>Financial</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 font-montserrat font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3">work</span>
+<span>Career</span>
+</a>
+<!-- Active State: Interviews maps to Mock Prep context -->
+<a class="flex items-center px-4 py-3 rounded-xl text-[#1f1b15] dark:text-[#fbf2e8] font-bold border-r-4 border-[#5A7956] bg-[#eae1d7] dark:bg-stone-800 font-montserrat font-medium tracking-tight active-nav-item" href="#">
+<span class="material-symbols-outlined mr-3">forum</span>
+<span>Interviews</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 hover:text-[#5A7956] hover:bg-[#eae1d7]/50 font-montserrat font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span>Reports</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 px-2">
+<button class="w-full py-4 px-4 bg-primary text-white rounded-xl flex items-center justify-center gap-2 font-montserrat text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">mail</span>
+                Direct Message Advisor
+            </button>
+<div class="mt-6 flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="close-up portrait of a young student with a thoughtful expression in a library setting with soft bookshelf background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClwzLch3u5p9VrfoIAJIO6ULpuW0qquksah_mavu0dkjzimIHH5o3UInLE3ZiND3K8jszYJ9W6peWGEBCaSlLLkL32jWNcr_YjXa6DCQ_Vhn4veFjTPSWSmZaB5KNz2lYtWANKqLwOzgQrxRYbWfI-WrBXAtKEOIpgu3N_JccK-VZ4KbqR_FUWaFNHBlb3GXJsFpKRfzt8D27t9wFP4N3Hj4YSzfVLcdWn2BGZeJo5gWTLQCPm9Fhf_3_YY-rxl1PjpC471QdmvyU"/>
+<div>
+<p class="text-sm font-bold">Julian Vance</p>
+<p class="text-[10px] text-stone-500 font-montserrat uppercase tracking-tighter">Sophomore • Pre-Law</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 p-12 max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-16">
+<div class="max-w-2xl">
+<h2 class="text-5xl font-serif text-on-surface mb-4 tracking-tight leading-tight">Interview Preparation</h2>
+<p class="text-on-surface-variant font-montserrat text-sm leading-relaxed max-w-lg">Master the art of academic and professional dialogue. Our AI-driven simulations analyze your tone, content, and confidence to ensure you're ready for the big day.</p>
+</div>
+<button class="bg-gradient-to-br from-secondary to-primary-container text-white px-8 py-5 rounded-xl font-montserrat font-bold uppercase tracking-widest flex items-center gap-3 shadow-lg shadow-secondary/10 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                Start Full Mock
+            </button>
+</header>
+<!-- Bento Grid: Question Cards & Tips -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Questions Grid (Col 1-8) -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Practice Question Card 1 -->
+<div class="p-6 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">Common</span>
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary transition-colors">history_edu</span>
+</div>
+<h3 class="font-serif text-lg mb-4 text-on-surface">"Tell me about a time you overcame a significant challenge."</h3>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-[11px] font-bold text-stone-500 uppercase tracking-wider">Level 1</span>
+</div>
+<button class="text-primary font-montserrat font-bold text-xs uppercase tracking-widest border-b-2 border-primary/20 hover:border-primary transition-all">Practice</button>
+</div>
+</div>
+<!-- Practice Question Card 2 -->
+<div class="p-6 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">Academic</span>
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary transition-colors">school</span>
+</div>
+<h3 class="font-serif text-lg mb-4 text-on-surface">"Why do you think you're a good fit for this specific program?"</h3>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-[11px] font-bold text-stone-500 uppercase tracking-wider">Level 2</span>
+</div>
+<button class="text-primary font-montserrat font-bold text-xs uppercase tracking-widest border-b-2 border-primary/20 hover:border-primary transition-all">Practice</button>
+</div>
+</div>
+<!-- Practice Question Card 3 -->
+<div class="p-6 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">Philosophy</span>
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary transition-colors">lightbulb</span>
+</div>
+<h3 class="font-serif text-lg mb-4 text-on-surface">"What is a book or article that fundamentally changed your perspective?"</h3>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-[11px] font-bold text-stone-500 uppercase tracking-wider">Level 3</span>
+</div>
+<button class="text-primary font-montserrat font-bold text-xs uppercase tracking-widest border-b-2 border-primary/20 hover:border-primary transition-all">Practice</button>
+</div>
+</div>
+<!-- Practice Question Card 4 -->
+<div class="p-6 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors group">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full">Career</span>
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary transition-colors">work</span>
+</div>
+<h3 class="font-serif text-lg mb-4 text-on-surface">"Where do you see your academic research leading in 5 years?"</h3>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-[11px] font-bold text-stone-500 uppercase tracking-wider">Level 2</span>
+</div>
+<button class="text-primary font-montserrat font-bold text-xs uppercase tracking-widest border-b-2 border-primary/20 hover:border-primary transition-all">Practice</button>
+</div>
+</div>
+<!-- 6 more minimal cards placeholder -->
+<div class="md:col-span-2 grid grid-cols-2 gap-4">
+<div class="p-4 bg-surface-container-low border border-outline-variant/15 rounded-lg flex items-center justify-between">
+<span class="text-xs font-montserrat font-semibold">Leadership Experiences</span>
+<span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+</div>
+<div class="p-4 bg-surface-container-low border border-outline-variant/15 rounded-lg flex items-center justify-between">
+<span class="text-xs font-montserrat font-semibold">Conflict Resolution</span>
+<span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+</div>
+<div class="p-4 bg-surface-container-low border border-outline-variant/15 rounded-lg flex items-center justify-between">
+<span class="text-xs font-montserrat font-semibold">Community Impact</span>
+<span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+</div>
+<div class="p-4 bg-surface-container-low border border-outline-variant/15 rounded-lg flex items-center justify-between">
+<span class="text-xs font-montserrat font-semibold">Research Interests</span>
+<span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+</div>
+<div class="p-4 bg-surface-container-low border border-outline-variant/15 rounded-lg flex items-center justify-between">
+<span class="text-xs font-montserrat font-semibold">Study Abroad Goals</span>
+<span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+</div>
+<div class="p-4 bg-surface-container-low border border-outline-variant/15 rounded-lg flex items-center justify-between">
+<span class="text-xs font-montserrat font-semibold">Global Perspectives</span>
+<span class="material-symbols-outlined text-primary text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Sidebar Info/Tips (Col 9-12) -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Ladder Tracker Component -->
+<div class="bg-primary text-white p-8 rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-serif text-2xl mb-6">Preparation Progress</h4>
+<div class="space-y-8 relative">
+<!-- The Ladder Line -->
+<div class="absolute left-[11px] top-2 bottom-2 w-1 bg-secondary-fixed shadow-[0_0_15px_rgba(202,242,77,0.4)]"></div>
+<div class="flex items-center gap-6 relative">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xs" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-white/70">Completed</p>
+<p class="font-montserrat font-semibold">Profile Foundation</p>
+</div>
+</div>
+<div class="flex items-center gap-6 relative">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed ring-4 ring-primary flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+</div>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-secondary-fixed">In Progress</p>
+<p class="font-montserrat font-semibold">Behavioral Mock</p>
+</div>
+</div>
+<div class="flex items-center gap-6 relative opacity-40">
+<div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"></div>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest">Locked</p>
+<p class="font-montserrat font-semibold">Technical Deep Dive</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Graphic -->
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+</div>
+<!-- Tips Section -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<h4 class="font-serif text-xl mb-6 text-primary">Atelier Tips</h4>
+<ul class="space-y-6">
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary-container bg-primary rounded-lg p-2 h-fit">auto_awesome</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-1">STAR Method</p>
+<p class="text-sm text-on-surface-variant font-medium">Use Situation, Task, Action, and Result to frame your story.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary-container bg-primary rounded-lg p-2 h-fit">videocam</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-1">Eye Contact</p>
+<p class="text-sm text-on-surface-variant font-medium">Remember to look at the camera, not the screen, to simulate gaze.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary-container bg-primary rounded-lg p-2 h-fit">history</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-1">Pause Policy</p>
+<p class="text-sm text-on-surface-variant font-medium">A 2-second silence before answering shows deep reflection.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Transition/Mock Mode (Overlay/Focus state style) -->
+<div class="mt-24 p-12 bg-white rounded-[2rem] shadow-2xl shadow-stone-200 border border-outline-variant/10">
+<div class="flex justify-between items-center mb-12">
+<div class="flex items-center gap-4">
+<div class="w-3 h-3 rounded-full bg-error animate-pulse"></div>
+<span class="text-xs font-bold uppercase tracking-[0.2em] text-stone-500">Live Simulation Mode</span>
+</div>
+<div class="bg-surface-container-highest px-4 py-2 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">timer</span>
+<span class="text-sm font-bold font-montserrat">01:42</span>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-12 items-center">
+<div class="col-span-12 lg:col-span-5">
+<div class="relative">
+<div class="absolute -top-6 -left-6 text-6xl text-primary-fixed italic font-serif">"</div>
+<h2 class="text-4xl font-serif text-on-surface leading-snug relative z-10">
+                            How do you handle situations where you have to work with someone whose personality is very different from your own?
+                        </h2>
+</div>
+<div class="mt-12 flex items-center gap-4">
+<img class="w-12 h-12 rounded-full border-2 border-primary" data-alt="AI avatar representation of a professional female academic advisor with glasses and a friendly but formal demeanor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjpSdUDoZ3i6l1x9tm6fN-v1KAhGeqANO_Cw7WGdGQZ8Aj8kVf6eTZWPgVH3jnQiMvOMdFxxND9JZsd3Ebe_1HdM9pyFfhy988xlhJ0ymOS5pNTnJ9Lth8r403Bn3aM6AQsCllWjkgqNh48Gcqa2ai5x865RG_beFauAIUAgIK78d_dSiKmAI0HrxWX_0Xq-wWE1-9y0eyZ6nFk7gzol_qkmRPw4vAwClBAv3LgEizoB0wwKhIfSXAl3k_h5KFcypy8odFSiMEQig"/>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-primary">AI Advisor</p>
+<p class="text-sm font-medium text-stone-500">Analyzing your response...</p>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-7">
+<div class="bg-surface-container-low rounded-xl p-8 min-h-[300px] flex flex-col">
+<textarea class="flex-grow bg-transparent border-none focus:ring-0 text-lg font-montserrat text-on-surface resize-none" placeholder="Begin speaking or type your response here..."></textarea>
+<div class="flex justify-between items-center mt-8 pt-8 border-t border-outline-variant/20">
+<div class="flex gap-4">
+<button class="p-3 rounded-full bg-white text-stone-500 hover:text-error transition-colors flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined">mic_off</span>
+</button>
+<button class="p-3 rounded-full bg-white text-stone-500 hover:text-primary transition-colors flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 rounded-lg text-stone-500 font-bold uppercase text-xs tracking-widest hover:bg-surface-container-highest transition-colors">Skip</button>
+<button class="px-8 py-3 rounded-lg bg-primary text-white font-bold uppercase text-xs tracking-widest hover:shadow-lg transition-all flex items-center gap-2">
+                                    Next Question
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

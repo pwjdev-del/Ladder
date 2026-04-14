@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evergreen Ascent - Peer Comparison</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f2",
+                        "tertiary-container": "#8d6a48",
+                        "on-primary-fixed": "#052107",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed": "#c9ecc2",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f2",
+                        "tertiary": "#725232",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-container": "#f5ede2",
+                        "secondary-container": "#caf24d",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-surface": "#1f1b15",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-tint": "#486644",
+                        "on-surface-variant": "#434840",
+                        "outline-variant": "#c3c8be",
+                        "surface-container-high": "#efe7dd",
+                        "surface-variant": "#eae1d7",
+                        "surface-container-low": "#fbf2e8",
+                        "primary": "#42603f",
+                        "inverse-primary": "#aed0a7",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#566c00",
+                        "secondary-fixed": "#caf24d",
+                        "on-secondary-fixed": "#161e00",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "inverse-surface": "#343029",
+                        "secondary": "#516600",
+                        "surface-bright": "#fff8f2",
+                        "secondary-fixed-dim": "#afd531",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-background": "#1f1b15",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary-fixed": "#2c1600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; color: #1f1b15; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .bell-curve-path { fill: none; stroke: #42603f; stroke-width: 2.5; stroke-linecap: round; }
+        .glass-nav { background: rgba(234, 225, 215, 0.7); backdrop-filter: blur(32px); }
+        .primary-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+        .glow-line { box-shadow: 0 0 12px rgba(202, 242, 77, 0.4); }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-72 z-40 bg-[#fbf2e8] dark:bg-stone-900 border-r-0 flex flex-col">
+<div class="p-8">
+<h1 class="text-2xl font-bold font-serif text-[#42603f] dark:text-emerald-500 tracking-tight">Evergreen</h1>
+<p class="text-xs font-medium text-on-surface-variant/60 uppercase tracking-widest mt-1">Academic Atelier</p>
+</div>
+<nav class="flex-1 flex flex-col">
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-semibold">Home</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm font-semibold">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-semibold">Colleges</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-semibold">Applications</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#42603f] dark:text-emerald-300 font-bold bg-[#eae1d7] dark:bg-stone-800 rounded-r-2xl" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="text-sm">Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-semibold">Financial</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-sm font-semibold">Career</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="text-sm font-semibold">Housing</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="text-sm font-semibold">Reports</span>
+</a>
+</div>
+<div class="mt-auto p-6 space-y-4">
+<button class="w-full primary-gradient text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow-sm hover:scale-95 transition-all duration-150">
+<span class="material-symbols-outlined text-sm">support_agent</span>
+                    Support Advisor
+                </button>
+<div class="pt-4 border-t border-outline-variant/10">
+<a class="flex items-center gap-3 px-2 py-2 text-[#1f1b15]/60 text-sm font-medium hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                        Settings
+                    </a>
+<a class="flex items-center gap-3 px-2 py-2 text-[#1f1b15]/60 text-sm font-medium hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+                        Help
+                    </a>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-high p-3 rounded-xl">
+<img alt="Student avatar" class="w-10 h-10 rounded-full object-cover" data-alt="portrait of a focused young student with glasses in a library setting with soft warm light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhGr6XBHAwVetoCiRTZ3m774J9mqE7qiNFN8fuzi8f3HpSWyNXOtwGYSRQJp8gCH_Z-YiLOwJMq8_KPvozKxVOS_-xcDpMTqXT8ABRdAIVYDXUuHtQY_ljAB3ZOZJuwhTpE2wOjC75N4yNRM6x5JV0c1I7X-SmNTx_iVtXHguHSwo9LKW7xuEfwOTOfrcg8zHj4t-CDlKCbHKj8E4cdOaYBUkfp4hXH2xrWuzAuxJlQShv8STAZXwu7PTRAjv6BwLNnYaabh4-uc0"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Jameson Thorne</p>
+<p class="text-[10px] text-on-surface-variant/70 uppercase tracking-wider">Class of 2025</p>
+</div>
+</div>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 p-10 bg-surface">
+<!-- Header Section with Asymmetric Layout -->
+<header class="mb-12 flex items-end justify-between">
+<div class="max-w-2xl">
+<nav class="flex items-center gap-2 mb-4 text-xs font-bold uppercase tracking-widest text-primary/60">
+<span>Advisor</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary">Peer Comparison</span>
+</nav>
+<h2 class="text-5xl font-serif font-extrabold text-on-surface -tracking-[0.02em] leading-tight">
+                    Performance <br/> Perspective
+                </h2>
+<p class="mt-4 text-on-surface-variant font-medium leading-relaxed max-w-md">
+                    Compare your academic profile against the regional cohort of 2,400 students. Understanding your percentile position is the first step toward strategic positioning.
+                </p>
+</div>
+<!-- Aggregate Stats Card (Glassmorphism inspired) -->
+<div class="bg-surface-container-highest p-8 rounded-xl w-72 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl">insights</span>
+</div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-6">Ladder Composite Score</p>
+<div class="flex items-baseline gap-2">
+<span class="text-6xl font-serif font-extrabold text-primary">94</span>
+<span class="text-lg font-bold text-on-surface-variant">/ 100</span>
+</div>
+<div class="mt-4 flex items-center gap-2 text-secondary font-bold text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                    Top 6% of cohort
+                </div>
+</div>
+</header>
+<!-- Bento Grid Dashboard -->
+<div class="grid grid-cols-12 gap-6">
+<!-- GPA Distribution (Bell Curve) -->
+<div class="col-span-7 bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h3 class="text-xl font-serif font-bold text-on-surface">GPA Distribution</h3>
+<p class="text-sm text-on-surface-variant mt-1">Cohort Bell Curve (Unweighted)</p>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Your GPA</p>
+<p class="text-2xl font-bold text-primary">3.92</p>
+</div>
+</div>
+<div class="relative h-48 w-full mt-4">
+<!-- Simple SVG Bell Curve Visualization -->
+<svg class="w-full h-full" viewbox="0 0 400 120">
+<path class="bell-curve-path" d="M 0 110 Q 50 110 100 100 T 200 20 T 300 100 T 400 110" fill="transparent" opacity="0.3"></path>
+<path d="M 100 100 T 200 20 T 300 100" fill="url(#grad1)" opacity="0.1"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#42603f;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#42603f;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+<!-- Vertical Indicator for User -->
+<line stroke="#516600" stroke-dasharray="4" stroke-width="2" x1="320" x2="320" y1="20" y2="110"></line>
+<circle cx="320" cy="20" fill="#516600" r="4"></circle>
+</svg>
+<!-- X-Axis Labels -->
+<div class="flex justify-between mt-2 text-[10px] font-bold text-on-surface-variant/40 px-2">
+<span>2.0</span>
+<span>2.5</span>
+<span>3.0</span>
+<span>3.5</span>
+<span class="text-secondary font-extrabold">3.92</span>
+<span>4.0</span>
+</div>
+</div>
+</div>
+<!-- Strengths & Weaknesses (Asymmetric Breakdown) -->
+<div class="col-span-5 bg-surface-container-highest p-8 rounded-xl">
+<h3 class="text-xl font-serif font-bold text-on-surface mb-6">Profile Velocity</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</div>
+<div>
+<p class="font-bold text-sm">Quant Excellence</p>
+<p class="text-xs text-on-surface-variant mt-1">Your Math score exceeds 98% of students in the current applicant pool.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<div>
+<p class="font-bold text-sm">Humanities Focus</p>
+<p class="text-xs text-on-surface-variant mt-1">Engagement in creative writing is a unique differentiator for your profile.</p>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/30">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center text-error shrink-0">
+<span class="material-symbols-outlined text-[20px]">priority_high</span>
+</div>
+<div>
+<p class="font-bold text-sm">Leadership Velocity</p>
+<p class="text-xs text-on-surface-variant mt-1">Peer average for executive club positions is 2.4; yours is currently 1.0.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SAT Distribution Chart -->
+<div class="col-span-4 bg-surface-container-low p-8 rounded-xl h-80 flex flex-col">
+<h3 class="text-lg font-serif font-bold text-on-surface mb-8">SAT Percentile</h3>
+<div class="flex-1 flex items-end justify-between gap-4 px-4">
+<!-- Bar Chart logic: heights represent relative distribution -->
+<div class="w-full bg-outline-variant/20 rounded-t-lg h-[20%]"></div>
+<div class="w-full bg-outline-variant/20 rounded-t-lg h-[45%]"></div>
+<div class="w-full bg-outline-variant/20 rounded-t-lg h-[75%]"></div>
+<div class="w-full bg-primary-container rounded-t-lg h-[92%] relative">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] font-bold py-1 px-2 rounded-md">1540</div>
+</div>
+<div class="w-full bg-outline-variant/20 rounded-t-lg h-[60%]"></div>
+<div class="w-full bg-outline-variant/20 rounded-t-lg h-[30%]"></div>
+</div>
+<div class="mt-4 flex justify-between text-[10px] font-bold text-on-surface-variant/50">
+<span>1200</span>
+<span>1400</span>
+<span class="text-primary-container font-extrabold">1540</span>
+<span>1600</span>
+</div>
+</div>
+<!-- Activities Bar Chart Comparison -->
+<div class="col-span-8 bg-surface-container-low p-8 rounded-xl h-80 flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-lg font-serif font-bold text-on-surface">Activity Depth</h3>
+<div class="flex gap-4 text-[10px] font-bold uppercase tracking-widest">
+<div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full primary-gradient"></span> You</div>
+<div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-outline-variant/40"></span> Peer Avg</div>
+</div>
+</div>
+<div class="space-y-6 flex-1 justify-center flex flex-col">
+<!-- Comparison Row: Hours/Week -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold text-on-surface-variant">
+<span>Weekly Involvement (Hours)</span>
+<span class="text-primary">18 vs 12</span>
+</div>
+<div class="relative h-3 w-full bg-outline-variant/10 rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-outline-variant/30 rounded-full" style="width: 60%"></div>
+<div class="absolute top-0 left-0 h-full primary-gradient rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<!-- Comparison Row: Leadership Depth -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold text-on-surface-variant">
+<span>Leadership Impact Score</span>
+<span class="text-primary">8.4 vs 6.2</span>
+</div>
+<div class="relative h-3 w-full bg-outline-variant/10 rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-outline-variant/30 rounded-full" style="width: 62%"></div>
+<div class="absolute top-0 left-0 h-full primary-gradient rounded-full" style="width: 84%"></div>
+</div>
+</div>
+<!-- Comparison Row: Skill Diversity -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold text-on-surface-variant">
+<span>Domain Diversity</span>
+<span class="text-primary">5 vs 4</span>
+</div>
+<div class="relative h-3 w-full bg-outline-variant/10 rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-outline-variant/30 rounded-full" style="width: 70%"></div>
+<div class="absolute top-0 left-0 h-full primary-gradient rounded-full" style="width: 88%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Signature Component: The Ladder Tracker -->
+<footer class="mt-12 flex items-center justify-between">
+<div class="flex items-center gap-12 w-full max-w-4xl">
+<div class="flex-1">
+<div class="flex justify-between items-center mb-3">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Strategic Progress</p>
+<p class="text-sm font-bold text-secondary">Phase 3: Comparative Edge</p>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed glow-line" style="width: 72%"></div>
+</div>
+</div>
+<button class="bg-surface-container-highest hover:bg-surface-container-high text-on-surface-variant py-4 px-10 rounded-xl font-bold text-sm transition-all">
+                    Download Full Cohort PDF
+                </button>
+</div>
+</footer>
+</main>
+</body></html>

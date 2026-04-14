@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Chances - Ladder</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&amp;family=Manrope:wght@400;500;600;700&amp;family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fff8f2",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-surface-variant": "#434840",
+                        "outline-variant": "#c3c8be",
+                        "tertiary": "#725232",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#8d6a48",
+                        "surface-tint": "#486644",
+                        "on-secondary-container": "#566c00",
+                        "inverse-surface": "#343029",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-container": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f5ede2",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#fbf2e8",
+                        "surface": "#fff8f2",
+                        "surface-container-highest": "#eae1d7",
+                        "background": "#fff8f2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-secondary-fixed": "#161e00",
+                        "on-surface": "#1f1b15",
+                        "inverse-primary": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary": "#516600",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#eae1d7",
+                        "surface-dim": "#e1d9cf",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "primary": "#42603f",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-container": "#5a7956",
+                        "outline": "#737970",
+                        "on-primary-fixed": "#052107",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#e2ffda"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"],
+                        "sans": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .circular-progress {
+            background: conic-gradient(var(--progress-color) calc(var(--percentage) * 1%), #e5e7eb 0);
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Top Navigation Shell -->
+<header class="flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50 bg-[#fff8f2] dark:bg-stone-950">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">menu</span>
+<span class="text-2xl font-headline font-bold italic text-primary dark:text-[#fbf2e8]">Ladder</span>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Profile" data-alt="minimalist 3d avatar of a young male student with glasses and short brown hair on a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtVhVfso6xw_AUu8XwmFiHxUPywd4t4kDIjxBdqjcwnqNV4gt8Q10x91lFjHSdZQE5_Y6NvDdV0xobIERMpDHcserb47UOFCkRozmsoKrJgWqJ5WjMQpLYqTQpPvd2iRAfskFJuD9y6T29bk5ICEF5YzqNIktWfTb7ypatH14gFQuJc71elLOK8c8A0D-AI4waKfugqqLGfBpZzYfkkpXuBsVPstOzGPH81_e4SdoWMiG6HtPXIO6Uf8y1G_eI9TVE6I8kiahqb6o"/>
+</div>
+</header>
+<main class="pt-20 pb-32 px-4 space-y-6">
+<!-- Premium Header Section -->
+<section class="header-gradient rounded-xl p-6 text-white shadow-xl shadow-primary/10 relative overflow-hidden">
+<div class="relative z-10">
+<h1 class="text-3xl font-headline font-bold italic tracking-tight mb-1">My Chances</h1>
+<p class="text-white/80 text-sm font-medium">Based on GPA, SAT, and 6,300+ data points.</p>
+</div>
+<!-- Decorative element -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary-fixed/10 rounded-full blur-3xl"></div>
+</section>
+<!-- Student Profile Summary -->
+<section class="bg-surface-container-low rounded-xl p-5">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-surface rounded-lg">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">person_search</span>
+</div>
+<div class="flex-1">
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary/60 mb-1">Profile Baseline</h3>
+<p class="text-sm font-bold text-on-surface leading-snug">
+                        3.78 GPA • 1340 SAT • 4 APs<br/>
+                        Medical Path • <span class="text-primary italic">First-Gen ✓</span>
+</p>
+</div>
+</div>
+</section>
+<!-- Schools List -->
+<section class="space-y-4">
+<!-- School Card 1: UCF (Safety/Match) -->
+<div class="bg-surface-container-highest rounded-xl p-5 flex items-center justify-between group">
+<div class="flex gap-4 items-center">
+<div class="relative w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-sm">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-[#42603f]" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="22.8" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-sm font-black text-primary">87%</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg leading-none">UCF</h4>
+<p class="text-xs text-on-surface-variant mb-2">Orlando, FL</p>
+<span class="px-3 py-1 bg-[#42603f]/10 text-[#42603f] text-[10px] font-bold uppercase tracking-wider rounded-full">Safety</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<!-- School Card 2: FAU (Safety) -->
+<div class="bg-surface-container-highest rounded-xl p-5 flex items-center justify-between">
+<div class="flex gap-4 items-center">
+<div class="relative w-16 h-16 flex items-center justify-center rounded-full bg-white">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-[#5a7956]" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="31.6" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-sm font-black text-primary">82%</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg leading-none">FAU</h4>
+<p class="text-xs text-on-surface-variant mb-2">Boca Raton, FL</p>
+<span class="px-3 py-1 bg-[#5a7956]/10 text-[#5a7956] text-[10px] font-bold uppercase tracking-wider rounded-full">Safety</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- School Card 3: USF (Match) -->
+<div class="bg-surface-container-highest rounded-xl p-5 flex items-center justify-between">
+<div class="flex gap-4 items-center">
+<div class="relative w-16 h-16 flex items-center justify-center rounded-full bg-white">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-[#725232]" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="51.0" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-sm font-black text-tertiary">71%</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg leading-none">USF</h4>
+<p class="text-xs text-on-surface-variant mb-2">Tampa, FL</p>
+<span class="px-3 py-1 bg-[#725232]/10 text-[#725232] text-[10px] font-bold uppercase tracking-wider rounded-full">Match</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- School Card 4: FSU (Target) -->
+<div class="bg-surface-container-highest rounded-xl p-5 flex items-center justify-between">
+<div class="flex gap-4 items-center">
+<div class="relative w-16 h-16 flex items-center justify-center rounded-full bg-white">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-[#725232]" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="63.3" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-sm font-black text-tertiary">64%</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg leading-none">FSU</h4>
+<p class="text-xs text-on-surface-variant mb-2">Tallahassee, FL</p>
+<span class="px-3 py-1 bg-[#725232]/10 text-[#725232] text-[10px] font-bold uppercase tracking-wider rounded-full">Target</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Expanded Section: UF (Reach) -->
+<div class="bg-surface-container-low rounded-xl ring-2 ring-primary/20 overflow-hidden shadow-2xl shadow-primary/5">
+<div class="p-5 bg-surface-container-highest flex items-center justify-between">
+<div class="flex gap-4 items-center">
+<div class="relative w-16 h-16 flex items-center justify-center rounded-full bg-white shadow-inner">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-error" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="116.1" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-sm font-black text-error">34%</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg leading-none">UF</h4>
+<p class="text-xs text-on-surface-variant mb-2">Gainesville, FL</p>
+<span class="px-3 py-1 bg-error/10 text-error text-[10px] font-bold uppercase tracking-wider rounded-full">Reach</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary">expand_less</span>
+</div>
+<!-- Expanded Factors Breakdown -->
+<div class="p-6 space-y-5 bg-white/40 backdrop-blur-sm">
+<h5 class="text-[10px] font-bold uppercase tracking-widest text-primary">Admission Factors Analysis</h5>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<span class="text-[10px] text-on-surface-variant font-semibold">GPA</span>
+<div class="flex items-center gap-2">
+<span class="text-sm font-bold">Competitive</span>
+<span class="material-symbols-outlined text-primary text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="space-y-1">
+<span class="text-[10px] text-on-surface-variant font-semibold">SAT Score</span>
+<div class="flex items-center gap-2">
+<span class="text-sm font-bold">Below Median</span>
+<span class="material-symbols-outlined text-error text-xs" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+</div>
+<div class="space-y-1">
+<span class="text-[10px] text-on-surface-variant font-semibold">Course Rigor</span>
+<div class="flex items-center gap-2">
+<span class="text-sm font-bold">Competitive</span>
+<span class="material-symbols-outlined text-primary text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="space-y-1">
+<span class="text-[10px] text-on-surface-variant font-semibold">Institutional Priorities</span>
+<div class="flex items-center gap-2">
+<span class="text-sm font-bold">Positive Factor</span>
+<span class="material-symbols-outlined text-secondary text-xs" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-primary/10">
+<p class="text-[11px] leading-relaxed text-on-surface-variant italic">"Your 4 APs show the rigor UF looks for, but increasing your SAT by 60 points would move this to a 'Target' school."</p>
+</div>
+</div>
+</div>
+<!-- School Card 6: MIT (Extreme Reach) -->
+<div class="bg-surface-container-highest rounded-xl p-5 flex items-center justify-between">
+<div class="flex gap-4 items-center">
+<div class="relative w-16 h-16 flex items-center justify-center rounded-full bg-white">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-error" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="165.3" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-sm font-black text-error">6%</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg leading-none">MIT</h4>
+<p class="text-xs text-on-surface-variant mb-2">Cambridge, MA</p>
+<span class="px-3 py-1 bg-error/10 text-error text-[10px] font-bold uppercase tracking-wider rounded-full">Hard Reach</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</section>
+<!-- Methodology Note -->
+<footer class="pt-4 pb-8 text-center px-8">
+<p class="text-[10px] text-outline leading-relaxed">
+                Estimates are generated via proprietary machine learning models trained on anonymized historical admission cycles. These are not guarantees of admission.
+            </p>
+</footer>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f2]/70 dark:bg-stone-900/70 backdrop-blur-xl rounded-t-[24px] shadow-[0_-4px_40px_rgba(31,27,21,0.06)]">
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-transform">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Mission</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-transform">
+<span class="material-symbols-outlined mb-1">calendar_month</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Deadlines</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-2xl px-5 py-2 scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Schools</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-transform">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Scholarships</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] transition-transform">
+<span class="material-symbols-outlined mb-1">group</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest">Peer</span>
+</div>
+</nav>
+</body></html>

@@ -1,32 +1,37 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - College Profile Detail View
 
 struct CollegeProfileView: View {
     @Environment(AppCoordinator.self) private var coordinator
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var sizeClass
+    @Query private var profiles: [StudentProfileModel]
     let collegeId: String
     @State private var isFavorite = false
     @State private var selectedSection = 0
+
+    private var userGrade: Int { profiles.first?.grade ?? 10 }
+
+    private var edYear: Int {
+        // If we're past November, use next year for upcoming ED/EA deadlines
+        let now = Date()
+        let month = Calendar.current.component(.month, from: now)
+        return Calendar.current.component(.year, from: now) + (month > 10 ? 1 : 0)
+    }
+    private var rdYear: Int { edYear + 1 }
 
     private var college: CollegeListItem? {
         CollegeListItem.sampleColleges.first { $0.id == collegeId }
     }
 
     var body: some View {
-        ZStack(alignment: .top) {
-            LadderColors.surface.ignoresSafeArea()
-
-            if let college {
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        heroSection(college)
-                        quickStats(college)
-                        sectionPicker
-                        sectionContent(college)
-                    }
-                    .padding(.bottom, 120)
-                }
+        Group {
+            if sizeClass == .regular {
+                iPadLayout
+            } else {
+                iPhoneLayout
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -44,6 +49,216 @@ struct CollegeProfileView: View {
                         .foregroundStyle(isFavorite ? LadderColors.error : LadderColors.onSurface)
                 }
             }
+        }
+    }
+
+    // MARK: - iPhone Layout
+
+    private var iPhoneLayout: some View {
+        ZStack(alignment: .top) {
+            LadderColors.surface.ignoresSafeArea()
+
+            if let college {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        heroSection(college)
+                        quickStats(college)
+                        sectionPicker
+                        sectionContent(college)
+                    }
+                    .padding(.bottom, 120)
+                }
+            }
+        }
+    }
+
+    // MARK: - iPad Layout (two-column, 65/35)
+
+    private var iPadLayout: some View {
+        ZStack {
+            LadderColors.surface.ignoresSafeArea()
+
+            if let college {
+                HStack(alignment: .top, spacing: LadderSpacing.xl) {
+                    // Left 65% — hero + tabs + section content
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: LadderSpacing.lg) {
+                            iPadHero(college)
+                            sectionPicker
+                                .padding(.horizontal, 0)
+                            sectionContent(college)
+                                .padding(.horizontal, 0)
+                        }
+                        .padding(.horizontal, LadderSpacing.xl)
+                        .padding(.top, LadderSpacing.lg)
+                        .padding(.bottom, LadderSpacing.xxxxl)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+
+                    // Right 35% — stats stack + fit + CTAs
+                    ScrollView(showsIndicators: false) {
+                        iPadRightColumn(college)
+                            .padding(.trailing, LadderSpacing.xl)
+                            .padding(.top, LadderSpacing.lg)
+                            .padding(.bottom, LadderSpacing.xxxxl)
+                    }
+                    .frame(width: 380)
+                }
+            }
+        }
+    }
+
+    private func iPadHero(_ college: CollegeListItem) -> some View {
+        ZStack(alignment: .bottomLeading) {
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        colors: [LadderColors.primaryContainer, LadderColors.primary],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .frame(height: 320)
+                .overlay(
+                    Image(systemName: "building.columns.fill")
+                        .font(.system(size: 120))
+                        .foregroundStyle(.white.opacity(0.15))
+                )
+
+            VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                if let match = college.matchPercent {
+                    Text("\(match)% MATCH")
+                        .font(LadderTypography.labelMedium)
+                        .foregroundStyle(LadderColors.onSecondaryFixed)
+                        .labelTracking()
+                        .padding(.horizontal, LadderSpacing.md)
+                        .padding(.vertical, LadderSpacing.xs)
+                        .background(LadderColors.secondaryFixed)
+                        .clipShape(Capsule())
+                }
+
+                Text(college.name)
+                    .font(LadderTypography.displaySmall)
+                    .foregroundStyle(.white)
+                    .editorialTracking()
+
+                HStack(spacing: LadderSpacing.xs) {
+                    Image(systemName: "mappin.circle.fill")
+                        .font(.system(size: 16))
+                    Text(college.location)
+                        .font(LadderTypography.titleMedium)
+                }
+                .foregroundStyle(.white.opacity(0.85))
+
+                HStack(spacing: LadderSpacing.xs) {
+                    ForEach(college.tags, id: \.self) { tag in
+                        Text(tag)
+                            .font(LadderTypography.labelSmall)
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, LadderSpacing.sm)
+                            .padding(.vertical, LadderSpacing.xxs)
+                            .background(.white.opacity(0.2))
+                            .clipShape(Capsule())
+                    }
+                }
+                .padding(.top, LadderSpacing.xs)
+            }
+            .padding(LadderSpacing.xl)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                LinearGradient(
+                    colors: [.clear, .black.opacity(0.55)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+        }
+        .clipShape(RoundedRectangle(cornerRadius: LadderRadius.xxl, style: .continuous))
+        .ladderShadow(LadderElevation.ambient)
+    }
+
+    private func iPadRightColumn(_ college: CollegeListItem) -> some View {
+        VStack(spacing: LadderSpacing.md) {
+            LadderCard {
+                VStack(alignment: .leading, spacing: LadderSpacing.md) {
+                    Text("At a Glance")
+                        .font(LadderTypography.titleMedium)
+                        .foregroundStyle(LadderColors.onSurface)
+
+                    statRow("Acceptance", college.acceptanceRate.map { "\(Int($0 * 100))%" } ?? "N/A")
+                    statRow("Tuition (In-State)", college.tuition.map { "$\(formatNumber($0))" } ?? "N/A")
+                    statRow("Tuition (Out-of-State)", college.tuition.map { "$\(formatNumber($0 + 15000))" } ?? "N/A")
+                    statRow("SAT Range", college.satRange ?? "N/A")
+                    statRow("ACT Range", "28-33")
+                    statRow("Enrollment", college.enrollment.map { formatNumber($0) } ?? "N/A")
+                    statRow("Graduation Rate", "86%")
+                    statRow("Student-Faculty", "12:1")
+                }
+            }
+
+            LadderCard {
+                VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                    HStack {
+                        Image(systemName: "sparkles")
+                            .foregroundStyle(LadderColors.accentLime)
+                        Text("YOUR FIT")
+                            .font(LadderTypography.labelSmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                            .labelTracking()
+                    }
+
+                    if let m = college.matchPercent {
+                        HStack(spacing: LadderSpacing.md) {
+                            CircularProgressView(
+                                progress: Double(m) / 100.0,
+                                label: "\(m)%",
+                                sublabel: "Match",
+                                size: 80
+                            )
+                            VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                                Text(m >= 75 ? "Strong Match" : m >= 40 ? "Good Match" : "Reach")
+                                    .font(LadderTypography.titleSmall)
+                                    .foregroundStyle(LadderColors.onSurface)
+                                Text("Based on your profile")
+                                    .font(LadderTypography.bodySmall)
+                                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                            }
+                        }
+                    }
+                }
+            }
+
+            LadderPrimaryButton("Start Application", icon: "arrow.right") {
+                coordinator.navigate(to: .applicationDetail(applicationId: college.id))
+            }
+
+            Button {
+                isFavorite.toggle()
+            } label: {
+                HStack(spacing: LadderSpacing.sm) {
+                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                    Text(isFavorite ? "Saved to List" : "Add to List")
+                        .font(LadderTypography.titleSmall)
+                }
+                .foregroundStyle(LadderColors.onSurface)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, LadderSpacing.md)
+                .background(LadderColors.surfaceContainerHigh)
+                .clipShape(Capsule())
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    private func statRow(_ label: String, _ value: String) -> some View {
+        HStack {
+            Text(label)
+                .font(LadderTypography.bodyMedium)
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+            Spacer()
+            Text(value)
+                .font(LadderTypography.titleSmall)
+                .foregroundStyle(LadderColors.onSurface)
         }
     }
 
@@ -229,9 +444,25 @@ struct CollegeProfileView: View {
     // Deadlines
     private func deadlinesSection(_ college: CollegeListItem) -> some View {
         VStack(spacing: LadderSpacing.md) {
-            deadlineRow(type: "Early Action", date: "November 1, 2026", daysLeft: 213)
-            deadlineRow(type: "Early Decision", date: "November 1, 2026", daysLeft: 213)
-            deadlineRow(type: "Regular Decision", date: "January 15, 2027", daysLeft: 288)
+            if userGrade >= 11 {
+                deadlineRow(type: "Early Action", date: "November 1, \(String(edYear))", daysLeft: 213)
+                deadlineRow(type: "Early Decision", date: "November 1, \(String(edYear))", daysLeft: 213)
+                deadlineRow(type: "Regular Decision", date: "January 15, \(String(rdYear))", daysLeft: 288)
+            } else {
+                LadderCard {
+                    VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                        Text("Typical Application Timeline")
+                            .font(LadderTypography.titleMedium)
+                            .foregroundStyle(LadderColors.onSurface)
+                        Text("Typical deadlines: Early Decision ~November, Regular Decision ~January")
+                            .font(LadderTypography.bodySmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                        Text("Specific dates unlock in 11th grade.")
+                            .font(LadderTypography.bodySmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                    }
+                }
+            }
 
             LadderCard {
                 VStack(alignment: .leading, spacing: LadderSpacing.sm) {
@@ -383,8 +614,12 @@ struct CollegeProfileView: View {
             actionButton("Mock Interview", icon: "person.wave.2", description: "Practice interview questions for this school") {
                 coordinator.navigate(to: .mockInterview(collegeId: college.id))
             }
-            actionButton("Generate LOCI", icon: "envelope", description: "Draft a Letter of Continued Interest") {
-                coordinator.navigate(to: .lociGenerator(collegeId: college.id))
+            if GradeGate.isUnlocked(.lociGenerator, grade: userGrade) {
+                actionButton("Generate LOCI", icon: "envelope", description: "Draft a Letter of Continued Interest") {
+                    coordinator.navigate(to: .lociGenerator(collegeId: college.id))
+                }
+            } else {
+                LockedFeatureCard(title: "Generate LOCI", icon: "envelope", feature: .lociGenerator, userGrade: userGrade)
             }
             actionButton("Compare Schools", icon: "arrow.left.arrow.right", description: "Side-by-side comparison with another school") {
                 coordinator.navigate(to: .collegeComparison(leftId: college.id, rightId: ""))
@@ -437,45 +672,7 @@ struct CollegeProfileView: View {
     }
 }
 
-// MARK: - Flow Layout (for tags)
-
-struct FlowLayout: Layout {
-    var spacing: CGFloat = 8
-
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let result = arrange(proposal: proposal, subviews: subviews)
-        return result.size
-    }
-
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let result = arrange(proposal: proposal, subviews: subviews)
-        for (index, position) in result.positions.enumerated() {
-            subviews[index].place(at: CGPoint(x: bounds.minX + position.x, y: bounds.minY + position.y), proposal: .unspecified)
-        }
-    }
-
-    private func arrange(proposal: ProposedViewSize, subviews: Subviews) -> (size: CGSize, positions: [CGPoint]) {
-        let maxWidth = proposal.width ?? .infinity
-        var positions: [CGPoint] = []
-        var x: CGFloat = 0
-        var y: CGFloat = 0
-        var rowHeight: CGFloat = 0
-
-        for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
-            if x + size.width > maxWidth, x > 0 {
-                x = 0
-                y += rowHeight + spacing
-                rowHeight = 0
-            }
-            positions.append(CGPoint(x: x, y: y))
-            rowHeight = max(rowHeight, size.height)
-            x += size.width + spacing
-        }
-
-        return (CGSize(width: maxWidth, height: y + rowHeight), positions)
-    }
-}
+// FlowLayout is defined in OnboardingContainerView.swift and shared across the app
 
 #Preview {
     NavigationStack {

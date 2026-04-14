@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-fixed": "#caf24d",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "primary-container": "#5a7956",
+                    "surface-tint": "#486644",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container": "#f5ede2",
+                    "surface-bright": "#fff8f2",
+                    "on-secondary-container": "#566c00",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-fixed": "#052107",
+                    "background": "#fff8f2",
+                    "outline": "#737970",
+                    "on-surface": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-surface": "#343029",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-bottom-color: #42603f !important;
+        }
+        .ladder-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #caf24d;
+            box-shadow: 0 0 12px rgba(202, 242, 77, 0.4);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-8 py-4 w-full bg-[#fff8f2]/70 backdrop-blur-xl transition-colors">
+<div class="flex items-center gap-8">
+<span class="font-headline text-xl font-bold italic text-[#1f1b15]">Ladder Admin</span>
+<nav class="hidden md:flex gap-6 font-headline text-sm tracking-tight">
+<a class="text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors px-3 py-1 rounded-lg" href="#">Dashboard</a>
+<a class="text-[#5A7956] font-bold" href="#">Schools</a>
+<a class="text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors px-3 py-1 rounded-lg" href="#">District Stats</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-[#eae1d7] transition-colors rounded-full">
+<span class="material-symbols-outlined text-[#5A7956]">notifications</span>
+</button>
+<button class="p-2 hover:bg-[#eae1d7] transition-colors rounded-full">
+<span class="material-symbols-outlined text-[#5A7956]">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border-2 border-primary/10">
+<img alt="Administrator profile" class="w-full h-full object-cover" data-alt="minimalist professional portrait of an administrator in a clean office setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZBt8QOTxIYfB-H4qsiAJjUJzVC5Z9lMk-hnRq8IqkDdaEuNi8XTSY0EIK-UZVTl6a6iNsY3CU5r9EkXLELCodVXy_UeUFWlie0qrJ5xbS5yKOhKXI_RntBuNQbYn0edvRtcMZi-uqVUHttqu1b7do7GTYbXKmpgdQRgEvpnEbZRCpxzixhAO7yOSQ-i0UTQXYMeuaKa037_eMGkAEQWb-wRBMygK5GcUywTgtyT7qmigb4WmrPDwAP5q_In3dW8uCA5V85-fVVzI"/>
+</div>
+</div>
+</header>
+<div class="flex">
+<!-- Side Navigation (iPad Landscape) -->
+<aside class="fixed h-screen w-[280pt] left-0 top-0 hidden lg:flex flex-col bg-[#fbf2e8] py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="mb-10">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white">architecture</span>
+</div>
+<h1 class="font-headline text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+</div>
+<p class="text-xs font-medium uppercase tracking-widest text-on-surface/40 px-1">District Administration</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform font-headline text-base" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+                </a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7] font-headline text-base" href="#">
+<span class="material-symbols-outlined">domain</span> Schools
+                </a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform font-headline text-base" href="#">
+<span class="material-symbols-outlined">analytics</span> District Stats
+                </a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform font-headline text-base" href="#">
+<span class="material-symbols-outlined">group</span> Staff Directory
+                </a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform font-headline text-base" href="#">
+<span class="material-symbols-outlined">auto_stories</span> Curriculum
+                </a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-[#1f1b15]/70 hover:translate-x-1 transition-transform font-headline text-base" href="#">
+<span class="material-symbols-outlined">construction</span> Utility Tools
+                </a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/10 space-y-2">
+<button class="w-full bg-primary-gradient text-white py-4 rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-primary/20 mb-6 active:scale-95 transition-transform">
+                    Quick Report
+                </button>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-on-surface/60 font-headline text-base hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help</span> Support
+                </a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-xl text-on-surface/60 font-headline text-base hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span> Log Out
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-[280pt] p-8 md:p-12 lg:p-16 flex justify-center bg-surface">
+<div class="w-full max-w-[700pt]">
+<!-- Page Header -->
+<div class="mb-12 relative">
+<h2 class="font-headline text-4xl font-black text-on-surface tracking-tight mb-2">School Profile</h2>
+<p class="text-on-surface-variant max-w-lg">Manage the institutional identity and performance metrics of your campus for public transparency.</p>
+</div>
+<!-- Form Card -->
+<div class="bg-surface-container-low rounded-xl p-8 md:p-12 relative">
+<form class="space-y-12">
+<!-- Logo Upload Section -->
+<div class="flex flex-col md:flex-row items-center gap-8 pb-8 border-b border-outline-variant/10">
+<div class="relative group">
+<div class="w-[96pt] h-[96pt] rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border-4 border-white shadow-xl">
+<img alt="School Logo" class="w-full h-full object-cover" data-alt="minimalist geometric school emblem with academic symbols in deep green and gold colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCANv9cUgp1_IfKWt0Do5t4K-KhI1ZHGc6CM2U1i_k0jl7S1Kmc0bOsm7J0mRjt7lihDzKUt8u8DG1RHLVpUa_CB31xz6p8e5Jv8xXwOm6jLCJdKgpCVHviN6jS9YyyjpWKbuLNOM7MVZqWjz__DilsCsMIcYoq3CXtV60fiwtGevCzQmwp_jJ77QoPA-kPHlDvqEP99snZK0k8z3ijmM62l4ekdC4FoWPPspTFOLCvzl2d16BYWafDgH8r2EkqXSG5SGWAjUPlj2c"/>
+</div>
+<button class="absolute bottom-0 right-0 bg-primary-gradient text-white p-2 rounded-full shadow-lg border-4 border-surface-container-low active:scale-90 transition-transform" type="button">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<div class="text-center md:text-left">
+<h3 class="font-headline text-xl font-bold">Campus Emblem</h3>
+<p class="text-sm text-on-surface-variant">Recommended size 400x400px. PNG or SVG preferred.</p>
+</div>
+</div>
+<!-- Basic Information -->
+<section class="space-y-8">
+<h4 class="font-headline text-lg font-bold flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary-fixed rounded-full"></span>
+                                Institutional Identity
+                            </h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface/50 px-1">School Name</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant/40 py-3 px-1 text-on-surface focus:ring-0 transition-all placeholder:text-on-surface-variant/30" placeholder="e.g. Oakwood Academy of Arts" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface/50 px-1">District</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant/40 py-3 px-1 text-on-surface focus:ring-0 transition-all placeholder:text-on-surface-variant/30" placeholder="e.g. North Metropolitan District" type="text"/>
+</div>
+<div class="md:col-span-2 space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface/50 px-1">Address</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant/40 py-3 px-1 text-on-surface focus:ring-0 transition-all placeholder:text-on-surface-variant/30" placeholder="123 Academic Way, Education Hills, ST 54321" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface/50 px-1">Principal</label>
+<input class="w-full bg-transparent border-0 border-b-2 border-outline-variant/40 py-3 px-1 text-on-surface focus:ring-0 transition-all placeholder:text-on-surface-variant/30" placeholder="Dr. Elena Vance" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface/50 px-1">School Type</label>
+<select class="w-full bg-transparent border-0 border-b-2 border-outline-variant/40 py-3 px-1 text-on-surface focus:ring-0 transition-all appearance-none cursor-pointer">
+<option>Public Charter</option>
+<option>Private Preparatory</option>
+<option>Technical High School</option>
+<option>Magnet School</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Performance Metrics Bento -->
+<section class="space-y-8">
+<h4 class="font-headline text-lg font-bold flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary-fixed rounded-full"></span>
+                                Academic Vitality
+                            </h4>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-highest p-4 rounded-xl flex flex-col gap-2">
+<label class="text-[10px] font-bold uppercase text-on-surface/40">Enrollment</label>
+<input class="bg-transparent border-0 p-0 text-xl font-black text-primary focus:ring-0" type="number" value="1240"/>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-xl flex flex-col gap-2">
+<label class="text-[10px] font-bold uppercase text-on-surface/40">Student-Teacher Ratio</label>
+<input class="bg-transparent border-0 p-0 text-xl font-black text-primary focus:ring-0" type="text" value="14:1"/>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-xl flex flex-col gap-2">
+<label class="text-[10px] font-bold uppercase text-on-surface/40">Graduation Rate</label>
+<div class="flex items-center gap-1">
+<input class="w-12 bg-transparent border-0 p-0 text-xl font-black text-primary focus:ring-0" type="text" value="98"/>
+<span class="text-primary font-bold">%</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-xl flex flex-col gap-2">
+<label class="text-[10px] font-bold uppercase text-on-surface/40">College-Going Rate</label>
+<div class="flex items-center gap-1">
+<input class="w-12 bg-transparent border-0 p-0 text-xl font-black text-primary focus:ring-0" type="text" value="84"/>
+<span class="text-primary font-bold">%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Programs & Enrichment -->
+<section class="space-y-8">
+<h4 class="font-headline text-lg font-bold flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary-fixed rounded-full"></span>
+                                Programs &amp; Culture
+                            </h4>
+<div class="space-y-6">
+<div class="space-y-3">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface/50 px-1">Curriculum Highlights</label>
+<div class="flex flex-wrap gap-2">
+<span class="bg-primary text-on-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2">
+                                            STEM Focus <button class="hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined text-xs">close</span></button>
+</span>
+<span class="bg-primary text-on-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2">
+                                            IB World School <button class="hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined text-xs">close</span></button>
+</span>
+<span class="bg-primary text-on-primary px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2">
+                                            AP Capstone <button class="hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined text-xs">close</span></button>
+</span>
+<button class="border-2 border-dashed border-outline-variant/40 text-on-surface/60 px-4 py-1 rounded-full text-sm font-medium hover:border-primary hover:text-primary transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">add</span> Add Program
+                                        </button>
+</div>
+</div>
+<div class="space-y-3">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface/50 px-1">Active Clubs &amp; Organizations</label>
+<textarea class="w-full bg-surface-container-highest border-0 rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all resize-none placeholder:text-on-surface-variant/40" placeholder="Chess Club, Debate Team, Robotics Society, Jazz Ensemble..." rows="3"></textarea>
+</div>
+</div>
+</section>
+<!-- Key Dates Timeline -->
+<section class="space-y-8">
+<h4 class="font-headline text-lg font-bold flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary-fixed rounded-full"></span>
+                                Academic Milestones
+                            </h4>
+<div class="space-y-4 ladder-line pl-8 relative">
+<div class="flex items-center gap-4 group">
+<div class="bg-white p-3 rounded-lg shadow-sm flex-1 flex justify-between items-center group-hover:shadow-md transition-shadow">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-on-surface/40 uppercase">Registration Start</span>
+<input class="bg-transparent border-0 p-0 text-on-surface font-bold focus:ring-0" type="text" value="Aug 15, 2024"/>
+</div>
+<span class="material-symbols-outlined text-on-surface/20">calendar_today</span>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="bg-white p-3 rounded-lg shadow-sm flex-1 flex justify-between items-center group-hover:shadow-md transition-shadow">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-on-surface/40 uppercase">Fall Semester Kickoff</span>
+<input class="bg-transparent border-0 p-0 text-on-surface font-bold focus:ring-0" type="text" value="Sept 05, 2024"/>
+</div>
+<span class="material-symbols-outlined text-on-surface/20">calendar_today</span>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="bg-white p-3 rounded-lg shadow-sm flex-1 flex justify-between items-center group-hover:shadow-md transition-shadow border-2 border-primary/10">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-primary uppercase">Open House Gala</span>
+<input class="bg-transparent border-0 p-0 text-on-surface font-bold focus:ring-0" type="text" value="Oct 12, 2024"/>
+</div>
+<span class="material-symbols-outlined text-primary">event_available</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Form Actions -->
+<div class="pt-8 flex flex-col md:flex-row gap-4 items-center justify-end">
+<button class="order-2 md:order-1 px-8 py-4 rounded-xl text-primary font-bold text-sm tracking-wide border-2 border-primary/20 hover:bg-primary/5 transition-colors w-full md:w-auto" type="button">
+                                View Public Profile
+                            </button>
+<button class="order-1 md:order-2 bg-primary-gradient text-white px-12 py-4 rounded-xl font-bold text-sm tracking-wide shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all w-full md:w-auto" type="submit">
+                                Save Profile
+                            </button>
+</div>
+</form>
+</div>
+<!-- Footer Disclaimer -->
+<div class="mt-8 text-center">
+<p class="text-[10px] uppercase tracking-widest text-on-surface/30 font-bold">Authenticated Profile Management • Ladder Admin Suite 2.0</p>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Navigation (Hidden on Tablet Landscape/Desktop) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg lg:hidden flex justify-around items-center py-4 px-6 z-50 border-t border-outline-variant/10">
+<button class="flex flex-col items-center gap-1 text-on-surface/40">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">DASHBOARD</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-weight="fill">domain</span>
+<span class="text-[10px] font-bold">SCHOOLS</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface/40">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-bold">STATS</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface/40">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">PROFILE</span>
+</button>
+</nav>
+</body></html>

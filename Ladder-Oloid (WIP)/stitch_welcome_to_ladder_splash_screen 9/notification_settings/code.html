@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "surface-tint": "#486644",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#aed0a7",
+                    "outline-variant": "#c3c8be",
+                    "on-surface-variant": "#434840",
+                    "tertiary-fixed": "#ffdcbd",
+                    "tertiary": "#725232",
+                    "surface-container": "#f5ede2",
+                    "background": "#fff8f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-secondary-fixed": "#161e00",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-bright": "#fff8f2",
+                    "outline": "#737970",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "primary": "#42603f",
+                    "on-secondary-container": "#566c00",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "secondary-fixed": "#caf24d",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#2c1600",
+                    "secondary": "#516600",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#fbf2e8",
+                    "surface": "#fff8f2",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-surface": "#1f1b15",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-background": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#052107",
+                    "inverse-on-surface": "#f8efe5",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-variant": "#eae1d7",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#e1d9cf"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen">
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-screen w-72 z-40 bg-[#fbf2e8] dark:bg-stone-900 overflow-y-auto no-scrollbar hidden md:block">
+<div class="p-8">
+<div class="mb-12">
+<span class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#5a7956]">Academic Atelier</span>
+<p class="text-xs font-sans tracking-tight text-stone-500 mt-1 uppercase">Premium Scholar</p>
+</div>
+<nav class="space-y-2">
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 rounded-xl group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-transform" data-icon="home_work">home_work</span>
+<span class="font-sans text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 rounded-xl group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-transform" data-icon="group_add">group_add</span>
+<span class="font-sans text-sm font-medium">Roommates</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 rounded-xl group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-transform" data-icon="event_upcoming">event_upcoming</span>
+<span class="font-sans text-sm font-medium">Deadlines</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 rounded-xl group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-transform" data-icon="person">person</span>
+<span class="font-sans text-sm font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-[#42603f] dark:text-[#5a7956] font-bold border-l-4 border-[#caf24d] bg-[#eae1d7]/50 dark:bg-stone-800/50 rounded-r-xl group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-transform" data-icon="settings">settings</span>
+<span class="font-sans text-sm">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-12 pb-8">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container">
+<img alt="Student avatar" class="w-10 h-10 rounded-full object-cover" data-alt="portrait of a young student in a cozy library setting, soft warm morning light hitting their face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ_kJUev9YwM-cYB00i3zPcaeN6EAOctyuQXcjK6c9SaJkSUoK45NFWc46sWO2sT5AzdpuMGwYnrSWTgH2JrOpPuN5tQrAH7SWOTCrECpwL-_XZWT0pSaRWwl3XrMXIZP764AwRI_9U0QIecrKGMB50ExGKpsWV_J2dPofjyCoPz2Y6T03aI0Ax5NH1i2mppVvdMJ8VMvQEfVUoaDo_H_d-mjvnvAzRv_JH9hb1FJXwe-z6bfn0pl_KiJeVmDEf0MCeBdEpux5CJA"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Academic Atelier</p>
+<p class="text-xs text-stone-500">Batch 9 Student</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-0 md:left-72 z-30 bg-[#fff8f2]/70 backdrop-blur-xl flex justify-between items-center px-8 py-6">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-[#42603f]">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-serif text-3xl tracking-tight text-[#1f1b15]">Notification Settings</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8">
+<span class="text-sm font-medium text-stone-400 cursor-pointer hover:opacity-80 transition-opacity">Account</span>
+<span class="text-sm font-medium text-[#42603f] cursor-pointer hover:opacity-80 transition-opacity">Notifications</span>
+<span class="text-sm font-medium text-stone-400 cursor-pointer hover:opacity-80 transition-opacity">Privacy</span>
+</div>
+<img alt="User profile photo" class="w-10 h-10 rounded-full border-2 border-primary/10" data-alt="circular profile picture of a cheerful young adult with stylish glasses in a sunny garden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCby8DSgCLEs98Qm-D-RozpxEd--pF-R9TKseY5n59oDNLALlQh3kR54R8ITdNJCse5vkRIazpsEctNsS-787CJZRzb4Co56mTP4e02TdHR9-i2YzZIxu7i4CQKjXo5PLvHt1qPv-GWjaM2GOyGcNmFZBxrRi6z4Y0XCDqaQ7msVMjingnY0hJCRXLNe-ZKMG88zqZZeuDATRf4SGdKPyE9eZJniVwOPB5IXlPHcpfeFcDtEdkDM0KOvcyp4Cor4Nqw_wxqmWmDyaE"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-32 pb-12 px-8 md:ml-72 min-h-screen">
+<div class="max-w-6xl mx-auto">
+<!-- Description Header -->
+<div class="mb-12 max-w-2xl">
+<h2 class="text-primary italic text-lg mb-2">Curate your focus</h2>
+<p class="text-on-surface-variant leading-relaxed">Tailor how the Atelier communicates with you. Manage reminders for critical milestones or toggle content updates to stay informed about the academic landscape.</p>
+</div>
+<!-- Two-Column Toggle Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+<!-- Left Column: Reminders -->
+<section class="space-y-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="notifications_active">notifications_active</span>
+<h3 class="text-2xl font-serif text-on-surface">Reminders</h3>
+</div>
+<div class="space-y-1">
+<!-- Deadlines Toggle -->
+<div class="group flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all">
+<div class="max-w-[80%]">
+<h4 class="font-bold text-on-surface">Deadlines</h4>
+<p class="text-sm text-on-surface-variant mt-1">Get alerts for upcoming housing and scholarship application dates.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-secondary-container">
+<span class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-on-secondary shadow-sm"></span>
+</button>
+</div>
+<!-- Tasks Toggle -->
+<div class="group flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all">
+<div class="max-w-[80%]">
+<h4 class="font-bold text-on-surface">Tasks</h4>
+<p class="text-sm text-on-surface-variant mt-1">Daily nudges for your academic checklist and roommate outreach.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-surface-variant">
+<span class="inline-block h-4 w-4 translate-x-1 transform rounded-full bg-on-secondary shadow-sm"></span>
+</button>
+</div>
+<!-- Streak Toggle -->
+<div class="group flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all">
+<div class="max-w-[80%]">
+<h4 class="font-bold text-on-surface">Streak</h4>
+<p class="text-sm text-on-surface-variant mt-1">Maintaining your consistent scholarship hunt momentum.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-secondary-container">
+<span class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-on-secondary shadow-sm"></span>
+</button>
+</div>
+<!-- Test Dates Toggle -->
+<div class="group flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all">
+<div class="max-w-[80%]">
+<h4 class="font-bold text-on-surface">Test Dates</h4>
+<p class="text-sm text-on-surface-variant mt-1">Standardized testing window alerts and registration deadlines.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-secondary-container">
+<span class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-on-secondary shadow-sm"></span>
+</button>
+</div>
+</div>
+<!-- Visual Accent Card -->
+<div class="mt-8 rounded-xl overflow-hidden relative aspect-[16/7]">
+<img alt="Writing desk" class="w-full h-full object-cover brightness-75" data-alt="a minimalist wooden desk with a neat notebook, a fine ink pen, and soft shadows cast by a nearby window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMd8Gjann75O43kq7TKMFCwjbDSEIHeYZZUlSc8NcmDj9d7EeAFfbhPeeXohv7ZKTQxdKejNHJ1vzgWVSsGq1yAQIdIyN0e3L7nnKug5LtKfoqz-l9oK6JiD9i96OaAIh1VkQrW28evuN2v7ucy3Sfop9QMkef2KSlIytDMavkntIXQwV2iEkzGWC2BTadZGEnFuA_giJuRqRv6aNwxYca_pjv4iWQjtoUw76zDsfcUk6QoP-mjb4mOVsaRnZOl0Tf9mhlVqBrcQk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex items-end p-6">
+<p class="text-white font-serif text-lg">Focus on what matters. We'll handle the timing.</p>
+</div>
+</div>
+</section>
+<!-- Right Column: Content -->
+<section class="space-y-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="auto_stories">auto_stories</span>
+<h3 class="text-2xl font-serif text-on-surface">Content</h3>
+</div>
+<div class="space-y-1">
+<!-- Daily Tips Toggle -->
+<div class="group flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all border-l-4 border-transparent hover:border-secondary-fixed">
+<div class="max-w-[80%]">
+<h4 class="font-bold text-on-surface uppercase tracking-wider text-xs mb-1 opacity-60">Academic Insight</h4>
+<h4 class="font-bold text-on-surface">Daily Tips</h4>
+<p class="text-sm text-on-surface-variant mt-1">Micro-lessons on study habits and student life productivity.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-secondary-container">
+<span class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-on-secondary shadow-sm"></span>
+</button>
+</div>
+<!-- New Scholarships Toggle -->
+<div class="group flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all border-l-4 border-transparent hover:border-secondary-fixed">
+<div class="max-w-[80%]">
+<h4 class="font-bold text-on-surface uppercase tracking-wider text-xs mb-1 opacity-60">Opportunities</h4>
+<h4 class="font-bold text-on-surface">New Scholarships</h4>
+<p class="text-sm text-on-surface-variant mt-1">Real-time alerts for grants matching your premium scholar profile.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-secondary-container">
+<span class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-on-secondary shadow-sm"></span>
+</button>
+</div>
+<!-- App Updates Toggle -->
+<div class="group flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all border-l-4 border-transparent hover:border-secondary-fixed">
+<div class="max-w-[80%]">
+<h4 class="font-bold text-on-surface uppercase tracking-wider text-xs mb-1 opacity-60">System</h4>
+<h4 class="font-bold text-on-surface">App Updates</h4>
+<p class="text-sm text-on-surface-variant mt-1">Be the first to know about new features in the Academic Atelier.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-surface-variant">
+<span class="inline-block h-4 w-4 translate-x-1 transform rounded-full bg-on-secondary shadow-sm"></span>
+</button>
+</div>
+<!-- AI Tips Toggle -->
+<div class="group flex items-center justify-between p-6 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all border-l-4 border-transparent hover:border-secondary-fixed">
+<div class="max-w-[80%]">
+<div class="flex items-center gap-2 mb-1">
+<h4 class="font-bold text-on-surface uppercase tracking-wider text-xs opacity-60">Intelligent Assistant</h4>
+<span class="px-1.5 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded">BETA</span>
+</div>
+<h4 class="font-bold text-on-surface">AI Tips</h4>
+<p class="text-sm text-on-surface-variant mt-1">Predictive suggestions based on your learning patterns and goals.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-secondary-container">
+<span class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-on-secondary shadow-sm"></span>
+</button>
+</div>
+</div>
+<!-- Secondary Action -->
+<div class="p-8 rounded-xl bg-primary text-white flex flex-col md:flex-row gap-6 items-center justify-between">
+<div class="text-center md:text-left">
+<h4 class="text-xl font-serif">Quiet Hours</h4>
+<p class="text-primary-fixed-dim text-sm mt-1">Pause all alerts during your focused study sessions.</p>
+</div>
+<button class="px-6 py-3 bg-secondary-fixed text-on-secondary-fixed rounded-xl font-bold hover:opacity-90 transition-opacity">
+                            Enable Zen Mode
+                        </button>
+</div>
+</section>
+</div>
+<!-- Footer Meta -->
+<div class="mt-20 pt-8 border-t border-outline-variant/15 flex flex-col md:flex-row justify-between items-center text-stone-400 text-sm">
+<p>© 2024 The Academic Atelier. All rights reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Global Settings</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation Shell (BottomNavBar Fallback) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/80 backdrop-blur-xl border-t border-outline-variant/15 z-50 px-4 py-2">
+<div class="flex justify-around items-center">
+<div class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-[10px] font-medium">Housing</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+<span class="text-[10px] font-medium">Deadlines</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-[10px] font-bold">Settings</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</div>
+</div>
+</div>
+</body></html>

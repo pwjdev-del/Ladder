@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent View - Ladder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#fff8f2",
+                      "on-tertiary-container": "#fff5ee",
+                      "on-surface-variant": "#434840",
+                      "outline-variant": "#c3c8be",
+                      "tertiary": "#725232",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#8d6a48",
+                      "surface-tint": "#486644",
+                      "on-secondary-container": "#566c00",
+                      "inverse-surface": "#343029",
+                      "secondary-fixed-dim": "#afd531",
+                      "secondary-container": "#caf24d",
+                      "on-background": "#1f1b15",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#2c1600",
+                      "error": "#ba1a1a",
+                      "surface-container": "#f5ede2",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#fbf2e8",
+                      "surface": "#fff8f2",
+                      "surface-container-highest": "#eae1d7",
+                      "background": "#fff8f2",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#ffdcbd",
+                      "on-secondary-fixed": "#161e00",
+                      "on-surface": "#1f1b15",
+                      "inverse-primary": "#aed0a7",
+                      "primary-fixed": "#c9ecc2",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "secondary": "#516600",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "surface-variant": "#eae1d7",
+                      "surface-dim": "#e1d9cf",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "primary": "#42603f",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#aed0a7",
+                      "primary-container": "#5a7956",
+                      "outline": "#737970",
+                      "on-primary-fixed": "#052107",
+                      "secondary-fixed": "#caf24d",
+                      "inverse-on-surface": "#f8efe5",
+                      "surface-container-high": "#efe7dd",
+                      "on-error": "#ffffff",
+                      "on-primary-container": "#e2ffda"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Noto Serif"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; color: #1f1b15; -webkit-font-smoothing: antialiased; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .ladder-shadow { shadow: 0 40px 60px -15px rgba(31, 27, 21, 0.06); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface pb-32">
+<!-- Top Navigation Anchor (Manual Implementation based on JSON for Parent Context) -->
+<nav class="sticky top-0 z-50 bg-[#fff8f2]/80 backdrop-blur-lg px-6 py-4 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-serif font-bold text-primary italic">Ladder</span>
+<div class="px-2.5 py-0.5 bg-surface-container-highest rounded-full border border-outline-variant/20">
+<span class="text-[10px] font-bold tracking-widest uppercase text-primary">Parent View</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional woman with a kind expression in a soft lit studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnIAEClMbT8-ZN6L5kEml9qp8jhE_lI3IjvlIa084H1rImc093wSZauskS4RDF6FJe6FNBr0VE7oucq6CJw5CuKr_fcH1QQaN4aSDT-EgkT7CsWReQMaRnHK9Nf71Ros4W0bVlf-YSuPoetjzvqs-Q2HMX4KXfEcaFO18CrlR9uEGBOoENCH-W26p0kPGo0AWh5sgZffj0zRmpNgqvGI-HH3X_ZfUTWGnioiQsYBZr2XtCokvyrhzKLYCkpa-Q8UtlW_JatYhZ4Lk"/>
+</div>
+</nav>
+<!-- Header Section -->
+<header class="px-6 pt-6 pb-12 bg-gradient-to-b from-primary/10 to-surface">
+<div class="space-y-1">
+<h1 class="text-3xl font-serif font-bold italic text-on-surface tracking-tight leading-tight">Emma's College Journey</h1>
+<div class="flex items-center gap-2 py-1">
+<span class="material-symbols-outlined text-primary text-sm">visibility</span>
+<p class="text-sm font-medium text-primary">Read-Only Mode</p>
+</div>
+</div>
+<!-- At-a-Glance Bento Grid -->
+<div class="grid grid-cols-2 gap-4 mt-8">
+<div class="bg-surface-container-highest p-5 rounded-3xl flex flex-col justify-between h-32">
+<span class="text-[11px] font-bold uppercase tracking-widest text-outline">Applied</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-serif font-bold">5</span>
+<span class="text-xs text-outline font-medium">Schools</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-5 rounded-3xl flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-[11px] font-bold uppercase tracking-widest text-outline">Accepted</span>
+<span class="material-symbols-outlined text-[#566c00]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-serif font-bold text-primary">2</span>
+<span class="text-xs text-outline font-medium">Offers</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-5 rounded-3xl flex flex-col justify-between h-32">
+<span class="text-[11px] font-bold uppercase tracking-widest text-outline">Avg Aid</span>
+<div class="flex flex-col">
+<span class="text-2xl font-serif font-bold">$8,200</span>
+<span class="text-[10px] text-outline font-medium uppercase tracking-tighter">Per Academic Year</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-5 rounded-3xl flex flex-col justify-between h-32 border-b-4 border-orange-200">
+<span class="text-[11px] font-bold uppercase tracking-widest text-orange-800">Next Deadline</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-serif font-bold text-orange-700">8</span>
+<span class="text-xs text-orange-800/60 font-medium">Days Left</span>
+</div>
+</div>
+</div>
+</header>
+<main class="px-6 space-y-10 -mt-6">
+<!-- College Status List -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-serif font-bold italic">Application Status</h2>
+<span class="text-[10px] font-bold tracking-widest text-outline uppercase">Active (5)</span>
+</div>
+<div class="space-y-3">
+<!-- UF -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-800 font-bold text-xs">UF</div>
+<div>
+<p class="font-bold text-sm">University of Florida</p>
+<p class="text-xs text-outline">Early Action</p>
+</div>
+</div>
+<div class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-extrabold uppercase rounded-full tracking-wider">Submitted</div>
+</div>
+<!-- FSU -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center text-red-800 font-bold text-xs">FSU</div>
+<div>
+<p class="font-bold text-sm">Florida State University</p>
+<p class="text-xs text-outline">Regular Decision</p>
+</div>
+</div>
+<div class="px-3 py-1 bg-blue-100 text-blue-700 text-[10px] font-extrabold uppercase rounded-full tracking-wider">In Progress</div>
+</div>
+<!-- UCF -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl ring-2 ring-secondary-fixed/30">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-yellow-100 flex items-center justify-center text-yellow-800 font-bold text-xs">UCF</div>
+<div>
+<p class="font-bold text-sm">Central Florida</p>
+<p class="text-xs text-outline">Rolling Admissions</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-extrabold uppercase rounded-full tracking-wider">Accepted!</div>
+<span class="text-[8px] text-secondary font-bold">✨ Confetti Sent</span>
+</div>
+</div>
+<!-- USF -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-2xl opacity-60">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-stone-200 flex items-center justify-center text-stone-600 font-bold text-xs">USF</div>
+<div>
+<p class="font-bold text-sm text-stone-600">South Florida</p>
+<p class="text-xs text-outline">Regular Decision</p>
+</div>
+</div>
+<div class="px-3 py-1 bg-stone-200 text-stone-500 text-[10px] font-extrabold uppercase rounded-full tracking-wider">Not Started</div>
+</div>
+</div>
+</section>
+<!-- Financial Summary Card -->
+<section class="bg-primary p-8 rounded-[32px] text-white overflow-hidden relative">
+<!-- Decorative circle -->
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-primary-container/20 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<h2 class="text-xl font-serif font-bold italic mb-6">Financial Summary</h2>
+<p class="text-xs text-on-primary-container font-medium uppercase tracking-widest mb-8">Estimated Net Cost (After Aid)</p>
+<div class="space-y-6">
+<div class="flex justify-between items-end border-b border-primary-container pb-4">
+<div>
+<p class="text-lg font-bold">UCF</p>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[9px] font-black uppercase rounded">Best Value</span>
+</div>
+<p class="text-2xl font-serif font-bold text-secondary-fixed">$2,400</p>
+</div>
+<div class="flex justify-between items-end border-b border-primary-container pb-4">
+<p class="text-lg font-medium opacity-80">UF</p>
+<p class="text-xl font-serif font-bold">$6,200</p>
+</div>
+<div class="flex justify-between items-end border-b border-primary-container pb-4">
+<p class="text-lg font-medium opacity-80">FSU</p>
+<p class="text-xl font-serif font-bold">$5,800</p>
+</div>
+</div>
+<p class="text-[10px] italic mt-6 opacity-60">Calculations based on reported FAFSA data and merit scholarships.</p>
+</div>
+</section>
+<!-- Upcoming Deadlines -->
+<section>
+<h2 class="text-xl font-serif font-bold italic mb-6">Key Deadlines</h2>
+<div class="space-y-4">
+<div class="flex items-center gap-6 group">
+<div class="w-12 text-center">
+<p class="text-[10px] font-bold text-outline uppercase tracking-tighter">Nov</p>
+<p class="text-xl font-serif font-bold">01</p>
+</div>
+<div class="flex-1 pb-4 border-b border-outline-variant/30">
+<p class="text-sm font-bold">UF Early Action Deadline</p>
+<p class="text-xs text-outline">Application &amp; Essays due by 11:59 PM</p>
+</div>
+</div>
+<div class="flex items-center gap-6 group">
+<div class="w-12 text-center">
+<p class="text-[10px] font-bold text-outline uppercase tracking-tighter">Nov</p>
+<p class="text-xl font-serif font-bold">15</p>
+</div>
+<div class="flex-1 pb-4 border-b border-outline-variant/30">
+<p class="text-sm font-bold">Scholarship Priority Date</p>
+<p class="text-xs text-outline">University of South Florida</p>
+</div>
+</div>
+<div class="flex items-center gap-6 group">
+<div class="w-12 text-center">
+<p class="text-[10px] font-bold text-outline uppercase tracking-tighter">Dec</p>
+<p class="text-xl font-serif font-bold">01</p>
+</div>
+<div class="flex-1 pb-4 border-b border-outline-variant/30">
+<p class="text-sm font-bold text-orange-700">FSU Regular Decision</p>
+<p class="text-xs text-outline">Final deadline for Summer/Fall</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Interaction Prompt -->
+<section class="pb-12">
+<div class="bg-surface-container p-6 rounded-3xl border border-outline-variant/10">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+</div>
+<div>
+<h4 class="font-bold text-sm mb-1">Want to help? Ask Emma...</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">"How is the Florida State personal statement coming along? Need a second pair of eyes?"</p>
+<button class="mt-4 w-full py-3 bg-gradient-to-br from-primary to-primary-container text-white text-sm font-bold rounded-2xl flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">send</span>
+                            Message Emma
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell (Consistent with JSON: BottomNavBar) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-[#fff8f2]/70 dark:bg-stone-900/70 backdrop-blur-xl flex justify-around items-center px-4 pb-6 pt-3 shadow-[0_-4px_40px_rgba(31,27,21,0.06)] rounded-t-[24px]">
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-2xl px-5 py-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Mission</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Deadlines</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2">
+<span class="material-symbols-outlined">school</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Schools</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Scholarships</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2">
+<span class="material-symbols-outlined">group</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Peer</span>
+</div>
+</nav>
+</body></html>

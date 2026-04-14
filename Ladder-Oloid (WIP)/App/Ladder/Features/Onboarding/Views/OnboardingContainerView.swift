@@ -1,13 +1,26 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Onboarding Container
 // Routes between 5 onboarding steps with shared ViewModel
 
 struct OnboardingContainerView: View {
     @Environment(AuthManager.self) private var authManager
+    @Environment(\.horizontalSizeClass) private var sizeClass
+    @Environment(\.modelContext) private var dataContext
     @State private var viewModel = OnboardingViewModel()
 
     var body: some View {
+        if sizeClass == .regular {
+            iPadLayout
+        } else {
+            iPhoneLayout
+        }
+    }
+
+    // MARK: - iPhone Layout (unchanged)
+
+    private var iPhoneLayout: some View {
         ZStack {
             LadderColors.surface.ignoresSafeArea()
 
@@ -37,6 +50,201 @@ struct OnboardingContainerView: View {
                 .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
             }
         }
+    }
+
+    // MARK: - iPad Layout (two-column editorial)
+
+    private var iPadLayout: some View {
+        GeometryReader { geo in
+            HStack(spacing: 0) {
+                // Left editorial panel (~40%)
+                OnboardingEditorialPanel(
+                    currentStep: viewModel.currentStep,
+                    totalSteps: viewModel.totalSteps
+                )
+                .frame(width: geo.size.width * 0.4)
+
+                // Right content panel (~60%)
+                ZStack {
+                    LadderColors.surface.ignoresSafeArea()
+
+                    VStack(spacing: 0) {
+                        ScrollView(showsIndicators: false) {
+                            Group {
+                                switch viewModel.currentStep {
+                                case 1: OnboardingStep1View(viewModel: viewModel)
+                                case 2: OnboardingStep2View(viewModel: viewModel)
+                                case 3: OnboardingStep3View(viewModel: viewModel)
+                                case 4: OnboardingStep4View(viewModel: viewModel)
+                                case 5: OnboardingStep5View(viewModel: viewModel)
+                                default: OnboardingStep1View(viewModel: viewModel)
+                                }
+                            }
+                            .frame(maxWidth: 600)
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, LadderSpacing.xxl)
+                            .padding(.top, LadderSpacing.xxl)
+                            .padding(.bottom, LadderSpacing.xxxxl)
+                        }
+                        .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
+
+                        // Bottom bar: progress + Back/Next
+                        OnboardingBottomBar(viewModel: viewModel)
+                    }
+                }
+            }
+            .ignoresSafeArea()
+        }
+    }
+}
+
+// MARK: - iPad Editorial Panel
+
+private struct OnboardingEditorialPanel: View {
+    let currentStep: Int
+    let totalSteps: Int
+
+    private var headline: String {
+        switch currentStep {
+        case 1: return "Welcome to your next chapter."
+        case 2: return "Tell us who you are."
+        case 3: return "Your academic story."
+        case 4: return "Dream. Aim. Ladder up."
+        case 5: return "Ready to lead."
+        default: return "Your Future, Designed by You."
+        }
+    }
+
+    private var subhead: String {
+        switch currentStep {
+        case 1: return "An editorial companion for the ambitious student."
+        case 2: return "We personalize every recommendation for you."
+        case 3: return "GPA, tests, and coursework — your foundation."
+        case 4: return "The schools that make your heart race."
+        case 5: return "Your personalized roadmap awaits."
+        default: return ""
+        }
+    }
+
+    private var iconName: String {
+        switch currentStep {
+        case 1: return "building.columns.fill"
+        case 2: return "person.fill"
+        case 3: return "books.vertical.fill"
+        case 4: return "star.fill"
+        case 5: return "trophy.fill"
+        default: return "sparkles"
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                colors: [LadderColors.primary, LadderColors.primaryContainer],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            VStack(alignment: .leading, spacing: LadderSpacing.xl) {
+                // Step indicator
+                HStack(spacing: LadderSpacing.sm) {
+                    Text("STEP \(currentStep)")
+                        .font(LadderTypography.labelLarge)
+                        .foregroundStyle(.white.opacity(0.9))
+                        .labelTracking()
+                        .padding(.horizontal, LadderSpacing.md)
+                        .padding(.vertical, LadderSpacing.xs)
+                        .background(.white.opacity(0.15))
+                        .clipShape(Capsule())
+
+                    Text("of \(totalSteps)")
+                        .font(LadderTypography.labelMedium)
+                        .foregroundStyle(.white.opacity(0.7))
+                }
+
+                Spacer()
+
+                // Decorative icon
+                Image(systemName: iconName)
+                    .font(.system(size: 96, weight: .light))
+                    .foregroundStyle(LadderColors.accentLime.opacity(0.9))
+                    .ladderShadow(LadderElevation.glow)
+
+                // Editorial headline
+                VStack(alignment: .leading, spacing: LadderSpacing.md) {
+                    Text(headline)
+                        .font(LadderTypography.displayLargeItalic)
+                        .foregroundStyle(.white)
+                        .editorialTracking()
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    Text(subhead)
+                        .font(LadderTypography.titleMedium)
+                        .foregroundStyle(.white.opacity(0.85))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                Spacer()
+
+                // Decorative quote
+                VStack(alignment: .leading, spacing: LadderSpacing.xs) {
+                    Text("\u{201C}The future belongs to those who prepare for it today.\u{201D}")
+                        .font(LadderTypography.bodyLarge)
+                        .italic()
+                        .foregroundStyle(.white.opacity(0.8))
+                    Text("— Malcolm X")
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(.white.opacity(0.6))
+                        .labelTracking()
+                }
+            }
+            .padding(LadderSpacing.xxxl)
+        }
+    }
+}
+
+// MARK: - iPad Bottom Bar
+
+private struct OnboardingBottomBar: View {
+    @Bindable var viewModel: OnboardingViewModel
+
+    var body: some View {
+        VStack(spacing: LadderSpacing.md) {
+            OnboardingProgressBar(
+                currentStep: viewModel.currentStep,
+                totalSteps: viewModel.totalSteps
+            )
+
+            HStack(spacing: LadderSpacing.md) {
+                if viewModel.currentStep > 1 {
+                    Button {
+                        viewModel.previousStep()
+                    } label: {
+                        HStack(spacing: LadderSpacing.xs) {
+                            Image(systemName: "arrow.left")
+                            Text("Back")
+                        }
+                        .font(LadderTypography.labelLarge)
+                        .foregroundStyle(LadderColors.onSurface)
+                        .padding(.horizontal, LadderSpacing.xl)
+                        .padding(.vertical, LadderSpacing.md)
+                        .background(LadderColors.surfaceContainerHigh)
+                        .clipShape(Capsule())
+                    }
+                }
+
+                Spacer()
+
+                Text("Step \(viewModel.currentStep) of \(viewModel.totalSteps)")
+                    .font(LadderTypography.labelMedium)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                    .labelTracking()
+            }
+        }
+        .padding(.horizontal, LadderSpacing.xxl)
+        .padding(.vertical, LadderSpacing.lg)
+        .background(LadderColors.surfaceContainerLow)
     }
 }
 
@@ -403,6 +611,7 @@ struct OnboardingStep4View: View {
 struct OnboardingStep5View: View {
     @Bindable var viewModel: OnboardingViewModel
     @Environment(AuthManager.self) private var authManager
+    @Environment(\.modelContext) private var dataContext
 
     var body: some View {
         ScrollView {
@@ -486,11 +695,12 @@ struct OnboardingStep5View: View {
 
                 VStack(spacing: LadderSpacing.md) {
                     LadderAccentButton("Enter Dashboard", icon: "arrow.right") {
-                        Task { await viewModel.completeOnboarding(authManager: authManager) }
+                        Task { await viewModel.completeOnboarding(authManager: authManager, modelContext: dataContext) }
                     }
 
                     LadderSecondaryButton("Review Full Profile") {
-                        // TODO: Navigate to profile review
+                        // Complete onboarding, then user can navigate to Profile from MainTabView
+                        Task { await viewModel.completeOnboarding(authManager: authManager, modelContext: dataContext) }
                     }
                 }
                 .padding(.horizontal, LadderSpacing.lg)

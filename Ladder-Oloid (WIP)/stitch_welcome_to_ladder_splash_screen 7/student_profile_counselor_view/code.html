@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700;900&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface": "#fff8f2",
+                        "inverse-surface": "#343029",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary-fixed": "#c9ecc2",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "surface-container-low": "#fbf2e8",
+                        "on-error-container": "#93000a",
+                        "primary": "#42603f",
+                        "surface-container-highest": "#eae1d7",
+                        "on-primary-container": "#e2ffda",
+                        "surface-tint": "#486644",
+                        "surface-container-high": "#efe7dd",
+                        "surface-bright": "#fff8f2",
+                        "primary-container": "#5a7956",
+                        "outline-variant": "#c3c8be",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#f5ede2",
+                        "on-secondary-fixed": "#161e00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "secondary-fixed": "#caf24d",
+                        "primary-fixed-dim": "#aed0a7",
+                        "error": "#ba1a1a",
+                        "outline": "#737970",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-container": "#566c00",
+                        "secondary-container": "#caf24d",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "tertiary-container": "#8d6a48",
+                        "surface-variant": "#eae1d7",
+                        "tertiary": "#725232",
+                        "secondary-fixed-dim": "#afd531",
+                        "tertiary-fixed": "#ffdcbd",
+                        "secondary": "#516600",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "background": "#fff8f2",
+                        "on-surface": "#1f1b15",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#e1d9cf",
+                        "on-background": "#1f1b15"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "16px",
+                        "xl": "24px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { background-color: #fbf2e8; }
+        .glass-nav { backdrop-filter: blur(32px); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased pb-32">
+<!-- Top App Bar -->
+<header class="w-full sticky top-0 z-50 bg-[#fff8f2] shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] flex items-center justify-between px-6 py-4">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#5A7956]" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-headline font-bold tracking-tight text-xl text-[#5A7956]">Student Profile</h1>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-[#5A7956]" data-icon="search">search</span>
+<span class="material-symbols-outlined text-[#5A7956]" data-icon="more_vert">more_vert</span>
+</div>
+</header>
+<main class="px-5 pt-6 space-y-6 max-w-md mx-auto">
+<!-- Student Header Card -->
+<section class="bg-surface-container-low rounded-xl p-5 flex items-center gap-4 relative overflow-hidden">
+<div class="w-20 h-20 rounded-full bg-primary-container flex items-center justify-center text-white text-2xl font-bold font-headline ring-4 ring-surface-container-highest">
+                ER
+            </div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h2 class="text-2xl font-headline font-black text-on-surface">Emma Rodriguez</h2>
+<span class="bg-primary text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">On Track</span>
+</div>
+<p class="text-on-surface-variant text-sm mt-1">Grade 11 • GPA 3.82 • Medical Path</p>
+</div>
+</section>
+<!-- Quick Stats Row -->
+<section class="grid grid-cols-4 gap-3">
+<div class="bg-surface-container-highest p-3 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant font-bold">GPA</span>
+<span class="text-lg font-black text-primary">3.82</span>
+</div>
+<div class="bg-surface-container-highest p-3 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant font-bold">SAT</span>
+<span class="text-lg font-black text-primary">1340</span>
+</div>
+<div class="bg-surface-container-highest p-3 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant font-bold">Acts</span>
+<span class="text-lg font-black text-primary">6</span>
+</div>
+<div class="bg-surface-container-highest p-3 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-[10px] uppercase tracking-tighter text-on-surface-variant font-bold">Hrs</span>
+<span class="text-lg font-black text-tertiary">47h</span>
+</div>
+</section>
+<!-- Alert Banner -->
+<section class="bg-tertiary-fixed p-4 rounded-xl flex gap-3 items-start border-l-4 border-tertiary">
+<span class="material-symbols-outlined text-tertiary mt-0.5" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<p class="text-sm font-semibold text-on-tertiary-fixed-variant leading-relaxed">
+                Service hours behind — needs 53 more hours for Bright Futures FAS by graduation
+            </p>
+</section>
+<!-- Academic Progress (Grade Trend) -->
+<section class="space-y-3">
+<h3 class="font-headline font-bold text-lg px-1">Academic Progress</h3>
+<div class="bg-surface-container-low rounded-xl p-5">
+<div class="flex justify-between items-end mb-4">
+<div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Grade Trend</span>
+<div class="text-2xl font-black text-on-surface">+0.14 <span class="text-xs font-medium text-primary">vs LY</span></div>
+</div>
+</div>
+<div class="h-24 w-full flex items-end gap-2 px-2">
+<div class="flex-1 bg-outline-variant opacity-20 rounded-t-lg h-[60%]"></div>
+<div class="flex-1 bg-outline-variant opacity-30 rounded-t-lg h-[75%]"></div>
+<div class="flex-1 bg-outline-variant opacity-40 rounded-t-lg h-[65%]"></div>
+<div class="flex-1 bg-primary-container rounded-t-lg h-[90%]"></div>
+<div class="flex-1 bg-secondary-fixed rounded-t-lg h-[100%] shadow-[0_-4px_12px_rgba(202,242,77,0.4)]"></div>
+</div>
+</div>
+</section>
+<!-- College List Section -->
+<section class="space-y-3">
+<div class="flex justify-between items-center px-1">
+<h3 class="font-headline font-bold text-lg">Saved Colleges (5)</h3>
+<span class="text-xs font-bold text-primary">View All</span>
+</div>
+<div class="space-y-2">
+<!-- UF Card -->
+<div class="bg-surface-container-highest p-4 rounded-xl flex justify-between items-center">
+<div>
+<h4 class="font-bold text-on-surface">University of Florida</h4>
+<p class="text-xs text-on-surface-variant">EA: Nov 1 • <span class="font-bold text-tertiary">Planning</span></p>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="pending">pending</span>
+</div>
+<!-- FSU Card -->
+<div class="bg-surface-container-highest p-4 rounded-xl flex justify-between items-center">
+<div>
+<h4 class="font-bold text-on-surface">FSU</h4>
+<p class="text-xs text-on-surface-variant">RD: Jan 15 • <span class="font-bold text-primary">In Progress</span></p>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="hourglass_empty">hourglass_empty</span>
+</div>
+<!-- UCF Card -->
+<div class="bg-surface-container-highest p-4 rounded-xl flex justify-between items-center">
+<div>
+<h4 class="font-bold text-on-surface">UCF</h4>
+<p class="text-xs text-on-surface-variant">EA: Oct 15 • <span class="font-bold text-secondary">Submitted</span></p>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</section>
+<!-- Activities Summary -->
+<section class="space-y-3">
+<h3 class="font-headline font-bold text-lg px-1">Activities Summary</h3>
+<div class="space-y-4">
+<div class="flex gap-4 p-1">
+<div class="flex flex-col items-center">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed shadow-[0_0_8px_rgba(202,242,77,0.8)]"></div>
+<div class="w-1 h-full bg-outline-variant opacity-20 mt-1 rounded-full"></div>
+</div>
+<div class="pb-4">
+<h4 class="font-bold text-sm leading-tight">🏥 Hospital Volunteering</h4>
+<p class="text-xs text-on-surface-variant mt-1">120 hrs — T2 State Level — Leadership ★</p>
+</div>
+</div>
+<div class="flex gap-4 p-1">
+<div class="flex flex-col items-center">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<div class="w-1 h-full bg-outline-variant opacity-20 mt-1 rounded-full"></div>
+</div>
+<div class="pb-4">
+<h4 class="font-bold text-sm leading-tight">🔬 Science Fair</h4>
+<p class="text-xs text-on-surface-variant mt-1">Regional Winner — T2</p>
+</div>
+</div>
+<div class="flex gap-4 p-1">
+<div class="flex flex-col items-center">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+</div>
+<div>
+<h4 class="font-bold text-sm leading-tight">📚 National Honor Society</h4>
+<p class="text-xs text-on-surface-variant mt-1">Member — T3</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<section class="flex flex-col gap-3 pt-4">
+<button class="w-full py-4 px-6 rounded-xl border-2 border-primary text-primary font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+                Send Message
+            </button>
+<button class="w-full py-4 px-6 rounded-xl border-2 border-error/40 text-error font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="flag">flag</span>
+                Flag for Review
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-3 pb-6 bg-[#fbf2e8]/70 backdrop-blur-3xl rounded-t-[24px] shadow-[0_-10px_40px_rgba(31,27,21,0.04)]">
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-2xl px-5 py-2 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-sans font-medium text-[11px] uppercase tracking-wider">Students</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15] dark:text-stone-400 opacity-60 hover:opacity-100 transition-all active:scale-90">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="font-sans font-medium text-[11px] uppercase tracking-wider">Approvals</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15] dark:text-stone-400 opacity-60 hover:opacity-100 transition-all active:scale-90">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-sans font-medium text-[11px] uppercase tracking-wider">Messages</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#1f1b15] dark:text-stone-400 opacity-60 hover:opacity-100 transition-all active:scale-90">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-sans font-medium text-[11px] uppercase tracking-wider">Settings</span>
+</div>
+</nav>
+</body></html>

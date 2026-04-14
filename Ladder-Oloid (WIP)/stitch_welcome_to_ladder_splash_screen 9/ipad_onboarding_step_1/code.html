@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#caf24d",
+                        "outline-variant": "#c3c8be",
+                        "surface-container": "#f5ede2",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-secondary-container": "#566c00",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary": "#42603f",
+                        "on-background": "#1f1b15",
+                        "inverse-surface": "#343029",
+                        "surface-dim": "#e1d9cf",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-container": "#8d6a48",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-variant": "#eae1d7",
+                        "tertiary": "#725232",
+                        "on-secondary-fixed": "#161e00",
+                        "inverse-primary": "#aed0a7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-surface": "#1f1b15",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container-low": "#fbf2e8",
+                        "secondary-container": "#caf24d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#516600",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-primary-fixed": "#052107",
+                        "on-primary-container": "#e2ffda",
+                        "outline": "#737970",
+                        "surface-container-highest": "#eae1d7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary-fixed": "#2c1600",
+                        "background": "#fff8f2",
+                        "surface-tint": "#486644",
+                        "primary-container": "#5a7956",
+                        "surface-bright": "#fff8f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .accent-shadow {
+            box-shadow: 0 10px 40px -10px rgba(202, 242, 77, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen overflow-hidden">
+<!-- Progress Bar (Top) -->
+<div class="fixed top-0 left-0 w-full z-50 pt-8 px-12">
+<div class="max-w-7xl mx-auto flex gap-3 h-1.5">
+<!-- Step 1 (Active) -->
+<div class="flex-1 bg-secondary-fixed rounded-full shadow-[0_0_12px_rgba(202,242,77,0.5)]"></div>
+<!-- Step 2-5 (Inactive) -->
+<div class="flex-1 bg-surface-container-highest rounded-full"></div>
+<div class="flex-1 bg-surface-container-highest rounded-full"></div>
+<div class="flex-1 bg-surface-container-highest rounded-full"></div>
+<div class="flex-1 bg-surface-container-highest rounded-full"></div>
+</div>
+</div>
+<main class="flex h-screen w-full">
+<!-- Left Panel: Hero -->
+<section class="w-1/2 h-full hero-gradient relative flex items-center justify-center overflow-hidden">
+<!-- Decorative Elements -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" data-alt="subtle organic paper fiber texture overlaying a deep botanical green gradient background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFIzEvsGXVrdrcOEGENmnv9V9EcgB4kArmc-USwXN2rijEr4PzBoEo9LHDi-j_o4hewJTgXoHqsb8Abe4kUEUVus2fpiBuV5Q3hRrpAmmCDO98vumgielesZVdxsQnc5BItflW4WSM-ESbgFKf39ioh-HNlvlzPPoN9ZBbJjvAdnLx8XOH_k1I1ULp8IZx1oa9MEcBrx-BBz_5L4blnCSjrrjYz9--G7_bGwXpCbarpR0ntvuaN60bcdaU9EiAUQjHK1Q-jEFx-WE');"></div>
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-32 h-32 bg-white/10 backdrop-blur-xl rounded-xl flex items-center justify-center mb-8 rotate-3">
+<span class="material-symbols-outlined text-white text-6xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="w-full max-w-sm px-8">
+<img alt="Academic Excellence" class="rounded-xl shadow-2xl transform -rotate-2" data-alt="abstract artistic interpretation of a classic university library with light beams illuminating old books and modern digital displays" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgQtE2QdQGRxihsaJfCncZlJSeYxVpFKMRRe8oUbpFTMOFt-cI94eOhPA9p5OAdUdl4yNe3bCic4-ORSMKweiWArzkTy1t4AIyKrkuzecgqUpz_nJg1FfHjiCuotOh2ybvDk43Qt6EHzdL3LRHWVquB0CWfwJB_KEEAgugjjS8GcoPQ-PRkIPrspZXnpcc9HKBQS-rfFnDF2lV0pKkEO74E9eSraWsqbwDIeekgIia8M8QCFc4nG0GcS1s4q_HOgrodCUtNWSv7EY"/>
+</div>
+</div>
+<!-- Floating Sparkles -->
+<span class="material-symbols-outlined absolute top-[20%] right-[15%] text-secondary-fixed/30 text-4xl" data-icon="sparkles">colors_spark</span>
+<span class="material-symbols-outlined absolute bottom-[15%] left-[20%] text-secondary-fixed/20 text-6xl" data-icon="sparkles">colors_spark</span>
+</section>
+<!-- Right Panel: Content -->
+<section class="w-1/2 h-full flex items-center justify-center bg-surface relative">
+<div class="max-w-md px-12 flex flex-col gap-8">
+<!-- Branding Anchor -->
+<div class="flex items-center gap-2 mb-4">
+<span class="text-2xl font-headline italic text-primary tracking-tighter">Ladder</span>
+</div>
+<div class="space-y-4">
+<h1 class="text-5xl font-headline text-on-surface leading-tight -tracking-[0.02em]">
+                        Your Future, <br/>
+<span class="italic text-primary">Designed by You</span>
+</h1>
+<p class="text-lg text-on-surface-variant leading-relaxed font-medium opacity-80">
+                        Ladder guides you through every step of your college journey—from finding your voice to finding your campus.
+                    </p>
+</div>
+<div class="pt-6 flex flex-col gap-4">
+<!-- Primary Action -->
+<button class="bg-secondary-fixed hover:bg-secondary-fixed-dim text-on-secondary-fixed font-bold py-5 px-10 rounded-xl text-lg flex items-center justify-center gap-3 transition-all active:scale-95 accent-shadow group">
+                        Let's Get Started
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Secondary Info -->
+<p class="text-center text-xs text-on-surface-variant font-medium tracking-wide uppercase mt-4">
+                        Part of the College Prep ecosystem
+                    </p>
+</div>
+<!-- Editorial Layout Detail: Asymmetric Overlap -->
+<div class="absolute bottom-12 right-0 w-48 h-48 bg-surface-container-low rounded-tl-full opacity-50 -z-10"></div>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Suppressed as per rules for Transactional/Onboarding screen) -->
+<!-- TopNavBar (Suppressed as per rules for Transactional/Onboarding screen) -->
+</body></html>

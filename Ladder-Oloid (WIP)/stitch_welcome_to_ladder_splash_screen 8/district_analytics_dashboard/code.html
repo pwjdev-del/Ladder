@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>District Overview | Ladder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#fff8f2",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-surface-variant": "#434840",
+                        "outline-variant": "#c3c8be",
+                        "tertiary": "#725232",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#8d6a48",
+                        "surface-tint": "#486644",
+                        "on-secondary-container": "#566c00",
+                        "inverse-surface": "#343029",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-container": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f5ede2",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#fbf2e8",
+                        "surface": "#fff8f2",
+                        "surface-container-highest": "#eae1d7",
+                        "background": "#fff8f2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-secondary-fixed": "#161e00",
+                        "on-surface": "#1f1b15",
+                        "inverse-primary": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary": "#516600",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#eae1d7",
+                        "surface-dim": "#e1d9cf",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "primary": "#42603f",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-container": "#5a7956",
+                        "outline": "#737970",
+                        "on-primary-fixed": "#052107",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#e2ffda"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .serif-italic { font-family: 'Noto Serif'; font-style: italic; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Top Navigation Anchor (Shared Component) -->
+<header class="bg-[#fff8f2] dark:bg-stone-950 flex justify-between items-center w-full px-6 py-4 sticky top-0 z-50 tonal-shift-bg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#42603f] dark:text-[#5a7956]">menu</span>
+<span class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#fbf2e8]">Ladder</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold font-serif italic text-[#42603f]">Academic Admin</p>
+<p class="text-[10px] uppercase tracking-widest text-stone-500">Central District</p>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of a male school district administrator in formal attire with a warm, confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA64hzU4xHurJzUZ_1tI1xpwWc9HBxsoN4isgXN0-ZS-TgcvE7rlL_r2GPfGazh1JdtrJoaaHfuZRIUv06DV4cF98QhFZ5lvHJpHdRoEesClExWlZp1WxPOsQsAsj04uJCpFTrzfW050zKIscomdrFmIfJLFp0Ic75Mid6w6XO7FikmXLZczgZpjPhfMn6ypkjxM3HgTK9nBYEMOIej69-rh5mcg9lCOyppXzXfRa9mVVFDMNp2hWdHiXdYRoiusJwd-ki8PJl1oZI"/>
+</div>
+</div>
+</header>
+<main class="pb-32">
+<!-- Hero Header -->
+<section class="relative px-6 py-10 bg-gradient-to-br from-primary to-primary-container text-white overflow-hidden">
+<div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-secondary-fixed opacity-10 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h1 class="text-2xl font-headline font-bold leading-tight">Brevard County School District</h1>
+<p class="text-on-primary-container/80 text-sm font-medium tracking-wide">2026-2027 College Readiness Report</p>
+</div>
+</div>
+</div>
+</section>
+<!-- District-Wide Metrics (Bento Style) -->
+<section class="px-6 -mt-8 grid grid-cols-2 gap-4">
+<div class="bg-surface-container-highest p-5 rounded-2xl flex flex-col justify-between h-36">
+<span class="material-symbols-outlined text-primary text-xl">groups</span>
+<div>
+<p class="text-3xl font-headline font-bold text-on-surface">4,872</p>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-500">Students</p>
+</div>
+</div>
+<div class="bg-surface-container-highest p-5 rounded-2xl flex flex-col justify-between h-36">
+<span class="material-symbols-outlined text-primary text-xl">task_alt</span>
+<div>
+<p class="text-3xl font-headline font-bold text-on-surface">91%</p>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-500">Onboarding</p>
+</div>
+</div>
+<div class="bg-primary text-white p-5 rounded-2xl flex flex-col justify-between h-36 relative overflow-hidden">
+<div class="absolute right-[-10%] top-[-10%] w-20 h-20 bg-secondary-fixed/20 rounded-full blur-xl"></div>
+<span class="material-symbols-outlined text-secondary-fixed text-xl" style="font-variation-settings: 'FILL' 1;">school</span>
+<div>
+<p class="text-3xl font-headline font-bold">78%</p>
+<p class="text-[10px] uppercase tracking-widest font-bold opacity-80">College-Bound</p>
+</div>
+</div>
+<div class="bg-surface-container-highest p-5 rounded-2xl flex flex-col justify-between h-36">
+<span class="material-symbols-outlined text-primary text-xl">payments</span>
+<div>
+<p class="text-3xl font-headline font-bold text-on-surface">$8.4M</p>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-500">Total Aid</p>
+</div>
+</div>
+</section>
+<!-- School Comparison (Horizontal Scroll) -->
+<section class="mt-10 px-6">
+<div class="flex items-baseline justify-between mb-4">
+<h2 class="text-xl font-headline font-bold italic text-primary">School Comparison</h2>
+<span class="text-xs font-bold uppercase tracking-widest text-stone-400">View All</span>
+</div>
+<div class="overflow-x-auto hide-scrollbar -mx-6 px-6">
+<div class="inline-flex gap-4 pb-4">
+<!-- Table Layout as Cards for Mobile Premium Feel -->
+<div class="bg-surface-container-low min-w-[280px] p-5 rounded-2xl flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-lg leading-tight">Viera High School</h3>
+<span class="px-2 py-1 bg-primary/10 text-primary rounded text-[10px] font-bold uppercase">Top Performing</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">College Bound</p>
+<p class="text-lg font-bold text-primary">88% <span class="text-xs text-secondary-fixed-dim">↑</span></p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">Avg GPA</p>
+<p class="text-lg font-bold">3.82</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">SAT Median</p>
+<p class="text-lg font-bold">1240</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">Total Aid</p>
+<p class="text-lg font-bold">$2.1M</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low min-w-[280px] p-5 rounded-2xl flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-lg leading-tight">Melbourne Senior</h3>
+<span class="px-2 py-1 bg-error/10 text-error rounded text-[10px] font-bold uppercase">Growth Needed</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">College Bound</p>
+<p class="text-lg font-bold text-error">64% <span class="text-xs">↓</span></p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">Avg GPA</p>
+<p class="text-lg font-bold">3.10</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">SAT Median</p>
+<p class="text-lg font-bold text-error">1080</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">Total Aid</p>
+<p class="text-lg font-bold">$1.4M</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low min-w-[280px] p-5 rounded-2xl flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-lg leading-tight">Bayside High</h3>
+<span class="px-2 py-1 bg-primary/10 text-primary rounded text-[10px] font-bold uppercase">Average</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">College Bound</p>
+<p class="text-lg font-bold">75%</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">Avg GPA</p>
+<p class="text-lg font-bold">3.45</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">SAT Median</p>
+<p class="text-lg font-bold">1150</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-stone-400">Total Aid</p>
+<p class="text-lg font-bold">$1.8M</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Equity Metrics Card -->
+<section class="mt-6 px-6">
+<div class="bg-surface-container-highest rounded-2xl p-6 relative overflow-hidden">
+<div class="absolute right-0 top-0 w-24 h-24 bg-primary/5 rounded-full -mr-8 -mt-8"></div>
+<h2 class="text-xl font-headline font-bold italic text-primary mb-6">Equity Impact Metrics</h2>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-1 bg-secondary-fixed h-10 rounded-full shadow-[0_0_8px_rgba(202,242,77,0.4)]"></div>
+<div class="flex-1">
+<p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-1">First-Gen Aid Gap</p>
+<div class="flex items-center justify-between">
+<span class="text-lg font-bold">-$1,450 <span class="text-xs font-normal text-stone-400">per student</span></span>
+<span class="text-xs font-bold text-error">Gap Widening</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-1 bg-secondary-fixed h-10 rounded-full shadow-[0_0_8px_rgba(202,242,77,0.4)]"></div>
+<div class="flex-1">
+<p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-1">FRL College-Bound Gap</p>
+<div class="flex items-center justify-between">
+<span class="text-lg font-bold">12% Differential</span>
+<span class="text-xs font-bold text-primary">Closing ↑</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-1 bg-secondary-fixed h-10 rounded-full shadow-[0_0_8px_rgba(202,242,77,0.4)]"></div>
+<div class="flex-1">
+<p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-1">SAT Access Gap</p>
+<div class="flex items-center justify-between">
+<span class="text-lg font-bold">85% vs 98% Participation</span>
+<span class="text-xs font-bold text-stone-400">Stable</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bright Futures Eligibility -->
+<section class="mt-8 px-6">
+<div class="bg-gradient-to-br from-primary-container to-primary rounded-3xl p-6 text-white shadow-xl">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary-fixed">auto_awesome</span>
+<h2 class="text-xl font-headline font-bold">Bright Futures Eligibility</h2>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+<p class="text-[10px] uppercase tracking-widest font-bold opacity-70 mb-1">FAS Eligible</p>
+<p class="text-2xl font-headline font-bold text-secondary-fixed">312</p>
+<p class="text-[10px] opacity-60">Students</p>
+</div>
+<div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+<p class="text-[10px] uppercase tracking-widest font-bold opacity-70 mb-1">FMS Eligible</p>
+<p class="text-2xl font-headline font-bold text-secondary-fixed">489</p>
+<p class="text-[10px] opacity-60">Students</p>
+</div>
+</div>
+<div class="pt-6 border-t border-white/10 flex items-center justify-between">
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold opacity-70">Total Estimated Savings</p>
+<p class="text-3xl font-headline font-bold text-white">~$4.2M</p>
+</div>
+<span class="material-symbols-outlined text-4xl opacity-20">savings</span>
+</div>
+</div>
+</section>
+<!-- Export Buttons -->
+<section class="mt-10 px-6 flex flex-col gap-3">
+<button class="w-full h-16 bg-gradient-to-r from-primary to-primary-container text-white rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+                Download PDF Report
+            </button>
+<button class="w-full h-16 bg-surface-container-highest text-on-surface rounded-2xl font-bold flex items-center justify-center gap-3 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">share</span>
+                Share with School Board
+            </button>
+</section>
+</main>
+<!-- Navigation Drawer Replacement (Bottom Nav for Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f2]/70 dark:bg-stone-900/70 backdrop-blur-xl shadow-[0_-4px_40px_rgba(31,27,21,0.06)] rounded-t-[24px]">
+<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-2xl px-5 py-2 scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Mission</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] dark:hover:text-[#caf24d]">
+<span class="material-symbols-outlined">clinical_notes</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Deadlines</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] dark:hover:text-[#caf24d]">
+<span class="material-symbols-outlined">school</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Schools</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] dark:hover:text-[#caf24d]">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Peer</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 px-5 py-2 hover:text-[#42603f] dark:hover:text-[#caf24d]">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-sans text-[10px] font-semibold uppercase tracking-widest mt-1">Settings</span>
+</div>
+</nav>
+<!-- Floating Action Button suppressed as per guidelines for this specific task-focused screen -->
+</body></html>

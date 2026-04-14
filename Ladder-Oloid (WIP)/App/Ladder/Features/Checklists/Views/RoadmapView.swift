@@ -4,27 +4,17 @@ import SwiftUI
 
 struct RoadmapView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var selectedGrade = 10
 
     private let grades = [9, 10, 11, 12]
 
     var body: some View {
-        ZStack(alignment: .top) {
-            LadderColors.surface.ignoresSafeArea()
-
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: LadderSpacing.lg) {
-                    // Grade selector
-                    gradePicker
-
-                    // Milestones for selected grade
-                    ForEach(milestonesForGrade(selectedGrade)) { milestone in
-                        milestoneCard(milestone)
-                    }
-                }
-                .padding(.horizontal, LadderSpacing.md)
-                .padding(.top, LadderSpacing.md)
-                .padding(.bottom, 120)
+        Group {
+            if sizeClass == .regular {
+                iPadLayout
+            } else {
+                iPhoneLayout
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -41,6 +31,134 @@ struct RoadmapView: View {
                     .font(LadderTypography.titleMedium)
                     .foregroundStyle(LadderColors.onSurface)
             }
+        }
+    }
+
+    // MARK: - iPhone Layout
+
+    private var iPhoneLayout: some View {
+        ZStack(alignment: .top) {
+            LadderColors.surface.ignoresSafeArea()
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: LadderSpacing.lg) {
+                    gradePicker
+
+                    ForEach(milestonesForGrade(selectedGrade)) { milestone in
+                        milestoneCard(milestone)
+                    }
+                }
+                .padding(.horizontal, LadderSpacing.md)
+                .padding(.top, LadderSpacing.md)
+                .padding(.bottom, 120)
+            }
+        }
+    }
+
+    // MARK: - iPad Layout (Horizontal Timeline)
+
+    private var iPadLayout: some View {
+        ZStack(alignment: .top) {
+            LadderColors.surface.ignoresSafeArea()
+
+            VStack(spacing: LadderSpacing.xl) {
+                gradePicker
+                    .padding(.horizontal, LadderSpacing.xl)
+                    .padding(.top, LadderSpacing.md)
+
+                horizontalTimeline
+            }
+            .padding(.bottom, LadderSpacing.xxxl)
+        }
+    }
+
+    private var horizontalTimeline: some View {
+        let milestones = milestonesForGrade(selectedGrade)
+        let cardWidth: CGFloat = 280
+        let spacing: CGFloat = LadderSpacing.lg
+
+        let totalWidth = CGFloat(max(milestones.count, 1)) * (cardWidth + spacing)
+
+        return ScrollView(.horizontal, showsIndicators: false) {
+            ZStack(alignment: .topLeading) {
+                // Spine (lime timeline) positioned at node row
+                Rectangle()
+                    .fill(LadderColors.accentLime)
+                    .frame(width: totalWidth, height: 3)
+                    .padding(.top, 84)
+                    .padding(.horizontal, LadderSpacing.xl)
+
+                HStack(alignment: .top, spacing: spacing) {
+                    ForEach(Array(milestones.enumerated()), id: \.element.id) { index, milestone in
+                        horizontalMilestoneCard(milestone, index: index)
+                            .frame(width: cardWidth)
+                    }
+                }
+                .padding(.horizontal, LadderSpacing.xl)
+            }
+        }
+    }
+
+    private func horizontalMilestoneCard(_ milestone: RoadmapItem, index: Int) -> some View {
+        VStack(spacing: 0) {
+            // Quarter label above spine
+            VStack(spacing: LadderSpacing.xs) {
+                if let quarter = milestone.quarter {
+                    Text(quarter.uppercased())
+                        .font(LadderTypography.labelSmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                        .labelTracking()
+                } else {
+                    Text(" ")
+                        .font(LadderTypography.labelSmall)
+                }
+            }
+            .frame(height: 72)
+
+            // Node on spine
+            Circle()
+                .fill(milestone.isCompleted ? LadderColors.accentLime : LadderColors.surface)
+                .frame(width: 24, height: 24)
+                .overlay(
+                    Circle()
+                        .strokeBorder(
+                            milestone.isCompleted ? LadderColors.accentLime : LadderColors.outline,
+                            lineWidth: 2
+                        )
+                )
+                .overlay(
+                    milestone.isCompleted
+                        ? Image(systemName: "checkmark")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(.white)
+                        : nil
+                )
+
+            // Card below
+            VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                LadderTagChip(milestone.category, icon: milestone.icon)
+
+                Text(milestone.title)
+                    .font(LadderTypography.titleSmall)
+                    .foregroundStyle(milestone.isCompleted ? LadderColors.onSurfaceVariant : LadderColors.onSurface)
+                    .strikethrough(milestone.isCompleted)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                if let description = milestone.description {
+                    Text(description)
+                        .font(LadderTypography.bodySmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(LadderSpacing.md)
+            .background(LadderColors.surfaceContainerLow)
+            .clipShape(RoundedRectangle(cornerRadius: LadderRadius.xl, style: .continuous))
+            .opacity(milestone.isCompleted ? 0.75 : 1.0)
+            .padding(.top, LadderSpacing.md)
         }
     }
 

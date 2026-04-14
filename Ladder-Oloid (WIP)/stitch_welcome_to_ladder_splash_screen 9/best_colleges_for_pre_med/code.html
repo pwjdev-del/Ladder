@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Academic Atelier - Pre-Medicine Rankings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-fixed": "#ffdcbd",
+                        "tertiary": "#725232",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "on-background": "#1f1b15",
+                        "on-surface-variant": "#434840",
+                        "surface-variant": "#eae1d7",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-container-low": "#fbf2e8",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "inverse-primary": "#aed0a7",
+                        "surface-bright": "#fff8f2",
+                        "primary-container": "#5a7956",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c3c8be",
+                        "inverse-surface": "#343029",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1f1b15",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#caf24d",
+                        "surface-tint": "#486644",
+                        "surface-container-high": "#efe7dd",
+                        "secondary-fixed-dim": "#afd531",
+                        "primary": "#42603f",
+                        "surface": "#fff8f2",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#caf24d",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container": "#f5ede2",
+                        "background": "#fff8f2",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "primary-fixed": "#c9ecc2",
+                        "surface-dim": "#e1d9cf",
+                        "on-secondary-container": "#566c00",
+                        "secondary": "#516600",
+                        "on-secondary-fixed": "#161e00",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#fff5ee",
+                        "outline": "#737970",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-primary-container": "#e2ffda"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fff8f2;
+            color: #1f1b15;
+        }
+        h1, h2, h3, .serif-italic {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen py-8 z-40 h-full w-72 fixed left-0 top-0 bg-[#fbf2e8] border-none">
+<div class="px-8 mb-12">
+<h1 class="text-xl font-bold font-serif text-[#1f1b15] tracking-tight">The Academic Atelier</h1>
+<p class="text-xs font-medium font-body opacity-60 uppercase tracking-widest mt-1">College Prep Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-4 text-stone-500/60 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500/60 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="text-sm font-medium">Tasks</span>
+</a>
+<a class="flex items-center space-x-4 text-[#42603f] font-bold border-r-4 border-[#42603f] pl-6 py-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-sm">Colleges</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500/60 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-sm font-medium">Applications</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500/60 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-sm font-medium">Advisor</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500/60 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="text-sm font-medium">Financial</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500/60 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-sm font-medium">Career</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500/60 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500/60 pl-6 py-3 hover:bg-[#eae1d7] transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="editorial-gradient w-full py-4 rounded-xl text-on-primary text-sm font-bold tracking-wide shadow-sm hover:opacity-90 transition-opacity">
+                Plan Success
+            </button>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-72 flex-1 relative min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-end items-center px-12 h-20 w-full sticky top-0 z-50 bg-[#fff8f2]/70 backdrop-blur-3xl shadow-sm shadow-[#1f1b15]/5">
+<div class="flex items-center space-x-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[10px] tracking-[0.2em] font-body font-bold text-on-surface pl-10 pr-4 w-48 uppercase" placeholder="SEARCH COLLEGES..." type="text"/>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-stone-500 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-stone-500 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-container/20">
+<img alt="Student user portrait" class="w-full h-full object-cover" data-alt="Close-up portrait of a thoughtful young male student with glasses in a library setting with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtD6BGtWWz1tfDYsexMU1g883XI5ES2j07yJhsf0UH0wiOaf02XJQbYh9fnlXaC7aVIoCcdQnnBJyWz_GVNxBBXx7_TLNg4F8pVdQ5WkXd7XCiC3bbvmIBU1-l37Od_hS0AhMFDmLQzhzGoRwOJhOvQR2TvqVmFwPd_W-3vpq6l-wIB3rKNmb5vMiVGP2y_0-_6ejTTa4bTtIHj328HpN1HrLptpJ7qNoZE6L9bVY8UAgRw9U5OtdCPqHxQZQBpEQjebnp2PGfm60"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Page -->
+<div class="px-16 py-12">
+<!-- Hero Header -->
+<div class="max-w-5xl mb-16">
+<span class="text-primary font-body font-bold text-xs tracking-[0.3em] uppercase mb-4 block">Curated Excellence</span>
+<h2 class="text-5xl font-bold tracking-tight mb-6 italic -ml-1 leading-tight">BEST FOR YOUR MAJOR: <br/><span class="text-primary-container not-italic">Pre-Medicine</span></h2>
+<p class="text-lg text-on-surface/70 font-body max-w-2xl leading-relaxed">We've analyzed your academic profile, clinical interests, and research goals to identify the institutions that will most effectively bridge the gap to Medical School.</p>
+</div>
+<!-- Rankings Container -->
+<div class="space-y-12 max-w-5xl">
+<!-- Rank 1 Card -->
+<div class="group relative bg-surface-container-low rounded-xl p-10 flex gap-12 items-start transition-all duration-500 hover:bg-surface-container-high overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<div class="text-8xl font-serif font-black text-primary/5 select-none -mr-4 -mt-4">01</div>
+</div>
+<!-- Ranking & Image -->
+<div class="w-1/3 shrink-0 relative">
+<div class="aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-highest">
+<img alt="Johns Hopkins University campus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="majestic gothic university architecture with lush green quad and students walking under old growth trees in soft daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPxp-srR0OtpVSHIueXrAGsgQNl-uD-tsTRIEYK-ftQC1tTK9myQYF1xHYFmQnlMadEB3PnxTYkkW1N8Jnr-NKQ3NL84CP1EOBzhmMyCrVKGuBo1P9U4ED3Jr-NVjOqHhoZY0NCDF9Ipu47Ec1mhg0qseL1VF-Yz7vLTSaNU_qfG_fG2MYBD9e77AYTD2aUiSmvuW_f6HfXBG_eJq7-PzzbWkV0_R1rbNt3rmzef0FTMnXMJgDWZ2hhcX-PBTp36Hi46B1WfImKeg"/>
+</div>
+<div class="absolute -bottom-6 -right-6 editorial-gradient p-6 rounded-xl shadow-xl">
+<div class="text-center">
+<span class="block text-on-primary text-[10px] font-bold uppercase tracking-widest mb-1">Match Score</span>
+<span class="text-on-primary text-3xl font-serif font-bold">98%</span>
+</div>
+</div>
+</div>
+<!-- Content -->
+<div class="flex-1">
+<div class="mb-8">
+<h3 class="text-3xl font-bold text-on-surface mb-2">Johns Hopkins University</h3>
+<p class="text-primary font-body font-semibold text-sm">Baltimore, MD • Private Research</p>
+</div>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface text-[11px] font-bold rounded-full tracking-wide">CLINICAL EXPOSURE</span>
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface text-[11px] font-bold rounded-full tracking-wide">NEUROSCIENCE LEADERSHIP</span>
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface text-[11px] font-bold rounded-full tracking-wide">R1 RESEARCH</span>
+</div>
+<div class="bg-surface-bright/80 rounded-lg p-6 relative">
+<div class="absolute top-4 left-4 text-primary opacity-20">
+<span class="material-symbols-outlined text-4xl" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="pl-10">
+<h4 class="text-xs font-bold uppercase tracking-widest text-primary mb-3">AI Insight: Why JHU for Pre-Med?</h4>
+<p class="text-sm font-body leading-relaxed text-on-surface/80 italic">"As a student focusing on immunology, JHU offers the rare opportunity to conduct undergraduate research directly within the School of Medicine's Bloomberg labs. Their 'Special Opportunities' committee letter process has a near-perfect placement rate into Top 10 MD programs."</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/20 flex justify-between items-center">
+<div class="flex gap-8">
+<div>
+<span class="block text-[10px] font-bold text-stone-400 uppercase tracking-widest">Graduation Rate</span>
+<span class="text-sm font-bold text-on-surface">94%</span>
+</div>
+<div>
+<span class="block text-[10px] font-bold text-stone-400 uppercase tracking-widest">Avg. MCAT Rank</span>
+<span class="text-sm font-bold text-on-surface">517+</span>
+</div>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-widest border-b-2 border-secondary-fixed pb-1 hover:text-on-surface-variant transition-colors">
+                                View Full Portfolio
+                            </button>
+</div>
+</div>
+</div>
+<!-- Rank 2 Card -->
+<div class="group relative bg-surface-container-low rounded-xl p-10 flex gap-12 items-start transition-all duration-500 hover:bg-surface-container-high overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<div class="text-8xl font-serif font-black text-primary/5 select-none -mr-4 -mt-4">02</div>
+</div>
+<!-- Ranking & Image -->
+<div class="w-1/3 shrink-0 relative">
+<div class="aspect-[4/5] rounded-lg overflow-hidden bg-surface-container-highest">
+<img alt="Duke University Chapel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="stunning gothic revival chapel spire at duke university framed by verdant oak leaves in crisp afternoon sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4ip6lEp4bnqTTym6m4nxlsVHoRK8DBPZtSOpOKv47X_QEmsOuEFc73NC-68xudVuZHXWWXF_1Y9aj9W6VPRg7jD_UXl6VF3CeqH3pcfOsCFubO2xgdlaE42ZWznaMxWInPCCj3Vv-05nP4NxiI6-_Muy0PdBch_Xx-h7iMcoF_-LLHpuE2w00t5Qqmy_UtwsyZWmaYmFIffekDrr970C_gJcHU9hu6q-jJyOlbEfqEs6w07jGLBJao59gboXr7YKukvQu9XlMakw"/>
+</div>
+<div class="absolute -bottom-6 -right-6 editorial-gradient p-6 rounded-xl shadow-xl">
+<div class="text-center">
+<span class="block text-on-primary text-[10px] font-bold uppercase tracking-widest mb-1">Match Score</span>
+<span class="text-on-primary text-3xl font-serif font-bold">94%</span>
+</div>
+</div>
+</div>
+<!-- Content -->
+<div class="flex-1">
+<div class="mb-8">
+<h3 class="text-3xl font-bold text-on-surface mb-2">Duke University</h3>
+<p class="text-primary font-body font-semibold text-sm">Durham, NC • Private Research</p>
+</div>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface text-[11px] font-bold rounded-full tracking-wide">INTERDISCIPLINARY HEALTH</span>
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface text-[11px] font-bold rounded-full tracking-wide">BME EXCELLENCE</span>
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface text-[11px] font-bold rounded-full tracking-wide">CAMPUS PROXIMITY</span>
+</div>
+<div class="bg-surface-bright/80 rounded-lg p-6 relative">
+<div class="absolute top-4 left-4 text-primary opacity-20">
+<span class="material-symbols-outlined text-4xl" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="pl-10">
+<h4 class="text-xs font-bold uppercase tracking-widest text-primary mb-3">AI Insight: Why Duke for Pre-Med?</h4>
+<p class="text-sm font-body leading-relaxed text-on-surface/80 italic">"Duke's 'Star' program provides unmatched support for undergraduates in the biomedical sciences. The university hospital is physically integrated into the campus, allowing you to walk from organic chemistry to a shadowing rotation in minutes."</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/20 flex justify-between items-center">
+<div class="flex gap-8">
+<div>
+<span class="block text-[10px] font-bold text-stone-400 uppercase tracking-widest">Graduation Rate</span>
+<span class="text-sm font-bold text-on-surface">96%</span>
+</div>
+<div>
+<span class="block text-[10px] font-bold text-stone-400 uppercase tracking-widest">Avg. MCAT Rank</span>
+<span class="text-sm font-bold text-on-surface">516+</span>
+</div>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-widest border-b-2 border-secondary-fixed pb-1 hover:text-on-surface-variant transition-colors">
+                                View Full Portfolio
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Comparison Table Section (Bento Style) -->
+<div class="grid grid-cols-12 gap-6 mt-16 max-w-5xl">
+<div class="col-span-8 bg-surface-container-highest rounded-xl p-8">
+<h4 class="text-2xl font-bold font-serif mb-6 italic">Program Strength Comparison</h4>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<span class="w-32 text-[10px] font-bold uppercase tracking-widest text-on-surface/60">Research Depth</span>
+<div class="flex-1 h-3 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full editorial-gradient w-[95%] rounded-full shadow-[0_0_10px_rgba(202,242,77,0.3)]"></div>
+</div>
+<span class="text-xs font-bold">JHU (Tier 1)</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-32 text-[10px] font-bold uppercase tracking-widest text-on-surface/60">Shadowing Ops</span>
+<div class="flex-1 h-3 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full editorial-gradient w-[88%] rounded-full shadow-[0_0_10px_rgba(202,242,77,0.3)]"></div>
+</div>
+<span class="text-xs font-bold">Duke (Tier 1)</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-32 text-[10px] font-bold uppercase tracking-widest text-on-surface/60">Social Integration</span>
+<div class="flex-1 h-3 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full editorial-gradient w-[72%] rounded-full"></div>
+</div>
+<span class="text-xs font-bold">Stanford (Tier 2)</span>
+</div>
+</div>
+</div>
+<div class="col-span-4 editorial-gradient rounded-xl p-8 text-on-primary flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="medical_services">medical_services</span>
+<h4 class="text-xl font-bold font-serif leading-tight mb-2">Ready to Apply?</h4>
+<p class="text-sm opacity-80 leading-relaxed">Our clinical mentors are ready to review your personal statement for these top-tier programs.</p>
+</div>
+<button class="bg-secondary-fixed text-on-secondary-container py-3 px-6 rounded-lg text-xs font-bold uppercase tracking-widest self-start hover:opacity-90 transition-all active:scale-95">
+                        Start Review
+                    </button>
+</div>
+</div>
+</div>
+<!-- Floating Action Button - Only for Primary Actions -->
+<button class="fixed bottom-10 right-10 w-16 h-16 editorial-gradient text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-transform group">
+<span class="material-symbols-outlined text-3xl" data-icon="edit">edit</span>
+<span class="absolute right-20 bg-on-surface text-background px-4 py-2 rounded-lg text-xs font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">CUSTOMIZE RANKING</span>
+</button>
+</main>
+</body></html>

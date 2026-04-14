@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verification Flow - Counselor Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#161e00",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-primary-container": "#e2ffda",
+                        "inverse-primary": "#aed0a7",
+                        "on-primary-fixed": "#052107",
+                        "secondary-container": "#caf24d",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-dim": "#e1d9cf",
+                        "outline-variant": "#c3c8be",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#725232",
+                        "secondary-fixed": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "inverse-surface": "#343029",
+                        "surface-bright": "#fff8f2",
+                        "on-surface-variant": "#434840",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#486644",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#f5ede2",
+                        "primary": "#42603f",
+                        "background": "#fff8f2",
+                        "surface-container-highest": "#eae1d7",
+                        "on-secondary-container": "#566c00",
+                        "outline": "#737970",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#1f1b15",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#eae1d7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-primary": "#ffffff",
+                        "secondary": "#516600",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "surface-container-high": "#efe7dd",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-container": "#5a7956",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-container": "#8d6a48",
+                        "surface": "#fff8f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .ladder-glow {
+            box-shadow: 0 0 15px rgba(202, 242, 77, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen flex flex-col items-center justify-center p-6 md:p-12 overflow-hidden">
+<!-- Decorative Background Elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-surface-container-highest rounded-full blur-3xl opacity-40"></div>
+<div class="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] bg-secondary-fixed/10 rounded-full blur-3xl opacity-30"></div>
+</div>
+<!-- Main Wizard Container -->
+<main class="relative z-10 w-full max-w-4xl">
+<!-- Header Branding (Editorial Style) -->
+<div class="mb-12 text-center">
+<h1 class="font-headline font-black text-4xl md:text-5xl tracking-tight text-on-surface mb-2">Academic Atelier</h1>
+<p class="font-headline italic text-lg text-primary">Verification Journey</p>
+</div>
+<!-- The Wizard Card -->
+<div class="bg-surface-container-low rounded-xl p-8 md:p-12 border-0 shadow-sm shadow-on-surface/5 relative overflow-hidden">
+<!-- Visual Stepper: The Ladder Tracker -->
+<div class="flex items-center justify-between mb-16 relative">
+<!-- Background Line -->
+<div class="absolute top-1/2 left-0 w-full h-1 bg-outline-variant/20 -translate-y-1/2 rounded-full"></div>
+<!-- Active Progress Line -->
+<div class="absolute top-1/2 left-0 w-1/3 h-1 bg-secondary-fixed -translate-y-1/2 rounded-full ladder-glow"></div>
+<!-- Step 1: Active -->
+<div class="relative z-20 flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold mb-3 shadow-sm">
+<span class="material-symbols-outlined text-xl">person</span>
+</div>
+<span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface">Step 1: Identity</span>
+</div>
+<!-- Step 2: Credentials -->
+<div class="relative z-20 flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant/40 mb-3">
+<span class="material-symbols-outlined text-xl">history_edu</span>
+</div>
+<span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant/40">Step 2: Credentials</span>
+</div>
+<!-- Step 3: Review -->
+<div class="relative z-20 flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant/40 mb-3">
+<span class="material-symbols-outlined text-xl">fact_check</span>
+</div>
+<span class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant/40">Step 3: Review</span>
+</div>
+</div>
+<!-- Content Area: Asymmetric Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+<!-- Left Column: Instructional Text -->
+<div class="md:col-span-4 flex flex-col justify-center">
+<h2 class="font-headline text-3xl font-bold leading-tight mb-4 text-on-surface">Counselor Authentication</h2>
+<p class="text-on-surface-variant leading-relaxed text-sm">
+                        To maintain the prestige of the Academic Atelier, we require all senior academic leads to verify their current institutional standing.
+                    </p>
+<div class="mt-8 flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined">security</span>
+<span class="text-xs font-bold uppercase tracking-wider">Secure Encryption Active</span>
+</div>
+</div>
+<!-- Right Column: The Form -->
+<div class="md:col-span-8 bg-surface-container-highest/50 p-8 rounded-lg">
+<form class="space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Name Field -->
+<div class="relative group">
+<label class="block text-[0.65rem] font-bold uppercase tracking-widest text-tertiary mb-1">Full Legal Name</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary transition-colors py-2 text-on-surface placeholder:text-on-surface-variant/30" placeholder="Dr. Julian Sterling" type="text"/>
+</div>
+<!-- Role Field -->
+<div class="relative group">
+<label class="block text-[0.65rem] font-bold uppercase tracking-widest text-tertiary mb-1">Professional Role</label>
+<div class="relative">
+<select class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary appearance-none py-2 text-on-surface cursor-pointer">
+<option>Senior Academic Lead</option>
+<option>Department Head</option>
+<option>Admissions Counselor</option>
+<option>Independent Consultant</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+</div>
+<!-- School Field -->
+<div class="relative group">
+<label class="block text-[0.65rem] font-bold uppercase tracking-widest text-tertiary mb-1">Associated Institution</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary transition-colors py-2 text-on-surface placeholder:text-on-surface-variant/30" placeholder="The Royal Academy of Arts &amp; Sciences" type="text"/>
+</div>
+<!-- School Email -->
+<div class="relative group">
+<label class="block text-[0.65rem] font-bold uppercase tracking-widest text-tertiary mb-1">Institutional Email Address</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary transition-colors py-2 text-on-surface placeholder:text-on-surface-variant/30" placeholder="j.sterling@academy.edu" type="email"/>
+</div>
+<!-- Actions -->
+<div class="pt-6 flex items-center justify-between">
+<button class="text-on-surface-variant/60 font-bold text-xs uppercase tracking-widest hover:text-on-surface transition-colors" type="button">Save Draft</button>
+<button class="bg-primary-gradient text-on-primary font-bold px-10 py-4 rounded-xl text-sm tracking-wide shadow-xl shadow-primary/20 hover:scale-[1.02] transition-transform flex items-center gap-3" type="submit">
+                                Next Step
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Fine Print -->
+<div class="mt-12 pt-8 border-t border-outline-variant/10 text-center">
+<p class="text-[0.65rem] uppercase tracking-[0.2em] text-outline">
+                    Step 1 of 3: Establishing Identity Profile — <span class="italic">Version 4.2.0-Editorial</span>
+</p>
+</div>
+</div>
+<!-- Supporting Images / Textures (Editorial Asymmetry) -->
+<div class="absolute -right-16 -top-16 w-32 h-32 hidden md:block">
+<img alt="close-up of a vintage fountain pen resting on a thick textured paper with elegant handwritten notes" class="w-full h-full object-cover rounded-lg rotate-12 opacity-80 mix-blend-multiply" data-alt="close-up of a vintage fountain pen resting on a thick textured paper with elegant handwritten notes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsOf5hpAanecPPEKCN-9D9W36PcPOIWpswpXuZ3YTkPQx-aXzcUJmixvmE93F_usasXoDt6AQFOHSOWZQ13N3UtnmInmRNicCK7w5HskA300TENLgquJZldr9LVhsUbTgq98xNfgCjh5ktocJsWm6l96NUpzZ6uaDBbH3pW_AxwFiEslkZFT-7pfFssWWiybGIbj9_GyC5tHFQru5Y0xSQGvboQTs9wwwAM3ZG8WSwnhwpjtZI3uKMBE5hJ_Ip3i246x7brQYTon0"/>
+</div>
+<div class="absolute -left-20 bottom-12 w-48 h-64 hidden md:block">
+<img alt="stacks of antique books in a library with soft sunlight filtering through the shelves" class="w-full h-full object-cover rounded-xl -rotate-6 opacity-40 grayscale contrast-125" data-alt="stacks of antique books in a library with soft sunlight filtering through the shelves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByWSjxqlP4kbf-kZ76__DTQ9NlVjC73f1_es2U5kRwCxS3SP_mLVdBg9woWhAgKWx5JpBtP8d1JAwZHvnBttapT0wDQLrIjj_XAwC3oTtS52WLOujDUDaV3eDxfa2dRt58CXuMvx5K1RXqJ8ERsG1KuNWipJW4NGod5Zg9XaRwpdxsQW-x571FgqxRQCXhjCTVlW_gc6s_LMILbpu_Z4pk3o3oq0vgujPg7prna_DNLx7U7iRnwFt8K1NkK6WMkmnT4Bq2xvFD_sA"/>
+</div>
+</main>
+<!-- Footer Identity -->
+<footer class="fixed bottom-8 w-full px-12 flex justify-between items-center z-10 pointer-events-none">
+<div class="flex items-center gap-4">
+<div class="h-[1px] w-12 bg-outline-variant/30"></div>
+<span class="text-[0.65rem] uppercase tracking-[0.3em] text-outline font-medium">Verified Counselor Program</span>
+</div>
+<div class="flex gap-6 pointer-events-auto">
+<a class="text-[0.65rem] uppercase tracking-widest text-tertiary font-bold hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-[0.65rem] uppercase tracking-widest text-tertiary font-bold hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</body></html>

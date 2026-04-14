@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>At-Risk Alerts | Academic Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#161e00",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-container": "#e2ffda",
+                    "inverse-primary": "#aed0a7",
+                    "on-primary-fixed": "#052107",
+                    "secondary-container": "#caf24d",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#725232",
+                    "secondary-fixed": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "surface-bright": "#fff8f2",
+                    "on-surface-variant": "#434840",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#486644",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container": "#f5ede2",
+                    "primary": "#42603f",
+                    "background": "#fff8f2",
+                    "surface-container-highest": "#eae1d7",
+                    "on-secondary-container": "#566c00",
+                    "outline": "#737970",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1f1b15",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container-low": "#fbf2e8",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-primary": "#ffffff",
+                    "secondary": "#516600",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-container": "#8d6a48",
+                    "surface": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .serif-heading { font-family: 'Noto Serif', serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 h-screen w-72 border-r-0 bg-[#fbf2e8] dark:bg-stone-900 z-50">
+<div class="mb-10">
+<h1 class="font-serif text-2xl font-black text-[#1f1b15] dark:text-[#eae1d7] tracking-tight">Academic Atelier</h1>
+<p class="font-serif italic text-sm text-[#5A7956] dark:text-[#caf24d]">Counselor Hub</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 scale-98 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 text-sm font-medium" href="#">
+<span class="material-symbols-outlined">group</span>
+                Caseload
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 transition-all duration-200 scale-98 text-[#5A7956] dark:text-[#caf24d] font-bold border-r-4 border-[#5A7956] dark:border-[#caf24d] text-sm" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+                Approvals
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 scale-98 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 text-sm font-medium" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                Calendar
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 scale-98 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 text-sm font-medium" href="#">
+<span class="material-symbols-outlined">person_add</span>
+                Students
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 scale-98 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 text-sm font-medium" href="#">
+<span class="material-symbols-outlined">campaign</span>
+                Announcements
+            </a>
+</nav>
+<div class="mt-auto space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 text-sm transition-all hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-sm transition-all hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+<div class="flex items-center gap-3 px-4 pt-6 mt-6 border-t border-outline-variant/15">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Professional academic counselor headshot in a bright office setting with books in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyuY7V8FrklKvlP03-MhcaZb8uSSKpE5UpSaBJisXOxXSZvV0uKnOpAHN3CK7wn1ILaM0SkfU6Qj4zqI_MiO6jpPq2keiqYaU8T9N9zwPJ83PU52sSh9UkBSgv7_GWrA7qRcOigtkL8wcSbL_DKF1Ky9sor_sw465eoGW0I7WpLShdj3EqZgugBKVDrm1IitX2o5IKSG7psv8CoprD5X8lKNDaxW1mOsQyJCL0C6pQPWmRfs_ucBNlzn1RBbDNDTEgurL-P0x-tGg"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Elena Vance</p>
+<p class="text-xs text-on-surface-variant">Senior Academic Lead</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl border-b border-[#c3c8be]/15 shadow-sm">
+<div class="flex items-center gap-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 w-64 text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search students..." type="text"/>
+</div>
+<nav class="hidden md:flex gap-6">
+<a class="font-serif italic text-lg text-[#1f1b15]/70 dark:text-[#eae1d7]/70 hover:text-[#5A7956]" href="#">Overview</a>
+<a class="font-serif italic text-lg text-[#5A7956] dark:text-[#caf24d] border-b-2 border-[#5A7956]" href="#">At-Risk Alerts</a>
+<a class="font-serif italic text-lg text-[#1f1b15]/70 dark:text-[#eae1d7]/70 hover:text-[#5A7956]" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">history</button>
+<div class="relative">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">notifications</button>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary-fixed rounded-full border-2 border-white"></span>
+</div>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-xl font-medium text-sm hover:opacity-90 transition-opacity">
+                    Bulk Import
+                </button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="mt-20 flex-1 flex overflow-hidden">
+<!-- Left Panel: Alert List (45%) -->
+<section class="w-[45%] border-r border-outline-variant/15 flex flex-col bg-surface-container-lowest">
+<div class="p-8 pb-4">
+<h2 class="text-3xl font-black serif-heading tracking-tight mb-2">Priority Alerts</h2>
+<p class="text-on-surface-variant text-sm">Identifying shifts in engagement and performance.</p>
+</div>
+<div class="flex-1 overflow-y-auto px-6 py-4 space-y-4 no-scrollbar">
+<!-- Active Card -->
+<div class="p-5 rounded-xl bg-surface-container-highest border-l-4 border-primary transition-all duration-300">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-4">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="Portrait of a male student with curly hair wearing a neutral colored sweater, looking thoughtful" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8u8ZLDtQ1reE3KZ5Ku2-DX4TMSsrwcjS5MSVC1hoadXagtFskc-oumUEAanATbQwUdf7NXO7H-HNxrxfqcoDHqR6EWNNxZCo8dZKZXyfEXvbNF8IkEhVzVCKJhQFkCMuTPYsNTCvTdfwCiQyMFFMS0LO3z-AqbgZn8x0iXbOgRaF1FV8AS1vZqJKQBX0ATvqv6Di8I6SQPKrXOMURy70Bzo3PC14qL_PTbLO-pEtFeTLHCZrELQ80ItgQloZszIoX48cGwyqyU6Q"/>
+<div>
+<h3 class="font-bold text-on-surface">Julian Aris</h3>
+<p class="text-xs text-on-surface-variant">Class of 2025</p>
+</div>
+</div>
+<span class="bg-error text-on-error text-[10px] font-black tracking-widest uppercase px-2 py-1 rounded">High Risk</span>
+</div>
+<div class="flex items-center gap-2 text-primary font-medium text-sm">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span>Inactive 21 days</span>
+</div>
+</div>
+<!-- Inactive Card 1 -->
+<div class="p-5 rounded-xl bg-surface-container-low hover:bg-surface-container-high cursor-pointer transition-all duration-200">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-4">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="Candid photo of a young woman smiling slightly, natural soft lighting in a library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgD6IDVtH1lhE6vPNvMQnS7w8u6nbfyJPGRzRc6dqM0AMRBd2XViYIh23yvy02_JUVymLrrM3BF4LpL1f4AYYO9hU1544ZflYylaGX-tDdmfIWNan2Pm9WaFHxci7rc0m04SKBOz9qu0jdTYNfIy5SJTow6QNrHjNSRh8zk8CPm2DXreSFdsUQ_v7A1T_dn7HJPSCnnkUpIkMe9Z1X_fjvrpQEouNFpz2SGd7LpzhjMqcvmIpKHYIj1IaUMcytTYv6dKJ5-GaMw3E"/>
+<div>
+<h3 class="font-bold text-on-surface">Maya Sterling</h3>
+<p class="text-xs text-on-surface-variant">Class of 2024</p>
+</div>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-black tracking-widest uppercase px-2 py-1 rounded">Medium Risk</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+<span>GPA drop &gt; 0.5 pts</span>
+</div>
+</div>
+<!-- Inactive Card 2 -->
+<div class="p-5 rounded-xl bg-surface-container-low hover:bg-surface-container-high cursor-pointer transition-all duration-200">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-4">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="Portrait of a young male student in a blazer, clean professional background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK8WQH-IaOnAY3vkBdyoiz3hyhUWTdhnvvR1GSdP0ZIQ5ayFH6maQusIw8YY6xH4e5IT8llLdLwzIJ11zrSNwDXPVLUYyzCKsoG1nt8V4tZSIMfXIBSoCKUJ4BHXI78vsnpOE9JX9lver8lNnV6WkAYPYm4z3PMZCajwBzqj4B4fa0Gzpo87mt2Pnh-Z52EktOyls8JdivSgV3Xj5NYmIy81sRvDXbpI7LG5_lJgSWtbfrQqLwPHFTD-EUI_yKCtFKS0U97qWNoNI"/>
+<div>
+<h3 class="font-bold text-on-surface">Leo Chen</h3>
+<p class="text-xs text-on-surface-variant">Class of 2026</p>
+</div>
+</div>
+<span class="bg-error text-on-error text-[10px] font-black tracking-widest uppercase px-2 py-1 rounded">High Risk</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm">mail</span>
+<span>Unresponsive to prompts (4)</span>
+</div>
+</div>
+<!-- Inactive Card 3 -->
+<div class="p-5 rounded-xl bg-surface-container-low hover:bg-surface-container-high cursor-pointer transition-all duration-200 opacity-80">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-4">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="Headshot of a young woman with a warm expression, soft natural outdoor light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe-vW3FoB_b0xqXjtUJHATHxyzam3a-gWeh_VEsKXaSPZPmnwHKvEpjRXj-XAOkYAsq_j6jNqNlI4x_1N0W5plvODCeAGz6TsfyqRBTkwJ4s7IH9WRIM73tZQGm3W57gTxRPk5jkC7qf_4qNbbfWXZuUNnFhJdZEqAEM7xvyd9bdvXYEAmEycn9SDrdFRskqSD92dQgg6Z_cCOfUEf_CbTNZBNe-akdF7egmg7_wKMA6gASgHu7b2oYk6zgxu_Auf-MPE7yxQgMX4"/>
+<div>
+<h3 class="font-bold text-on-surface">Sarah Miller</h3>
+<p class="text-xs text-on-surface-variant">Class of 2025</p>
+</div>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-black tracking-widest uppercase px-2 py-1 rounded">Medium Risk</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+<span>Missed Lab Submissions</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Detailed Assessment (55%) -->
+<section class="w-[55%] flex flex-col bg-surface overflow-y-auto no-scrollbar">
+<!-- Profile Header -->
+<div class="p-10 pb-6 flex justify-between items-end">
+<div>
+<span class="text-primary text-xs font-black tracking-widest uppercase mb-2 block">Student Profile</span>
+<h2 class="text-4xl font-black serif-heading tracking-tight">Julian Aris</h2>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">school</span>
+                                Mechanical Engineering
+                            </div>
+<div class="w-1 h-1 bg-outline-variant rounded-full"></div>
+<div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">event</span>
+                                Year 3
+                            </div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-3xl font-black text-error serif-heading">78%</p>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">At-Risk Probability</p>
+</div>
+</div>
+<div class="px-10 space-y-8 pb-12">
+<!-- Activity Timeline -->
+<div class="p-8 rounded-xl bg-surface-container-low border-b-2 border-secondary-fixed/30">
+<h3 class="font-serif italic text-xl mb-6">Activity Timeline</h3>
+<div class="relative h-24 flex items-end justify-between gap-1">
+<!-- Histogram bars -->
+<div class="w-3 bg-primary/20 h-[40%] rounded-t-sm"></div>
+<div class="w-3 bg-primary/20 h-[55%] rounded-t-sm"></div>
+<div class="w-3 bg-primary/20 h-[45%] rounded-t-sm"></div>
+<div class="w-3 bg-primary/20 h-[60%] rounded-t-sm"></div>
+<!-- The Gap -->
+<div class="w-3 h-1 bg-error/10 rounded-t-sm"></div>
+<div class="w-3 h-1 bg-error/10 rounded-t-sm"></div>
+<div class="w-3 h-1 bg-error/10 rounded-t-sm"></div>
+<div class="w-3 h-1 bg-error/10 rounded-t-sm"></div>
+<div class="w-3 h-1 bg-error/10 rounded-t-sm"></div>
+<div class="w-3 h-1 bg-error/10 rounded-t-sm"></div>
+<div class="w-3 h-1 bg-error/10 rounded-t-sm"></div>
+<div class="w-3 bg-primary/10 h-2 rounded-t-sm animate-pulse"></div>
+<!-- Current Indicator Overlay -->
+<div class="absolute inset-0 flex flex-col justify-center items-center">
+<div class="bg-error/5 border border-error/20 px-4 py-2 rounded-lg backdrop-blur-sm">
+<p class="text-error font-black text-xs uppercase tracking-widest text-center">Inactivity Gap: 21 Days</p>
+<p class="text-[10px] text-center text-on-surface-variant mt-1">Last seen: Sept 12, 11:42 AM</p>
+</div>
+</div>
+</div>
+<div class="flex justify-between mt-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
+<span>AUG 01</span>
+<span class="text-error">CURRENT GAP</span>
+<span>SEP 28</span>
+</div>
+</div>
+<!-- AI Intervention Suggestions (Bento Style) -->
+<div>
+<h3 class="font-serif italic text-xl mb-4">Intervention Strategy</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="col-span-1 p-6 rounded-xl bg-surface-container-highest flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary mb-4" data-weight="fill">auto_awesome</span>
+<div>
+<h4 class="font-bold text-sm mb-1">Direct Outreach</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Julian typically responds to evening SMS. Suggest a 7:00 PM check-in regarding his "Dynamics II" midterm.</p>
+</div>
+</div>
+<div class="col-span-1 p-6 rounded-xl bg-surface-container-highest flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary mb-4">groups</span>
+<div>
+<h4 class="font-bold text-sm mb-1">Peer Support</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Connect Julian with his study group in Building 4. Three members show 100% engagement this week.</p>
+</div>
+</div>
+<div class="col-span-2 p-6 rounded-xl bg-primary text-white flex items-center gap-6">
+<div class="p-3 bg-white/10 rounded-lg">
+<span class="material-symbols-outlined text-2xl" data-weight="fill">lightbulb</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm mb-1">Predictive Insight</h4>
+<p class="text-xs text-on-primary-container opacity-90 leading-relaxed">Historical data suggests early intervention today reduces withdrawal risk by 42% for students in this cohort.</p>
+</div>
+<span class="material-symbols-outlined opacity-50">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex items-center gap-4 pt-6 border-t border-outline-variant/15">
+<button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-white py-4 rounded-xl font-bold text-sm hover:scale-[1.02] active:scale-98 transition-all">
+                            Send Check-In
+                        </button>
+<button class="flex-1 bg-surface-container-highest text-on-surface py-4 rounded-xl font-bold text-sm hover:bg-surface-container-high transition-all">
+                            Flag for Meeting
+                        </button>
+<button class="px-6 py-4 rounded-xl text-on-surface-variant hover:text-error transition-colors flex items-center gap-2 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">close</span>
+                            Dismiss Alert
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

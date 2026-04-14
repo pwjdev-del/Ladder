@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder Ambassador Program | Application</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-fixed": "#caf24d",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "primary-container": "#5a7956",
+                    "surface-tint": "#486644",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container": "#f5ede2",
+                    "surface-bright": "#fff8f2",
+                    "on-secondary-container": "#566c00",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-fixed": "#052107",
+                    "background": "#fff8f2",
+                    "outline": "#737970",
+                    "on-surface": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-surface": "#343029",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background-color: rgba(234, 225, 215, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopNavBar Cluster -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-8 py-4 w-full bg-[#fff8f2]/70 backdrop-blur-xl transition-colors">
+<div class="flex items-center gap-2">
+<span class="font-noto-serif text-xl font-bold italic text-[#1f1b15]">Ladder Admin</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 font-noto-serif text-sm tracking-tight">
+<a class="text-[#5A7956] font-bold" href="#">Programs</a>
+<a class="text-[#1f1b15]/60 hover:text-[#42603f] transition-colors" href="#">Institutions</a>
+<a class="text-[#1f1b15]/60 hover:text-[#42603f] transition-colors" href="#">Resources</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-[#eae1d7] p-2 rounded-full transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-[#eae1d7] p-2 rounded-full transition-colors" data-icon="settings">settings</span>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Administrator profile" class="h-full w-full object-cover" data-alt="professional portrait of a university administrator in a modern office with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuFt8cQ9JHyhDqj8Fy_-1D79hTrzY9k0DygEzHKXKorpEKlxfq63OVcWCJerwLqm5jOnTFoY0S2R_9DL39YjAqulQ1TggM9XWLhT6QKoZ3g8yfYS96LJQmExHSmOijUrEItkLtNWBaL_qtNJfSBFFG9aMxyLMhRNKSJrS4cA1YJUUnyXBSBtkFUBMx3okRIZy9PxtMzOwl-5WkmXkxBBSkZTCjgjN7GOyj6waePABpl6_3SBfH2ohVZNM4hf2u7f6v5F36vQZkPpw"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[600pt] mx-auto px-6 py-16">
+<!-- Hero Section -->
+<section class="mb-16 relative">
+<div class="absolute -top-12 -left-12 w-64 h-64 bg-secondary-fixed/10 rounded-full blur-3xl -z-10"></div>
+<h1 class="font-noto-serif text-6xl font-bold leading-tight tracking-tight text-on-surface mb-6">
+                Become a <span class="italic text-primary">Ladder</span> <br/>Ambassador
+            </h1>
+<p class="text-on-surface-variant text-lg max-w-lg leading-relaxed font-body">
+                Shape the future of educational leadership at your institution. Join an elite cohort of visionaries dedicated to pedagogical excellence.
+            </p>
+</section>
+<!-- Feature Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+<!-- Benefits Card -->
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-noto-serif text-2xl font-bold text-primary">Benefits</h3>
+<span class="material-symbols-outlined text-secondary-fixed-dim" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary font-bold text-sm mt-1" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface-variant font-medium">Early access to curriculum toolsets</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary font-bold text-sm mt-1" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface-variant font-medium">Direct mentorship from district leads</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary font-bold text-sm mt-1" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface-variant font-medium">Exclusive invites to The Atelier summits</span>
+</li>
+</ul>
+</div>
+<!-- Requirements Card -->
+<div class="bg-surface-container-highest p-8 rounded-xl flex flex-col gap-6 border-l-4 border-secondary-fixed">
+<div class="flex items-center justify-between">
+<h3 class="font-noto-serif text-2xl font-bold text-on-surface">Requirements</h3>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="verified">verified</span>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="h-1.5 w-1.5 rounded-full bg-primary mt-2.5"></span>
+<span class="text-on-surface-variant font-medium">Active faculty or staff position</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="h-1.5 w-1.5 rounded-full bg-primary mt-2.5"></span>
+<span class="text-on-surface-variant font-medium">Minimum 2 years instructional experience</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="h-1.5 w-1.5 rounded-full bg-primary mt-2.5"></span>
+<span class="text-on-surface-variant font-medium">Proven track record of digital adoption</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Signup Form Container -->
+<div class="bg-white rounded-xl shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] overflow-hidden">
+<div class="p-10">
+<div class="mb-10 text-center">
+<h2 class="font-noto-serif text-3xl font-bold mb-2">Application Inquiry</h2>
+<p class="text-on-surface-variant text-sm">Please provide your institutional credentials to begin.</p>
+</div>
+<form class="space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Full Name -->
+<div class="relative group">
+<label class="block text-xs font-bold uppercase tracking-widest text-tertiary mb-2">Full Name</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-0 py-2 text-on-surface transition-all placeholder:text-outline-variant/60" placeholder="Julian Vane" type="text"/>
+</div>
+<!-- School -->
+<div class="relative group">
+<label class="block text-xs font-bold uppercase tracking-widest text-tertiary mb-2">School</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-0 py-2 text-on-surface transition-all placeholder:text-outline-variant/60" placeholder="St. Edwards Academy" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Role Dropdown -->
+<div class="relative group">
+<label class="block text-xs font-bold uppercase tracking-widest text-tertiary mb-2">Institutional Role</label>
+<select class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-0 py-2 text-on-surface transition-all appearance-none cursor-pointer">
+<option>Select your role</option>
+<option>Department Head</option>
+<option>Senior Instructor</option>
+<option>District Coordinator</option>
+<option>Academic Advisor</option>
+</select>
+<span class="absolute right-0 bottom-2 material-symbols-outlined text-outline-variant pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+<!-- School Email -->
+<div class="relative group">
+<label class="block text-xs font-bold uppercase tracking-widest text-tertiary mb-2">School Email</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-0 py-2 text-on-surface transition-all placeholder:text-outline-variant/60" placeholder="vane.j@st-edwards.edu" type="email"/>
+</div>
+</div>
+<!-- Why Join Textarea -->
+<div class="relative group">
+<label class="block text-xs font-bold uppercase tracking-widest text-tertiary mb-2">Why join the Ladder program?</label>
+<textarea class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-0 py-2 text-on-surface transition-all resize-none placeholder:text-outline-variant/60" placeholder="Describe your vision for academic growth..." rows="3"></textarea>
+<p class="text-[10px] mt-2 text-tertiary/70 font-medium italic">Minimum 150 characters recommended.</p>
+</div>
+<!-- Action Button -->
+<div class="pt-6">
+<button class="w-full primary-gradient text-white font-bold py-4 px-8 rounded-xl flex items-center justify-center gap-3 hover:opacity-90 transition-all group active:scale-[0.98]" type="submit">
+<span class="material-symbols-outlined text-secondary-fixed transition-transform group-hover:rotate-12" data-icon="grade" style="font-variation-settings: 'FILL' 1;">grade</span>
+<span class="uppercase tracking-widest text-sm">Apply Now</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Form Footer -->
+<div class="bg-surface-container-low px-10 py-4 flex justify-between items-center border-t border-outline-variant/10">
+<span class="text-[10px] text-on-surface-variant font-medium">© 2024 Ladder Education Group. All rights reserved.</span>
+<div class="flex gap-4">
+<a class="text-[10px] font-bold text-primary uppercase hover:underline" href="#">Privacy Policy</a>
+<a class="text-[10px] font-bold text-primary uppercase hover:underline" href="#">Support</a>
+</div>
+</div>
+</div>
+<!-- Decorative Image Quote -->
+<section class="mt-20 flex flex-col md:flex-row items-center gap-10">
+<div class="w-48 h-48 rounded-xl overflow-hidden shadow-2xl rotate-3 shrink-0">
+<img alt="Library Setting" class="h-full w-full object-cover" data-alt="close up of old leather bound books on a wooden library shelf with soft sunbeams filtering through dust motes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7AgBSu-JVWcK7rAgd3dq-6yTzVHLoMzswP4bu8U7C9jizWhxvNEzHDr1nMs-DpAtJcQ5_Ir82htPLKgCLybGtm7SdKNAh7JxlrcOM4MPYJg1_ziTRB5QuJy2e2JdIukMKNWUuHyFBStFx49zP6IPpi3gJLOqXi79gvWBBVLv_EEzIHqeKDKINUO67OaN5JlqA-Ht9UK_MUCqxNe1d6ayjU7EqUaN_Da2CihMloL1b5VxkEmCCebjMzxFaHRUUH_ZbuHUeEXaTUV4"/>
+</div>
+<div>
+<blockquote class="font-noto-serif text-2xl italic text-on-surface-variant leading-relaxed">
+                    "Growth is the only evidence of life. At Ladder, we provide the architecture for that growth to flourish."
+                </blockquote>
+<cite class="block mt-4 text-primary font-bold not-italic tracking-wider uppercase text-xs">— Dr. Elara Vance, Founding Dean</cite>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Hidden on iPad Landscape for specific canvas focus, but following structure) -->
+<aside class="hidden lg:flex fixed h-screen w-[280pt] left-0 top-0 flex-col bg-[#fbf2e8] py-8 px-6 overflow-y-auto z-50 transform -translate-x-full transition-transform">
+<div class="mb-10 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-secondary-fixed">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+</div>
+<div>
+<h2 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h2>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">District Administration</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 px-4 rounded-lg text-[#1f1b15]/70 hover:translate-x-1 transition-transform hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-noto-serif text-base">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 rounded-lg text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7]" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-noto-serif text-base">Ambassadors</span>
+</a>
+<!-- Additional items omitted for brevity but following JSON structure -->
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/20">
+<a class="flex items-center gap-4 py-3 px-4 rounded-lg text-[#1f1b15]/70 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-noto-serif text-base">Support</span>
+</a>
+</div>
+</aside>
+</body></html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Role Selection - Ladder College Prep</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .serif-italic {
+            font-family: 'Noto Serif', serif;
+            font-style: italic;
+        }
+        .editorial-shadow {
+            box-shadow: 0 40px 60px -15px rgba(31, 27, 21, 0.06);
+        }
+        .selected-tile {
+            outline: 3px solid #42603f;
+            outline-offset: -3px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#caf24d",
+                    "outline-variant": "#c3c8be",
+                    "surface-container": "#f5ede2",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-container": "#566c00",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "surface-dim": "#e1d9cf",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "tertiary-container": "#8d6a48",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-fixed-dim": "#aed0a7",
+                    "surface-variant": "#eae1d7",
+                    "tertiary": "#725232",
+                    "on-secondary-fixed": "#161e00",
+                    "inverse-primary": "#aed0a7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-surface": "#1f1b15",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container-low": "#fbf2e8",
+                    "secondary-container": "#caf24d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#516600",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-primary-fixed": "#052107",
+                    "on-primary-container": "#e2ffda",
+                    "outline": "#737970",
+                    "surface-container-highest": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-tertiary-fixed": "#2c1600",
+                    "background": "#fff8f2",
+                    "surface-tint": "#486644",
+                    "primary-container": "#5a7956",
+                    "surface-bright": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"],
+                    "display": ["Noto Serif Display", "Noto Serif"]
+            }
+          },
+        }
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation Suppression: Not a top-level destination yet -->
+<main class="flex-grow flex items-center justify-center p-8 relative overflow-hidden">
+<!-- Background Decorative Elements -->
+<div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary-fixed/20 blur-3xl"></div>
+<div class="absolute -bottom-48 -left-24 w-[500px] h-[500px] rounded-full bg-surface-container-highest/50 blur-3xl"></div>
+<div class="relative z-10 w-full max-w-4xl">
+<!-- Header Section -->
+<div class="text-center mb-12">
+<div class="mb-6 flex justify-center">
+<span class="text-3xl font-headline serif-italic text-primary tracking-tighter">Ladder</span>
+</div>
+<h1 class="text-5xl font-headline serif-italic tracking-tight mb-4">Choose your path</h1>
+<p class="text-on-surface-variant max-w-lg mx-auto leading-relaxed">Select the profile that best describes your role in the college preparation journey.</p>
+</div>
+<!-- Role Selection Grid Container -->
+<div class="bg-surface-container-low rounded-xl p-10 editorial-shadow">
+<div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+<!-- Student Tile (Active State Example) -->
+<button class="relative group flex flex-col items-center justify-center p-8 bg-surface-container-highest rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 selected-tile">
+<div class="absolute top-4 right-4 bg-primary text-on-primary rounded-full w-6 h-6 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-primary-fixed text-primary">
+<span class="material-symbols-outlined text-4xl" data-icon="school">school</span>
+</div>
+<h3 class="text-xl font-bold mb-1">Student</h3>
+<p class="text-sm text-center text-on-surface-variant font-medium">Tracking milestones and building my future.</p>
+</button>
+<!-- Parent Tile -->
+<button class="group flex flex-col items-center justify-center p-8 bg-surface-container-highest rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant group-hover:bg-primary-fixed group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl" data-icon="favorite">favorite</span>
+</div>
+<h3 class="text-xl font-bold mb-1">Parent</h3>
+<p class="text-sm text-center text-on-surface-variant font-medium">Supporting and monitoring progress.</p>
+</button>
+<!-- Counselor Tile -->
+<button class="group flex flex-col items-center justify-center p-8 bg-surface-container-highest rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant group-hover:bg-primary-fixed group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl" data-icon="person_add">person_add</span>
+</div>
+<h3 class="text-xl font-bold mb-1">Counselor</h3>
+<p class="text-sm text-center text-on-surface-variant font-medium">Guiding multiple students to success.</p>
+</button>
+<!-- School Admin Tile -->
+<button class="group flex flex-col items-center justify-center p-8 bg-surface-container-highest rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-95">
+<div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface-variant group-hover:bg-primary-fixed group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl" data-icon="apartment">apartment</span>
+</div>
+<h3 class="text-xl font-bold mb-1">School Admin</h3>
+<p class="text-sm text-center text-on-surface-variant font-medium">Managing institutional data and goals.</p>
+</button>
+</div>
+<!-- Action Button -->
+<div class="mt-12 flex justify-center">
+<button class="px-12 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full text-lg font-bold transition-all hover:opacity-90 active:scale-95 flex items-center gap-2 editorial-shadow">
+                        Continue
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Secondary Action -->
+<div class="mt-8 text-center">
+<p class="text-sm text-on-surface-variant">
+                    Already have an account? 
+                    <button class="text-primary font-bold border-b-2 border-secondary-fixed/40 ml-1">Log in here</button>
+</p>
+</div>
+</div>
+</main>
+<!-- Footer Identity -->
+<footer class="p-8 flex justify-between items-center text-on-surface-variant opacity-60">
+<div class="flex items-center gap-6">
+<span class="text-xs font-bold tracking-widest uppercase">Privacy Policy</span>
+<span class="text-xs font-bold tracking-widest uppercase">Terms of Service</span>
+</div>
+<span class="text-xs font-medium">© 2024 Ladder Education Group</span>
+</footer>
+<!-- Decorative Corner Image -->
+<div class="fixed bottom-0 right-0 w-1/4 h-1/3 opacity-20 pointer-events-none">
+<img alt="University building" class="w-full h-full object-cover rounded-tl-[100px]" data-alt="Close-up of classic Ivy League architecture with red brick and climbing ivy in soft morning sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjcaCiBqljYbRibvf4sQF5GI-Q4vU3V2zWPFhp0xk82DFX_gENemXycZrM7p9w_BzejHM6xN38wieDSs-pglyDSgfhLioOqE-gyh0nq_jjvwuw1_MO4V1axMk2AQJ0iCUBIigrWe5ym0Et4PzWZdEudCweOZGs_ZcEZasNg-MKuA9FsriDCdDjXC4AT_flNZYkGuXKI29ceBc0w6ZlqHZwG1FlIc_DIxQYQPQfXDDEIZr__TE5Cg5-ygMev-M1bQXadOaWJcmYbpQ"/>
+</div>
+</body></html>

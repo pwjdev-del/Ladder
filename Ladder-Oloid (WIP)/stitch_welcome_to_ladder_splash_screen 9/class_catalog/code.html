@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Class Catalog | Ladder Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#afd531",
+                    "secondary-fixed": "#caf24d",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434840",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#aed0a7",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-container-high": "#efe7dd",
+                    "primary-container": "#5a7956",
+                    "surface-tint": "#486644",
+                    "primary": "#42603f",
+                    "on-background": "#1f1b15",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container": "#f5ede2",
+                    "surface-bright": "#fff8f2",
+                    "on-secondary-container": "#566c00",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-fixed": "#052107",
+                    "background": "#fff8f2",
+                    "outline": "#737970",
+                    "on-surface": "#1f1b15",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "secondary-container": "#caf24d",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-surface": "#343029",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface": "#fff8f2",
+                    "primary-fixed": "#c9ecc2",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #eae1d7;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen overflow-hidden">
+<!-- SideNavBar Anchor -->
+<aside class="fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] dark:bg-[#1f1b15] flex flex-col py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="mb-10">
+<h1 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h1>
+<p class="font-noto-serif text-xs opacity-60 uppercase tracking-widest mt-1">District Administration</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15] dark:text-white font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7] dark:bg-[#42603f]/30 transition-transform font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span>Schools</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>District Stats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Staff Directory</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span>Curriculum</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/70 dark:text-[#fbf2e8]/70 hover:translate-x-1 transition-transform hover:text-[#42603f] duration-300 ease-out font-noto-serif text-base" href="#">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+<span>Utility Tools</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<button class="w-full mb-6 bg-gradient-to-br from-primary to-primary-container text-white py-4 rounded-xl font-bold tracking-tight shadow-lg shadow-primary/10 hover:scale-[1.02] transition-transform">
+                Quick Report
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 text-sm text-[#1f1b15]/60 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help">help</span> Support
+                </a>
+<a class="flex items-center gap-4 px-4 py-2 text-sm text-[#1f1b15]/60 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="logout">logout</span> Log Out
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-[280pt] flex flex-col h-screen bg-surface">
+<!-- TopNavBar Anchor -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-8 py-4 w-full bg-[#fff8f2]/70 backdrop-blur-xl transition-colors">
+<div class="flex items-center gap-8">
+<span class="font-noto-serif text-xl font-bold italic text-[#1f1b15]">Ladder Admin</span>
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant/50" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search catalog..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-[#eae1d7] transition-colors relative">
+<span class="material-symbols-outlined text-[#5A7956]" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary-fixed rounded-full"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#eae1d7] transition-colors">
+<span class="material-symbols-outlined text-[#5A7956]" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-6 border-l border-outline-variant/20">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant opacity-70">Super Administrator</p>
+</div>
+<img alt="Administrator profile" class="w-10 h-10 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Close-up professional portrait of a confident man in business attire against a neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7HfRffknBqAoJK6szu5k-UYlfcBcFUKppzXdZVC47aAHfKvuR62G1PBOX3LfL8jRaVM8WQuciYxd8LHnK0zJWd9hmURRZ7uASvJhUQSlug461rtuDsGTJgEgasJXCEk96rbfLSAmXhmHyKOGuMSzIN3xgFeZvaW2RM_QlKuOvGWocoGduLQEPmccFnOPtmOAiVRPxZtWzfipmvdqPr_p3TfHQraayP5SeUtnXEzHYkHOlsL0mxTy2TymUH2V-25LGtJyV3QC9fws"/>
+</div>
+</div>
+</header>
+<!-- Page Content: Two-Panel Split -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left 55%: Catalog table -->
+<section class="w-[55%] flex flex-col p-8 bg-surface border-r border-outline-variant/10 overflow-hidden">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-noto-serif text-4xl font-bold tracking-tight text-primary">Class Catalog</h2>
+<p class="text-on-surface-variant mt-2 text-sm max-w-md">Manage the district-wide curriculum, assign staff, and monitor capacity levels for the upcoming academic semester.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-surface-container-highest text-on-surface rounded-xl text-sm font-semibold hover:bg-surface-dim transition-colors group">
+<span class="material-symbols-outlined text-lg" data-icon="upload">upload</span>
+                            Upload CSV
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-surface-container-highest text-on-surface rounded-xl text-sm font-semibold hover:bg-surface-dim transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+                            Download Template
+                        </button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar pr-2">
+<table class="w-full text-left border-separate border-spacing-y-3">
+<thead class="sticky top-0 bg-surface z-10">
+<tr class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60 font-bold">
+<th class="pb-4 pl-4">Name</th>
+<th class="pb-4">Dept</th>
+<th class="pb-4">Level</th>
+<th class="pb-4 text-center">Credits</th>
+<th class="pb-4">Teacher</th>
+<th class="pb-4">Capacity</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<!-- Table Row 1 -->
+<tr class="group hover:translate-x-1 transition-transform cursor-pointer">
+<td class="py-4 pl-4 bg-surface-container-low rounded-l-xl font-bold text-primary">Advanced Biology</td>
+<td class="py-4 bg-surface-container-low text-on-surface-variant">Science</td>
+<td class="py-4 bg-surface-container-low">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-bold">AP</span>
+</td>
+<td class="py-4 bg-surface-container-low text-center font-medium">1.0</td>
+<td class="py-4 bg-surface-container-low">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a smiling professional woman teacher with spectacles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-RCPPMAHTwzVolxtpTsFPLIiNcAuGMGR7fA2n1u1ie1c0nrFPd4kqJlxQzrzd_0A1ZqZbeuAWYt1pLBgP-hv7d8cg2CQ8mPZpzd_4N9A0ls8PA7ytmv9k5FUZt2HKVV7c5_3HA7LxTgC70IEDmU1VaHlBpVE3_2l5T627aqJ7op6GTbWBamxAY7HcWd397kJTgJDAAox8tR4oK6aasx0h4POxTB1JCaaXvKQsCRf8SzP6qC20ioncByBqOptPKNMN-z3Wzj6OlXI"/>
+<span>Dr. Aris</span>
+</div>
+</td>
+<td class="py-4 bg-surface-container-low rounded-r-xl pr-4">
+<div class="w-24 bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[85%] shadow-[0_0_8px_rgba(202,242,77,0.5)]"></div>
+</div>
+<p class="text-[9px] mt-1 text-on-surface-variant/70 font-bold">24/28 slots</p>
+</td>
+</tr>
+<!-- Table Row 2 -->
+<tr class="group hover:translate-x-1 transition-transform cursor-pointer">
+<td class="py-4 pl-4 bg-surface-container-low rounded-l-xl font-bold text-primary">Microeconomics</td>
+<td class="py-4 bg-surface-container-low text-on-surface-variant">Social Studies</td>
+<td class="py-4 bg-surface-container-low">
+<span class="px-3 py-1 bg-secondary-fixed/20 text-secondary rounded-full text-[10px] font-bold uppercase">Honors</span>
+</td>
+<td class="py-4 bg-surface-container-low text-center font-medium">0.5</td>
+<td class="py-4 bg-surface-container-low">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a male professor in a library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRaqHiVd1tEs6LCl-4K5CArRr-5mdkzMs9kk4vyJhfEkLFPhGW7-eScZ_84SjpdYFfPdA4UktTaBYCi8S2cu6R-4CoEK_zAAsu80j9j1W9iGB9zbssr1elKoSnSEKV-27hshNZXsqFuHSD28-nOOJvfqsyXcL0MS15_hgep9sGMjTYHoxEN7VsFoLZIWLgO5aqoBfPrqj6KkOksykluq9RrRk-oqvhmoeKx16zWSfCSf2emHsRrJoxO8Y3BHNvGcDKzlZ7cPfNVCU"/>
+<span>Mr. Henderson</span>
+</div>
+</td>
+<td class="py-4 bg-surface-container-low rounded-r-xl pr-4">
+<div class="w-24 bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[40%] shadow-[0_0_8px_rgba(202,242,77,0.5)]"></div>
+</div>
+<p class="text-[9px] mt-1 text-on-surface-variant/70 font-bold">12/30 slots</p>
+</td>
+</tr>
+<!-- Table Row 3 -->
+<tr class="group hover:translate-x-1 transition-transform cursor-pointer">
+<td class="py-4 pl-4 bg-surface-container-low rounded-l-xl font-bold text-primary">Gothic Literature</td>
+<td class="py-4 bg-surface-container-low text-on-surface-variant">English</td>
+<td class="py-4 bg-surface-container-low">
+<span class="px-3 py-1 bg-tertiary-fixed text-tertiary rounded-full text-[10px] font-bold uppercase">Standard</span>
+</td>
+<td class="py-4 bg-surface-container-low text-center font-medium">1.0</td>
+<td class="py-4 bg-surface-container-low">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a young academic professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACB2zDBPQbp7AFgvP2CqSCSq45CwgP8cbcmoZfPr-gpIj3MjViiXnfNCTfmakdIOfmIzVHu82nRUDmJNHeMA-8kRpSsSJxBAT6AtV1WhgBMNr9_pb06cmYBehWsvbfeGLyOJu7NRukbnXgru2TFLzcLF07iBZQqTOSoTsw1d9mWBWSxqW3cn0SOu-4Nb4qjnfJsuYGykP2X2sWiefTZS1XaiIm4TouwMEIcaCBQaajhvF9i_xWbKH6TCDEUlA-L4UtSWDU3KLy0o4"/>
+<span>Ms. Thorne</span>
+</div>
+</td>
+<td class="py-4 bg-surface-container-low rounded-r-xl pr-4">
+<div class="w-24 bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[100%]"></div>
+</div>
+<p class="text-[9px] mt-1 text-error font-bold">FULL</p>
+</td>
+</tr>
+<!-- Table Row 4 -->
+<tr class="group hover:translate-x-1 transition-transform cursor-pointer">
+<td class="py-4 pl-4 bg-surface-container-low rounded-l-xl font-bold text-primary">Abstract Algebra</td>
+<td class="py-4 bg-surface-container-low text-on-surface-variant">Mathematics</td>
+<td class="py-4 bg-surface-container-low">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-bold">AP</span>
+</td>
+<td class="py-4 bg-surface-container-low text-center font-medium">1.0</td>
+<td class="py-4 bg-surface-container-low">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Middle aged male teacher with a warm expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmuB9yoNjebqiyUItETHDHwfApDuhIkaIuLF3_r_ZUoIleW1e78Fxnu4ZV_9aPntAQYyzjt5T77FGOtJ0SBY1NPi7u24fFjn7KlszNEKnu93_E1i6XUOwxBSXtiblNabjv8AljHWTGzhL0WWEqwnOGPmyzmWpZvT_Z0r4YHNjwY4yrT627S0FMgj7GvskkST24v2tXSeqkO9oKbVsEmuYV3MVDDHtaZIG867_yuGY890Oki8T3hbwKFN9ZTSR3WRFfLVYw2FepIic"/>
+<span>Mr. Petrov</span>
+</div>
+</td>
+<td class="py-4 bg-surface-container-low rounded-r-xl pr-4">
+<div class="w-24 bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[65%] shadow-[0_0_8px_rgba(202,242,77,0.5)]"></div>
+</div>
+<p class="text-[9px] mt-1 text-on-surface-variant/70 font-bold">18/25 slots</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Right 45%: Course Form -->
+<section class="w-[45%] p-10 bg-surface-container-low overflow-y-auto custom-scrollbar">
+<div class="max-w-xl mx-auto">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-noto-serif text-2xl font-bold italic text-on-surface">Course Editor</h3>
+<span class="text-[10px] bg-primary-container/20 text-primary px-3 py-1 rounded-full font-bold">DRAFT 04-B</span>
+</div>
+<form class="space-y-8">
+<!-- Basic Info Group -->
+<div class="space-y-6">
+<div class="relative group">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 block mb-1">Course Name</label>
+<input class="w-full bg-transparent border-b border-outline-variant/40 py-2 font-noto-serif text-lg focus:outline-none focus:border-primary transition-colors text-on-surface" type="text" value="Advanced Biology"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 block mb-1">Department</label>
+<select class="w-full bg-transparent border-b border-outline-variant/40 py-2 focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer">
+<option>Science</option>
+<option>Mathematics</option>
+<option>English</option>
+<option>Arts</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 bottom-2 pointer-events-none text-on-surface-variant/40" data-icon="expand_more">expand_more</span>
+</div>
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 block mb-1">Level</label>
+<select class="w-full bg-transparent border-b border-outline-variant/40 py-2 focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer">
+<option>AP (Advanced Placement)</option>
+<option>Honors</option>
+<option>Standard</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 bottom-2 pointer-events-none text-on-surface-variant/40" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 block mb-1">Credits</label>
+<input class="w-full bg-transparent border-b border-outline-variant/40 py-2 focus:outline-none focus:border-primary transition-colors" step="0.5" type="number" value="1.0"/>
+</div>
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 block mb-1">Total Capacity</label>
+<input class="w-full bg-transparent border-b border-outline-variant/40 py-2 focus:outline-none focus:border-primary transition-colors" type="number" value="28"/>
+</div>
+</div>
+</div>
+<!-- Staff Autocomplete Placeholder -->
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 block mb-3">Lead Instructor</label>
+<div class="flex items-center gap-3 p-3 bg-surface-container-highest rounded-xl border border-outline-variant/10">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a smiling professional woman teacher with spectacles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVpaCzbokZ9pbIajYQku4gvMMCyCnLEMsM0QoI30Oif42nPHxtDUZDBy449g0PqKLxOhgD9VwuSaMsghCEKsjtUeLtiboWclcnjCkpF464UEcNYb9Uq-hAwb6KM8fufPHFt8fMByUgl_EQpb2gvLXtbwVVJamWD_uwlBmve29GgNWmf0NbQfDNvqg3sxIlMUDGNh47eiLK1QGtUtHaU56NXukbKFEtC5iejJ7-VxU-AWq2s1sqQ7xFZDUGzovApsiVMMuNOJywPPE"/>
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface">Dr. Aris Vance</p>
+<p class="text-[10px] text-on-surface-variant">Dept. Head, Biological Sciences</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors" data-icon="close" type="button">close</button>
+</div>
+</div>
+<!-- Description -->
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 block mb-1">Course Description</label>
+<textarea class="w-full bg-transparent border-b border-outline-variant/40 py-2 focus:outline-none focus:border-primary transition-colors resize-none text-sm leading-relaxed" rows="4">This course covers advanced biological concepts including cellular metabolism, molecular genetics, and evolutionary ecology. Recommended for students pursuing pre-med tracks or environmental sciences.</textarea>
+</div>
+<!-- Action Buttons -->
+<div class="pt-10 space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<button class="py-4 rounded-xl border-2 border-outline-variant/20 font-bold text-error hover:bg-error-container/20 transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined" data-icon="delete">delete</span> Delete Course
+                                </button>
+<button class="py-4 rounded-xl bg-surface-container-highest font-bold text-on-surface hover:bg-surface-dim transition-colors flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined" data-icon="save">save</span> Save Draft
+                                </button>
+</div>
+<!-- Accent Publish Button -->
+<button class="w-full py-5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-white font-black text-lg tracking-tight shadow-xl shadow-primary/20 hover:scale-[1.01] transition-transform flex items-center justify-center gap-3 group" type="button">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                                Publish to Students
+                                <span class="material-symbols-outlined text-secondary-fixed group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</form>
+</div>
+</section>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GPA Tracker | Ladder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#725232",
+                    "surface-container-high": "#efe7dd",
+                    "on-surface": "#1f1b15",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-variant": "#eae1d7",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-primary-fixed": "#052107",
+                    "outline": "#737970",
+                    "surface-dim": "#e1d9cf",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#c9ecc2",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#161e00",
+                    "background": "#fff8f2",
+                    "on-secondary-container": "#566c00",
+                    "inverse-primary": "#aed0a7",
+                    "surface-container-low": "#fbf2e8",
+                    "primary": "#42603f",
+                    "surface": "#fff8f2",
+                    "secondary-fixed": "#caf24d",
+                    "secondary-container": "#caf24d",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-surface-variant": "#434840",
+                    "inverse-surface": "#343029",
+                    "on-background": "#1f1b15",
+                    "secondary": "#516600",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#eae1d7",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary-container": "#fff5ee",
+                    "secondary-fixed-dim": "#afd531",
+                    "inverse-on-surface": "#f8efe5",
+                    "surface-bright": "#fff8f2",
+                    "surface-container": "#f5ede2",
+                    "tertiary-container": "#8d6a48",
+                    "surface-tint": "#486644",
+                    "outline-variant": "#c3c8be",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#5a7956"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "16px",
+                    "xl": "24px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-container {
+            mask-image: linear-gradient(to top, black 80%, transparent 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface antialiased min-h-screen pb-32">
+<!-- Header Section (Transactional/Focused Journey: Suppression of Nav applied via layout) -->
+<header class="bg-gradient-to-br from-primary to-primary-container text-white px-6 pt-8 pb-10 rounded-b-xl shadow-lg">
+<div class="flex items-center mb-8">
+<span class="material-symbols-outlined cursor-pointer mr-4">chevron_left</span>
+<h1 class="font-headline text-2xl tracking-tight">GPA Tracker</h1>
+</div>
+<div class="flex gap-8">
+<div class="flex-1">
+<div class="text-4xl font-headline font-bold">3.78</div>
+<div class="text-[10px] uppercase tracking-widest font-bold opacity-80 mt-1">Unweighted</div>
+</div>
+<div class="flex-1">
+<div class="text-4xl font-headline font-bold">4.21</div>
+<div class="text-[10px] uppercase tracking-widest font-bold opacity-80 mt-1">Weighted</div>
+</div>
+</div>
+</header>
+<main class="px-4 -mt-6">
+<!-- GPA Trend Chart Card -->
+<section class="bg-surface-container-low rounded-xl p-6 shadow-sm mb-6 overflow-hidden relative">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-lg italic text-primary">Academic Progression</h3>
+<div class="flex gap-3">
+<div class="flex items-center gap-1.5">
+<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">UW</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary-fixed"></div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">W</span>
+</div>
+</div>
+</div>
+<!-- Simplified Banking Style Chart SVG -->
+<div class="relative h-48 w-full mt-2">
+<!-- Y-Axis Labels -->
+<div class="absolute left-0 h-full flex flex-col justify-between text-[10px] font-bold text-outline opacity-40">
+<span>4.5</span>
+<span>4.0</span>
+<span>3.5</span>
+<span>3.0</span>
+<span>2.5</span>
+<span>2.0</span>
+</div>
+<!-- Bright Futures Line -->
+<div class="absolute w-full top-[33%] border-t border-dashed border-tertiary-container/30 flex justify-end">
+<span class="bg-surface-container-low px-2 -mt-2 text-[9px] font-bold text-tertiary-container uppercase tracking-widest">Bright Futures FAS (3.5)</span>
+</div>
+<!-- Chart Drawing -->
+<svg class="absolute inset-0 w-full h-full pl-6 overflow-visible" preserveaspectratio="none" viewbox="0 0 100 50">
+<!-- Weighted Path (Lime) -->
+<path d="M0,35 L25,32 L50,28 L75,20 L100,15" fill="none" stroke="#caf24d" stroke-dasharray="2,2" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Unweighted Path (Green) -->
+<path d="M0,42 L25,40 L50,38 L75,35 L100,34" fill="none" stroke="#42603f" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+</div>
+<div class="flex justify-between pl-6 mt-4 text-[10px] font-bold text-on-surface-variant/60">
+<span>9th F</span>
+<span>9th S</span>
+<span>10th F</span>
+<span>10th S</span>
+<span>11th F</span>
+</div>
+</section>
+<!-- Semester Selector -->
+<section class="mb-8">
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold whitespace-nowrap">9th Fall</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold whitespace-nowrap">9th Spring</button>
+<button class="px-5 py-2.5 rounded-full bg-primary text-white text-xs font-bold whitespace-nowrap shadow-md scale-105">10th Fall</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold whitespace-nowrap">10th Spring</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold whitespace-nowrap">11th Fall</button>
+</div>
+</section>
+<!-- Course List -->
+<section class="bg-surface rounded-xl overflow-hidden mb-6">
+<div class="p-2">
+<!-- Course Row 1 -->
+<div class="bg-surface-container-low px-5 py-4 flex justify-between items-center rounded-xl mb-1">
+<div>
+<div class="text-on-surface font-bold text-sm">AP Biology</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-primary/10 text-primary px-1.5 py-0.5 rounded text-[9px] font-extrabold tracking-tighter">AP</span>
+<span class="text-on-surface-variant text-[11px] opacity-70">1.0 credit</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-headline font-bold">A</div>
+</div>
+<!-- Course Row 2 -->
+<div class="bg-surface px-5 py-4 flex justify-between items-center rounded-xl mb-1">
+<div>
+<div class="text-on-surface font-bold text-sm">Honors English III</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-primary/10 text-primary px-1.5 py-0.5 rounded text-[9px] font-extrabold tracking-tighter">H</span>
+<span class="text-on-surface-variant text-[11px] opacity-70">1.0 credit</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-headline font-bold">A-</div>
+</div>
+<!-- Course Row 3 -->
+<div class="bg-surface-container-low px-5 py-4 flex justify-between items-center rounded-xl mb-1">
+<div>
+<div class="text-on-surface font-bold text-sm">AP US History</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-primary/10 text-primary px-1.5 py-0.5 rounded text-[9px] font-extrabold tracking-tighter">AP</span>
+<span class="text-on-surface-variant text-[11px] opacity-70">1.0 credit</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-headline font-bold">B+</div>
+</div>
+<!-- Course Row 4 -->
+<div class="bg-surface px-5 py-4 flex justify-between items-center rounded-xl mb-1">
+<div>
+<div class="text-on-surface font-bold text-sm">Pre-Calculus Honors</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-primary/10 text-primary px-1.5 py-0.5 rounded text-[9px] font-extrabold tracking-tighter">H</span>
+<span class="text-on-surface-variant text-[11px] opacity-70">1.0 credit</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-headline font-bold">A</div>
+</div>
+<!-- Course Row 5 -->
+<div class="bg-surface-container-low px-5 py-4 flex justify-between items-center rounded-xl mb-1">
+<div>
+<div class="text-on-surface font-bold text-sm">Spanish III</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-on-surface-variant text-[11px] opacity-70">1.0 credit</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-headline font-bold">B+</div>
+</div>
+<!-- Course Row 6 -->
+<div class="bg-surface px-5 py-4 flex justify-between items-center rounded-xl mb-4">
+<div>
+<div class="text-on-surface font-bold text-sm">PE/Health</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-on-surface-variant text-[11px] opacity-70">0.5 credit</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-headline font-bold">A</div>
+</div>
+</div>
+<!-- Add Course Button -->
+<button class="w-full py-4 flex items-center justify-center gap-2 text-primary font-bold text-sm hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-lg">add</span>
+                Add Course
+            </button>
+</section>
+<!-- Bright Futures Eligibility Card -->
+<section class="bg-surface-container-highest rounded-xl p-6 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary-fixed/20 rounded-full blur-2xl"></div>
+<div class="flex items-start gap-4">
+<div class="bg-white/50 p-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-secondary text-3xl">stars</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-bold">FAS Eligible:</span>
+<span class="text-primary font-bold">Yes</span>
+<span class="material-symbols-outlined text-primary text-sm font-bold">check_circle</span>
+</div>
+<div class="text-xs font-bold text-on-surface-variant mt-1">GPA: 3.78 / 3.50 required</div>
+<p class="text-xs text-on-surface-variant/80 mt-3 leading-relaxed">
+                        Your weighted GPA qualifies for Florida Academic Scholars (100% tuition). Maintaining this trajectory is key for your scholarship package.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Shared Component from JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#eae1d7]/70 dark:bg-stone-900/70 backdrop-blur-3xl rounded-t-[24px] shadow-[0_-10px_40px_rgba(31,27,21,0.06)]">
+<!-- Overview -->
+<a class="flex flex-col items-center text-stone-600 dark:text-stone-400 opacity-70 hover:opacity-100 hover:text-[#42603f] transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-sans text-[11px] uppercase tracking-widest font-semibold">Overview</span>
+</a>
+<!-- GPA Tracker (ACTIVE) -->
+<a class="flex flex-col items-center bg-gradient-to-br from-[#42603f] to-[#5a7956] text-white rounded-[16px] px-5 py-2 scale-105 shadow-md transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-weight="fill" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="font-sans text-[11px] uppercase tracking-widest font-semibold">GPA Tracker</span>
+</a>
+<!-- Courses -->
+<a class="flex flex-col items-center text-stone-600 dark:text-stone-400 opacity-70 hover:opacity-100 hover:text-[#42603f] transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+<span class="font-sans text-[11px] uppercase tracking-widest font-semibold">Courses</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center text-stone-600 dark:text-stone-400 opacity-70 hover:opacity-100 hover:text-[#42603f] transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-sans text-[11px] uppercase tracking-widest font-semibold">Profile</span>
+</a>
+</nav>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

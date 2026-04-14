@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#caf24d",
+                      "outline-variant": "#c3c8be",
+                      "surface-container": "#f5ede2",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "on-tertiary-container": "#fff5ee",
+                      "on-secondary-container": "#566c00",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "primary": "#42603f",
+                      "on-background": "#1f1b15",
+                      "inverse-surface": "#343029",
+                      "surface-dim": "#e1d9cf",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "tertiary-container": "#8d6a48",
+                      "tertiary-fixed": "#ffdcbd",
+                      "surface": "#fff8f2",
+                      "primary-fixed": "#c9ecc2",
+                      "primary-fixed-dim": "#aed0a7",
+                      "surface-variant": "#eae1d7",
+                      "tertiary": "#725232",
+                      "on-secondary-fixed": "#161e00",
+                      "inverse-primary": "#aed0a7",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "on-surface": "#1f1b15",
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#f8efe5",
+                      "surface-container-high": "#efe7dd",
+                      "surface-container-low": "#fbf2e8",
+                      "secondary-container": "#caf24d",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#516600",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#434840",
+                      "secondary-fixed-dim": "#afd531",
+                      "on-primary-fixed": "#052107",
+                      "on-primary-container": "#e2ffda",
+                      "outline": "#737970",
+                      "surface-container-highest": "#eae1d7",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "on-tertiary-fixed": "#2c1600",
+                      "background": "#fff8f2",
+                      "surface-tint": "#486644",
+                      "primary-container": "#5a7956",
+                      "surface-bright": "#fff8f2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Noto Serif"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .progress-line-glow {
+            box-shadow: 0 0 12px rgba(202, 242, 77, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col items-center justify-center p-8 overflow-x-hidden">
+<!-- Onboarding Shell: Suppressing NavBars as per Task-Focused/Linear Journey Rule -->
+<div class="w-full max-w-[800px] flex flex-col items-center">
+<!-- Logo & Progress Section -->
+<header class="w-full flex flex-col items-center mb-12">
+<div class="mb-8">
+<span class="text-3xl font-headline italic font-bold text-primary tracking-tighter">Ladder</span>
+</div>
+<!-- Progress Tracker -->
+<div class="w-full max-w-[400px] flex items-center gap-4 px-4">
+<div class="h-1.5 flex-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed progress-line-glow w-full"></div>
+</div>
+<div class="h-1.5 flex-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed progress-line-glow w-1/2"></div>
+</div>
+<div class="h-1.5 flex-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-surface-container-highest w-0"></div>
+</div>
+</div>
+<div class="mt-3 text-on-surface-variant text-xs font-label tracking-widest uppercase opacity-70">Step 2 of 3: Background</div>
+</header>
+<!-- Main Form Container -->
+<main class="w-[600px] surface-container-low bg-surface-container-low p-10 rounded-xl">
+<h1 class="font-headline italic text-4xl text-primary mb-8 tracking-tight">Tell Us About You</h1>
+<form class="space-y-8">
+<!-- Name Row -->
+<div class="grid grid-cols-2 gap-6">
+<div class="flex flex-col">
+<label class="label-sm text-on-surface-variant font-medium mb-1 px-1">First Name</label>
+<input class="bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary py-2 transition-all placeholder:text-outline/60" placeholder="e.g. Elena" type="text"/>
+</div>
+<div class="flex flex-col">
+<label class="label-sm text-on-surface-variant font-medium mb-1 px-1">Last Name</label>
+<input class="bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary py-2 transition-all placeholder:text-outline/60" placeholder="e.g. Rodriguez" type="text"/>
+</div>
+</div>
+<!-- School Info -->
+<div class="space-y-6">
+<div class="flex flex-col relative">
+<label class="label-sm text-on-surface-variant font-medium mb-1 px-1">School name</label>
+<div class="flex items-center">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary py-2 transition-all placeholder:text-outline/60" placeholder="Start typing school name..." type="text"/>
+<span class="material-symbols-outlined text-outline absolute right-2">search</span>
+</div>
+</div>
+<div class="flex flex-col">
+<label class="label-sm text-on-surface-variant font-medium mb-1 px-1">Student ID</label>
+<input class="bg-transparent border-0 border-b border-outline-variant/40 focus:ring-0 focus:border-primary py-2 transition-all placeholder:text-outline/60" placeholder="Official ID number" type="text"/>
+</div>
+</div>
+<!-- Grade Selection -->
+<div class="space-y-3">
+<label class="label-sm text-on-surface-variant font-medium px-1">Grade</label>
+<div class="grid grid-cols-4 gap-4">
+<button class="py-4 rounded-lg bg-surface-container-highest border border-transparent hover:border-primary/20 text-on-surface font-semibold transition-all" type="button">9th</button>
+<button class="py-4 rounded-lg bg-primary text-on-primary font-semibold ring-4 ring-primary-container/20 transition-all" type="button">10th</button>
+<button class="py-4 rounded-lg bg-surface-container-highest border border-transparent hover:border-primary/20 text-on-surface font-semibold transition-all" type="button">11th</button>
+<button class="py-4 rounded-lg bg-surface-container-highest border border-transparent hover:border-primary/20 text-on-surface font-semibold transition-all" type="button">12th</button>
+</div>
+</div>
+<!-- First Gen Toggle -->
+<div class="flex items-center justify-between bg-surface-container-high p-4 rounded-xl border border-outline-variant/10">
+<div>
+<div class="font-bold text-primary">First-generation Student</div>
+<div class="text-sm text-on-surface-variant">Neither parent graduated from a 4-year college</div>
+</div>
+<button class="w-14 h-8 bg-secondary-fixed rounded-full relative flex items-center transition-colors" type="button">
+<div class="absolute right-1 w-6 h-6 bg-white rounded-full shadow-sm"></div>
+</button>
+</div>
+<!-- Navigation Buttons -->
+<div class="flex items-center justify-between pt-6">
+<button class="flex items-center gap-2 text-primary font-bold hover:opacity-70 transition-opacity" type="button">
+<span class="material-symbols-outlined">arrow_back</span>
+                        Back
+                    </button>
+<button class="btn-gradient text-on-primary px-10 py-4 rounded-xl font-bold flex items-center gap-3 hover:scale-95 transition-transform" type="button">
+                        Continue
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</form>
+</main>
+<!-- Decorative Elements for Editorial Look -->
+<div class="fixed top-20 right-[5%] -z-10 opacity-10">
+<img class="w-64 h-64 object-cover rounded-full grayscale" data-alt="minimalist architectural drawing of a classical university library dome with clean lines and soft beige lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC9hpWHJojQIqWBz7gutClrHvu6BhRKo6ndBQrgD3ujuGFKGsW4LfwgRKUtG12PkN8fX2Tu7UpmTiZaCx3ojLjWvNSvaytl8PoHYQWudwitKPM27EXdihvMBWZnaiqYy-kO9Vl2W5yUA3Jt4QRIHLK1cbqWPUFjRC0kBGLTGJoJLamI4Jkon5I_xgxs2-75ibJaE0oHBUx7Tg6mMozHzAxlqyu-xqGtImmnMPFslQd-QMKrLTC-SLx7fUAP_UwGGeKzvDxBHKypt4"/>
+</div>
+<div class="fixed bottom-20 left-[5%] -z-10 opacity-10">
+<img class="w-80 h-80 object-cover rotate-12" data-alt="delicate close-up of handmade vellum paper texture with subtle organic deckled edges and natural grain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARQM1dDxKdPXo6o2AzIBHs4Ua0wGqZRrhpILve2dA0HVoMxHoRUzs_ruIaCyd8KTwNrL1u3bOfa3Sp15nz0HrUKwI6_ByRdjaKviBIQUjdBw2yj1mMXkc-V1nGFZg8u1z9oX3ch9VBv8pXO8VDisJcpnJr9GgczDA6w4VSt2N1DvSDt1jXdTmFvB_OP8gsanI54J8CJX9xscV_0XOlNA0XlMOCwAjGJ8woYCv7meSsHAe062-_gzK7uhAbzhIYaR8F3nzrpEfvvuI"/>
+</div>
+</div>
+</body></html>

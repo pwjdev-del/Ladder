@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder Admin | Data Export Wizard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#725232",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-fixed": "#caf24d",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434840",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "surface-tint": "#486644",
+                        "primary": "#42603f",
+                        "on-background": "#1f1b15",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container": "#f5ede2",
+                        "surface-bright": "#fff8f2",
+                        "on-secondary-container": "#566c00",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-fixed": "#161e00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-primary-fixed": "#052107",
+                        "background": "#fff8f2",
+                        "outline": "#737970",
+                        "on-surface": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#fbf2e8",
+                        "inverse-surface": "#343029",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface": "#fff8f2",
+                        "primary-fixed": "#c9ecc2",
+                        "surface-dim": "#e1d9cf",
+                        "outline-variant": "#c3c8be"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopNavBar Shell -->
+<header class="sticky top-0 z-40 flex justify-between items-center px-8 py-4 w-full bg-[#fff8f2]/70 dark:bg-[#1f1b15]/70 backdrop-blur-xl">
+<div class="flex items-center gap-6">
+<span class="font-noto-serif text-xl font-bold italic text-[#1f1b15] dark:text-[#fbf2e8]">Ladder Admin</span>
+<nav class="hidden md:flex gap-8 items-center font-noto-serif text-sm tracking-tight">
+<a class="text-[#1f1b15]/60 dark:text-[#fbf2e8]/60 hover:bg-[#eae1d7] dark:hover:bg-[#42603f]/20 transition-colors px-3 py-1 rounded-full" href="#">Dashboard</a>
+<a class="text-[#1f1b15]/60 dark:text-[#fbf2e8]/60 hover:bg-[#eae1d7] dark:hover:bg-[#42603f]/20 transition-colors px-3 py-1 rounded-full" href="#">Schools</a>
+<a class="text-[#5A7956] font-bold" href="#">Utility Tools</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 text-[#5A7956] hover:bg-[#eae1d7] transition-colors rounded-full">notifications</button>
+<button class="material-symbols-outlined p-2 text-[#5A7956] hover:bg-[#eae1d7] transition-colors rounded-full">settings</button>
+<img alt="Administrator profile" class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-primary-container/20" data-alt="Close up portrait of a professional administrator in a brightly lit modern academic office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAURzzBrKWYTB-tYEmgZjJ0ztVYjMO-vc3lV47GfRrMBemG-NMXBXlr_FlSJm_cb4-gNZrmI-07L0EDbp0eVFXqxFFxl3nzAlnCuECoEVWcQHBr0R2m37336YpF1_9-R3Stj9AHrskcJV-vsHIJHWPg3BWYLKAyB_cK2_RoYGgNXR3ZCtrs9zh8nlwgFcPI_c3fqvvGTin4nv0A0Cr0exFMqniTRzqqIrvy7D6Gb1Nvbsy1J1NM9yxxrRYb28VZcERd3DoB7EOGUHw"/>
+</div>
+</header>
+<main class="flex min-h-[calc(100vh-72px)]">
+<!-- SideNavBar Shell (Suppressed based on focused journey rule, using simple back navigation instead for Wizard) -->
+<div class="flex-1 flex flex-col items-center py-12 px-6">
+<!-- Data Export Wizard Content Canvas -->
+<div class="w-full max-w-[600pt] space-y-10">
+<!-- Header Section -->
+<section class="space-y-2">
+<div class="flex items-center gap-2 text-primary font-medium mb-2">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<span class="text-xs uppercase tracking-widest font-bold">Back to Utility Tools</span>
+</div>
+<h1 class="font-headline text-5xl font-black text-on-background tracking-tighter">Data Export Wizard</h1>
+<p class="text-on-surface-variant max-w-md">Compile district-level insights and student metrics into structured reports for external analysis.</p>
+</section>
+<!-- Step 1: Export Type Radio Cards -->
+<section class="space-y-6">
+<h2 class="text-xs font-bold uppercase tracking-[0.2em] text-outline">01. Select Export Type</h2>
+<div class="grid grid-cols-1 gap-3">
+<!-- Radio Card: Student Roster -->
+<label class="group cursor-pointer relative block">
+<input checked="" class="peer sr-only" name="export_type" type="radio"/>
+<div class="flex items-center justify-between p-6 bg-surface-container-low rounded-xl group-hover:bg-surface-container transition-all duration-300 peer-checked:bg-surface-container-highest peer-checked:ring-2 peer-checked:ring-secondary-fixed">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<div>
+<span class="block font-bold text-lg">Student Roster</span>
+<span class="text-sm text-on-surface-variant">Complete demographic and enrollment data.</span>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant peer-checked:bg-secondary-fixed flex items-center justify-center">
+<div class="w-2 h-2 bg-on-secondary rounded-full"></div>
+</div>
+</div>
+</label>
+<!-- Radio Card: App Data -->
+<label class="group cursor-pointer relative block">
+<input class="peer sr-only" name="export_type" type="radio"/>
+<div class="flex items-center justify-between p-6 bg-surface-container-low rounded-xl group-hover:bg-surface-container transition-all duration-300 peer-checked:bg-surface-container-highest peer-checked:ring-2 peer-checked:ring-secondary-fixed">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">data_exploration</span>
+</div>
+<div>
+<span class="block font-bold text-lg">App Data</span>
+<span class="text-sm text-on-surface-variant">Usage statistics, login frequency, and session logs.</span>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center"></div>
+</div>
+</label>
+<!-- Radio Card: Academic Data -->
+<label class="group cursor-pointer relative block">
+<input class="peer sr-only" name="export_type" type="radio"/>
+<div class="flex items-center justify-between p-6 bg-surface-container-low rounded-xl group-hover:bg-surface-container transition-all duration-300 peer-checked:bg-surface-container-highest peer-checked:ring-2 peer-checked:ring-secondary-fixed">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</div>
+<div>
+<span class="block font-bold text-lg">Academic Data</span>
+<span class="text-sm text-on-surface-variant">Grades, assessment results, and milestones.</span>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center"></div>
+</div>
+</label>
+<div class="grid grid-cols-2 gap-3">
+<label class="group cursor-pointer relative block">
+<input class="peer sr-only" name="export_type" type="radio"/>
+<div class="flex flex-col gap-4 p-6 bg-surface-container-low rounded-xl group-hover:bg-surface-container transition-all duration-300 peer-checked:bg-surface-container-highest peer-checked:ring-2 peer-checked:ring-secondary-fixed">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="block font-bold">Full Report</span>
+</div>
+</label>
+<label class="group cursor-pointer relative block">
+<input class="peer sr-only" name="export_type" type="radio"/>
+<div class="flex flex-col gap-4 p-6 bg-surface-container-low rounded-xl group-hover:bg-surface-container transition-all duration-300 peer-checked:bg-surface-container-highest peer-checked:ring-2 peer-checked:ring-secondary-fixed">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">folder_zip</span>
+<span class="block font-bold">ZIP Package</span>
+</div>
+</label>
+</div>
+</div>
+</section>
+<!-- Step 2: Filters -->
+<section class="space-y-8 py-8 border-t border-outline-variant/10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<!-- Date Range Picker -->
+<div class="space-y-4">
+<h2 class="text-xs font-bold uppercase tracking-[0.2em] text-outline">02. Date Range</h2>
+<div class="flex items-center gap-4">
+<div class="flex-1 space-y-1">
+<label class="text-[10px] text-tertiary uppercase font-bold px-1">Start</label>
+<input class="w-full bg-transparent border-b border-outline-variant/40 focus:border-primary focus:ring-0 py-2 outline-none" type="date"/>
+</div>
+<span class="material-symbols-outlined text-outline-variant pt-5">arrow_forward</span>
+<div class="flex-1 space-y-1">
+<label class="text-[10px] text-tertiary uppercase font-bold px-1">End</label>
+<input class="w-full bg-transparent border-b border-outline-variant/40 focus:border-primary focus:ring-0 py-2 outline-none" type="date"/>
+</div>
+</div>
+</div>
+<!-- Grade Chips -->
+<div class="space-y-4">
+<h2 class="text-xs font-bold uppercase tracking-[0.2em] text-outline">03. Target Grades</h2>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary text-sm font-medium">Grade 9</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium hover:bg-surface-container-highest transition-colors">Grade 10</button>
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary text-sm font-medium">Grade 11</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium hover:bg-surface-container-highest transition-colors">Grade 12</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm font-medium hover:bg-surface-container-highest transition-colors">Post-Grad</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Generate Export CTA -->
+<div class="pt-6">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold py-6 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:brightness-110 transition-all">
+<span class="material-symbols-outlined">analytics</span>
+                        Generate Export
+                    </button>
+<p class="text-center text-xs text-outline-variant mt-4 italic">Exports typically take 2-5 minutes to process depending on volume.</p>
+</div>
+<!-- Download History Table -->
+<section class="pt-16 space-y-6">
+<div class="flex items-end justify-between">
+<h2 class="text-xs font-bold uppercase tracking-[0.2em] text-outline">Recent Export History</h2>
+<span class="text-xs text-primary font-medium cursor-pointer underline decoration-2 underline-offset-4">Clear All History</span>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<table class="w-full text-left">
+<thead class="bg-surface-container-high">
+<tr>
+<th class="px-6 py-4 text-[10px] font-black uppercase text-outline tracking-wider">Filename</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase text-outline tracking-wider">Type</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase text-outline tracking-wider">Date</th>
+<th class="px-6 py-4 text-[10px] font-black uppercase text-outline tracking-wider">Size</th>
+<th class="px-6 py-4 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 text-sm font-bold">Q4_Academic_Summary.xlsx</td>
+<td class="px-6 py-4">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-[10px] font-bold uppercase">Academic</span>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 24, 2023</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">4.2 MB</td>
+<td class="px-6 py-4 text-right">
+<a class="text-secondary font-bold text-sm flex items-center justify-end gap-1 hover:text-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">download</span>
+                                            Download
+                                        </a>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 text-sm font-bold">District_Staff_Directory.csv</td>
+<td class="px-6 py-4">
+<span class="bg-tertiary-container/20 text-tertiary-container px-2 py-0.5 rounded text-[10px] font-bold uppercase">Staff</span>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 22, 2023</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">842 KB</td>
+<td class="px-6 py-4 text-right">
+<a class="text-secondary font-bold text-sm flex items-center justify-end gap-1 hover:text-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">download</span>
+                                            Download
+                                        </a>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 text-sm font-bold">Student_Success_Package.zip</td>
+<td class="px-6 py-4">
+<span class="bg-secondary-container/30 text-on-secondary-container px-2 py-0.5 rounded text-[10px] font-bold uppercase">Package</span>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 15, 2023</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">128.5 MB</td>
+<td class="px-6 py-4 text-right">
+<a class="text-secondary font-bold text-sm flex items-center justify-end gap-1 hover:text-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">download</span>
+                                            Download
+                                        </a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Visual Embellishment: Background texture -->
+<div class="fixed inset-0 -z-50 pointer-events-none opacity-[0.03]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmCw2nnIOlaDF8WpBwmYup7haRQssJXw5v6mImh4yIgbBnyC_FuxUugZb2a42Gf95hDLBiUfodWqZEhFQDIjIDXwDYLHu1og2DVLh1LvgB0dpLrUiD2awnCRVdrbnZc8ggqwwVaPLyRF_ZWfPdz71vi-cy5wF3xPnWcgRCGhr_r2CsZYtOc9AlirukYUEKlHsKIcWWYAcKi5ZROFGO-hqqY0KZTGHcb8iU56_xAB4sX4lP_-2FCdXLpbnuWXphI7tcgF5sdk6Oeng');"></div>
+</body></html>

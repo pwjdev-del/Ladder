@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Research &amp; Internship Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container": "#f5ede2",
+                        "surface-variant": "#eae1d7",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed": "#161e00",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed": "#caf24d",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-secondary-container": "#566c00",
+                        "surface-tint": "#486644",
+                        "on-primary-fixed": "#052107",
+                        "tertiary-container": "#8d6a48",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-bright": "#fff8f2",
+                        "inverse-surface": "#343029",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fff8f2",
+                        "secondary-container": "#caf24d",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f2",
+                        "on-tertiary-fixed": "#2c1600",
+                        "outline-variant": "#c3c8be",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "tertiary": "#725232",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary": "#42603f",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface": "#1f1b15",
+                        "on-background": "#1f1b15",
+                        "inverse-primary": "#aed0a7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Noto Serif', serif; }
+        .glass-nav {
+            background-color: rgba(255, 248, 242, 0.7);
+            backdrop-filter: blur(24px);
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-fixed/30">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 flex-shrink-0 border-r-0 z-50">
+<div class="mb-10 px-4">
+<h1 class="text-3xl font-noto-serif italic font-bold text-[#42603f] dark:text-[#caf24d]">Ladder</h1>
+<p class="font-body text-xs tracking-widest uppercase opacity-60 mt-1">College Prep Platform</p>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm">Academic Tracker</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="text-sm">Transcript</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm">Course Guide</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800" href="#">
+<span class="material-symbols-outlined">calendar_view_month</span>
+<span class="text-sm">AI Scheduler</span>
+</a>
+<!-- Active Tab: Research -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7]/40" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-sm">Research</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-sm">Essay Hub</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-sm">Career Explorer</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-sm">Post-Grad</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 space-y-4">
+<button class="w-full premium-gradient text-on-primary py-3 rounded-xl font-bold tracking-tight shadow-lg hover:scale-95 transition-all text-sm">
+                Upgrade to Pro
+            </button>
+<div class="pt-4 border-t border-outline-variant/20 flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-2 text-stone-500 text-sm hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-stone-500 text-sm hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 glass-nav shadow-sm dark:shadow-none">
+<div class="flex items-center bg-surface-container-high px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full font-body" placeholder="Search experiences..." type="text"/>
+</div>
+<nav class="flex items-center gap-8">
+<div class="hidden lg:flex items-center gap-8 text-stone-600 font-medium">
+<a class="hover:text-primary transition-all" href="#">Dashboard</a>
+<a class="hover:text-primary transition-all" href="#">Analytics</a>
+<a class="hover:text-primary transition-all" href="#">Community</a>
+</div>
+<div class="flex items-center gap-4 ml-4">
+<button class="p-2 hover:bg-surface-container-highest rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-fixed transition-transform hover:scale-110">
+<img alt="Student profile picture" data-alt="close-up portrait of a thoughtful young man in a library setting with warm academic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ5mcp0-ujL2xRzz7n8XQz3bAmlV_MSLY0yC9SzfADVlMo3mnwA6Af60NHdVvbQ12NBSMYfKppdohVkxuwjXS_3mwG5aJ1RWfCluALC35Jscio96NSTIvhz0Te7k9aVLBqWNUoR8k1LC3yN_3dRZsyvo8ZCi2sF84tbVMJvKZkDWz_OsaUitDLF6Y1BzDU18b95mSwiAqpLhwfC-Z0f4qXFcVS2GjZS0Zmx8m51adKCbEeGECMoXG1nvyFI0vbAC0tQkgEiGPpRoM"/>
+</div>
+</div>
+</nav>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-72 pt-20 h-screen flex overflow-hidden">
+<!-- Left Panel: List (45%) -->
+<section class="w-[45%] flex flex-col border-r-0 bg-surface-container-low overflow-hidden">
+<div class="p-8 pb-4">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="text-4xl font-headline tracking-tighter text-primary">Research &amp; Internships</h2>
+<p class="text-on-surface-variant font-body text-sm mt-1">Tracking 14 ongoing applications and active roles.</p>
+</div>
+<button class="bg-secondary-fixed text-on-secondary-fixed px-6 py-2.5 rounded-full font-bold flex items-center gap-2 hover:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined">add</span>
+                        Add New
+                    </button>
+</div>
+<div class="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary text-xs font-bold whitespace-nowrap">All</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-medium whitespace-nowrap hover:bg-outline-variant/30 transition-colors">Internships</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-medium whitespace-nowrap hover:bg-outline-variant/30 transition-colors">Research Labs</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-medium whitespace-nowrap hover:bg-outline-variant/30 transition-colors">Volunteer</button>
+</div>
+</div>
+<!-- List of Entry Cards -->
+<div class="flex-1 overflow-y-auto px-8 space-y-4 pb-8">
+<!-- Card 1: Active -->
+<div class="p-6 rounded-2xl bg-surface-container-highest border-2 border-primary/20 cursor-pointer hover:bg-white transition-all transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-3">
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-widest">Research Lab</span>
+<span class="flex items-center gap-1 text-secondary font-bold text-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span> Active
+                        </span>
+</div>
+<h3 class="text-xl font-headline mb-1 text-on-surface">Neural Architecture Assistant</h3>
+<p class="text-sm text-on-surface-variant font-medium mb-4">MIT McGovern Institute</p>
+<div class="flex items-center gap-4 text-xs text-outline">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_today</span> Aug '23 - Present</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 15h/week</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-6 rounded-2xl bg-surface transition-all hover:bg-surface-container-highest group">
+<div class="flex justify-between items-start mb-3">
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] font-bold uppercase tracking-widest">Internship</span>
+<span class="text-outline font-bold text-xs uppercase tracking-tighter">Applied</span>
+</div>
+<h3 class="text-xl font-headline mb-1 text-on-surface group-hover:text-primary transition-colors">Quantum Software Intern</h3>
+<p class="text-sm text-on-surface-variant font-medium mb-4">Google Quantum AI Lab</p>
+<div class="flex items-center gap-4 text-xs text-outline">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_today</span> Summer 2024</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">location_on</span> Santa Barbara, CA</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="p-6 rounded-2xl bg-surface transition-all hover:bg-surface-container-highest group">
+<div class="flex justify-between items-start mb-3">
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-widest">Research Lab</span>
+<span class="text-outline font-bold text-xs uppercase tracking-tighter">Completed</span>
+</div>
+<h3 class="text-xl font-headline mb-1 text-on-surface group-hover:text-primary transition-colors">Genomic Sequence Analysis</h3>
+<p class="text-sm text-on-surface-variant font-medium mb-4">The Broad Institute</p>
+<div class="flex items-center gap-4 text-xs text-outline">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_today</span> Jan '23 - Jun '23</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Details (55%) -->
+<section class="w-[55%] bg-surface flex flex-col overflow-y-auto">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover" data-alt="modern scientific laboratory with high-tech equipment, glowing screens, and clean minimalist architectural lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsAiuliPoitx7Xsqv5y3FD01ydsIWwFpluuKJBOJINYfz_l_tUYFQxs0gYBDApeOUzBi4lR46WmG2qpuldn5ppZS4s6dFaJ5gr5D5n9Ta7kAhHG0AbOk0mzEAOplPSZ9k9RmiiiIS1O8bmeufDO6DvgkJEG3EC8BYVOlWbFSdaSt5mH_0lYyn5UKxq1JRg0DGBT0cjNHowYUoy1i_WQ0k5Jwox7MRiA4kQpXSDKSRkN-SOB9_ZEtVIWTZOsmpNShwz_sISXDYt8Q8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent"></div>
+<div class="absolute bottom-6 right-6 flex gap-3">
+<button class="p-3 bg-white/90 backdrop-blur rounded-full text-on-surface hover:bg-primary hover:text-on-primary transition-all shadow-xl">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-3 bg-white/90 backdrop-blur rounded-full text-error hover:bg-error hover:text-on-error transition-all shadow-xl">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<div class="px-12 -mt-16 relative z-10">
+<div class="flex items-center gap-6 mb-4">
+<div class="w-20 h-20 bg-white rounded-2xl shadow-xl flex items-center justify-center p-3">
+<img class="w-full h-full object-contain" data-alt="abstract minimalist corporate logo for a science institute on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCELN8BqGFLbu06n2zKja8ERIHJ0JXtGuoeZETjE9QSXL8-luuUgYlBHOhHx2yRYWdvkF-09pDAW_ID3SFduOQd-HVDzey7xHPpRLXiv47Qr7Mr8HAjnvD2VxM4y3V20mnvaHjY98SoqdXk2ESs8NEVi7Ka2KkCZTTKj_WZs5sANjv7MfMIyGAZRWlfRI4Nc-PRzu_07E9IvO0D5hudu9reWzQuGRL6aue0lnDDuJcN4Vu2_Kj9ZN8GNgBd3S8Agf_3wKDyEKyJRNg"/>
+</div>
+<div>
+<h1 class="text-4xl font-headline font-bold text-primary leading-tight">Neural Architecture Assistant</h1>
+<p class="text-lg font-body text-on-surface-variant">MIT McGovern Institute for Brain Research</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6 py-8 border-y-0">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold">Skills Acquired</span>
+<div class="flex flex-wrap gap-1.5 mt-2">
+<span class="px-2.5 py-1 rounded bg-surface-container-high text-xs font-semibold text-primary">Python</span>
+<span class="px-2.5 py-1 rounded bg-surface-container-high text-xs font-semibold text-primary">Lab Protocols</span>
+<span class="px-2.5 py-1 rounded bg-surface-container-high text-xs font-semibold text-primary">PyTorch</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold">Time Commitment</span>
+<span class="text-lg font-headline text-on-surface mt-1">15h <span class="text-sm font-body text-outline">/ week average</span></span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold">Project Timeline</span>
+<span class="text-lg font-headline text-on-surface mt-1">10 Months <span class="text-sm font-body text-outline">in progress</span></span>
+</div>
+</div>
+<div class="py-10 space-y-10">
+<!-- Description Section -->
+<section>
+<h4 class="text-xl font-headline mb-4 text-primary">Experience Overview</h4>
+<p class="text-on-surface-variant leading-relaxed font-body">
+                            Working directly with Dr. Arisaka's team on modeling synaptic plasticity using deep learning frameworks. My primary focus is on preprocessing fMRI datasets and training convolutional networks to identify signal anomalies.
+                        </p>
+</section>
+<!-- Outcomes Bullets -->
+<section>
+<h4 class="text-xl font-headline mb-4 text-primary">Key Outcomes</h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-0.5">verified</span>
+<span class="text-on-surface-variant text-sm">Automated fMRI data cleaning pipeline, reducing manual review time by 40%.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-0.5">verified</span>
+<span class="text-on-surface-variant text-sm">Co-authored "Neural Mapping of Sensation" poster for the 2023 Fall Symposium.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-0.5">verified</span>
+<span class="text-on-surface-variant text-sm">Mastered aseptic technique and animal handling protocols for rodent studies.</span>
+</li>
+</ul>
+</section>
+<!-- Monthly Hours Bar Chart (Visual Representation) -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h4 class="text-xl font-headline text-primary">Hours Logged</h4>
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Last 6 Months</span>
+</div>
+<div class="bg-surface-container-low p-8 rounded-3xl flex items-end justify-between gap-2 h-48">
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-container/20 rounded-t-lg h-24 relative group">
+<div class="absolute bottom-0 w-full bg-primary-container h-16 rounded-t-lg group-hover:bg-primary transition-all"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">AUG</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-container/20 rounded-t-lg h-24 relative group">
+<div class="absolute bottom-0 w-full bg-primary-container h-20 rounded-t-lg group-hover:bg-primary transition-all"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">SEP</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-container/20 rounded-t-lg h-24 relative group">
+<div class="absolute bottom-0 w-full bg-primary-container h-14 rounded-t-lg group-hover:bg-primary transition-all"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">OCT</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-container/20 rounded-t-lg h-24 relative group">
+<div class="absolute bottom-0 w-full bg-primary-container h-24 rounded-t-lg group-hover:bg-primary transition-all"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">NOV</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-container/20 rounded-t-lg h-24 relative group">
+<div class="absolute bottom-0 w-full bg-primary-container h-18 rounded-t-lg group-hover:bg-primary transition-all"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">DEC</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-container/20 rounded-t-lg h-24 relative group">
+<div class="absolute bottom-0 w-full bg-secondary-fixed h-22 rounded-t-lg shadow-[0_0_15px_rgba(202,242,77,0.3)]"></div>
+</div>
+<span class="text-[10px] font-bold text-primary">JAN</span>
+</div>
+</div>
+</section>
+<!-- Document List -->
+<section class="pb-20">
+<h4 class="text-xl font-headline mb-4 text-primary">Reference Documents</h4>
+<div class="grid grid-cols-1 gap-3">
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">description</span>
+<div>
+<p class="text-sm font-bold text-on-surface">Fall_Symposium_Poster.pdf</p>
+<p class="text-[10px] text-outline">Uploaded Oct 12, 2023 • 4.2 MB</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">download</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-xl hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">clinical_notes</span>
+<div>
+<p class="text-sm font-bold text-on-surface">Lab_Methods_Review.docx</p>
+<p class="text-[10px] text-outline">Uploaded Dec 04, 2023 • 1.1 MB</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">download</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB (Supressed as per logic for Details Screen, but typically for Home) -->
+<!-- Not rendered here to prioritize the 55/45 panel split and detailed focus -->
+</body></html>

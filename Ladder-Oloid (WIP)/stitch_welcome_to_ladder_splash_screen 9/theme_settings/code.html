@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-secondary": "#ffffff",
+                  "inverse-surface": "#343029",
+                  "surface-tint": "#486644",
+                  "secondary-container": "#caf24d",
+                  "on-tertiary-container": "#fff5ee",
+                  "on-tertiary": "#ffffff",
+                  "primary-fixed-dim": "#aed0a7",
+                  "outline-variant": "#c3c8be",
+                  "on-surface-variant": "#434840",
+                  "tertiary-fixed": "#ffdcbd",
+                  "tertiary": "#725232",
+                  "surface-container": "#f5ede2",
+                  "background": "#fff8f2",
+                  "surface-container-lowest": "#ffffff",
+                  "on-primary-container": "#e2ffda",
+                  "primary-fixed": "#c9ecc2",
+                  "primary-container": "#5a7956",
+                  "on-secondary-fixed": "#161e00",
+                  "surface-container-highest": "#eae1d7",
+                  "surface-bright": "#fff8f2",
+                  "outline": "#737970",
+                  "on-secondary-fixed-variant": "#3c4d00",
+                  "primary": "#42603f",
+                  "on-secondary-container": "#566c00",
+                  "on-tertiary-fixed-variant": "#5e4122",
+                  "secondary-fixed": "#caf24d",
+                  "error-container": "#ffdad6",
+                  "on-tertiary-fixed": "#2c1600",
+                  "secondary": "#516600",
+                  "on-error-container": "#93000a",
+                  "surface-container-low": "#fbf2e8",
+                  "surface": "#fff8f2",
+                  "surface-container-high": "#efe7dd",
+                  "on-error": "#ffffff",
+                  "secondary-fixed-dim": "#afd531",
+                  "on-surface": "#1f1b15",
+                  "on-primary-fixed-variant": "#304e2e",
+                  "on-background": "#1f1b15",
+                  "tertiary-container": "#8d6a48",
+                  "on-primary": "#ffffff",
+                  "on-primary-fixed": "#052107",
+                  "inverse-on-surface": "#f8efe5",
+                  "inverse-primary": "#aed0a7",
+                  "tertiary-fixed-dim": "#e9bf96",
+                  "surface-variant": "#eae1d7",
+                  "error": "#ba1a1a",
+                  "surface-dim": "#e1d9cf"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "1.5rem",
+                  "full": "9999px"
+          },
+          "fontFamily": {
+                  "headline": ["Noto Serif"],
+                  "body": ["Manrope"],
+                  "label": ["Manrope"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Manrope', sans-serif; }
+    .font-serif { font-family: 'Noto Serif', serif; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-nav {
+      backdrop-filter: blur(20px);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex">
+<!-- Sidebar (NavigationDrawer) -->
+<aside class="fixed left-0 top-0 h-full z-40 h-screen w-72 bg-[#fbf2e8] dark:bg-stone-900 flex flex-col">
+<!-- Profile Header -->
+<div class="px-6 py-10 flex flex-col gap-2">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Student avatar" class="w-full h-full object-cover" data-alt="Close up portrait of a serious young scholar with glasses in a library setting, soft academic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAADxKoyI3GE90gCocSiiEp_PWOXCYEwGI5O7gGBrgNGcE4Lm-QbakjNNSZ9kIf9HDp_hEgaP0r9KNA1dyhD_L4oWmRkg-nykVm1iygCef1rCat5sBjRfm9xI9w6HvJBLJa4VQ9rSHJW1B0LouRkW7TTlSDCryAX5f4LYvy-8V6KuDT7yieIn5qgtC8B9zD0vFCeIqw5zE6WBODpdPj6UpK5PTH-pffit74bOYvC4MxfIPaUkndoC1wVFu9Xf2eZwqKvcb1NUEZ5dA"/>
+</div>
+<div>
+<h2 class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#5a7956]">Academic Atelier</h2>
+<p class="font-sans tracking-tight text-sm text-stone-500">Batch 9 Student</p>
+<span class="text-[10px] uppercase tracking-widest font-bold text-[#42603f]/60">Premium Scholar</span>
+</div>
+</div>
+<!-- Navigation Items -->
+<nav class="flex-1 flex flex-col">
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="font-sans tracking-tight text-sm">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+<span class="font-sans tracking-tight text-sm">Roommates</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+<span class="font-sans tracking-tight text-sm">Deadlines</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-sans tracking-tight text-sm">Profile</span>
+</a>
+<!-- Active State for Settings -->
+<a class="flex items-center gap-4 py-3 px-6 text-[#42603f] dark:text-[#5a7956] font-bold border-l-4 border-[#caf24d] bg-[#eae1d7]/40 dark:bg-stone-800 transition-colors duration-300 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-sans tracking-tight text-sm">Settings</span>
+</a>
+</nav>
+<!-- Footer Decorative element -->
+<div class="p-6">
+<div class="h-[2px] w-full bg-outline-variant opacity-20 mb-4"></div>
+<p class="text-[10px] text-stone-400 font-medium">EST. 2024 • VERSION 2.1.0</p>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 py-8 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl sticky top-0 z-30">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#42603f] hover:opacity-80 transition-opacity" data-icon="menu">menu</button>
+<h1 class="font-serif text-3xl tracking-tight text-[#1f1b15] dark:text-stone-100 italic">The Academic Atelier</h1>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-secondary-fixed/30 p-0.5">
+<img alt="User profile photo" class="w-full h-full object-cover rounded-full" data-alt="Close up portrait of a student, academic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiapFJGJH6Ajl_2iIfuRPsqvkFBoR-C0rjJz3EjDQ8d9_JldWMrTVXio1V2m-ggUfnPOTNbgPYs__H-iVX9i4IBlisKHxsRP9thh9au_isG7IV4-SaqLhLqy0yYOxo-IrEshCgn8vxiJ2UKp7wfQHVe1c7XeOlXXwzEQhBlBeGM398o5JwkFhCbR2LadnmBWjwQwtx8VmE55zvvw9J5MLCYpzaW8_Ziifdb_fnzwsuW2sBIDHf-msTBb4CdazUSt98FrzwVpbINhU"/>
+</div>
+</header>
+<!-- Content Container -->
+<section class="flex-1 flex items-center justify-center p-8">
+<div class="w-full max-w-[533px] flex flex-col gap-10">
+<!-- Header Text -->
+<div class="space-y-2 text-center md:text-left">
+<h2 class="text-4xl font-serif italic text-primary">Theme Settings</h2>
+<p class="text-on-surface-variant font-body tracking-tight text-sm">Tailor your workspace to your preferred learning atmosphere. Visual changes apply immediately across all modules.</p>
+</div>
+<!-- Theme Selection Grid -->
+<div class="grid grid-cols-1 gap-6">
+<!-- System Default Card -->
+<button class="group relative flex items-center gap-6 p-6 rounded-xl bg-surface-container-low transition-all duration-300 hover:bg-surface-container-high text-left">
+<div class="w-24 h-16 rounded-lg bg-surface-container-highest overflow-hidden relative shadow-sm">
+<div class="absolute inset-0 bg-gradient-to-br from-stone-100 to-stone-400"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-600/40 text-4xl" data-icon="tablet_android">tablet_android</span>
+</div>
+</div>
+<div class="flex-1">
+<span class="block text-lg font-serif font-bold text-on-surface">System Default</span>
+<span class="text-xs text-on-surface-variant opacity-70">Syncs with your device preferences</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-outline-variant/20 flex items-center justify-center group-hover:bg-outline-variant/40 transition-colors">
+<span class="material-symbols-outlined text-xs" data-icon="circle">circle</span>
+</div>
+</button>
+<!-- Light Mode Card (Active State) -->
+<button class="group relative flex items-center gap-6 p-6 rounded-xl bg-surface-container-highest ring-2 ring-primary transition-all duration-300 text-left">
+<!-- Selected Checkmark Badge -->
+<div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined font-bold text-lg" data-icon="check">check</span>
+</div>
+<div class="w-24 h-16 rounded-lg bg-white overflow-hidden relative shadow-sm border border-primary/10">
+<div class="absolute inset-x-2 top-2 h-2 w-8 bg-primary/20 rounded-full"></div>
+<div class="absolute inset-x-2 top-6 h-1 w-12 bg-stone-200 rounded-full"></div>
+<div class="absolute inset-x-2 top-8 h-1 w-10 bg-stone-100 rounded-full"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-10">
+<span class="material-symbols-outlined text-6xl" data-icon="light_mode">light_mode</span>
+</div>
+</div>
+<div class="flex-1">
+<span class="block text-lg font-serif font-bold text-primary">Light Mode</span>
+<span class="text-xs text-on-surface-variant">Crisp focus and high clarity</span>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="wb_sunny">wb_sunny</span>
+</button>
+<!-- Dark Mode Card -->
+<button class="group relative flex items-center gap-6 p-6 rounded-xl bg-surface-container-low transition-all duration-300 hover:bg-surface-container-high text-left">
+<div class="w-24 h-16 rounded-lg bg-[#1f1b15] overflow-hidden relative shadow-sm">
+<div class="absolute inset-x-2 top-2 h-2 w-8 bg-primary-container/40 rounded-full"></div>
+<div class="absolute inset-x-2 top-6 h-1 w-12 bg-stone-800 rounded-full"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-20">
+<span class="material-symbols-outlined text-6xl text-white" data-icon="dark_mode">dark_mode</span>
+</div>
+</div>
+<div class="flex-1">
+<span class="block text-lg font-serif font-bold text-on-surface">Dark Mode</span>
+<span class="text-xs text-on-surface-variant opacity-70">Deep contrast for late sessions</span>
+</div>
+<span class="material-symbols-outlined text-stone-400 group-hover:text-primary transition-colors" data-icon="bedtime">bedtime</span>
+</button>
+</div>
+<!-- Footer Note -->
+<div class="flex items-start gap-4 p-6 rounded-xl bg-tertiary-fixed/30 border border-tertiary-fixed/20">
+<span class="material-symbols-outlined text-tertiary" data-icon="info">info</span>
+<p class="text-xs font-medium text-tertiary leading-relaxed">
+                Note: Theme changes will initiate a smooth live preview transition. Some high-intensity graphics may take a moment to recalibrate their tonal balance.
+            </p>
+</div>
+<!-- Actions -->
+<div class="flex justify-between items-center pt-4 border-t border-outline-variant/10">
+<button class="text-on-surface-variant text-sm font-bold hover:underline decoration-secondary-fixed decoration-2 underline-offset-4">Reset to default</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-8 py-3 rounded-xl font-bold text-sm tracking-tight hover:opacity-90 transition-opacity">Apply Atmosphere</button>
+</div>
+</div>
+</section>
+<!-- Floating Action Button (Suppressed for focused settings screen as per mandate) -->
+</main>
+</body></html>

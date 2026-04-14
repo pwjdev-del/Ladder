@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Atelier - Profile View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "surface-tint": "#486644",
+                        "secondary-container": "#caf24d",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "outline-variant": "#c3c8be",
+                        "on-surface-variant": "#434840",
+                        "tertiary-fixed": "#ffdcbd",
+                        "tertiary": "#725232",
+                        "surface-container": "#f5ede2",
+                        "background": "#fff8f2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-container": "#5a7956",
+                        "on-secondary-fixed": "#161e00",
+                        "surface-container-highest": "#eae1d7",
+                        "surface-bright": "#fff8f2",
+                        "outline": "#737970",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "primary": "#42603f",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "secondary-fixed": "#caf24d",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#2c1600",
+                        "secondary": "#516600",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#fbf2e8",
+                        "surface": "#fff8f2",
+                        "surface-container-high": "#efe7dd",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface": "#1f1b15",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-background": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "inverse-on-surface": "#f8efe5",
+                        "inverse-primary": "#aed0a7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-variant": "#eae1d7",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#e1d9cf"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        .accent-glow {
+            box-shadow: 0 4px 20px -5px rgba(202, 242, 77, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="fixed left-0 top-0 h-full z-40 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 border-none">
+<div class="px-8 py-10">
+<h1 class="text-2xl font-serif font-bold text-[#42603f] dark:text-[#5a7956]">Academic Atelier</h1>
+<p class="font-serif italic text-sm text-[#42603f] opacity-70">Batch 9 Student</p>
+</div>
+<nav class="mt-4 flex flex-col gap-1">
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="font-sans tracking-tight text-sm">Housing</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group_add">group_add</span>
+<span class="font-sans tracking-tight text-sm">Roommates</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+<span class="font-sans tracking-tight text-sm">Deadlines</span>
+</a>
+<!-- Active Navigation: Profile -->
+<a class="flex items-center gap-4 py-3 px-6 text-[#42603f] dark:text-[#5a7956] font-bold border-l-4 border-[#caf24d] scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-sans tracking-tight text-sm">Profile</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-500 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-sans tracking-tight text-sm">Settings</span>
+</a>
+</nav>
+<div class="absolute bottom-10 px-8 w-full">
+<div class="p-4 rounded-xl bg-surface-container-highest flex flex-col gap-2">
+<span class="text-xs font-bold uppercase tracking-widest text-primary opacity-60">Status</span>
+<p class="text-sm font-medium">Premium Scholar</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar (Medium Type) -->
+<header class="flex justify-between items-center w-full px-8 py-6 bg-[#fff8f2]/70 backdrop-blur-xl sticky top-0 z-30">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f] cursor-pointer" data-icon="menu">menu</span>
+<h2 class="font-serif text-3xl tracking-tight text-[#1f1b15]">The Academic Atelier</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="portrait of a confident young male student with glasses in a library setting, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJLed5JIbknE2rd2gfyNor3vqAQw8KBHU232dV_c5MYdPTZ6cNhpYAwBgKO9ggtOILvZ11JfLyt0G3aL-eJbjYGGhKmKpuZ2ia_pAoS1WW-NteNVEKRSjmFF5Sm9vPUNDQKLYS7BnvFeCy6VQ39D1L_gsAxeUcF5UsxEguCqrYfeU4jrhdH6g5cG9KIZ0EgT00yMgquc1h5xpms6QErSBnUZ5bf3Yzo0G4v0o2oDBPQL2lSX2G5wRSrO0xKQcjqdbQ7IkxaRnK6-I"/>
+</div>
+</div>
+</header>
+<div class="px-12 py-8 max-w-7xl mx-auto">
+<!-- Profile Hero Section (Wide Header) -->
+<section class="mb-12 relative">
+<div class="flex flex-col md:flex-row items-end gap-8 bg-surface-container-low p-10 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-9xl text-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="w-40 h-40 rounded-xl overflow-hidden shadow-xl ring-4 ring-background z-10">
+<img alt="Student avatar" class="w-full h-full object-cover" data-alt="high quality portrait of a creative male student wearing a dark turtleneck against a neutral stone background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNPEKzYh-9OFGEdIHhi7etV4QqKQZK3Se6QjoE0c4qFOhcOwUaZ3nfM6dBzU2ZF14XfEAUsCKmKtkN1Ms30uuFgsKW5648BzkCPWn7IZS5W6CzJ6BIQtSBuJz1EcCBELQtDmOmlJjiLddZdV8VbKyXzZd5IAslc9XtdJoJOLkDu9fX8Bf3ptzVKR2AamI29pNvwu6i72Ephrthl6_kWtWb72sKWhGyCke5c9AzM9VY2yCf1NvZkf0oHhKxwD3XgcL39kQ4_pgXQII"/>
+</div>
+<div class="flex-1 z-10">
+<div class="flex items-center gap-3 mb-2">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold tracking-widest uppercase rounded-full">Visionary Archetype</span>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant text-[10px] font-bold tracking-widest uppercase rounded-full">Grade 11</span>
+</div>
+<h3 class="font-serif text-5xl font-bold tracking-tight mb-2 italic">Julian Thorne</h3>
+<div class="flex flex-wrap gap-x-6 gap-y-2 text-primary/80 font-medium">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="school">school</span>
+<span>St. Jude's International</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="architecture">architecture</span>
+<span>Aspiring Architect &amp; Urban Planner</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 z-10">
+<button class="btn-gradient text-white px-8 py-4 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity accent-glow">
+                            Edit Profile
+                        </button>
+</div>
+</div>
+</section>
+<!-- Stats Row -->
+<section class="mb-12">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-xs font-bold text-primary tracking-widest uppercase mb-1">Cumulative GPA</span>
+<span class="text-4xl font-serif font-bold">3.94</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-xs font-bold text-primary tracking-widest uppercase mb-1">SAT Target</span>
+<span class="text-4xl font-serif font-bold">1550</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-xs font-bold text-primary tracking-widest uppercase mb-1">Colleges Shortlisted</span>
+<span class="text-4xl font-serif font-bold">12</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-xs font-bold text-primary tracking-widest uppercase mb-1">Weekly Streak</span>
+<div class="flex items-center gap-2">
+<span class="text-4xl font-serif font-bold">42</span>
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Two-Column Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Left Column: Academics and College Planning -->
+<div class="lg:col-span-7 flex flex-col gap-10">
+<!-- Academics Card -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-serif text-2xl font-bold">Current Academics</h4>
+<span class="material-symbols-outlined text-primary/40" data-icon="bar_chart">bar_chart</span>
+</div>
+<div class="space-y-6">
+<div class="flex items-center justify-between p-5 bg-surface-container-highest rounded-xl">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="functions">functions</span>
+</div>
+<div>
+<p class="font-bold">AP Calculus BC</p>
+<p class="text-xs text-on-surface-variant">Ongoing • Period 2</p>
+</div>
+</div>
+<span class="font-serif text-xl font-bold text-primary">A</span>
+</div>
+<div class="flex items-center justify-between p-5 bg-surface-container-highest rounded-xl">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+</div>
+<div>
+<p class="font-bold">AP World History</p>
+<p class="text-xs text-on-surface-variant">Ongoing • Period 4</p>
+</div>
+</div>
+<span class="font-serif text-xl font-bold text-primary">A-</span>
+</div>
+<div class="flex items-center justify-between p-5 bg-surface-container-highest rounded-xl">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+</div>
+<div>
+<p class="font-bold">Honors Chemistry</p>
+<p class="text-xs text-on-surface-variant">Ongoing • Period 1</p>
+</div>
+</div>
+<span class="font-serif text-xl font-bold text-primary">B+</span>
+</div>
+</div>
+</div>
+<!-- College Planning -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-serif text-2xl font-bold">College Milestones</h4>
+<span class="material-symbols-outlined text-primary/40" data-icon="map">map</span>
+</div>
+<div class="relative pl-8">
+<!-- The Ladder Tracker -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-fixed glow-secondary rounded-full"></div>
+<div class="space-y-10">
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 bg-secondary-fixed rounded-full border-4 border-background"></div>
+<div class="p-6 bg-surface-container-highest rounded-xl">
+<p class="text-xs font-bold text-primary uppercase tracking-widest mb-1">Completed</p>
+<h5 class="font-bold mb-2">Build Final College List</h5>
+<p class="text-sm text-on-surface-variant leading-relaxed">Identified 3 reach, 6 target, and 3 safety schools for urban design programs.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 bg-secondary-fixed rounded-full border-4 border-background"></div>
+<div class="p-6 bg-surface-container-highest rounded-xl border-l-4 border-secondary-fixed">
+<p class="text-xs font-bold text-secondary tracking-widest uppercase mb-1">In Progress</p>
+<h5 class="font-bold mb-2">Personal Statement Draft 1</h5>
+<p class="text-sm text-on-surface-variant leading-relaxed">Focusing on the narrative of the city as a living organism. Due in 4 days.</p>
+</div>
+</div>
+<div class="relative opacity-50">
+<div class="absolute -left-[37px] top-1 w-4 h-4 bg-surface-container-high rounded-full border-4 border-background"></div>
+<div class="p-6 bg-surface-container-highest rounded-xl">
+<p class="text-xs font-bold text-on-surface-variant tracking-widest uppercase mb-1">Upcoming</p>
+<h5 class="font-bold mb-2">Request Recommendation Letters</h5>
+<p class="text-sm text-on-surface-variant leading-relaxed">Scheduled meetings with Mr. Henderson (Math) and Ms. Wu (Art).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Tools and Account Navigation -->
+<div class="lg:col-span-5 flex flex-col gap-10">
+<!-- Tools Card -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<h4 class="font-serif text-2xl font-bold mb-6">Essential Tools</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-6 bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-primary mb-4 block group-hover:scale-110 transition-transform" data-icon="calculate">calculate</span>
+<p class="font-bold text-sm">GPA Calculator</p>
+</div>
+<div class="p-6 bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-primary mb-4 block group-hover:scale-110 transition-transform" data-icon="edit_note">edit_note</span>
+<p class="font-bold text-sm">Essay Hub</p>
+</div>
+<div class="p-6 bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-primary mb-4 block group-hover:scale-110 transition-transform" data-icon="calendar_month">calendar_month</span>
+<p class="font-bold text-sm">Timeline Planner</p>
+</div>
+<div class="p-6 bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-primary mb-4 block group-hover:scale-110 transition-transform" data-icon="savings">savings</span>
+<p class="font-bold text-sm">Fin Aid Tracker</p>
+</div>
+</div>
+</div>
+<!-- Account Card with Navigation Rows -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<h4 class="font-serif text-2xl font-bold mb-6">Account &amp; Security</h4>
+<div class="space-y-2">
+<a class="flex items-center justify-between p-4 bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-all group" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="mail">mail</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Email Preferences</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">julian.t@atelier.edu</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-all group" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="lock">lock</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Privacy &amp; Security</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Last changed 3 months ago</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-all group" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="payments">payments</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Billing &amp; Subscription</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Premium Scholar Plan</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 bg-surface-container-highest rounded-xl hover:bg-surface-container-high transition-all group" href="#">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-error" data-icon="logout">logout</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-error">Sign Out</span>
+<span class="text-[10px] text-error opacity-60 uppercase tracking-wider">Clear session</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-error opacity-40" data-icon="chevron_right">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Decorative Asymmetric Element -->
+<div class="relative bg-primary-container p-8 rounded-xl overflow-hidden text-on-primary-container">
+<img alt="Interior of a modern atelier" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30" data-alt="blurred artistic shot of a clean modern studio workspace with large windows and architect tools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIPgS2QTGH2it7ktsQc-HRjIqc0j3CoIxDwAj-NUtlK7IXBR6DLq1JMZaby478pSXmN86id_OiyBIPngtUTCHMec7Mch91Iz_LOg8vO2aMbXR0f2gBOk6NaEDf8b1D-ytjJZRv1p9igpFdVwn0AN8D4ECFvGmC5FeGaIYywZNKpM-MUvsGgMAJn5G8XHt5LugRLHsZErXY1MFzVJBCWsLTKqecszuUQeeL6movL9fGMwZCA2uzMwJ3asFuKGNR8KLBKGzEYVcjlT8"/>
+<div class="relative z-10">
+<h5 class="font-serif italic text-2xl mb-2">"The future belongs to those who believe in the beauty of their dreams."</h5>
+<p class="text-sm font-medium">— Eleanor Roosevelt</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<footer class="px-12 py-10 mt-12 border-t border-outline-variant/15 text-on-surface-variant text-xs flex justify-between items-center">
+<p>© 2024 The Academic Atelier. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Excellence</a>
+</div>
+</footer>
+</main>
+</body></html>

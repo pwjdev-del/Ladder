@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder | Post-Graduation Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#efe7dd",
+                    "surface-container": "#f5ede2",
+                    "surface-variant": "#eae1d7",
+                    "on-surface-variant": "#434840",
+                    "on-secondary-fixed": "#161e00",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#c9ecc2",
+                    "secondary-fixed": "#caf24d",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-secondary-container": "#566c00",
+                    "surface-tint": "#486644",
+                    "on-primary-fixed": "#052107",
+                    "tertiary-container": "#8d6a48",
+                    "surface-dim": "#e1d9cf",
+                    "primary-container": "#5a7956",
+                    "surface-bright": "#fff8f2",
+                    "inverse-surface": "#343029",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-error": "#ffffff",
+                    "outline": "#737970",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fff8f2",
+                    "secondary-container": "#caf24d",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-secondary": "#ffffff",
+                    "background": "#fff8f2",
+                    "on-tertiary-fixed": "#2c1600",
+                    "outline-variant": "#c3c8be",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#aed0a7",
+                    "surface-container-low": "#fbf2e8",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "tertiary": "#725232",
+                    "inverse-on-surface": "#f8efe5",
+                    "primary": "#42603f",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-surface": "#1f1b15",
+                    "on-background": "#1f1b15",
+                    "inverse-primary": "#aed0a7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 flex-shrink-0 border-r-0 z-50">
+<div class="mb-10">
+<h1 class="text-3xl font-noto-serif italic font-bold text-[#42603f] dark:text-[#caf24d]">Ladder</h1>
+<p class="font-manrope text-sm text-stone-500 uppercase tracking-widest mt-1">College Prep Platform</p>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto no-scrollbar">
+<!-- Academic Tracker -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-98 active:opacity-80 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm">Academic Tracker</span>
+</a>
+<!-- Transcript -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-98 active:opacity-80 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="text-sm">Transcript</span>
+</a>
+<!-- Course Guide -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-98 active:opacity-80 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm">Course Guide</span>
+</a>
+<!-- AI Scheduler -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-98 active:opacity-80 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">calendar_view_month</span>
+<span class="text-sm">AI Scheduler</span>
+</a>
+<!-- Research -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-98 active:opacity-80 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-sm">Research</span>
+</a>
+<!-- Essay Hub -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-98 active:opacity-80 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="text-sm">Essay Hub</span>
+</a>
+<!-- Career Explorer -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-98 active:opacity-80 text-stone-500 dark:text-stone-400 font-medium" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-sm">Career Explorer</span>
+</a>
+<!-- Post-Grad (ACTIVE) -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors duration-300 scale-98 active:opacity-80 text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d]" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-sm">Post-Grad</span>
+</a>
+</nav>
+<div class="mt-8 space-y-4">
+<button class="w-full py-3 px-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-bold transition-all hover:opacity-90 active:scale-95">
+                Upgrade to Pro
+            </button>
+<div class="pt-4 border-t border-outline-variant/20 flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-2 text-stone-500 dark:text-stone-400 hover:text-primary transition-colors text-sm" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+                </a>
+<a class="flex items-center gap-4 px-4 py-2 text-stone-500 dark:text-stone-400 hover:text-primary transition-colors text-sm" href="#">
+<span class="material-symbols-outlined">help_outline</span> Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-72 min-h-screen bg-surface">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex items-center gap-8">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-outline">
+<span class="material-symbols-outlined text-xl">search</span>
+</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full w-64 focus:ring-2 focus:ring-primary/20 text-sm transition-all" placeholder="Search milestones..." type="text"/>
+</div>
+<nav class="hidden md:flex gap-8 font-noto-serif text-lg font-semibold text-[#5A7956]">
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#42603f] transition-all" href="#">Dashboard</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#42603f] transition-all" href="#">Analytics</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#42603f] transition-all" href="#">Community</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Student profile picture" class="w-full h-full object-cover" data-alt="close-up portrait of a young professional man with a confident smile in a studio with warm academic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIoVlPPReyajvGgKY81lTBH1pxnUJReERs9Wil5LJ7KjEJt7HhMdjVrPmBlBI6lmN-xdAHyFxmpdXfhDt2bUUkIuWOVN2SRyliCfKNqas0k7rzOgR763tG15nUiWNoWZ4pKxPcKeZLSJJndEeqZEkbBYt0JvWfbabbIMiA2pIsGbKyJMy9xabK-DCM5uuk0rFgHMq4ZUdR7ok_DhFNg0n_zJTTZVsBAHEEE8elIOmHGQ0l9f9hO85P_xnduvwSoGFiTWDl1Mzu7KQ"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="pt-24 px-10 pb-20">
+<!-- Header & Mode Switcher -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<h2 class="text-5xl font-noto-serif font-bold tracking-tighter text-primary">Life After College</h2>
+<p class="text-stone-500 mt-2 font-body max-w-lg">Transitioning from the classroom to the world. Your curated roadmap for professional and personal maturity.</p>
+</div>
+<div class="flex p-1 bg-surface-container-low rounded-xl">
+<button class="px-6 py-2 text-sm font-semibold rounded-lg text-stone-500 transition-all hover:bg-surface-container">Pre-Graduation</button>
+<button class="px-6 py-2 text-sm font-bold rounded-lg bg-white shadow-sm text-primary transition-all">Post-Graduation</button>
+</div>
+</div>
+<!-- Timeline (Horizontal Scrollable) -->
+<div class="mb-16">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-noto-serif text-2xl font-bold">Transition Timeline</h3>
+<div class="flex gap-2">
+<button class="p-2 bg-surface-container-highest rounded-full text-stone-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 bg-surface-container-highest rounded-full text-stone-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4">
+<!-- May -->
+<div class="flex-shrink-0 w-64 p-6 bg-surface-container-highest rounded-xl border-t-4 border-secondary-fixed">
+<span class="text-stone-400 font-bold text-xs uppercase tracking-widest">May</span>
+<h4 class="text-xl font-bold mt-2">Commencement</h4>
+<div class="mt-4 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed"></div>
+<span class="text-xs text-stone-600">Final Transcript Request</span>
+</div>
+</div>
+<!-- June -->
+<div class="flex-shrink-0 w-64 p-6 bg-surface-container-low rounded-xl opacity-80">
+<span class="text-stone-400 font-bold text-xs uppercase tracking-widest">June</span>
+<h4 class="text-xl font-bold mt-2">Relocation Phase</h4>
+<div class="mt-4 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-stone-300"></div>
+<span class="text-xs text-stone-600">Secure short-term housing</span>
+</div>
+</div>
+<!-- July -->
+<div class="flex-shrink-0 w-64 p-6 bg-surface-container-low rounded-xl opacity-80">
+<span class="text-stone-400 font-bold text-xs uppercase tracking-widest">July</span>
+<h4 class="text-xl font-bold mt-2">Career Kickoff</h4>
+<div class="mt-4 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-stone-300"></div>
+<span class="text-xs text-stone-600">First Paycheck Budgeting</span>
+</div>
+</div>
+<!-- August -->
+<div class="flex-shrink-0 w-64 p-6 bg-surface-container-low rounded-xl opacity-80">
+<span class="text-stone-400 font-bold text-xs uppercase tracking-widest">August</span>
+<h4 class="text-xl font-bold mt-2">Independence</h4>
+<div class="mt-4 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-stone-300"></div>
+<span class="text-xs text-stone-600">Benefits Enrollment</span>
+</div>
+</div>
+<!-- September -->
+<div class="flex-shrink-0 w-64 p-6 bg-surface-container-low rounded-xl opacity-80">
+<span class="text-stone-400 font-bold text-xs uppercase tracking-widest">September</span>
+<h4 class="text-xl font-bold mt-2">Refinement</h4>
+<div class="mt-4 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-stone-300"></div>
+<span class="text-xs text-stone-600">Side Project Launch</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Checklist Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+<!-- Housing Card -->
+<div class="bg-surface-container-low p-8 rounded-2xl group hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-white rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-primary">home_work</span>
+</div>
+<span class="text-sm font-bold text-primary">60% Complete</span>
+</div>
+<h3 class="text-2xl font-bold mb-4 font-noto-serif">Housing &amp; Relocation</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-stone-600">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Sign Lease Agreement</span>
+</li>
+<li class="flex items-center gap-3 text-stone-600">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Utility Setups</span>
+</li>
+<li class="flex items-center gap-3 text-stone-400">
+<span class="material-symbols-outlined">radio_button_unchecked</span>
+<span>Renters Insurance</span>
+</li>
+</ul>
+</div>
+<!-- Career Card -->
+<div class="bg-surface-container-low p-8 rounded-2xl group hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-white rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-primary">work</span>
+</div>
+<span class="text-sm font-bold text-primary">25% Complete</span>
+</div>
+<h3 class="text-2xl font-bold mb-4 font-noto-serif">Career &amp; Growth</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-stone-600">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>LinkedIn Refresh</span>
+</li>
+<li class="flex items-center gap-3 text-stone-400">
+<span class="material-symbols-outlined">radio_button_unchecked</span>
+<span>Mentorship Outreach</span>
+</li>
+<li class="flex items-center gap-3 text-stone-400">
+<span class="material-symbols-outlined">radio_button_unchecked</span>
+<span>Continuing Ed Registry</span>
+</li>
+</ul>
+</div>
+<!-- Financial Card -->
+<div class="bg-surface-container-low p-8 rounded-2xl group hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-white rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<span class="text-sm font-bold text-primary">85% Complete</span>
+</div>
+<h3 class="text-2xl font-bold mb-4 font-noto-serif">Financial Wellness</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-stone-600">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Loan Consolidation Plan</span>
+</li>
+<li class="flex items-center gap-3 text-stone-600">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>401k/Roth IRA Setup</span>
+</li>
+<li class="flex items-center gap-3 text-stone-600">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Emergency Fund Base</span>
+</li>
+</ul>
+</div>
+<!-- Life Skills Card -->
+<div class="bg-surface-container-low p-8 rounded-2xl group hover:bg-surface-container-high transition-all">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-white rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-primary">self_improvement</span>
+</div>
+<span class="text-sm font-bold text-primary">10% Complete</span>
+</div>
+<h3 class="text-2xl font-bold mb-4 font-noto-serif">Life Management</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-stone-400">
+<span class="material-symbols-outlined">radio_button_unchecked</span>
+<span>Basic Culinary Mastery</span>
+</li>
+<li class="flex items-center gap-3 text-stone-400">
+<span class="material-symbols-outlined">radio_button_unchecked</span>
+<span>Healthcare Switchover</span>
+</li>
+<li class="flex items-center gap-3 text-stone-400">
+<span class="material-symbols-outlined">radio_button_unchecked</span>
+<span>Social Network Building</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Bottom Resources Row -->
+<div class="mt-12">
+<h3 class="font-noto-serif text-2xl font-bold mb-8">Curated Post-Grad Resources</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="relative overflow-hidden group h-64 rounded-2xl cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="high-angle shot of a minimalist wooden desk with a laptop, fountain pen, and leather notebook in soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjuBZ_Qw4suoLd7gPogCmLWDEvVS3QvUeCKjSjqGlTjdRHbdqMr-bRjfpgWmVtpnkAYiRlG_sYoNenrNx9G1gn7TYIzL0jf5HU6C37SFwr3KGWI247vyyw1FQ3EgA6Au9h-c_pnpIHaG5svnA2Y0560qNGSp0X4IQ2FsnouATZ2sy6fdROIIFgZ-fYw8JiWRZ5JBQ0QT73LxpHiOpiIOAH4_t3ueDEnjpKsrIS0HGK2gX4Z_C0W3hlbJASoz_OlUTkEF4ZLPVzDaQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<span class="text-xs font-bold text-secondary-fixed uppercase tracking-widest">Guide</span>
+<h4 class="text-white text-lg font-bold leading-tight mt-1">Mastering Your First 90 Days on the Job</h4>
+</div>
+</div>
+<div class="relative overflow-hidden group h-64 rounded-2xl cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="close-up of golden sunlight filtering through plants onto a stack of neatly organized financial papers and a cup of coffee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZxuugIMVhvk1myUFdajkB0OkICEYq8u1jLj3tbu9cKT6k-G--5OtMrPGzV1MYGTU-B0cuhKfCGwPKMt0hpO7V2SOqEFU6jeeI40ABkbBPt0FYdxCstfGUT9xbt4YmwopUxdVqTKFHQVqQdhh8Yrnn9otIkfrRQt2V7ZyItyxGTtD90PxOWqWDtcIMZwlSxPnoKaz5Vr_KN5J9cNvwMpuSTVb-CIAjSkZ4IGz_aqgS7AHPL8qpVvrEEWPoWg5yNU7WnywNTJpKa8w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<span class="text-xs font-bold text-secondary-fixed uppercase tracking-widest">Masterclass</span>
+<h4 class="text-white text-lg font-bold leading-tight mt-1">Investment Foundations for Young Adults</h4>
+</div>
+</div>
+<div class="relative overflow-hidden group h-64 rounded-2xl cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="a group of diverse young professionals laughing and talking at a stylish rooftop gathering during sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBJEGWJcI9dGFDdKyoD0PFMqzEVrM1s_g02ZaMJsUnNw2jrm0lbrA8M14_SMJ9EQbl7vzmXa2XI7yYDmDhqO2VkOeeFr7mp3_QHlOn8Anfkobl3dvuBOCmhLEXDoPhqiMH79Y5FeKT9XZF_oMQAS1AD_e8xbuwBrdX16VRDo4SXTcnnxTy1rbgZV6bFqESlfFAUtbWXKVVCG5umk_UKgsTiJrlHZUdBFrjaLp0HRUqSto3ZBIXGClhy1MZvC4GmMKrRmOGcUxtNEc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<span class="text-xs font-bold text-secondary-fixed uppercase tracking-widest">Workshop</span>
+<h4 class="text-white text-lg font-bold leading-tight mt-1">Building Community in a New City</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

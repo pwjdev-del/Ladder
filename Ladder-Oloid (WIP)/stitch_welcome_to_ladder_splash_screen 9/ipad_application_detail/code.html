@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#fff8f2",
+                        "on-primary-container": "#e2ffda",
+                        "background": "#fff8f2",
+                        "outline": "#737970",
+                        "surface-container-highest": "#eae1d7",
+                        "tertiary": "#725232",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-secondary-container": "#566c00",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#eae1d7",
+                        "surface": "#fff8f2",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#e1d9cf",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-container": "#5a7956",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container": "#f5ede2",
+                        "secondary-fixed": "#caf24d",
+                        "on-surface": "#1f1b15",
+                        "error": "#ba1a1a",
+                        "on-background": "#1f1b15",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "secondary": "#516600",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed": "#161e00",
+                        "surface-tint": "#486644",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-container": "#8d6a48",
+                        "outline-variant": "#c3c8be",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#fbf2e8",
+                        "secondary-container": "#caf24d",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "primary": "#42603f",
+                        "inverse-on-surface": "#f8efe5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .font-headline { font-family: 'Noto Serif', serif; }
+        .premium-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-8 bg-stone-50 dark:bg-stone-950 h-full w-72 border-r-0 rounded-r-none z-50">
+<div class="mb-12">
+<span class="font-serif italic text-2xl tracking-tighter text-emerald-900 dark:text-emerald-100">Ladder</span>
+</div>
+<nav class="flex flex-col flex-grow">
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-sm tracking-tight">Home</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="checklist">checklist</span>
+<span class="text-sm tracking-tight">Tasks</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-sm tracking-tight">Colleges</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-emerald-900 dark:text-emerald-50 font-bold border-b-2 border-lime-400 mb-2 scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-sm tracking-tight">Applications</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="text-sm tracking-tight">Advisor</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-sm tracking-tight">Financial</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors text-stone-500 dark:text-stone-400 font-medium mb-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-sm tracking-tight">Career</span>
+</a>
+</div>
+</nav>
+<div class="pt-8 mt-auto border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a young college student with a friendly smile, natural lighting, academic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE7L7pvnlvtTDp28fT7HiRXz9NfQTLKFCbdFkxKZzDJ3ogcEK4QghwwkPcFGGFO13PXw4UYEHjQh2Z1Wrc0vueIg7sXQAlD22JqisaDHjYfyvYrSpxglBr9swsf7frncgkTdVvcQsvyhfzOlaYrOhQE_yiSBGduLN_VbURoDLWGVq4YXeqPVL3hMzdBamq1RXSbyL8ec9Go_OPZG37RIZlGAHX9jZpaRDSnZHPD0nA4dogaa5cge6xu2ihuOYIf-x9nU1hexfU4mY"/>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Alex Rivera</p>
+<p class="text-[10px] text-on-surface-variant">Sophomore Year</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="pl-72 min-h-screen">
+<!-- TopAppBar Shell -->
+<header class="flex justify-between items-center pl-12 pr-12 py-6 w-full sticky top-0 z-40 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-xl transition-all">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-emerald-900 dark:text-emerald-100" data-icon="menu_open">menu_open</button>
+<h1 class="font-headline text-2xl italic tracking-tight text-emerald-900 dark:text-emerald-100">Application Detail</h1>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</button>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">
+                    AR
+                </div>
+</div>
+</header>
+<!-- Main Canvas -->
+<div class="px-12 pb-20">
+<div class="grid grid-cols-10 gap-10">
+<!-- Left Column (55%) -->
+<div class="col-span-10 lg:col-span-6 space-y-8">
+<!-- Status Header Card -->
+<section class="bg-surface-container-low p-8 rounded-xl flex items-center justify-between relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-xs font-bold tracking-widest text-primary uppercase mb-2 block">Institution</span>
+<h2 class="font-headline text-4xl mb-2 text-on-surface">Stanford University</h2>
+<p class="text-on-surface-variant max-w-xs">Full-time • Undergraduate Admission • Fall 2024</p>
+<div class="mt-8 flex gap-4">
+<button class="premium-gradient text-on-primary font-bold px-8 py-3 rounded-xl hover:opacity-90 transition-all flex items-center gap-2">
+<span>Submit</span>
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+<button class="bg-surface-container-highest text-on-surface font-bold px-8 py-3 rounded-xl hover:bg-stone-200 transition-all">
+                                    Withdraw
+                                </button>
+</div>
+</div>
+<div class="flex flex-col items-end gap-3">
+<div class="bg-secondary-fixed text-on-secondary-fixed px-6 py-2 rounded-full font-extrabold text-sm tracking-tight shadow-lg shadow-secondary/20">
+                                IN REVIEW
+                            </div>
+<div class="text-right">
+<span class="block text-5xl font-headline text-primary">85%</span>
+<span class="text-xs font-bold text-on-surface-variant/60">MATCH SCORE</span>
+</div>
+</div>
+<!-- Abstract graphic element -->
+<div class="absolute -right-12 -top-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+</section>
+<!-- Progress Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h3 class="font-headline text-xl italic text-on-surface">Completion Milestone</h3>
+<span class="text-sm font-bold text-primary">12 / 14 Tasks Complete</span>
+</div>
+<div class="h-4 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[85%] rounded-full shadow-[0_0_15px_rgba(202,242,77,0.4)]"></div>
+</div>
+</section>
+<!-- Detailed Checklist -->
+<section class="bg-surface-container-low rounded-xl p-8 space-y-6">
+<h3 class="font-headline text-2xl text-on-surface">Application Checklist</h3>
+<div class="space-y-4">
+<!-- Checklist Item 1 -->
+<div class="flex items-center gap-4 p-4 bg-surface rounded-lg">
+<div class="w-3 h-3 rounded-full bg-error shrink-0" title="High Priority"></div>
+<div class="flex-grow">
+<h4 class="font-bold text-sm text-on-surface">Final Personal Statement</h4>
+<p class="text-xs text-on-surface-variant">Review and upload final PDF draft</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+<!-- Checklist Item 2 -->
+<div class="flex items-center gap-4 p-4 bg-surface rounded-lg opacity-60">
+<div class="w-3 h-3 rounded-full bg-stone-300 shrink-0"></div>
+<div class="flex-grow line-through">
+<h4 class="font-bold text-sm text-on-surface">Letters of Recommendation</h4>
+<p class="text-xs text-on-surface-variant">Confirmed by Dr. Aris and Mr. Thorne</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Checklist Item 3 -->
+<div class="flex items-center gap-4 p-4 bg-surface rounded-lg">
+<div class="w-3 h-3 rounded-full bg-amber-400 shrink-0" title="Medium Priority"></div>
+<div class="flex-grow">
+<h4 class="font-bold text-sm text-on-surface">SAT/ACT Score Reports</h4>
+<p class="text-xs text-on-surface-variant">Digital verified scores from CollegeBoard</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+<!-- Checklist Item 4 -->
+<div class="flex items-center gap-4 p-4 bg-surface rounded-lg opacity-60">
+<div class="w-3 h-3 rounded-full bg-stone-300 shrink-0"></div>
+<div class="flex-grow line-through">
+<h4 class="font-bold text-sm text-on-surface">Initial Application Fee</h4>
+<p class="text-xs text-on-surface-variant">Transaction #8829-X paid in full</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (45%) -->
+<div class="col-span-10 lg:col-span-4 space-y-10">
+<!-- Timeline Section -->
+<section class="relative">
+<h3 class="font-headline text-xl italic text-on-surface mb-8">Application Timeline</h3>
+<div class="space-y-8 relative pl-8">
+<!-- Timeline Ladder Line -->
+<div class="absolute left-3 top-0 bottom-0 w-[4px] bg-surface-container-highest rounded-full">
+<div class="absolute top-0 w-full h-[60%] bg-secondary-fixed rounded-full shadow-[0_0_10px_rgba(202,242,77,0.3)]"></div>
+</div>
+<div class="relative">
+<div class="absolute -left-7 top-1 w-4 h-4 rounded-full bg-secondary-fixed border-4 border-surface shadow-sm"></div>
+<span class="text-[10px] font-bold text-primary block uppercase tracking-wider">OCT 12, 2023</span>
+<h4 class="text-sm font-bold text-on-surface">Draft Completed</h4>
+<p class="text-xs text-on-surface-variant">First review with academic advisor.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-7 top-1 w-4 h-4 rounded-full bg-secondary-fixed border-4 border-surface shadow-sm"></div>
+<span class="text-[10px] font-bold text-primary block uppercase tracking-wider">NOV 01, 2023</span>
+<h4 class="text-sm font-bold text-on-surface">Recommendations Received</h4>
+<p class="text-xs text-on-surface-variant">All faculty responses processed.</p>
+</div>
+<div class="relative opacity-40">
+<div class="absolute -left-7 top-1 w-4 h-4 rounded-full bg-outline-variant border-4 border-surface"></div>
+<span class="text-[10px] font-bold text-on-surface-variant/60 block uppercase tracking-wider">JAN 05, 2024</span>
+<h4 class="text-sm font-bold text-on-surface">Final Deadline</h4>
+<p class="text-xs text-on-surface-variant">Standard application window closes.</p>
+</div>
+</div>
+</section>
+<!-- Document List -->
+<section class="bg-surface-container-high rounded-xl p-8">
+<h3 class="font-headline text-lg text-on-surface mb-6">Submitted Assets</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+<span class="text-xs font-bold">Transcript_Final.pdf</span>
+</div>
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="article">article</span>
+<span class="text-xs font-bold">Essay_V4_Draft.docx</span>
+</div>
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="hourglass_empty">hourglass_empty</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="text-xs font-bold">Passport_Scan.pdf</span>
+</div>
+<span class="material-symbols-outlined text-error text-sm" data-icon="cancel" data-weight="fill" style="font-variation-settings: 'FILL' 1;">cancel</span>
+</div>
+</div>
+</section>
+<!-- Notes Area -->
+<section class="space-y-4">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest px-2">Internal Advisor Notes</label>
+<div class="relative group">
+<textarea class="w-full bg-surface-container-low border-b border-outline-variant/40 focus:border-primary focus:ring-0 transition-colors p-6 rounded-xl text-sm leading-relaxed text-on-surface-variant min-h-[160px]" placeholder="Add notes regarding interview prep or follow-up tasks..."></textarea>
+<div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant/40" data-icon="edit_note">edit_note</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB Suppression (Hidden on Detail page per rules) -->
+</body></html>

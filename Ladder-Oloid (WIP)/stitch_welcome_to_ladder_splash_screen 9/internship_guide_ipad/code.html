@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "surface": "#fff8f2",
+                    "tertiary-container": "#8d6a48",
+                    "on-primary-fixed": "#052107",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "primary-fixed": "#c9ecc2",
+                    "error": "#ba1a1a",
+                    "background": "#fff8f2",
+                    "tertiary": "#725232",
+                    "surface-container-highest": "#eae1d7",
+                    "surface-container": "#f5ede2",
+                    "secondary-container": "#caf24d",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-surface": "#1f1b15",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "surface-tint": "#486644",
+                    "on-surface-variant": "#434840",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-high": "#efe7dd",
+                    "surface-variant": "#eae1d7",
+                    "surface-container-low": "#fbf2e8",
+                    "primary": "#42603f",
+                    "inverse-primary": "#aed0a7",
+                    "surface-dim": "#e1d9cf",
+                    "primary-container": "#5a7956",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#566c00",
+                    "secondary-fixed": "#caf24d",
+                    "on-secondary-fixed": "#161e00",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "inverse-surface": "#343029",
+                    "secondary": "#516600",
+                    "surface-bright": "#fff8f2",
+                    "secondary-fixed-dim": "#afd531",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-background": "#1f1b15",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "outline": "#737970",
+                    "on-tertiary-fixed": "#2c1600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .custom-glass {
+        background: rgba(234, 225, 215, 0.7);
+        backdrop-filter: blur(24px);
+      }
+      .cta-gradient {
+        background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-hidden">
+<!-- Fixed Side Navigation Shell -->
+<nav class="fixed left-0 top-0 h-full w-72 flex flex-col bg-[#fbf2e8] dark:bg-stone-900 z-40">
+<div class="px-8 py-10">
+<h1 class="text-2xl font-bold font-headline text-[#42603f] dark:text-emerald-500 tracking-tight">Evergreen</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-[#1f1b15]/60 mt-1">Academic Atelier</p>
+</div>
+<div class="flex-1 px-4 space-y-1 overflow-y-auto no-scrollbar">
+<div class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300 rounded-r-2xl cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Home</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300 rounded-r-2xl cursor-pointer">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm font-medium">Tasks</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300 rounded-r-2xl cursor-pointer">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-medium">Colleges</span>
+</div>
+<!-- Active Tab: Career / Internship Guide -->
+<div class="flex items-center gap-3 px-6 py-3 text-[#42603f] dark:text-emerald-300 font-bold bg-[#eae1d7] dark:bg-stone-800 rounded-r-2xl">
+<span class="material-symbols-outlined">work</span>
+<span class="text-sm">Career</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300 rounded-r-2xl cursor-pointer">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Applications</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300 rounded-r-2xl cursor-pointer">
+<span class="material-symbols-outlined">person_search</span>
+<span class="text-sm font-medium">Advisor</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300 rounded-r-2xl cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Financial</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300 rounded-r-2xl cursor-pointer">
+<span class="material-symbols-outlined">home_work</span>
+<span class="text-sm font-medium">Housing</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-[#1f1b15]/60 dark:text-stone-400 hover:text-[#42603f] hover:bg-[#eae1d7]/50 transition-colors duration-300 rounded-r-2xl cursor-pointer">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</div>
+</div>
+<div class="p-6 mt-auto space-y-4">
+<button class="w-full cta-gradient text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow-xl shadow-[#42603f]/10">
+<span class="material-symbols-outlined text-sm">support_agent</span>
+                Support Advisor
+            </button>
+<div class="flex flex-col gap-1 border-t border-outline-variant/15 pt-4">
+<div class="flex items-center gap-3 px-4 py-2 text-[#1f1b15]/60 text-xs font-medium cursor-pointer">
+<span class="material-symbols-outlined text-lg">settings</span>
+                    Settings
+                </div>
+<div class="flex items-center gap-3 px-4 py-2 text-[#1f1b15]/60 text-xs font-medium cursor-pointer">
+<span class="material-symbols-outlined text-lg">help</span>
+                    Help
+                </div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen flex">
+<!-- Left Section: Informational Guide (55%) -->
+<section class="w-[55%] p-12 overflow-y-auto no-scrollbar bg-surface-bright">
+<header class="mb-12">
+<span class="text-secondary font-bold text-xs tracking-widest uppercase mb-3 block">Professional Journey</span>
+<h2 class="text-5xl font-headline font-extrabold text-on-surface tracking-tight leading-none mb-6">Internship Guide</h2>
+<p class="text-on-surface-variant max-w-md leading-relaxed">Navigating the competitive landscape of early professional experiences with precision and poise.</p>
+</header>
+<div class="space-y-6">
+<!-- Accordion: When to Look -->
+<div class="bg-surface-container-low rounded-xl p-8 group cursor-pointer transition-all duration-300 hover:bg-surface-container">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-xl font-headline font-bold text-primary">When to Look</h3>
+<span class="material-symbols-outlined text-primary group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                        For elite summer internships, recruitment cycles often begin 8–10 months in advance. Financial services and tech sectors typically open applications in August for the following summer.
+                    </p>
+<div class="mt-6 flex gap-4">
+<div class="px-4 py-2 bg-surface-container-highest rounded-full text-[10px] font-bold text-primary uppercase tracking-tighter">Fall Recruitment</div>
+<div class="px-4 py-2 bg-surface-container-highest rounded-full text-[10px] font-bold text-primary uppercase tracking-tighter">Spring Window</div>
+</div>
+</div>
+<!-- Accordion: Where to Find -->
+<div class="bg-surface-container-low rounded-xl p-8 group cursor-pointer transition-all duration-300 hover:bg-surface-container">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-xl font-headline font-bold text-primary">Where to Find</h3>
+<span class="material-symbols-outlined text-primary group-hover:rotate-180 transition-transform">expand_more</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                        Beyond Handshake and LinkedIn, focus on boutique platforms like WayUp and directly monitoring 'Careers' pages of target Fortune 500 firms. Networking remains the most effective channel.
+                    </p>
+</div>
+<!-- Accordion: How to Apply -->
+<div class="bg-surface-container-low rounded-xl p-8 group cursor-pointer transition-all duration-300 hover:bg-surface-container border-l-4 border-secondary-container">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-xl font-headline font-bold text-primary">How to Apply</h3>
+<span class="material-symbols-outlined text-primary">expand_less</span>
+</div>
+<div class="space-y-4">
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            Each application must be a bespoke artifact. Align your resume keywords with the specific job description and draft cover letters that tell a compelling narrative of growth.
+                        </p>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 bg-white/50 rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="text-xs font-semibold">Resume Audit</span>
+</div>
+<div class="p-4 bg-white/50 rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+<span class="text-xs font-semibold">Portfolio Check</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Section: Status & Tracker (45%) -->
+<section class="w-[45%] p-12 bg-surface-container-low flex flex-col gap-8 border-l border-outline-variant/10">
+<!-- Internship Tracker Link Card -->
+<div class="relative overflow-hidden rounded-xl h-48 group cursor-pointer">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="clean modern office space with large windows and lush green plants reflecting professional growth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbMMcQY1DC5lY5C4G4YYcnO5bZ68kaNxeE6EiUXUANpZ9ytHMiONyJ7HBOIKNCCMqwuamyiGlEeML1bFaIxiuos3gcr_PzFUh3mnVQpEnrBK45carqG9c-eVBZ8Y4bAZ7KJTRaGbQ1WUjqK4h_2RBfx_9FHDO_4IY3GGIFok9F0GWY9tAvh98SQDvCYc0j0msLzqx0Dj8cv7iZYQEC4jpqwlcn47SAIkeP7JOIVUaLZ9Z620vajqCaYARgmHPu55f19_Ft1vuJACk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1f1b15]/90 via-[#1f1b15]/40 to-transparent p-8 flex flex-col justify-end">
+<div class="flex justify-between items-center">
+<div>
+<h4 class="text-white font-headline text-2xl font-bold">Internship Tracker</h4>
+<p class="text-white/70 text-xs">Management &amp; Pipeline</p>
+</div>
+<span class="material-symbols-outlined text-secondary-container text-3xl">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+<!-- Mini Stat Circles -->
+<div class="grid grid-cols-3 gap-6">
+<div class="aspect-square flex flex-col items-center justify-center bg-surface-container-highest rounded-full shadow-sm">
+<span class="text-2xl font-headline font-extrabold text-primary">12</span>
+<span class="text-[9px] uppercase tracking-widest font-bold text-on-surface-variant">Applied</span>
+</div>
+<div class="aspect-square flex flex-col items-center justify-center bg-secondary-container rounded-full shadow-lg shadow-secondary/10">
+<span class="text-2xl font-headline font-extrabold text-on-secondary-container">4</span>
+<span class="text-[9px] uppercase tracking-widest font-bold text-on-secondary-container">Interviews</span>
+</div>
+<div class="aspect-square flex flex-col items-center justify-center bg-surface-container-highest rounded-full shadow-sm">
+<span class="text-2xl font-headline font-extrabold text-primary">1</span>
+<span class="text-[9px] uppercase tracking-widest font-bold text-on-surface-variant">Offers</span>
+</div>
+</div>
+<!-- Upcoming Deadlines -->
+<div class="flex-1 bg-surface-container rounded-xl p-8 flex flex-col">
+<div class="flex items-center justify-between mb-8">
+<h5 class="text-sm font-bold uppercase tracking-widest text-primary">Critical Deadlines</h5>
+<span class="material-symbols-outlined text-outline">event</span>
+</div>
+<div class="space-y-6">
+<!-- Deadline Item 1 -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">OCT</div>
+<div class="w-[2px] flex-1 bg-outline-variant/30 my-2"></div>
+</div>
+<div class="pb-6">
+<h6 class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">Goldman Sachs Summer Analyst</h6>
+<p class="text-xs text-on-surface-variant mt-1">Application Portal Closes: Oct 15th</p>
+<span class="inline-block mt-2 px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full">High Priority</span>
+</div>
+</div>
+<!-- Deadline Item 2 -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">OCT</div>
+<div class="w-[2px] flex-1 bg-outline-variant/30 my-2"></div>
+</div>
+<div class="pb-6">
+<h6 class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">Adobe Creative Residency</h6>
+<p class="text-xs text-on-surface-variant mt-1">Portfolio Submission: Oct 22nd</p>
+</div>
+</div>
+<!-- Deadline Item 3 -->
+<div class="flex gap-4 group">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">NOV</div>
+</div>
+<div>
+<h6 class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">McKinsey &amp; Co Business Analyst</h6>
+<p class="text-xs text-on-surface-variant mt-1">Early Decision: Nov 05th</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Action for Right Col -->
+<button class="flex items-center justify-center gap-3 p-4 bg-white rounded-xl text-primary font-bold text-sm shadow-sm hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined">add_circle</span>
+                Log New Application
+            </button>
+</section>
+</main>
+</body></html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder Admin | First 100 Days Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "tertiary": "#725232",
+                "on-primary-container": "#e2ffda",
+                "on-tertiary": "#ffffff",
+                "secondary-fixed-dim": "#afd531",
+                "secondary-fixed": "#caf24d",
+                "on-primary": "#ffffff",
+                "error": "#ba1a1a",
+                "error-container": "#ffdad6",
+                "on-tertiary-container": "#fff5ee",
+                "on-error": "#ffffff",
+                "on-surface-variant": "#434840",
+                "surface-container-lowest": "#ffffff",
+                "inverse-primary": "#aed0a7",
+                "inverse-on-surface": "#f8efe5",
+                "surface-container-high": "#efe7dd",
+                "primary-container": "#5a7956",
+                "surface-tint": "#486644",
+                "primary": "#42603f",
+                "on-background": "#1f1b15",
+                "primary-fixed-dim": "#aed0a7",
+                "on-primary-fixed-variant": "#304e2e",
+                "surface-container": "#f5ede2",
+                "surface-bright": "#fff8f2",
+                "on-secondary-container": "#566c00",
+                "surface-variant": "#eae1d7",
+                "on-secondary-fixed": "#161e00",
+                "tertiary-fixed": "#ffdcbd",
+                "on-primary-fixed": "#052107",
+                "background": "#fff8f2",
+                "outline": "#737970",
+                "on-surface": "#1f1b15",
+                "tertiary-container": "#8d6a48",
+                "surface-container-highest": "#eae1d7",
+                "secondary": "#516600",
+                "on-tertiary-fixed-variant": "#5e4122",
+                "on-secondary": "#ffffff",
+                "tertiary-fixed-dim": "#e9bf96",
+                "secondary-container": "#caf24d",
+                "on-tertiary-fixed": "#2c1600",
+                "surface-container-low": "#fbf2e8",
+                "inverse-surface": "#343029",
+                "on-error-container": "#93000a",
+                "on-secondary-fixed-variant": "#3c4d00",
+                "surface": "#fff8f2",
+                "primary-fixed": "#c9ecc2",
+                "surface-dim": "#e1d9cf",
+                "outline-variant": "#c3c8be"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "1.5rem",
+                "2xl": "2rem"
+            },
+            "fontFamily": {
+                "headline": ["Noto Serif", "serif"],
+                "body": ["Manrope", "sans-serif"],
+                "label": ["Manrope", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        
+        .timeline-line {
+            position: absolute;
+            left: 23px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #eae1d7;
+            z-index: 0;
+        }
+        .timeline-progress {
+            position: absolute;
+            left: 23px;
+            top: 0;
+            height: 65%;
+            width: 4px;
+            background: #caf24d;
+            box-shadow: 0 0 15px rgba(202, 242, 77, 0.4);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed overflow-hidden">
+<!-- Top Navigation Shell -->
+<nav class="sticky top-0 z-40 flex justify-between items-center px-8 py-4 w-full bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex items-center gap-8">
+<span class="font-noto-serif text-xl font-bold italic text-[#1f1b15]">Ladder Admin</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-noto-serif text-sm tracking-tight text-[#5A7956] font-bold" href="#">Dashboard</a>
+<a class="font-noto-serif text-sm tracking-tight text-[#1f1b15]/60 hover:text-[#5A7956] transition-colors" href="#">Schools</a>
+<a class="font-noto-serif text-sm tracking-tight text-[#1f1b15]/60 hover:text-[#5A7956] transition-colors" href="#">Curriculum</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-primary p-2 rounded-full hover:bg-[#eae1d7] transition-all cursor-pointer" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary-fixed rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-primary p-2 rounded-full hover:bg-[#eae1d7] transition-all cursor-pointer" data-icon="settings">settings</span>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-surface-container-highest">
+<img alt="Administrator profile" data-alt="Professional headshot of a female administrator in a clean office environment with natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2KyzGZPsZeutddMX-1lmA10I4WOA07cX-0NCmTyADZ5OBBHM4A1kzJkPzyJXjVTw5-8UHDcpH_y4eHBn5vALlce-FsggBSUnbFEMD5jdLT7tcVjL3zgu_i7w_l4P3JI_bysvLUfMuZP9yx7gRzLMKNhPayUztl_0zKCPreBm5JJecHHebDqm8VtF9fYisnwALHcGXuTc7V-WWJagIDa1NsnhMjO8uta92hoMRxLg6hlmhitLl9Kr5N1kjAvzIPSo3axFbJkkLN1o"/>
+</div>
+</div>
+</nav>
+<main class="flex h-[calc(100vh-72px)] overflow-hidden">
+<!-- Left Panel: Vertical Timeline (55%) -->
+<section class="w-[55%] h-full bg-surface-container-low px-12 py-10 overflow-y-auto scrollbar-hide relative">
+<header class="mb-12 relative">
+<span class="text-primary font-bold tracking-[0.2em] text-[10px] uppercase block mb-2">Student Journey</span>
+<h1 class="font-noto-serif text-5xl font-black text-on-surface tracking-tighter leading-none mb-4">First 100 Days</h1>
+<p class="text-on-surface-variant font-medium max-w-md">Your transition roadmap from admission to your first dorm night. Every milestone matters.</p>
+<div class="absolute -top-4 -right-4 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]" data-icon="school">school</span>
+</div>
+</header>
+<div class="relative pl-12">
+<div class="timeline-line"></div>
+<div class="timeline-progress"></div>
+<!-- Timeline Nodes -->
+<div class="space-y-16 relative z-10">
+<!-- Completed -->
+<div class="flex items-start gap-8 group">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center shadow-lg border-4 border-surface-container-low">
+<span class="material-symbols-outlined text-on-secondary-fixed font-bold" data-icon="check">check</span>
+</div>
+<div class="flex-1">
+<span class="text-primary font-bold text-xs uppercase tracking-widest block mb-1">May 15</span>
+<h3 class="font-noto-serif text-2xl font-bold text-on-surface">Accept Offer</h3>
+<p class="text-on-surface-variant text-sm mt-1">Official commitment submitted via the portal.</p>
+</div>
+</div>
+<div class="flex items-start gap-8 group">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center shadow-lg border-4 border-surface-container-low">
+<span class="material-symbols-outlined text-on-secondary-fixed font-bold" data-icon="check">check</span>
+</div>
+<div class="flex-1">
+<span class="text-primary font-bold text-xs uppercase tracking-widest block mb-1">June 01</span>
+<h3 class="font-noto-serif text-2xl font-bold text-on-surface">Deposit</h3>
+<p class="text-on-surface-variant text-sm mt-1">Tuition deposit and enrollment fees finalized.</p>
+</div>
+</div>
+<!-- Active (Pulse) -->
+<div class="flex items-start gap-8 group">
+<div class="relative">
+<div class="absolute inset-0 bg-secondary-fixed/40 rounded-full animate-ping"></div>
+<div class="relative w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center shadow-lg border-4 border-surface-container-low">
+<span class="material-symbols-outlined text-on-secondary-fixed font-bold" data-icon="bolt">bolt</span>
+</div>
+</div>
+<div class="flex-1">
+<span class="text-primary font-bold text-xs uppercase tracking-widest block mb-1">June 20 • ACTIVE</span>
+<h3 class="font-noto-serif text-2xl font-bold text-on-surface">Housing</h3>
+<p class="text-on-surface-variant text-sm mt-1">Dorm preferences and roommate matching in progress.</p>
+<div class="mt-4 flex gap-2">
+<button class="px-4 py-1.5 bg-primary text-white rounded-full text-xs font-bold hover:scale-105 transition-transform">Complete Form</button>
+<button class="px-4 py-1.5 bg-surface-container-highest text-on-surface rounded-full text-xs font-bold">View Rooms</button>
+</div>
+</div>
+</div>
+<!-- Upcoming (Outline) -->
+<div class="flex items-start gap-8 opacity-60">
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant flex items-center justify-center bg-surface-container-low">
+<span class="material-symbols-outlined text-outline" data-icon="event">event</span>
+</div>
+<div class="flex-1">
+<span class="text-outline font-bold text-xs uppercase tracking-widest block mb-1">July 12</span>
+<h3 class="font-noto-serif text-2xl font-bold text-on-surface">Orientation</h3>
+</div>
+</div>
+<div class="flex items-start gap-8 opacity-60">
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant flex items-center justify-center bg-surface-container-low">
+<span class="material-symbols-outlined text-outline" data-icon="menu_book">menu_book</span>
+</div>
+<div class="flex-1">
+<span class="text-outline font-bold text-xs uppercase tracking-widest block mb-1">July 28</span>
+<h3 class="font-noto-serif text-2xl font-bold text-on-surface">Courses</h3>
+</div>
+</div>
+<div class="flex items-start gap-8 opacity-60">
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant flex items-center justify-center bg-surface-container-low">
+<span class="material-symbols-outlined text-outline" data-icon="medical_services">medical_services</span>
+</div>
+<div class="flex-1">
+<span class="text-outline font-bold text-xs uppercase tracking-widest block mb-1">August 05</span>
+<h3 class="font-noto-serif text-2xl font-bold text-on-surface">Health</h3>
+</div>
+</div>
+<div class="flex items-start gap-8 opacity-60">
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant flex items-center justify-center bg-surface-container-low">
+<span class="material-symbols-outlined text-outline" data-icon="home_pin">home_pin</span>
+</div>
+<div class="flex-1">
+<span class="text-outline font-bold text-xs uppercase tracking-widest block mb-1">August 24</span>
+<h3 class="font-noto-serif text-2xl font-bold text-on-surface">Move-in</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Utilities & Tasks (45%) -->
+<section class="w-[45%] h-full bg-surface px-10 py-10 overflow-y-auto scrollbar-hide border-l border-outline-variant/10">
+<!-- Countdown Ring -->
+<div class="bg-surface-container-highest rounded-2xl p-8 mb-8 relative overflow-hidden flex items-center gap-8">
+<div class="relative w-32 h-32 shrink-0">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-low" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="120" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-black font-noto-serif text-on-surface">64</span>
+<span class="text-[8px] font-bold uppercase tracking-tighter text-primary">Days Left</span>
+</div>
+</div>
+<div>
+<h4 class="font-noto-serif text-xl font-bold text-on-surface">Until Move-in</h4>
+<p class="text-on-surface-variant text-sm mt-1">Campus Arrival: August 24, 2024</p>
+<button class="mt-4 flex items-center gap-2 text-primary text-xs font-bold hover:gap-3 transition-all">
+<span>Share with Parent</span>
+<span class="material-symbols-outlined text-sm" data-icon="ios_share">ios_share</span>
+</button>
+</div>
+</div>
+<!-- This Week Card -->
+<div class="mb-10">
+<div class="flex justify-between items-end mb-6">
+<h2 class="font-noto-serif text-3xl font-bold text-on-surface tracking-tight">This Week</h2>
+<span class="text-xs font-bold text-primary px-3 py-1 bg-secondary-container rounded-full">3 Tasks Pending</span>
+</div>
+<div class="space-y-3">
+<label class="flex items-center gap-4 p-4 bg-surface-container-low rounded-xl cursor-pointer hover:bg-surface-container-highest transition-colors">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<div class="flex-1">
+<span class="block font-bold text-sm text-on-surface">Submit Immunization Records</span>
+<span class="block text-[10px] text-on-surface-variant font-medium">Due by Friday, 5:00 PM</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</label>
+<label class="flex items-center gap-4 p-4 bg-surface-container-low rounded-xl cursor-pointer hover:bg-surface-container-highest transition-colors">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<div class="flex-1">
+<span class="block font-bold text-sm text-on-surface">Roommate Introduction Email</span>
+<span class="block text-[10px] text-on-surface-variant font-medium">Get to know Alex!</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</label>
+<label class="flex items-center gap-4 p-4 bg-surface-container-low rounded-xl cursor-pointer hover:bg-surface-container-highest transition-colors">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<div class="flex-1">
+<span class="block font-bold text-sm text-on-surface">Order Extra-Long Twin Sheets</span>
+<span class="block text-[10px] text-on-surface-variant font-medium">Check the packing list below</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</label>
+</div>
+</div>
+<!-- Packing Checklist -->
+<div>
+<h2 class="font-noto-serif text-xl font-bold text-on-surface mb-6">Packing Checklist</h2>
+<div class="space-y-2">
+<!-- Documents -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden" open="">
+<summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-highest transition-colors list-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+<span class="font-bold text-sm">Documents</span>
+</div>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-4 pt-0 space-y-2 border-t border-outline-variant/10">
+<label class="flex items-center gap-2 text-xs font-medium text-on-surface-variant">
+<input class="w-3.5 h-3.5 rounded border-outline-variant text-primary" type="checkbox"/> Student ID
+                            </label>
+<label class="flex items-center gap-2 text-xs font-medium text-on-surface-variant">
+<input class="w-3.5 h-3.5 rounded border-outline-variant text-primary" type="checkbox"/> Insurance Card
+                            </label>
+<label class="flex items-center gap-2 text-xs font-medium text-on-surface-variant">
+<input class="w-3.5 h-3.5 rounded border-outline-variant text-primary" type="checkbox"/> Housing Contract
+                            </label>
+</div>
+</details>
+<!-- Room -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-highest transition-colors list-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="bed">bed</span>
+<span class="font-bold text-sm">Room</span>
+</div>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-4 pt-0"></div>
+</details>
+<!-- Tech -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-highest transition-colors list-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="laptop_mac">laptop_mac</span>
+<span class="font-bold text-sm">Tech</span>
+</div>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-4 pt-0"></div>
+</details>
+<!-- Clothing -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-highest transition-colors list-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="apparel">apparel</span>
+<span class="font-bold text-sm">Clothing</span>
+</div>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-4 pt-0"></div>
+</details>
+<!-- Personal -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-highest transition-colors list-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="self_care">self_care</span>
+<span class="font-bold text-sm">Personal</span>
+</div>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="p-4 pt-0"></div>
+</details>
+</div>
+</div>
+<div class="mt-12 p-6 bg-primary rounded-2xl relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-on-primary-container text-xs font-bold uppercase tracking-widest mb-2">Pro Tip</p>
+<h5 class="text-white font-noto-serif text-lg font-bold">Start packing 3 weeks early.</h5>
+<p class="text-white/80 text-sm mt-2">The last week will be busy with farewells and family dinners. Get the bulky items ready now.</p>
+</div>
+<div class="absolute -bottom-6 -right-6 opacity-20 transform group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[100px] text-white" data-icon="lightbulb">lightbulb</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Side Navigation Shell (Hidden on iPad Landscape per visual flow, but kept as semantic anchor) -->
+<aside class="hidden fixed h-screen w-[280pt] left-0 top-0 bg-[#fbf2e8] flex-col py-8 px-6 overflow-y-auto shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] z-50">
+<div class="mb-10 flex items-center gap-4">
+<div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="architecture">architecture</span>
+</div>
+<div>
+<h2 class="font-noto-serif text-2xl font-black tracking-tighter text-[#42603f]">The Atelier</h2>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">District Administration</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-[#1f1b15] font-semibold border-r-4 border-[#caf24d] bg-[#eae1d7]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-noto-serif">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1f1b15]/70 hover:translate-x-1 transition-transform hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="font-noto-serif">Schools</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1f1b15]/70 hover:translate-x-1 transition-transform hover:text-[#42603f]" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-noto-serif">District Stats</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/20">
+<button class="w-full bg-primary text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Quick Report</span>
+</button>
+<div class="mt-6 flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-[#42603f] text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help">help</span> Support
+                </a>
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/70 hover:text-error text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="logout">logout</span> Log Out
+                </a>
+</div>
+</div>
+</aside>
+</body></html>

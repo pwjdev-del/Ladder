@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>School Year Rollover | Academic Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#161e00",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-primary-container": "#e2ffda",
+                        "inverse-primary": "#aed0a7",
+                        "on-primary-fixed": "#052107",
+                        "secondary-container": "#caf24d",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-dim": "#e1d9cf",
+                        "outline-variant": "#c3c8be",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#725232",
+                        "secondary-fixed": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "inverse-surface": "#343029",
+                        "surface-bright": "#fff8f2",
+                        "on-surface-variant": "#434840",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#486644",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#f5ede2",
+                        "primary": "#42603f",
+                        "background": "#fff8f2",
+                        "surface-container-highest": "#eae1d7",
+                        "on-secondary-container": "#566c00",
+                        "outline": "#737970",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#1f1b15",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#eae1d7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-primary": "#ffffff",
+                        "secondary": "#516600",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "surface-container-high": "#efe7dd",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#c9ecc2",
+                        "primary-container": "#5a7956",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-container": "#8d6a48",
+                        "surface": "#fff8f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .glass-nav {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c8be; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-secondary-fixed/30 min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-72 z-50 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 backdrop-blur-xl border-b border-[#c3c8be]/15 shadow-sm opacity-6 shadow-[#1f1b15]">
+<div class="flex items-center gap-8">
+<span class="text-[#1f1b15] font-serif font-black text-2xl">Academic Atelier</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-[#1f1b15]/70 hover:text-[#5A7956] font-serif italic text-lg transition-opacity cursor-pointer" href="#">Overview</a>
+<a class="text-[#1f1b15]/70 hover:text-[#5A7956] font-serif italic text-lg transition-opacity cursor-pointer" href="#">Messages</a>
+<a class="text-[#1f1b15]/70 hover:text-[#5A7956] font-serif italic text-lg transition-opacity cursor-pointer" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:opacity-70 transition-opacity">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:opacity-70 transition-opacity">history</span>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-bold hover:bg-primary-container transition-all">Bulk Import</button>
+<img alt="Counselor Avatar" class="w-10 h-10 rounded-full border border-outline-variant/20 object-cover" data-alt="Close up portrait of a middle-aged professional man with glasses in a light-filled academic office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDunROgxUfDMMVJ-nL65E6ek8olwtN-7kEddkegbLMaBvCLiR68ObCpyQfLQFUR-Is72yJgdE2fbA14H1GapHwKIKTaMkSNvLP_G8f_gwLLodyIhanLvVYAtiF2bYtmyV6HVUm7axnAc92iy7SS_ar_8OA-V9GeLZHcQ5kmQAp07uRTA4mgd7gALjM0scZvpasLvFdgt11tRz7n3B2xRjlo3lEs00JjpFqqznJ2N0c3lyqlcNanHH5kEYPUxEFCw9Po399qTGqY38g"/>
+</div>
+</header>
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 h-screen w-72 bg-[#fbf2e8] border-r-0 z-50">
+<div class="mb-10 px-2">
+<h1 class="font-serif text-2xl font-bold text-[#1f1b15] mb-1">Counselor Hub</h1>
+<p class="font-sans text-sm text-[#1f1b15]/60">Senior Academic Lead</p>
+</div>
+<div class="space-y-1 mb-10">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors group" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-sans text-sm font-medium">Caseload</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#5A7956] font-bold border-r-4 border-[#5A7956] bg-[#eae1d7]/40 transition-colors group" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-sans text-sm font-medium">Approvals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors group" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-sans text-sm font-medium">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors group" href="#">
+<span class="material-symbols-outlined">person_add</span>
+<span class="font-sans text-sm font-medium">Students</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors group" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-sans text-sm font-medium">Announcements</span>
+</a>
+</div>
+<button class="mt-2 mb-auto bg-primary-container text-on-primary-container py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 scale-98 transition-all duration-200">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>Add Student</span>
+</button>
+<div class="space-y-1 pt-6 border-t border-outline-variant/15">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-sans text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#1f1b15]/60 hover:bg-[#eae1d7] transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-sans text-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="pl-72 pt-20">
+<div class="max-w-5xl mx-auto px-10 py-12">
+<!-- Header Section -->
+<header class="mb-12 flex justify-between items-end">
+<div class="max-w-2xl">
+<span class="text-primary font-bold tracking-widest text-xs uppercase mb-3 block">System Maintenance</span>
+<h2 class="text-5xl font-black tracking-tight mb-4">School Year Rollover</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed italic">
+                        The Academic Atelier is preparing for the 2024-2025 transition. This procedure updates academic levels and archives current cycle data.
+                    </p>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl flex items-center gap-4 text-on-surface">
+<div class="text-right">
+<p class="text-xs font-bold opacity-60 uppercase">Scheduled Date</p>
+<p class="font-serif text-lg font-bold">June 15, 2024</p>
+</div>
+<div class="w-[2px] h-10 bg-outline-variant/40"></div>
+<span class="material-symbols-outlined text-3xl">event_upcoming</span>
+</div>
+</header>
+<!-- Wizard Layout -->
+<div class="space-y-10">
+<!-- Grade Promotion Plan Table -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="px-8 py-6 border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="text-2xl font-bold">Grade Promotion Plan</h3>
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold">Current Cycle: 2023-24</span>
+</div>
+<div class="p-0">
+<table class="w-full border-collapse">
+<thead class="bg-surface-container-high/50">
+<tr>
+<th class="px-8 py-4 text-left font-serif text-sm italic">Current Grade Level</th>
+<th class="px-8 py-4 text-center">
+<span class="material-symbols-outlined text-outline">arrow_forward</span>
+</th>
+<th class="px-8 py-4 text-left font-serif text-sm italic">Target Promotion</th>
+<th class="px-8 py-4 text-right font-serif text-sm italic">Student Count</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="px-8 py-5 font-bold text-lg">Grade 9</td>
+<td class="px-8 py-5 text-center text-primary">
+<span class="material-symbols-outlined">trending_flat</span>
+</td>
+<td class="px-8 py-5 font-bold text-lg">Grade 10</td>
+<td class="px-8 py-5 text-right font-mono">142 Students</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="px-8 py-5 font-bold text-lg">Grade 10</td>
+<td class="px-8 py-5 text-center text-primary">
+<span class="material-symbols-outlined">trending_flat</span>
+</td>
+<td class="px-8 py-5 font-bold text-lg">Grade 11</td>
+<td class="px-8 py-5 text-right font-mono">128 Students</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="px-8 py-5 font-bold text-lg">Grade 11</td>
+<td class="px-8 py-5 text-center text-primary">
+<span class="material-symbols-outlined">trending_flat</span>
+</td>
+<td class="px-8 py-5 font-bold text-lg">Grade 12</td>
+<td class="px-8 py-5 text-right font-mono">156 Students</td>
+</tr>
+<tr class="bg-secondary-fixed/5">
+<td class="px-8 py-5 font-bold text-lg">Grade 12</td>
+<td class="px-8 py-5 text-center text-secondary">
+<span class="material-symbols-outlined">school</span>
+</td>
+<td class="px-8 py-5 font-bold text-lg italic text-secondary">Graduated / Alumni</td>
+<td class="px-8 py-5 text-right font-mono">114 Students</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Data Summary Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Reset Rules -->
+<div class="bg-surface-container-highest rounded-xl p-8 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-9xl">restart_alt</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-error-container">delete_sweep</span>
+</div>
+<h4 class="text-xl font-bold">What's Reset</h4>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error text-sm mt-1">remove_circle</span>
+<div>
+<p class="font-bold">Active Checklists</p>
+<p class="text-sm opacity-70">Current year task lists and temporary milestones will be archived.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error text-sm mt-1">remove_circle</span>
+<div>
+<p class="font-bold">Semester Logs</p>
+<p class="text-sm opacity-70">Weekly counselor-student interaction logs move to history.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error text-sm mt-1">remove_circle</span>
+<div>
+<p class="font-bold">Pending Approvals</p>
+<p class="text-sm opacity-70">All unfinalized course requests will be automatically declined.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Preservation Rules -->
+<div class="bg-primary/5 rounded-xl p-8 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-9xl">inventory_2</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">verified</span>
+</div>
+<h4 class="text-xl font-bold text-primary">What's Preserved</h4>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<div>
+<p class="font-bold">Cumulative GPA</p>
+<p class="text-sm opacity-70">Historical grade point averages remain locked in student files.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<div>
+<p class="font-bold">Standardized Scores</p>
+<p class="text-sm opacity-70">SAT/ACT and IB/AP scores persist through the graduation cycle.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+<div>
+<p class="font-bold">Essays &amp; Portfolios</p>
+<p class="text-sm opacity-70">All uploaded creative work and personal statements are untouched.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Final Action Section -->
+<div class="bg-surface-container-low p-10 rounded-xl border border-error/10">
+<div class="flex flex-col md:flex-row gap-10 items-center">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-error animate-pulse">warning</span>
+<h5 class="text-xl font-bold text-on-surface">Critical Confirmation</h5>
+</div>
+<p class="text-on-surface-variant leading-relaxed mb-6">
+                                The rollover process is <span class="font-bold text-on-surface italic">permanent and cannot be undone</span>. All student data will be promoted according to the plan above. Ensure all end-of-year reports have been exported before proceeding.
+                            </p>
+<div class="flex items-center gap-4">
+<input class="w-6 h-6 rounded border-outline text-primary focus:ring-primary-container" id="confirm" type="checkbox"/>
+<label class="text-sm font-medium" for="confirm">I have audited the promotion plan and verified all archived data.</label>
+</div>
+</div>
+<div class="flex flex-col gap-4 min-w-[280px]">
+<button class="bg-gradient-to-br from-primary to-primary-container text-white py-5 px-8 rounded-xl font-black text-lg flex items-center justify-center gap-3 shadow-xl hover:scale-105 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                                Execute Rollover Now
+                            </button>
+<button class="text-on-surface-variant font-bold hover:text-on-surface transition-colors py-3">
+                                Generate Preview Audit
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<footer class="mt-20 pt-10 border-t border-outline-variant/10 flex justify-between items-center opacity-60">
+<div class="flex gap-8 text-xs font-bold uppercase tracking-widest">
+<span>Build: v4.2.1-Atelier</span>
+<span>Last Backup: 2h ago</span>
+</div>
+<div class="font-serif italic">
+                    For the ambitious mind.
+                </div>
+</footer>
+</div>
+</main>
+<!-- Floating Tooltip Context -->
+<div class="fixed bottom-10 right-10 z-40 bg-surface-container-highest shadow-2xl p-6 rounded-xl border border-outline-variant/20 max-w-xs flex gap-4">
+<span class="material-symbols-outlined text-secondary text-3xl">lightbulb</span>
+<div>
+<p class="font-bold text-sm mb-1">Need help?</p>
+<p class="text-xs opacity-80 leading-relaxed">Most counselors complete the rollover on a Saturday morning to avoid system lag during student hours.</p>
+</div>
+</div>
+</body></html>

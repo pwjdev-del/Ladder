@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,900&amp;family=Manrope:wght@300;400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#161e00",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-container": "#e2ffda",
+                    "inverse-primary": "#aed0a7",
+                    "on-primary-fixed": "#052107",
+                    "secondary-container": "#caf24d",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#725232",
+                    "secondary-fixed": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "surface-bright": "#fff8f2",
+                    "on-surface-variant": "#434840",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#486644",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container": "#f5ede2",
+                    "primary": "#42603f",
+                    "background": "#fff8f2",
+                    "surface-container-highest": "#eae1d7",
+                    "on-secondary-container": "#566c00",
+                    "outline": "#737970",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1f1b15",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container-low": "#fbf2e8",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-primary": "#ffffff",
+                    "secondary": "#516600",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-container": "#8d6a48",
+                    "surface": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #42603f 0%, #5a7956 100%);
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- Shared SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 bg-[#fbf2e8] dark:bg-stone-900 w-72 z-[60]">
+<div class="mb-10 px-2">
+<h1 class="font-serif text-2xl font-bold text-[#1f1b15] dark:text-[#eae1d7]">Counselor Hub</h1>
+<p class="font-sans text-sm text-[#1f1b15]/60">Senior Academic Lead</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:bg-[#eae1d7] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-sans text-sm">Caseload</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:bg-[#eae1d7] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-sans text-sm">Approvals</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:bg-[#eae1d7] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-sans text-sm">Calendar</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:bg-[#eae1d7] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+<span class="font-sans text-sm">Students</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#5A7956] dark:text-[#caf24d] font-bold border-r-4 border-[#5A7956] dark:border-[#caf24d] bg-[#eae1d7]/30" href="#">
+<span class="material-symbols-outlined" data-icon="campaign" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="font-sans text-sm">Announcements</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 space-y-2 border-t border-outline-variant/15">
+<button class="w-full bg-primary-gradient text-white py-3 rounded-xl font-semibold mb-6 flex items-center justify-center gap-2 hover:scale-[0.98] transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Add Student
+            </button>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:bg-[#eae1d7] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-sans text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:bg-[#eae1d7] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-sans text-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-72 z-50 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 backdrop-blur-xl border-b border-[#c3c8be]/15 shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-[#1f1b15] font-serif font-black text-xl italic tracking-tight">Academic Atelier</span>
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/10">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48" placeholder="Search archive..." type="text"/>
+</div>
+</div>
+<nav class="flex items-center gap-8">
+<a class="text-[#1f1b15]/70 font-serif italic text-lg hover:text-[#5A7956]" href="#">Overview</a>
+<a class="text-[#1f1b15]/70 font-serif italic text-lg hover:text-[#5A7956]" href="#">Messages</a>
+<a class="text-[#5A7956] font-serif italic text-lg border-b-2 border-[#5A7956]" href="#">Reports</a>
+<div class="flex items-center gap-4 ml-4">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="history">history</button>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img alt="Counselor Avatar" class="w-full h-full object-cover" data-alt="portrait of a professional male academic counselor with glasses in a soft lit office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRnAEVLb6jsCc0yjE27HsMzsN6hq7hnBPVGDEkxMibL37Qj_KpF4scJsSbReT4z7KxVExQVOzZPJaWPzAv5mdbiArcCz4t551ar-P40JP_jjXsDorOPJ3s3Aps1ViNqp25LRb-be6gDeDpeRbmAYosOw5FZxH5j1IpSlFcD7btq89sgrrcN6lRJVq9mH-WQKkyLoEuBALSD7rHLIYIUfCyuWbVircXGnoELhVMzMgJeZ8SOE7Qh9jMXftQ7BV9T6nw9XZ5yjoJOEQ"/>
+</div>
+</div>
+</nav>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-72 pt-28 pb-12 px-10">
+<div class="max-w-6xl mx-auto grid grid-cols-12 gap-10 items-start">
+<!-- Composer Column -->
+<section class="col-span-7 space-y-8">
+<header class="mb-10">
+<h2 class="text-4xl font-black tracking-tight mb-2">Announcement Composer</h2>
+<p class="text-on-surface-variant font-body">Craft a message for the student body with precision and prestige.</p>
+</header>
+<!-- Audience Segmented Control -->
+<div class="space-y-4">
+<label class="text-xs font-bold uppercase tracking-widest text-outline">Target Audience</label>
+<div class="flex p-1 bg-surface-container-low rounded-xl w-fit">
+<button class="px-6 py-2 rounded-lg text-sm font-bold bg-white text-primary shadow-sm">All Students</button>
+<button class="px-6 py-2 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface">Grade 9</button>
+<button class="px-6 py-2 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface">Grade 10</button>
+<button class="px-6 py-2 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface">Grade 11</button>
+<button class="px-6 py-2 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface">Seniors</button>
+</div>
+</div>
+<!-- Main Form Body -->
+<div class="space-y-6">
+<div class="group">
+<input class="w-full text-3xl font-serif italic bg-transparent border-0 border-b-2 border-outline-variant/40 focus:border-primary focus:ring-0 px-0 pb-4 transition-colors placeholder:text-outline-variant/60" placeholder="Announcement Title" type="text"/>
+<p class="mt-2 text-xs text-tertiary font-medium">Capture attention with a clear, concise headline.</p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl min-h-[400px] flex flex-col border border-outline-variant/10 shadow-sm overflow-hidden">
+<!-- Rich Text Toolbar -->
+<div class="flex items-center gap-2 p-4 bg-surface-container-low border-b border-outline-variant/10">
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors material-symbols-outlined text-on-surface-variant" data-icon="format_bold">format_bold</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors material-symbols-outlined text-on-surface-variant" data-icon="format_italic">format_italic</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors material-symbols-outlined text-on-surface-variant" data-icon="format_list_bulleted">format_list_bulleted</button>
+<div class="w-px h-6 bg-outline-variant/30 mx-2"></div>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors material-symbols-outlined text-on-surface-variant" data-icon="link">link</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors material-symbols-outlined text-on-surface-variant" data-icon="image">image</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors material-symbols-outlined text-on-surface-variant" data-icon="attachment">attachment</button>
+</div>
+<textarea class="flex-1 w-full bg-transparent border-none focus:ring-0 p-8 font-body leading-relaxed text-on-surface-variant resize-none" placeholder="Begin writing your announcement here..."></textarea>
+</div>
+</div>
+<!-- Priority Selection -->
+<div class="space-y-4">
+<label class="text-xs font-bold uppercase tracking-widest text-outline">Priority Level</label>
+<div class="grid grid-cols-3 gap-4">
+<label class="relative flex items-center p-4 bg-surface-container rounded-xl cursor-pointer hover:bg-surface-container-high transition-all">
+<input checked="" class="sr-only peer" name="priority" type="radio"/>
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary/20 transition-all"></div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<div>
+<p class="font-bold text-sm">Normal</p>
+<p class="text-[10px] text-on-surface-variant">Standard update</p>
+</div>
+</div>
+</label>
+<label class="relative flex items-center p-4 bg-surface-container rounded-xl cursor-pointer hover:bg-surface-container-high transition-all">
+<input class="sr-only peer" name="priority" type="radio"/>
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary/20 transition-all"></div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="notification_important">notification_important</span>
+<div>
+<p class="font-bold text-sm">Important</p>
+<p class="text-[10px] text-on-surface-variant">Action required</p>
+</div>
+</div>
+</label>
+<label class="relative flex items-center p-4 bg-surface-container rounded-xl cursor-pointer hover:bg-surface-container-high transition-all">
+<input class="sr-only peer" name="priority" type="radio"/>
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-error transition-all"></div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error" data-icon="emergency">emergency</span>
+<div>
+<p class="font-bold text-sm">Urgent</p>
+<p class="text-[10px] text-on-surface-variant">Immediate notice</p>
+</div>
+</div>
+</label>
+</div>
+</div>
+</section>
+<!-- Preview Sidebar -->
+<aside class="col-span-5 sticky top-28 space-y-8">
+<div class="bg-surface-container-highest p-8 rounded-xl relative overflow-hidden">
+<!-- Subtle background decoration -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary-fixed/10 rounded-full blur-3xl"></div>
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+                        Student Live Preview
+                    </h3>
+<!-- Mock Mobile UI Preview -->
+<div class="bg-white rounded-[2rem] shadow-2xl overflow-hidden border-8 border-on-surface aspect-[9/16] max-w-[320px] mx-auto relative">
+<div class="absolute top-0 w-full h-6 bg-on-surface flex justify-center items-end pb-1">
+<div class="w-16 h-4 bg-on-surface rounded-t-lg"></div>
+</div>
+<div class="p-6 pt-10 space-y-6 overflow-y-auto h-full">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-outline uppercase tracking-tighter">Academic Atelier</span>
+<span class="material-symbols-outlined text-sm" data-icon="more_horiz">more_horiz</span>
+</div>
+<div class="space-y-2">
+<span class="px-2 py-1 bg-secondary-fixed text-[8px] font-black uppercase rounded">NEW</span>
+<h4 class="text-xl font-serif font-black leading-tight">University Application Workshop: Final Call</h4>
+<div class="flex items-center gap-2">
+<div class="h-5 w-5 rounded-full bg-surface-container-low overflow-hidden">
+<img alt="avatar" class="w-full h-full object-cover" data-alt="portrait of a professional male academic counselor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpjrGsndVseuL5mbAEbvFyhCBXGDbbUc7RfBSkJKQH8oLwVyK4hN_m39JEZnE86vZAa74Iz_W9NkkxXOKRPA0bkzzNB1jHoMEpGbuJqBujrzU9qxcoSym_4S9taTjcVXWmqR3UBCwkkCdpOslS8aue5UDIf0Kr9T-AveHJpFUq9_tHOVqIa0vrGmy_Dxzu6qcpafiZFt6pBcpig51f66i6nq6n9Q-tDdnoR1TIg3RY5khsJp-SEoUgV-12rgb-YXHi4QtkGY1t0zg"/>
+</div>
+<p class="text-[10px] text-outline">Dr. Julian Thorne • Just now</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="w-full h-32 bg-surface-container rounded-xl overflow-hidden">
+<img alt="preview-image" class="w-full h-full object-cover" data-alt="elegant academic library with classic architecture and warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQqxezQyZWVIb_h-jBoCT5ueZ7Z_tVklFMf1QvzzoYylEeCJE1dLVwp4-pcq6uyY4sd0ZGe5-RYReqCtNusyUpojCNvxALh60DgHzAePRnuLo0IFgd34OnWmEwPJ9geSSEfPKy8AMBIBPkLVn4J56sl15Cq0fQTGBiUeg0WRWsONIgbfhDpKdGbYk9OK1zbi1GGmFFn3RBDKfZFnutYaFAPV_wU0FsfYMfNuYGE3Zf780JuZa1bIq6sbzPKf7BZlCXTgsYwyK9nlU"/>
+</div>
+<p class="text-xs leading-relaxed text-on-surface-variant font-light italic">
+                                    "A reminder that the final walkthrough for Common App submissions will occur this Friday in the Great Hall. Please bring your draft essays..."
+                                </p>
+</div>
+<button class="w-full py-3 bg-primary text-white text-[10px] font-bold rounded-lg tracking-widest uppercase">Register Attendance</button>
+</div>
+</div>
+</div>
+<!-- Scheduling and Actions -->
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 space-y-6">
+<div class="space-y-4">
+<label class="text-xs font-bold uppercase tracking-widest text-outline">Delivery Method</label>
+<div class="flex gap-4">
+<label class="flex-1 flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary h-4 w-4" name="delivery" type="radio"/>
+<span class="text-sm font-bold">Send Now</span>
+</label>
+<label class="flex-1 flex items-center gap-3 p-3 bg-white rounded-xl border border-transparent hover:border-primary/20 cursor-pointer transition-colors">
+<input class="text-primary focus:ring-primary h-4 w-4" name="delivery" type="radio"/>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Schedule</span>
+<span class="text-[10px] text-outline">Set for later date</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button class="w-full bg-primary-gradient text-white py-5 rounded-xl font-black text-sm tracking-[0.1em] uppercase shadow-lg shadow-primary/20 hover:scale-[0.99] transition-all flex items-center justify-center gap-3">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                            Send Announcement
+                        </button>
+<button class="w-full py-4 text-primary font-bold text-xs uppercase tracking-widest hover:bg-surface-container-highest transition-colors rounded-xl">
+                            Save as Template
+                        </button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- FAB Suppression for Announcement screen (Focused Task) -->
+</body></html>

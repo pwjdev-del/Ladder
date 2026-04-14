@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evergreen Ascent | College Visit Planner</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#516600",
+                        "on-tertiary-fixed": "#2c1600",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-container": "#566c00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-high": "#efe7dd",
+                        "inverse-surface": "#343029",
+                        "surface-dim": "#e1d9cf",
+                        "secondary-container": "#caf24d",
+                        "surface-container-highest": "#eae1d7",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "surface": "#fff8f2",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-bright": "#fff8f2",
+                        "on-surface": "#1f1b15",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-primary-fixed": "#052107",
+                        "surface-container": "#f5ede2",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#486644",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#aed0a7",
+                        "background": "#fff8f2",
+                        "on-background": "#1f1b15",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary-container": "#5a7956",
+                        "secondary-fixed": "#caf24d",
+                        "on-primary-container": "#e2ffda",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c3c8be",
+                        "surface-variant": "#eae1d7",
+                        "primary": "#42603f",
+                        "outline": "#737970",
+                        "tertiary": "#725232",
+                        "primary-fixed": "#c9ecc2",
+                        "on-secondary-fixed": "#161e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"],
+                        "ui": ["Montserrat"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .map-gradient-overlay {
+            background: linear-gradient(to bottom, rgba(251, 242, 232, 0) 0%, rgba(251, 242, 232, 0.4) 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #eae1d7;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- SideNavBar (Persistent Sidebar) -->
+<aside class="flex flex-col h-full py-8 px-4 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-64 border-r-0 shrink-0">
+<div class="mb-10 px-4">
+<h1 class="text-2xl font-serif italic text-[#42603f] dark:text-[#5a7956]">Evergreen Ascent</h1>
+<p class="text-xs uppercase tracking-widest font-ui text-stone-500 mt-1">Academic Atelier</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Home -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-ui">Home</span>
+</a>
+<!-- Tasks -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-ui">Tasks</span>
+</a>
+<!-- Colleges - ACTIVE -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#42603f] dark:text-[#caf24d] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7]/50 dark:bg-stone-800/50 rounded-l-xl transition-colors scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-ui">Colleges</span>
+</a>
+<!-- Applications -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-ui">Applications</span>
+</a>
+<!-- Advisor -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-ui">Advisor</span>
+</a>
+<!-- Financial -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-ui">Financial</span>
+</a>
+<!-- Career -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="font-ui">Career</span>
+</a>
+<!-- Housing -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="font-ui">Housing</span>
+</a>
+<!-- Reports -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 font-medium hover:bg-[#eae1d7] dark:hover:bg-stone-800 transition-colors rounded-xl scale-95 duration-150 group" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="font-ui">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden">
+<img alt="Student avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a young college student with a friendly expression in a sunlit campus environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7fNMsJx-GKzgLNNaHot9RdAej6abbzh1bga-kH_KHvYvVS1QtWUSRsQWoot8sVyyhNSv8FYiEtTioxoP3sT5LvYyelY5reaj5CPXz08dhgoB5bvOWcNe2rAfLUA01FohwgsEGF8bvB0cQULeyv55OtiVGgAPAbePpqmN78U4ObF78gUEO4RCI8_-zCg7Ac8RM8_xodVKbfmvid2MhEl0FB3rVTh_R8V9YmNLEp6qDLNfbaexyLIa_q74MkXmMn0W6zMFzxf0FHPg"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-primary">Alex Mercer</span>
+<span class="text-[10px] text-stone-500">Class of 2025</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left: Interactive Map (55%) -->
+<section class="w-[55%] relative h-full bg-surface-container-low overflow-hidden">
+<div class="absolute inset-0 z-0">
+<!-- Placeholder for Map -->
+<img alt="Map" class="w-full h-full object-cover filter contrast-[0.9] sepia-[0.1]" data-alt="top-down artistic map of the New England region with stylized university icons, coastal details, and soft watercolor textures" data-location="New England, USA" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkovlMIDVzhjDGGRnVbW3xkdzRvKwpRABo1HifJ3YRSTBhDsyX4IhdhjQOnnOm7j0E333GE0iAZmDD_G2ymRof3JUOZB7J-qTSY7xSckwVuTsDxna-FQhW7HussqGhihKWB8u9aELM6S7GD8F6KmqapR7Y4swfkMJ2fsSLIHJCdrlcB9es13KPEPF8CGtzegJNqIgnsyf2I6hT22wTluB_dalhW_U_V4BimcxuY2DL81i1vFgKGNbKlWE35649UBHGSunsutsb9Z4"/>
+<!-- SVG Route Line Layer -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-10" viewbox="0 0 800 600">
+<path class="opacity-60" d="M200 150 Q 300 120, 450 200 T 650 350" fill="none" stroke="#42603f" stroke-dasharray="8 6" stroke-width="3"></path>
+</svg>
+<!-- Pins -->
+<!-- Visited (Green) -->
+<div class="absolute top-[140px] left-[180px] z-20 group">
+<div class="relative flex flex-col items-center">
+<div class="bg-primary text-white p-2 rounded-full shadow-lg scale-100 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="mt-2 px-3 py-1 bg-white/90 backdrop-blur rounded-lg text-[10px] font-bold shadow-sm text-primary">Dartmouth College</div>
+</div>
+</div>
+<!-- Scheduled (Blue/Primary Container) -->
+<div class="absolute top-[200px] left-[440px] z-20 group">
+<div class="relative flex flex-col items-center">
+<div class="bg-primary-container text-on-primary-container p-2 rounded-full shadow-lg animate-pulse">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+</div>
+<div class="mt-2 px-3 py-1 bg-white/90 backdrop-blur rounded-lg text-[10px] font-bold shadow-sm text-primary-container">Harvard University</div>
+</div>
+</div>
+<!-- Not Scheduled (Gray) -->
+<div class="absolute top-[350px] left-[630px] z-20 group">
+<div class="relative flex flex-col items-center">
+<div class="bg-stone-400 text-white p-2 rounded-full shadow-lg opacity-80 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm">location_on</span>
+</div>
+<div class="mt-2 px-3 py-1 bg-white/90 backdrop-blur rounded-lg text-[10px] font-bold shadow-sm text-stone-500">Brown University</div>
+</div>
+</div>
+</div>
+<!-- Map Overlay UI -->
+<div class="absolute top-6 left-6 z-30 flex gap-2">
+<div class="bg-white/70 backdrop-blur-xl px-4 py-2 rounded-full shadow-sm flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-[10px] font-ui font-medium uppercase tracking-wider">Visited</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-container"></div>
+<span class="text-[10px] font-ui font-medium uppercase tracking-wider">Scheduled</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-stone-400"></div>
+<span class="text-[10px] font-ui font-medium uppercase tracking-wider">Interested</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 left-6 z-30">
+<button class="bg-white/90 backdrop-blur text-primary p-3 rounded-xl shadow-lg hover:bg-white transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">my_location</span>
+<span class="text-xs font-bold font-ui">Center Route</span>
+</button>
+</div>
+</section>
+<!-- Right: Campus Visit Plan (45%) -->
+<section class="w-[45%] bg-surface flex flex-col h-full shadow-2xl z-40 relative">
+<!-- Top Nav Integration Style -->
+<div class="h-20 flex justify-between items-center px-8 shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">route</span>
+<h2 class="text-lg font-headline font-bold text-primary tracking-tight">Visit Atelier</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-stone-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-stone-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<!-- Header Content -->
+<div class="px-8 pb-4">
+<h3 class="text-4xl font-headline font-bold text-on-surface -tracking-widest mb-1">Campus Visit Plan</h3>
+<p class="text-sm text-stone-500 font-medium">New England Autumn Tour • 4 Destinations</p>
+<div class="mt-6 flex items-center justify-between">
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-3 rounded-xl font-ui font-bold text-sm shadow-xl flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">auto_fix</span>
+                            Optimize Route
+                        </button>
+<button class="text-primary font-ui font-bold text-sm border-b-2 border-secondary-fixed pb-1">
+                            Add College
+                        </button>
+</div>
+</div>
+<!-- Visit Cards List -->
+<div class="flex-1 overflow-y-auto px-8 py-6 custom-scrollbar space-y-8 relative">
+<!-- The Ladder Tracker (Signature Component) -->
+<div class="absolute left-[44px] top-10 bottom-10 w-1 bg-secondary-fixed opacity-40 rounded-full"></div>
+<!-- Card 1: Visited -->
+<div class="relative pl-12">
+<!-- Step Indicator -->
+<div class="absolute left-0 top-2 w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white shadow-[0_0_15px_rgba(66,96,63,0.3)] z-10">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl border border-transparent hover:border-outline-variant/20 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="text-lg font-headline font-bold text-primary">Dartmouth College</h4>
+<p class="text-xs text-stone-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Hanover, NH
+                                    </p>
+</div>
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Completed</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-highest p-3 rounded-lg">
+<label class="block text-[10px] font-bold text-stone-500 uppercase tracking-tighter mb-1">Date Visited</label>
+<p class="text-sm font-bold text-on-surface">Oct 12, 2023</p>
+</div>
+<div class="bg-surface-container-highest p-3 rounded-lg">
+<label class="block text-[10px] font-bold text-stone-500 uppercase tracking-tighter mb-1">Rating</label>
+<div class="flex text-secondary-fixed">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Scheduled -->
+<div class="relative pl-12">
+<!-- Step Indicator -->
+<div class="absolute left-0 top-2 w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shadow-[0_0_20px_rgba(202,242,77,0.5)] z-10">
+<span class="material-symbols-outlined text-sm font-bold">calendar_today</span>
+</div>
+<div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-secondary-fixed">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="text-lg font-headline font-bold text-on-surface">Harvard University</h4>
+<p class="text-xs text-stone-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Cambridge, MA
+                                    </p>
+</div>
+<span class="bg-secondary-fixed/20 text-on-secondary-fixed px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Scheduled</span>
+</div>
+<div class="space-y-4">
+<div class="flex gap-3">
+<div class="flex-1">
+<label class="block text-[10px] font-bold text-stone-500 uppercase mb-1">Visit Date</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-b border-outline-variant/40 focus:border-primary px-0 py-1 text-sm font-bold focus:ring-0 appearance-none" type="text" value="Nov 15, 2023"/>
+<span class="material-symbols-outlined absolute right-0 top-1 text-stone-400 text-sm">edit</span>
+</div>
+</div>
+<div class="flex-1">
+<label class="block text-[10px] font-bold text-stone-500 uppercase mb-1">Tour Time</label>
+<p class="text-sm font-bold text-on-surface py-1">10:30 AM EST</p>
+</div>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-stone-500 uppercase mb-1">Visit Notes</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm italic text-stone-600 focus:ring-1 focus:ring-secondary-fixed placeholder:text-stone-400 min-h-[80px] resize-none" placeholder="Ask about the undergraduate research fellowship program..."></textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Pending -->
+<div class="relative pl-12 opacity-60 grayscale-[0.5]">
+<!-- Step Indicator -->
+<div class="absolute left-0 top-2 w-8 h-8 rounded-full bg-stone-300 flex items-center justify-center text-white z-10">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-lg font-headline font-bold text-on-surface">Brown University</h4>
+<p class="text-xs text-stone-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Providence, RI
+                                    </p>
+</div>
+<button class="text-primary font-ui font-bold text-[10px] uppercase border border-primary/20 px-3 py-1 rounded-full hover:bg-primary hover:text-white transition-all">
+                                    Schedule
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Summary Card -->
+<div class="p-8 bg-surface-container-low/50 backdrop-blur-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="text-center">
+<p class="text-[10px] font-bold text-stone-500 uppercase tracking-tighter">Total Miles</p>
+<p class="text-xl font-headline font-bold text-primary">342</p>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="text-center">
+<p class="text-[10px] font-bold text-stone-500 uppercase tracking-tighter">Travel Time</p>
+<p class="text-xl font-headline font-bold text-primary">6h 15m</p>
+</div>
+</div>
+<div class="flex -space-x-3">
+<img class="w-10 h-10 rounded-full border-4 border-surface" data-alt="logo of Dartmouth college in green and white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPNOMdBQxKVyrtIwlbjJqDElzmBt4VgLFbkmuW3vTM1GFONYdSkA5e78H-pIk8M2fcimQFQlom3mtF8mRbdiYjmVMPl4TKpojKCdXLGBrGLpUJQ4mq1Nd_2w43px-zsKrafUimWT8tYbxSKfwcJTEuKmGcQVtDkiCsibS2aVLePSbSZJuAumWyxdHsv3ToTpixFQysvR-faFv6vJDv0qNs7_Y-Wqfi333XCfW5A4ZrEruaPIRkZBuC-nl7SFErNDtryhCtm9oCOck"/>
+<img class="w-10 h-10 rounded-full border-4 border-surface" data-alt="logo of Harvard university in crimson and white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWhPH4Y6bftHXItrhWadobUFTJHuYUsczDTrxjUtoq0YoaKUwloND55L2nDVr5wHw6Xh3g1Qlp-y1s_87xusMIAmvYed5xdaL5nrmsxyYTc-FRQo9EKep-aQue30REtvfSSYzBCBjnGIEJAgyBaD3TANEADNiNeh39C2zcUZ0Xw1pC0XV-QrE6JommCyVOVUyYrneDBYaBv8ciIMJd_W983Zpc9TgJRoniYhHsdAtcbHpP0DPG5gbNohALvQSozlmJTEtQomGx4UE"/>
+<img class="w-10 h-10 rounded-full border-4 border-surface" data-alt="logo of Brown university in brown and red" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF85zV5GZKE875E465f9w3IBraoFS86mNfsjC-_GdfPn8G1pENCU3bI2eCpS5oBQDMosH97QxGgGSKCU_lj9vemXd95YCypx9hKsr8pZn9zCOfNNFWqyMtLuZ-IKUAlHc4i0v8P-aUMHCmI2GzBw3uWXbkUXNsdJsK5pisjTDPC2tiTomW-YP9LzAdNMgqdSL0n_fx1FpDH10INZV0DfvkbkfEOeZnCFxv9EXBRV3Q3WJ79lFZZuR126_9gD6uKvtbgloEKaddMgQ"/>
+<div class="w-10 h-10 rounded-full border-4 border-surface bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-stone-500">+1</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

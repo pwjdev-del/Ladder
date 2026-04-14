@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "surface-container": "#f5ede2",
+                        "surface-variant": "#eae1d7",
+                        "on-surface-variant": "#434840",
+                        "on-secondary-fixed": "#161e00",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed": "#caf24d",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-secondary-container": "#566c00",
+                        "surface-tint": "#486644",
+                        "on-primary-fixed": "#052107",
+                        "tertiary-container": "#8d6a48",
+                        "surface-dim": "#e1d9cf",
+                        "primary-container": "#5a7956",
+                        "surface-bright": "#fff8f2",
+                        "inverse-surface": "#343029",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error": "#ffffff",
+                        "outline": "#737970",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fff8f2",
+                        "secondary-container": "#caf24d",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f2",
+                        "on-tertiary-fixed": "#2c1600",
+                        "outline-variant": "#c3c8be",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#aed0a7",
+                        "surface-container-low": "#fbf2e8",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "tertiary": "#725232",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary": "#42603f",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-surface": "#1f1b15",
+                        "on-background": "#1f1b15",
+                        "inverse-primary": "#aed0a7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .font-noto-serif { font-family: 'Noto Serif', serif; }
+        .tonal-shift { background: linear-gradient(135deg, #fbf2e8 0%, #f5ede2 100%); }
+        .glass-nav { backdrop-filter: blur(24px); }
+        .btn-primary-gradient { background: linear-gradient(135deg, #42603f 0%, #5a7956 100%); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 flex-shrink-0 border-r-0 z-50">
+<div class="mb-10 px-2">
+<h1 class="text-3xl font-noto-serif italic font-bold text-[#42603f] dark:text-[#caf24d]">Ladder</h1>
+<p class="font-manrope text-sm text-stone-500 uppercase tracking-widest mt-1">College Prep Platform</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Academic Tracker</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+<span>Transcript</span>
+</a>
+<!-- Active Tab: Course Guide -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#42603f] font-bold border-r-4 border-[#caf24d] bg-[#eae1d7]/50" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>Course Guide</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_month">calendar_view_month</span>
+<span>AI Scheduler</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+<span>Research</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span>Essay Hub</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-300 hover:bg-[#eae1d7] text-stone-500 font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span>Career Explorer</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full py-4 px-6 rounded-xl btn-primary-gradient text-white font-bold text-sm tracking-tight scale-98 active:opacity-80 transition-all">
+                Upgrade to Pro
+            </button>
+<div class="pt-4 border-t border-outline-variant/20 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2 text-stone-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-stone-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="text-sm">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen relative">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 backdrop-blur-xl shadow-sm">
+<div class="flex items-center bg-surface-container rounded-full px-4 py-2 w-96">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full font-body" placeholder="Search courses or colleges..." type="text"/>
+</div>
+<div class="flex items-center gap-8">
+<nav class="flex gap-8">
+<a class="text-stone-600 hover:text-primary transition-all font-body font-semibold" href="#">Dashboard</a>
+<a class="text-stone-600 hover:text-primary transition-all font-body font-semibold" href="#">Analytics</a>
+<a class="text-stone-600 hover:text-primary transition-all font-body font-semibold" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer text-3xl" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="pt-28 px-10 pb-12 flex gap-8">
+<!-- Left Column (55%) -->
+<section class="w-[55%] flex flex-col gap-8">
+<!-- Featured Explainer Card -->
+<div class="relative overflow-hidden rounded-xl bg-primary-container text-on-primary-container p-8 shadow-sm">
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-4">
+<div class="bg-secondary-fixed p-2 rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-fixed" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<span class="text-xs font-bold uppercase tracking-widest opacity-80">Guide Overview</span>
+</div>
+<h2 class="text-4xl font-headline font-bold mb-4 leading-tight">What is Dual Enrollment?</h2>
+<p class="text-lg opacity-90 max-w-lg mb-6 font-body leading-relaxed">
+                            Jumpstart your college journey by earning high school and university credits simultaneously. Save thousands in tuition and graduate earlier.
+                        </p>
+<button class="bg-surface text-primary px-6 py-3 rounded-full font-bold text-sm hover:bg-secondary-fixed transition-colors">
+                            How it works
+                        </button>
+</div>
+<!-- Subtle background abstract shape -->
+<div class="absolute -right-16 -bottom-16 w-64 h-64 bg-secondary-fixed opacity-10 rounded-full blur-3xl"></div>
+</div>
+<!-- Course List Section -->
+<div>
+<div class="flex justify-between items-end mb-6">
+<div>
+<h3 class="text-2xl font-headline font-bold">Available Courses</h3>
+<p class="text-sm text-stone-500 font-body">Fall 2024 Semester</p>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center bg-surface-container-high px-4 py-2 rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">
+<span class="text-xs font-bold text-stone-600">Subject</span>
+<span class="material-symbols-outlined text-xs ml-1" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+<div class="flex items-center bg-surface-container-high px-4 py-2 rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">
+<span class="text-xs font-bold text-stone-600">College</span>
+<span class="material-symbols-outlined text-xs ml-1" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+<div class="flex items-center bg-surface-container-high px-4 py-2 rounded-full cursor-pointer hover:bg-surface-container-highest transition-colors">
+<span class="text-xs font-bold text-stone-600">Cost</span>
+<span class="material-symbols-outlined text-xs ml-1" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Course Card 1 -->
+<div class="bg-surface-container-low p-6 rounded-xl flex items-center justify-between group hover:bg-surface-container transition-all">
+<div class="flex gap-5 items-center">
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="functions">functions</span>
+</div>
+<div>
+<h4 class="font-bold text-lg">Introduction to Calculus II</h4>
+<p class="text-sm text-stone-500">State University • Math Department</p>
+<div class="flex gap-4 mt-2">
+<span class="text-xs font-bold px-2 py-1 bg-secondary-fixed/20 text-on-secondary-fixed rounded">4 HS Credits</span>
+<span class="text-xs font-bold px-2 py-1 bg-primary-fixed/30 text-on-primary-fixed rounded">3 College Credits</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xl font-headline font-bold text-primary mb-2">$150.00</p>
+<button class="btn-primary-gradient text-white px-6 py-2 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Enroll
+                                </button>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-surface-container-low p-6 rounded-xl flex items-center justify-between group hover:bg-surface-container transition-all">
+<div class="flex gap-5 items-center">
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="history_edu">history_edu</span>
+</div>
+<div>
+<h4 class="font-bold text-lg">American Literature</h4>
+<p class="text-sm text-stone-500">Community College of Arts • Humanities</p>
+<div class="flex gap-4 mt-2">
+<span class="text-xs font-bold px-2 py-1 bg-secondary-fixed/20 text-on-secondary-fixed rounded">3 HS Credits</span>
+<span class="text-xs font-bold px-2 py-1 bg-primary-fixed/30 text-on-primary-fixed rounded">3 College Credits</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xl font-headline font-bold text-primary mb-2">$120.00</p>
+<button class="btn-primary-gradient text-white px-6 py-2 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Enroll
+                                </button>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="bg-surface-container-low p-6 rounded-xl flex items-center justify-between group hover:bg-surface-container transition-all">
+<div class="flex gap-5 items-center">
+<div class="w-16 h-16 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="biotech">biotech</span>
+</div>
+<div>
+<h4 class="font-bold text-lg">Molecular Biology</h4>
+<p class="text-sm text-stone-500">State Research Uni • Sciences</p>
+<div class="flex gap-4 mt-2">
+<span class="text-xs font-bold px-2 py-1 bg-secondary-fixed/20 text-on-secondary-fixed rounded">5 HS Credits</span>
+<span class="text-xs font-bold px-2 py-1 bg-primary-fixed/30 text-on-primary-fixed rounded">4 College Credits</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xl font-headline font-bold text-primary mb-2">$185.00</p>
+<button class="btn-primary-gradient text-white px-6 py-2 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Enroll
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column (45%) -->
+<section class="w-[45%] flex flex-col gap-8">
+<!-- Status & Progress -->
+<div class="bg-surface-container-high rounded-xl p-8">
+<h3 class="text-xl font-headline font-bold mb-6">Your DE Courses</h3>
+<div class="space-y-6">
+<!-- Credit Tracker Split Bar -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-xs font-bold uppercase tracking-widest text-stone-500">Credit Progress</span>
+<span class="text-xs font-bold text-primary">12 / 60 Credits</span>
+</div>
+<div class="h-4 w-full bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-primary" style="width: 20%"></div>
+<div class="h-full bg-secondary-fixed" style="width: 15%"></div>
+</div>
+<div class="flex gap-4 mt-2">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-[10px] font-bold text-stone-500 uppercase">Completed</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed"></div>
+<span class="text-[10px] font-bold text-stone-500 uppercase">In Progress</span>
+</div>
+</div>
+</div>
+<!-- Active Courses -->
+<div class="space-y-3">
+<div class="bg-surface-container-highest p-4 rounded-lg flex justify-between items-center">
+<div>
+<p class="font-bold text-sm">Psychology 101</p>
+<p class="text-[11px] text-stone-500">Midterm: Oct 12</p>
+</div>
+<span class="text-xs font-bold px-3 py-1 bg-primary text-white rounded-full">B+ Average</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-lg flex justify-between items-center">
+<div>
+<p class="font-bold text-sm">Microeconomics</p>
+<p class="text-[11px] text-stone-500">Final: Dec 15</p>
+</div>
+<span class="text-xs font-bold px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full">A Average</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cost Savings Calculator -->
+<div class="bg-surface-container-high rounded-xl p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="payments">payments</span>
+</div>
+<h3 class="text-xl font-headline font-bold mb-2">Cost Savings Calculator</h3>
+<p class="text-sm text-stone-500 mb-6">Total tuition saved vs. standard enrollment</p>
+<div class="mb-6">
+<span class="text-5xl font-headline font-bold text-on-secondary-fixed bg-secondary-fixed px-4 py-2 rounded-xl inline-block shadow-sm">$12,450</span>
+</div>
+<p class="text-xs font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                        On track to save $18k total by graduation
+                    </p>
+</div>
+<!-- University Transfer Guide Accordion -->
+<div>
+<h3 class="text-xl font-headline font-bold mb-4">Transfer Guide</h3>
+<div class="space-y-2">
+<div class="bg-surface-container p-4 rounded-xl cursor-pointer flex justify-between items-center border-l-4 border-primary">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance">account_balance</span>
+<span class="font-bold text-sm">Ivy League Equivalencies</span>
+</div>
+<span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</div>
+<div class="bg-surface-container p-4 rounded-xl cursor-pointer flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-stone-400" data-icon="map">map</span>
+<span class="font-bold text-sm">State Reciprocity Agreements</span>
+</div>
+<span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</div>
+<div class="bg-surface-container p-4 rounded-xl cursor-pointer flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-stone-400" data-icon="article">article</span>
+<span class="font-bold text-sm">Common App Credit Mapping</span>
+</div>
+<span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Visual Accent Tip -->
+<div class="mt-4 p-6 rounded-xl bg-[#fff8f2] border-2 border-dashed border-outline-variant/30 text-center">
+<p class="font-headline italic text-stone-600 leading-relaxed">
+                        "Dual enrollment students are 15% more likely to graduate university in under 4 years."
+                    </p>
+<p class="text-[10px] uppercase font-bold text-stone-400 mt-2 tracking-widest">— Academic Research 2023</p>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB - Restricted to Course Guide (Active) -->
+<button class="fixed bottom-10 right-10 w-16 h-16 rounded-full btn-primary-gradient text-white shadow-2xl flex items-center justify-center scale-100 hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</body></html>

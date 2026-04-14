@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#fbf2e8",
+                        "inverse-primary": "#aed0a7",
+                        "primary-fixed-dim": "#aed0a7",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#caf24d",
+                        "surface-bright": "#fff8f2",
+                        "primary": "#42603f",
+                        "surface-container-high": "#efe7dd",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#f5ede2",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#8d6a48",
+                        "inverse-surface": "#343029",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#eae1d7",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-primary-fixed": "#052107",
+                        "secondary-fixed": "#caf24d",
+                        "primary-fixed": "#c9ecc2",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#e1d9cf",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-tertiary-container": "#fff5ee",
+                        "on-secondary-fixed": "#161e00",
+                        "background": "#fff8f2",
+                        "on-background": "#1f1b15",
+                        "on-surface-variant": "#434840",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "tertiary": "#725232",
+                        "on-primary-container": "#e2ffda",
+                        "surface": "#fff8f2",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#516600",
+                        "outline": "#737970",
+                        "on-secondary-container": "#566c00",
+                        "surface-tint": "#486644",
+                        "surface-container-highest": "#eae1d7",
+                        "primary-container": "#5a7956",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "outline-variant": "#c3c8be",
+                        "on-surface": "#1f1b15",
+                        "on-tertiary-fixed-variant": "#5e4122"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ladder-line {
+            position: absolute;
+            left: 23px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #caf24d;
+            box-shadow: 0 0 12px rgba(202, 242, 77, 0.4);
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-container">
+<!-- NavigationDrawer (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-6 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 rounded-r-3xl border-r-0 shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)]">
+<div class="mb-10 px-4">
+<h1 class="text-xl font-serif italic text-[#42603f] dark:text-stone-100">Academic Atelier</h1>
+<p class="text-xs font-sans text-stone-500 mt-1">Class of 2025</p>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined text-[#42603f]">monetization_on</span>
+<span class="text-sm font-sans">Financial Aid</span>
+</div>
+<!-- Active Tab: Scholarships -->
+<div class="flex items-center gap-3 px-4 py-3 bg-[#42603f] text-[#fbf2e8] rounded-xl transition-all scale-95 active:opacity-80">
+<span class="material-symbols-outlined">search</span>
+<span class="text-sm font-sans font-medium">Scholarships</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-sm font-sans">Match Score</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="text-sm font-sans">Aid Comparison</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-sm font-sans">Test Prep</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-sm font-sans">Score Log</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300 cursor-pointer">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-sm font-sans">Schedule</span>
+</div>
+</nav>
+<div class="mt-auto p-4 bg-[#eae1d7] rounded-2xl flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Professional portrait of a diverse student in a library setting with soft academic lighting and warm tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdUI4ZZ6rQXLxcAkXaAiYVBKlGLUB0DrByKXwiBe1vp2f7K5ockSNbjXfIWgxJMINFMkWNQ_i7XehCKYDjX6f5ToI_jTMNopcQJ2a1k7uLf7kjNN_0EkixpV5OcLq7L8lY1eA2YrLX1AXwM-YLV-f9yGEwQwQW4LUNCXW41PeQ3VVrEc9P_IKhfTkfdNK1BeJRzU1R30vV4mbtGU-fHs_ecxTRNMvFNvVZLj9iSml2Mv5ICGcOVylohq8JGNWE_rxLsvDhD0nePC0"/>
+<div>
+<p class="text-xs font-bold text-[#42603f]">Premium Access</p>
+<p class="text-[10px] text-stone-500">Student ID: 2025-AF</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="w-full sticky top-0 z-30 flex justify-between items-center px-12 py-8 bg-[#fff8f2]/70 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f] cursor-pointer">menu</span>
+<h2 class="font-serif text-3xl font-light tracking-tight text-[#42603f]">Financial Intelligence</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-8 text-sm font-medium">
+<span class="text-[#42603f] font-bold cursor-pointer">Timeline</span>
+<span class="text-stone-500 hover:opacity-70 transition-opacity cursor-pointer">Resources</span>
+<span class="text-stone-500 hover:opacity-70 transition-opacity cursor-pointer">Mentors</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container/20">
+<img class="w-full h-full object-cover" data-alt="Student avatar portrait in a circle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyqER2L5SGzCnPlAQk3SVPIn8rELuef43mI8ECmc9SOdMY4mtiu_gl8CoCEFh0mLlUThxAmq50il25dgVqQhDgW-xH6k8pf6o3E-ff7--j7jVzqd9aE-xQNi-okwfUZ7xVF_JJaVKb6fY5xZHRie1r9Nk2-EkQ1QRFMeqWv6Y3n7rLewRvT4zt0GD43UELL5gwGy2dwds1JWxKAqqpfWPJJxHfu38DsIOvEzvNUWeWih2Kxfcg2WrHJnIqH0PaoyXssUREGpnklEo"/>
+</div>
+</div>
+</header>
+<div class="px-12 pb-20">
+<!-- Hero Header Section -->
+<div class="flex justify-between items-end mb-12">
+<div class="max-w-2xl">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary-fixed text-xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="uppercase tracking-widest text-xs font-bold text-primary opacity-60">Personalized Roadmap</span>
+</div>
+<h1 class="font-headline text-5xl italic tracking-tight text-on-surface leading-tight">
+                        Scholarship Action Plan
+                    </h1>
+</div>
+<!-- Potential Earnings Summary Card -->
+<div class="bg-surface-container-highest rounded-xl p-6 min-w-[320px] shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)] relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary-fixed/10 rounded-full blur-2xl group-hover:bg-secondary-fixed/20 transition-all"></div>
+<p class="text-xs font-bold text-primary/70 mb-4 tracking-widest uppercase">Potential Earnings</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-4xl font-headline italic font-bold text-primary">$32,000</h3>
+<span class="text-on-surface-variant font-medium">USD</span>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">account_balance_wallet</span>
+<span class="text-sm font-semibold">8 scholarships</span>
+</div>
+<div class="h-1 w-24 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full w-2/3 bg-secondary-fixed"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Vertical Timeline Section -->
+<div class="relative pl-12 space-y-16">
+<!-- Main Timeline Connector -->
+<div class="ladder-line"></div>
+<!-- Month: January 2026 -->
+<section class="relative">
+<!-- Timeline Node -->
+<div class="absolute -left-[45px] top-4 w-6 h-6 rounded-full bg-surface-container-lowest border-4 border-secondary-fixed z-10 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+</div>
+<div class="flex items-center gap-6 mb-8">
+<h4 class="font-headline text-2xl italic tracking-tight text-primary min-w-[180px]">January 2026</h4>
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Task Card 1 -->
+<div class="bg-surface-container-low rounded-xl p-6 flex items-start gap-6 group hover:translate-x-1 transition-all duration-300">
+<div class="pt-1">
+<input class="w-6 h-6 rounded border-outline text-primary focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h5 class="text-lg font-bold text-on-surface mb-1">STEM Excellence Grant</h5>
+<div class="flex items-center gap-2 text-error text-xs font-bold">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">error</span>
+                                            Deadline: Jan 15 (4 days left)
+                                        </div>
+</div>
+<span class="px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full uppercase tracking-wider">High Priority</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="px-3 py-1 bg-surface-container-high rounded-lg text-xs font-medium text-on-surface-variant border border-outline-variant/15 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">edit_note</span> Essays
+                                    </span>
+<span class="px-3 py-1 bg-surface-container-high rounded-lg text-xs font-medium text-on-surface-variant border border-outline-variant/15 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">folder_open</span> Documents
+                                    </span>
+<div class="ml-auto text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> Est: 4h
+                                    </div>
+</div>
+</div>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-container-low rounded-xl p-6 flex items-start gap-6 group hover:translate-x-1 transition-all duration-300 opacity-90">
+<div class="pt-1">
+<input class="w-6 h-6 rounded border-outline text-primary focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h5 class="text-lg font-bold text-on-surface mb-1">Global Leader Fellowship</h5>
+<div class="flex items-center gap-2 text-on-surface-variant text-xs font-medium">
+<span class="material-symbols-outlined text-sm">event</span>
+                                            Deadline: Jan 30
+                                        </div>
+</div>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface text-[10px] font-bold rounded-full uppercase tracking-wider">Medium</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="px-3 py-1 bg-surface-container-high rounded-lg text-xs font-medium text-on-surface-variant border border-outline-variant/15 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">edit_note</span> Essays
+                                    </span>
+<div class="ml-auto text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> Est: 12h
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Month: February 2026 -->
+<section class="relative">
+<!-- Timeline Node -->
+<div class="absolute -left-[45px] top-4 w-6 h-6 rounded-full bg-surface-container-lowest border-4 border-outline-variant/50 z-10"></div>
+<div class="flex items-center gap-6 mb-8">
+<h4 class="font-headline text-2xl italic tracking-tight text-on-surface-variant min-w-[180px]">February 2026</h4>
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Task Card 3 -->
+<div class="bg-surface-container-low rounded-xl p-6 flex items-start gap-6 group hover:translate-x-1 transition-all duration-300">
+<div class="pt-1">
+<input class="w-6 h-6 rounded border-outline text-primary focus:ring-primary-container bg-surface cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h5 class="text-lg font-bold text-on-surface mb-1">Community Impact Award</h5>
+<div class="flex items-center gap-2 text-on-surface-variant text-xs font-medium">
+<span class="material-symbols-outlined text-sm">event</span>
+                                            Deadline: Feb 12
+                                        </div>
+</div>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface text-[10px] font-bold rounded-full uppercase tracking-wider">Medium</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="px-3 py-1 bg-surface-container-high rounded-lg text-xs font-medium text-on-surface-variant border border-outline-variant/15 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">folder_open</span> Documents
+                                    </span>
+<div class="ml-auto text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> Est: 2h
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Floating Action Indicator (Editorial Element) -->
+<div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-y-12">
+<h2 class="font-headline text-[160px] italic leading-none select-none tracking-tighter">FUTURE</h2>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Supressed for this screen based on rules as it is a detailed task/action plan screen) -->
+</body></html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,700;1,300;1,700&amp;family=Manrope:wght@300;400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#fbf2e8",
+                    "inverse-primary": "#aed0a7",
+                    "primary-fixed-dim": "#aed0a7",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#caf24d",
+                    "surface-bright": "#fff8f2",
+                    "primary": "#42603f",
+                    "surface-container-high": "#efe7dd",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#f5ede2",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#8d6a48",
+                    "inverse-surface": "#343029",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#eae1d7",
+                    "on-tertiary-fixed": "#2c1600",
+                    "on-primary-fixed": "#052107",
+                    "secondary-fixed": "#caf24d",
+                    "primary-fixed": "#c9ecc2",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#e1d9cf",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-tertiary-container": "#fff5ee",
+                    "on-secondary-fixed": "#161e00",
+                    "background": "#fff8f2",
+                    "on-background": "#1f1b15",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "tertiary": "#725232",
+                    "on-primary-container": "#e2ffda",
+                    "surface": "#fff8f2",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#516600",
+                    "outline": "#737970",
+                    "on-secondary-container": "#566c00",
+                    "surface-tint": "#486644",
+                    "surface-container-highest": "#eae1d7",
+                    "primary-container": "#5a7956",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "outline-variant": "#c3c8be",
+                    "on-surface": "#1f1b15",
+                    "on-tertiary-fixed-variant": "#5e4122"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .tonal-layering { background-color: #eae1d7; }
+        .glass-header { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+    </style>
+</head>
+<body class="text-on-background bg-background min-h-screen">
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-6 w-72 bg-[#fbf2e8] dark:bg-stone-900 rounded-r-3xl shadow-[40px_0_60px_-15px_rgba(31,27,21,0.06)]">
+<div class="mb-10 px-4">
+<h1 class="text-xl font-serif italic text-[#42603f] dark:text-stone-100">Academic Atelier</h1>
+<p class="text-xs text-stone-500 uppercase tracking-widest mt-1">Class of 2025</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">monetization_on</span>
+<span class="font-sans text-sm">Financial Aid</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-sans text-sm">Scholarships</span>
+</a>
+<!-- Active Navigation Logic: Match Score -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#42603f] text-[#fbf2e8] rounded-xl transition-all scale-95 active:opacity-80" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-sans text-sm font-semibold">Match Score</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="font-sans text-sm">Aid Comparison</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-sans text-sm">Test Prep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-sans text-sm">Score Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:bg-[#eae1d7] dark:hover:bg-stone-800 rounded-xl hover:translate-x-1 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-sans text-sm">Schedule</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-[#eae1d7] dark:bg-stone-800 rounded-2xl flex items-center gap-3">
+<img alt="Profile" class="w-10 h-10 rounded-full border-2 border-white" data-alt="Student Portrait profile picture in a soft lit studio background with academic books blurred" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-zLBS9oZyBwysRvKU-7ryRCWB9kX77yPBZi4d3OfHx-fliAUNZ48oxgegbFwHBZktXyyxPOmntgvOoRFPEpZdFwt6mgn0jnzbbe60jH20O-_Dtvs7V82ARQ5pSeEU_PB2K2yoTi54WCgLRyxpq6WFNaiyGJE8T4-DDjElOgH2EwA5LAaDwbbZZ1guqcbUnA1oA0c7OAaKrxjd2WUlTZiJedwOUX8nYfNT-0tNeBhDEvvVacD3-dTtbmUP2MW-S6lZUqsivn9YtUc"/>
+<div>
+<p class="text-xs font-bold text-on-surface">Premium Access</p>
+<p class="text-[10px] text-stone-500">Class of 2025</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-8 py-6 sticky top-0 z-30 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#42603f] cursor-pointer active:scale-95">menu</span>
+<h2 class="font-serif text-3xl font-light tracking-tight text-[#42603f]">Financial Intelligence</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden cursor-pointer active:scale-95">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Portrait of a focused university student with natural lighting and a warm artistic aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk18lY01u_As8WTYPMMQVOw3MbtxsqWp_dSOzI4VH6BtR6xkw39jmkNVxUrOWFJEGO3N_1D-KchfS6qWQKgcQ0alhQ_S0csKl69YFfuwS3ZIkfb4Ay9KGi5FZ-k-z2wyvxwGiNq371nq4vwQv0qCq97vHnrCWHAlQLXDg9Ili6CO3BfquWhT_MNl06TV6azrkmPdPGit6cxNZBkMQ-1cXyiOmb6Rxz6q4FEG5AzcjJe4tAwFk3W1kVL8wjiSzCWWn07eqsCpb9rY0"/>
+</div>
+</div>
+</header>
+<div class="flex px-8 pb-12 gap-10">
+<!-- Left Panel (45%) -->
+<section class="w-[45%] flex flex-col gap-6">
+<div>
+<h3 class="font-serif italic text-4xl text-on-surface tracking-tight mb-2">Your Matches</h3>
+<p class="text-sm text-stone-500">Based on your academic profile and curated financial goals.</p>
+</div>
+<!-- Featured Card -->
+<div class="relative overflow-hidden bg-gradient-to-br from-primary to-primary-container p-8 rounded-[2rem] text-white shadow-xl">
+<div class="relative z-10">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">Top Pick for You</span>
+<h4 class="text-2xl font-serif italic mb-1">Global Visionary Grant</h4>
+<p class="text-on-primary-container text-opacity-80 text-sm mb-6">Merit-based excellence award</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-extrabold tracking-tighter">$47,500</span>
+<span class="text-sm font-medium opacity-70">/ total aid</span>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-secondary-fixed opacity-10 rounded-full blur-3xl"></div>
+</div>
+<!-- Ranked List -->
+<div class="flex flex-col gap-3">
+<!-- Row 1 -->
+<div class="group flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-on-primary font-bold text-sm">1</div>
+<div class="flex-1">
+<h5 class="text-sm font-bold text-on-surface">The Meridian Arts Fellowship</h5>
+<p class="text-xs text-stone-500 font-medium">$25,000</p>
+<div class="mt-2 w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[92%]"></div>
+</div>
+</div>
+<span class="text-xs font-extrabold text-secondary">92%</span>
+</div>
+<!-- Row 2 -->
+<div class="group flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer border-l-4 border-secondary">
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-highest text-on-surface font-bold text-sm">2</div>
+<div class="flex-1">
+<h5 class="text-sm font-bold text-on-surface">Ivy STEM Excellence</h5>
+<p class="text-xs text-stone-500 font-medium">$12,000</p>
+<div class="mt-2 w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[84%]"></div>
+</div>
+</div>
+<span class="text-xs font-extrabold text-secondary">84%</span>
+</div>
+<!-- Row 3 -->
+<div class="group flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-highest text-on-surface font-bold text-sm">3</div>
+<div class="flex-1">
+<h5 class="text-sm font-bold text-on-surface">Future Leaders Scholarship</h5>
+<p class="text-xs text-stone-500 font-medium">$5,000</p>
+<div class="mt-2 w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-amber-400 w-[61%]"></div>
+</div>
+</div>
+<span class="text-xs font-extrabold text-amber-600">61%</span>
+</div>
+<!-- Row 4 -->
+<div class="group flex items-center gap-4 p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-highest text-on-surface font-bold text-sm">4</div>
+<div class="flex-1">
+<h5 class="text-sm font-bold text-on-surface">Civic Duty Grant</h5>
+<p class="text-xs text-stone-500 font-medium">$2,500</p>
+<div class="mt-2 w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error w-[38%]"></div>
+</div>
+</div>
+<span class="text-xs font-extrabold text-error">38%</span>
+</div>
+</div>
+</section>
+<!-- Right Panel (55%) -->
+<section class="w-[55%] bg-surface-container rounded-[2.5rem] p-10 flex flex-col">
+<div class="flex justify-between items-start mb-8">
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-primary opacity-60 mb-2">Deep Match Analysis</p>
+<h3 class="font-serif text-4xl text-on-surface leading-tight">Global Visionary<br/>Grant</h3>
+</div>
+<div class="relative w-28 h-28 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="56" cy="56" fill="none" r="50" stroke="#eae1d7" stroke-width="10"></circle>
+<circle cx="56" cy="56" fill="none" r="50" stroke="#42603f" stroke-dasharray="314" stroke-dashoffset="15" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<span class="absolute font-serif italic text-2xl font-bold text-primary">95%</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="p-4 rounded-2xl border-l-4 border-secondary-fixed bg-surface-bright shadow-sm">
+<p class="text-[10px] font-bold text-stone-400 uppercase mb-1">Academic Weight</p>
+<p class="text-sm font-bold text-on-surface">Perfect Alignment</p>
+</div>
+<div class="p-4 rounded-2xl border-l-4 border-secondary-fixed bg-surface-bright shadow-sm">
+<p class="text-[10px] font-bold text-stone-400 uppercase mb-1">Extracurriculars</p>
+<p class="text-sm font-bold text-on-surface">Strong Correlation</p>
+</div>
+<div class="p-4 rounded-2xl border-l-4 border-amber-400 bg-surface-bright shadow-sm">
+<p class="text-[10px] font-bold text-stone-400 uppercase mb-1">Residency Status</p>
+<p class="text-sm font-bold text-on-surface">Partial Match</p>
+</div>
+<div class="p-4 rounded-2xl border-l-4 border-secondary-fixed bg-surface-bright shadow-sm">
+<p class="text-[10px] font-bold text-stone-400 uppercase mb-1">Financial Need</p>
+<p class="text-sm font-bold text-on-surface">Highly Eligible</p>
+</div>
+</div>
+<div class="mb-8">
+<h4 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Profile Tags Utilized</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-medium">GPA 4.0+</span>
+<span class="px-3 py-1.5 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-medium">Debate Club Captain</span>
+<span class="px-3 py-1.5 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-medium">Volunteer: 100hrs+</span>
+<span class="px-3 py-1.5 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-medium">First Generation</span>
+<span class="px-3 py-1.5 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-medium">STEM Focus</span>
+</div>
+</div>
+<div class="p-6 rounded-3xl bg-surface-bright border border-outline-variant/15 mb-auto">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-secondary-fixed text-xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h4 class="text-sm font-bold text-on-surface">AI Strategy Suggestion</h4>
+</div>
+<p class="text-sm text-stone-600 leading-relaxed italic">
+                        "Your essay 'The Digital Divide' mirrors this grant's mission. Highlight your 2023 community tech initiative to secure the final 5% match score. Focus on outcomes rather than participation."
+                    </p>
+</div>
+<div class="mt-8 flex gap-4">
+<button class="flex-1 py-4 px-8 bg-gradient-to-r from-primary to-primary-container text-white rounded-xl font-bold text-sm hover:opacity-90 active:scale-95 transition-all">
+                        Apply Now
+                    </button>
+<button class="p-4 bg-surface-container-highest text-on-surface rounded-xl hover:opacity-80 active:scale-95 transition-all">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+</section>
+</div>
+</main>
+</body></html>

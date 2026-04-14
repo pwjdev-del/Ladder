@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Atelier - Deadline Calendar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#161e00",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "on-primary-container": "#e2ffda",
+                    "inverse-primary": "#aed0a7",
+                    "on-primary-fixed": "#052107",
+                    "secondary-container": "#caf24d",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface-dim": "#e1d9cf",
+                    "outline-variant": "#c3c8be",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#725232",
+                    "secondary-fixed": "#caf24d",
+                    "on-background": "#1f1b15",
+                    "inverse-surface": "#343029",
+                    "surface-bright": "#fff8f2",
+                    "on-surface-variant": "#434840",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#486644",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container": "#f5ede2",
+                    "primary": "#42603f",
+                    "background": "#fff8f2",
+                    "surface-container-highest": "#eae1d7",
+                    "on-secondary-container": "#566c00",
+                    "outline": "#737970",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1f1b15",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container-low": "#fbf2e8",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "inverse-on-surface": "#f8efe5",
+                    "on-primary": "#ffffff",
+                    "secondary": "#516600",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "primary-fixed-dim": "#aed0a7",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-container-high": "#efe7dd",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#c9ecc2",
+                    "primary-container": "#5a7956",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-container": "#8d6a48",
+                    "surface": "#fff8f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "16px",
+                    "xl": "24px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 px-6 bg-[#fbf2e8] dark:bg-stone-900 h-screen w-72 border-r-0 z-50">
+<div class="mb-10">
+<h1 class="font-serif text-2xl font-bold text-[#1f1b15] dark:text-[#eae1d7]">Counselor Hub</h1>
+<p class="font-sans text-sm text-[#1f1b15]/60 dark:text-[#eae1d7]/60">Senior Academic Lead</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active State: Calendar -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 scale-98 text-[#5A7956] dark:text-[#caf24d] font-bold border-r-4 border-[#5A7956] dark:border-[#caf24d] bg-[#eae1d7]/30" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-sans text-sm">Calendar</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-sans text-sm">Caseload</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-sans text-sm">Approvals</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+<span class="font-sans text-sm">Students</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-[#eae1d7] dark:hover:bg-stone-800 text-[#1f1b15]/60 dark:text-[#eae1d7]/60" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="font-sans text-sm">Announcements</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4 pt-6 border-t border-outline-variant/20">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Add Student
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:text-primary transition-colors text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-4 px-4 py-2 text-[#1f1b15]/60 dark:text-[#eae1d7]/60 hover:text-primary transition-colors text-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help">help</span>
+                    Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen relative">
+<!-- TopNavBar Anchor -->
+<header class="fixed top-0 right-0 left-72 z-40 flex justify-between items-center px-10 h-20 bg-[#fff8f2]/70 dark:bg-stone-950/70 backdrop-blur-xl shadow-sm shadow-[#1f1b15]/5">
+<div class="flex items-center gap-8">
+<span class="text-[#1f1b15] dark:text-[#eae1d7] font-serif font-black text-xl tracking-tight uppercase">Academic Atelier</span>
+<div class="hidden md:flex gap-6">
+<a class="font-serif italic text-lg text-[#1f1b15]/70 hover:text-[#5A7956] transition-opacity" href="#">Overview</a>
+<a class="font-serif italic text-lg text-[#1f1b15]/70 hover:text-[#5A7956] transition-opacity" href="#">Messages</a>
+<a class="font-serif italic text-lg text-[#5A7956] border-b-2 border-[#5A7956]" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-fixed">
+<img alt="Counselor Avatar" class="w-full h-full object-cover" data-alt="professional portrait of a senior academic counselor smiling, soft office lighting, editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP6g-ZrSQMUXaPaNlV1YNdTuvX-TKM9amSwWRKQ9JompcZSuCYjBGh7HaAXxAlMygw3UCwN657T63WUtJxPmnt3y5d3jC0OXMNHV2IgNgIsnQm4SKKWG8hQMKtJelvv0gZ1ZVbNtTV6HbsEAy68SGsOCtSVUMAlVSBKf8-YLnRu0llT5w6MzX5mDe7BUIegUh4SeYyunZdbWVCIchunYEtVYYOKf8azHBbljTAyHPAn29jWFhuV82cMCy2qfoX5EsrKlRtJvoOJV8"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="pt-28 pb-12 px-10 max-w-7xl mx-auto">
+<!-- Calendar Header Section -->
+<section class="flex justify-between items-end mb-10">
+<div class="space-y-2">
+<div class="flex items-center gap-4">
+<h2 class="text-5xl font-serif font-black tracking-tight text-primary">November</h2>
+<span class="text-3xl font-serif italic text-outline">2024</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium">
+<button class="hover:text-primary p-1"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+<span class="px-2">Today</span>
+<button class="hover:text-primary p-1"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-low px-4 py-2 rounded-lg flex items-center gap-3 text-sm text-tertiary font-medium">
+<span class="material-symbols-outlined text-error" data-icon="info" style="font-size: 18px;">info</span>
+                        Reference Only: Always verify official university portals.
+                    </div>
+<button class="bg-surface-container-highest text-on-surface px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+                        Export
+                    </button>
+</div>
+</section>
+<!-- Main Calendar Grid -->
+<section class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)]">
+<div class="calendar-grid border-b border-outline-variant/10">
+<div class="py-4 text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Sun</div>
+<div class="py-4 text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Mon</div>
+<div class="py-4 text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Tue</div>
+<div class="py-4 text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Wed</div>
+<div class="py-4 text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Thu</div>
+<div class="py-4 text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Fri</div>
+<div class="py-4 text-center text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Sat</div>
+</div>
+<div class="calendar-grid bg-outline-variant/5 gap-[1px]">
+<!-- Empty slots for Oct -->
+<div class="bg-surface-container-low/30 h-40 p-4 opacity-40">
+<span class="text-sm font-medium">27</span>
+</div>
+<div class="bg-surface-container-low/30 h-40 p-4 opacity-40">
+<span class="text-sm font-medium">28</span>
+</div>
+<div class="bg-surface-container-low/30 h-40 p-4 opacity-40">
+<span class="text-sm font-medium">29</span>
+</div>
+<div class="bg-surface-container-low/30 h-40 p-4 opacity-40">
+<span class="text-sm font-medium">30</span>
+</div>
+<div class="bg-surface-container-low/30 h-40 p-4 opacity-40">
+<span class="text-sm font-medium">31</span>
+</div>
+<!-- Nov 1 (Significant Deadline) -->
+<div class="bg-surface-container-lowest h-40 p-4 group cursor-pointer relative overflow-hidden hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-lg font-bold text-primary">1</span>
+<div class="flex -space-x-1">
+<span class="w-2.5 h-2.5 rounded-full bg-purple-500 ring-2 ring-white"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-blue-500 ring-2 ring-white"></span>
+</div>
+</div>
+<div class="mt-4 space-y-1.5">
+<div class="text-[10px] bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-bold w-fit">ED (12)</div>
+<div class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold w-fit">EA (45)</div>
+</div>
+<!-- Popover Simulation (Visible on hover for this demo) -->
+<div class="absolute inset-0 bg-white/95 backdrop-blur-sm p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 shadow-xl z-10 flex flex-col">
+<p class="text-xs font-bold text-on-surface mb-2">Nov 1st Deadlines</p>
+<ul class="text-[11px] space-y-1 overflow-y-auto">
+<li class="flex justify-between"><span>Harvard</span> <span class="font-bold text-purple-600">ED</span></li>
+<li class="flex justify-between"><span>Yale</span> <span class="font-bold text-purple-600">ED</span></li>
+<li class="flex justify-between"><span>Stanford</span> <span class="font-bold text-blue-600">EA</span></li>
+<li class="flex justify-between"><span>MIT</span> <span class="font-bold text-blue-600">EA</span></li>
+</ul>
+<button class="mt-auto text-[10px] font-bold text-primary flex items-center justify-center">View All 57</button>
+</div>
+</div>
+<!-- Row 1 Continue -->
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">2</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">3</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">4</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">5</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">6</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">7</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">8</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">9</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">10</span></div>
+<!-- Nov 11 -->
+<div class="bg-surface-container-lowest h-40 p-4 group cursor-pointer relative overflow-hidden hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-lg font-bold text-on-surface">11</span>
+<span class="w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-white"></span>
+</div>
+<div class="mt-4">
+<div class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold w-fit">Rolling (8)</div>
+</div>
+</div>
+<!-- Row 2 Continue -->
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">12</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">13</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">14</span></div>
+<!-- Nov 15 -->
+<div class="bg-surface-container-lowest h-40 p-4 group cursor-pointer relative overflow-hidden hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-lg font-bold text-on-surface">15</span>
+<div class="flex -space-x-1">
+<span class="w-2.5 h-2.5 rounded-full bg-blue-500 ring-2 ring-white"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-green-500 ring-2 ring-white"></span>
+</div>
+</div>
+<div class="mt-4 space-y-1.5">
+<div class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold w-fit">EA (22)</div>
+<div class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold w-fit">RD (5)</div>
+</div>
+</div>
+<!-- Row 3 & 4 Fillers -->
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">16</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">17</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">18</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">19</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">20</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">21</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">22</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">23</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">24</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">25</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">26</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">27</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">28</span></div>
+<div class="bg-surface-container-lowest h-40 p-4"><span class="text-sm font-medium">29</span></div>
+<!-- Nov 30 -->
+<div class="bg-surface-container-lowest h-40 p-4 group cursor-pointer relative overflow-hidden hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-lg font-bold text-on-surface">30</span>
+<span class="w-2.5 h-2.5 rounded-full bg-green-500 ring-2 ring-white"></span>
+</div>
+<div class="mt-4">
+<div class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold w-fit">RD (34)</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Legend Section -->
+<section class="mt-8 flex flex-wrap gap-8 items-center bg-surface-container-low/50 p-6 rounded-xl">
+<div class="flex items-center gap-3">
+<span class="w-4 h-4 rounded-full bg-purple-500"></span>
+<span class="text-sm font-bold text-on-surface">Early Decision (ED)</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-4 h-4 rounded-full bg-blue-500"></span>
+<span class="text-sm font-bold text-on-surface">Early Action (EA)</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-4 h-4 rounded-full bg-green-500"></span>
+<span class="text-sm font-bold text-on-surface">Regular Decision (RD)</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-4 h-4 rounded-full bg-amber-500"></span>
+<span class="text-sm font-bold text-on-surface">Rolling Admissions</span>
+</div>
+<div class="ml-auto text-on-surface-variant/40 text-xs font-medium">
+                    Data source: NCES College Navigator 2024
+                </div>
+</section>
+<!-- Secondary Insight Bento Grid -->
+<section class="mt-12 grid grid-cols-12 gap-6">
+<div class="col-span-8 bg-surface-container-highest p-8 rounded-xl flex flex-col justify-between">
+<div>
+<h3 class="font-serif text-2xl font-bold mb-4">Strategic Monthly Overview</h3>
+<p class="text-on-surface-variant max-w-lg mb-6 leading-relaxed">
+                            November marks the highest density of priority deadlines. Ensure all "Early" tracks have final transcript verifications completed by the 10th to avoid the last-minute bottleneck.
+                        </p>
+</div>
+<div class="flex gap-12">
+<div>
+<span class="text-3xl font-black text-primary italic">57</span>
+<p class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant/60 mt-1">Total Deadlines</p>
+</div>
+<div>
+<span class="text-3xl font-black text-secondary italic">82%</span>
+<p class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant/60 mt-1">Student Readiness</p>
+</div>
+<div>
+<span class="text-3xl font-black text-tertiary italic">14</span>
+<p class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant/60 mt-1">Pending Recs</p>
+</div>
+</div>
+</div>
+<div class="col-span-4 bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl text-white flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="text-xl font-bold leading-tight">Generate Student Report</h3>
+<p class="text-white/70 text-xs mt-2 leading-relaxed">Prepare a personalized PDF of these deadlines for your current caseload.</p>
+</div>
+<button class="relative z-10 w-full bg-white text-primary font-bold py-3 rounded-lg text-sm mt-6 hover:bg-secondary-fixed transition-colors">
+                        Generate All Reports
+                    </button>
+<!-- Background aesthetic circle -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB Suppression: FAB is only on Dashboard/Overview. Suppressed here as it is a Reference Calendar. -->
+</body></html>
