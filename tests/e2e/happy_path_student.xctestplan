@@ -1,0 +1,27 @@
+{
+  "configurations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "options": {}
+    }
+  ],
+  "defaultOptions": {
+    "codeCoverage": false,
+    "targetForVariableExpansion": {
+      "containerPath": "container:LadderApp.xcodeproj",
+      "identifier": "REPLACE_WITH_TARGET_ID",
+      "name": "LadderApp"
+    }
+  },
+  "testTargets": [
+    {
+      "target": {
+        "containerPath": "container:LadderApp.xcodeproj",
+        "identifier": "REPLACE_WITH_E2E_TARGET_ID",
+        "name": "LadderAppE2E"
+      }
+    }
+  ],
+  "version": 1
+}

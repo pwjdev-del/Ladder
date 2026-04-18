@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: denoland/setup-deno@v1
+        with: { deno-version: v1.45.x }
+      - name: SwiftLint
+        run: |
+          brew install swiftlint
+          swiftlint lint --quiet --strict
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+      - name: Deno fmt + lint
+        run: |
+          deno fmt --check LadderBackend/
+          deno lint LadderBackend/
+
+  ios-build-test:
+    runs-on: macos-14
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Build
+        run: |
+          xcodebuild -project LadderApp.xcodeproj \
+            -scheme LadderApp \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            build | xcbeautify
+      - name: Unit tests
+        run: |
+          xcodebuild -project LadderApp.xcodeproj \
+            -scheme LadderApp \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            test | xcbeautify
+
+  backend-tests:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v1
+        with: { deno-version: v1.45.x }
+      - name: Scheduling tests
+        run: deno test --allow-all tests/scheduling/
+      - name: Flags (Varun) tests
+        run: deno test --allow-all tests/flags/
+      - name: Crypto tests
+        run: deno test --allow-all tests/crypto/
+
+  isolation-attack-suite:
+    runs-on: ubuntu-latest
+    needs: lint
+    # P0 — §4.2 "any success fails the build"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - name: Start Supabase
+        run: supabase start
+      - name: Apply migrations
+        run: supabase db push --db-url "$DB_URL"
+        env:
+          DB_URL: postgresql://postgres:postgres@localhost:54322/postgres
+      - name: Run cross-tenant attack suite
+        run: |
+          pip install pytest supabase-py pyjwt
+          pytest -x -v tests/isolation/
+        env:
+          SUPABASE_URL: http://localhost:54321
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY_LOCAL }}
+
+  pr-isolation-comment:
+    runs-on: ubuntu-latest
+    needs: isolation-attack-suite
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Post isolation delta comment
+        run: |
+          echo "Cross-tenant attack suite: passed on $(date -u)" > comment.txt
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.txt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

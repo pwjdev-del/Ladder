@@ -1,0 +1,56 @@
+disabled_rules:
+  - trailing_whitespace
+  - todo
+
+opt_in_rules:
+  - empty_count
+  - force_unwrapping
+  - overridden_super_call
+  - redundant_nil_coalescing
+  - prefer_zero_over_explicit_init
+
+excluded:
+  - build
+  - DerivedData
+  - LadderApp/Features/Legacy
+
+line_length:
+  warning: 140
+  error: 200
+  ignores_comments: true
+
+file_length:
+  warning: 500
+  error: 800
+
+type_body_length:
+  warning: 300
+  error: 450
+
+function_body_length:
+  warning: 60
+  error: 120
+
+identifier_name:
+  min_length: 2
+
+# Custom rules: guardrails from CLAUDE.md — flag patterns that tend to
+# violate tenant isolation or leak AI gateway boundary.
+custom_rules:
+  direct_gemini_call:
+    name: "Direct Gemini API call"
+    regex: "generativelanguage\\.googleapis\\.com"
+    message: "§8.4 — iOS must call ai-gateway Edge Function, not Gemini directly."
+    severity: error
+
+  direct_aws_credentials:
+    name: "AWS credentials in iOS source"
+    regex: "AKIA[0-9A-Z]{16}"
+    message: "AWS keys never ship in the iOS binary. Use KMS via backend."
+    severity: error
+
+  plaintext_password:
+    name: "Plaintext password field"
+    regex: "password[\\s]*=[\\s]*\"[A-Za-z0-9]+\""
+    message: "§16.1 — passwords use argon2id server-side. Never a literal."
+    severity: error
