@@ -24,6 +24,12 @@ targets:
       - path: LadderApp
         excludes:
           - "**/.DS_Store"
+          - "Features/Legacy/**"
+          - "Services/Legacy/**"
+          - "DesignSystem/Legacy/**"
+          - "Models/DomainEnums.swift"
+          - "App/Navigation/**"
+          - "App/Configuration/**"
     settings:
       base:
         INFOPLIST_GENERATION_MODE: GeneratedFile

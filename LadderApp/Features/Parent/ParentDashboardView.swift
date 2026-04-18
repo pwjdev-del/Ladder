@@ -3,7 +3,7 @@ import SwiftUI
 // §6.2 + §5 — parent is a viewer of linked student(s). Can switch between
 // siblings via a selector. Cannot edit student data.
 
-public struct LinkedStudent: Identifiable, Sendable {
+public struct LinkedStudent: Identifiable, Sendable, Hashable {
     public let id: UUID
     public let displayName: String
     public let gradeLevel: Int

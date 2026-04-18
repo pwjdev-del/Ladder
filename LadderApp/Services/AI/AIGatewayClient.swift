@@ -35,6 +35,11 @@ public enum AIGatewayError: Error {
     case decode(Error)
 }
 
+private struct GatewayRequestBody<I: Encodable>: Encodable {
+    let feature: AIFeature
+    let input: I
+}
+
 public actor AIGatewayClient {
     public static let shared = AIGatewayClient()
 
@@ -50,8 +55,7 @@ public actor AIGatewayClient {
     public func call<Input: Encodable>(feature: AIFeature,
                                        input: Input,
                                        accessToken: String) async throws -> AIGatewayResponse {
-        struct Body<I: Encodable>: Encodable { let feature: AIFeature; let input: I }
-        let body = Body(feature: feature, input: input)
+        let body = GatewayRequestBody(feature: feature, input: input)
 
         var req = URLRequest(url: endpoint)
         req.httpMethod = "POST"

@@ -22,7 +22,7 @@ enum LadderTypography {
 
     // MARK: - Headline (Noto Serif)
 
-    static let headlineLarge  = scaled("NotoSerif-Bold",     size: 32, style: .title)
+    static let headlineLarge  = scaled("NotoSerif-Bold",     size: 32, style: .title1)
     static let headlineMedium = scaled("NotoSerif-SemiBold", size: 28, style: .title2)
     static let headlineSmall  = scaled("NotoSerif-Medium",   size: 24, style: .title3)
 
@@ -40,7 +40,7 @@ enum LadderTypography {
 
     // MARK: - Label (Manrope)
 
-    static let labelLarge  = scaled("Manrope-Bold",     size: 14, style: .caption)
+    static let labelLarge  = scaled("Manrope-Bold",     size: 14, style: .caption1)
     static let labelMedium = scaled("Manrope-Bold",     size: 12, style: .caption2)
     static let labelSmall  = scaled("Manrope-SemiBold", size: 10, style: .caption2)
 

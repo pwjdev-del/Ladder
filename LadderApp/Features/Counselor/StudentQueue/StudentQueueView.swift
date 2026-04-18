@@ -3,7 +3,7 @@ import SwiftUI
 // §11.3 — counselor schedule approval queue. Left rail: student list with
 // conflict pips. Center: 7-period grid. Right: issue panel.
 
-public struct QueuedSchedule: Identifiable, Sendable {
+public struct QueuedSchedule: Identifiable, Sendable, Hashable {
     public let id: UUID
     public let studentDisplayName: String
     public let conflictCount: Int

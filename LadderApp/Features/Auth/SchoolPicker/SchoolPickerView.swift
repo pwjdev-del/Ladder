@@ -3,7 +3,7 @@ import SwiftUI
 // §3.2 — searchable list of partnered schools. On selection, theme swaps,
 // then push to SchoolLoginView.
 
-public struct PartnerSchool: Identifiable, Sendable {
+public struct PartnerSchool: Identifiable, Sendable, Hashable {
     public let id: UUID
     public let slug: String
     public let displayName: String
