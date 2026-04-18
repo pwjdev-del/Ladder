@@ -52,14 +52,15 @@ public struct LandingView: View {
 
     private var logoBadge: some View {
         ZStack {
-            Circle()
-                .fill(LadderBrand.cream100)
-                .frame(width: 120, height: 120)
+            // Real Ladder logo — circular asset (climber + ladder + hills),
+            // shipped in Assets.xcassets. Slight desaturation during hold.
+            Image("LadderLogo")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 140, height: 140)
+                .clipShape(Circle())
+                .saturation(climberSaturation)
                 .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 8)
-
-            Image(systemName: "figure.walk")
-                .font(.system(size: 56, weight: .semibold))
-                .foregroundStyle(climberColor)
                 .scaleEffect(holdProgress >= 1 ? 1.02 : 1.0)
                 .animation(.easeOut(duration: 0.12), value: holdProgress >= 1)
 
@@ -69,7 +70,7 @@ public struct LandingView: View {
                     LadderBrand.lime500.opacity(ringOpacity),
                     style: StrokeStyle(lineWidth: ringWidth, lineCap: .round)
                 )
-                .frame(width: 126, height: 126)
+                .frame(width: 146, height: 146)
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 0.05), value: holdProgress)
         }
@@ -78,13 +79,13 @@ public struct LandingView: View {
         .accessibilityHint("Press and hold for founder access")
     }
 
-    /// Climber desaturates ~15% starting at 5s.
-    private var climberColor: Color {
-        guard let start = holdStartedAt else { return LadderBrand.forest700 }
+    /// Logo desaturates up to ~15% between 5s and 15s of the founder hold.
+    private var climberSaturation: Double {
+        guard let start = holdStartedAt else { return 1.0 }
         let elapsed = Date().timeIntervalSince(start)
-        if elapsed < 5 { return LadderBrand.forest700 }
-        let mix = min((elapsed - 5) / 10, 1.0) * 0.85
-        return LadderBrand.forest700.opacity(1.0 - mix * 0.15)
+        if elapsed < 5 { return 1.0 }
+        let mix = min((elapsed - 5) / 10, 1.0) * 0.15
+        return 1.0 - mix
     }
 
     private var ringOpacity: Double {
