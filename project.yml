@@ -1,23 +1,27 @@
-name: Ladder
+name: LadderApp
 options:
   bundleIdPrefix: com.ladderapp
   deploymentTarget:
     iOS: "17.0"
   xcodeVersion: "16.0"
   generateEmptyDirectories: true
+configs:
+  Debug: debug
+  Release: release
 settings:
   base:
     SWIFT_VERSION: "5"
-    DEVELOPMENT_TEAM: ""
-    CODE_SIGN_IDENTITY: "-"
-    CODE_SIGNING_REQUIRED: "NO"
-    CODE_SIGNING_ALLOWED: "NO"
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_STRICT_CONCURRENCY: targeted
+configFiles:
+  Debug: Config/Base.xcconfig
+  Release: Config/Base.xcconfig
 targets:
-  Ladder:
+  LadderApp:
     type: application
     platform: iOS
     sources:
-      - path: Ladder
+      - path: LadderApp
         excludes:
           - "**/.DS_Store"
     settings:
@@ -29,6 +33,26 @@ targets:
         GENERATE_INFOPLIST_FILE: true
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
         INFOPLIST_KEY_UILaunchScreen_Generation: true
-        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
+        # iPad deferred per user instruction — iPhone only for this pass.
+        TARGETED_DEVICE_FAMILY: "1"
         INFOPLIST_KEY_CFBundleDisplayName: "Ladder"
-        SWIFT_STRICT_CONCURRENCY: targeted
+        INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription: "Ladder uses your calendar to add school and activity deadlines."
+        INFOPLIST_KEY_NSCameraUsageDescription: "Ladder uses your camera to scan transcripts and documents."
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "Ladder accesses your photos to upload transcripts and profile pictures."
+        # Info.plist picks up Supabase config via Config/Base.xcconfig → Config/Secrets.xcconfig
+        INFOPLIST_KEY_SUPABASE_URL: $(SUPABASE_URL)
+        INFOPLIST_KEY_SUPABASE_ANON_KEY: $(SUPABASE_ANON_KEY)
+        INFOPLIST_KEY_GEMINI_PROXY_URL: $(GEMINI_PROXY_URL)
+  LadderAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: tests/LadderAppTests
+    dependencies:
+      - target: LadderApp
+  LadderAppE2E:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: tests/e2e
+    dependencies:
+      - target: LadderApp
