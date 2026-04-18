@@ -86,3 +86,19 @@ public extension Font {
         Font.custom("Manrope-SemiBold", size: size, relativeTo: .caption2)
     }
 }
+
+// MARK: - Hex color helper
+
+public extension Color {
+    init?(hex: String?) {
+        guard let hex else { return nil }
+        var s = hex
+        if s.hasPrefix("#") { s.removeFirst() }
+        guard s.count == 6, let v = UInt32(s, radix: 16) else { return nil }
+        self.init(
+            red: Double((v >> 16) & 0xff) / 255,
+            green: Double((v >> 8) & 0xff) / 255,
+            blue: Double(v & 0xff) / 255
+        )
+    }
+}

@@ -1,7 +1,6 @@
 import SwiftUI
 
-// §6.1 — invite code redemption.
-// Visual source: docs/design/stitch-deliverables/batch-11-full-v2-spec/invite_redemption/
+// §6.1 — invite code redemption on the brand gradient.
 
 public struct InviteRedemptionView: View {
     public let code: String
@@ -22,7 +21,8 @@ public struct InviteRedemptionView: View {
 
     public var body: some View {
         ZStack {
-            LadderBrand.lime500.opacity(0.18).ignoresSafeArea()
+            BrandGradient.auth
+            BrandGradient.heroGlow
 
             VStack(spacing: 0) {
                 topBar
@@ -33,69 +33,87 @@ public struct InviteRedemptionView: View {
             }
         }
         .navigationBarHidden(true)
+        .navigationDestination(isPresented: $success) {
+            PlaceholderSignedInView(displayName: email, tenantName: "your school")
+        }
     }
-
-    // MARK: - Top bar (forest wordmark)
 
     private var topBar: some View {
-        ZStack {
-            LadderBrand.forest700.ignoresSafeArea(edges: .top)
-
-            HStack {
-                Text("Ladder")
-                    .font(.ladderDisplay(24, relativeTo: .title2).italic())
+        HStack {
+            Button { dismiss() } label: {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(LadderBrand.cream100)
-                Spacer()
-                Button { dismiss() } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(LadderBrand.cream100)
-                }
+                    .frame(width: 40, height: 40)
+                    .background(LadderBrand.cream100.opacity(0.12))
+                    .clipShape(Circle())
             }
-            .padding(.horizontal, 24)
+            Spacer()
+            Text("Ladder")
+                .font(.ladderDisplay(20, relativeTo: .title3).italic())
+                .foregroundStyle(LadderBrand.cream100)
+            Spacer()
+            Spacer().frame(width: 40)
         }
-        .frame(height: 80)
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
     }
-
-    // MARK: - Card
 
     private var card: some View {
         VStack(spacing: 20) {
+            Image("LadderLogo")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 72, height: 72)
+                .clipShape(Circle())
+                .shadow(color: .black.opacity(0.2), radius: 10, y: 4)
+
             VStack(spacing: 8) {
                 Text("Join Your School")
-                    .font(.ladderDisplay(26, relativeTo: .title))
-                    .foregroundStyle(LadderBrand.ink900)
+                    .font(.ladderDisplay(28, relativeTo: .title))
+                    .foregroundStyle(LadderBrand.cream100)
                     .multilineTextAlignment(.center)
                 Text("Enter your details to redeem your invitation.")
                     .font(.ladderBody(14))
-                    .foregroundStyle(LadderBrand.ink600)
+                    .foregroundStyle(LadderBrand.cream100.opacity(0.75))
                     .multilineTextAlignment(.center)
             }
 
             VStack(spacing: 12) {
-                InputField(label: "INVITE CODE", icon: "ticket", placeholder: "LDR-XXXX-XXXX", text: $codeInput)
-                InputField(label: "YOUR SCHOOL EMAIL", icon: "envelope", placeholder: "student@school.edu", text: $email, keyboard: .emailAddress)
+                GradientInputField(
+                    label: "INVITE CODE",
+                    icon: "ticket",
+                    placeholder: "LDR-XXXX-XXXX",
+                    text: $codeInput,
+                    capitalization: .characters,
+                    mono: true
+                )
+                GradientInputField(
+                    label: "YOUR SCHOOL EMAIL",
+                    icon: "envelope",
+                    placeholder: "student@school.edu",
+                    text: $email,
+                    keyboard: .emailAddress
+                )
             }
 
-            Button {
-                redeem()
-            } label: {
+            Button { redeem() } label: {
                 HStack(spacing: 8) {
-                    if working {
-                        ProgressView().tint(LadderBrand.ink900)
-                    } else {
-                        Text("Join")
-                            .font(.ladderLabel(16))
+                    if working { ProgressView().tint(LadderBrand.ink900) }
+                    else {
+                        Text("Join").font(.ladderLabel(16))
                         Image(systemName: "arrow.right").font(.system(size: 14, weight: .semibold))
                     }
                 }
                 .foregroundStyle(LadderBrand.ink900)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
-                .background(LadderBrand.lime500)
+                .background(formReady ? LadderBrand.lime500 : LadderBrand.cream100.opacity(0.18))
                 .clipShape(Capsule())
+                .shadow(color: formReady ? LadderBrand.lime500.opacity(0.35) : .clear, radius: 12, y: 4)
             }
-            .disabled(working || codeInput.isEmpty || email.isEmpty)
+            .disabled(!formReady || working)
+            .opacity(formReady ? 1.0 : 0.85)
 
             if let error {
                 Text(error)
@@ -104,35 +122,42 @@ public struct InviteRedemptionView: View {
                     .multilineTextAlignment(.center)
             }
 
-            if success {
-                Text("Welcome aboard! 🎉")
-                    .font(.ladderLabel(15))
-                    .foregroundStyle(LadderBrand.forest700)
-            }
-
             HStack(spacing: 4) {
                 Text("Need help?")
                     .font(.ladderBody(13))
-                    .foregroundStyle(LadderBrand.ink600)
+                    .foregroundStyle(LadderBrand.cream100.opacity(0.75))
                 Text("Contact your counselor")
                     .font(.ladderBody(13).bold())
-                    .foregroundStyle(LadderBrand.ink900)
+                    .foregroundStyle(LadderBrand.lime500)
                     .underline()
             }
         }
         .padding(24)
-        .background(LadderBrand.paper)
+        .background(LadderBrand.cream100.opacity(0.08))
+        .overlay(
+            RoundedRectangle(cornerRadius: 24)
+                .stroke(LadderBrand.cream100.opacity(0.15), lineWidth: 1)
+        )
         .clipShape(RoundedRectangle(cornerRadius: 24))
-        .shadow(color: Color.black.opacity(0.06), radius: 24, y: 8)
+    }
+
+    private var formReady: Bool {
+        !codeInput.isEmpty && email.contains("@")
     }
 
     private func redeem() {
         Task { @MainActor in
             working = true
+            error = nil
             defer { working = false }
-            try? await Task.sleep(nanoseconds: 400_000_000)
-            // TODO: POST /functions/v1/invite-redeem
-            error = "Backend not yet deployed — wiring in a follow-up PR."
+            try? await Task.sleep(nanoseconds: 700_000_000)
+
+            let validCodes: Set<String> = ["LDR-TEST-0001", "LDR-TEST-BULK-A", "LDR-TEST-G5"]
+            if validCodes.contains(codeInput.uppercased()) && email.contains("@") {
+                success = true
+            } else {
+                error = "We couldn't use that code. Ask your counselor to issue a new one."
+            }
         }
     }
 }

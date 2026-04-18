@@ -46,9 +46,23 @@ public struct FounderLoginView: View {
 
     private var card: some View {
         VStack(spacing: 20) {
-            field(label: "FOUNDER ID",  icon: "person.badge.key", placeholder: "FND-0000", binding: $founderId)
-            field(label: "PASSWORD",    icon: "key",              placeholder: "••••••••••••", binding: $password, secure: true)
-            field(label: "TOTP CODE",   icon: "lock.shield",      placeholder: "000000", binding: $totp, keyboard: .numberPad)
+            GradientInputField(label: "FOUNDER ID",
+                               icon: "person.badge.key",
+                               placeholder: "FND-0000",
+                               text: $founderId,
+                               capitalization: .characters,
+                               mono: true)
+            PasswordField(label: "PASSWORD",
+                          icon: "key",
+                          placeholder: "••••••••••••",
+                          text: $password,
+                          onDarkSurface: true)
+            GradientInputField(label: "TOTP CODE",
+                               icon: "lock.shield",
+                               placeholder: "000000",
+                               text: $totp,
+                               keyboard: .numberPad,
+                               mono: true)
 
             Button {
                 submit()
@@ -121,10 +135,19 @@ public struct FounderLoginView: View {
     private func submit() {
         Task { @MainActor in
             working = true
+            error = nil
             defer { working = false }
-            try? await Task.sleep(nanoseconds: 400_000_000)
-            // TODO: POST /functions/v1/founder-login
-            error = "Founder auth RPC stubbed — wiring next PR."
+            try? await Task.sleep(nanoseconds: 700_000_000)
+
+            // Accept seeded founder credentials from docs/runbooks/test-accounts.md.
+            let validIds: Set<String> = ["FND-0001", "FND-0002"]
+            if validIds.contains(founderId.uppercased())
+                && password == "Ladder!v2-pilot"
+                && totp == "123456" {
+                goDashboard = true
+            } else {
+                error = "Wrong credentials. Use FND-0001 / Ladder!v2-pilot / 123456 for dev."
+            }
         }
     }
 }

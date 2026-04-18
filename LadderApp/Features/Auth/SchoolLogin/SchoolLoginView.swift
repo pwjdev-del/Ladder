@@ -1,7 +1,8 @@
 import SwiftUI
 
-// §3.2 — per-school login with theme-swap.
-// Visual source: docs/design/stitch-deliverables/batch-11-full-v2-spec/school_themed_login/
+// §3.2 — per-school login. Brand gradient (no white), press-and-hold
+// password reveal. When backend isn't wired, the "Sign in" button still
+// gives a real response so testers know what they typed reached the app.
 
 public struct SchoolLoginView: View {
     public let school: PartnerSchool
@@ -10,13 +11,17 @@ public struct SchoolLoginView: View {
     @State private var password: String = ""
     @State private var inviteCode: String = ""
     @State private var showingInviteFlow = false
+    @State private var working = false
+    @State private var error: String?
+    @State private var signedIn = false
     @Environment(\.dismiss) private var dismiss
 
     public init(school: PartnerSchool) { self.school = school }
 
     public var body: some View {
         ZStack {
-            LadderBrand.cream100.ignoresSafeArea()
+            BrandGradient.auth
+            BrandGradient.heroGlow
 
             VStack(spacing: 0) {
                 hero
@@ -37,83 +42,107 @@ public struct SchoolLoginView: View {
         .navigationDestination(isPresented: $showingInviteFlow) {
             InviteRedemptionView(code: inviteCode, tenantId: school.id)
         }
+        .navigationDestination(isPresented: $signedIn) {
+            PlaceholderSignedInView(displayName: email.isEmpty ? "student" : email, tenantName: school.displayName)
+        }
     }
 
-    private var accentColor: Color {
-        Color(hex: school.primaryColorHex) ?? LadderBrand.forest700
-    }
-
-    // MARK: - Hero
+    // MARK: - Hero (logo + school name)
 
     private var hero: some View {
-        ZStack {
-            accentColor.ignoresSafeArea(edges: .top)
-
-            VStack(spacing: 8) {
-                Circle()
-                    .fill(LadderBrand.cream100)
-                    .frame(width: 64, height: 64)
-                    .overlay(
-                        Image(systemName: "building.columns.fill")
-                            .font(.system(size: 28))
-                            .foregroundStyle(accentColor)
-                    )
-                Text(school.displayName)
-                    .font(.ladderDisplay(20, relativeTo: .title3))
-                    .foregroundStyle(LadderBrand.cream100)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
+        VStack(spacing: 12) {
+            HStack {
+                Button { dismiss() } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(LadderBrand.cream100)
+                        .frame(width: 40, height: 40)
+                        .background(LadderBrand.cream100.opacity(0.12))
+                        .clipShape(Circle())
+                }
+                Spacer()
             }
-            .padding(.top, 20)
-            .padding(.bottom, 20)
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 16)
+
+            Image("LadderLogo")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 72, height: 72)
+                .clipShape(Circle())
+                .shadow(color: .black.opacity(0.18), radius: 10, y: 4)
+
+            Text(school.displayName)
+                .font(.ladderDisplay(22, relativeTo: .title2))
+                .foregroundStyle(LadderBrand.cream100)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
         }
-        .frame(height: 160)
+        .padding(.top, 8)
+        .padding(.bottom, 8)
     }
 
-    // MARK: - Sign-in
+    // MARK: - Sign in
 
     private var signInSection: some View {
         VStack(spacing: 16) {
             Text("Sign in")
-                .font(.ladderDisplay(28, relativeTo: .title))
-                .foregroundStyle(LadderBrand.ink900)
+                .font(.ladderDisplay(32, relativeTo: .title))
+                .foregroundStyle(LadderBrand.cream100)
 
             Text("Welcome back to \(school.displayName).")
                 .font(.ladderBody(14))
-                .foregroundStyle(LadderBrand.ink600)
+                .foregroundStyle(LadderBrand.cream100.opacity(0.75))
                 .multilineTextAlignment(.center)
 
             VStack(spacing: 12) {
-                InputField(label: "EMAIL ADDRESS", icon: "envelope", placeholder: "student@\(school.slug).edu", text: $email, keyboard: .emailAddress)
-                InputField(label: "PASSWORD", icon: "lock", placeholder: "••••••••", text: $password, secure: true)
+                GradientInputField(
+                    label: "EMAIL ADDRESS",
+                    icon: "envelope",
+                    placeholder: "student@\(school.slug).edu",
+                    text: $email,
+                    keyboard: .emailAddress
+                )
+                PasswordField(label: "PASSWORD", text: $password, onDarkSurface: true)
             }
 
-            Button {
-                // TODO: SupabaseAuthService.shared.signIn(email:password:)
-            } label: {
-                Text("Sign in")
-                    .font(.ladderLabel(16))
-                    .foregroundStyle(LadderBrand.ink900)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(LadderBrand.lime500)
-                    .clipShape(Capsule())
+            Button { submit() } label: {
+                HStack(spacing: 8) {
+                    if working { ProgressView().tint(LadderBrand.ink900) }
+                    else {
+                        Text("Sign in").font(.ladderLabel(16))
+                        Image(systemName: "arrow.right").font(.system(size: 14, weight: .semibold))
+                    }
+                }
+                .foregroundStyle(LadderBrand.ink900)
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
+                .background(formReady ? LadderBrand.lime500 : LadderBrand.cream100.opacity(0.18))
+                .clipShape(Capsule())
+                .shadow(color: formReady ? LadderBrand.lime500.opacity(0.35) : .clear, radius: 12, y: 4)
             }
+            .disabled(!formReady || working)
+            .opacity(formReady ? 1.0 : 0.85)
             .padding(.top, 8)
+
+            if let error {
+                Text(error)
+                    .font(.ladderBody(13))
+                    .foregroundStyle(LadderBrand.statusRed)
+                    .multilineTextAlignment(.center)
+            }
         }
     }
 
-    // MARK: - OR
+    // MARK: - OR divider
 
     private var orDivider: some View {
         HStack(spacing: 12) {
-            Rectangle().fill(LadderBrand.ink400.opacity(0.4)).frame(height: 1)
+            Rectangle().fill(LadderBrand.cream100.opacity(0.3)).frame(height: 1)
             Text("OR")
                 .font(.ladderCaps(11))
-                .tracking(1.1)
-                .foregroundStyle(LadderBrand.ink600)
-            Rectangle().fill(LadderBrand.ink400.opacity(0.4)).frame(height: 1)
+                .tracking(1.4)
+                .foregroundStyle(LadderBrand.cream100.opacity(0.7))
+            Rectangle().fill(LadderBrand.cream100.opacity(0.3)).frame(height: 1)
         }
     }
 
@@ -123,40 +152,43 @@ public struct SchoolLoginView: View {
         VStack(spacing: 12) {
             Text("First time?")
                 .font(.ladderDisplay(24, relativeTo: .title2))
-                .foregroundStyle(LadderBrand.ink900)
+                .foregroundStyle(LadderBrand.cream100)
 
             HStack(spacing: 10) {
                 Image(systemName: "ticket")
-                    .foregroundStyle(LadderBrand.ink600)
-                TextField("INVITE-CODE", text: $inviteCode)
+                    .foregroundStyle(LadderBrand.cream100.opacity(0.7))
+                TextField("", text: $inviteCode,
+                          prompt: Text("INVITE-CODE").foregroundColor(LadderBrand.cream100.opacity(0.4)))
                     .font(.ladderBody(15).monospaced())
+                    .foregroundStyle(LadderBrand.cream100)
+                    .tint(LadderBrand.lime500)
                     .textInputAutocapitalization(.characters)
                     .autocorrectionDisabled()
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
-            .background(LadderBrand.paper)
+            .background(LadderBrand.cream100.opacity(0.12))
             .clipShape(Capsule())
 
-            Button {
-                showingInviteFlow = true
-            } label: {
+            Button { showingInviteFlow = true } label: {
                 Text("Join with invite code")
                     .font(.ladderLabel(15))
-                    .foregroundStyle(LadderBrand.ink900)
+                    .foregroundStyle(LadderBrand.cream100)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .overlay(Capsule().stroke(LadderBrand.ink900.opacity(0.25), lineWidth: 1))
+                    .overlay(Capsule().stroke(LadderBrand.cream100.opacity(0.4), lineWidth: 1))
             }
             .disabled(inviteCode.isEmpty)
-            .opacity(inviteCode.isEmpty ? 0.6 : 1.0)
+            .opacity(inviteCode.isEmpty ? 0.5 : 1.0)
         }
         .padding(20)
-        .background(LadderBrand.lime500.opacity(0.12))
+        .background(LadderBrand.lime500.opacity(0.14))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(LadderBrand.lime500.opacity(0.25), lineWidth: 1)
+        )
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
-
-    // MARK: - Footer
 
     private var footer: some View {
         HStack(spacing: 24) {
@@ -164,62 +196,82 @@ public struct SchoolLoginView: View {
             Button("Use a different school") { dismiss() }
         }
         .font(.ladderBody(13))
-        .foregroundStyle(LadderBrand.ink600)
+        .foregroundStyle(LadderBrand.cream100.opacity(0.7))
         .padding(.bottom, 24)
     }
-}
 
-// MARK: - InputField
+    private var formReady: Bool {
+        email.contains("@") && password.count >= 6
+    }
 
-struct InputField: View {
-    let label: String
-    let icon: String
-    let placeholder: String
-    @Binding var text: String
-    var keyboard: UIKeyboardType = .default
-    var secure: Bool = false
+    private func submit() {
+        Task { @MainActor in
+            working = true
+            error = nil
+            defer { working = false }
+            try? await Task.sleep(nanoseconds: 700_000_000)
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(label)
-                .font(.ladderCaps(11))
-                .tracking(1.1)
-                .foregroundStyle(LadderBrand.ink600)
-
-            HStack(spacing: 10) {
-                Image(systemName: icon)
-                    .foregroundStyle(LadderBrand.ink600)
-                if secure {
-                    SecureField(placeholder, text: $text)
-                        .font(.ladderBody(15))
-                } else {
-                    TextField(placeholder, text: $text)
-                        .font(.ladderBody(15))
-                        .keyboardType(keyboard)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                }
+            // TODO: SupabaseAuthService.signIn(email:password:tenantId:)
+            // Until the backend lands, accept any of the seeded test accounts
+            // from docs/runbooks/test-accounts.md so testers get a usable flow.
+            let acceptedEmails: Set<String> = [
+                "admin.lwrpa@ladder.test",
+                "counselor.lwrpa@ladder.test",
+                "alice.lwrpa@ladder.test",
+                "bob.lwrpa@ladder.test",
+                "carol.lwrpa@ladder.test",
+            ]
+            if acceptedEmails.contains(email.lowercased()) && password == "Ladder!v2-pilot" {
+                signedIn = true
+            } else {
+                error = "Couldn't sign in. Use a seeded test account — see docs/runbooks/test-accounts.md."
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
-            .background(LadderBrand.stone200)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
     }
 }
 
-// MARK: - Color hex helper (reused)
+// MARK: - Placeholder "you're in" screen while role dashboards are being wired
 
-extension Color {
-    init?(hex: String?) {
-        guard let hex else { return nil }
-        var s = hex
-        if s.hasPrefix("#") { s.removeFirst() }
-        guard s.count == 6, let v = UInt32(s, radix: 16) else { return nil }
-        self.init(
-            red: Double((v >> 16) & 0xff) / 255,
-            green: Double((v >> 8) & 0xff) / 255,
-            blue: Double(v & 0xff) / 255
-        )
+public struct PlaceholderSignedInView: View {
+    public let displayName: String
+    public let tenantName: String
+
+    public init(displayName: String, tenantName: String) {
+        self.displayName = displayName
+        self.tenantName = tenantName
+    }
+
+    public var body: some View {
+        ZStack {
+            BrandGradient.auth
+            BrandGradient.heroGlow
+
+            VStack(spacing: 20) {
+                Image("LadderLogo")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 96, height: 96)
+                    .clipShape(Circle())
+                    .shadow(color: .black.opacity(0.15), radius: 10, y: 4)
+
+                Text("You're in.")
+                    .font(.ladderDisplay(34, relativeTo: .largeTitle))
+                    .foregroundStyle(LadderBrand.cream100)
+
+                Text("Welcome back to \(tenantName).\nYour role dashboard ships in the next PR.")
+                    .font(.ladderBody(15))
+                    .foregroundStyle(LadderBrand.cream100.opacity(0.8))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
+
+                Text(displayName.uppercased())
+                    .font(.ladderCaps(11))
+                    .tracking(1.4)
+                    .foregroundStyle(LadderBrand.lime500)
+                    .padding(.top, 8)
+            }
+            .padding(.horizontal, 24)
+        }
+        .navigationBarBackButtonHidden(false)
     }
 }
