@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Component Sheet: BottomNavPerRole</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#eae1d7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container-highest": "#eae1d7",
+                        "on-surface": "#1f1b15",
+                        "surface-bright": "#fff8f2",
+                        "background": "#fff8f2",
+                        "outline": "#737970",
+                        "inverse-primary": "#aed0a7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#516600",
+                        "on-primary-fixed": "#052107",
+                        "on-surface-variant": "#434840",
+                        "surface-container-high": "#efe7dd",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary": "#42603f",
+                        "surface": "#fff8f2",
+                        "inverse-surface": "#343029",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-dim": "#e1d9cf",
+                        "on-primary-container": "#e2ffda",
+                        "on-error": "#ffffff",
+                        "on-background": "#1f1b15",
+                        "tertiary": "#725232",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed-dim": "#aed0a7",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "primary-container": "#5a7956",
+                        "secondary-container": "#caf24d",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#c9ecc2",
+                        "outline-variant": "#c3c8be",
+                        "on-secondary-fixed": "#161e00",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-container": "#f5ede2",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-tint": "#486644",
+                        "on-secondary-container": "#566c00",
+                        "on-secondary-fixed-variant": "#3c4d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fbf2e8; } /* Using surface-container-low */
+        h1, h2, h3, h4, h5, h6 { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom styles to match prompt requirements not perfectly aligned with the design system tokens */
+        .border-t-hairline {
+            border-top: 1px solid #e5e7eb; /* stone-200 equivalent */
+        }
+        .text-forest-700 { color: #527050; } /* Mapping to the requested color, though primary is #42603f */
+        .text-ink-400 { color: #8A9082; }
+        .bg-lime-pip { background-color: #84cc16; } /* Close to a lime pip color */
+        .nav-height { height: 88px; }
+        
+        /* Specific overrides to ensure 1px border is applied as requested in the prompt, despite design system rules prohibiting them globally. We apply it specifically to these components. */
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface p-8 md:p-16 antialiased">
+<header class="mb-16 max-w-4xl mx-auto">
+<h1 class="text-4xl md:text-5xl font-bold tracking-tight text-primary mb-4" style="font-family: 'Playfair Display', serif;">BottomNavPerRole</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl">Component sheet displaying role-based variations of the main navigation shell. Designed for 88pt height with strict active/inactive state visual language.</p>
+</header>
+<main class="space-y-16 max-w-4xl mx-auto">
+<!-- Variant 1: Counselor -->
+<section class="bg-surface rounded-xl shadow-[0_20px_50px_rgba(31,27,21,0.04)] overflow-hidden">
+<div class="px-6 py-4 bg-surface-container-low border-b border-surface-dim/30">
+<h2 class="text-xl font-bold text-on-surface">1. Counselor Navigation</h2>
+<p class="text-sm text-on-surface-variant mt-1">Modules: Home, Queue, Classes, Invites, Profile</p>
+</div>
+<div class="p-8 bg-surface-bright flex items-center justify-center">
+<!-- Navigation Component container (simulating mobile width) -->
+<div class="w-full max-w-[400px] bg-surface relative border-t-hairline nav-height flex justify-around items-center px-2">
+<!-- Active: Home -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-secondary-fixed rounded-b-sm"></div>
+<span class="material-symbols-outlined fill text-forest-700 text-2xl mb-1">home</span>
+<span class="text-[10px] font-semibold text-forest-700 tracking-wide uppercase">Home</span>
+</button>
+<!-- Inactive: Queue (with badge) -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<div class="relative mb-1">
+<span class="material-symbols-outlined text-ink-400 text-2xl group-hover:text-forest-700 transition-colors">inbox</span>
+<!-- Badge -->
+<div class="absolute -top-1 -right-2 bg-error text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center shadow-sm">
+                                4
+                            </div>
+</div>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Queue</span>
+</button>
+<!-- Inactive: Classes -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">menu_book</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Classes</span>
+</button>
+<!-- Inactive: Invites -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">mail</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Invites</span>
+</button>
+<!-- Inactive: Profile -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">person</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Profile</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Variant 2: Admin -->
+<section class="bg-surface rounded-xl shadow-[0_20px_50px_rgba(31,27,21,0.04)] overflow-hidden">
+<div class="px-6 py-4 bg-surface-container-low border-b border-surface-dim/30">
+<h2 class="text-xl font-bold text-on-surface">2. Admin Navigation</h2>
+<p class="text-sm text-on-surface-variant mt-1">Modules: Home, Teachers, Classes, Invites, Profile</p>
+</div>
+<div class="p-8 bg-surface-bright flex items-center justify-center">
+<!-- Navigation Component container -->
+<div class="w-full max-w-[400px] bg-surface relative border-t-hairline nav-height flex justify-around items-center px-2">
+<!-- Inactive: Home -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">home</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Home</span>
+</button>
+<!-- Active: Teachers -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-secondary-fixed rounded-b-sm"></div>
+<span class="material-symbols-outlined fill text-forest-700 text-2xl mb-1">group</span>
+<span class="text-[10px] font-semibold text-forest-700 tracking-wide uppercase">Teachers</span>
+</button>
+<!-- Inactive: Classes -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">menu_book</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Classes</span>
+</button>
+<!-- Inactive: Invites (with badge) -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<div class="relative mb-1">
+<span class="material-symbols-outlined text-ink-400 text-2xl group-hover:text-forest-700 transition-colors">mail</span>
+<!-- Badge -->
+<div class="absolute -top-1 -right-2 bg-error text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center shadow-sm">
+                                9+
+                            </div>
+</div>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Invites</span>
+</button>
+<!-- Inactive: Profile -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">person</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Profile</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Variant 3: Parent -->
+<section class="bg-surface rounded-xl shadow-[0_20px_50px_rgba(31,27,21,0.04)] overflow-hidden">
+<div class="px-6 py-4 bg-surface-container-low border-b border-surface-dim/30">
+<h2 class="text-xl font-bold text-on-surface">3. Parent Navigation</h2>
+<p class="text-sm text-on-surface-variant mt-1">Modules: Home, Grades, Schedule, Messages, Settings</p>
+</div>
+<div class="p-8 bg-surface-bright flex items-center justify-center">
+<!-- Navigation Component container -->
+<div class="w-full max-w-[400px] bg-surface relative border-t-hairline nav-height flex justify-around items-center px-2">
+<!-- Inactive: Home -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">home</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Home</span>
+</button>
+<!-- Active: Grades -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[3px] bg-secondary-fixed rounded-b-sm"></div>
+<span class="material-symbols-outlined fill text-forest-700 text-2xl mb-1">show_chart</span>
+<span class="text-[10px] font-semibold text-forest-700 tracking-wide uppercase">Grades</span>
+</button>
+<!-- Inactive: Schedule -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">calendar_month</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Schedule</span>
+</button>
+<!-- Inactive: Messages (with badge) -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<div class="relative mb-1">
+<span class="material-symbols-outlined text-ink-400 text-2xl group-hover:text-forest-700 transition-colors">chat_bubble</span>
+<!-- Badge -->
+<div class="absolute -top-1 -right-2 bg-error text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center shadow-sm">
+                                2
+                            </div>
+</div>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Messages</span>
+</button>
+<!-- Inactive: Settings -->
+<button class="relative flex flex-col items-center justify-center w-16 h-full group">
+<span class="material-symbols-outlined text-ink-400 text-2xl mb-1 group-hover:text-forest-700 transition-colors">settings</span>
+<span class="text-[10px] font-semibold text-ink-400 group-hover:text-forest-700 tracking-wide uppercase transition-colors">Settings</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+</body></html>

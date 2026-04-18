@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Teacher Profile Detail - Academic Atelier</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#8d6a48",
+                      "surface-container": "#f5ede2",
+                      "inverse-on-surface": "#f8efe5",
+                      "tertiary-fixed": "#ffdcbd",
+                      "primary-fixed": "#c9ecc2",
+                      "secondary-fixed": "#caf24d",
+                      "on-secondary-fixed": "#161e00",
+                      "background": "#fff8f2",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#afd531",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#efe7dd",
+                      "surface-bright": "#fff8f2",
+                      "secondary": "#516600",
+                      "primary": "#42603f",
+                      "on-primary-container": "#e2ffda",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "on-background": "#1f1b15",
+                      "on-secondary-container": "#566c00",
+                      "on-error-container": "#93000a",
+                      "surface-container-low": "#fbf2e8",
+                      "surface-dim": "#e1d9cf",
+                      "secondary-container": "#caf24d",
+                      "surface-variant": "#eae1d7",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "on-tertiary-fixed": "#2c1600",
+                      "primary-container": "#5a7956",
+                      "tertiary": "#725232",
+                      "surface-tint": "#486644",
+                      "surface-container-highest": "#eae1d7",
+                      "on-surface-variant": "#434840",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#052107",
+                      "inverse-surface": "#343029",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#aed0a7",
+                      "on-tertiary-container": "#fff5ee",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "inverse-primary": "#aed0a7",
+                      "on-surface": "#1f1b15",
+                      "surface": "#fff8f2",
+                      "outline-variant": "#c3c8be",
+                      "outline": "#737970",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": ["Noto Serif"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body antialiased min-h-screen flex flex-col selection:bg-primary/20 selection:text-primary relative">
+<!-- Detail Header (Suppressed global nav for task-focused detail page) -->
+<header class="flex items-center justify-between p-6 lg:p-10 w-full max-w-[1400px] mx-auto sticky top-0 z-40 bg-surface/80 backdrop-blur-3xl">
+<button class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-2xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span class="font-semibold text-xs tracking-[0.2em] uppercase mt-0.5">Directory</span>
+</button>
+<div class="flex items-center gap-4">
+<button class="p-3 rounded-full hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-[1400px] mx-auto px-6 lg:px-12 pb-40 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 relative">
+<!-- Background organic shape (decorative) -->
+<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-surface-container-low/50 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
+<!-- Left Column: Identity (Asymmetrical anchor) -->
+<div class="lg:col-span-4 flex flex-col items-start gap-8 lg:pt-12 relative z-10">
+<!-- Large Initials Avatar -->
+<div class="w-48 h-48 rounded-full bg-primary flex items-center justify-center text-on-primary font-headline text-7xl font-black tracking-tighter shadow-[0_40px_60px_-15px_rgba(66,96,63,0.3)] relative shrink-0">
+                EV
+                <!-- Lime Admin Chip -->
+<div class="absolute -bottom-3 right-2 bg-secondary-fixed text-on-secondary-fixed px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 shadow-xl border-2 border-surface">
+<span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+                    Admin-Only
+                </div>
+</div>
+<div class="mt-4 flex flex-col gap-2">
+<h1 class="font-headline text-6xl text-on-surface tracking-tighter leading-none mb-1 pr-8">Eleanor Vance</h1>
+<p class="text-on-surface-variant text-lg font-medium">Senior Faculty  •  Literature Dept</p>
+<div class="flex items-center gap-4 mt-6 text-sm text-tertiary font-medium">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px]">badge</span> ID: 9482-A</span>
+<span class="text-outline-variant/50">|</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px]">calendar_today</span> Tenured '18</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Details & Editing (The functional canvas) -->
+<div class="lg:col-span-8 flex flex-col gap-10 lg:pl-8 z-10">
+<!-- Custom Tab Navigation (Tonal Layering, no lines) -->
+<nav aria-label="Profile Sections" class="inline-flex items-center gap-2 bg-surface-container-highest/40 p-1.5 rounded-[20px] self-start">
+<button class="px-8 py-3 bg-surface text-primary rounded-2xl font-bold text-sm tracking-wide shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">person</span>
+                    Profile
+                </button>
+<button class="px-8 py-3 text-on-surface-variant hover:text-on-surface rounded-2xl font-semibold text-sm tracking-wide transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                    Schedule
+                </button>
+<button class="px-8 py-3 text-on-surface-variant hover:text-on-surface rounded-2xl font-semibold text-sm tracking-wide transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">reviews</span>
+                    Reviews
+                </button>
+</nav>
+<!-- Active Content Container (Surface-container-low card) -->
+<div class="bg-surface-container-low rounded-[32px] p-8 lg:p-14 flex flex-col gap-12">
+<!-- Form Field: Minimalist Input -->
+<div class="relative group">
+<label class="text-tertiary text-xs font-bold uppercase tracking-[0.15em] mb-2 block">Legal Name</label>
+<div class="relative">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 text-3xl font-headline text-on-surface py-3 px-0 transition-colors" placeholder="Enter teacher's name" type="text" value="Eleanor Margaret Vance"/>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-outline opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">edit</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Subject Chips -->
+<div class="flex flex-col gap-4">
+<label class="text-tertiary text-xs font-bold uppercase tracking-[0.15em] block">Certified Subjects</label>
+<div class="flex flex-wrap gap-3">
+<span class="bg-surface-container-highest text-on-surface px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition-transform hover:scale-105 cursor-default">
+                                AP English Lit 
+                                <button aria-label="Remove subject" class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-error transition-colors">close</button>
+</span>
+<span class="bg-surface-container-highest text-on-surface px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition-transform hover:scale-105 cursor-default">
+                                Creative Writing 
+                                <button aria-label="Remove subject" class="material-symbols-outlined text-[16px] text-on-surface-variant hover:text-error transition-colors">close</button>
+</span>
+<button class="bg-transparent border border-outline-variant/30 border-dashed text-on-surface-variant px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-surface-container-highest transition-colors flex items-center gap-2 group">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors">add</span> Add Subject
+                            </button>
+</div>
+</div>
+<!-- Teaching Style Tags -->
+<div class="flex flex-col gap-4">
+<label class="text-tertiary text-xs font-bold uppercase tracking-[0.15em] block">Teaching Style</label>
+<div class="flex flex-wrap gap-3">
+<!-- Using primary tint for distinct categorization -->
+<span class="bg-primary/10 text-primary px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 cursor-default">
+<span class="material-symbols-outlined text-[16px]">architecture</span>
+                                Project-based
+                            </span>
+<span class="bg-primary/10 text-primary px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 cursor-default">
+<span class="material-symbols-outlined text-[16px]">cast_for_education</span>
+                                Direct instruction
+                            </span>
+</div>
+</div>
+</div>
+<!-- Notes Textarea -->
+<div class="flex flex-col gap-4 pt-4">
+<div class="flex items-center justify-between">
+<label class="text-tertiary text-xs font-bold uppercase tracking-[0.15em] block">Administrative Notes</label>
+<span class="text-xs text-on-surface-variant/50 font-medium">Internal Use Only</span>
+</div>
+<textarea class="w-full bg-surface-container-highest/50 hover:bg-surface-container-highest focus:bg-surface border border-transparent focus:border-outline-variant/30 rounded-2xl p-6 text-on-surface font-medium focus:ring-0 transition-all resize-none placeholder-on-surface-variant/40" placeholder="Add private notes regarding performance, tenure track, or special accommodations..." rows="5"></textarea>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Floating Action (Save Pill) -->
+<div class="fixed bottom-10 left-0 w-full flex justify-center pointer-events-none z-50 px-6">
+<button class="pointer-events-auto bg-gradient-to-br from-primary to-primary-container text-on-primary px-10 py-5 rounded-full font-bold text-sm tracking-widest uppercase shadow-[0_30px_60px_-15px_rgba(66,96,63,0.5)] hover:shadow-[0_30px_60px_-10px_rgba(66,96,63,0.6)] hover:scale-[1.02] active:scale-95 transition-all duration-300 ease-out flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">save</span>
+            Save Profile
+        </button>
+</div>
+</body></html>

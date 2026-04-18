@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add a Grade</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;0,900;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#efe7dd",
+                      "primary-container": "#5a7956",
+                      "on-primary-container": "#e2ffda",
+                      "on-tertiary-fixed": "#2c1600",
+                      "on-background": "#1f1b15",
+                      "surface-bright": "#fff8f2",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#8d6a48",
+                      "primary-fixed-dim": "#aed0a7",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "on-secondary-container": "#566c00",
+                      "outline-variant": "#c3c8be",
+                      "on-secondary-fixed": "#161e00",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#f8efe5",
+                      "surface-variant": "#eae1d7",
+                      "surface-container-highest": "#eae1d7",
+                      "tertiary-fixed": "#ffdcbd",
+                      "outline": "#737970",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "on-primary-fixed": "#052107",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "background": "#fff8f2",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "secondary-container": "#caf24d",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#516600",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#486644",
+                      "on-tertiary-container": "#fff5ee",
+                      "surface": "#fff8f2",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#e1d9cf",
+                      "secondary-fixed": "#caf24d",
+                      "inverse-primary": "#aed0a7",
+                      "primary-fixed": "#c9ecc2",
+                      "secondary-fixed-dim": "#afd531",
+                      "primary": "#42603f",
+                      "on-surface-variant": "#434840",
+                      "on-surface": "#1f1b15",
+                      "inverse-surface": "#343029",
+                      "tertiary": "#725232",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "surface-container-low": "#fbf2e8",
+                      "surface-container": "#f5ede2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Noto Serif"
+                      ],
+                      "body": [
+                              "Manrope"
+                      ],
+                      "label": [
+                              "Manrope"
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fff8f2; /* background fallback */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background antialiased h-screen w-screen overflow-hidden flex items-end justify-center">
+<!-- Blurred Background Context -->
+<div class="fixed inset-0 bg-surface-container-low bg-[url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&amp;w=2073&amp;auto=format&amp;fit=crop')] bg-cover bg-center opacity-30 blur-sm pointer-events-none" data-alt="blurred background of an academic library setting with soft natural light"></div>
+<!-- Scrim Overlay -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-[12px] z-40 transition-opacity duration-300"></div>
+<!-- Bottom Sheet Container -->
+<div class="relative w-full md:max-w-md h-[618px] md:h-auto md:max-h-[751px] bg-surface rounded-t-[32px] md:rounded-[32px] md:mb-8 shadow-[0_-40px_80px_rgba(31,27,21,0.1)] z-50 flex flex-col transform transition-transform duration-300 ease-out will-change-transform">
+<!-- Drag Handle Indicator -->
+<div class="w-full flex justify-center pt-4 pb-2 md:hidden">
+<div class="w-12 h-1.5 bg-outline-variant/40 rounded-full"></div>
+</div>
+<!-- Sheet Content Wrapper -->
+<div class="flex-1 flex flex-col px-6 md:px-8 py-6 overflow-y-auto hide-scrollbar">
+<!-- Header -->
+<div class="flex justify-between items-start mb-8">
+<h1 class="font-headline text-[36px] leading-[1.1] tracking-tight text-on-surface font-semibold text-balance">
+                    Add a grade
+                </h1>
+<button aria-label="Close" class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Form Content -->
+<div class="flex flex-col gap-8 flex-1">
+<!-- Inputs Section -->
+<div class="space-y-6">
+<!-- Subject Input -->
+<div class="relative group">
+<label class="font-label text-[10px] tracking-widest uppercase text-tertiary font-bold mb-2 block ml-1">Subject</label>
+<div class="relative">
+<input class="w-full bg-surface-container-highest border-0 border-b-2 border-outline-variant/30 rounded-t-xl px-5 pt-4 pb-3 font-body text-[17px] text-on-surface focus:ring-0 focus:border-primary focus:bg-surface-container-high transition-all placeholder:text-on-surface-variant/40 placeholder:font-light" placeholder="e.g. Advanced Calculus" type="text"/>
+</div>
+</div>
+<!-- Score Input -->
+<div class="relative group">
+<label class="font-label text-[10px] tracking-widest uppercase text-tertiary font-bold mb-2 block ml-1">Score</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-highest border-0 border-b-2 border-outline-variant/30 rounded-t-xl pl-5 pr-12 pt-4 pb-3 font-headline text-2xl text-on-surface focus:ring-0 focus:border-primary focus:bg-surface-container-high transition-all placeholder:text-on-surface-variant/30" placeholder="95" type="number"/>
+<span class="absolute right-5 font-body text-on-surface-variant/50 text-lg font-medium pointer-events-none">%</span>
+</div>
+</div>
+</div>
+<!-- Academic Period Section -->
+<div class="mt-2">
+<label class="font-label text-[10px] tracking-widest uppercase text-tertiary font-bold mb-4 block ml-1">Academic Period</label>
+<div class="flex flex-wrap gap-2.5">
+<!-- Selected Chip (Forest equivalent) -->
+<button class="px-5 py-2.5 rounded-full bg-primary text-on-primary font-body text-sm font-semibold shadow-[0_4px_12px_rgba(66,96,63,0.2)] transition-transform active:scale-95">
+                            Q1
+                        </button>
+<!-- Unselected Chips -->
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-body text-sm font-medium hover:bg-surface-variant transition-colors active:scale-95">
+                            Q2
+                        </button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-body text-sm font-medium hover:bg-surface-variant transition-colors active:scale-95">
+                            Q3
+                        </button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-body text-sm font-medium hover:bg-surface-variant transition-colors active:scale-95">
+                            Q4
+                        </button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-high text-on-surface-variant font-body text-sm font-medium hover:bg-surface-variant transition-colors active:scale-95">
+                            Final
+                        </button>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom Action -->
+<div class="mt-auto pt-8 pb-4 md:pb-0 bg-surface">
+<button class="w-full py-4.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-body font-bold text-[17px] tracking-wide hover:opacity-90 active:scale-[0.98] transition-all shadow-[0_12px_24px_-8px_rgba(202,242,77,0.4)] flex justify-center items-center gap-2">
+<span>Save Grade</span>
+<span class="material-symbols-outlined text-[20px]" data-icon="check" data-weight="fill">check</span>
+</button>
+</div>
+</div>
+</div>
+<style>
+        /* Custom scrollbar for webkit to keep the high-end feel */
+        .hide-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .hide-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(195, 200, 190, 0.5); /* outline-variant */
+            border-radius: 20px;
+        }
+    </style>
+</body></html>

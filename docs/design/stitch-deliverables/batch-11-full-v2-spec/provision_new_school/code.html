@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Founder Add New School / Provisioning</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Serif:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#8d6a48",
+                      "surface-container": "#f5ede2",
+                      "inverse-on-surface": "#f8efe5",
+                      "tertiary-fixed": "#ffdcbd",
+                      "primary-fixed": "#c9ecc2",
+                      "secondary-fixed": "#caf24d",
+                      "on-secondary-fixed": "#161e00",
+                      "background": "#fff8f2",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#afd531",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#efe7dd",
+                      "surface-bright": "#fff8f2",
+                      "secondary": "#516600",
+                      "primary": "#42603f",
+                      "on-primary-container": "#e2ffda",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "on-background": "#1f1b15",
+                      "on-secondary-container": "#566c00",
+                      "on-error-container": "#93000a",
+                      "surface-container-low": "#fbf2e8",
+                      "surface-dim": "#e1d9cf",
+                      "secondary-container": "#caf24d",
+                      "surface-variant": "#eae1d7",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "on-tertiary-fixed": "#2c1600",
+                      "primary-container": "#5a7956",
+                      "tertiary": "#725232",
+                      "surface-tint": "#486644",
+                      "surface-container-highest": "#eae1d7",
+                      "on-surface-variant": "#434840",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#052107",
+                      "inverse-surface": "#343029",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#aed0a7",
+                      "on-tertiary-container": "#fff5ee",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "inverse-primary": "#aed0a7",
+                      "on-surface": "#1f1b15",
+                      "surface": "#fff8f2",
+                      "outline-variant": "#c3c8be",
+                      "outline": "#737970",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Noto Serif"
+                      ],
+                      "body": [
+                              "Manrope"
+                      ],
+                      "label": [
+                              "Manrope"
+                      ]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body antialiased min-h-screen flex flex-col md:flex-row overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Navigation Drawer (Desktop Shell) -->
+<aside class="hidden md:flex flex-col h-screen w-80 rounded-r-[24px] bg-[#fff8f2] dark:bg-[#061a0f] border-none bg-[#fbf2e8] dark:bg-[#0a2618] shadow-2xl p-6 gap-4 sticky top-0 shrink-0 z-40">
+<!-- Brand / Header -->
+<div class="mb-8 left_align">
+<h1 class="font-['Noto_Serif'] text-2xl text-[#42603f] dark:text-[#caf24d] font-black tracking-tight mb-6">Academic Atelier</h1>
+<div class="flex items-center gap-3">
+<img alt="Executive Admin" class="w-12 h-12 rounded-full object-cover" data-alt="close up portrait of professional middle aged woman in business attire looking confident against soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAGBSUHAlYw6iWEoSlWXEn8zWSfDTDC6tHcPm962yZcYGBjee0sXwosKdpi-i9IHmqo9_VGdVAkAUy4Rl-PfCT-pisEI0Tkg-sBZgIrSueo3zqG-Sh1qKFuP99sPtKuCDTnzGix2KX49AMNVcxV99m6KG0M8z3ccqbdQ-i-VvJzbYCg0J7I8SsyQMWHEoh0eXwiCBE2L_jkLKkrkPdnpDw_VRlKW5agfAd4fOcSpfi0KHDI4FTK1d_T-MIuZpeSDd1dnuYRjT2h_0"/>
+<div>
+<h2 class="font-['Montserrat'] font-semibold text-sm text-[#42603f] dark:text-[#caf24d]">Principal Founder</h2>
+<p class="text-xs text-[#1f1b15]/70 dark:text-[#caf24d]/70">K-8 Global Admin</p>
+<p class="text-[10px] text-tertiary mt-0.5">Environment: Production</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Montserrat'] font-semibold text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">hub</span>
+                School Overview
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Montserrat'] font-semibold text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">groups</span>
+                Faculty Registry
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Montserrat'] font-semibold text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">school</span>
+                Student Records
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Montserrat'] font-semibold bg-[#eae1d7] dark:bg-[#0a2618] text-[#42603f] dark:text-[#caf24d] font-bold hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings_input_component</span>
+                Provisioning
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Montserrat'] font-semibold text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history_edu</span>
+                Audit Logs
+            </a>
+</nav>
+<!-- Footer area of nav -->
+<div class="mt-auto pt-6 border-t border-outline-variant/15">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Montserrat'] font-semibold text-[#1f1b15]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">logout</span>
+                Sign Out
+            </a>
+</div>
+</aside>
+<!-- Top App Bar (Mobile Shell) -->
+<header class="md:hidden docked full-width top-0 bg-[#fff8f2] dark:bg-[#061a0f] text-[#42603f] dark:text-[#caf24d] font-['Noto_Serif'] font-bold tracking-tighter text-3xl dark:font-mono dark:uppercase bg-[#fbf2e8] dark:bg-[#0a2618] shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] transition-all duration-300 ease-in-out flex items-center justify-between px-6 py-4 w-full z-40 sticky">
+<div class="flex items-center gap-3">
+<img alt="Executive Admin" class="w-10 h-10 rounded-full object-cover" data-alt="close up portrait of professional middle aged woman in business attire looking confident against soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD8K2ZciZG3L30w3mb_RNWoxBnv40bS7dhrbwlJ23mDgv-ahfA37bb6GkBY-frLTrBDZ-raNlVHCyfZGfbtiS4qNaSFcN-GIYP_PG3Sita7fr1EZQQT0mPPLTHZ0ZCFnA6UF4_5ZHFy18L1SzgewzwlBSMSduHHWXtHY9O3eEm3qJrmQ4bu2CXhUHYf_KTu2a4KuX_-pb83EqmsEOfR0CS9ZXYoBrnDSmI4KZUAyfj-boFOJCg4FsIBUK6IfYWejgcyEbS56Rnops"/>
+<span class="font-['Noto_Serif'] font-black text-[#1f1b15] dark:text-[#caf24d] dark:font-mono text-2xl">Academic Atelier</span>
+</div>
+<button class="hover:bg-[#eae1d7]/50 dark:hover:bg-[#0a2618]/50 p-2 rounded-full transition-all duration-300 ease-in-out text-[#1f1b15]/60 dark:text-[#caf24d]/60">
+<span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 md:px-12 lg:px-24 py-8 md:py-16 pb-32 md:pb-16 flex flex-col relative z-10">
+<!-- Header -->
+<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 pl-4 md:pl-0 pr-8 md:pr-16">
+<div class="max-w-2xl">
+<p class="text-primary font-bold text-sm tracking-widest uppercase mb-3 font-['Montserrat']">System Administration</p>
+<h1 class="font-headline text-5xl md:text-6xl text-on-surface tracking-tighter leading-none mb-4">Provision Tenant</h1>
+<p class="text-on-surface-variant text-lg max-w-xl">Configure and deploy a new institutional environment. This action generates isolated infrastructure and seeds initial administrator credentials.</p>
+</div>
+</div>
+<!-- Asymmetrical Layout Container -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+<!-- Left Column: The Form (Takes up 7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-8">
+<form class="bg-surface-container-low rounded-3xl p-8 md:p-10 shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] flex flex-col gap-8 relative z-10">
+<!-- Form Section: Identity -->
+<div class="flex flex-col gap-6">
+<h3 class="font-headline text-2xl text-on-surface border-b border-outline-variant/15 pb-4">Institutional Identity</h3>
+<div class="grid grid-cols-1 gap-6">
+<!-- Display Name -->
+<div class="flex flex-col gap-2">
+<label class="font-label text-sm font-semibold text-on-surface" for="display_name">Display Name</label>
+<input class="bg-surface border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-4 py-3 rounded-t-lg text-on-surface placeholder:text-on-surface-variant/50 transition-colors w-full font-body" id="display_name" name="display_name" placeholder="e.g. St. Jude Academy" type="text"/>
+<p class="text-xs text-tertiary ml-4">The formal name displayed across all interfaces.</p>
+</div>
+<!-- Slug -->
+<div class="flex flex-col gap-2">
+<label class="font-label text-sm font-semibold text-on-surface" for="slug">Tenant Slug</label>
+<div class="flex items-center">
+<span class="bg-surface-container-highest px-4 py-3 rounded-l-lg border-b border-outline-variant/40 text-on-surface-variant text-sm font-mono border-r border-r-outline-variant/20">academica.io/</span>
+<input class="bg-surface border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-4 py-3 rounded-tr-lg text-on-surface placeholder:text-on-surface-variant/50 transition-colors w-full font-mono text-sm" id="slug" name="slug" placeholder="st-jude" type="text"/>
+</div>
+<p class="text-xs text-tertiary ml-4">Unique URL identifier. Alphanumeric and hyphens only.</p>
+</div>
+</div>
+</div>
+<!-- Form Section: Branding -->
+<div class="flex flex-col gap-6 pt-6">
+<h3 class="font-headline text-2xl text-on-surface border-b border-outline-variant/15 pb-4">Brand Guidelines</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Logo URL -->
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label text-sm font-semibold text-on-surface" for="logo_url">Crest / Logo URL</label>
+<input class="bg-surface border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-4 py-3 rounded-t-lg text-on-surface placeholder:text-on-surface-variant/50 transition-colors w-full font-body" id="logo_url" name="logo_url" placeholder="https://..." type="url"/>
+</div>
+<!-- Primary Color -->
+<div class="flex flex-col gap-2">
+<label class="font-label text-sm font-semibold text-on-surface" for="primary_color">Primary Accent (Hex)</label>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#0F2B48] shadow-sm border border-outline-variant/15 shrink-0"></div>
+<input class="bg-surface border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-4 py-3 rounded-t-lg text-on-surface uppercase font-mono text-sm w-full" id="primary_color" name="primary_color" type="text" value="#0F2B48"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Form Section: Configuration -->
+<div class="flex flex-col gap-6 pt-6">
+<h3 class="font-headline text-2xl text-on-surface border-b border-outline-variant/15 pb-4">Infrastructure &amp; Access</h3>
+<!-- Plan Picker (Radio Cards) -->
+<div class="flex flex-col gap-3">
+<label class="font-label text-sm font-semibold text-on-surface">Service Tier</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- Pilot Plan -->
+<label class="cursor-pointer">
+<input class="peer sr-only" name="plan" type="radio" value="pilot"/>
+<div class="bg-surface-container rounded-xl p-4 border border-transparent peer-checked:border-primary peer-checked:bg-surface-container-highest transition-all duration-200 h-full flex flex-col gap-2">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-on-surface">Pilot</span>
+<span class="material-symbols-outlined text-primary text-xl peer-checked:opacity-100 opacity-0 transition-opacity">check_circle</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">Evaluation environment. 50 user limit. Shared db.</p>
+</div>
+</label>
+<!-- Standard Plan -->
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="plan" type="radio" value="standard"/>
+<div class="bg-surface-container rounded-xl p-4 border border-transparent peer-checked:border-primary peer-checked:bg-surface-container-highest transition-all duration-200 h-full flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-center mb-1 pl-2">
+<span class="font-bold text-on-surface">Standard</span>
+<span class="material-symbols-outlined text-primary text-xl opacity-100 transition-opacity">check_circle</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed pl-2">Production ready. 5k user limit. Dedicated schema.</p>
+</div>
+</label>
+<!-- Custom Plan -->
+<label class="cursor-pointer">
+<input class="peer sr-only" name="plan" type="radio" value="custom"/>
+<div class="bg-surface-container rounded-xl p-4 border border-transparent peer-checked:border-primary peer-checked:bg-surface-container-highest transition-all duration-200 h-full flex flex-col gap-2">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-on-surface">Custom</span>
+<span class="material-symbols-outlined text-primary text-xl peer-checked:opacity-100 opacity-0 transition-opacity">check_circle</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">Enterprise scale. Unlimited users. Dedicated cluster.</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Seed Admin Email -->
+<div class="flex flex-col gap-2 mt-4">
+<label class="font-label text-sm font-semibold text-on-surface" for="admin_email">Seed Administrator Email</label>
+<input class="bg-surface border-0 border-b border-outline-variant/40 focus:border-primary focus:ring-0 px-4 py-3 rounded-t-lg text-on-surface placeholder:text-on-surface-variant/50 transition-colors w-full font-body" id="admin_email" name="admin_email" placeholder="admin@stjude.edu" type="email"/>
+<p class="text-xs text-tertiary ml-4">Initial login credentials will be dispatched to this address.</p>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-8 mt-4 border-t border-outline-variant/15 flex justify-end gap-4">
+<button class="px-6 py-3 rounded-full font-bold text-on-surface hover:bg-surface-container-highest transition-colors font-label" type="button">Cancel</button>
+<!-- Lime Pill CTA -->
+<button class="px-8 py-3 rounded-full font-bold text-on-secondary-fixed bg-secondary-fixed hover:bg-secondary-fixed-dim shadow-[0_10px_30px_-10px_rgba(202,242,77,0.4)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 font-label flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+                            Provision Tenant
+                        </button>
+</div>
+</form>
+</div>
+<!-- Right Column: The Stepper / Tech Status (Takes up 5 cols) -->
+<div class="lg:col-span-5 sticky top-24 pt-8 lg:pt-0 pl-0 lg:pl-8">
+<div class="bg-[#1f1b15] rounded-[32px] p-8 md:p-10 shadow-2xl relative overflow-hidden text-surface">
+<!-- Subtle background texture/gradient for the dark sheet -->
+<div class="absolute inset-0 bg-gradient-to-br from-[#1f1b15] to-[#0a0907] z-0"></div>
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/20 rounded-full blur-[80px] z-0 pointer-events-none"></div>
+<div class="relative z-10 flex flex-col h-full">
+<div class="mb-10">
+<h4 class="font-headline text-2xl text-surface-bright mb-2">Deployment Status</h4>
+<p class="text-surface-dim/70 text-sm font-mono">IDLE / AWAITING_COMMAND</p>
+</div>
+<!-- Stepper -->
+<div class="flex flex-col gap-8 relative">
+<!-- Vertical Line connecting steps -->
+<div class="absolute left-[15px] top-[24px] bottom-[24px] w-0.5 bg-surface-variant/10 z-0"></div>
+<!-- Step 1 -->
+<div class="flex gap-6 relative z-10 opacity-40">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/20 border-2 border-surface-variant/30 flex items-center justify-center shrink-0">
+<span class="text-xs font-mono text-surface-dim">01</span>
+</div>
+<div class="pt-1 pb-4">
+<h5 class="font-bold text-surface-bright mb-1 font-label tracking-wide">Creating Infrastructure</h5>
+<p class="text-sm text-surface-dim/70 leading-relaxed font-mono text-xs">Allocating isolated database schema and storage buckets.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-6 relative z-10 opacity-40">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/20 border-2 border-surface-variant/30 flex items-center justify-center shrink-0">
+<span class="text-xs font-mono text-surface-dim">02</span>
+</div>
+<div class="pt-1 pb-4">
+<h5 class="font-bold text-surface-bright mb-1 font-label tracking-wide">Generating Configurations</h5>
+<p class="text-sm text-surface-dim/70 leading-relaxed font-mono text-xs">Applying branding, DNS routing, and service tier limits.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-6 relative z-10 opacity-40">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/20 border-2 border-surface-variant/30 flex items-center justify-center shrink-0">
+<span class="text-xs font-mono text-surface-dim">03</span>
+</div>
+<div class="pt-1 pb-4">
+<h5 class="font-bold text-surface-bright mb-1 font-label tracking-wide">Seeding Administrator</h5>
+<p class="text-sm text-surface-dim/70 leading-relaxed font-mono text-xs">Creating root identity and assigning global permissions.</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex gap-6 relative z-10 opacity-40">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest/20 border-2 border-surface-variant/30 flex items-center justify-center shrink-0">
+<span class="text-xs font-mono text-surface-dim">04</span>
+</div>
+<div class="pt-1">
+<h5 class="font-bold text-surface-bright mb-1 font-label tracking-wide">Emailing Credentials</h5>
+<p class="text-sm text-surface-dim/70 leading-relaxed font-mono text-xs">Dispatching secure welcome packet to seed email.</p>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-6 border-t border-surface-variant/10 flex items-center justify-between">
+<span class="text-xs font-mono text-secondary-fixed/70 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed/50 animate-pulse"></span>
+                                SYSTEM_READY
+                            </span>
+<span class="material-symbols-outlined text-surface-dim/30">memory</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile Shell) -->
+<nav class="md:hidden fixed bottom-0 w-full rounded-t-[24px] bg-[#fff8f2]/70 dark:bg-[#061a0f]/80 backdrop-blur-3xl shadow-[0_-20px_40px_rgba(0,0,0,0.05)] text-[#42603f] dark:text-[#caf24d] font-['Montserrat'] font-medium text-[10px] uppercase tracking-widest fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2">
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" style="font-variation-settings: 'FILL' 0;">grid_view</span>
+            Dashboard
+        </a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" style="font-variation-settings: 'FILL' 0;">account_balance</span>
+            Tenants
+        </a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" style="font-variation-settings: 'FILL' 0;">analytics</span>
+            Metrics
+        </a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] dark:from-[#caf24d] dark:to-[#8fb324] text-white dark:text-[#061a0f] rounded-[16px] px-6 py-2 hover:opacity-80 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" style="font-variation-settings: 'FILL' 1;">terminal</span>
+            System
+        </a>
+</nav>
+</body></html>

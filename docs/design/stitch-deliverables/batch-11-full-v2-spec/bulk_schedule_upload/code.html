@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload Teacher Schedules - Academic Atelier</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#8d6a48",
+                        "surface-container": "#f5ede2",
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed": "#caf24d",
+                        "on-secondary-fixed": "#161e00",
+                        "background": "#fff8f2",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "surface-bright": "#fff8f2",
+                        "secondary": "#516600",
+                        "primary": "#42603f",
+                        "on-primary-container": "#e2ffda",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-background": "#1f1b15",
+                        "on-secondary-container": "#566c00",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-dim": "#e1d9cf",
+                        "secondary-container": "#caf24d",
+                        "surface-variant": "#eae1d7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary-container": "#5a7956",
+                        "tertiary": "#725232",
+                        "surface-tint": "#486644",
+                        "surface-container-highest": "#eae1d7",
+                        "on-surface-variant": "#434840",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "inverse-surface": "#343029",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#aed0a7",
+                        "on-surface": "#1f1b15",
+                        "surface": "#fff8f2",
+                        "outline-variant": "#c3c8be",
+                        "outline": "#737970",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed pb-32">
+<!-- Task Header (Suppressed Global Nav per mandate) -->
+<header class="w-full px-6 py-8 md:px-12 md:py-12 flex flex-col gap-6">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors w-fit group">
+<span class="material-symbols-outlined text-xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span class="font-medium text-sm tracking-wide">Return to Admin Panel</span>
+</button>
+<h1 class="font-headline text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-primary max-w-2xl leading-tight">
+            Upload teacher schedules
+        </h1>
+</header>
+<main class="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col gap-16">
+<!-- Upload Context Area (Asymmetric Layout) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+<!-- Instructions & Methods -->
+<div class="lg:col-span-4 flex flex-col gap-8">
+<div class="flex flex-col gap-3">
+<h2 class="font-headline text-2xl font-semibold text-on-surface">Data Ingestion</h2>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                        Select your preferred ingestion method. Ensure your source contains columns for Educator, Course Name, Term Period, and Location to ensure accurate parsing.
+                    </p>
+</div>
+<!-- Method Chips -->
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary text-on-primary px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide shadow-[0_10px_20px_-5px_rgba(66,96,63,0.2)] transition-transform hover:scale-[1.02]">
+                        Paste Raw Data
+                    </button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest px-5 py-2.5 rounded-full text-sm font-medium transition-colors">
+                        .CSV Upload
+                    </button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest px-5 py-2.5 rounded-full text-sm font-medium transition-colors">
+                        .XLSX Upload
+                    </button>
+</div>
+</div>
+<!-- Input Area -->
+<div class="lg:col-span-8 bg-surface-container-low rounded-[2rem] p-6 md:p-8 flex flex-col gap-6 relative overflow-hidden group">
+<!-- Decorative ethereal background -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="w-full bg-surface-container-lowest rounded-xl p-4 min-h-[200px] flex flex-col shadow-sm relative z-10">
+<textarea class="w-full flex-1 bg-transparent border-none focus:ring-0 resize-none text-sm text-on-surface placeholder:text-on-surface-variant/50" placeholder="Paste data here... (e.g., Smith, AP Physics, Period 2, Room 402)"></textarea>
+</div>
+<div class="flex justify-end relative z-10">
+<!-- Parsing with Gemini Button -->
+<button class="flex items-center gap-3 bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-3.5 rounded-2xl shadow-[0_20px_40px_-10px_rgba(66,96,63,0.3)] hover:shadow-[0_25px_50px_-12px_rgba(66,96,63,0.4)] transition-all hover:-translate-y-0.5">
+<span class="material-symbols-outlined icon-fill text-secondary-fixed">auto_awesome</span>
+<span class="font-bold tracking-wide">Parse with AI</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Review Data Table (Editorial Style) -->
+<section class="flex flex-col gap-6">
+<div class="flex items-end justify-between border-b border-outline-variant/15 pb-4">
+<h2 class="font-headline text-3xl font-semibold text-primary tracking-tight">Review Extraction</h2>
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-md">8 Records Parsed</span>
+</div>
+<!-- Table Header (Visually minimal) -->
+<div class="hidden md:grid grid-cols-12 gap-4 px-6 text-xs font-bold uppercase tracking-widest text-on-surface-variant/70 mb-2">
+<div class="col-span-4">Teacher</div>
+<div class="col-span-4">Class</div>
+<div class="col-span-2">Period</div>
+<div class="col-span-2">Room</div>
+</div>
+<!-- Data Rows (Tonal Layering instead of borders) -->
+<div class="flex flex-col gap-3">
+<!-- Row 1 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center bg-surface-container-lowest p-4 md:px-6 md:py-4 rounded-2xl transition-colors hover:bg-surface-container-high/50 group">
+<div class="col-span-1 md:col-span-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary font-bold text-sm shrink-0">EW</div>
+<span class="font-semibold text-on-surface">Dr. Eleanor Vance</span>
+</div>
+<div class="col-span-1 md:col-span-4 text-on-surface-variant font-medium md:text-base text-sm">
+                        Advanced Calculus BC
+                    </div>
+<div class="col-span-1 md:col-span-2">
+<span class="inline-flex items-center justify-center bg-secondary-fixed/20 text-on-surface text-xs font-bold px-3 py-1.5 rounded-lg border border-secondary-fixed/30">
+                            Block A
+                        </span>
+</div>
+<div class="col-span-1 md:col-span-2 text-on-surface font-medium flex items-center justify-between">
+<span>Lab 402</span>
+<button class="text-outline hover:text-error transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center bg-surface-container-lowest p-4 md:px-6 md:py-4 rounded-2xl transition-colors hover:bg-surface-container-high/50 group">
+<div class="col-span-1 md:col-span-4 flex items-center gap-4">
+<img alt="Avatar" class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="headshot of male teacher with glasses in casual professional attire, warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK7u7lB-6k3ggP-SJd5NH667Wu9p169o-9uzceyYZSUh0sirHyd4Fu6voBEI_a5SFBeLj7o8GaHCkglHEqxvqnZu-UiPJrw3tCVh4Rg3gk6X_663InkjSuWLDQD89TbXsRYTMqcky3WX4NQtmX6ymL8g0J5JaAexcH2u1QsieLRowpM-f7GgDJbQQUqjNJ5X-6NMVyWvDIPcw0vpjHRD3K3NWGi2voETLQJI-Su_jmlOWbGZ-k3hDllIBl9-1z4HaItAI7XPXEUhQ"/>
+<span class="font-semibold text-on-surface">Marcus Thorne</span>
+</div>
+<div class="col-span-1 md:col-span-4 text-on-surface-variant font-medium md:text-base text-sm">
+                        European History (AP)
+                    </div>
+<div class="col-span-1 md:col-span-2">
+<span class="inline-flex items-center justify-center bg-secondary-fixed/20 text-on-surface text-xs font-bold px-3 py-1.5 rounded-lg border border-secondary-fixed/30">
+                            Block B
+                        </span>
+</div>
+<div class="col-span-1 md:col-span-2 text-on-surface font-medium flex items-center justify-between">
+<span>Hall 105</span>
+<button class="text-outline hover:text-error transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center bg-surface-container-lowest p-4 md:px-6 md:py-4 rounded-2xl transition-colors hover:bg-surface-container-high/50 group">
+<div class="col-span-1 md:col-span-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold text-sm shrink-0">SJ</div>
+<span class="font-semibold text-on-surface">Sarah Jenkins</span>
+</div>
+<div class="col-span-1 md:col-span-4 text-on-surface-variant font-medium md:text-base text-sm">
+                        Introduction to Organic Chemistry
+                    </div>
+<div class="col-span-1 md:col-span-2">
+<span class="inline-flex items-center justify-center bg-secondary-fixed/20 text-on-surface text-xs font-bold px-3 py-1.5 rounded-lg border border-secondary-fixed/30">
+                            Block C
+                        </span>
+</div>
+<div class="col-span-1 md:col-span-2 text-on-surface font-medium flex items-center justify-between">
+<span>Lab 301</span>
+<button class="text-outline hover:text-error transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+</div>
+<!-- Adding a subtle empty state row to indicate where new items would go -->
+<div class="h-12 border-2 border-dashed border-outline-variant/30 rounded-2xl flex items-center justify-center text-sm text-on-surface-variant/50 mt-2">
+                End of parsed data
+            </div>
+</section>
+</main>
+<!-- Floating Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full bg-surface/80 backdrop-blur-2xl border-t border-outline-variant/10 py-6 px-6 md:px-12 z-50 flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Post-Save Confirmation / Deep Link Hint -->
+<div class="flex items-center gap-3 text-sm text-on-surface-variant max-w-md">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-full">info</span>
+<p>After saving, you can adjust individual anomalies in the <a class="text-primary font-bold underline decoration-primary/30 hover:decoration-primary underline-offset-4 transition-all" href="#">Counselor Window Control</a>.</p>
+</div>
+<!-- Save Pill -->
+<button class="w-full md:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary px-10 py-4 rounded-full font-bold tracking-wide shadow-[0_15px_30px_-10px_rgba(66,96,63,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(66,96,63,0.5)] transition-all hover:-translate-y-1">
+<span>Commit Schedules</span>
+<span class="material-symbols-outlined text-lg">check_circle</span>
+</button>
+</div>
+</body></html>

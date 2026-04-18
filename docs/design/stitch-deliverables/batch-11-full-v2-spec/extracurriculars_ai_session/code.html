@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Extracurricular AI Session - Ladder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#737970",
+                        "outline-variant": "#c3c8be",
+                        "on-primary-fixed": "#052107",
+                        "surface-bright": "#fff8f2",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#725232",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#8d6a48",
+                        "secondary-fixed": "#caf24d",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#fbf2e8",
+                        "tertiary-fixed": "#ffdcbd",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "on-surface-variant": "#434840",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "background": "#fff8f2",
+                        "surface": "#fff8f2",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary": "#42603f",
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "on-background": "#1f1b15",
+                        "surface-container": "#f5ede2",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1f1b15",
+                        "secondary-container": "#caf24d",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#486644",
+                        "surface-dim": "#e1d9cf",
+                        "on-secondary-fixed": "#161e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": [
+                            "Noto Serif"
+                        ],
+                        "body": [
+                            "Manrope"
+                        ],
+                        "label": [
+                            "Manrope"
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .glass-panel {
+                @apply bg-surface-variant/70 backdrop-blur-[24px];
+            }
+            .primary-gradient {
+                @apply bg-gradient-to-br from-primary to-primary-container;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col antialiased">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 glass-panel shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] px-6 py-4 flex justify-between items-center w-full">
+<button class="text-primary hover:bg-surface-container-highest p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<h1 class="font-headline font-bold text-xl tracking-tight text-primary">Things to try</h1>
+<button class="text-sm font-semibold text-primary hover:text-primary-container transition-colors font-label">
+            Resume later
+        </button>
+</header>
+<!-- Chat Canvas -->
+<main class="flex-1 overflow-y-auto px-4 py-8 md:px-8 max-w-3xl mx-auto w-full flex flex-col space-y-8 pb-32">
+<!-- System Time Divider -->
+<div class="flex justify-center">
+<span class="text-xs font-label text-outline-variant uppercase tracking-widest bg-surface-container-low px-3 py-1 rounded-full">Today, 3:45 PM</span>
+</div>
+<!-- AI Message -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full primary-gradient flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-on-primary text-sm" data-icon="school">school</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-2xl rounded-tl-none max-w-[85%] md:max-w-[75%] shadow-[0_4px_20px_-10px_rgba(31,27,21,0.08)]">
+<p class="text-sm md:text-base leading-relaxed text-on-surface">Hello! Based on your interest in robotics and your strong grades in math, I've found a few exciting extracurriculars that might be a great fit for you.</p>
+</div>
+</div>
+<!-- Student Message -->
+<div class="flex items-end justify-end gap-2">
+<div class="bg-secondary-container p-4 rounded-2xl rounded-tr-none max-w-[85%] md:max-w-[75%] shadow-[0_4px_20px_-10px_rgba(31,27,21,0.08)]">
+<p class="text-sm md:text-base leading-relaxed text-on-secondary-container">That sounds awesome! What kind of robotics programs are available near me?</p>
+</div>
+</div>
+<!-- AI Message with Inline Card -->
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full primary-gradient flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-on-primary text-sm" data-icon="school">school</span>
+</div>
+<div class="flex flex-col gap-3 max-w-[85%] md:max-w-[75%]">
+<div class="bg-surface-container-highest p-4 rounded-2xl rounded-tl-none shadow-[0_4px_20px_-10px_rgba(31,27,21,0.08)]">
+<p class="text-sm md:text-base leading-relaxed text-on-surface">Here's a highly recommended program right at your school. It aligns perfectly with your schedule.</p>
+</div>
+<!-- Suggestion Card -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-[0_10px_40px_-15px_rgba(31,27,21,0.12)] border border-outline-variant/15 flex flex-col gap-4 relative overflow-hidden group hover:shadow-[0_20px_50px_-15px_rgba(31,27,21,0.15)] transition-all duration-300">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary-fixed"></div>
+<div>
+<h3 class="font-headline font-bold text-lg text-primary mb-1">Junior Innovators Robotics Club</h3>
+<p class="text-sm text-on-surface-variant font-medium">Great fit: Builds on your current Algebra II skills.</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="schedule">schedule</span>
+<span class="text-xs font-semibold text-tertiary">2 hrs/wk</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="attach_money">attach_money</span>
+<span class="text-xs font-semibold text-tertiary">Free</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="location_on">location_on</span>
+<span class="text-xs font-semibold text-tertiary">at school</span>
+</div>
+</div>
+<button class="mt-2 text-primary font-bold text-sm tracking-wide flex items-center gap-1 group-hover:text-primary-container transition-colors w-fit">
+                        Here's how to join
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Composer Area -->
+<footer class="fixed bottom-0 left-0 w-full glass-panel border-t border-outline-variant/15 px-4 py-4 md:px-8 pb-8 z-40">
+<div class="max-w-3xl mx-auto flex items-end gap-3">
+<button class="p-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-highest rounded-full transition-colors flex-shrink-0 mb-1">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+</button>
+<div class="flex-1 relative">
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-xl px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary resize-none overflow-hidden placeholder:text-outline-variant" placeholder="Ask about programs..." rows="1"></textarea>
+</div>
+<button class="p-3 bg-secondary-container text-on-secondary-container hover:bg-secondary-fixed-dim rounded-xl transition-colors flex-shrink-0 mb-1 shadow-sm">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</footer>
+</body></html>

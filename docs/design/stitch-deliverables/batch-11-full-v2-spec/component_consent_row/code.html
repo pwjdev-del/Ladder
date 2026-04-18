@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ConsentRow Component Sheet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#eae1d7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container-highest": "#eae1d7",
+                        "on-surface": "#1f1b15",
+                        "surface-bright": "#fff8f2",
+                        "background": "#fff8f2",
+                        "outline": "#737970",
+                        "inverse-primary": "#aed0a7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#516600",
+                        "on-primary-fixed": "#052107",
+                        "on-surface-variant": "#434840",
+                        "surface-container-high": "#efe7dd",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary": "#42603f",
+                        "surface": "#fff8f2",
+                        "inverse-surface": "#343029",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-dim": "#e1d9cf",
+                        "on-primary-container": "#e2ffda",
+                        "on-error": "#ffffff",
+                        "on-background": "#1f1b15",
+                        "tertiary": "#725232",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed-dim": "#aed0a7",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "primary-container": "#5a7956",
+                        "secondary-container": "#caf24d",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#c9ecc2",
+                        "outline-variant": "#c3c8be",
+                        "on-secondary-fixed": "#161e00",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-container": "#f5ede2",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-tint": "#486644",
+                        "on-secondary-container": "#566c00",
+                        "on-secondary-fixed-variant": "#3c4d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen p-8 md:p-16">
+<div class="max-w-4xl mx-auto space-y-16">
+<header class="border-b border-surface-container-highest pb-8 mb-12">
+<h1 class="text-4xl md:text-5xl font-headline text-primary tracking-tight mb-4">ConsentRow Component</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl">A high-end, editorial component for managing user agreements and permissions. Designed with intentional spacing and tactile interaction states.</p>
+</header>
+<!-- Default State -->
+<section class="space-y-6">
+<h2 class="text-sm font-bold uppercase tracking-widest text-outline">Default State</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_20px_50px_rgba(31,27,21,0.04)] overflow-hidden max-w-2xl">
+<div class="flex items-center justify-between px-4 h-14 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-4 flex-1">
+<!-- Checkbox Unchecked -->
+<div class="w-6 h-6 rounded bg-surface-variant flex items-center justify-center border border-outline-variant/30 group-hover:border-outline/50 transition-colors">
+</div>
+<div class="flex flex-col justify-center flex-1">
+<span class="text-on-surface font-medium leading-tight">Terms of Service</span>
+<span class="text-on-surface-variant text-xs mt-0.5">Required for account creation</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Checked State -->
+<section class="space-y-6">
+<h2 class="text-sm font-bold uppercase tracking-widest text-outline">Checked State</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_20px_50px_rgba(31,27,21,0.04)] overflow-hidden max-w-2xl">
+<div class="flex items-center justify-between px-4 h-14 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="flex items-center gap-4 flex-1">
+<!-- Checkbox Checked -->
+<div class="w-6 h-6 rounded bg-secondary-container flex items-center justify-center shadow-sm shadow-secondary-container/20">
+<span class="material-symbols-outlined text-on-secondary-container text-[18px]" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<span class="text-on-surface font-medium leading-tight">Privacy Policy</span>
+<span class="text-on-surface-variant text-xs mt-0.5">How we handle your data</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Expanded State -->
+<section class="space-y-6">
+<h2 class="text-sm font-bold uppercase tracking-widest text-outline">Expanded State</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_20px_50px_rgba(31,27,21,0.04)] overflow-hidden max-w-2xl border border-surface-container-highest/50">
+<div class="flex items-center justify-between px-4 h-14 bg-surface-container-low cursor-pointer">
+<div class="flex items-center gap-4 flex-1">
+<!-- Checkbox Unchecked -->
+<div class="w-6 h-6 rounded bg-surface-variant flex items-center justify-center border border-outline-variant/30">
+</div>
+<div class="flex flex-col justify-center flex-1">
+<span class="text-primary font-bold leading-tight">Marketing Communications</span>
+<span class="text-on-surface-variant text-xs mt-0.5">Optional updates and offers</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary transform rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Expanded Content -->
+<div class="px-4 py-6 bg-surface-container-low/50 border-l-4 border-secondary-fixed">
+<div class="pl-10">
+<p class="text-sm text-on-surface-variant leading-relaxed">By opting into marketing communications, you agree to receive periodic emails regarding new courses, academic resources, and exclusive atelier events. We respect your inbox and commit to high-quality, relevant content. You may adjust your preferences or unsubscribe at any time via your profile settings.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Expanded & Checked State -->
+<section class="space-y-6">
+<h2 class="text-sm font-bold uppercase tracking-widest text-outline">Expanded &amp; Checked</h2>
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_20px_50px_rgba(31,27,21,0.04)] overflow-hidden max-w-2xl border border-surface-container-highest/50">
+<div class="flex items-center justify-between px-4 h-14 bg-surface-container-low cursor-pointer">
+<div class="flex items-center gap-4 flex-1">
+<!-- Checkbox Checked -->
+<div class="w-6 h-6 rounded bg-secondary-container flex items-center justify-center shadow-sm shadow-secondary-container/20">
+<span class="material-symbols-outlined text-on-secondary-container text-[18px]" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<span class="text-primary font-bold leading-tight">Data Analytics Tracking</span>
+<span class="text-on-surface-variant text-xs mt-0.5">Help us improve the platform</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary transform rotate-180 transition-transform" data-icon="expand_more">expand_more</span>
+</div>
+<!-- Expanded Content -->
+<div class="px-4 py-6 bg-surface-container-low/50 border-l-4 border-secondary-fixed">
+<div class="pl-10">
+<p class="text-sm text-on-surface-variant leading-relaxed">We utilize anonymized interaction data to refine the learning experience. This includes tracking completion rates, time spent on modules, and general navigation flows. No personally identifiable information is sold to third parties. Your contribution helps shape the future of the Academic Atelier.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Disabled State -->
+<section class="space-y-6 pb-20">
+<h2 class="text-sm font-bold uppercase tracking-widest text-outline">Disabled State</h2>
+<div class="bg-surface rounded-xl overflow-hidden max-w-2xl opacity-60">
+<div class="flex items-center justify-between px-4 h-14 cursor-not-allowed">
+<div class="flex items-center gap-4 flex-1">
+<!-- Checkbox Disabled -->
+<div class="w-6 h-6 rounded bg-surface-variant/50 flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-outline-variant/50 text-[18px]" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<span class="text-outline font-medium leading-tight">Legacy Account Transfer</span>
+<span class="text-outline-variant text-xs mt-0.5">Not available for your region</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</section>
+</div>
+</body></html>

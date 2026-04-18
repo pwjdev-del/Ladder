@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent Verification - Ladder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&amp;family=Noto+Serif:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f3fceb",
+                        "primary-fixed": "#caecc4",
+                        "on-primary-fixed": "#052108",
+                        "on-primary-fixed-variant": "#314d30",
+                        "on-primary-container": "#d0f2ca",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#151f00",
+                        "error-container": "#ffdad6",
+                        "secondary": "#4e6700",
+                        "tertiary-container": "#54704e",
+                        "tertiary-fixed-dim": "#b0cfa7",
+                        "on-secondary-fixed-variant": "#3a4d00",
+                        "surface-dim": "#d3ddcc",
+                        "inverse-surface": "#2a3327",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#d2f2c8",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#3d5738",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce6d4",
+                        "primary": "#3a5739",
+                        "on-surface": "#161e13",
+                        "surface": "#f3fceb",
+                        "inverse-on-surface": "#eaf4e2",
+                        "surface-bright": "#f3fceb",
+                        "surface-container-high": "#e2ebda",
+                        "on-background": "#161e13",
+                        "on-secondary-container": "#536d00",
+                        "surface-container-low": "#edf7e5",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c3c8be",
+                        "on-tertiary-fixed-variant": "#334d2e",
+                        "primary-container": "#527050",
+                        "secondary-fixed-dim": "#abd537",
+                        "surface-variant": "#dce6d4",
+                        "surface-container": "#e7f1df",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434841",
+                        "secondary-fixed": "#c6f252",
+                        "primary-fixed-dim": "#aecfa9",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ccebc1",
+                        "surface-tint": "#486646",
+                        "inverse-primary": "#aecfa9",
+                        "on-tertiary-fixed": "#072107",
+                        "secondary-container": "#c6f252",
+                        "outline": "#737970"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": [
+                            "Noto Serif"
+                        ],
+                        "body": [
+                            "Manrope"
+                        ],
+                        "label": [
+                            "Manrope"
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-background min-h-screen flex items-center justify-center p-4 antialiased">
+<!-- Full Screen Modal Container -->
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-[24px] shadow-[0_24px_48px_rgba(0,0,0,0.04)] overflow-hidden relative flex flex-col md:flex-row">
+<!-- Illustration Section -->
+<div class="md:w-1/2 bg-surface-container-low p-8 flex flex-col justify-center items-center relative overflow-hidden">
+<!-- Decorative gradient -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary-container to-tertiary-container opacity-10"></div>
+<div class="relative z-10 w-full aspect-square rounded-full overflow-hidden border-8 border-surface-container-lowest/50 shadow-inner">
+<img alt="Adult and child looking at phone" class="w-full h-full object-cover" data-alt="A warm, soft-focus illustration of an adult and child smiling while looking together at a glowing mobile phone screen, surrounded by subtle glowing green accents in a peaceful home setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDq3tl7QLMGp170qTICRlNyJTFDGbwd0dyZpYi5-f3a3EfgX6dJ4sKQ2OEqWeOJyVN27wMMV0fsAdzCUOzzD9Vt77AvvcHfWAbBbXKQzFZoVywECW3tGkU9LYS8kf6jVesO99I7xjaQlNDH7CGCALgw6TqPDl80FeDjKnsfeZKmmQOUz9rpBPtKyu71QLcMlMDPcbAyqhJ6dJOLWbjYGf5SmvXp9OUvRNEf8wTMQ_3aAOBsiJKT7Jm2nUAzRTIbgPGydA9XV7qFjeA"/>
+</div>
+<!-- Subtle Badge overlay -->
+<div class="absolute bottom-12 right-12 bg-secondary-fixed text-on-secondary-fixed w-16 h-16 rounded-full flex items-center justify-center shadow-[0_8px_24px_rgba(168,210,52,0.3)]">
+<span class="material-symbols-outlined text-3xl" data-weight="fill">verified_user</span>
+</div>
+</div>
+<!-- Content & Form Section -->
+<div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+<!-- Close Button (Icon) -->
+<button class="absolute top-6 right-6 text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Headline -->
+<h1 class="font-headline text-3xl md:text-4xl font-bold tracking-[-0.03em] text-on-surface mb-4 leading-tight">
+                Grown-up, it's your turn.
+            </h1>
+<!-- Body Copy -->
+<p class="font-body text-on-surface-variant text-base mb-8 leading-relaxed">
+                Before Sam takes the career quiz, a parent needs to sign in here. This confirms you agree to let Ladder suggest classes and activities.
+            </p>
+<!-- Form -->
+<form class="space-y-6">
+<!-- Email Field (Pre-filled) -->
+<div>
+<label class="font-label text-[11pt] font-semibold uppercase tracking-[0.1em] text-outline mb-2 block">Parent Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="w-full bg-surface-container-highest border-transparent rounded-lg py-3 pl-12 pr-4 text-on-surface font-body outline-none focus:ring-0 cursor-not-allowed opacity-80" readonly="" type="email" value="parent@example.com"/>
+</div>
+</div>
+<!-- Password Field -->
+<div>
+<label class="font-label text-[11pt] font-semibold uppercase tracking-[0.1em] text-outline mb-2 block">Parent Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full bg-surface-container-low border border-transparent rounded-lg py-3 pl-12 pr-4 text-on-surface font-body outline-none transition-all focus:ring-2 focus:ring-secondary-fixed/50 focus:border-secondary-fixed shadow-inner" placeholder="Enter your password" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed font-body font-semibold py-4 px-6 rounded-full mt-8 flex items-center justify-center gap-2 hover:bg-[#CCE68A] hover:shadow-[0_0_0_4px_rgba(204,230,138,0.5)] transition-all duration-200 group" type="button">
+<span>Unlock for my child</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</form>
+<!-- Bottom Link -->
+<div class="mt-8 text-center">
+<button class="font-label text-[11pt] font-semibold uppercase tracking-[0.1em] text-outline hover:text-on-surface transition-colors flex items-center justify-center gap-2 mx-auto">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                    Not a parent? Close and ask one to help.
+                </button>
+</div>
+</div>
+</div>
+</body></html>

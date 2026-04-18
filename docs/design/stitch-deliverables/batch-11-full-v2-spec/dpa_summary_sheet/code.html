@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Data Processing Agreement - Ladder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Manrope:wght@400;500;600;700&amp;family=Montserrat:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-background": "#1f1b15",
+                        "surface-bright": "#fff8f2",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#8d6a48",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary-container": "#566c00",
+                        "outline-variant": "#c3c8be",
+                        "on-secondary-fixed": "#161e00",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-variant": "#eae1d7",
+                        "surface-container-highest": "#eae1d7",
+                        "tertiary-fixed": "#ffdcbd",
+                        "outline": "#737970",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-primary-fixed": "#052107",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "background": "#fff8f2",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary-container": "#caf24d",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#516600",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#486644",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface": "#fff8f2",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#e1d9cf",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-primary": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed-dim": "#afd531",
+                        "primary": "#42603f",
+                        "on-surface-variant": "#434840",
+                        "on-surface": "#1f1b15",
+                        "inverse-surface": "#343029",
+                        "tertiary": "#725232",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-container": "#f5ede2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": [
+                            "Noto Serif"
+                        ],
+                        "body": [
+                            "Manrope"
+                        ],
+                        "label": [
+                            "Manrope"
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.surface');
+            color: theme('colors.on-surface');
+            font-family: theme('fontFamily.body');
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .glass-panel {
+            background-color: rgba(234, 225, 215, 0.7); /* surface-variant at 70% */
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .primary-gradient-btn {
+            background: linear-gradient(135deg, theme('colors.primary') 0%, theme('colors.primary-container') 100%);
+        }
+
+        .ambient-shadow {
+            box-shadow: 0 40px 60px -15px rgba(31, 27, 21, 0.06);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col bg-surface text-on-surface font-body overflow-x-hidden">
+<!-- TopAppBar Semantic Shell -->
+<!-- Content: Headline="Ladder", Leading="arrow_back_ios", Trailing="User avatar" -->
+<!-- Styles translated from JSON -->
+<header class="docked full-width top-0 sticky z-50 bg-[#fff8f2]/70 dark:bg-[#1b1f1b]/70 backdrop-blur-xl shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] scale-95 duration-200 ease-in-out">
+<div class="flex justify-between items-center w-full px-6 py-4">
+<!-- Leading Action -->
+<button aria-label="Go back" class="text-[#42603f] dark:text-[#a8d234] hover:opacity-80 transition-opacity flex items-center justify-center p-2 -ml-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50">
+<span class="material-symbols-outlined" data-icon="arrow_back_ios">arrow_back_ios</span>
+</button>
+<!-- Headline Anchor -->
+<h1 class="font-['Noto_Serif'] text-xl tracking-tight font-bold text-[#42603f] dark:text-[#a8d234] dark:text-stone-100 font-['Noto_Serif'] text-2xl font-black text-[#1b1f1b] dark:text-[#f5f0e5]">
+                Ladder
+            </h1>
+<!-- Trailing Action (Avatar placeholder) -->
+<button aria-label="User avatar" class="hover:opacity-80 transition-opacity w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-transparent focus:border-primary/50 focus:outline-none">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close up professional headshot of a smiling woman with dark curly hair against a soft warm studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPCkF-UdR0fN7Sfv7bimTRrUadIFiDD-feODQAFckV_70X80kmeP59SfcWlLzq1rvs6M5f_kmRgFltyGnb0vZB8WD6ZAnf0HcR21M9-85XytnBcCxfhblchCnbWUC9B0i8diiC5JkjWI5lzG4p3-Ejl0-f0Ot7GXi9Sx68u8t-FbCRqBztHtlf1o-uJAkogUDhIqz_HUBvM1ivG5N3oBOU3pWwdP8xbV5KUxUH4DUle7du2yKGOAmDFscrWc0rBgrYEefh2_Ng088"/>
+</button>
+</div>
+<!-- Separation Logic -->
+<div class="bg-[#fbf2e8] dark:bg-[#2a2e2a] h-[1px] w-full opacity-30"></div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col items-center px-4 md:px-8 py-10 md:py-16 pb-32 max-w-4xl mx-auto w-full">
+<!-- Page Header (Editorial Asymmetry) -->
+<div class="w-full mb-12 pl-2 pr-8 md:pl-4 md:pr-16">
+<p class="text-sm tracking-widest uppercase text-tertiary font-bold mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="gavel" style="font-variation-settings: 'FILL' 1;">gavel</span>
+                Legal Setup
+            </p>
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-on-surface tracking-tight leading-tight">
+                Data Processing Agreement
+            </h2>
+<p class="mt-4 text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed">
+                A summary of how we handle and protect the data entrusted to us, designed for your administrative review.
+            </p>
+</div>
+<!-- The "Summary Card" (Glass/Layering concept) -->
+<section class="w-full relative mb-12">
+<!-- Decorative background element for organic offset -->
+<div class="absolute -top-4 -right-4 w-32 h-32 bg-primary-fixed rounded-full blur-3xl opacity-40 z-0"></div>
+<div class="relative z-10 glass-panel rounded-xl p-8 md:p-10 ambient-shadow border border-outline-variant/15 flex flex-col md:flex-row gap-8 items-start">
+<div class="flex-shrink-0 w-16 h-16 rounded-full bg-surface flex items-center justify-center text-primary shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-3xl" data-icon="handshake">handshake</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-4">Roles &amp; Responsibilities</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+<!-- Controller Block -->
+<div class="bg-surface rounded-lg p-5 border border-outline-variant/15 hover:bg-surface-bright transition-colors">
+<p class="text-xs uppercase tracking-wider text-tertiary font-bold mb-2">The Controller</p>
+<p class="font-headline text-lg font-bold text-on-background mb-2">Your School</p>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                You determine the purposes and means of processing personal data. You own the data and control how it is used within the Ladder platform.
+                            </p>
+</div>
+<!-- Processor Block -->
+<div class="bg-surface rounded-lg p-5 border border-outline-variant/15 hover:bg-surface-bright transition-colors relative overflow-hidden">
+<!-- Subtle accent line -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-fixed"></div>
+<p class="text-xs uppercase tracking-wider text-tertiary font-bold mb-2 pl-2">The Processor</p>
+<p class="font-headline text-lg font-bold text-primary mb-2 pl-2">Ladder</p>
+<p class="text-sm text-on-surface-variant leading-relaxed pl-2">
+                                We process personal data only on documented instructions from you. We provide the infrastructure and tools securely.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Expandable Rows (Tonal Layering, NO lines) -->
+<section class="w-full space-y-4 mb-16">
+<!-- Sub-processors Row -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer hover:bg-surface-container transition-colors duration-300">
+<summary class="flex justify-between items-center p-6 select-none focus:outline-none focus:ring-2 focus:ring-primary/30 rounded-xl">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+</div>
+<span class="font-body font-semibold text-lg text-on-surface">Authorized Sub-processors</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-300" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="px-6 pb-6 pt-2 text-on-surface-variant text-sm leading-relaxed ml-14 border-t border-outline-variant/10">
+<p class="mb-4">We engage select third-party service providers to support our platform infrastructure. These entities are bound by strict data protection obligations.</p>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-primary" data-icon="cloud">cloud</span>
+<div>
+<strong class="text-on-surface block">Amazon Web Services (AWS)</strong>
+<span class="text-xs">Cloud hosting and database storage (US East Region)</span>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-primary" data-icon="mail">mail</span>
+<div>
+<strong class="text-on-surface block">SendGrid</strong>
+<span class="text-xs">Transactional email delivery</span>
+</div>
+</li>
+</ul>
+</div>
+</details>
+<!-- Security Measures Row -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer hover:bg-surface-container transition-colors duration-300">
+<summary class="flex justify-between items-center p-6 select-none focus:outline-none focus:ring-2 focus:ring-primary/30 rounded-xl">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="shield_locked">shield_locked</span>
+</div>
+<span class="font-body font-semibold text-lg text-on-surface">Security Measures</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-300" data-icon="expand_more">expand_more</span>
+</summary>
+<div class="px-6 pb-6 pt-2 text-on-surface-variant text-sm leading-relaxed ml-14 border-t border-outline-variant/10">
+<p class="mb-4">We implement robust technical and organizational measures to ensure a level of security appropriate to the risk.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/10">
+<strong class="text-on-surface block mb-1">Encryption</strong>
+<p class="text-xs">Data is encrypted at rest (AES-256) and in transit (TLS 1.2+).</p>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/10">
+<strong class="text-on-surface block mb-1">Access Control</strong>
+<p class="text-xs">Role-based access control (RBAC) and mandatory MFA for all administrative access.</p>
+</div>
+</div>
+</div>
+</details>
+</section>
+<!-- Actions Cluster (Asymmetric layout) -->
+<section class="w-full flex flex-col sm:flex-row items-center justify-end gap-4 mt-auto">
+<button class="w-full sm:w-auto px-6 py-3 rounded-xl bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary/50 group relative overflow-hidden flex justify-center items-center gap-2">
+<!-- Underline effect via tertiary rule -->
+<div class="absolute bottom-1 left-4 right-4 h-[2px] bg-secondary-fixed transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+<span class="material-symbols-outlined text-[20px] text-on-surface" data-icon="forward_to_inbox">forward_to_inbox</span>
+<span class="font-body font-semibold text-on-surface pb-1">Email this to our legal team</span>
+</button>
+<button class="w-full sm:w-auto primary-gradient-btn text-on-primary px-8 py-3.5 rounded-xl font-body font-semibold tracking-wide hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 flex justify-center items-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface">
+<span class="material-symbols-outlined text-[20px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+                View full DPA (PDF)
+            </button>
+</section>
+</main>
+<!-- Navigation Shell suppressed due to task-focused/transactional nature of legal review screens -->
+</body></html>

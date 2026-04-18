@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Founder Backdoor - Schedules</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#fff8f2",
+                        "on-secondary-fixed": "#161e00",
+                        "on-surface": "#1f1b15",
+                        "surface-container": "#f5ede2",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#eae1d7",
+                        "outline": "#737970",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#725232",
+                        "inverse-primary": "#aed0a7",
+                        "surface-container-high": "#efe7dd",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-container": "#fff5ee",
+                        "secondary": "#516600",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-container": "#caf24d",
+                        "on-primary-fixed": "#052107",
+                        "surface-tint": "#486644",
+                        "primary-container": "#5a7956",
+                        "outline-variant": "#c3c8be",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#fbf2e8",
+                        "on-primary-container": "#e2ffda",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#8d6a48",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-dim": "#e1d9cf",
+                        "surface-bright": "#fff8f2",
+                        "secondary-fixed": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "surface-container-highest": "#eae1d7",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "inverse-surface": "#343029",
+                        "on-surface-variant": "#434840",
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f2",
+                        "primary": "#42603f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #fff8f2; color: #1f1b15; }
+        .font-headline { font-family: 'Noto Serif', serif; }
+        
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fbf2e8; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c3c8be; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #737970; 
+        }
+
+        /* Focus outline style to match the request */
+        .keyboard-focus-ring:focus-within {
+            outline: 2px solid #5a7956;
+            outline-offset: 2px;
+            border-radius: 0.5rem;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface flex min-h-screen selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- NavigationDrawer (Web Only) -->
+<nav class="hidden md:flex flex-col w-72 h-screen fixed left-0 top-0 z-40 bg-[#061e13] rounded-r-3xl border-r border-[#1a3a2a]">
+<!-- Profile Header -->
+<div class="p-6 border-b border-[#1a3a2a] flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest flex-shrink-0">
+<img alt="Founder Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a male founder with a beard and glasses against a soft dark background, warm cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL6QyH5FzRkM3KcE65ccCd03WV_NQZzvvQU28ybKED4KH0OawKdofIldLLcsjurnLmfQBZqdfLbxSHyN8b7hM5GuPv1eTbhCNMUqPJQGvK_9k4nl6hlJb9N4a9V4MvyrZjqhHgnuJEvlajtxkIABOTsms6u3sgLZY9nCF4LryE6Stl6IdXppOAsecTNWCfe1bzYQ3wrOdg2TRzRz8UZHTECwaCNZCcZKTPxn8lJPBdHqXa5WT5d425YFgfaCbt-cJJQnX6uj0gLRs"/>
+</div>
+<div>
+<h2 class="font-['Noto_Serif'] text-lg text-[#caf24d] font-bold tracking-tight">Admin Console</h2>
+<p class="font-['Manrope'] font-medium uppercase tracking-widest text-[10px] text-[#caf24d] opacity-80">Environment: Production</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 py-6 overflow-y-auto flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 mx-2 text-[#5A7956] opacity-60 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span>
+<span class="font-['Manrope'] font-medium text-sm">People List</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 text-[#5A7956] opacity-60 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">flag</span>
+<span class="font-['Manrope'] font-medium text-sm">Feature Flags</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 text-[#5A7956] opacity-60 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_tree</span>
+<span class="font-['Manrope'] font-medium text-sm">Dependency Panel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 text-[#5A7956] opacity-60 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">theater_comedy</span>
+<span class="font-['Manrope'] font-medium text-sm">Impersonation</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-4 py-3 mx-2 bg-[#0a2a1b] text-[#caf24d] rounded-xl font-bold transition-all duration-200 ease-in-out shadow-[0_8px_16px_-4px_rgba(0,0,0,0.4)]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_view_month</span>
+<span class="font-['Manrope'] text-sm tracking-wide">Schedules</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-72 flex flex-col min-h-screen overflow-x-hidden">
+<!-- TopAppBar (Mobile & Web Context) -->
+<header class="docked full-width top-0 bg-[#061e13] dark:bg-[#061e13] shadow-[0_40px_60px_-15px_rgba(0,0,0,0.3)] flex justify-between items-center w-full px-6 py-4 max-w-full sticky z-30 border-b border-[#0a2a1b]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#0a2a1b] flex items-center justify-center text-[#caf24d]">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<h1 class="font-['Noto_Serif'] text-[#caf24d] text-xl font-black uppercase tracking-widest">Founder Backdoor</h1>
+</div>
+<!-- Mobile Menu Toggle (Decorative for UI) -->
+<button class="md:hidden text-[#caf24d] p-2 hover:bg-[#0a2a1b] rounded-full transition-colors duration-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Trailing Avatar (Web) -->
+<div class="hidden md:block w-10 h-10 rounded-full overflow-hidden border-2 border-[#0a2a1b]">
+<img alt="Founder Avatar" class="w-full h-full object-cover" data-alt="Professional headshot of a male founder with a beard and glasses against a soft dark background, warm cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuXm1VzdnnWiPIJd0btQJIqjyKYT1NT1sP-Nnwx8jvNzruv4bOxSVMxGNhQXK-nOpa2TUO7u3eHu0FQRPBPYmeEfxWgvb-Ro66IuD3s8xBPLKje09_K_y8V5YRF6rWs_xg4VPyqTMyLHArdsvOGY1gn1_P6V-0C5CMJgkkQ1lKdJ_qLnFioFLD8GWv2oy_Zx9u6cY0Oh92Qb5gbTD96V5WXtr9wpaRHJO4uRBqtoYXOeCgX_SuXlatC8iXZ1-VM5L622lyIFT6CNw"/>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 p-4 md:p-10 lg:px-16 overflow-y-auto">
+<div class="max-w-7xl mx-auto space-y-12">
+<!-- Page Header & View Controls -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-outline-variant/30 pb-6">
+<div class="space-y-2">
+<h2 class="font-headline text-4xl md:text-5xl text-on-surface tracking-tight font-semibold">Schedule Architect</h2>
+<p class="font-body text-on-surface-variant text-sm md:text-base max-w-2xl">Manage and resolve scheduling conflicts across the academic ecosystem.</p>
+</div>
+<!-- Density / Role Toggle (Decorative UI) -->
+<div class="flex bg-surface-container-highest rounded-full p-1 shadow-sm">
+<button class="px-4 py-2 rounded-full text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Student</button>
+<button class="px-4 py-2 rounded-full text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Counselor</button>
+<button class="px-4 py-2 rounded-full text-sm font-bold bg-primary text-on-primary shadow-md transition-all">Admin</button>
+</div>
+</div>
+<!-- Admin View (Dense + Avatars) - Primary Example -->
+<section class="space-y-4">
+<div class="flex justify-between items-center px-2">
+<h3 class="font-headline text-xl text-primary font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">admin_panel_settings</span>
+                            Admin Overview Matrix
+                        </h3>
+<span class="text-xs font-bold uppercase tracking-widest text-outline">Term: Fall 2024</span>
+</div>
+<!-- The Grid (7x5) -->
+<div class="bg-surface-container-low rounded-[24px] p-1 shadow-sm overflow-x-auto">
+<div class="min-w-[800px] grid grid-cols-[auto_repeat(5,1fr)] gap-1">
+<!-- Header Row (Days) -->
+<div class="p-4 flex items-end justify-end text-xs font-bold text-outline-variant uppercase tracking-widest border-b border-outline-variant/20">Time</div>
+<div class="p-4 text-center font-headline font-semibold text-on-surface border-b border-outline-variant/20">Monday</div>
+<div class="p-4 text-center font-headline font-semibold text-on-surface border-b border-outline-variant/20">Tuesday</div>
+<div class="p-4 text-center font-headline font-semibold text-on-surface border-b border-outline-variant/20">Wednesday</div>
+<div class="p-4 text-center font-headline font-semibold text-on-surface border-b border-outline-variant/20">Thursday</div>
+<div class="p-4 text-center font-headline font-semibold text-on-surface border-b border-outline-variant/20">Friday</div>
+<!-- Row 1: 08:00 AM -->
+<div class="p-3 text-right text-xs font-medium text-on-surface-variant flex items-center justify-end border-r border-outline-variant/20">08:00<br/><span class="text-[10px] text-outline">AM</span></div>
+<!-- Filled (Admin style: dense, avatar) -->
+<div class="bg-surface-container-highest rounded-lg p-2 flex flex-col gap-1 border-l-4 border-primary hover:bg-surface-container transition-colors cursor-pointer keyboard-focus-ring" tabindex="0">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-on-surface truncate">Advanced Physics</span>
+<span class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container text-[8px] font-bold flex items-center justify-center shrink-0">ER</span>
+</div>
+<span class="text-[10px] text-on-surface-variant truncate">Room 302</span>
+</div>
+<!-- Empty -->
+<div class="bg-surface rounded-lg p-2 border border-outline-variant/30 border-dashed flex items-center justify-center hover:bg-surface-container-lowest transition-colors cursor-pointer keyboard-focus-ring group" tabindex="0">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors opacity-50">add</span>
+</div>
+<!-- Filled -->
+<div class="bg-surface-container-highest rounded-lg p-2 flex flex-col gap-1 border-l-4 border-tertiary hover:bg-surface-container transition-colors cursor-pointer keyboard-focus-ring" tabindex="0">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-on-surface truncate">European History</span>
+<span class="w-5 h-5 rounded-full bg-tertiary-container text-on-tertiary-container text-[8px] font-bold flex items-center justify-center shrink-0">JL</span>
+</div>
+<span class="text-[10px] text-on-surface-variant truncate">Room 114</span>
+</div>
+<!-- Empty -->
+<div class="bg-surface rounded-lg p-2 border border-outline-variant/30 border-dashed flex items-center justify-center hover:bg-surface-container-lowest transition-colors cursor-pointer keyboard-focus-ring group" tabindex="0">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors opacity-50">add</span>
+</div>
+<!-- Filled -->
+<div class="bg-surface-container-highest rounded-lg p-2 flex flex-col gap-1 border-l-4 border-primary hover:bg-surface-container transition-colors cursor-pointer keyboard-focus-ring" tabindex="0">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-on-surface truncate">Advanced Physics</span>
+<span class="w-5 h-5 rounded-full bg-primary-container text-on-primary-container text-[8px] font-bold flex items-center justify-center shrink-0">ER</span>
+</div>
+<span class="text-[10px] text-on-surface-variant truncate">Room 302</span>
+</div>
+<!-- Row 2: 09:30 AM -->
+<div class="p-3 text-right text-xs font-medium text-on-surface-variant flex items-center justify-end border-r border-outline-variant/20">09:30<br/><span class="text-[10px] text-outline">AM</span></div>
+<!-- Conflicting (Counselor style injected for demo: Red overlay, caution) -->
+<div class="bg-error-container/40 rounded-lg p-2 flex flex-col gap-1 border-l-4 border-error relative overflow-hidden cursor-pointer keyboard-focus-ring group" tabindex="0">
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNiYTFhMWEiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-50"></div>
+<div class="relative z-10 flex justify-between items-start">
+<span class="text-xs font-bold text-on-error-container truncate">Calculus BC</span>
+<span class="material-symbols-outlined text-error text-sm shrink-0" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<span class="relative z-10 text-[10px] text-on-error-container/80 truncate line-through">Room 401</span>
+<span class="relative z-10 text-[9px] font-bold text-error uppercase tracking-wider mt-1">Double Booked</span>
+</div>
+<!-- Filled -->
+<div class="bg-surface-container-highest rounded-lg p-2 flex flex-col gap-1 border-l-4 border-secondary hover:bg-surface-container transition-colors cursor-pointer keyboard-focus-ring" tabindex="0">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-on-surface truncate">Creative Writing</span>
+<span class="w-5 h-5 rounded-full bg-secondary-container text-on-secondary-container text-[8px] font-bold flex items-center justify-center shrink-0">MS</span>
+</div>
+<span class="text-[10px] text-on-surface-variant truncate">Room 205</span>
+</div>
+<!-- Empty -->
+<div class="bg-surface rounded-lg p-2 border border-outline-variant/30 border-dashed flex items-center justify-center hover:bg-surface-container-lowest transition-colors cursor-pointer keyboard-focus-ring group" tabindex="0">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors opacity-50">add</span>
+</div>
+<!-- Filled -->
+<div class="bg-surface-container-highest rounded-lg p-2 flex flex-col gap-1 border-l-4 border-secondary hover:bg-surface-container transition-colors cursor-pointer keyboard-focus-ring" tabindex="0">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-on-surface truncate">Creative Writing</span>
+<span class="w-5 h-5 rounded-full bg-secondary-container text-on-secondary-container text-[8px] font-bold flex items-center justify-center shrink-0">MS</span>
+</div>
+<span class="text-[10px] text-on-surface-variant truncate">Room 205</span>
+</div>
+<!-- Empty -->
+<div class="bg-surface rounded-lg p-2 border border-outline-variant/30 border-dashed flex items-center justify-center hover:bg-surface-container-lowest transition-colors cursor-pointer keyboard-focus-ring group" tabindex="0">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors opacity-50">add</span>
+</div>
+<!-- Row 3: 11:00 AM -->
+<div class="p-3 text-right text-xs font-medium text-on-surface-variant flex items-center justify-end border-r border-outline-variant/20">11:00<br/><span class="text-[10px] text-outline">AM</span></div>
+<!-- Empty -->
+<div class="bg-surface rounded-lg p-2 border border-outline-variant/30 border-dashed flex items-center justify-center hover:bg-surface-container-lowest transition-colors cursor-pointer keyboard-focus-ring group" tabindex="0">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors opacity-50">add</span>
+</div>
+<!-- Empty -->
+<div class="bg-surface rounded-lg p-2 border border-outline-variant/30 border-dashed flex items-center justify-center hover:bg-surface-container-lowest transition-colors cursor-pointer keyboard-focus-ring group" tabindex="0">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors opacity-50">add</span>
+</div>
+<!-- Filled -->
+<div class="bg-surface-container-highest rounded-lg p-2 flex flex-col gap-1 border-l-4 border-tertiary hover:bg-surface-container transition-colors cursor-pointer keyboard-focus-ring" tabindex="0">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-on-surface truncate">European History</span>
+<span class="w-5 h-5 rounded-full bg-tertiary-container text-on-tertiary-container text-[8px] font-bold flex items-center justify-center shrink-0">JL</span>
+</div>
+<span class="text-[10px] text-on-surface-variant truncate">Room 114</span>
+</div>
+<!-- Empty -->
+<div class="bg-surface rounded-lg p-2 border border-outline-variant/30 border-dashed flex items-center justify-center hover:bg-surface-container-lowest transition-colors cursor-pointer keyboard-focus-ring group" tabindex="0">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors opacity-50">add</span>
+</div>
+<!-- Empty -->
+<div class="bg-surface rounded-lg p-2 border border-outline-variant/30 border-dashed flex items-center justify-center hover:bg-surface-container-lowest transition-colors cursor-pointer keyboard-focus-ring group" tabindex="0">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors opacity-50">add</span>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+<!-- Student Builder Variant (Roomy) -->
+<section class="space-y-4">
+<h3 class="font-headline text-lg text-on-surface font-semibold pl-2">Student Builder View</h3>
+<div class="bg-surface-container-low rounded-[24px] p-4 shadow-[0_10px_30px_-10px_rgba(31,27,21,0.05)] border border-surface-container-highest">
+<div class="grid grid-cols-[auto_1fr] gap-4">
+<!-- Minimal Time col -->
+<div class="space-y-4 pt-8">
+<div class="h-24 text-xs font-medium text-outline-variant text-right pr-2">1:00 PM</div>
+<div class="h-24 text-xs font-medium text-outline-variant text-right pr-2">2:30 PM</div>
+</div>
+<div class="space-y-4">
+<!-- Day Header -->
+<div class="font-headline font-semibold text-on-surface text-center pb-2 border-b border-outline-variant/20">Monday Afternoon</div>
+<!-- Roomy Empty Cell -->
+<div class="h-24 rounded-xl border-2 border-dashed border-outline-variant/40 bg-surface flex flex-col items-center justify-center gap-2 hover:bg-surface-container-lowest hover:border-primary/50 transition-all cursor-pointer group keyboard-focus-ring" tabindex="0">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-outline group-hover:text-on-primary-container text-sm">add</span>
+</div>
+<span class="text-sm font-medium text-outline group-hover:text-primary transition-colors">+ Pick a class</span>
+</div>
+<!-- Roomy Filled Cell -->
+<div class="h-24 rounded-xl bg-surface-container-highest p-4 flex flex-col justify-center border-l-4 border-primary relative overflow-hidden keyboard-focus-ring cursor-pointer hover:shadow-md transition-shadow" tabindex="0">
+<div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-surface-container-highest to-transparent z-10"></div>
+<h4 class="font-headline text-lg text-on-surface font-semibold z-20">Intro to Computer Science</h4>
+<p class="font-body text-sm text-on-surface-variant mt-1 z-20">Prof. Ada Lovelace • Lab 4</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Counselor Review Variant (Dense, Conflicts) -->
+<section class="space-y-4">
+<h3 class="font-headline text-lg text-on-surface font-semibold pl-2">Counselor Triage</h3>
+<div class="bg-surface-container-low rounded-[24px] p-4 shadow-[0_10px_30px_-10px_rgba(31,27,21,0.05)] border border-surface-container-highest">
+<div class="bg-error-container/20 rounded-xl p-3 mb-4 flex items-start gap-3 border border-error/20">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">error</span>
+<div>
+<p class="text-sm font-bold text-on-error-container">2 Conflicts Detected</p>
+<p class="text-xs text-on-surface-variant mt-1">Review required before finalizing student schedule.</p>
+</div>
+</div>
+<div class="space-y-2">
+<!-- Conflicting Row -->
+<div class="flex items-stretch gap-2 h-16">
+<div class="w-12 flex items-center justify-end text-[10px] text-outline font-medium pr-2 border-r border-outline-variant/20">3:00</div>
+<div class="flex-1 bg-error-container rounded-lg p-2 border-l-4 border-error relative flex items-center justify-between keyboard-focus-ring cursor-pointer" tabindex="0">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-error-container">Band Practice</span>
+<span class="text-xs text-on-error-container/70">Auditorium</span>
+</div>
+<span class="material-symbols-outlined text-error opacity-50">warning</span>
+</div>
+</div>
+<!-- Conflicting Row Overlap -->
+<div class="flex items-stretch gap-2 h-16">
+<div class="w-12 flex items-center justify-end text-[10px] text-outline font-medium pr-2 border-r border-outline-variant/20">3:30</div>
+<div class="flex-1 bg-surface-container-highest rounded-lg p-2 border-l-4 border-tertiary relative flex items-center justify-between opacity-60 keyboard-focus-ring cursor-pointer" tabindex="0">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-surface line-through">Varsity Soccer</span>
+<span class="text-xs text-on-surface-variant">Field 1</span>
+</div>
+<span class="text-[10px] font-bold text-error uppercase bg-error-container px-2 py-1 rounded-full">Overridden</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-[24px] bg-[#061e13]/80 backdrop-blur-xl shadow-2xl shadow-black pb-safe">
+<div class="flex justify-around items-center h-20 px-4">
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined text-xl mb-1" style="font-variation-settings: 'FILL' 0;">dashboard_customize</span>
+<span class="font-['Manrope'] text-[9px] uppercase font-bold">Console</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined text-xl mb-1" style="font-variation-settings: 'FILL' 0;">list_alt</span>
+<span class="font-['Manrope'] text-[9px] uppercase font-bold">Logs</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined text-xl mb-1" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<span class="font-['Manrope'] text-[9px] uppercase font-bold">Metrics</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined text-xl mb-1" style="font-variation-settings: 'FILL' 0;">admin_panel_settings</span>
+<span class="font-['Manrope'] text-[9px] uppercase font-bold">Security</span>
+</a>
+</div>
+</nav>
+</body></html>

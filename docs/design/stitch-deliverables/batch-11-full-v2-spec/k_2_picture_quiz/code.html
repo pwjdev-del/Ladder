@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Quiz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Manrope:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "on-primary-container": "#e2ffda",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-background": "#1f1b15",
+                        "surface-bright": "#fff8f2",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#8d6a48",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-secondary-container": "#566c00",
+                        "outline-variant": "#c3c8be",
+                        "on-secondary-fixed": "#161e00",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f8efe5",
+                        "surface-variant": "#eae1d7",
+                        "surface-container-highest": "#eae1d7",
+                        "tertiary-fixed": "#ffdcbd",
+                        "outline": "#737970",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-primary-fixed": "#052107",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "background": "#fff8f2",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "secondary-container": "#caf24d",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#516600",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#486644",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface": "#fff8f2",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#e1d9cf",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-primary": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed-dim": "#afd531",
+                        "primary": "#42603f",
+                        "on-surface-variant": "#434840",
+                        "on-surface": "#1f1b15",
+                        "inverse-surface": "#343029",
+                        "tertiary": "#725232",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-container": "#f5ede2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface min-h-screen font-body text-on-surface flex flex-col selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Task-Focused Header (Suppresses standard TopAppBar) -->
+<header class="bg-primary text-on-primary w-full px-6 py-4 flex items-center justify-between sticky top-0 z-50 shadow-[0_10px_30px_-10px_rgba(31,27,21,0.2)]">
+<button aria-label="Go back" class="w-10 h-10 flex items-center justify-start rounded-full hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-secondary-fixed">
+<span class="material-symbols-outlined text-2xl font-light">arrow_back_ios</span>
+</button>
+<span class="font-label text-xs tracking-[0.15em] uppercase font-extrabold text-primary-fixed">Q1 OF 3 TODAY</span>
+<div class="w-10 h-10"></div> <!-- Balance spacer -->
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col px-6 md:px-12 pt-10 pb-32 max-w-5xl mx-auto w-full">
+<!-- Question Area -->
+<div class="mb-12 md:pl-4">
+<h1 class="font-headline text-4xl md:text-5xl lg:text-6xl text-on-surface font-bold tracking-tight leading-[1.1] max-w-2xl">
+                Which do you like more?
+            </h1>
+</div>
+<!-- Picture Pair Container -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full">
+<!-- Card 1: Art (Simulating Selected State per requirements) -->
+<button aria-label="Select Making Art" class="group relative w-full flex flex-col text-left rounded-[2rem] bg-surface-container-low transition-all duration-300 outline outline-[6px] outline-secondary-fixed shadow-[0_20px_50px_-10px_rgba(202,242,77,0.2)] hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-primary/30">
+<!-- Image Sub-card -->
+<div class="w-full h-64 md:h-80 lg:h-96 bg-surface-container-highest rounded-t-[2rem] relative overflow-hidden">
+<img alt="Colorful paint brushes and palettes in an art studio" class="w-full h-full object-cover object-center transform scale-105 transition-transform duration-700 ease-out" data-alt="Close up of colorful paint brushes and palettes in a well lit art studio with vibrant oil colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqcijI2Gvj7dH2DTf2kkT1UJQB16kSqOBg2Ks8WzW17Y98f-tBxl90Kor-lzyJs0MzPHHc2M6H9oJ00ishxjNoLLcck7F-CLkwEHNI4YyVK6I1br_bvGoPGL5bR4HHPb1dcf32zNz0oHurDJwOip-sxTGh_YNXs6KHLuAdKSLW2jCN4AruCDqco7Rt4fjkaNUfozH1RFdhABX_uscgwa64dbR3Fj5l4WgwARPeh_AZpcNBfvWYgSeOQaKZMshPM_kGqFqTESNHKAs"/>
+<!-- Gradient overlay for text legibility if needed, though mostly decorative here -->
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/20 to-transparent mix-blend-multiply"></div>
+<!-- Audio Icon Floating -->
+<div class="absolute bottom-5 right-5 bg-surface/80 backdrop-blur-xl rounded-full p-4 shadow-[0_10px_20px_rgba(31,27,21,0.1)] group-hover:bg-surface transition-colors">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+</div>
+</div>
+<!-- Label Area -->
+<div class="p-8 pb-10">
+<h2 class="font-headline text-3xl text-on-surface font-semibold tracking-tight">Making Art</h2>
+</div>
+</button>
+<!-- Card 2: Rockets (Unselected) -->
+<button aria-label="Select Space Rockets" class="group relative w-full flex flex-col text-left rounded-[2rem] bg-surface-container-low transition-all duration-300 shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] hover:-translate-y-2 hover:shadow-[0_50px_70px_-20px_rgba(31,27,21,0.1)] focus:outline-none focus:ring-4 focus:ring-secondary-fixed">
+<!-- Image Sub-card -->
+<div class="w-full h-64 md:h-80 lg:h-96 bg-surface-container-highest rounded-t-[2rem] relative overflow-hidden">
+<img alt="Space rocket launching" class="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Space rocket launching into clear blue sky with bright fire and smoke trail in daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALSQaH2M-CAE7VfpuUPQiNCOE00cGMS1dGKwpz4BXE3hbkOvEw--abuRlt1rACmRhI-Q_aaOeSdEqmQTjjKeSLryYH-gvuGHCaTHqgWm2TLe3xirIj3ILMP3zyu5j5OwmaoqLxMKkbHD8kooRKkQ97ISa9DUO7W_ADsBj_JtOCv9_H_F2DSynHp3NAw3OcjHaOEIRffdVLA6xfwiNQbizlVxAIHPIVr82LFmjRpVpffymGEKfkY5fJdQ90G54A4NswCZes5oim8uk"/>
+<!-- Audio Icon Floating -->
+<div class="absolute bottom-5 right-5 bg-surface/70 backdrop-blur-xl rounded-full p-4 shadow-[0_10px_20px_rgba(31,27,21,0.1)] group-hover:bg-surface transition-colors">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+</div>
+</div>
+<!-- Label Area -->
+<div class="p-8 pb-10">
+<h2 class="font-headline text-3xl text-on-surface font-semibold tracking-tight group-hover:text-primary transition-colors">Space Rockets</h2>
+</div>
+</button>
+</div>
+</main>
+<!-- Bottom Ladder Progress Indicator -->
+<div class="fixed bottom-0 left-0 w-full px-8 pb-12 pt-16 bg-gradient-to-t from-surface via-surface/90 to-transparent pointer-events-none z-40">
+<div class="max-w-md mx-auto relative h-16 flex items-center justify-center">
+<!-- Structural line behind rungs -->
+<div class="absolute w-full h-2 bg-surface-container-highest rounded-full z-0 overflow-hidden shadow-inner">
+<!-- Glowing Progress Fill -->
+<div class="h-full w-[33%] bg-secondary-fixed rounded-full shadow-[0_0_20px_rgba(202,242,77,0.8)]"></div>
+</div>
+<!-- The Rungs -->
+<div class="absolute w-full flex justify-between items-center px-1 z-10">
+<!-- Active Rungs -->
+<div class="w-3.5 h-10 bg-secondary-fixed rounded-md shadow-[0_0_12px_rgba(202,242,77,0.5)] border-2 border-surface"></div>
+<div class="w-3.5 h-10 bg-secondary-fixed rounded-md shadow-[0_0_12px_rgba(202,242,77,0.5)] border-2 border-surface"></div>
+<!-- Inactive Rungs -->
+<div class="w-3.5 h-8 bg-surface-container-high rounded-md border border-surface-variant"></div>
+<div class="w-3.5 h-8 bg-surface-container-high rounded-md border border-surface-variant"></div>
+<div class="w-3.5 h-8 bg-surface-container-high rounded-md border border-surface-variant"></div>
+<div class="w-3.5 h-8 bg-surface-container-high rounded-md border border-surface-variant"></div>
+</div>
+</div>
+</div>
+</body></html>

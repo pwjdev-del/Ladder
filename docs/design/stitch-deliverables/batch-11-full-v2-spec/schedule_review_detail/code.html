@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Counselor Schedule Review</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#737970",
+                      "outline-variant": "#c3c8be",
+                      "on-primary-fixed": "#052107",
+                      "surface-bright": "#fff8f2",
+                      "error-container": "#ffdad6",
+                      "tertiary": "#725232",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#8d6a48",
+                      "secondary-fixed": "#caf24d",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "surface-container-highest": "#eae1d7",
+                      "secondary": "#516600",
+                      "on-tertiary-container": "#fff5ee",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "surface-variant": "#eae1d7",
+                      "on-secondary-container": "#566c00",
+                      "on-tertiary-fixed": "#2c1600",
+                      "surface-container-low": "#fbf2e8",
+                      "tertiary-fixed": "#ffdcbd",
+                      "inverse-primary": "#aed0a7",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#343029",
+                      "on-surface-variant": "#434840",
+                      "secondary-fixed-dim": "#afd531",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#e2ffda",
+                      "background": "#fff8f2",
+                      "surface": "#fff8f2",
+                      "inverse-on-surface": "#f8efe5",
+                      "primary-fixed-dim": "#aed0a7",
+                      "primary-fixed": "#c9ecc2",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "primary": "#42603f",
+                      "surface-container-high": "#efe7dd",
+                      "primary-container": "#5a7956",
+                      "on-background": "#1f1b15",
+                      "surface-container": "#f5ede2",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#1f1b15",
+                      "secondary-container": "#caf24d",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#486644",
+                      "surface-dim": "#e1d9cf",
+                      "on-secondary-fixed": "#161e00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Noto Serif"
+                      ],
+                      "body": [
+                              "Manrope"
+                      ],
+                      "label": [
+                              "Manrope"
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: rgba(234, 225, 215, 0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+        .glass-nav { background: rgba(255, 248, 242, 0.8); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); }
+        
+        /* Ambient Lighting / Tonal Layering */
+        .ambient-shadow { box-shadow: 0 40px 60px -15px rgba(31, 27, 21, 0.06); }
+        .ambient-shadow-float { box-shadow: 0 20px 40px -10px rgba(31, 27, 21, 0.08); }
+        
+        /* Intentional Asymmetry Utilities */
+        .offset-margins { margin-left: 1rem; margin-right: 2rem; }
+        @media (min-width: 768px) { .offset-margins { margin-left: 2rem; margin-right: 4rem; } }
+        
+        /* Hide scrollbar for grid */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background h-full flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 py-4 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-xl docked full-width top-0 shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] z-[50]">
+<div class="flex items-center gap-4">
+<button class="text-emerald-800 dark:text-emerald-400 p-2 -ml-2 rounded-full hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors scale-95 active:opacity-80 duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<h1 class="font-serif tracking-tight text-emerald-900 dark:text-stone-50 text-2xl font-bold">Schedule Review</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-800 dark:text-emerald-400 p-2 hover:bg-stone-200/50 rounded-full cursor-pointer transition-colors">search</span>
+<img alt="User profile avatar" class="w-9 h-9 rounded-full object-cover border-2 border-surface" data-alt="Portrait of a smiling school counselor in a bright office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKtSsKviO5e30L3S8andKaMvbSIWkK-UZlB-8OTMKdJ1NFXSc0OuRHnddR21XNxe6OJ_YguO4aaxO85vdf9d7WkWeJ28Y1ctz7u_nhjwppRx44IaXvJQ5UBIWPpEcYJ5EOE_Zyyv2vF67z_G2yex0FVGcmTqzzGTnsEUJfK3-iaJORIacBCqBXedUlv_LxrP8d6o1pLzKZG4Nd_Nz5YYFSrs3uteOBqG3-_KlmGAc4hgyALCOSZtUu6Eq7lzQ_6Le6HEjp3AnEZCI"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto pb-32">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 flex flex-col gap-8">
+<!-- Student Header Card (Asymmetric) -->
+<section class="offset-margins bg-surface-container-low rounded-xl p-6 lg:p-8 relative overflow-hidden">
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 relative z-10">
+<div class="w-16 h-16 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-headline text-2xl font-bold flex-shrink-0">
+                        EJ
+                    </div>
+<div class="flex-1">
+<h2 class="font-headline text-3xl sm:text-4xl font-bold text-on-surface tracking-tight mb-1">Elijah Johnson</h2>
+<div class="flex flex-wrap items-center gap-3 text-on-surface-variant font-body text-sm font-medium">
+<span class="bg-surface-container-highest px-3 py-1 rounded-full uppercase tracking-wider text-xs">GRADE 5 · LWRPA</span>
+<span class="flex items-center gap-1 text-tertiary"><span class="material-symbols-outlined text-sm">schedule</span> Submitted 2 hrs ago</span>
+</div>
+</div>
+</div>
+<!-- Abstract decorative shape -->
+<div class="absolute -bottom-10 -right-10 w-48 h-48 bg-surface-container rounded-full opacity-50 blur-3xl"></div>
+</section>
+<!-- Schedule Grid Section -->
+<section class="px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-2xl font-semibold text-on-surface">Proposed Fall Schedule</h3>
+<span class="text-sm font-body text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full">Week A</span>
+</div>
+<!-- 7x5 Grid Container (Responsive Scroll) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 overflow-hidden">
+<div class="overflow-x-auto no-scrollbar">
+<div class="min-w-[800px] grid grid-cols-[80px_repeat(5,_1fr)] border-b border-outline-variant/15">
+<!-- Header Row -->
+<div class="p-4 text-center font-body text-xs font-semibold text-on-surface-variant bg-surface-container-lowest border-r border-outline-variant/15">Time</div>
+<div class="p-4 text-center font-body text-sm font-semibold text-on-surface bg-surface-container-low">Monday</div>
+<div class="p-4 text-center font-body text-sm font-semibold text-on-surface bg-surface-container-low border-l border-outline-variant/15">Tuesday</div>
+<div class="p-4 text-center font-body text-sm font-semibold text-on-surface bg-surface-container-low border-l border-outline-variant/15">Wednesday</div>
+<div class="p-4 text-center font-body text-sm font-semibold text-on-surface bg-surface-container-low border-l border-outline-variant/15">Thursday</div>
+<div class="p-4 text-center font-body text-sm font-semibold text-on-surface bg-surface-container-low border-l border-outline-variant/15">Friday</div>
+</div>
+<!-- Grid Body (Example rows) -->
+<div class="min-w-[800px] grid grid-cols-[80px_repeat(5,_1fr)] border-b border-outline-variant/15">
+<div class="p-3 text-center text-xs font-medium text-on-surface-variant border-r border-outline-variant/15 flex items-center justify-center">8:00 AM</div>
+<!-- Normal Cell -->
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="h-full bg-primary-fixed/30 rounded-lg p-2 border-l-2 border-primary">
+<p class="text-xs font-bold text-on-surface mb-1">Homeroom</p>
+<p class="text-[10px] text-on-surface-variant">Rm 102 · Mr. Davis</p>
+</div>
+</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-primary-fixed/30 rounded-lg p-2 border-l-2 border-primary">
+<p class="text-xs font-bold text-on-surface mb-1">Homeroom</p>
+</div>
+</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-primary-fixed/30 rounded-lg p-2 border-l-2 border-primary">
+<p class="text-xs font-bold text-on-surface mb-1">Homeroom</p>
+</div>
+</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-primary-fixed/30 rounded-lg p-2 border-l-2 border-primary">
+<p class="text-xs font-bold text-on-surface mb-1">Homeroom</p>
+</div>
+</div>
+<div class="p-2 bg-surface-container-lowest">
+<div class="h-full bg-primary-fixed/30 rounded-lg p-2 border-l-2 border-primary">
+<p class="text-xs font-bold text-on-surface mb-1">Homeroom</p>
+</div>
+</div>
+</div>
+<!-- Conflict Row -->
+<div class="min-w-[800px] grid grid-cols-[80px_repeat(5,_1fr)] border-b border-outline-variant/15">
+<div class="p-3 text-center text-xs font-medium text-on-surface-variant border-r border-outline-variant/15 flex items-center justify-center">9:00 AM</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-surface-container-highest rounded-lg p-2">
+<p class="text-xs font-bold text-on-surface mb-1">Math 5</p>
+</div>
+</div>
+<!-- Conflict Cell -->
+<div class="p-2 border-r border-outline-variant/15 bg-error-container/20 relative">
+<div class="absolute inset-0 border-2 border-error/40 rounded pointer-events-none"></div>
+<div class="h-full bg-error-container/50 rounded-lg p-2 border-l-2 border-error">
+<p class="text-xs font-bold text-on-error-container mb-1">Adv. Science</p>
+<p class="text-[10px] text-error font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">warning</span> Prerequisite missing</p>
+</div>
+</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-surface-container-highest rounded-lg p-2">
+<p class="text-xs font-bold text-on-surface mb-1">Math 5</p>
+</div>
+</div>
+<!-- Conflict Cell -->
+<div class="p-2 border-r border-outline-variant/15 bg-error-container/20 relative">
+<div class="absolute inset-0 border-2 border-error/40 rounded pointer-events-none"></div>
+<div class="h-full bg-error-container/50 rounded-lg p-2 border-l-2 border-error">
+<p class="text-xs font-bold text-on-error-container mb-1">Adv. Science</p>
+<p class="text-[10px] text-error font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">warning</span> Prerequisite missing</p>
+</div>
+</div>
+<div class="p-2 bg-surface-container-lowest">
+<div class="h-full bg-surface-container-highest rounded-lg p-2">
+<p class="text-xs font-bold text-on-surface mb-1">Math 5</p>
+</div>
+</div>
+</div>
+<!-- Normal Row -->
+<div class="min-w-[800px] grid grid-cols-[80px_repeat(5,_1fr)]">
+<div class="p-3 text-center text-xs font-medium text-on-surface-variant border-r border-outline-variant/15 flex items-center justify-center">10:00 AM</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-surface-container-highest rounded-lg p-2">
+<p class="text-xs font-bold text-on-surface mb-1">Literature</p>
+</div>
+</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-surface-container-highest rounded-lg p-2">
+<p class="text-xs font-bold text-on-surface mb-1">Literature</p>
+</div>
+</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-surface-container-highest rounded-lg p-2">
+<p class="text-xs font-bold text-on-surface mb-1">Literature</p>
+</div>
+</div>
+<div class="p-2 border-r border-outline-variant/15 bg-surface-container-lowest">
+<div class="h-full bg-surface-container-highest rounded-lg p-2">
+<p class="text-xs font-bold text-on-surface mb-1">Literature</p>
+</div>
+</div>
+<div class="p-2 bg-surface-container-lowest">
+<div class="h-full bg-surface-container-highest rounded-lg p-2">
+<p class="text-xs font-bold text-on-surface mb-1">Literature</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Issues & AI Suggestions Panel -->
+<section class="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+<div class="bg-surface rounded-xl shadow-sm border-l-4 border-error overflow-hidden ambient-shadow-float">
+<div class="p-5 sm:p-6">
+<div class="flex items-start gap-4">
+<div class="mt-1 bg-error-container text-on-error-container p-2 rounded-full flex-shrink-0">
+<span class="material-symbols-outlined text-lg">error</span>
+</div>
+<div class="flex-1">
+<h4 class="font-headline text-lg font-bold text-on-surface mb-2">Schedule Conflicts Detected</h4>
+<ul class="space-y-3 mb-5">
+<li class="flex items-start gap-2 text-sm font-body text-on-surface-variant">
+<span class="material-symbols-outlined text-base text-error mt-0.5">adjust</span>
+<span>Student requested <strong>Adv. Science</strong>, but has not completed the prerequisite (Science 4).</span>
+</li>
+</ul>
+<!-- AI Fix Chip -->
+<div class="bg-surface-container-low border border-primary-fixed-dim/30 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">auto_awesome</span>
+<div>
+<p class="text-sm font-bold text-primary">Suggested Resolution</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Replace with General Science 5 (Rm 204)</p>
+</div>
+</div>
+<button class="text-xs font-bold text-primary bg-primary-fixed px-4 py-2 rounded-full hover:bg-primary-fixed-dim transition-colors flex-shrink-0">
+                                        Apply Fix
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Sticky Action Bar -->
+<div class="fixed bottom-0 left-0 w-full z-40 p-4 sm:p-6 glass-nav border-t border-outline-variant/10 shadow-[0_-10px_40px_rgba(31,27,21,0.04)]">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-end gap-4">
+<button class="w-full sm:w-auto px-6 py-3 rounded-xl border border-outline-variant text-on-surface font-body font-semibold text-sm hover:bg-surface-container transition-colors focus:ring-2 focus:ring-primary focus:outline-none">
+                Send back
+            </button>
+<button class="w-full sm:w-auto px-6 py-3 rounded-xl border border-primary text-primary font-body font-semibold text-sm hover:bg-primary-fixed/20 transition-colors focus:ring-2 focus:ring-primary focus:outline-none">
+                Modify and approve
+            </button>
+<!-- Disabled Primary Approve Button -->
+<button class="w-full sm:w-auto px-8 py-3 rounded-xl bg-surface-dim text-outline font-body font-semibold text-sm cursor-not-allowed opacity-70 flex items-center justify-center gap-2" disabled="">
+<span class="material-symbols-outlined text-sm">lock</span>
+                Approve
+            </button>
+</div>
+</div>
+</body></html>

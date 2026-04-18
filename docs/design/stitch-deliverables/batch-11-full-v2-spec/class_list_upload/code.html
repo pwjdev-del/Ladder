@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Upload Class List</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#737970",
+                        "outline-variant": "#c3c8be",
+                        "on-primary-fixed": "#052107",
+                        "surface-bright": "#fff8f2",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#725232",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#8d6a48",
+                        "secondary-fixed": "#caf24d",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#fbf2e8",
+                        "tertiary-fixed": "#ffdcbd",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "on-surface-variant": "#434840",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "background": "#fff8f2",
+                        "surface": "#fff8f2",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary": "#42603f",
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "on-background": "#1f1b15",
+                        "surface-container": "#f5ede2",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1f1b15",
+                        "secondary-container": "#caf24d",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#486644",
+                        "surface-dim": "#e1d9cf",
+                        "on-secondary-fixed": "#161e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body antialiased min-h-screen flex flex-col relative pb-32">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 z-50 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-xl flex justify-between items-center w-full px-6 py-4 shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] no borders tonal shift using bg-stone-100/50 dark:bg-stone-900/50">
+<button class="text-emerald-800 dark:text-emerald-400 scale-95 active:opacity-80 duration-200 p-2 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-2xl font-serif italic text-emerald-900 dark:text-emerald-400">Ladder</h1>
+<button class="scale-95 active:opacity-80 duration-200 p-1 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 rounded-full transition-colors flex items-center justify-center">
+<img alt="User profile avatar" class="w-8 h-8 rounded-full object-cover" data-alt="Portrait of a professional woman with a warm smile, wearing glasses, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYamTznLgXzLJcA7plemaVK3YtXT0spTIJhZpMOBrcm8jFHJV5sCxvbnedsncJugq1AehNMx5bhjIKikH_2pIaD0NXxJc80X26r81hcMuK7qFK75jc6rX8DhadZ_0k5kai6ZYaExq7m900p1eO5geloMJIgUjiuQt261WF-PgKpPevlbmPRwbhQhKRTm1dYUKgC0zpdwvh5gc2DKvKZgzo-ubqXfQ0izyScEsostHGtdpuJdL6YnGOWtrhDrIMfQZP8oh9eW1zHnY"/>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow px-6 pt-8 max-w-5xl mx-auto w-full">
+<!-- Header Section -->
+<div class="mb-10 lg:ml-8 lg:mr-16">
+<h2 class="font-headline text-4xl lg:text-5xl font-medium text-on-surface tracking-tight mb-3">Upload your class list</h2>
+<p class="font-body text-on-surface-variant text-base">Select an input method below to digitize your roster for the upcoming semester.</p>
+</div>
+<!-- Input Methods -->
+<section class="mb-12">
+<div class="flex flex-wrap gap-3 mb-8">
+<!-- Selected Chip -->
+<button class="bg-primary text-on-primary px-5 py-2.5 rounded-full font-label text-sm font-medium flex items-center gap-2 shadow-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="content_paste" style="font-variation-settings: 'FILL' 1;">content_paste</span>
+                    Paste
+                </button>
+<!-- Unselected Chips -->
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest px-5 py-2.5 rounded-full font-label text-sm font-medium flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+                    CSV
+                </button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest px-5 py-2.5 rounded-full font-label text-sm font-medium flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="table_chart">table_chart</span>
+                    XLSX
+                </button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest px-5 py-2.5 rounded-full font-label text-sm font-medium flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+                    PDF
+                </button>
+<button class="bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest px-5 py-2.5 rounded-full font-label text-sm font-medium flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="document_scanner">document_scanner</span>
+                    Scan photo
+                </button>
+</div>
+<!-- Paste Area -->
+<div class="bg-surface-container-low rounded-xl p-6 relative group border border-outline-variant/15">
+<textarea class="w-full h-48 bg-transparent text-on-surface font-body text-base resize-none focus:outline-none placeholder:text-on-surface-variant/50" placeholder="Paste your raw class data here. E.g. 'ENG101, Intro to Lit, Grade 9, 25'"></textarea>
+<div class="flex justify-end mt-4 relative z-10">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-3 rounded-full font-label font-medium flex items-center gap-2 shadow-[0_8px_16px_-4px_rgba(66,96,63,0.2)] hover:shadow-[0_12px_20px_-4px_rgba(66,96,63,0.3)] transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        Parse with Gemini
+                    </button>
+</div>
+</div>
+</section>
+<!-- Review Section (Simulating post-parse state) -->
+<section class="mb-24">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-2xl font-medium text-on-surface">Review Parsed Data</h3>
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-lg text-sm font-medium">42 Classes Detected</span>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/15">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body text-sm">
+<thead class="bg-surface-container-highest text-on-surface-variant text-xs uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4 font-medium">Code</th>
+<th class="px-6 py-4 font-medium">Title</th>
+<th class="px-6 py-4 font-medium">Grade</th>
+<th class="px-6 py-4 font-medium">Capacity</th>
+<th class="px-6 py-4 font-medium text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Standard Row -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 text-on-surface font-medium">MTH201</td>
+<td class="px-6 py-4 text-on-surface-variant">Algebra II</td>
+<td class="px-6 py-4 text-on-surface-variant">10</td>
+<td class="px-6 py-4 text-on-surface-variant">28</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<!-- Low Confidence Row (Red Tint) -->
+<tr class="bg-error-container/20 hover:bg-error-container/30 transition-colors relative">
+<td class="px-6 py-4 text-on-surface font-medium">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-error inline-block"></span>
+                                        SCI-B?
+                                    </div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Biology Honors</td>
+<td class="px-6 py-4 text-on-surface-variant">9-10</td>
+<td class="px-6 py-4 text-on-surface-variant">?</td>
+<td class="px-6 py-4 text-right">
+<button class="text-error hover:text-error/80 transition-colors p-1 rounded-full hover:bg-error-container">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<!-- Standard Row -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 text-on-surface font-medium">ENG305</td>
+<td class="px-6 py-4 text-on-surface-variant">Creative Writing</td>
+<td class="px-6 py-4 text-on-surface-variant">11-12</td>
+<td class="px-6 py-4 text-on-surface-variant">20</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- Sticky Confirm Bar -->
+<div class="fixed bottom-0 left-0 w-full z-40 bg-surface-variant/80 backdrop-blur-2xl border-t border-outline-variant/10 shadow-[0_-20px_40px_rgba(31,27,21,0.08)] px-6 py-4 flex justify-between items-center pb-8 pt-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
+<span class="font-body text-on-surface font-medium">Ready to import</span>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-3.5 rounded-full font-label text-base font-medium flex items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all active:scale-95">
+            Confirm and save 42 classes
+        </button>
+</div>
+</body></html>

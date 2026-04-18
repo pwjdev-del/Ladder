@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add a grown-up - Ladder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#737970",
+                    "outline-variant": "#c3c8be",
+                    "on-primary-fixed": "#052107",
+                    "surface-bright": "#fff8f2",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#725232",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#8d6a48",
+                    "secondary-fixed": "#caf24d",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "surface-container-highest": "#eae1d7",
+                    "secondary": "#516600",
+                    "on-tertiary-container": "#fff5ee",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface-variant": "#eae1d7",
+                    "on-secondary-container": "#566c00",
+                    "on-tertiary-fixed": "#2c1600",
+                    "surface-container-low": "#fbf2e8",
+                    "tertiary-fixed": "#ffdcbd",
+                    "inverse-primary": "#aed0a7",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#343029",
+                    "on-surface-variant": "#434840",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#e2ffda",
+                    "background": "#fff8f2",
+                    "surface": "#fff8f2",
+                    "inverse-on-surface": "#f8efe5",
+                    "primary-fixed-dim": "#aed0a7",
+                    "primary-fixed": "#c9ecc2",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "primary": "#42603f",
+                    "surface-container-high": "#efe7dd",
+                    "primary-container": "#5a7956",
+                    "on-background": "#1f1b15",
+                    "surface-container": "#f5ede2",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1f1b15",
+                    "secondary-container": "#caf24d",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#486644",
+                    "surface-dim": "#e1d9cf",
+                    "on-secondary-fixed": "#161e00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Noto Serif", "serif"
+                    ],
+                    "body": [
+                            "Manrope", "sans-serif"
+                    ],
+                    "label": [
+                            "Manrope", "sans-serif"
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen antialiased flex flex-col items-center justify-center p-6 md:p-12 relative overflow-hidden">
+<!-- Ambient background layer -->
+<div class="absolute top-0 right-0 w-full h-full pointer-events-none opacity-40 mix-blend-multiply overflow-hidden -z-10">
+<div class="absolute -top-32 -right-32 w-96 h-96 bg-primary-container rounded-full blur-[100px] opacity-20"></div>
+<div class="absolute -bottom-32 -left-32 w-96 h-96 bg-tertiary-container rounded-full blur-[100px] opacity-20"></div>
+</div>
+<!-- Main Content Container -->
+<main class="w-full max-w-md bg-surface-container-lowest rounded-2xl md:rounded-[2rem] shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] relative z-10 overflow-hidden">
+<!-- TopAppBar (Transactional - Close Action) -->
+<header class="flex justify-between items-center w-full px-6 py-4 bg-surface-container-lowest/70 backdrop-blur-xl sticky top-0 z-20">
+<button aria-label="Close" class="text-on-surface-variant hover:bg-surface-container hover:text-on-surface p-2 rounded-full transition-colors active:scale-95 flex items-center justify-center w-10 h-10 group">
+<span class="material-symbols-outlined text-2xl group-active:opacity-80 transition-opacity" data-icon="close">close</span>
+</button>
+<div class="font-headline tracking-tight text-primary text-xl font-bold italic">Ladder</div>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<div class="px-8 pb-12 pt-4">
+<!-- Hero Graphic / Illustration Area -->
+<div class="mb-8 w-full h-48 bg-surface-container-low rounded-[1.5rem] overflow-hidden relative group">
+<img alt="Soft sunlight filtering through deep green forest leaves" class="w-full h-full object-cover mix-blend-luminosity opacity-80 group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Soft sunlight filtering through deep green forest leaves creating a calm, natural, and grounded atmosphere, cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnL00IEb4347CdZQUvc1ySF2qJJsgjNH4OG0uoAm9x9VWJzpqiutsKoiXujeruAHh38mQX0xswGPxFKlrdmUtJk8HBywNukGszfA9h-68Tq23qerVJvPxi3QpiFEy2nts1ROa45ZjLvUHJcZGBbRGTtfG8Pn1Tw-JlqGw_pgcAe0jd40iZf-_jUxcHcTiPheRbLtSQlYcUdFWEz00RvF9oEToNvmOF8zz8sf0rLzNtPNkTi8fytOyDO8ZogKXFXMMFgCdo-xXIKOE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-6 bg-surface/80 backdrop-blur-md rounded-full px-4 py-2 flex items-center gap-2 shadow-[0_10px_20px_rgba(31,27,21,0.08)]">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="energy_savings_leaf" data-weight="fill">energy_savings_leaf</span>
+<span class="font-label text-sm font-semibold tracking-wide text-on-surface">Grow Together</span>
+</div>
+</div>
+<!-- Typography Header -->
+<div class="mb-8 pl-2 pr-6">
+<h1 class="font-headline text-4xl font-bold text-on-surface leading-tight tracking-[-0.02em] mb-4">
+                    Add a<br/><span class="text-primary italic">grown-up.</span>
+</h1>
+<p class="font-body text-on-surface-variant text-base leading-relaxed max-w-[280px]">
+                    Your parent or guardian can watch your progress and help with big decisions.
+                </p>
+</div>
+<!-- Form Area -->
+<form class="space-y-8 pl-2">
+<!-- Email Input -->
+<div class="relative group">
+<input class="block w-full px-0 pb-3 pt-5 text-on-surface bg-transparent border-0 border-b border-outline-variant/40 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer font-body text-lg transition-colors" id="parentEmail" placeholder=" " required="" type="email"/>
+<label class="absolute font-label text-on-surface-variant duration-300 transform -translate-y-4 scale-75 top-4 -z-10 origin-[0] peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4" for="parentEmail">Grown-up's email</label>
+<div class="absolute right-0 top-4 text-outline-variant group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</div>
+</div>
+<!-- Relationship Segmented Control -->
+<div class="space-y-3">
+<label class="block font-label text-sm text-tertiary font-medium">Relationship</label>
+<div class="flex flex-wrap gap-3">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="relationship" type="radio" value="parent"/>
+<div class="px-5 py-2.5 rounded-full font-label text-sm font-medium transition-all duration-200 bg-surface-container-high text-on-surface-variant peer-checked:bg-primary peer-checked:text-on-primary hover:bg-surface-dim peer-checked:hover:bg-primary-container shadow-sm peer-checked:shadow-[0_8px_16px_-4px_rgba(66,96,63,0.3)]">
+                                Parent
+                            </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="relationship" type="radio" value="guardian"/>
+<div class="px-5 py-2.5 rounded-full font-label text-sm font-medium transition-all duration-200 bg-surface-container-high text-on-surface-variant peer-checked:bg-primary peer-checked:text-on-primary hover:bg-surface-dim peer-checked:hover:bg-primary-container shadow-sm peer-checked:shadow-[0_8px_16px_-4px_rgba(66,96,63,0.3)]">
+                                Guardian
+                            </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="relationship" type="radio" value="other"/>
+<div class="px-5 py-2.5 rounded-full font-label text-sm font-medium transition-all duration-200 bg-surface-container-high text-on-surface-variant peer-checked:bg-primary peer-checked:text-on-primary hover:bg-surface-dim peer-checked:hover:bg-primary-container shadow-sm peer-checked:shadow-[0_8px_16px_-4px_rgba(66,96,63,0.3)]">
+                                Other
+                            </div>
+</label>
+</div>
+</div>
+<!-- Action Button -->
+<div class="pt-6">
+<button class="w-full relative overflow-hidden rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-label font-bold text-lg py-4 px-6 flex items-center justify-center gap-2 group transition-all hover:shadow-[0_20px_40px_-10px_rgba(66,96,63,0.4)] active:scale-[0.98]" type="submit">
+<span class="relative z-10">Send invite</span>
+<span class="material-symbols-outlined text-secondary-fixed relative z-10 group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="text-center mt-4 text-xs font-label text-outline max-w-[240px] mx-auto">
+                        They will receive an email invitation to create their observer account.
+                    </p>
+</div>
+</form>
+</div>
+</main>
+</body></html>

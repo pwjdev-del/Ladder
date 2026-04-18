@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Founder Schools Grid</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#8d6a48",
+                        "surface-container": "#f5ede2",
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed": "#caf24d",
+                        "on-secondary-fixed": "#161e00",
+                        "background": "#fff8f2",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "surface-bright": "#fff8f2",
+                        "secondary": "#516600",
+                        "primary": "#42603f",
+                        "on-primary-container": "#e2ffda",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-background": "#1f1b15",
+                        "on-secondary-container": "#566c00",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-dim": "#e1d9cf",
+                        "secondary-container": "#caf24d",
+                        "surface-variant": "#eae1d7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary-container": "#5a7956",
+                        "tertiary": "#725232",
+                        "surface-tint": "#486644",
+                        "surface-container-highest": "#eae1d7",
+                        "on-surface-variant": "#434840",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "inverse-surface": "#343029",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#aed0a7",
+                        "on-surface": "#1f1b15",
+                        "surface": "#fff8f2",
+                        "outline-variant": "#c3c8be",
+                        "outline": "#737970",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body antialiased flex h-screen w-full overflow-hidden">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex flex-col h-full w-80 rounded-r-[24px] bg-[#fff8f2] dark:bg-[#061a0f] shadow-2xl border-none bg-[#fbf2e8] dark:bg-[#0a2618] p-6 gap-4 z-40 relative">
+<div class="flex items-center gap-4 mb-8 left_align">
+<img alt="Executive Admin" class="w-12 h-12 rounded-full object-cover shadow-sm" data-alt="professional headshot of an executive admin woman in a bright modern office setting, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVwEd-pnokp1RDzuuLpP6O8-IDRCd1oM7VINS969WYqrFwiBpFfzqEf-22rwSCXQYIPv1KS1gnTJO6iqG1Wb030PtXSvXSJQjiSz1kbmD0lL4o10EWB6WzrHacynh33ZU7Rg-YFf1xrUJiaGZc2rtoAhxubugbB2ur6FPOBZTyzFtcrahdf8BxVGXDVYdTmcMTsuH6kEPp-rGOUPUJWmdRfbBvfCDqBzm_ZP_hgdkKFlkk2DbJRUexeHx8q_zj-eM0KFsHdqzu70k"/>
+<div>
+<h3 class="font-['Montserrat'] font-semibold text-[#42603f] dark:text-[#caf24d] text-sm">Principal Founder</h3>
+<p class="text-xs text-[#1f1b15]/70 dark:text-[#caf24d]/70">K-8 Global Admin</p>
+</div>
+</div>
+<div class="text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Environment: Production</div>
+<nav class="flex flex-col gap-2 font-['Montserrat'] font-semibold text-sm">
+<!-- Active State: School Overview -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#eae1d7] dark:bg-[#0a2618] text-[#42603f] dark:text-[#caf24d] rounded-xl font-bold hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span>School Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span>Faculty Registry</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span>Student Records</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span>Provisioning</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span>Audit Logs</span>
+</a>
+</nav>
+<div class="mt-auto">
+<div class="h-24 w-full rounded-xl bg-surface-container-highest overflow-hidden relative group">
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
+<img alt="Campus view" class="w-full h-full object-cover" data-alt="architectural view of classic university buildings overgrown with green ivy during a soft overcast day" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4A9HWBsQgVp7aZG8seDwxZjMHClao-hChNbo8ufMrwARUqOO2JcJeVOsKZuqPbTEV7G6up64F9r2CEkIxk4sejMiqGDZA_kHm2z4wHFpyRMcl-22gvJm13p5osF3JTNuaU8q8UTAhhES1w0l5HNFGA1f5DYJi6CiF3NqiFYjiDLDABFZZ0mPID_kRefK4T73ENjTv6RaUIXpfwXpLSl6tt44f9HNI-FiuvFCtg_jy9rRhSjcg2ByM8BWKUPMYkEP0tsvkoZ8kLqg"/>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-full relative overflow-hidden bg-surface">
+<!-- TopAppBar (Global Top) -->
+<header class="flex items-center justify-between px-6 py-4 w-full bg-[#fff8f2] dark:bg-[#061a0f] shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] docked full-width top-0 z-30 transition-all duration-300 ease-in-out">
+<div class="flex items-center gap-3">
+<div class="md:hidden">
+<img alt="Founder Profile" class="w-8 h-8 rounded-full object-cover" data-alt="professional headshot of an executive admin woman in a bright modern office setting, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx96Gv9qnJQHdqBjHhbXKzQ4jQ_B1gWQcfxZxiONh_2NlC6UQ-D8M5CLqDDQ2rYUMavuvh_IbVeFqloEtvjQ6FR3nRi7eR6flkDWZ9ZgKJMTRazExpaD8gBbaQReMzpryiVte0_bie3MkNmFeof4d_NKfYwnvOcQOGrHtDKyfRCnF4_9ke2_o6n79BetJEnkk0tnCJGf8G8vxmbI84_Xc98jfDCVWosYDE7DKHU6yca-rXIZ-a24hXnuZ-j0P73JRI9aaMEI1tkv0"/>
+</div>
+<h1 class="font-['Noto_Serif'] font-bold tracking-tighter text-3xl dark:font-mono dark:uppercase text-[#42603f] dark:text-[#caf24d]">Academic Atelier</h1>
+</div>
+<button class="text-[#42603f] dark:text-[#caf24d] hover:bg-[#eae1d7]/50 dark:hover:bg-[#0a2618]/50 p-2 rounded-full transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+</button>
+</header>
+<!-- Scrollable Area -->
+<div class="flex-1 overflow-y-auto px-4 md:px-12 py-8 pb-28 md:pb-12 @container">
+<!-- Header & Primary Action -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="ml-2 md:ml-4 max-w-2xl">
+<h2 class="font-headline text-5xl md:text-6xl font-black tracking-tighter text-on-surface mb-4 leading-none">Global <br/><span class="text-primary italic font-medium">Tenant</span> Directory</h2>
+<p class="text-on-surface-variant text-sm md:text-base font-body max-w-md">Oversee institutional metrics, resource allocation, and autonomous AI deployment across all affiliated academies.</p>
+</div>
+<button class="inline-flex items-center justify-center px-6 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-bold tracking-wide hover:shadow-[0_20px_40px_-10px_rgba(66,96,63,0.3)] transition-all duration-300 group self-start md:self-end">
+<span class="material-symbols-outlined mr-2 group-hover:scale-110 transition-transform">add</span>
+                    + Add a new school
+                </button>
+</div>
+<!-- Filters / Sort Chips -->
+<div class="flex flex-wrap gap-3 mb-8">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary text-xs font-semibold tracking-wider uppercase transition-colors">
+                    Newest
+                </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-variant text-xs font-semibold tracking-wider uppercase transition-colors">
+                    Balance
+                </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-variant text-xs font-semibold tracking-wider uppercase transition-colors">
+                    Tokens
+                </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-variant text-xs font-semibold tracking-wider uppercase transition-colors flex items-center gap-1">
+                    Alert <span class="material-symbols-outlined text-[14px]">warning</span>
+</button>
+</div>
+<!-- Founder Schools Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+<!-- Card 1 -->
+<article class="bg-surface-container-low rounded-xl p-6 flex flex-col gap-6 relative overflow-hidden group hover:shadow-[0_30px_60px_-20px_rgba(31,27,21,0.08)] transition-all duration-500">
+<div class="flex justify-between items-start">
+<div class="inline-flex items-center px-3 py-1.5 bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-extrabold uppercase tracking-widest rounded-full font-label">
+                            St. Jude Academy
+                        </div>
+<div class="text-right">
+<span class="block font-headline text-3xl font-black text-on-surface tracking-tighter">94%</span>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Success</span>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-lg p-5 grid grid-cols-2 gap-y-6 gap-x-4">
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Population</span>
+<span class="font-body text-xl font-bold text-on-surface">1,240</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Fiscal Bal</span>
+<span class="font-body text-xl font-bold text-on-surface">$45.2k</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">AI Tokens</span>
+<span class="font-body text-lg font-bold text-primary">2.4M</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Compute Cost</span>
+<span class="font-body text-lg font-bold text-on-surface">$340</span>
+</div>
+</div>
+<div class="pt-2 flex justify-between items-center mt-auto">
+<a class="inline-flex items-center text-sm font-bold text-tertiary gap-1 group/link" href="#">
+                            Flags
+                            <span class="material-symbols-outlined text-[16px] group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+<span class="text-xs font-semibold text-outline px-2 py-1 bg-surface-container-high rounded-md">1 Minor</span>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-low rounded-xl p-6 flex flex-col gap-6 relative overflow-hidden group hover:shadow-[0_30px_60px_-20px_rgba(31,27,21,0.08)] transition-all duration-500">
+<div class="flex justify-between items-start">
+<div class="inline-flex items-center px-3 py-1.5 bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-extrabold uppercase tracking-widest rounded-full font-label">
+                            Oakridge Prep
+                        </div>
+<div class="text-right">
+<span class="block font-headline text-3xl font-black text-on-surface tracking-tighter">88%</span>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Success</span>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-lg p-5 grid grid-cols-2 gap-y-6 gap-x-4">
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Population</span>
+<span class="font-body text-xl font-bold text-on-surface">850</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Fiscal Bal</span>
+<span class="font-body text-xl font-bold text-on-surface">$12.5k</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">AI Tokens</span>
+<span class="font-body text-lg font-bold text-primary">800k</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Compute Cost</span>
+<span class="font-body text-lg font-bold text-on-surface">$110</span>
+</div>
+</div>
+<div class="pt-2 flex justify-between items-center mt-auto">
+<a class="inline-flex items-center text-sm font-bold text-tertiary gap-1 group/link" href="#">
+                            Flags
+                            <span class="material-symbols-outlined text-[16px] group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+<span class="text-xs font-semibold text-primary px-2 py-1 bg-primary-fixed-dim/30 rounded-md">Clear</span>
+</div>
+</article>
+<!-- Card 3 (Alert State Concept) -->
+<article class="bg-surface-container-low rounded-xl p-6 flex flex-col gap-6 relative overflow-hidden group hover:shadow-[0_30px_60px_-20px_rgba(31,27,21,0.08)] transition-all duration-500">
+<div class="absolute top-0 right-0 w-16 h-16 bg-error-container blur-3xl opacity-40 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+<div class="flex justify-between items-start relative z-10">
+<div class="inline-flex items-center px-3 py-1.5 bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-extrabold uppercase tracking-widest rounded-full font-label">
+                            Lincoln Heights
+                        </div>
+<div class="text-right">
+<span class="block font-headline text-3xl font-black text-on-surface tracking-tighter text-error">62%</span>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Success</span>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-lg p-5 grid grid-cols-2 gap-y-6 gap-x-4 relative z-10">
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Population</span>
+<span class="font-body text-xl font-bold text-on-surface">3,105</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Fiscal Bal</span>
+<span class="font-body text-xl font-bold text-on-surface">$105.8k</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">AI Tokens</span>
+<span class="font-body text-lg font-bold text-primary">5.1M</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold mb-1">Compute Cost</span>
+<span class="font-body text-lg font-bold text-error">$890</span>
+</div>
+</div>
+<div class="pt-2 flex justify-between items-center mt-auto relative z-10">
+<a class="inline-flex items-center text-sm font-bold text-error gap-1 group/link" href="#">
+                            Review Flags
+                            <span class="material-symbols-outlined text-[16px] group-hover/link:translate-x-1 transition-transform">warning</span>
+</a>
+<span class="text-xs font-semibold text-error px-2 py-1 bg-error-container rounded-md">4 Critical</span>
+</div>
+</article>
+<!-- Card 4 (Ghosted/Setup phase) -->
+<article class="bg-surface rounded-xl p-6 flex flex-col gap-6 relative overflow-hidden group transition-all duration-500 border border-outline-variant/30 opacity-70 hover:opacity-100">
+<div class="flex justify-between items-start">
+<div class="inline-flex items-center px-3 py-1.5 bg-surface-container-high text-on-surface-variant text-[10px] font-extrabold uppercase tracking-widest rounded-full font-label border border-outline-variant/20">
+                            Beacon Institute
+                        </div>
+<div class="text-right">
+<span class="block font-headline text-3xl font-black text-outline tracking-tighter">--</span>
+<span class="text-[10px] uppercase tracking-widest text-outline font-semibold">Success</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-5 flex flex-col items-center justify-center h-full min-h-[140px]">
+<span class="material-symbols-outlined text-outline text-3xl mb-2">hourglass_empty</span>
+<p class="text-xs font-medium text-outline uppercase tracking-widest text-center">Provisioning<br/>Infrastructure</p>
+</div>
+<div class="pt-2 flex justify-between items-center mt-auto">
+<span class="text-xs font-medium text-outline">Est. Completion: 2h</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-[#fff8f2]/70 dark:bg-[#061a0f]/80 backdrop-blur-3xl fixed bottom-0 w-full rounded-t-[24px] tonal-layering shadow-[0_-20px_40px_rgba(0,0,0,0.05)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 transition-transform">
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80 scale-95 active:scale-90 transition-transform w-16" href="#">
+<span class="material-symbols-outlined mb-1">grid_view</span>
+<span class="font-['Montserrat'] font-medium text-[10px] uppercase tracking-widest hidden">Dashboard</span>
+</a>
+<!-- Active State: Tenants -->
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] dark:from-[#caf24d] dark:to-[#8fb324] text-white dark:text-[#061a0f] rounded-[16px] px-6 py-2 hover:opacity-80 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1 icon-fill">account_balance</span>
+<span class="font-['Montserrat'] font-medium text-[10px] uppercase tracking-widest">Tenants</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80 scale-95 active:scale-90 transition-transform w-16" href="#">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-['Montserrat'] font-medium text-[10px] uppercase tracking-widest hidden">Metrics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80 scale-95 active:scale-90 transition-transform w-16" href="#">
+<span class="material-symbols-outlined mb-1">terminal</span>
+<span class="font-['Montserrat'] font-medium text-[10px] uppercase tracking-widest hidden">System</span>
+</a>
+</nav>
+</body></html>

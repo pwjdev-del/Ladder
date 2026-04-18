@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Invite Code</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,700&amp;family=Manrope:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f3fceb",
+                        "primary-fixed": "#caecc4",
+                        "on-primary-fixed": "#052108",
+                        "on-primary-fixed-variant": "#314d30",
+                        "on-primary-container": "#d0f2ca",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#151f00",
+                        "error-container": "#ffdad6",
+                        "secondary": "#4e6700",
+                        "tertiary-container": "#54704e",
+                        "tertiary-fixed-dim": "#b0cfa7",
+                        "on-secondary-fixed-variant": "#3a4d00",
+                        "surface-dim": "#d3ddcc",
+                        "inverse-surface": "#2a3327",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#d2f2c8",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#3d5738",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce6d4",
+                        "primary": "#3a5739",
+                        "on-surface": "#161e13",
+                        "surface": "#f3fceb",
+                        "inverse-on-surface": "#eaf4e2",
+                        "surface-bright": "#f3fceb",
+                        "surface-container-high": "#e2ebda",
+                        "on-background": "#161e13",
+                        "on-secondary-container": "#536d00",
+                        "surface-container-low": "#edf7e5",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c3c8be",
+                        "on-tertiary-fixed-variant": "#334d2e",
+                        "primary-container": "#527050",
+                        "secondary-fixed-dim": "#abd537",
+                        "surface-variant": "#dce6d4",
+                        "surface-container": "#e7f1df",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434841",
+                        "secondary-fixed": "#c6f252",
+                        "primary-fixed-dim": "#aecfa9",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ccebc1",
+                        "surface-tint": "#486646",
+                        "inverse-primary": "#aecfa9",
+                        "on-tertiary-fixed": "#072107",
+                        "secondary-container": "#c6f252",
+                        "outline": "#737970"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1.5rem"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Playfair Display", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        h1, h2, h3, h4, h5, h6, .font-headline {
+            font-family: 'Playfair Display', serif;
+        }
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom styles for this specific component that don't fit perfectly in theme */
+        .bg-amber-soft { background-color: #FFF7E6; }
+        .border-amber-status { border-color: #D9A54A; }
+        .text-amber-status { color: #D9A54A; }
+        .bg-lime-vitality { background-color: #A8D234; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-surface to-surface-container-high">
+<!-- Top Navigation (Suppressed for this specific, focused transaction, but included structure if needed) -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 h-16 bg-surface-container-lowest/80 backdrop-blur-lg shadow-sm hidden">
+<button class="text-primary-container hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<span class="font-headline text-2xl font-bold italic text-primary-container tracking-tight">Ladder</span>
+<div class="w-6"></div> <!-- Spacer for center alignment -->
+</header>
+<main class="w-full max-w-2xl mx-auto space-y-12 pb-24 md:pb-0">
+<!-- Header Section -->
+<div class="text-center space-y-4">
+<h1 class="font-headline text-4xl md:text-5xl font-bold text-on-surface tracking-tight">Your Access Key</h1>
+<p class="font-body text-on-surface-variant text-lg max-w-md mx-auto">This unique code grants immediate entry to the Scholastic Arboretum.</p>
+</div>
+<!-- Active State Component -->
+<div class="space-y-6 relative z-10">
+<div class="bg-amber-soft border border-amber-status rounded-2xl shadow-[0_8px_32px_rgba(217,165,74,0.15)] overflow-hidden relative">
+<div class="p-8 md:p-12 flex flex-col items-center justify-center space-y-6 relative z-10">
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+<div class="font-mono text-3xl md:text-5xl font-bold text-on-surface tracking-widest bg-surface-container-lowest px-6 py-4 rounded-xl shadow-inner border border-surface-container-highest">
+                            LDR-X8K9-QR4T
+                        </div>
+<button class="flex items-center gap-2 bg-lime-vitality text-on-surface px-6 py-4 rounded-full font-label font-semibold uppercase tracking-widest text-[11pt] hover:bg-secondary-fixed transition-colors shadow-sm active:scale-95 duration-150 flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]" data-icon="content_copy">content_copy</span>
+                            Copy
+                        </button>
+</div>
+<div class="flex items-center gap-2 text-amber-status bg-white/50 px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-[20px]" data-icon="warning">warning</span>
+<span class="font-body font-medium text-sm">Shown once. Write it down or paste it now.</span>
+</div>
+</div>
+<!-- Progress Bar Base -->
+<div class="absolute bottom-0 left-0 w-full h-1.5 bg-surface-container-highest"></div>
+<!-- Progress Bar Active (Simulated partial completion) -->
+<div class="absolute bottom-0 left-0 w-3/4 h-1.5 bg-lime-vitality rounded-r-full shadow-[0_0_8px_rgba(168,210,52,0.8)]"></div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+<button class="flex items-center justify-center gap-2 px-6 py-3 border border-outline-variant/30 rounded-full text-on-surface-variant font-label text-[11pt] font-semibold tracking-widest uppercase hover:bg-surface-container-low transition-colors w-full sm:w-auto active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[18px]" data-icon="mail">mail</span>
+                    Email this code
+                </button>
+<button class="flex items-center justify-center gap-2 px-6 py-3 border border-outline-variant/30 rounded-full text-on-surface-variant font-label text-[11pt] font-semibold tracking-widest uppercase hover:bg-surface-container-low transition-colors w-full sm:w-auto active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                    Share via Messages
+                </button>
+</div>
+</div>
+<!-- Divider for demonstration purposes -->
+<div class="flex items-center justify-center py-12">
+<div class="w-full h-px bg-gradient-to-r from-transparent via-outline-variant/50 to-transparent"></div>
+<span class="px-4 font-headline italic text-on-surface-variant/60 text-sm absolute bg-background">Expired State</span>
+</div>
+<!-- Expired/Blurred State Component -->
+<div class="space-y-6 relative opacity-80 grayscale-[30%] pointer-events-none">
+<div class="bg-surface-container-low border border-outline-variant/20 rounded-2xl shadow-sm overflow-hidden relative">
+<div class="p-8 md:p-12 flex flex-col items-center justify-center space-y-6 relative z-10">
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+<div class="font-mono text-3xl md:text-5xl font-bold text-on-surface/40 tracking-widest bg-surface-container-lowest/50 px-6 py-4 rounded-xl blur-[8px] select-none">
+                            LDR-X8K9-QR4T
+                        </div>
+<button class="flex items-center gap-2 bg-surface-container text-on-surface-variant/50 px-6 py-4 rounded-full font-label font-semibold uppercase tracking-widest text-[11pt] flex-shrink-0 cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]" data-icon="lock">lock</span>
+                            Locked
+                        </button>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant bg-white/30 px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-[20px]" data-icon="history">history</span>
+<span class="font-body font-medium text-sm">This code has expired.</span>
+</div>
+</div>
+<!-- Progress Bar Empty -->
+<div class="absolute bottom-0 left-0 w-full h-1.5 bg-surface-container-highest/50"></div>
+</div>
+</div>
+</main>
+</body></html>

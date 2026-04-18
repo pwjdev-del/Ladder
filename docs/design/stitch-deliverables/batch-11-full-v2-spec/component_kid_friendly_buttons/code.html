@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KidFriendlyButton Component Sheet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#eae1d7",
+                    "on-primary-fixed-variant": "#304e2e",
+                    "surface-container-highest": "#eae1d7",
+                    "on-surface": "#1f1b15",
+                    "surface-bright": "#fff8f2",
+                    "background": "#fff8f2",
+                    "outline": "#737970",
+                    "inverse-primary": "#aed0a7",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#516600",
+                    "on-primary-fixed": "#052107",
+                    "on-surface-variant": "#434840",
+                    "surface-container-high": "#efe7dd",
+                    "on-tertiary-fixed": "#2c1600",
+                    "primary": "#42603f",
+                    "surface": "#fff8f2",
+                    "inverse-surface": "#343029",
+                    "secondary-fixed-dim": "#afd531",
+                    "surface-dim": "#e1d9cf",
+                    "on-primary-container": "#e2ffda",
+                    "on-error": "#ffffff",
+                    "on-background": "#1f1b15",
+                    "tertiary": "#725232",
+                    "on-tertiary-fixed-variant": "#5e4122",
+                    "tertiary-fixed": "#ffdcbd",
+                    "primary-fixed-dim": "#aed0a7",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "primary-container": "#5a7956",
+                    "secondary-container": "#caf24d",
+                    "secondary-fixed": "#caf24d",
+                    "inverse-on-surface": "#f8efe5",
+                    "tertiary-fixed-dim": "#e9bf96",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#c9ecc2",
+                    "outline-variant": "#c3c8be",
+                    "on-secondary-fixed": "#161e00",
+                    "tertiary-container": "#8d6a48",
+                    "surface-container-low": "#fbf2e8",
+                    "surface-container": "#f5ede2",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#fff5ee",
+                    "surface-tint": "#486644",
+                    "on-secondary-container": "#566c00",
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "lime-500": "#A8D234",
+                    "ink-900": "#1B1F1B",
+                    "cream-100": "#F5F0E5",
+                    "forest-700": "#527050",
+                    "stone-200": "#e7e5e4",
+                    "ink-400": "#9ca3af"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "20pt": "20px",
+                    "full": "9999px"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Noto Serif"
+                    ],
+                    "body": [
+                            "Manrope"
+                    ],
+                    "label": [
+                            "Manrope"
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fff8f2;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif', serif;
+        }
+        .btn-kid-friendly {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-height: 56px;
+            padding: 16px 32px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .btn-kid-friendly:hover {
+            transform: scale(1.02);
+        }
+        .btn-kid-friendly:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-primary-lime {
+            background-color: #A8D234;
+            color: #1B1F1B;
+        }
+        
+        .btn-secondary-cream {
+            background-color: #F5F0E5;
+            color: #527050;
+        }
+        
+        .btn-ghost {
+            background-color: transparent;
+            color: #527050;
+            border: 2px solid #527050;
+        }
+        
+        .btn-disabled {
+            background-color: #e7e5e4;
+            color: #9ca3af;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .btn-disabled:hover, .btn-disabled:active {
+            transform: none;
+        }
+        
+        .btn-focused {
+            box-shadow: 0 0 0 3px #fff8f2, 0 0 0 6px #A8D234;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen p-8 md:p-16">
+<div class="max-w-4xl mx-auto">
+<header class="mb-16">
+<h1 class="text-5xl md:text-6xl font-headline font-bold text-primary tracking-tight mb-4">KidFriendlyButton</h1>
+<p class="text-xl text-on-surface-variant font-body">Component Sheet: Oversized interactive elements for K-2 users.</p>
+</header>
+<main class="space-y-16">
+<!-- Variants Section -->
+<section class="bg-surface-container-low rounded-3xl p-8 md:p-12 shadow-[0_20px_50px_rgba(31,27,21,0.04)]">
+<h2 class="text-2xl font-headline font-bold text-primary mb-8 border-b border-outline-variant/30 pb-4">Core Variants</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<!-- Primary Lime -->
+<div class="flex flex-col items-start gap-4">
+<span class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-wider">1. Primary Lime</span>
+<button class="btn-kid-friendly btn-primary-lime">
+<span>Let's Go!</span>
+<span class="text-2xl">🚀</span>
+</button>
+<p class="text-sm text-on-surface-variant/70 mt-2">Used for main actions and exciting next steps.</p>
+</div>
+<!-- Secondary Cream -->
+<div class="flex flex-col items-start gap-4">
+<span class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-wider">2. Secondary Cream</span>
+<button class="btn-kid-friendly btn-secondary-cream">
+<span>Draw a Picture</span>
+<span class="text-2xl">🎨</span>
+</button>
+<p class="text-sm text-on-surface-variant/70 mt-2">Used for creative activities and secondary choices.</p>
+</div>
+<!-- Ghost -->
+<div class="flex flex-col items-start gap-4">
+<span class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-wider">3. Ghost (Outlined)</span>
+<button class="btn-kid-friendly btn-ghost">
+<span>Go Back</span>
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back</span>
+</button>
+<p class="text-sm text-on-surface-variant/70 mt-2">Used for less prominent actions like returning.</p>
+</div>
+<!-- Disabled -->
+<div class="flex flex-col items-start gap-4">
+<span class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-wider">4. Disabled State</span>
+<button class="btn-kid-friendly btn-disabled" disabled="">
+<span>Locked Level</span>
+<span class="material-symbols-outlined" style="font-size: 24px;">lock</span>
+</button>
+<p class="text-sm text-on-surface-variant/70 mt-2">Indicates an action is currently unavailable.</p>
+</div>
+</div>
+</section>
+<!-- Interaction States Section -->
+<section class="bg-surface-container-low rounded-3xl p-8 md:p-12 shadow-[0_20px_50px_rgba(31,27,21,0.04)]">
+<h2 class="text-2xl font-headline font-bold text-primary mb-8 border-b border-outline-variant/30 pb-4">Interaction States</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<!-- Focused State -->
+<div class="flex flex-col items-start gap-4">
+<span class="text-sm font-label font-bold text-on-surface-variant uppercase tracking-wider">Focused (Keyboard / Voice)</span>
+<div class="p-4 rounded-3xl bg-surface-container-highest inline-block">
+<button class="btn-kid-friendly btn-primary-lime btn-focused">
+<span>Read Story</span>
+<span class="text-2xl">📚</span>
+</button>
+</div>
+<p class="text-sm text-on-surface-variant/70 mt-2">Features a 3pt lime glow offset by a surface-colored ring for high visibility.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

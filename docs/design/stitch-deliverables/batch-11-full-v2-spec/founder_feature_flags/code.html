@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="antialiased" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Founder Backdoor - Feature Flags</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#fff8f2",
+                        "on-secondary-fixed": "#161e00",
+                        "on-surface": "#1f1b15",
+                        "surface-container": "#f5ede2",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#eae1d7",
+                        "outline": "#737970",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#725232",
+                        "inverse-primary": "#aed0a7",
+                        "surface-container-high": "#efe7dd",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-container": "#fff5ee",
+                        "secondary": "#516600",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-container": "#caf24d",
+                        "on-primary-fixed": "#052107",
+                        "surface-tint": "#486644",
+                        "primary-container": "#5a7956",
+                        "outline-variant": "#c3c8be",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#fbf2e8",
+                        "on-primary-container": "#e2ffda",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#8d6a48",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-dim": "#e1d9cf",
+                        "surface-bright": "#fff8f2",
+                        "secondary-fixed": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "surface-container-highest": "#eae1d7",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "inverse-surface": "#343029",
+                        "on-surface-variant": "#434840",
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f2",
+                        "primary": "#42603f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Noto Serif', serif; }
+        
+        /* Subtle scrollbar for dark mode */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #1a3a2a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2a4a3a; }
+
+        .glass-panel {
+            background: rgba(10, 42, 27, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        
+        .bento-card {
+            background: #0a2a1b; /* Using tonal shift from JSON instead of 1px border */
+            box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#052107] text-surface-container flex h-screen overflow-hidden selection:bg-secondary-container selection:text-on-secondary-fixed">
+<!-- NavigationDrawer (Web) -->
+<aside class="bg-[#061e13] rounded-r-3xl h-full border-r border-[#1a3a2a] flex flex-col w-72 h-screen fixed left-0 top-0 z-40 hidden lg:flex">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-2">
+<img alt="Founder Profile" class="w-12 h-12 rounded-full border-2 border-[#caf24d] shadow-[0_0_15px_rgba(202,242,77,0.2)]" data-alt="close up portrait of a serious young man with short hair and a dark shirt against a blurred grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDE5pcGP7BzWk82Xd0oEqxnO3YeRCQ6hAGqvRiBL0DRYpfaT5RJ232OPpikCWsXeybAIXCYWU13iUgB6d1DWmmgyxnEG7vOr2WLOEhux1qyp1GdSGgjr1b94Ffts1rYL-CzeJSk-SGCIkoGLouuGclcFlOg3FgS4PLRD4FmbXwweayUB-6jIyxmTK4cVaVOSFFtjjUruCr-VFZMf43NW18PCsfuhrJ28dERat8O3EBi040FiJoT1SfnyNItZTQM348la24zXH6M-I"/>
+<div>
+<h2 class="font-['Noto_Serif'] text-lg text-[#caf24d]">Admin Console</h2>
+<p class="font-['Manrope'] font-medium uppercase tracking-widest text-[10px] text-[#5A7956]">Environment: Production</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Manrope'] font-medium uppercase tracking-widest text-[10px]">People List</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 bg-[#0a2a1b] text-[#caf24d] rounded-xl mx-2 font-bold transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="flag">flag</span>
+<span class="font-['Manrope'] font-medium uppercase tracking-widest text-[10px]">Feature Flags</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="font-['Manrope'] font-medium uppercase tracking-widest text-[10px]">Dependency Panel</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="theater_comedy">theater_comedy</span>
+<span class="font-['Manrope'] font-medium uppercase tracking-widest text-[10px]">Impersonation</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_month">calendar_view_month</span>
+<span class="font-['Manrope'] font-medium uppercase tracking-widest text-[10px]">Schedules</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col lg:ml-72 relative min-h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#061e13] dark:bg-[#061e13] text-[#caf24d] font-['Noto_Serif'] font-bold tracking-tight uppercase text-xs docked full-width top-0 tonal-shift shadow-[0_40px_60px_-15px_rgba(0,0,0,0.3)] flex justify-between items-center w-full px-6 py-4 max-w-full z-30 relative">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xl" data-icon="terminal">terminal</span>
+<h1 class="font-['Noto_Serif'] text-[#caf24d] text-xl font-black uppercase tracking-widest">Founder Backdoor</h1>
+</div>
+<div class="flex items-center gap-4">
+<!-- Tenant Picker Chip -->
+<div class="hidden md:flex items-center gap-2 bg-[#0a2a1b] px-4 py-1.5 rounded-full cursor-pointer hover:bg-[#0e3b26] transition-colors duration-300">
+<div class="w-2 h-2 rounded-full bg-[#caf24d] animate-pulse"></div>
+<span class="font-body text-[10px] tracking-widest text-surface-container-high">Acme Corp (Tenant_ID: 9942)</span>
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="expand_more">expand_more</span>
+</div>
+<img alt="Founder Avatar" class="w-8 h-8 rounded-full border border-[#5A7956] scale-95 active:opacity-80 transition-transform" data-alt="close up portrait of a serious young man with short hair and a dark shirt against a blurred grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARGUjwg-Rgt-NF_ZmxFTUM_ODXlQopoCRBD7KJ9PMeG26A9yC0LFnDDYKLAzTJYUM_6fgnAvgC5MeTylYfUF_eOtqvIibtF9Qas-d8jbbP4Cl70NLNb0C3ZNXtCZ9L0pXkDRtCE2ScfMy1YP4RhTLv11AftPYZWPL0jQ9dQBGuuc20rcFJf8R5AZ4hAKmSv49hTNzeJ_Mhu_EXWqX8QwSzUXKZ6abOTdy34hH_ol_byvRFlgHdskdC41qL0jHwAVOtVQXcf4MAr7A"/>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<main class="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 pb-32">
+<!-- Mobile Tenant Picker -->
+<div class="md:hidden flex items-center justify-between bg-[#0a2a1b] px-5 py-3 rounded-2xl mb-6 shadow-lg shadow-black/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="domain">domain</span>
+<span class="font-body text-xs tracking-wider text-surface-container-high uppercase font-bold">Acme Corp</span>
+</div>
+<span class="material-symbols-outlined text-primary-container" data-icon="swap_vert">swap_vert</span>
+</div>
+<!-- Page Header -->
+<div class="mb-10 max-w-5xl mx-auto pl-4 lg:pl-0 border-l-4 border-secondary-container">
+<h2 class="font-headline text-3xl md:text-5xl lg:text-6xl text-surface-bright tracking-tight mb-3 ml-4">Architecture<br/><span class="text-primary-container italic font-normal">Overrides</span></h2>
+<p class="font-body text-sm md:text-base text-surface-variant/70 max-w-2xl ml-4 leading-relaxed">
+                    Direct manipulation of feature rollout states for the selected tenant. Proceed with absolute certainty.
+                </p>
+</div>
+<!-- Bento Grid: Feature Flags -->
+<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Flag: ON State (Spans 2 columns on xl) -->
+<article class="bento-card rounded-[24px] p-6 lg:p-8 xl:col-span-2 flex flex-col justify-between group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+<div class="flex justify-between items-start mb-12 relative z-10">
+<div>
+<div class="bg-surface-bright/10 inline-block px-3 py-1 rounded-md mb-4">
+<span class="font-mono text-sm tracking-wider text-surface-bright">feature.scheduling.v2</span>
+</div>
+<h3 class="font-headline text-2xl text-surface-container-lowest mb-2">Next-Gen Scheduling Engine</h3>
+<p class="font-body text-sm text-surface-variant/60 max-w-md">Enables the unified calendar view and conflict resolution algorithms. Requires database schema v1.4.</p>
+</div>
+<span class="material-symbols-outlined text-4xl text-secondary-container opacity-20" data-icon="calendar_month">calendar_month</span>
+</div>
+<div class="flex items-center justify-between border-t border-primary-container/20 pt-6 relative z-10">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-secondary-container shadow-[0_0_10px_#caf24d]"></div>
+<span class="font-body text-xs font-bold uppercase tracking-widest text-secondary-container">Active</span>
+</div>
+<!-- 3-State Custom Toggle Component (Visual Representation) -->
+<div class="flex bg-[#052107] rounded-full p-1 border border-[#1a3a2a]">
+<button class="px-4 py-1.5 rounded-full bg-secondary-container text-[#052107] font-bold text-[10px] uppercase tracking-wider shadow-sm transition-all">On</button>
+<button class="px-4 py-1.5 rounded-full text-surface-variant/40 hover:text-surface-variant font-bold text-[10px] uppercase tracking-wider transition-all">Off</button>
+<button aria-label="Block" class="px-4 py-1.5 rounded-full text-surface-variant/40 hover:text-surface-variant font-bold text-[10px] uppercase tracking-wider transition-all">
+<span class="material-symbols-outlined text-[14px]" data-icon="block">block</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Flag: OFF State -->
+<article class="bento-card rounded-[24px] p-6 lg:p-8 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-8">
+<div>
+<div class="bg-surface-bright/5 inline-block px-3 py-1 rounded-md mb-4">
+<span class="font-mono text-sm tracking-wider text-surface-variant/70">api.rate_limit.relaxed</span>
+</div>
+<h3 class="font-headline text-xl text-surface-container-highest mb-2 opacity-80">Relaxed Rate Limits</h3>
+<p class="font-body text-sm text-surface-variant/40 line-clamp-3">Bypasses standard 100 req/min throttling for API ingestion endpoints.</p>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-primary-container/10 pt-6">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+<span class="font-body text-xs font-bold uppercase tracking-widest text-outline-variant">Disabled</span>
+</div>
+<div class="flex bg-[#052107] rounded-full p-1 border border-[#1a3a2a]">
+<button class="px-3 py-1.5 rounded-full text-surface-variant/40 hover:text-surface-variant font-bold text-[10px] uppercase tracking-wider transition-all">On</button>
+<button class="px-3 py-1.5 rounded-full bg-outline-variant text-[#052107] font-bold text-[10px] uppercase tracking-wider shadow-sm transition-all">Off</button>
+<button class="px-3 py-1.5 rounded-full text-surface-variant/40 hover:text-surface-variant font-bold text-[10px] uppercase tracking-wider transition-all">
+<span class="material-symbols-outlined text-[14px]" data-icon="block">block</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Flag: BLOCKED BY VARUN State -->
+<article class="bento-card rounded-[24px] p-6 lg:p-8 border border-tertiary-fixed-dim/30 shadow-[0_0_30px_rgba(233,191,150,0.05)] flex flex-col justify-between md:col-span-2 xl:col-span-1 relative overflow-hidden">
+<!-- Hazard Striping Background subtle -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #e9bf96 10px, #e9bf96 20px);"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div>
+<div class="bg-tertiary-fixed-dim/10 inline-block px-3 py-1 rounded-md mb-4 border border-tertiary-fixed-dim/20">
+<span class="font-mono text-sm tracking-wider text-surface-bright">payment.stripe.beta</span>
+</div>
+<h3 class="font-headline text-xl text-surface-container-lowest mb-2">Stripe V2 Migration</h3>
+<p class="font-body text-sm text-surface-variant/60">Switches payment processing to the new intent-based flow.</p>
+</div>
+</div>
+<!-- Inline Panel with Rule -->
+<div class="bg-[#052107]/80 rounded-xl p-4 mb-6 border border-tertiary-fixed-dim/40 relative z-10 flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-lg mt-0.5" data-icon="warning">warning</span>
+<div>
+<p class="font-body text-xs font-bold text-tertiary-fixed-dim uppercase tracking-wider mb-1">Blocked by Varun Rule</p>
+<p class="font-body text-[11px] text-surface-variant/70">Tenant missing prerequisite Webhook Secret configuration.</p>
+</div>
+</div>
+<button class="self-start mt-1 px-4 py-1.5 rounded-lg bg-tertiary-fixed-dim/20 hover:bg-tertiary-fixed-dim/30 text-tertiary-fixed-dim font-body text-[10px] font-bold uppercase tracking-widest transition-colors border border-tertiary-fixed-dim/30">
+                            Apply Fix
+                        </button>
+</div>
+<div class="flex items-center justify-between border-t border-tertiary-fixed-dim/20 pt-6 relative z-10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[16px]" data-icon="lock">lock</span>
+<span class="font-body text-xs font-bold uppercase tracking-widest text-tertiary-fixed-dim">Locked</span>
+</div>
+<div class="flex bg-[#052107] rounded-full p-1 border border-tertiary-fixed-dim/30 opacity-50 cursor-not-allowed">
+<button class="px-3 py-1.5 rounded-full text-surface-variant/40 font-bold text-[10px] uppercase tracking-wider pointer-events-none">On</button>
+<button class="px-3 py-1.5 rounded-full text-surface-variant/40 font-bold text-[10px] uppercase tracking-wider pointer-events-none">Off</button>
+<button class="px-3 py-1.5 rounded-full bg-tertiary-fixed-dim text-[#052107] font-bold text-[10px] uppercase tracking-wider pointer-events-none">
+<span class="material-symbols-outlined text-[14px]" data-icon="block">block</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Flag: OFF State (Another example to fill grid) -->
+<article class="bento-card rounded-[24px] p-6 lg:p-8 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-8">
+<div>
+<div class="bg-surface-bright/5 inline-block px-3 py-1 rounded-md mb-4">
+<span class="font-mono text-sm tracking-wider text-surface-variant/70">ui.theme.atelier</span>
+</div>
+<h3 class="font-headline text-xl text-surface-container-highest mb-2 opacity-80">Academic Atelier Theme</h3>
+<p class="font-body text-sm text-surface-variant/40 line-clamp-3">Forces the new premium editorial design system across all user-facing dashboards.</p>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-primary-container/10 pt-6">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+<span class="font-body text-xs font-bold uppercase tracking-widest text-outline-variant">Disabled</span>
+</div>
+<div class="flex bg-[#052107] rounded-full p-1 border border-[#1a3a2a]">
+<button class="px-3 py-1.5 rounded-full text-surface-variant/40 hover:text-surface-variant font-bold text-[10px] uppercase tracking-wider transition-all">On</button>
+<button class="px-3 py-1.5 rounded-full bg-outline-variant text-[#052107] font-bold text-[10px] uppercase tracking-wider shadow-sm transition-all">Off</button>
+<button class="px-3 py-1.5 rounded-full text-surface-variant/40 hover:text-surface-variant font-bold text-[10px] uppercase tracking-wider transition-all">
+<span class="material-symbols-outlined text-[14px]" data-icon="block">block</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Sticky Save Pill -->
+<div class="fixed bottom-24 lg:bottom-10 left-0 lg:left-72 right-0 flex justify-center z-30 pointer-events-none">
+<div class="glass-panel pointer-events-auto flex items-center gap-6 px-8 py-4 rounded-[32px] shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-[#1a3a2a]">
+<div class="flex flex-col">
+<span class="font-body text-[10px] uppercase tracking-widest text-surface-variant/70 font-bold">Unsaved Changes</span>
+<span class="font-headline text-sm text-surface-bright">2 Flags Modified</span>
+</div>
+<div class="w-px h-8 bg-primary-container/30"></div>
+<button class="bg-gradient-to-br from-primary to-primary-container hover:from-primary-container hover:to-primary text-on-primary px-8 py-3 rounded-full font-body text-xs uppercase tracking-widest font-bold shadow-lg transition-all active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="save">save</span>
+                    Deploy Overrides
+                </button>
+</div>
+</div>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="bg-[#061e13]/80 backdrop-blur-xl font-['Manrope'] text-[9px] uppercase font-bold fixed bottom-0 w-full z-50 rounded-t-[24px] no-line tonal shift shadow-2xl shadow-black fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe flex lg:hidden">
+<a class="flex flex-col items-center text-[#caf24d] bg-[#0a2a1b] px-4 py-1 rounded-full hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard_customize">dashboard_customize</span>
+<span>Console</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="list_alt">list_alt</span>
+<span>Logs</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="analytics">analytics</span>
+<span>Metrics</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-95 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span>Security</span>
+</a>
+</nav>
+</body></html>

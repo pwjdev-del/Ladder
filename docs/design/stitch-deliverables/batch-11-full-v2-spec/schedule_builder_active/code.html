@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Schedule Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#737970",
+                        "outline-variant": "#c3c8be",
+                        "on-primary-fixed": "#052107",
+                        "surface-bright": "#fff8f2",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#725232",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#8d6a48",
+                        "secondary-fixed": "#caf24d",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "surface-container-highest": "#eae1d7",
+                        "secondary": "#516600",
+                        "on-tertiary-container": "#fff5ee",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#eae1d7",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#fbf2e8",
+                        "tertiary-fixed": "#ffdcbd",
+                        "inverse-primary": "#aed0a7",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "on-surface-variant": "#434840",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#e2ffda",
+                        "background": "#fff8f2",
+                        "surface": "#fff8f2",
+                        "inverse-on-surface": "#f8efe5",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary": "#42603f",
+                        "surface-container-high": "#efe7dd",
+                        "primary-container": "#5a7956",
+                        "on-background": "#1f1b15",
+                        "surface-container": "#f5ede2",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1f1b15",
+                        "secondary-container": "#caf24d",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#486644",
+                        "surface-dim": "#e1d9cf",
+                        "on-secondary-fixed": "#161e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col pb-32 selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation (Shell logic: Supressed since it's a task-focused flow with back action) -->
+<header class="sticky top-0 z-40 bg-surface/70 backdrop-blur-xl flex items-center justify-between px-4 py-4 w-full md:px-8 shadow-[0_4px_30px_-10px_rgba(31,27,21,0.05)] transition-all">
+<button aria-label="Go back" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface text-xl">arrow_back</span>
+</button>
+<div class="font-headline italic text-primary text-xl font-medium tracking-tight">Ladder</div>
+<div class="w-10"></div> <!-- Spacer for balance -->
+</header>
+<main class="flex-grow container mx-auto px-4 sm:px-6 md:px-8 max-w-3xl pt-8 pb-12">
+<!-- Header Section -->
+<div class="mb-10 pl-2">
+<h1 class="font-headline text-4xl md:text-5xl lg:text-6xl text-on-surface mb-3 tracking-tight">Next year — Fall 2027</h1>
+<p class="font-label text-sm font-bold tracking-widest uppercase text-tertiary flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-container inline-block"></span>
+                ENDS AUG 15 at 11:59 PM
+            </p>
+</div>
+<!-- Schedule Grid Container -->
+<div class="space-y-4">
+<!-- Period 1: Filled -->
+<div class="group flex items-center gap-4 bg-surface-container-low hover:bg-surface-container rounded-xl p-4 transition-all duration-300 relative overflow-hidden shadow-[0_4px_20px_-10px_rgba(31,27,21,0.02)] border border-outline-variant/15 h-20">
+<div class="w-1 absolute left-0 top-0 bottom-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-12 h-12 flex-shrink-0 bg-surface-container-highest rounded-lg flex items-center justify-center font-headline text-xl text-primary font-medium">
+                    P1
+                </div>
+<div class="flex-grow min-w-0">
+<div class="flex items-baseline gap-2 mb-0.5">
+<h3 class="font-body font-semibold text-on-surface text-lg truncate">Advanced Calculus</h3>
+<span class="font-label text-xs font-bold text-outline uppercase tracking-wider hidden sm:inline-block">MTH-401</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant truncate">Mr. Harrison • Room 302</p>
+</div>
+<button class="flex-shrink-0 px-4 py-2 rounded-lg font-label text-sm font-medium text-primary hover:bg-surface-container-highest transition-colors">
+                    Change
+                </button>
+</div>
+<!-- Period 2: Filled -->
+<div class="group flex items-center gap-4 bg-surface-container-low hover:bg-surface-container rounded-xl p-4 transition-all duration-300 relative overflow-hidden shadow-[0_4px_20px_-10px_rgba(31,27,21,0.02)] border border-outline-variant/15 h-20">
+<div class="w-1 absolute left-0 top-0 bottom-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-12 h-12 flex-shrink-0 bg-surface-container-highest rounded-lg flex items-center justify-center font-headline text-xl text-primary font-medium">
+                    P2
+                </div>
+<div class="flex-grow min-w-0">
+<div class="flex items-baseline gap-2 mb-0.5">
+<h3 class="font-body font-semibold text-on-surface text-lg truncate">World Literature Honors</h3>
+<span class="font-label text-xs font-bold text-outline uppercase tracking-wider hidden sm:inline-block">ENG-305H</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant truncate">Ms. Davis • Room 114</p>
+</div>
+<button class="flex-shrink-0 px-4 py-2 rounded-lg font-label text-sm font-medium text-primary hover:bg-surface-container-highest transition-colors">
+                    Change
+                </button>
+</div>
+<!-- Period 3: Empty State -->
+<div class="group flex items-center gap-4 bg-surface rounded-xl p-4 transition-all duration-300 relative overflow-hidden border border-outline-variant/40 border-dashed h-20 hover:border-primary/50 hover:bg-surface-container-low/50 cursor-pointer">
+<div class="w-12 h-12 flex-shrink-0 border border-outline-variant/30 rounded-lg flex items-center justify-center font-headline text-xl text-outline-variant font-medium">
+                    P3
+                </div>
+<div class="flex-grow min-w-0 flex items-center">
+<span class="font-body text-outline italic text-base group-hover:text-primary transition-colors">— pick a class —</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-xl">add</span>
+</div>
+</div>
+<!-- Period 4: Filled -->
+<div class="group flex items-center gap-4 bg-surface-container-low hover:bg-surface-container rounded-xl p-4 transition-all duration-300 relative overflow-hidden shadow-[0_4px_20px_-10px_rgba(31,27,21,0.02)] border border-outline-variant/15 h-20">
+<div class="w-1 absolute left-0 top-0 bottom-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-12 h-12 flex-shrink-0 bg-surface-container-highest rounded-lg flex items-center justify-center font-headline text-xl text-primary font-medium">
+                    P4
+                </div>
+<div class="flex-grow min-w-0">
+<div class="flex items-baseline gap-2 mb-0.5">
+<h3 class="font-body font-semibold text-on-surface text-lg truncate">AP Physics</h3>
+<span class="font-label text-xs font-bold text-outline uppercase tracking-wider hidden sm:inline-block">SCI-410AP</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant truncate">Dr. Chen • Lab 2</p>
+</div>
+<button class="flex-shrink-0 px-4 py-2 rounded-lg font-label text-sm font-medium text-primary hover:bg-surface-container-highest transition-colors">
+                    Change
+                </button>
+</div>
+<!-- Period 5: Filled -->
+<div class="group flex items-center gap-4 bg-surface-container-low hover:bg-surface-container rounded-xl p-4 transition-all duration-300 relative overflow-hidden shadow-[0_4px_20px_-10px_rgba(31,27,21,0.02)] border border-outline-variant/15 h-20">
+<div class="w-1 absolute left-0 top-0 bottom-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-12 h-12 flex-shrink-0 bg-surface-container-highest rounded-lg flex items-center justify-center font-headline text-xl text-primary font-medium">
+                    P5
+                </div>
+<div class="flex-grow min-w-0">
+<div class="flex items-baseline gap-2 mb-0.5">
+<h3 class="font-body font-semibold text-on-surface text-lg truncate">Modern European History</h3>
+<span class="font-label text-xs font-bold text-outline uppercase tracking-wider hidden sm:inline-block">HIS-302</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant truncate">Mr. Althaus • Room 208</p>
+</div>
+<button class="flex-shrink-0 px-4 py-2 rounded-lg font-label text-sm font-medium text-primary hover:bg-surface-container-highest transition-colors">
+                    Change
+                </button>
+</div>
+<!-- Period 6: Empty State -->
+<div class="group flex items-center gap-4 bg-surface rounded-xl p-4 transition-all duration-300 relative overflow-hidden border border-outline-variant/40 border-dashed h-20 hover:border-primary/50 hover:bg-surface-container-low/50 cursor-pointer">
+<div class="w-12 h-12 flex-shrink-0 border border-outline-variant/30 rounded-lg flex items-center justify-center font-headline text-xl text-outline-variant font-medium">
+                    P6
+                </div>
+<div class="flex-grow min-w-0 flex items-center">
+<span class="font-body text-outline italic text-base group-hover:text-primary transition-colors">— pick a class —</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-xl">add</span>
+</div>
+</div>
+<!-- Period 7: Filled -->
+<div class="group flex items-center gap-4 bg-surface-container-low hover:bg-surface-container rounded-xl p-4 transition-all duration-300 relative overflow-hidden shadow-[0_4px_20px_-10px_rgba(31,27,21,0.02)] border border-outline-variant/15 h-20">
+<div class="w-1 absolute left-0 top-0 bottom-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-12 h-12 flex-shrink-0 bg-surface-container-highest rounded-lg flex items-center justify-center font-headline text-xl text-primary font-medium">
+                    P7
+                </div>
+<div class="flex-grow min-w-0">
+<div class="flex items-baseline gap-2 mb-0.5">
+<h3 class="font-body font-semibold text-on-surface text-lg truncate">Studio Art III</h3>
+<span class="font-label text-xs font-bold text-outline uppercase tracking-wider hidden sm:inline-block">ART-300</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant truncate">Mx. Rivera • Art Studio A</p>
+</div>
+<button class="flex-shrink-0 px-4 py-2 rounded-lg font-label text-sm font-medium text-primary hover:bg-surface-container-highest transition-colors">
+                    Change
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar (Contextual FAB / Submission Bar) -->
+<div class="fixed bottom-0 left-0 w-full z-50 px-4 pb-6 pt-8 bg-gradient-to-t from-surface via-surface/90 to-transparent pointer-events-none">
+<div class="max-w-xl mx-auto flex items-center justify-between gap-4 p-2 bg-surface-variant/80 backdrop-blur-2xl rounded-[32px] shadow-[0_20px_40px_-15px_rgba(31,27,21,0.15)] pointer-events-auto border border-white/20">
+<div class="pl-6 flex items-center gap-3">
+<!-- Status Pill -->
+<div class="px-4 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label text-sm font-bold tracking-wide">
+                    5 OF 7
+                </div>
+<span class="text-outline text-sm font-medium hidden sm:inline-block">Periods selected</span>
+</div>
+<!-- Primary Action -->
+<button class="relative overflow-hidden group px-8 py-4 rounded-full font-label text-sm font-bold tracking-wide text-white transition-transform hover:scale-[1.02] active:scale-[0.98]">
+<div class="absolute inset-0 bg-gradient-to-br from-[#42603f] to-[#5A7956] z-0"></div>
+<!-- subtle shine effect -->
+<div class="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] z-10"></div>
+<span class="relative z-20 flex items-center gap-2">
+                    Submit for review
+                    <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
+</span>
+</button>
+</div>
+</div>
+</body></html>

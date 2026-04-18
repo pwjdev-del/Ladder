@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SiblingSwitcher Component Sheet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#eae1d7",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "surface-container-highest": "#eae1d7",
+                        "on-surface": "#1f1b15",
+                        "surface-bright": "#fff8f2",
+                        "background": "#ffffff", /* Using pure white as requested for paper white bg */
+                        "outline": "#737970",
+                        "inverse-primary": "#aed0a7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#516600",
+                        "on-primary-fixed": "#052107",
+                        "on-surface-variant": "#434840",
+                        "surface-container-high": "#efe7dd",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary": "#42603f",
+                        "surface": "#ffffff",
+                        "inverse-surface": "#343029",
+                        "secondary-fixed-dim": "#afd531",
+                        "surface-dim": "#e1d9cf",
+                        "on-primary-container": "#e2ffda",
+                        "on-error": "#ffffff",
+                        "on-background": "#1f1b15",
+                        "tertiary": "#725232",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed-dim": "#aed0a7",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "primary-container": "#5a7956",
+                        "secondary-container": "#caf24d",
+                        "secondary-fixed": "#caf24d",
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#c9ecc2",
+                        "outline-variant": "#c3c8be",
+                        "on-secondary-fixed": "#161e00",
+                        "tertiary-container": "#8d6a48",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-container": "#f5ede2",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-tint": "#486644",
+                        "on-secondary-container": "#566c00",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        /* Specific colors requested in prompt */
+                        "custom-lime-500": "#A8D234",
+                        "custom-forest-900": "#3F5A3A",
+                        "custom-stone-200": "#E8E2D8",
+                        "custom-ink-600": "#4A5346"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Playfair Display", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    },
+                    "boxShadow": {
+                        'lime-glow': '0 0 0 2px #A8D234',
+                        'scroll-right': 'inset -24px 0 24px -12px rgba(255, 255, 255, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen p-8 antialiased">
+<div class="max-w-4xl mx-auto space-y-16">
+<header class="border-b border-surface-container-highest pb-8 mb-12">
+<h1 class="font-headline text-4xl font-semibold tracking-tight text-on-surface mb-2">SiblingSwitcher</h1>
+<p class="text-on-surface-variant font-body text-sm">Component Sheet &amp; States</p>
+</header>
+<!-- State 1: Single Child + Add -->
+<section class="space-y-6">
+<h2 class="font-headline text-2xl text-on-surface">1. Single Child Linked</h2>
+<div class="bg-surface rounded-2xl p-8 border border-surface-container-highest shadow-sm flex items-center justify-center">
+<div class="w-full max-w-md flex items-center gap-4 py-2">
+<!-- Selected Chip -->
+<button class="flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-lime-500 shadow-lime-glow flex items-center justify-center text-custom-forest-900 font-bold text-sm">
+<img alt="Child 1" class="w-full h-full object-cover rounded-full" data-alt="Portrait of a young smiling child with short brown hair against a light background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4vXk-O9CuMt5YcHLMuz27kd_BkSoWglWcIceuWFmBXTHXX24avOJxH_JfrgoY_ZWu8RaC7eeaaubvfbatmNt980Mjt-pJow9xfdg7aqIqBvV_TFIAdTxxwpfd8GJ9jdUseyKxubPl9wEs2HJtSoj2FnFdeaiGr8qFh6EkAX1NiOoqP_5e3WLtwmILfzvft01Pr_Sm_bru46eBWXqpYDLbsMpUcMedheHLLe0ocm-_X0lmq6UsBYt3Cs6ohmvilwqO_GauvgyLGSU"/>
+</div>
+<span class="font-label text-[11px] font-semibold text-custom-forest-900 uppercase tracking-wide">LEO</span>
+</button>
+<!-- Add Button -->
+<button class="flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 border border-dashed border-outline-variant group-hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide opacity-80">ADD</span>
+</button>
+</div>
+</div>
+</section>
+<!-- State 2: 3 Children Linked -->
+<section class="space-y-6">
+<h2 class="font-headline text-2xl text-on-surface">2. Three Children Linked</h2>
+<div class="bg-surface rounded-2xl p-8 border border-surface-container-highest shadow-sm flex items-center justify-center">
+<div class="w-full max-w-md flex items-center gap-4 py-2">
+<!-- Unselected Chip -->
+<button class="flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 font-bold text-sm">
+<img alt="Child 1" class="w-full h-full object-cover rounded-full opacity-80 grayscale-[20%]" data-alt="Portrait of a young girl with braided hair smiling softly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbCQybu-mCdY9yXISY3-CJ15J2YEmUipnfd1grc55AfvWQvbUkQFNMh1JYogfKu9--0e7NjKY-kmN_yvGYJQA_-4CVNx1zl0WiSwfDeezEoxhdixCcrTh1TrwbvAEzTAhILAxFBGcq30rESmmL5uMgSQPNfpSqDBW0czhRI_i1YJuHWY38jHNfkgN0pM42Qedi_K0XRAffhmKY7fFDD6cMIA-ax1Bc7p9o1vCuapjvIf9NkvousH_JO-YnDI6s3-bxkqu4_okIBGE"/>
+</div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide">MIA</span>
+</button>
+<!-- Selected Chip -->
+<button class="flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-lime-500 shadow-lime-glow flex items-center justify-center text-custom-forest-900 font-bold text-sm">
+<img alt="Child 2" class="w-full h-full object-cover rounded-full" data-alt="Portrait of a young smiling child with short brown hair against a light background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmzA4dtN-3s0FzCJPdRDtUw2LEuH2gcHR4EB68JXHgl_uXnPLwvcot1m5st69efW1VClC0ALR4sE87blj-XE8nHvdV6L4XIsPJf50PBrpEjKlJ_CKlS0nhRdtmRdOLUS5HniYGFJuz_-YYgxNbQLdMnAnpEcdU7zVdeLLKWC-jIAWS9QYImP1x2Whg76OIAs9jb_lVzqH19BRvVFTywfW8fZdvzHoP2R5QWp7qxNQ7-zdSCLfZJFYX-87MRX27Xbm-S6fzjGzeKDM"/>
+</div>
+<span class="font-label text-[11px] font-semibold text-custom-forest-900 uppercase tracking-wide">LEO</span>
+</button>
+<!-- Unselected Chip (Initials) -->
+<button class="flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 font-bold text-sm">
+                            S
+                        </div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide">SAM</span>
+</button>
+<!-- Add Button -->
+<button class="flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 border border-dashed border-outline-variant group-hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide opacity-80">ADD</span>
+</button>
+</div>
+</div>
+</section>
+<!-- State 3: 5+ Children with Scroll -->
+<section class="space-y-6">
+<h2 class="font-headline text-2xl text-on-surface">3. Overflow (5+ Children)</h2>
+<div class="bg-surface rounded-2xl p-8 border border-surface-container-highest shadow-sm flex items-center justify-center">
+<!-- Container simulating device width -->
+<div class="w-full max-w-[320px] relative overflow-hidden bg-background">
+<!-- Scroll Area -->
+<div class="flex items-center gap-4 py-3 px-2 overflow-x-auto no-scrollbar snap-x snap-mandatory">
+<!-- Selected Chip -->
+<button class="flex-shrink-0 snap-start flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-lime-500 shadow-lime-glow flex items-center justify-center text-custom-forest-900 font-bold text-sm">
+                                M
+                            </div>
+<span class="font-label text-[11px] font-semibold text-custom-forest-900 uppercase tracking-wide">MIA</span>
+</button>
+<!-- Unselected Chips -->
+<button class="flex-shrink-0 snap-start flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 font-bold text-sm">
+<img alt="Child" class="w-full h-full object-cover rounded-full opacity-80 grayscale-[20%]" data-alt="Portrait of a young smiling child with short brown hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChjwBhhuMS5btvcRzV2X_6nIpeJJGGnW9ocrfqbVD2d-KB_iM5NTYdm4IbaehmU_X2mP-SwixXsnWXYgzcAV6DEsgUUhVnMGGLbyoC5-SrnO5fFKWesFDCwTBteBLVfYXssb7q9V8iXAt_R0FRRPf1S99l042kIxvLBHLQqb7sW4h9UI1USbwbRNBuatHWe1iKdWrnz8HHSrDTdvjqWnkfsCxX6qIzPuFF5Pt6Fpnl_qrpw_ufVjXnonH9xVScZrBt71M7umLs6JQ"/>
+</div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide">LEO</span>
+</button>
+<button class="flex-shrink-0 snap-start flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 font-bold text-sm">
+                                S
+                            </div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide">SAM</span>
+</button>
+<button class="flex-shrink-0 snap-start flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 font-bold text-sm">
+                                C
+                            </div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide">CHLOE</span>
+</button>
+<button class="flex-shrink-0 snap-start flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 font-bold text-sm">
+<img alt="Child" class="w-full h-full object-cover rounded-full opacity-80 grayscale-[20%]" data-alt="Portrait of a young girl with braided hair smiling softly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ9C0kxGPsKa8trDSw0yO4fr7IwMeiXAt7rtU0jBrY73ocmB5HU6L2_f3H4LEHcGmuw2wWJZg1aBeESn4KfIgjsMc7OcoGJ71Qo3aRk5kkDGQvWXd94Do75noxCnjoBBHhxCqaVmBcjgShPAhiA_mrBfRqELJmPcm0-LKK2F56s_2dAn9sIe-6XRJIaAU1uhVr-yKHwfXc7lIlFWZ2a6kcMf8f7LO_OhSy-Ds6ouqPEZOh8Zarb6i1tAuSXTyIm3if8x1Pg4ooRyo"/>
+</div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide">ZOEY</span>
+</button>
+<!-- Add Button -->
+<button class="flex-shrink-0 snap-start flex flex-col items-center gap-2 group transition-transform hover:scale-105 active:scale-95 pr-4">
+<div class="w-10 h-10 rounded-full bg-custom-stone-200 flex items-center justify-center text-custom-ink-600 border border-dashed border-outline-variant group-hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</div>
+<span class="font-label text-[11px] font-medium text-custom-ink-600 uppercase tracking-wide opacity-80">ADD</span>
+</button>
+</div>
+<!-- Scroll Shadow Right -->
+<div class="absolute top-0 right-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
+</div>
+</div>
+</section>
+</div>
+</body></html>

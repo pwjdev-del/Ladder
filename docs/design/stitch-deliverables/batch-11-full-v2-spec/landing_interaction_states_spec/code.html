@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Founder Trigger Animation Spec</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .font-headline { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Manrope', sans-serif; }
+        .font-label { font-family: 'Manrope', sans-serif; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f3fceb",
+                        "primary-fixed": "#caecc4",
+                        "on-primary-fixed": "#052108",
+                        "on-primary-fixed-variant": "#314d30",
+                        "on-primary-container": "#d0f2ca",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#151f00",
+                        "error-container": "#ffdad6",
+                        "secondary": "#4e6700",
+                        "tertiary-container": "#54704e",
+                        "tertiary-fixed-dim": "#b0cfa7",
+                        "on-secondary-fixed-variant": "#3a4d00",
+                        "surface-dim": "#d3ddcc",
+                        "inverse-surface": "#2a3327",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#d2f2c8",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#3d5738",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce6d4",
+                        "primary": "#3a5739",
+                        "on-surface": "#161e13",
+                        "surface": "#f3fceb",
+                        "inverse-on-surface": "#eaf4e2",
+                        "surface-bright": "#f3fceb",
+                        "surface-container-high": "#e2ebda",
+                        "on-background": "#161e13",
+                        "on-secondary-container": "#536d00",
+                        "surface-container-low": "#edf7e5",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c3c8be",
+                        "on-tertiary-fixed-variant": "#334d2e",
+                        "primary-container": "#527050",
+                        "secondary-fixed-dim": "#abd537",
+                        "surface-variant": "#dce6d4",
+                        "surface-container": "#e7f1df",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434841",
+                        "secondary-fixed": "#c6f252",
+                        "primary-fixed-dim": "#aecfa9",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ccebc1",
+                        "surface-tint": "#486646",
+                        "inverse-primary": "#aecfa9",
+                        "on-tertiary-fixed": "#072107",
+                        "secondary-container": "#c6f252",
+                        "outline": "#737970",
+                        "forest-900": "#3F5A3A",
+                        "forest-700": "#527050",
+                        "forest-500": "#6B8A67",
+                        "lime-500": "#A8D234",
+                        "lime-300": "#CCE68A",
+                        "cream-100": "#F5F0E5",
+                        "paper": "#FFFFFF",
+                        "stone-200": "#E8E2D8",
+                        "ink-900": "#1B1F1B",
+                        "ink-600": "#4A5346",
+                        "ink-400": "#8A9082"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Playfair Display", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-forest-700 min-h-screen flex items-center justify-center font-body p-8 antialiased">
+<div class="max-w-[1400px] w-full flex flex-col gap-12">
+<!-- Header -->
+<div class="text-center">
+<h1 class="font-headline text-paper text-4xl md:text-5xl font-bold tracking-tight mb-4">Founder Trigger Animation Spec</h1>
+<p class="text-surface-container-high text-lg max-w-2xl mx-auto">landing_v2_hold_states: 30-second press-and-hold sequence.</p>
+</div>
+<!-- Animation Frames Container -->
+<div class="bg-forest-900/40 rounded-[24pt] p-12 backdrop-blur-sm shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-surface-container-low/10">
+<div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-center justify-items-center relative">
+<!-- Connector Line Background (Desktop) -->
+<div class="hidden md:block absolute top-[60px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-forest-500/50 to-transparent z-0"></div>
+<!-- Frame 1: 0s -->
+<div class="flex flex-col items-center gap-6 relative z-10 w-full group">
+<div class="w-[120px] h-[120px] rounded-full bg-cream-100 flex items-center justify-center shadow-[0_4px_24px_rgba(0,0,0,0.08)] relative">
+<span class="material-symbols-outlined text-[64px] text-forest-700 transition-all duration-500" data-icon="hiking">hiking</span>
+</div>
+<div class="text-center">
+<div class="font-headline font-bold text-paper text-xl mb-1">Frame 1</div>
+<div class="font-label text-[11pt] font-semibold uppercase tracking-[10%] text-lime-300 mb-2">0s</div>
+<p class="text-surface-container-high text-sm">Idle state. Solid logo badge, no ring.</p>
+</div>
+</div>
+<!-- Frame 2: 5s -->
+<div class="flex flex-col items-center gap-6 relative z-10 w-full group">
+<div class="w-[120px] h-[120px] rounded-full bg-cream-100 flex items-center justify-center shadow-[0_4px_24px_rgba(0,0,0,0.08)] relative">
+<span class="material-symbols-outlined text-[64px] text-forest-700/85 transition-all duration-500" data-icon="hiking">hiking</span>
+</div>
+<div class="text-center">
+<div class="font-headline font-bold text-paper text-xl mb-1">Frame 2</div>
+<div class="font-label text-[11pt] font-semibold uppercase tracking-[10%] text-lime-300 mb-2">5s</div>
+<p class="text-surface-container-high text-sm">Climber desaturates ~15%.</p>
+</div>
+</div>
+<!-- Frame 3: 15s -->
+<div class="flex flex-col items-center gap-6 relative z-10 w-full group">
+<div class="w-[120px] h-[120px] rounded-full bg-cream-100 flex items-center justify-center shadow-[0_4px_24px_rgba(0,0,0,0.08)] relative">
+<!-- Simulated SVG Ring -->
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 120 120">
+<circle class="text-lime-500/5" cx="60" cy="60" fill="none" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="182.2" stroke-width="2"></circle>
+</svg>
+<span class="material-symbols-outlined text-[64px] text-forest-700/30 transition-all duration-500" data-icon="hiking">hiking</span>
+</div>
+<div class="text-center">
+<div class="font-headline font-bold text-paper text-xl mb-1">Frame 3</div>
+<div class="font-label text-[11pt] font-semibold uppercase tracking-[10%] text-lime-300 mb-2">15s</div>
+<p class="text-surface-container-high text-sm">Fully desaturated. 50% arc, 5% lime opacity.</p>
+</div>
+</div>
+<!-- Frame 4: 25s -->
+<div class="flex flex-col items-center gap-6 relative z-10 w-full group">
+<div class="w-[120px] h-[120px] rounded-full bg-cream-100 flex items-center justify-center shadow-[0_4px_24px_rgba(0,0,0,0.08)] relative">
+<!-- Simulated SVG Ring -->
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 120 120">
+<circle class="text-lime-500/40" cx="60" cy="60" fill="none" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="54.6" stroke-width="3"></circle>
+</svg>
+<span class="material-symbols-outlined text-[64px] text-forest-700/30 transition-all duration-500" data-icon="hiking">hiking</span>
+</div>
+<div class="text-center">
+<div class="font-headline font-bold text-paper text-xl mb-1">Frame 4</div>
+<div class="font-label text-[11pt] font-semibold uppercase tracking-[10%] text-lime-300 mb-2">25s</div>
+<p class="text-surface-container-high text-sm">85% arc, 40% lime opacity, 3pt width.</p>
+</div>
+</div>
+<!-- Frame 5: 30s -->
+<div class="flex flex-col items-center gap-6 relative z-10 w-full group">
+<div class="w-[120px] h-[120px] rounded-full bg-cream-100 flex items-center justify-center shadow-[0_0_24px_rgba(168,210,52,0.4)] relative">
+<!-- Simulated SVG Ring -->
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 120 120">
+<circle class="text-lime-500" cx="60" cy="60" fill="none" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="0" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-2 rounded-full bg-lime-300/20 blur-md"></div>
+<span class="material-symbols-outlined text-[64px] text-forest-700/30 transition-all duration-500 relative z-20" data-icon="hiking">hiking</span>
+</div>
+<div class="text-center">
+<div class="font-headline font-bold text-paper text-xl mb-1">Frame 5</div>
+<div class="font-label text-[11pt] font-semibold uppercase tracking-[10%] text-lime-500 mb-2">30s</div>
+<p class="text-surface-container-high text-sm">100% complete. Bright lime, inner glow flash.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Caption Strip -->
+<div class="bg-forest-900/60 rounded-[12pt] p-6 text-center shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-surface-container-low/5">
+<p class="font-body text-surface-container-high text-lg font-medium tracking-wide">
+                0s nothing · 5s desaturate · 15s soft haptic · 25s medium haptic · 30s success haptic → <span class="text-lime-500 font-semibold">founder login</span>
+</p>
+</div>
+</div>
+</body></html>

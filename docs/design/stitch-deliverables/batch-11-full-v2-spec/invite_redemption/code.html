@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Redeem Invite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Manrope:wght@200..800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f3fceb",
+                        "primary-fixed": "#caecc4",
+                        "on-primary-fixed": "#052108",
+                        "on-primary-fixed-variant": "#314d30",
+                        "on-primary-container": "#d0f2ca",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#151f00",
+                        "error-container": "#ffdad6",
+                        "secondary": "#4e6700",
+                        "tertiary-container": "#54704e",
+                        "tertiary-fixed-dim": "#b0cfa7",
+                        "on-secondary-fixed-variant": "#3a4d00",
+                        "surface-dim": "#d3ddcc",
+                        "inverse-surface": "#2a3327",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#d2f2c8",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#3d5738",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce6d4",
+                        "primary": "#3a5739",
+                        "on-surface": "#161e13",
+                        "surface": "#f3fceb",
+                        "inverse-on-surface": "#eaf4e2",
+                        "surface-bright": "#f3fceb",
+                        "surface-container-high": "#e2ebda",
+                        "on-background": "#161e13",
+                        "on-secondary-container": "#536d00",
+                        "surface-container-low": "#edf7e5",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c3c8be",
+                        "on-tertiary-fixed-variant": "#334d2e",
+                        "primary-container": "#527050",
+                        "secondary-fixed-dim": "#abd537",
+                        "surface-variant": "#dce6d4",
+                        "surface-container": "#e7f1df",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434841",
+                        "secondary-fixed": "#c6f252",
+                        "primary-fixed-dim": "#aecfa9",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ccebc1",
+                        "surface-tint": "#486646",
+                        "inverse-primary": "#aecfa9",
+                        "on-tertiary-fixed": "#072107",
+                        "secondary-container": "#c6f252",
+                        "outline": "#737970",
+                        "forest-900": "#3F5A3A",
+                        "forest-700": "#527050",
+                        "forest-500": "#6B8A67",
+                        "lime-500": "#A8D234",
+                        "lime-300": "#CCE68A",
+                        "cream-100": "#F5F0E5",
+                        "paper": "#FFFFFF",
+                        "stone-200": "#E8E2D8",
+                        "ink-900": "#1B1F1B",
+                        "ink-600": "#4A5346",
+                        "ink-400": "#8A9082"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Playfair Display", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen flex flex-col font-body text-on-surface antialiased">
+<!-- TopAppBar Header Strip (Forest-700) -->
+<header class="bg-forest-700 w-full h-16 flex items-center px-6 shadow-[0_4px_20px_rgba(0,0,0,0.08)] z-10 sticky top-0 shrink-0">
+<div class="flex items-center gap-3">
+<span class="font-headline text-2xl font-bold italic text-paper">Ladder</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex items-center justify-center p-4 md:p-8 bg-gradient-to-br from-background to-surface-container-low">
+<!-- Redemption Card -->
+<div class="w-full max-w-md bg-paper rounded-[24px] shadow-[0_12px_32px_rgba(0,0,0,0.04)] p-8 relative overflow-hidden border border-outline-variant/15">
+<!-- Default State: Redeem Form -->
+<div class="flex flex-col gap-8">
+<div class="text-center">
+<h1 class="font-headline text-3xl font-semibold tracking-[-0.02em] text-ink-900 mb-2">Join Your School</h1>
+<p class="font-body text-base text-ink-600">Enter your details to redeem your invitation.</p>
+</div>
+<!-- Error Band (Hidden by default, displayed for dev reference) -->
+<!-- <div class="bg-[#FFF4E5] border border-[#FFDDAA] rounded-xl p-4 flex gap-3 items-start">
+                    <span class="material-symbols-outlined text-[#B36B00] shrink-0 mt-0.5" data-weight="fill" data-icon="error">error</span>
+                    <p class="font-body text-sm text-[#804D00] leading-tight">We couldn't use that code. Ask your counselor to issue a new one.</p>
+                </div> -->
+<form class="flex flex-col gap-5">
+<!-- Code Prefix Row -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label text-[11pt] font-semibold uppercase tracking-[0.1em] text-ink-600" for="invite-code">Invite Code</label>
+<div class="flex items-center gap-2 w-full p-4 rounded-xl bg-stone-200 border border-outline-variant/20 focus-within:ring-2 focus-within:ring-lime-300 focus-within:border-transparent transition-all">
+<span class="font-body text-ink-900 font-medium whitespace-nowrap">LDR-X</span>
+<input aria-label="Invite Code" class="bg-transparent border-none w-full text-ink-900 font-body placeholder-ink-400 focus:ring-0 p-0 text-lg tracking-widest" id="invite-code" name="invite-code" placeholder="••••••••" type="text"/>
+</div>
+</div>
+<!-- Email Field -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label text-[11pt] font-semibold uppercase tracking-[0.1em] text-ink-600" for="school-email">Your school email</label>
+<input class="w-full p-4 rounded-xl bg-stone-200 border border-outline-variant/20 focus:ring-2 focus:ring-lime-300 focus:border-transparent font-body text-ink-900 placeholder-ink-400 transition-all" id="school-email" name="school-email" placeholder="student@lakewood.edu" type="email"/>
+</div>
+<!-- Submit Button -->
+<button class="mt-4 w-full bg-lime-500 text-ink-900 font-body font-semibold text-lg py-4 px-6 rounded-full hover:bg-lime-300 hover:shadow-[0_0_0_4px_rgba(204,230,138,0.4)] transition-all flex items-center justify-center gap-2" type="button">
+<span>Join</span>
+<span class="material-symbols-outlined text-xl" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<p class="text-center font-body text-sm text-ink-400 mt-2">
+                    Need help? <a class="text-forest-700 font-semibold hover:text-forest-900 transition-colors underline decoration-forest-700/30 underline-offset-4" href="#">Contact your counselor</a>
+</p>
+</div>
+<!-- Success State (Hidden by default, for dev reference) -->
+<!--
+            <div class="absolute inset-0 bg-paper z-10 flex flex-col items-center justify-center p-8 text-center">
+                <div class="w-24 h-24 mb-6 rounded-full bg-surface-container-low flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Confetti illustration" data-alt="vibrant abstract confetti explosion with soft pastel colors on a light background, organic shapes, joyful mood" class="w-full h-full object-cover rounded-full mix-blend-multiply opacity-80" />
+                </div>
+                <h2 class="font-headline text-3xl font-bold tracking-[-0.02em] text-ink-900 mb-3">Welcome to Lakewood Ranch!</h2>
+                <p class="font-body text-base text-ink-600 mb-8">Your account has been successfully linked.</p>
+                <button type="button" class="w-full bg-lime-500 text-ink-900 font-body font-semibold text-lg py-4 px-6 rounded-full hover:bg-lime-300 hover:shadow-[0_0_0_4px_rgba(204,230,138,0.4)] transition-all">
+                    Continue to Dashboard
+                </button>
+            </div>
+            -->
+</div>
+</main>
+</body></html>

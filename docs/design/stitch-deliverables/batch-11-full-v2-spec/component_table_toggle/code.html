@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Founder Backdoor - Data Dense Table &amp; Feature Flags</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#fff8f2",
+                        "on-secondary-fixed": "#161e00",
+                        "on-surface": "#1f1b15",
+                        "surface-container": "#f5ede2",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#eae1d7",
+                        "outline": "#737970",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#725232",
+                        "inverse-primary": "#aed0a7",
+                        "surface-container-high": "#efe7dd",
+                        "on-secondary-container": "#566c00",
+                        "on-tertiary-container": "#fff5ee",
+                        "secondary": "#516600",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "secondary-container": "#caf24d",
+                        "on-primary-fixed": "#052107",
+                        "surface-tint": "#486644",
+                        "primary-container": "#5a7956",
+                        "outline-variant": "#c3c8be",
+                        "inverse-on-surface": "#f8efe5",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#fbf2e8",
+                        "on-primary-container": "#e2ffda",
+                        "primary-fixed-dim": "#aed0a7",
+                        "primary-fixed": "#c9ecc2",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#8d6a48",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-dim": "#e1d9cf",
+                        "surface-bright": "#fff8f2",
+                        "secondary-fixed": "#caf24d",
+                        "on-background": "#1f1b15",
+                        "surface-container-highest": "#eae1d7",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "inverse-surface": "#343029",
+                        "on-surface-variant": "#434840",
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f2",
+                        "primary": "#42603f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen antialiased selection:bg-secondary-container selection:text-on-secondary-container flex flex-col md:flex-row">
+<!-- TopAppBar (Web & Mobile, hidden on md for side nav layout) -->
+<header class="md:hidden flex justify-between items-center w-full px-6 py-4 max-w-full bg-[#061e13] text-[#caf24d] font-['Noto_Serif'] font-bold tracking-tight uppercase text-xs docked full-width top-0 tonal-shift bg-[#0a2a1b] shadow-[0_40px_60px_-15px_rgba(0,0,0,0.3)] z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-xl" data-icon="terminal">terminal</span>
+<span class="font-['Noto_Serif'] text-[#caf24d] text-xl font-black uppercase tracking-widest">Founder Backdoor</span>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-[#caf24d]">
+<img alt="Founder Avatar" class="w-full h-full object-cover" data-alt="professional headshot of a person looking forward against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5aW9j1uva64qKculIhkFn6D2yPpPZcP0P7Pcza3FqASeYdOaiZ22XjEgIneAuomtfsH2BtuE6fG-CELnAHp52qQqmgPYWE14qlicowafRmB0Vl6ijQ8S01PU4iO0kDpw3doaCaF6Gn9n7PQc88Jg4cV3m2G-7-tY0LEBoBtLxsQ88prfBk_xasvuEJHTI-QoSk9gTljeaRpWeK9hqdbXN9G2sz_UYyRm6_Am0yhhVPOQDNxecY-bVIPY972yoYhnkGitlm2cbGVA"/>
+</div>
+</header>
+<!-- NavigationDrawer (Web) -->
+<nav class="hidden md:flex flex-col w-72 h-screen sticky left-0 top-0 z-40 bg-[#061e13] text-[#caf24d] font-['Manrope'] font-medium uppercase tracking-widest text-[10px] rounded-r-3xl border-r border-[#1a3a2a] tonal-layering using bg-[#0a2a1b] flat no shadows">
+<div class="p-6 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#caf24d]">
+<img alt="Founder Profile" class="w-full h-full object-cover" data-alt="professional headshot of a person looking forward against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD_iPoe1uQIe7Vre9dmttNWqbCkfWPiyGPCQJ-5Z0FZKHsxznDWeq4JMkMD8c58wdZHzB8u4ie0u-3-6PikppdKRy7SoO3cEYr8XQHo2QbWkSFtd4k6_CAUckVvf3FyXLW3goMqAYPVQ-qknDqfclxnW9iwEG-Ve9QZy810f7BkhMHZoh1YYSgzNxDILPoZEl-nyCqGbXUue2Nq-fCa4OLJl8EMpi0LOwlwcYM0gq0Q8SFI_-xOAmcGrtiB6LXc94ToPuG0Xj80p4"/>
+</div>
+<div>
+<h2 class="font-['Noto_Serif'] text-lg text-[#caf24d] font-bold tracking-tight capitalize">Admin Console</h2>
+<p class="text-[#5A7956] text-[10px]">Environment: Production</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-2">
+<!-- Active: Feature Flags -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>People List</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#0a2a1b] text-[#caf24d] rounded-xl mx-2 font-bold transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="flag" style="font-variation-settings: 'FILL' 1;">flag</span>
+<span>Feature Flags</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Dependency Panel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="theater_comedy">theater_comedy</span>
+<span>Impersonation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] transition-all duration-200 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_month">calendar_view_month</span>
+<span>Schedules</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-w-0 p-6 md:p-12 pb-32 md:pb-12 gap-12 overflow-x-hidden">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-outline-variant/30 pb-6">
+<div class="flex flex-col gap-2">
+<h1 class="font-headline text-4xl md:text-5xl font-black tracking-tight text-on-surface">Feature Flags</h1>
+<p class="text-on-surface-variant font-medium text-sm max-w-2xl">Manage global system toggles, release candidates, and experimental modules across all active environments. High-density view active.</p>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<div class="relative w-full md:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-b border-outline-variant/40 focus:border-primary border-t-0 border-l-0 border-r-0 rounded-t-lg pl-10 pr-4 py-2 text-sm text-on-surface focus:ring-0 transition-colors" placeholder="Search flags..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary rounded-xl px-4 py-2 text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary-container transition-colors flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span> New Flag
+                </button>
+</div>
+</header>
+<!-- Feature Flag Toggles & High Density Table -->
+<section class="flex flex-col gap-6">
+<!-- Contextual Banner for Blocked State -->
+<div class="bg-surface-container-highest border-l-4 border-error p-4 rounded-r-lg flex items-start gap-4">
+<span class="material-symbols-outlined text-error mt-0.5" data-icon="warning">warning</span>
+<div>
+<h3 class="text-error font-bold text-sm">System Warning: Varun Block</h3>
+<p class="text-on-surface-variant text-xs mt-1">One or more feature flags are currently blocked by a hard-coded dependency in the legacy routing table. Contact Varun or engineering lead to resolve before attempting toggle.</p>
+</div>
+</div>
+<!-- Table Container - Asymmetric layout, no strict outer border -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm tonal-layering">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container border-b border-surface-variant/50">
+<th class="sticky left-0 bg-surface-container z-10 px-6 py-4 font-headline text-xs font-bold uppercase tracking-widest text-on-surface border-r border-surface-variant/30 min-w-[200px]">Flag Key</th>
+<th class="px-6 py-4 font-headline text-xs font-bold uppercase tracking-widest text-on-surface cursor-pointer hover:bg-surface-container-highest transition-colors group">
+<div class="flex items-center gap-2">Environment <span class="material-symbols-outlined text-[14px] text-outline-variant group-hover:text-primary" data-icon="arrow_upward">arrow_upward</span></div>
+</th>
+<th class="px-6 py-4 font-headline text-xs font-bold uppercase tracking-widest text-on-surface">Target Users</th>
+<th class="px-6 py-4 font-headline text-xs font-bold uppercase tracking-widest text-on-surface">Status</th>
+<th class="px-6 py-4 font-headline text-xs font-bold uppercase tracking-widest text-on-surface text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body text-sm divide-y divide-surface-variant/30">
+<!-- Row 1: ON State -->
+<tr class="hover:bg-surface-container/50 transition-colors h-[44px]">
+<td class="sticky left-0 bg-surface-container-low z-10 px-6 py-2 font-medium text-on-surface border-r border-surface-variant/30 whitespace-nowrap">enable_new_dashboard</td>
+<td class="px-6 py-2 text-on-surface-variant whitespace-nowrap">Production</td>
+<td class="px-6 py-2 text-on-surface-variant">100% Rollout</td>
+<td class="px-6 py-2">
+<!-- Toggle ON -->
+<div class="flex items-center gap-3">
+<div class="relative w-12 h-6 rounded-full bg-secondary-container transition-colors cursor-pointer shadow-inner flex items-center px-1">
+<div class="w-4 h-4 rounded-full bg-on-secondary-fixed shadow-sm transform translate-x-6 transition-transform"></div>
+</div>
+<span class="text-xs font-bold text-secondary tracking-widest uppercase">Active</span>
+</div>
+</td>
+<td class="px-6 py-2 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: OFF State -->
+<tr class="hover:bg-surface-container/50 transition-colors h-[44px]">
+<td class="sticky left-0 bg-surface-container-low z-10 px-6 py-2 font-medium text-on-surface border-r border-surface-variant/30 whitespace-nowrap">beta_payments_v2</td>
+<td class="px-6 py-2 text-on-surface-variant whitespace-nowrap">Staging</td>
+<td class="px-6 py-2 text-on-surface-variant">Internal Devs</td>
+<td class="px-6 py-2">
+<!-- Toggle OFF -->
+<div class="flex items-center gap-3">
+<div class="relative w-12 h-6 rounded-full bg-surface-container-highest transition-colors cursor-pointer shadow-inner flex items-center px-1 border border-outline-variant/30">
+<div class="w-4 h-4 rounded-full bg-outline shadow-sm transform translate-x-0 transition-transform"></div>
+</div>
+<span class="text-xs font-bold text-outline tracking-widest uppercase">Inactive</span>
+</div>
+</td>
+<td class="px-6 py-2 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: BLOCKED State -->
+<tr class="bg-error-container/20 hover:bg-error-container/30 transition-colors min-h-[44px]">
+<td class="sticky left-0 bg-surface-container-low z-10 px-6 py-4 font-medium text-error border-r border-error/20 whitespace-nowrap align-top">legacy_auth_deprecation</td>
+<td class="px-6 py-4 text-on-surface-variant whitespace-nowrap align-top">Production</td>
+<td class="px-6 py-4 text-on-surface-variant align-top">0% (Paused)</td>
+<td class="px-6 py-4">
+<!-- Toggle BLOCKED -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 opacity-50 cursor-not-allowed">
+<div class="relative w-12 h-6 rounded-full bg-surface-container-highest transition-colors shadow-inner flex items-center px-1 border-2 border-error border-dashed">
+<div class="w-4 h-4 rounded-full bg-error shadow-sm transform translate-x-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-error" data-icon="lock">lock</span>
+</div>
+</div>
+<span class="text-xs font-bold text-error tracking-widest uppercase">Blocked</span>
+</div>
+<!-- Inline Fix Panel -->
+<div class="bg-surface-container-lowest border border-error/30 rounded-lg p-3 mt-2 flex flex-col gap-2 shadow-sm max-w-xs">
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined text-[16px]" data-icon="engineering">engineering</span>
+<span class="text-xs font-bold uppercase tracking-wider">Blocked by Varun</span>
+</div>
+<p class="text-[10px] text-on-surface-variant leading-tight">Hardcoded reference found in <code>router.js:412</code>. Requires manual PR approval.</p>
+<button class="text-[10px] font-bold text-primary underline decoration-primary/50 underline-offset-2 self-start hover:text-primary-container">Request Override</button>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right align-top">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: OFF State -->
+<tr class="hover:bg-surface-container/50 transition-colors h-[44px]">
+<td class="sticky left-0 bg-surface-container-low z-10 px-6 py-2 font-medium text-on-surface border-r border-surface-variant/30 whitespace-nowrap">ai_recommendations_engine</td>
+<td class="px-6 py-2 text-on-surface-variant whitespace-nowrap">Development</td>
+<td class="px-6 py-2 text-on-surface-variant">QA Team</td>
+<td class="px-6 py-2">
+<div class="flex items-center gap-3">
+<div class="relative w-12 h-6 rounded-full bg-surface-container-highest transition-colors cursor-pointer shadow-inner flex items-center px-1 border border-outline-variant/30">
+<div class="w-4 h-4 rounded-full bg-outline shadow-sm transform translate-x-0 transition-transform"></div>
+</div>
+<span class="text-xs font-bold text-outline tracking-widest uppercase">Inactive</span>
+</div>
+</td>
+<td class="px-6 py-2 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="flex justify-between items-center text-xs text-on-surface-variant px-2">
+<span>Showing 4 of 124 flags</span>
+<div class="flex gap-4">
+<button class="hover:text-primary font-medium">Previous</button>
+<button class="hover:text-primary font-medium">Next</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-[24px] bg-[#061e13]/80 backdrop-blur-xl font-['Manrope'] text-[9px] uppercase font-bold no-line tonal shift shadow-2xl shadow-black fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe">
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard_customize">dashboard_customize</span>
+<span>Console</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span>Logs</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Metrics</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span>Security</span>
+</a>
+</nav>
+</body></html>

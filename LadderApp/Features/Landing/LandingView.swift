@@ -1,17 +1,16 @@
 import SwiftUI
 
 // CLAUDE.md §3 — unauthenticated landing.
-// Three affordances + hidden founder trigger (press-and-hold logo ≥ 30s).
-// Feedback model (Phase 4 design review):
-//   0–5s    nothing
-//   5s      logo desaturates ~10%
-//   15s     soft haptic + faint ring 5%
-//   25s     medium haptic + ring 50%
-//   30s     success haptic + ring 100% → push to FounderLogin
+// Visual source of truth: `docs/design/stitch-deliverables/batch-11-full-v2-spec/landing_page_v2/`
+// Three affordances + hidden 30s logo-hold founder trigger.
+// Feedback states (§3.2 spec in landing_interaction_states_spec):
+//   0s idle · 5s desaturate · 15s soft haptic + faint ring · 25s medium + bright ring · 30s success + full ring → FounderLogin
 
 public struct LandingView: View {
-    @State private var holdProgress: Double = 0   // 0 ... 1 over 30s
+    @State private var holdProgress: Double = 0
     @State private var isHolding = false
+    @State private var holdStartedAt: Date?
+
     @State private var goFounderLogin = false
     @State private var goB2CLogin = false
     @State private var goSchoolPicker = false
@@ -19,67 +18,26 @@ public struct LandingView: View {
     @State private var goSchoolPartnerForm = false
 
     private let holdTarget: TimeInterval = 30
-    @State private var holdStartedAt: Date?
 
     public init() {}
 
     public var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                Spacer(minLength: 60)
+            ZStack {
+                LadderBrand.forest700.ignoresSafeArea()
 
-                // Logo — the hidden 30s founder trigger.
-                LogoHoldView(progress: holdProgress, isHolding: isHolding)
-                    .frame(width: 120, height: 120)
-                    .padding(.bottom, 24)
-                    .gesture(logoHoldGesture)
-                    .accessibilityLabel("Ladder")
-                    .accessibilityHint("Double-tap for logo")
-
-                Text("Every kid needs a ladder to success.")
-                    .font(.headline)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 32)
-                    .padding(.bottom, 48)
-
-                VStack(spacing: 16) {
-                    Button {
-                        goB2CLogin = true
-                    } label: {
-                        Text("Log in with your ID")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.accentColor)
-                            .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-
-                    Button {
-                        goSchoolPicker = true
-                    } label: {
-                        Text("Sign in through your school")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor, lineWidth: 1))
-                    }
-
-                    HStack(spacing: 12) {
-                        Button("Sign up as a student") { goB2CSignup = true }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.secondary.opacity(0.1))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-
-                        Button("Partner as a school") { goSchoolPartnerForm = true }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.secondary.opacity(0.1))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
+                VStack(spacing: 0) {
+                    Spacer()
+                    logoBadge
+                        .padding(.bottom, 32)
+                    slogan
+                    Spacer()
+                    ctaStack
+                    footerIcons
+                        .padding(.top, 24)
+                        .padding(.bottom, 8)
                 }
                 .padding(.horizontal, 24)
-
-                Spacer()
             }
             .navigationDestination(isPresented: $goFounderLogin) { FounderLoginView() }
             .navigationDestination(isPresented: $goB2CLogin) { B2CLoginView() }
@@ -87,11 +45,145 @@ public struct LandingView: View {
             .navigationDestination(isPresented: $goB2CSignup) { B2CSignupView() }
             .navigationDestination(isPresented: $goSchoolPartnerForm) { SchoolPartnerInquiryView() }
         }
+        .tint(LadderBrand.cream100)
     }
 
-    private var logoHoldGesture: some Gesture {
-        LongPressGesture(minimumDuration: holdTarget)
-            .sequenced(before: DragGesture(minimumDistance: 0))
+    // MARK: - Logo (hidden 30s founder trigger)
+
+    private var logoBadge: some View {
+        ZStack {
+            Circle()
+                .fill(LadderBrand.cream100)
+                .frame(width: 120, height: 120)
+                .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 8)
+
+            Image(systemName: "figure.walk")
+                .font(.system(size: 56, weight: .semibold))
+                .foregroundStyle(climberColor)
+                .scaleEffect(holdProgress >= 1 ? 1.02 : 1.0)
+                .animation(.easeOut(duration: 0.12), value: holdProgress >= 1)
+
+            Circle()
+                .trim(from: 0, to: holdProgress)
+                .stroke(
+                    LadderBrand.lime500.opacity(ringOpacity),
+                    style: StrokeStyle(lineWidth: ringWidth, lineCap: .round)
+                )
+                .frame(width: 126, height: 126)
+                .rotationEffect(.degrees(-90))
+                .animation(.linear(duration: 0.05), value: holdProgress)
+        }
+        .gesture(holdGesture)
+        .accessibilityLabel("Ladder")
+        .accessibilityHint("Press and hold for founder access")
+    }
+
+    /// Climber desaturates ~15% starting at 5s.
+    private var climberColor: Color {
+        guard let start = holdStartedAt else { return LadderBrand.forest700 }
+        let elapsed = Date().timeIntervalSince(start)
+        if elapsed < 5 { return LadderBrand.forest700 }
+        let mix = min((elapsed - 5) / 10, 1.0) * 0.85
+        return LadderBrand.forest700.opacity(1.0 - mix * 0.15)
+    }
+
+    private var ringOpacity: Double {
+        if holdProgress <= 0 { return 0 }
+        if holdProgress < 0.5 { return 0.05 }
+        if holdProgress < 0.83 { return 0.4 }
+        return 1.0
+    }
+
+    private var ringWidth: CGFloat {
+        if holdProgress < 0.5 { return 2 }
+        if holdProgress < 0.83 { return 3 }
+        return 3.5
+    }
+
+    // MARK: - Slogan
+
+    private var slogan: some View {
+        Text("Every kid needs a ladder to success.")
+            .font(.custom("PlayfairDisplay-SemiBold", size: 32, relativeTo: .largeTitle))
+            .foregroundStyle(LadderBrand.cream100)
+            .tracking(-0.64)
+            .lineSpacing(4)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: 280)
+            .dynamicTypeSize(...DynamicTypeSize.accessibility3)
+    }
+
+    // MARK: - CTA stack
+
+    private var ctaStack: some View {
+        VStack(spacing: 16) {
+            Button(action: { goB2CLogin = true }) {
+                Text("Log in with your ID")
+                    .font(.custom("Manrope-SemiBold", size: 16, relativeTo: .body))
+                    .foregroundStyle(LadderBrand.ink900)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .background(LadderBrand.lime500)
+                    .clipShape(Capsule())
+            }
+
+            Button(action: { goSchoolPicker = true }) {
+                Text("Sign in through your school")
+                    .font(.custom("Manrope-SemiBold", size: 16, relativeTo: .body))
+                    .foregroundStyle(LadderBrand.cream100)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .background(Color.clear)
+                    .overlay(
+                        Capsule().stroke(LadderBrand.cream100.opacity(0.15), lineWidth: 1)
+                    )
+                    .clipShape(Capsule())
+            }
+
+            HStack(spacing: 16) {
+                Button(action: { goB2CSignup = true }) {
+                    Text("Sign up as a student")
+                        .font(.custom("Manrope-SemiBold", size: 14, relativeTo: .callout))
+                        .foregroundStyle(LadderBrand.forest700)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(LadderBrand.stone200)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .shadow(color: Color.black.opacity(0.05), radius: 3, y: 1)
+                }
+
+                Button(action: { goSchoolPartnerForm = true }) {
+                    Text("Partner as a school")
+                        .font(.custom("Manrope-SemiBold", size: 14, relativeTo: .callout))
+                        .foregroundStyle(LadderBrand.forest700)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(LadderBrand.stone200)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .shadow(color: Color.black.opacity(0.05), radius: 3, y: 1)
+                }
+            }
+            .padding(.top, 8)
+        }
+    }
+
+    // MARK: - Footer icons (40% opacity per Stitch)
+
+    private var footerIcons: some View {
+        HStack(spacing: 24) {
+            Image(systemName: "rosette")
+            Image(systemName: "graduationcap.fill")
+            Image(systemName: "face.smiling")
+            Image(systemName: "stairs")
+        }
+        .font(.system(size: 22, weight: .regular))
+        .foregroundStyle(LadderBrand.cream100.opacity(0.4))
+    }
+
+    // MARK: - 30s hold gesture
+
+    private var holdGesture: some Gesture {
+        DragGesture(minimumDistance: 0)
             .onChanged { _ in
                 if !isHolding {
                     isHolding = true
@@ -101,25 +193,23 @@ public struct LandingView: View {
             }
             .onEnded { _ in
                 isHolding = false
-                if holdProgress >= 1.0 {
-                    fireFounderTrigger()
-                }
+                if holdProgress >= 1.0 { fireFounderTrigger() }
                 resetHold()
             }
     }
 
     private func startProgressTimer() {
         Task { @MainActor in
+            var lastMilestone = 0
             while isHolding {
-                try? await Task.sleep(nanoseconds: 50_000_000) // 50ms tick
+                try? await Task.sleep(nanoseconds: 50_000_000)
                 guard let start = holdStartedAt else { break }
                 let elapsed = Date().timeIntervalSince(start)
                 let newProgress = min(elapsed / holdTarget, 1.0)
                 holdProgress = newProgress
 
-                // Haptic + visual milestones per Phase 4 design review
-                if elapsed >= 15, elapsed < 15.1 { softHaptic() }
-                if elapsed >= 25, elapsed < 25.1 { mediumHaptic() }
+                if elapsed >= 15 && lastMilestone < 15 { softHaptic(); lastMilestone = 15 }
+                if elapsed >= 25 && lastMilestone < 25 { mediumHaptic(); lastMilestone = 25 }
                 if newProgress >= 1.0 { break }
             }
         }
@@ -127,9 +217,7 @@ public struct LandingView: View {
 
     private func resetHold() {
         Task { @MainActor in
-            withAnimation(.easeOut(duration: 0.4)) {
-                holdProgress = 0
-            }
+            withAnimation(.easeOut(duration: 0.4)) { holdProgress = 0 }
             holdStartedAt = nil
         }
     }
@@ -140,41 +228,12 @@ public struct LandingView: View {
     }
 
     #if canImport(UIKit)
-    private func softHaptic() {
-        let g = UIImpactFeedbackGenerator(style: .soft); g.impactOccurred()
-    }
-    private func mediumHaptic() {
-        let g = UIImpactFeedbackGenerator(style: .medium); g.impactOccurred()
-    }
-    private func successHaptic() {
-        let g = UINotificationFeedbackGenerator(); g.notificationOccurred(.success)
-    }
+    private func softHaptic()    { UIImpactFeedbackGenerator(style: .soft).impactOccurred() }
+    private func mediumHaptic()  { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
+    private func successHaptic() { UINotificationFeedbackGenerator().notificationOccurred(.success) }
     #else
     private func softHaptic() {}
     private func mediumHaptic() {}
     private func successHaptic() {}
     #endif
-}
-
-private struct LogoHoldView: View {
-    let progress: Double
-    let isHolding: Bool
-
-    var body: some View {
-        ZStack {
-            // Logo fills when idle; desaturates with hold
-            Image(systemName: "figure.stairs")
-                .resizable()
-                .scaledToFit()
-                .foregroundStyle(isHolding ? Color.accentColor.opacity(0.85 - progress * 0.2) : Color.accentColor)
-                .padding(16)
-
-            // Invisible until ~15s, then grows
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(Color.accentColor.opacity(progress > 0.45 ? 0.4 : 0.05), lineWidth: 3)
-                .rotationEffect(.degrees(-90))
-                .animation(.linear(duration: 0.05), value: progress)
-        }
-    }
 }

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Founder Backdoor - Feature Flags</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#fff8f2",
+                      "on-secondary-fixed": "#161e00",
+                      "on-surface": "#1f1b15",
+                      "surface-container": "#f5ede2",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#eae1d7",
+                      "outline": "#737970",
+                      "tertiary-fixed-dim": "#e9bf96",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "tertiary": "#725232",
+                      "inverse-primary": "#aed0a7",
+                      "surface-container-high": "#efe7dd",
+                      "on-secondary-container": "#566c00",
+                      "on-tertiary-container": "#fff5ee",
+                      "secondary": "#516600",
+                      "on-primary-fixed-variant": "#304e2e",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#afd531",
+                      "secondary-container": "#caf24d",
+                      "on-primary-fixed": "#052107",
+                      "surface-tint": "#486644",
+                      "primary-container": "#5a7956",
+                      "outline-variant": "#c3c8be",
+                      "inverse-on-surface": "#f8efe5",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#fbf2e8",
+                      "on-primary-container": "#e2ffda",
+                      "primary-fixed-dim": "#aed0a7",
+                      "primary-fixed": "#c9ecc2",
+                      "on-tertiary-fixed-variant": "#5e4122",
+                      "tertiary-fixed": "#ffdcbd",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#8d6a48",
+                      "on-tertiary-fixed": "#2c1600",
+                      "surface-dim": "#e1d9cf",
+                      "surface-bright": "#fff8f2",
+                      "secondary-fixed": "#caf24d",
+                      "on-background": "#1f1b15",
+                      "surface-container-highest": "#eae1d7",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "inverse-surface": "#343029",
+                      "on-surface-variant": "#434840",
+                      "on-error-container": "#93000a",
+                      "surface": "#fff8f2",
+                      "primary": "#42603f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Noto Serif"
+                      ],
+                      "body": [
+                              "Manrope"
+                      ],
+                      "label": [
+                              "Manrope"
+                      ],
+                      "mono": [
+                              "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- NavigationDrawer (Hidden on md-down) -->
+<nav class="hidden md:flex flex-col w-72 h-screen fixed left-0 top-0 z-40 bg-[#061e13] border-r border-[#1a3a2a] rounded-r-3xl transition-all duration-200 ease-in-out">
+<div class="p-6">
+<h1 class="font-['Noto_Serif'] text-lg text-[#caf24d] font-black tracking-widest uppercase mb-8">Founder Backdoor</h1>
+<div class="flex items-center gap-4 mb-8">
+<img alt="Founder Profile" class="w-12 h-12 rounded-full object-cover border-2 border-[#1a3a2a]" data-alt="Close up portrait of a middle aged man with a slight smile, dramatic lighting, sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRX37rmKaTXmh0K299KeWyMynmTUvqEX7plsdr_QD1rjDCT7X34Tcy_evPuxR9jAmllSd2dkwFDk9jJJ4QNNXsdWlLNm3zVhA0yY6Djoz4pPjI275S0zbGhj_ke_x6jiDN8P6hPMcknwdsec0QuZh3xmu88FD6yuswB006xECXzI5Cpw45PWCvGy8HC7bOnJJ3EWApdYvcEbB91PdWseDxZjAda6k0snd0GgFCso49HGGmQQ1CLvajM7IUMIyRbys1lZImmyO6gJ8"/>
+<div>
+<h2 class="text-[#caf24d] font-bold text-sm font-body">Admin Console</h2>
+<p class="text-[#5A7956] text-xs font-body">Environment: Production</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-2 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] rounded-xl transition-colors font-['Manrope'] font-medium uppercase tracking-widest text-[10px]" href="#">
+<span class="material-symbols-outlined">group</span>
+                People List
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#0a2a1b] text-[#caf24d] rounded-xl mx-2 font-bold font-['Manrope'] font-medium uppercase tracking-widest text-[10px]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">flag</span>
+                Feature Flags
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] rounded-xl transition-colors font-['Manrope'] font-medium uppercase tracking-widest text-[10px]" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+                Dependency Panel
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] rounded-xl transition-colors font-['Manrope'] font-medium uppercase tracking-widest text-[10px]" href="#">
+<span class="material-symbols-outlined">theater_comedy</span>
+                Impersonation
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#5A7956] opacity-60 mx-2 hover:bg-[#0a2a1b]/50 hover:text-[#caf24d] rounded-xl transition-colors font-['Manrope'] font-medium uppercase tracking-widest text-[10px]" href="#">
+<span class="material-symbols-outlined">calendar_view_month</span>
+                Schedules
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-72 flex flex-col min-h-screen">
+<!-- TopAppBar (Hidden on md-up) -->
+<header class="md:hidden flex justify-between items-center w-full px-6 py-4 max-w-full bg-[#061e13] dark:bg-[#061e13] tonal-shift shadow-[0_40px_60px_-15px_rgba(0,0,0,0.3)] docked top-0 z-30">
+<div class="flex items-center gap-3 text-[#caf24d]">
+<span class="material-symbols-outlined text-2xl">terminal</span>
+<span class="font-['Noto_Serif'] font-bold tracking-tight uppercase text-xs">Founder Backdoor</span>
+</div>
+<img alt="Founder Avatar" class="w-8 h-8 rounded-full border border-[#1a3a2a]" data-alt="Close up portrait of a middle aged man with a slight smile, dramatic lighting, sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG_cuhqanss37LuqaUl4cIkNPO_FlJu44ibXxWJoVqTq_YpN3v3gzTcxP565kpyWI6hrvFvNDm5ZgJM9z95vmpgemI5MBaPd7shrMuAh95G3vSV0YMWqhdO2J2yCewcvXfPGIOvU4PAPA8XLs_73igBRyj3VhA3YFbyfytwpi1Xz9qUHrj6as9sPiqsl6-jW41DUXVqOfGrxTkZxBjAAHa0xS2J3aGJYWBfcfbj7tInVBoYt6FLOqUz4ETQGFoRpGFLXAn8IRG5T0"/>
+</header>
+<div class="flex-1 p-6 lg:p-12 pb-24 md:pb-12 max-w-5xl mx-auto w-full">
+<div class="mb-12">
+<h2 class="font-headline text-4xl lg:text-5xl font-bold tracking-tight text-on-surface mb-2" style="letter-spacing: -0.02em; margin-left: 1rem;">Invite Protocol</h2>
+<p class="font-body text-outline ml-4">Generated unique access keys for external collaborators.</p>
+</div>
+<!-- Bento Grid Layout for the Invite Display -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Invite Card Area (Spans 8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Light Variant Invite Card -->
+<div class="relative bg-[#fffbeb] border border-amber-300 rounded-xl overflow-hidden shadow-sm flex flex-col">
+<!-- Decorative Helper Line -->
+<div class="absolute top-0 left-0 w-full h-1 bg-amber-400"></div>
+<div class="p-8 pb-12 text-center flex flex-col items-center justify-center min-h-[300px]">
+<p class="text-amber-800 font-label text-sm uppercase tracking-widest font-bold mb-6">Confidential Access Code</p>
+<div class="flex items-center justify-center gap-4 mb-4">
+<span class="font-mono text-5xl md:text-6xl font-bold text-amber-900 tracking-wider">X9K4-M2P7</span>
+</div>
+<button class="flex items-center gap-2 bg-amber-100 text-amber-900 px-4 py-2 rounded-full font-label text-sm font-medium hover:bg-amber-200 transition-colors">
+<span class="material-symbols-outlined text-sm">check</span>
+                                Copied to Clipboard
+                            </button>
+</div>
+<!-- Countdown Bar -->
+<div class="h-2 w-full bg-amber-100 absolute bottom-0 left-0">
+<div class="h-full bg-secondary-container w-[45%] transition-all duration-1000 ease-linear"></div>
+</div>
+</div>
+<!-- Actions Panel -->
+<div class="flex flex-col sm:flex-row gap-4 justify-end mt-4">
+<button class="flex items-center justify-center gap-2 bg-surface-container-highest text-on-surface px-6 py-3 rounded-xl font-label font-medium hover:bg-surface-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg">mail</span>
+                            Email this code
+                        </button>
+<button class="flex items-center justify-center gap-2 bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-3 rounded-xl font-label font-medium hover:shadow-[0_10px_20px_-10px_rgba(66,96,63,0.5)] transition-all shadow-sm">
+<span class="material-symbols-outlined text-lg">sms</span>
+                            Share via Messages
+                        </button>
+</div>
+</div>
+<!-- Secondary Info Area (Spans 4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-low rounded-xl p-6 relative overflow-hidden">
+<!-- Abstract overlay -->
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-primary/5 rounded-full blur-2xl"></div>
+<h3 class="font-headline text-xl font-bold text-on-surface mb-4">Security Notice</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed mb-4">
+                            This code is ephemeral and bound to the current session. It will automatically self-destruct upon the expiration of the timer below or once redeemed.
+                        </p>
+<ul class="space-y-3 font-body text-sm text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-outline text-base mt-0.5">verified_user</span>
+                                Single-use only.
+                            </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-outline text-base mt-0.5">timer</span>
+                                Expires in exactly 10 seconds.
+                            </li>
+</ul>
+</div>
+<!-- Dark Variant Mockup for Reference -->
+<div class="bg-[#1f1b15] rounded-xl p-6 border border-outline-variant/20 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-0.5 bg-amber-500/50"></div>
+<p class="text-amber-500/70 font-label text-[10px] uppercase tracking-widest font-bold mb-4">Dark Shell Preview</p>
+<div class="text-center bg-[#2a241c] rounded-lg p-6 border border-amber-900/50">
+<span class="font-mono text-3xl font-bold text-amber-500 tracking-wider block mb-3">V8L2-C9N1</span>
+<div class="h-1 w-full bg-[#1f1b15] rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[70%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Visible on md-down) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe bg-[#061e13]/80 backdrop-blur-xl z-50 rounded-t-[24px] shadow-2xl shadow-black">
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">dashboard_customize</span>
+<span class="font-['Manrope'] text-[9px] uppercase font-bold">Console</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">list_alt</span>
+<span class="font-['Manrope'] text-[9px] uppercase font-bold">Logs</span>
+</a>
+<a class="flex flex-col items-center text-[#5A7956] hover:opacity-100 transition-opacity scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-['Manrope'] text-[9px] uppercase font-bold">Metrics</span>
+</a>
+<a class="flex flex-col items-center text-[#caf24d] bg-[#0a2a1b] px-4 py-1 rounded-full scale-110 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+<span class="font-['Manrope'] text-[9px] uppercase font-bold">Security</span>
+</a>
+</nav>
+</body></html>

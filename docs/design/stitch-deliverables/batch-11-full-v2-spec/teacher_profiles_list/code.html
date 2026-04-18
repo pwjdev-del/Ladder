@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic Atelier - Faculty Registry</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#8d6a48",
+                        "surface-container": "#f5ede2",
+                        "inverse-on-surface": "#f8efe5",
+                        "tertiary-fixed": "#ffdcbd",
+                        "primary-fixed": "#c9ecc2",
+                        "secondary-fixed": "#caf24d",
+                        "on-secondary-fixed": "#161e00",
+                        "background": "#fff8f2",
+                        "tertiary-fixed-dim": "#e9bf96",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#afd531",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#efe7dd",
+                        "surface-bright": "#fff8f2",
+                        "secondary": "#516600",
+                        "primary": "#42603f",
+                        "on-primary-container": "#e2ffda",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "on-background": "#1f1b15",
+                        "on-secondary-container": "#566c00",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#fbf2e8",
+                        "surface-dim": "#e1d9cf",
+                        "secondary-container": "#caf24d",
+                        "surface-variant": "#eae1d7",
+                        "on-tertiary-fixed-variant": "#5e4122",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary-container": "#5a7956",
+                        "tertiary": "#725232",
+                        "surface-tint": "#486644",
+                        "surface-container-highest": "#eae1d7",
+                        "on-surface-variant": "#434840",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#052107",
+                        "inverse-surface": "#343029",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#aed0a7",
+                        "on-tertiary-container": "#fff5ee",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#aed0a7",
+                        "on-surface": "#1f1b15",
+                        "surface": "#fff8f2",
+                        "outline-variant": "#c3c8be",
+                        "outline": "#737970",
+                        "on-primary-fixed-variant": "#304e2e",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Base typography defaults mapping */
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Noto Serif', serif; }
+        
+        /* Material symbols setup */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Hide scrollbar for cleaner UI */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#fff8f2] text-[#1f1b15] flex h-screen overflow-hidden selection:bg-primary/20">
+<!-- JSON NavigationDrawer (Web Sidebar) -->
+<aside class="hidden md:flex flex-col h-full w-80 rounded-r-[24px] shadow-2xl bg-[#fff8f2] dark:bg-[#061a0f] text-[#42603f] dark:text-[#caf24d] p-6 gap-4 border-none bg-[#fbf2e8] dark:bg-[#0a2618] z-20 font-['Montserrat'] font-semibold">
+<!-- Header -->
+<div class="flex items-center gap-4 mb-8 left_align">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest overflow-hidden shrink-0 flex items-center justify-center border-none">
+<span class="material-symbols-outlined text-outline">person</span>
+</div>
+<div>
+<h2 class="text-sm text-on-surface uppercase tracking-widest font-bold">Principal Founder</h2>
+<p class="text-xs text-on-surface-variant">K-8 Global Admin</p>
+<p class="text-[10px] text-primary/70 mt-1">Environment: Production</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2">
+<!-- School Overview (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span>School Overview</span>
+</a>
+<!-- Faculty Registry (Active - matches 'Teacher Profiles') -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#eae1d7] dark:bg-[#0a2618] text-[#42603f] dark:text-[#caf24d] rounded-xl font-bold hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined icon-fill">groups</span>
+<span>Faculty Registry</span>
+</a>
+<!-- Student Records (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span>Student Records</span>
+</a>
+<!-- Provisioning (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span>Provisioning</span>
+</a>
+<!-- Audit Logs (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#1f1b15]/70 dark:text-[#caf24d]/70 hover:pl-2 transition-all ease-out duration-200" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span>Audit Logs</span>
+</a>
+</nav>
+<div class="mt-auto font-['Noto_Serif'] text-2xl text-center opacity-30">
+            Academic Atelier
+        </div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col relative overflow-hidden bg-surface">
+<!-- JSON TopAppBar -->
+<header class="docked full-width top-0 shadow-[0_40px_60px_-15px_rgba(31,27,21,0.06)] flex items-center justify-between px-6 py-4 w-full bg-[#fff8f2] dark:bg-[#061a0f] text-[#42603f] dark:text-[#caf24d] transition-all duration-300 ease-in-out z-10 relative">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden flex items-center justify-center md:hidden">
+<span class="material-symbols-outlined text-outline text-sm">person</span>
+</div>
+<h1 class="font-['Noto_Serif'] font-black text-[#1f1b15] dark:text-[#caf24d] dark:font-mono font-['Noto_Serif'] font-bold tracking-tighter text-3xl dark:font-mono dark:uppercase">Academic Atelier</h1>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#eae1d7]/50 dark:hover:bg-[#0a2618]/50 transition-colors">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+</button>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto px-6 py-8 md:px-16 md:py-12 pb-32">
+<div class="max-w-5xl mx-auto">
+<!-- Page Header & Search (Integrated into layout) -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div class="ml-4 md:ml-0">
+<h2 class="font-headline text-4xl font-semibold tracking-tight text-on-surface">Faculty Directory</h2>
+<p class="text-on-surface-variant mt-2 max-w-md">Manage teaching staff, assignments, and leave status across all registered K-8 cohorts.</p>
+</div>
+<!-- Search Input -->
+<div class="relative w-full md:w-80 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-low rounded-xl py-3 pl-12 pr-4 outline-none border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-outline-variant transition-all font-body" placeholder="Search by name or subject..." type="text"/>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex flex-wrap items-center gap-3 mb-8">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary text-sm font-semibold tracking-wide transition-all shadow-[0_4px_12px_rgba(66,96,63,0.15)]">
+                        All
+                    </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-variant text-sm font-semibold tracking-wide transition-all">
+                        Active
+                    </button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-variant text-sm font-semibold tracking-wide transition-all">
+                        On leave
+                    </button>
+</div>
+<!-- Teacher Profiles List (Bento Row Style) -->
+<div class="flex flex-col gap-4">
+<!-- Row 1 -->
+<div class="group flex flex-col md:flex-row md:items-center bg-surface-container-low rounded-2xl p-5 transition-all hover:bg-surface-container-highest hover:shadow-[0_20px_40px_-15px_rgba(31,27,21,0.06)] cursor-pointer gap-4">
+<div class="flex items-center gap-5 flex-1">
+<!-- Initials Avatar -->
+<div class="w-14 h-14 rounded-full bg-[#f4ebd9] text-tertiary-container font-headline font-bold text-xl flex items-center justify-center shrink-0">
+                                AT
+                            </div>
+<div>
+<h3 class="font-headline text-xl font-semibold text-on-surface tracking-tight group-hover:text-primary transition-colors">Dr. Aris Thorne</h3>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="text-[11px] bg-surface text-on-surface-variant px-2.5 py-1 rounded-md font-semibold tracking-widest uppercase">Mathematics</span>
+<span class="text-[11px] bg-surface text-on-surface-variant px-2.5 py-1 rounded-md font-semibold tracking-widest uppercase">Physics</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end w-full md:w-auto gap-6 mt-2 md:mt-0 pt-4 md:pt-0 border-t border-outline-variant/10 md:border-none">
+<!-- Grade Band Chip -->
+<div class="px-4 py-1.5 rounded-lg bg-secondary-fixed/20 text-on-secondary-fixed-variant font-bold text-xs tracking-widest">
+                                6-8
+                            </div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-transform group-hover:translate-x-1">arrow_forward</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="group flex flex-col md:flex-row md:items-center bg-surface-container-low rounded-2xl p-5 transition-all hover:bg-surface-container-highest hover:shadow-[0_20px_40px_-15px_rgba(31,27,21,0.06)] cursor-pointer gap-4">
+<div class="flex items-center gap-5 flex-1">
+<div class="w-14 h-14 rounded-full bg-[#e8eed9] text-primary font-headline font-bold text-xl flex items-center justify-center shrink-0">
+                                CV
+                            </div>
+<div>
+<h3 class="font-headline text-xl font-semibold text-on-surface tracking-tight group-hover:text-primary transition-colors">Clara Vance</h3>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="text-[11px] bg-surface text-on-surface-variant px-2.5 py-1 rounded-md font-semibold tracking-widest uppercase">Literature</span>
+<span class="text-[11px] bg-surface text-on-surface-variant px-2.5 py-1 rounded-md font-semibold tracking-widest uppercase">Creative Writing</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end w-full md:w-auto gap-6 mt-2 md:mt-0 pt-4 md:pt-0 border-t border-outline-variant/10 md:border-none">
+<div class="px-4 py-1.5 rounded-lg bg-surface-variant text-on-surface-variant font-bold text-xs tracking-widest">
+                                3-5
+                            </div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-transform group-hover:translate-x-1">arrow_forward</span>
+</div>
+</div>
+<!-- Row 3 (On Leave visually implied by lower opacity tag, though filter handles main logic) -->
+<div class="group flex flex-col md:flex-row md:items-center bg-surface-container-low rounded-2xl p-5 transition-all hover:bg-surface-container-highest hover:shadow-[0_20px_40px_-15px_rgba(31,27,21,0.06)] cursor-pointer gap-4">
+<div class="flex items-center gap-5 flex-1 opacity-70">
+<div class="w-14 h-14 rounded-full bg-surface-variant text-on-surface-variant font-headline font-bold text-xl flex items-center justify-center shrink-0">
+                                MP
+                            </div>
+<div>
+<h3 class="font-headline text-xl font-semibold text-on-surface tracking-tight group-hover:text-primary transition-colors">Marcus Pendelton</h3>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="text-[11px] bg-surface text-on-surface-variant px-2.5 py-1 rounded-md font-semibold tracking-widest uppercase">Early Childhood</span>
+<span class="text-[11px] bg-surface-container-highest text-tertiary px-2.5 py-1 rounded-md font-bold tracking-widest uppercase">On Leave</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end w-full md:w-auto gap-6 mt-2 md:mt-0 pt-4 md:pt-0 border-t border-outline-variant/10 md:border-none opacity-70">
+<div class="px-4 py-1.5 rounded-lg bg-surface-variant text-on-surface-variant font-bold text-xs tracking-widest">
+                                K-2
+                            </div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-transform group-hover:translate-x-1">arrow_forward</span>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="group flex flex-col md:flex-row md:items-center bg-surface-container-low rounded-2xl p-5 transition-all hover:bg-surface-container-highest hover:shadow-[0_20px_40px_-15px_rgba(31,27,21,0.06)] cursor-pointer gap-4">
+<div class="flex items-center gap-5 flex-1">
+<div class="w-14 h-14 rounded-full bg-[#f4ebd9] text-tertiary-container font-headline font-bold text-xl flex items-center justify-center shrink-0">
+                                ER
+                            </div>
+<div>
+<h3 class="font-headline text-xl font-semibold text-on-surface tracking-tight group-hover:text-primary transition-colors">Elena Rostova</h3>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="text-[11px] bg-surface text-on-surface-variant px-2.5 py-1 rounded-md font-semibold tracking-widest uppercase">Life Sciences</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-end w-full md:w-auto gap-6 mt-2 md:mt-0 pt-4 md:pt-0 border-t border-outline-variant/10 md:border-none">
+<div class="px-4 py-1.5 rounded-lg bg-secondary-fixed/20 text-on-secondary-fixed-variant font-bold text-xs tracking-widest">
+                                6-8
+                            </div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-transform group-hover:translate-x-1">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 md:bottom-12 right-6 md:right-12 w-16 h-16 bg-gradient-to-br from-[#42603f] to-[#5a7956] rounded-2xl flex items-center justify-center shadow-[0_24px_40px_-12px_rgba(66,96,63,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 z-40 group">
+<span class="material-symbols-outlined text-white text-3xl group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+<!-- JSON BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-[#fff8f2]/70 dark:bg-[#061a0f]/80 backdrop-blur-3xl rounded-t-[24px] shadow-[0_-20px_40px_rgba(0,0,0,0.05)] font-['Montserrat'] font-medium text-[10px] uppercase tracking-widest scale-95 active:scale-90 transition-transform">
+<!-- Dashboard (Inactive) -->
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80" href="#">
+<span class="material-symbols-outlined mb-1">grid_view</span>
+<span>Dashboard</span>
+</a>
+<!-- Tenants (Active - closest to Faculty/Groups) -->
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#42603f] to-[#5a7956] dark:from-[#caf24d] dark:to-[#8fb324] text-white dark:text-[#061a0f] rounded-[16px] px-6 py-2 shadow-lg" href="#">
+<span class="material-symbols-outlined mb-1 icon-fill">account_balance</span>
+<span>Tenants</span>
+</a>
+<!-- Metrics (Inactive) -->
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80" href="#">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span>Metrics</span>
+</a>
+<!-- System (Inactive) -->
+<a class="flex flex-col items-center justify-center text-[#1f1b15]/50 dark:text-[#caf24d]/40 hover:opacity-80" href="#">
+<span class="material-symbols-outlined mb-1">terminal</span>
+<span>System</span>
+</a>
+</nav>
+<!-- Safe area padding for mobile nav -->
+<div class="h-24 md:hidden w-full shrink-0"></div>
+</div>
+</body></html>

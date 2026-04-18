@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ladder - Your school</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&amp;family=Noto+Serif:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#f3fceb",
+                      "primary-fixed": "#caecc4",
+                      "on-primary-fixed": "#052108",
+                      "on-primary-fixed-variant": "#314d30",
+                      "on-primary-container": "#d0f2ca",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#151f00",
+                      "error-container": "#ffdad6",
+                      "secondary": "#4e6700",
+                      "tertiary-container": "#54704e",
+                      "tertiary-fixed-dim": "#b0cfa7",
+                      "on-secondary-fixed-variant": "#3a4d00",
+                      "surface-dim": "#d3ddcc",
+                      "inverse-surface": "#2a3327",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-container": "#d2f2c8",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#3d5738",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#dce6d4",
+                      "primary": "#3a5739",
+                      "on-surface": "#161e13",
+                      "surface": "#f3fceb",
+                      "inverse-on-surface": "#eaf4e2",
+                      "surface-bright": "#f3fceb",
+                      "surface-container-high": "#e2ebda",
+                      "on-background": "#161e13",
+                      "on-secondary-container": "#536d00",
+                      "surface-container-low": "#edf7e5",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#c3c8be",
+                      "on-tertiary-fixed-variant": "#334d2e",
+                      "primary-container": "#527050",
+                      "secondary-fixed-dim": "#abd537",
+                      "surface-variant": "#dce6d4",
+                      "surface-container": "#e7f1df",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#434841",
+                      "secondary-fixed": "#c6f252",
+                      "primary-fixed-dim": "#aecfa9",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#ccebc1",
+                      "surface-tint": "#486646",
+                      "inverse-primary": "#aecfa9",
+                      "on-tertiary-fixed": "#072107",
+                      "secondary-container": "#c6f252",
+                      "outline": "#737970",
+                      "stone-200": "#E8E2D8",
+                      "cream-100": "#F5F0E5",
+                      "forest-900": "#3F5A3A",
+                      "forest-700": "#527050",
+                      "forest-500": "#6B8A67",
+                      "lime-500": "#A8D234",
+                      "lime-300": "#CCE68A",
+                      "ink-900": "#1B1F1B",
+                      "ink-600": "#4A5346",
+                      "ink-400": "#8A9082"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Noto Serif"
+                      ],
+                      "body": [
+                              "Manrope"
+                      ],
+                      "label": [
+                              "Manrope"
+                      ]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-ink-900 font-body min-h-screen flex flex-col antialiased selection:bg-lime-300 selection:text-ink-900">
+<!-- Top Navigation Area - Minimal/Transactional intent -->
+<header class="sticky top-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl flex items-center h-16 px-4">
+<button aria-label="Go back" class="p-2 text-ink-900 hover:opacity-80 transition-opacity active:scale-95 flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">chevron_left</span>
+</button>
+<h1 class="flex-grow text-center font-headline font-semibold text-lg tracking-[-0.02em] text-ink-900 pr-10">Your school</h1>
+</header>
+<main class="flex-grow px-4 pb-24 max-w-2xl mx-auto w-full flex flex-col gap-6 pt-4">
+<!-- Search Section -->
+<section class="w-full">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-ink-400 text-[20px]">search</span>
+</div>
+<input class="block w-full pl-11 pr-4 py-3.5 bg-stone-200 border-none rounded-[8pt] text-ink-900 placeholder-ink-400 font-body focus:ring-0 focus:outline-none focus:shadow-[0_0_0_2px_#CCE68A] transition-shadow text-[15px]" placeholder="Search your school" type="text"/>
+</div>
+</section>
+<!-- Results List -->
+<section class="flex flex-col gap-3">
+<!-- Result Row 1 -->
+<button class="group w-full flex items-center p-3 bg-surface-container-lowest rounded-[12pt] hover:bg-surface transition-colors duration-200 text-left active:scale-[0.98]">
+<div class="w-12 h-12 rounded-[8pt] bg-blue-100 flex-shrink-0 flex items-center justify-center mr-4 shadow-sm border border-outline-variant/15">
+<span class="material-symbols-outlined text-blue-600 text-[24px]">school</span>
+</div>
+<div class="flex-grow flex flex-col justify-center min-w-0">
+<h2 class="font-headline font-semibold text-[16px] text-ink-900 truncate leading-tight tracking-[-0.01em]">Palo Alto High School</h2>
+<span class="font-label text-[11px] font-semibold text-ink-600 tracking-[0.1em] uppercase mt-1">PALO ALTO HIGH SCHOOL</span>
+</div>
+<div class="flex-shrink-0 text-ink-400 group-hover:text-ink-600 transition-colors ml-2">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</button>
+<!-- Result Row 2 -->
+<button class="group w-full flex items-center p-3 bg-surface-container-lowest rounded-[12pt] hover:bg-surface transition-colors duration-200 text-left active:scale-[0.98]">
+<div class="w-12 h-12 rounded-[8pt] bg-red-100 flex-shrink-0 flex items-center justify-center mr-4 shadow-sm border border-outline-variant/15">
+<span class="material-symbols-outlined text-red-600 text-[24px]">account_balance</span>
+</div>
+<div class="flex-grow flex flex-col justify-center min-w-0">
+<h2 class="font-headline font-semibold text-[16px] text-ink-900 truncate leading-tight tracking-[-0.01em]">Stanford University</h2>
+<span class="font-label text-[11px] font-semibold text-ink-600 tracking-[0.1em] uppercase mt-1">STANFORD</span>
+</div>
+<div class="flex-shrink-0 text-ink-400 group-hover:text-ink-600 transition-colors ml-2">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</button>
+<!-- Result Row 3 -->
+<button class="group w-full flex items-center p-3 bg-surface-container-lowest rounded-[12pt] hover:bg-surface transition-colors duration-200 text-left active:scale-[0.98]">
+<div class="w-12 h-12 rounded-[8pt] bg-yellow-100 flex-shrink-0 flex items-center justify-center mr-4 shadow-sm border border-outline-variant/15">
+<span class="material-symbols-outlined text-yellow-600 text-[24px]">local_library</span>
+</div>
+<div class="flex-grow flex flex-col justify-center min-w-0">
+<h2 class="font-headline font-semibold text-[16px] text-ink-900 truncate leading-tight tracking-[-0.01em]">University of Michigan</h2>
+<span class="font-label text-[11px] font-semibold text-ink-600 tracking-[0.1em] uppercase mt-1">UMICH</span>
+</div>
+<div class="flex-shrink-0 text-ink-400 group-hover:text-ink-600 transition-colors ml-2">
+<span class="material-symbols-outlined">chevron_right</span>
+</div>
+</button>
+</section>
+<!-- Empty State / Partner Action -->
+<section class="mt-auto pt-12 pb-6 flex flex-col items-center justify-center text-center">
+<div class="w-24 h-24 mb-6 rounded-full bg-surface flex items-center justify-center relative overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+<div class="absolute inset-0 bg-gradient-to-br from-forest-700 to-forest-500 opacity-10"></div>
+<img alt="Ladder illustration" class="w-16 h-16 object-cover mix-blend-multiply opacity-80" data-alt="Minimalist architectural ladder or stepped structure in a light airy greenhouse setting with soft green shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjidZUwunl85WjewtEStgMNh3V99YxEX_XiIqwYBknwp5I2meSxUkFBoPn0wu2A6-qIl8-03RJHwbPbINfY88bpgwRTNFVgG_61i0TeGU_3qSUM1r3qs27vQpIIlhBWIH59C-93MzFzXN9ATaOKzsmoYDmNJrvWTzGXLFShnb_gVGthAmcTr2FUinq9fg1c5kxhn8g86XpmKP80DHPvk4tWHsEKnyplYq9LlDUeDO1ikcLtY7BYVntyH4SdZ1uIQ_paqkI-Dq2shI"/>
+</div>
+<button class="inline-flex items-center gap-2 px-6 py-3 bg-surface-container-low rounded-full text-ink-900 hover:bg-surface-container transition-colors duration-200 active:scale-95 shadow-sm border border-outline-variant/15">
+<span class="font-body font-semibold text-[14px]">Don't see your school? Partner as a school</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</section>
+</main>
+</body></html>
