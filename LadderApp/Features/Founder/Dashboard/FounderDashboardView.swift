@@ -42,8 +42,7 @@ public struct FounderDashboardView: View {
                 Text("Kathan · Jet").font(.ladderLabel(14)).foregroundStyle(LadderBrand.cream100)
             }
             Spacer()
-            Image("LadderLogo")
-                .resizable().scaledToFill().frame(width: 40, height: 40).clipShape(Circle())
+            LadderLogoMark(size: 40, withShadow: true, style: .cream)
         }
         .padding(.horizontal, 20)
         .padding(.top, 12)

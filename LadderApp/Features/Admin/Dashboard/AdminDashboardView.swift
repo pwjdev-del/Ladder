@@ -45,11 +45,7 @@ public struct AdminDashboardView: View {
                     .font(.ladderDisplay(28, relativeTo: .title))
                     .foregroundStyle(LadderBrand.cream100)
                 Spacer()
-                Image("LadderLogo")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 44, height: 44)
-                    .clipShape(Circle())
+                LadderLogoMark(size: 44, withShadow: true, style: .cream)
             }
             Text("\(session.tenantName) · K–8")
                 .font(.ladderCaps(11))

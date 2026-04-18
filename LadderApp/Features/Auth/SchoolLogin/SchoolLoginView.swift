@@ -64,12 +64,7 @@ public struct SchoolLoginView: View {
             }
             .padding(.horizontal, 16)
 
-            Image("LadderLogo")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 72, height: 72)
-                .clipShape(Circle())
-                .shadow(color: .black.opacity(0.18), radius: 10, y: 4)
+            LadderLogoMark(size: 72, withShadow: true, style: .cream)
 
             Text(school.displayName)
                 .font(.ladderDisplay(22, relativeTo: .title2))
@@ -252,12 +247,7 @@ public struct PlaceholderSignedInView: View {
             BrandGradient.heroGlow
 
             VStack(spacing: 20) {
-                Image("LadderLogo")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 96, height: 96)
-                    .clipShape(Circle())
-                    .shadow(color: .black.opacity(0.15), radius: 10, y: 4)
+                LadderLogoMark(size: 96, withShadow: true, style: .cream)
 
                 Text("You're in.")
                     .font(.ladderDisplay(34, relativeTo: .largeTitle))

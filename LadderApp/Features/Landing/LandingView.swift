@@ -59,12 +59,7 @@ public struct LandingView: View {
     private var logoBadge: some View {
         ZStack {
             // Real Ladder logo — circular asset (climber + ladder + hills).
-            Image("LadderLogo")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 180, height: 180)
-                .clipShape(Circle())
-                .saturation(climberSaturation)
+            LadderLogoMark(size: 180, withShadow: true, style: .cream).saturation(climberSaturation)
                 .shadow(color: Color.black.opacity(0.16), radius: 16, x: 0, y: 10)
                 .scaleEffect(holdProgress >= 1 ? 1.02 : 1.0)
                 .animation(.easeOut(duration: 0.12), value: holdProgress >= 1)

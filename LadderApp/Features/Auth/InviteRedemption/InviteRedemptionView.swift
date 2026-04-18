@@ -61,12 +61,7 @@ public struct InviteRedemptionView: View {
 
     private var card: some View {
         VStack(spacing: 20) {
-            Image("LadderLogo")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 72, height: 72)
-                .clipShape(Circle())
-                .shadow(color: .black.opacity(0.2), radius: 10, y: 4)
+            LadderLogoMark(size: 72, withShadow: true, style: .cream)
 
             VStack(spacing: 8) {
                 Text("Join Your School")
