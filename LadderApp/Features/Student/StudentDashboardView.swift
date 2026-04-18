@@ -6,8 +6,12 @@ import SwiftUI
 
 public struct StudentDashboardView: View {
     public let session: SignedInSession
+    public let onLogout: () -> Void
 
-    public init(session: SignedInSession) { self.session = session }
+    public init(session: SignedInSession, onLogout: @escaping () -> Void = {}) {
+        self.session = session
+        self.onLogout = onLogout
+    }
 
     public var body: some View {
         ZStack {
@@ -35,18 +39,18 @@ public struct StudentDashboardView: View {
 
     private var hero: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("STUDENT DASHBOARD")
-                .font(.ladderCaps(11))
-                .tracking(1.4)
-                .foregroundStyle(LadderBrand.lime500)
             HStack {
-                Text("Good morning, \(firstName) 👋")
-                    .font(.ladderDisplay(28, relativeTo: .title))
-                    .foregroundStyle(LadderBrand.cream100)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("STUDENT DASHBOARD")
+                        .font(.ladderCaps(11)).tracking(1.4).foregroundStyle(LadderBrand.lime500)
+                    Text("Good morning, \(firstName) 👋")
+                        .font(.ladderDisplay(26, relativeTo: .title))
+                        .foregroundStyle(LadderBrand.cream100)
+                }
                 Spacer()
-                LadderLogoMark(size: 44, withShadow: true)
+                LogoutButton(action: onLogout)
             }
-            Text("\(session.tenantName) · Grade 5")
+            Text("\(session.tenantName) · Grade \(session.gradeLevel ?? 10)")
                 .font(.ladderCaps(11))
                 .tracking(1.2)
                 .foregroundStyle(LadderBrand.cream100.opacity(0.75))

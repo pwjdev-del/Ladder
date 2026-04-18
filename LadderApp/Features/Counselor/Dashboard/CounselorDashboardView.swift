@@ -2,8 +2,12 @@ import SwiftUI
 
 public struct CounselorDashboardView: View {
     public let session: SignedInSession
+    public let onLogout: () -> Void
 
-    public init(session: SignedInSession) { self.session = session }
+    public init(session: SignedInSession, onLogout: @escaping () -> Void = {}) {
+        self.session = session
+        self.onLogout = onLogout
+    }
 
     public var body: some View {
         ZStack {

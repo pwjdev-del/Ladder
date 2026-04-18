@@ -5,9 +5,13 @@ import SwiftUI
 
 public struct AdminDashboardView: View {
     public let session: SignedInSession
+    public let onLogout: () -> Void
     @State private var showingSuccessMetrics = false
 
-    public init(session: SignedInSession) { self.session = session }
+    public init(session: SignedInSession, onLogout: @escaping () -> Void = {}) {
+        self.session = session
+        self.onLogout = onLogout
+    }
 
     public var body: some View {
         ZStack {

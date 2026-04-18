@@ -11,14 +11,18 @@ public struct LinkedStudent: Identifiable, Sendable, Hashable {
 
 public struct ParentDashboardView: View {
     public let session: SignedInSession
+    public let onLogout: () -> Void
 
     @State private var linked: [LinkedStudent] = [
-        LinkedStudent(id: UUID(), displayName: "Maya", gradeLevel: 4),
-        LinkedStudent(id: UUID(), displayName: "Noah", gradeLevel: 7),
+        LinkedStudent(id: UUID(), displayName: "Maya", gradeLevel: 9),
+        LinkedStudent(id: UUID(), displayName: "Noah", gradeLevel: 11),
     ]
     @State private var selected: LinkedStudent?
 
-    public init(session: SignedInSession) { self.session = session }
+    public init(session: SignedInSession, onLogout: @escaping () -> Void = {}) {
+        self.session = session
+        self.onLogout = onLogout
+    }
 
     public var body: some View {
         ZStack {
@@ -49,14 +53,16 @@ public struct ParentDashboardView: View {
 
     private var hero: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("PARENT VIEW")
-                .font(.ladderCaps(11)).tracking(1.4).foregroundStyle(LadderBrand.lime500)
             HStack {
-                Text("Hi, \(firstName) 👋")
-                    .font(.ladderDisplay(28, relativeTo: .title))
-                    .foregroundStyle(LadderBrand.cream100)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("PARENT VIEW")
+                        .font(.ladderCaps(11)).tracking(1.4).foregroundStyle(LadderBrand.lime500)
+                    Text("Hi, \(firstName) 👋")
+                        .font(.ladderDisplay(26, relativeTo: .title))
+                        .foregroundStyle(LadderBrand.cream100)
+                }
                 Spacer()
-                LadderLogoMark(size: 44, withShadow: true)
+                LogoutButton(action: onLogout)
             }
         }
         .padding(.horizontal, 20)

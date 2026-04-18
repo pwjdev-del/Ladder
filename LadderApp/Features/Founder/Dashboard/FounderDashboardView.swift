@@ -6,28 +6,33 @@ import SwiftUI
 
 public struct FounderDashboardView: View {
     @State private var selectedTab: FounderTab = .overview
+    public let onLogout: () -> Void
 
-    public init() {}
+    public init(onLogout: @escaping () -> Void = {}) {
+        self.onLogout = onLogout
+    }
 
     public var body: some View {
-        ZStack {
-            BrandGradient.list
-            BrandGradient.heroGlow
+        NavigationStack {
+            ZStack {
+                BrandGradient.list
+                BrandGradient.heroGlow
 
-            VStack(spacing: 0) {
-                header
-                ScrollView {
-                    switch selectedTab {
-                    case .overview: overviewContent
-                    case .schools:  schoolsContent
-                    case .solo:     soloContent
-                    case .system:   systemContent
+                VStack(spacing: 0) {
+                    header
+                    ScrollView {
+                        switch selectedTab {
+                        case .overview: overviewContent
+                        case .schools:  schoolsContent
+                        case .solo:     soloContent
+                        case .system:   systemContent
+                        }
                     }
+                    tabBar
                 }
-                tabBar
             }
+            .navigationBarHidden(true)
         }
-        .navigationBarHidden(true)
     }
 
     // MARK: - Header
@@ -42,7 +47,8 @@ public struct FounderDashboardView: View {
                 Text("Kathan · Jet").font(.ladderLabel(14)).foregroundStyle(LadderBrand.cream100)
             }
             Spacer()
-            LadderLogoMark(size: 40, withShadow: true)
+            LogoutButton(action: onLogout)
+            LadderLogoMark(size: 36, withShadow: true)
         }
         .padding(.horizontal, 20)
         .padding(.top, 12)
@@ -258,10 +264,21 @@ public struct FounderDashboardView: View {
                 .font(.ladderBody(14))
                 .foregroundStyle(LadderBrand.cream100.opacity(0.75))
 
-            systemLink("Feature flags", sub: "per-tenant toggles · Varun-gated", icon: "flag.fill")
-            systemLink("Varun rule explainer", sub: "10 dependency rules · trace chain", icon: "link.circle.fill")
-            systemLink("Impersonation grants", sub: "0 active · history", icon: "person.crop.circle.badge.exclamationmark.fill")
-            systemLink("Audit timeline", sub: "metadata-only per-tenant log", icon: "list.bullet.rectangle")
+            NavigationLink { FeatureFlagsRootView() } label: {
+                systemLink("Feature flags", sub: "Grouped per-tenant toggles · Varun-gated", icon: "flag.fill")
+            }.buttonStyle(.plain)
+
+            NavigationLink { VarunPanelView() } label: {
+                systemLink("Varun rule explainer", sub: "10 dependency rules · trace chain", icon: "link.circle.fill")
+            }.buttonStyle(.plain)
+
+            NavigationLink { ImpersonationGrantsView() } label: {
+                systemLink("Impersonation grants", sub: "0 active · full history", icon: "person.crop.circle.badge.exclamationmark.fill")
+            }.buttonStyle(.plain)
+
+            NavigationLink { AuditTimelineView() } label: {
+                systemLink("Audit timeline", sub: "Append-only, metadata only", icon: "list.bullet.rectangle")
+            }.buttonStyle(.plain)
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 24)
@@ -283,6 +300,59 @@ public struct FounderDashboardView: View {
         .padding(12)
         .background(LadderBrand.cream100.opacity(0.08))
         .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    // MARK: - Placeholder destinations (gradient shells for System tab links)
+
+    public struct ImpersonationGrantsView: View {
+        @Environment(\.dismiss) private var dismiss
+        public init() {}
+        public var body: some View {
+            ZStack {
+                BrandGradient.list; BrandGradient.heroGlow
+                VStack(spacing: 16) {
+                    Text("Impersonation grants").font(.ladderDisplay(28, relativeTo: .title)).foregroundStyle(LadderBrand.cream100)
+                    Text("0 active · 0 expired today").font(.ladderBody(13)).foregroundStyle(LadderBrand.cream100.opacity(0.7))
+                    Text("Admin-initiated, time-limited (15 min max). Every grant is audited.")
+                        .font(.ladderBody(12)).foregroundStyle(LadderBrand.cream100.opacity(0.55))
+                        .multilineTextAlignment(.center).padding(.horizontal, 32)
+                }.padding(.top, 40)
+            }
+            .navigationTitle("").navigationBarHidden(false)
+        }
+    }
+
+    public struct AuditTimelineView: View {
+        public init() {}
+        public var body: some View {
+            ZStack {
+                BrandGradient.list; BrandGradient.heroGlow
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Audit timeline").font(.ladderDisplay(28, relativeTo: .title)).foregroundStyle(LadderBrand.cream100)
+                        Text("Append-only · metadata only · founder-visible subset")
+                            .font(.ladderCaps(10)).tracking(1.2).foregroundStyle(LadderBrand.lime500)
+                        Divider().background(LadderBrand.cream100.opacity(0.2))
+                        auditRow("LWRPA · counselor issued 12 invites", "2h ago")
+                        auditRow("Beta · admin opened scheduling window", "6h ago")
+                        auditRow("St Jude · Varun rejected feature.scheduling toggle", "1d ago")
+                        auditRow("Evergreen · founder read aggregates", "2d ago")
+                    }.padding(20)
+                }
+            }
+            .navigationTitle("").navigationBarHidden(false)
+        }
+        private func auditRow(_ action: String, _ when: String) -> some View {
+            HStack {
+                Circle().fill(LadderBrand.lime500.opacity(0.6)).frame(width: 6, height: 6)
+                Text(action).font(.ladderBody(13)).foregroundStyle(LadderBrand.cream100)
+                Spacer()
+                Text(when).font(.ladderBody(12)).foregroundStyle(LadderBrand.cream100.opacity(0.55))
+            }
+            .padding(12)
+            .background(LadderBrand.cream100.opacity(0.08))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
     }
 
     // MARK: - Tab bar
