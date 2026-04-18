@@ -44,7 +44,7 @@ public struct StudentDashboardView: View {
                     .font(.ladderDisplay(28, relativeTo: .title))
                     .foregroundStyle(LadderBrand.cream100)
                 Spacer()
-                LadderLogoMark(size: 44, withShadow: true, style: .cream)
+                LadderLogoMark(size: 44, withShadow: true)
             }
             Text("\(session.tenantName) · Grade 5")
                 .font(.ladderCaps(11))

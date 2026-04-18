@@ -42,7 +42,7 @@ public struct FounderDashboardView: View {
                 Text("Kathan · Jet").font(.ladderLabel(14)).foregroundStyle(LadderBrand.cream100)
             }
             Spacer()
-            LadderLogoMark(size: 40, withShadow: true, style: .cream)
+            LadderLogoMark(size: 40, withShadow: true)
         }
         .padding(.horizontal, 20)
         .padding(.top, 12)

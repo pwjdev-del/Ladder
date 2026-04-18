@@ -29,9 +29,7 @@ public struct LandingView: View {
 
                 VStack(spacing: 0) {
                     Spacer()
-                    // Logo + slogan block, horizontally + vertically centered
-                    // in the top half of the screen.
-                    VStack(spacing: 28) {
+                    VStack(spacing: 32) {
                         logoBadge
                         slogan
                     }
@@ -39,11 +37,15 @@ public struct LandingView: View {
                     Spacer()
 
                     ctaStack
-                    footerIcons
-                        .padding(.top, 20)
-                        .padding(.bottom, 8)
+                        .padding(.horizontal, 24)
+
+                    createAccountLink
+                        .padding(.top, 16)
+
+                    partnerFooterLink
+                        .padding(.top, 8)
+                        .padding(.bottom, 20)
                 }
-                .padding(.horizontal, 24)
             }
             .navigationDestination(isPresented: $goFounderLogin) { FounderLoginView() }
             .navigationDestination(isPresented: $goB2CLogin) { B2CLoginView() }
@@ -59,8 +61,8 @@ public struct LandingView: View {
     private var logoBadge: some View {
         ZStack {
             // Real Ladder logo — circular asset (climber + ladder + hills).
-            LadderLogoMark(size: 180, withShadow: true, style: .cream).saturation(climberSaturation)
-                .shadow(color: Color.black.opacity(0.16), radius: 16, x: 0, y: 10)
+            LadderLogoMark(size: 260, withShadow: true)
+                .saturation(climberSaturation)
                 .scaleEffect(holdProgress >= 1 ? 1.02 : 1.0)
                 .animation(.easeOut(duration: 0.12), value: holdProgress >= 1)
 
@@ -70,7 +72,7 @@ public struct LandingView: View {
                     LadderBrand.lime500.opacity(ringOpacity),
                     style: StrokeStyle(lineWidth: ringWidth, lineCap: .round)
                 )
-                .frame(width: 188, height: 188)
+                .frame(width: 250, height: 250)
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 0.05), value: holdProgress)
         }
@@ -115,10 +117,10 @@ public struct LandingView: View {
             .dynamicTypeSize(...DynamicTypeSize.accessibility3)
     }
 
-    // MARK: - CTA stack
+    // MARK: - Primary CTAs (only two — no school-self-signup, no student-button-at-this-level)
 
     private var ctaStack: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 14) {
             Button(action: { goB2CLogin = true }) {
                 Text("Log in with your ID")
                     .font(.custom("Manrope-SemiBold", size: 16, relativeTo: .body))
@@ -127,6 +129,7 @@ public struct LandingView: View {
                     .frame(height: 56)
                     .background(LadderBrand.lime500)
                     .clipShape(Capsule())
+                    .shadow(color: LadderBrand.lime500.opacity(0.3), radius: 12, y: 4)
             }
 
             Button(action: { goSchoolPicker = true }) {
@@ -135,51 +138,42 @@ public struct LandingView: View {
                     .foregroundStyle(LadderBrand.cream100)
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
-                    .background(Color.clear)
-                    .overlay(
-                        Capsule().stroke(LadderBrand.cream100.opacity(0.15), lineWidth: 1)
-                    )
+                    .overlay(Capsule().stroke(LadderBrand.cream100.opacity(0.4), lineWidth: 1))
                     .clipShape(Capsule())
             }
-
-            HStack(spacing: 16) {
-                Button(action: { goB2CSignup = true }) {
-                    Text("Sign up as a student")
-                        .font(.custom("Manrope-SemiBold", size: 14, relativeTo: .callout))
-                        .foregroundStyle(LadderBrand.forest700)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .background(LadderBrand.stone200)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .shadow(color: Color.black.opacity(0.05), radius: 3, y: 1)
-                }
-
-                Button(action: { goSchoolPartnerForm = true }) {
-                    Text("Partner as a school")
-                        .font(.custom("Manrope-SemiBold", size: 14, relativeTo: .callout))
-                        .foregroundStyle(LadderBrand.forest700)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .background(LadderBrand.stone200)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .shadow(color: Color.black.opacity(0.05), radius: 3, y: 1)
-                }
-            }
-            .padding(.top, 8)
         }
     }
 
-    // MARK: - Footer icons (40% opacity per Stitch)
+    // MARK: - B2C signup link (secondary, underlined)
 
-    private var footerIcons: some View {
-        HStack(spacing: 24) {
-            Image(systemName: "rosette")
-            Image(systemName: "graduationcap.fill")
-            Image(systemName: "face.smiling")
-            Image(systemName: "stairs")
+    private var createAccountLink: some View {
+        HStack(spacing: 6) {
+            Text("New to Ladder?")
+                .font(.custom("Manrope-Regular", size: 14, relativeTo: .body))
+                .foregroundStyle(LadderBrand.cream100.opacity(0.75))
+            Button(action: { goB2CSignup = true }) {
+                Text("Create an account")
+                    .font(.custom("Manrope-SemiBold", size: 14, relativeTo: .body))
+                    .foregroundStyle(LadderBrand.lime500)
+                    .underline()
+            }
         }
-        .font(.system(size: 22, weight: .regular))
-        .foregroundStyle(LadderBrand.cream100.opacity(0.4))
+    }
+
+    // MARK: - Schools are NOT self-service — tiny bottom link only (§7, §14.3)
+
+    private var partnerFooterLink: some View {
+        HStack(spacing: 6) {
+            Text("A school representative?")
+                .font(.custom("Manrope-Regular", size: 12, relativeTo: .caption))
+                .foregroundStyle(LadderBrand.cream100.opacity(0.55))
+            Button(action: { goSchoolPartnerForm = true }) {
+                Text("Get in touch")
+                    .font(.custom("Manrope-SemiBold", size: 12, relativeTo: .caption))
+                    .foregroundStyle(LadderBrand.cream100.opacity(0.85))
+                    .underline()
+            }
+        }
     }
 
     // MARK: - 30s hold gesture

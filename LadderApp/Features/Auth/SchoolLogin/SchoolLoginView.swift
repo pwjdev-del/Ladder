@@ -64,7 +64,7 @@ public struct SchoolLoginView: View {
             }
             .padding(.horizontal, 16)
 
-            LadderLogoMark(size: 72, withShadow: true, style: .cream)
+            LadderLogoMark(size: 72, withShadow: true)
 
             Text(school.displayName)
                 .font(.ladderDisplay(22, relativeTo: .title2))
@@ -247,7 +247,7 @@ public struct PlaceholderSignedInView: View {
             BrandGradient.heroGlow
 
             VStack(spacing: 20) {
-                LadderLogoMark(size: 96, withShadow: true, style: .cream)
+                LadderLogoMark(size: 96, withShadow: true)
 
                 Text("You're in.")
                     .font(.ladderDisplay(34, relativeTo: .largeTitle))

@@ -53,7 +53,7 @@ public struct B2CLoginView: View {
             }
             .padding(.horizontal, 16)
 
-            LadderLogoMark(size: 80, withShadow: true, style: .cream)
+            LadderLogoMark(size: 80, withShadow: true)
 
             Text("Ladder")
                 .font(.ladderDisplay(26, relativeTo: .title).italic())

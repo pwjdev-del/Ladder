@@ -42,7 +42,7 @@ public struct CounselorDashboardView: View {
                     .font(.ladderDisplay(28, relativeTo: .title))
                     .foregroundStyle(LadderBrand.cream100)
                 Spacer()
-                LadderLogoMark(size: 44, withShadow: true, style: .cream)
+                LadderLogoMark(size: 44, withShadow: true)
             }
             Text("\(session.tenantName) · K–8")
                 .font(.ladderCaps(11)).tracking(1.2)

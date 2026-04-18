@@ -56,7 +56,7 @@ public struct ParentDashboardView: View {
                     .font(.ladderDisplay(28, relativeTo: .title))
                     .foregroundStyle(LadderBrand.cream100)
                 Spacer()
-                LadderLogoMark(size: 44, withShadow: true, style: .cream)
+                LadderLogoMark(size: 44, withShadow: true)
             }
         }
         .padding(.horizontal, 20)

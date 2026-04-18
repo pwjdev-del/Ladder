@@ -1,92 +1,125 @@
 # Ladder — test accounts for the LWRPA pilot
 
-Seeded fixtures for every role. Use these for manual QA on the simulator, against a local `supabase start` instance, or against a shared dev deployment. **Never use these in production** — the passwords are intentionally guessable, and the fixture data is seeded from `LadderBackend/supabase/seed.sql`.
+**Shared password for every account:** `Ladder!v2-pilot`
+(14 chars, passes the 12-char gate, trivial to type.)
 
-Passwords are all the same for convenience: `Ladder!v2-pilot`. Long enough to pass the 12-char gate, trivial to type.
+> These only work against the local in-memory auth gate used in the
+> simulator today. Once `SupabaseAuthService` ships, the same emails +
+> password become real Supabase Auth rows via `scripts/seed-users.ts`.
 
-## LWRPA (B2B school tenant)
+---
 
-Tenant slug: `lwrpa` · Tenant ID: `00000000-0000-0000-0000-000000000001`
+## Quick-reference cheatsheet
 
-| Role | Email | Password | Notes |
-|---|---|---|---|
-| Seed admin | `admin.lwrpa@ladder.test` | `Ladder!v2-pilot` | Mandatory-metrics banner fires 3 months after first login. |
-| Counselor | `counselor.lwrpa@ladder.test` | `Ladder!v2-pilot` | Owns the student queue + invite codes. |
-| Student — Alice (grade 3) | `alice.lwrpa@ladder.test` | `Ladder!v2-pilot` | Under-13 — requires parent co-sign before quiz / grades. |
-| Student — Bob (grade 6) | `bob.lwrpa@ladder.test` | `Ladder!v2-pilot` | Eligible for 6–8 quiz band without co-sign. |
-| Student — Carol (grade 8) | `carol.lwrpa@ladder.test` | `Ladder!v2-pilot` | Has quiz + grades populated for class-suggester demo. |
+| Screen on the app | What to tap / type |
+|---|---|
+| Landing → **Log in with your ID** (B2C) | `parent.smith@ladder.test` · `Ladder!v2-pilot` → Parent dashboard |
+| Landing → **Sign in through your school** → LWRPA → Sign in | `admin.lwrpa@ladder.test` · `Ladder!v2-pilot` → Admin dashboard |
+| Same as above | `counselor.lwrpa@ladder.test` · `Ladder!v2-pilot` → Counselor dashboard |
+| Same as above | `alice.lwrpa@ladder.test` · `Ladder!v2-pilot` → Student dashboard |
+| Same screen → **Join with invite code** | `LDR-TEST-0001` · `new@lrpa.edu` → Student dashboard |
+| Landing → press-and-hold logo 30 seconds | `FND-0001` · `Ladder!v2-pilot` · TOTP `123456` → Founder backdoor |
+| Landing → **New to Ladder? Create an account** | any DOB, 12+ char password, both toggles on → B2C signup submit |
+| Landing → **A school representative? Get in touch** | fills the B2B inquiry form. No login — founders review in the backdoor. |
 
-Invite codes for testing redemption:
+---
 
-| Code (plaintext) | Kind | Expires | Intended email | Status |
-|---|---|---|---|---|
-| `LDR-TEST-0001` | single | +30d | `new-student@lrpa.edu` | unredeemed |
-| `LDR-TEST-BULK-A` | bulk (max 20 uses) | +14d | any `@lrpa.edu` | 3 used |
-| `LDR-TEST-G5` | class-level (grade 5, max 30) | +7d | any | unused |
+## Every B2B school tenant
 
-## Beta Test School (second B2B tenant — for cross-tenant isolation tests)
+### LWRPA — Lakewood Ranch Preparatory Academy
+Tenant slug: `lwrpa` · id `00000000-0000-0000-0000-000000000001`
 
-Tenant slug: `beta-school` · Tenant ID: `00000000-0000-0000-0000-000000000002`
-
-| Role | Email | Password |
+| Role | Email | Dashboard you'll land on |
 |---|---|---|
-| Admin | `admin.beta@ladder.test` | `Ladder!v2-pilot` |
-| Counselor | `counselor.beta@ladder.test` | `Ladder!v2-pilot` |
-| Student — Zed | `zed.beta@ladder.test` | `Ladder!v2-pilot` |
+| Admin | `admin.lwrpa@ladder.test` | Admin home (banner, KPIs, quick actions, Teacher data / Classes / Scheduling sections) |
+| Counselor | `counselor.lwrpa@ladder.test` | Counselor home (queue card, KPIs, quick actions, activity feed) |
+| Student · grade 3 · under-13 | `alice.lwrpa@ladder.test` | Student home (checklist, Career quiz next-up, Daily tip) |
+| Student · grade 6 | `bob.lwrpa@ladder.test` | Student home |
+| Student · grade 8 | `carol.lwrpa@ladder.test` | Student home |
 
-## Family Smith (B2C tenant)
+### Beta Test Academy (for cross-tenant isolation tests)
+Tenant slug: `beta-school` · id `00000000-0000-0000-0000-000000000002`
 
-Tenant slug: `family-smith` · Tenant ID: `00000000-0000-0000-0000-000000000010`
+| Role | Email |
+|---|---|
+| Admin | `admin.beta@ladder.test` |
+| Counselor | `counselor.beta@ladder.test` |
+| Student · grade 5 | `zed.beta@ladder.test` |
 
-| Role | Email | Password | Notes |
-|---|---|---|---|
-| Parent | `parent.smith@ladder.test` | `Ladder!v2-pilot` | Linked to Maya + Noah. |
-| Student — Maya (grade 4) | `maya.smith@ladder.test` | `Ladder!v2-pilot` | Under-13 — parent must co-sign first. |
-| Student — Noah (grade 7) | `noah.smith@ladder.test` | `Ladder!v2-pilot` | |
+---
 
-Parent-invite code (generated at Maya's signup, shown once):
-- `LDR-PARENT-SMITH-1` — tied to `parent.smith@ladder.test`.
+## Every B2C family tenant
 
-## Family Jones (B2C tenant — for family-isolation tests)
+### Smith family
+Tenant slug: `family-smith` · id `00000000-0000-0000-0000-000000000010`
 
-Tenant slug: `family-jones` · Tenant ID: `00000000-0000-0000-0000-000000000011`
-
-| Role | Email | Password |
+| Role | Email | Dashboard |
 |---|---|---|
-| Parent | `parent.jones@ladder.test` | `Ladder!v2-pilot` |
-| Student — Kai | `kai.jones@ladder.test` | `Ladder!v2-pilot` |
+| Parent | `parent.smith@ladder.test` | Parent home with sibling switcher (Maya + Noah) |
+| Student Maya · grade 4 · under-13 | `maya.smith@ladder.test` | Student home |
+| Student Noah · grade 7 | `noah.smith@ladder.test` | Student home |
 
-## Founders (no tenant)
+### Jones family
+Tenant slug: `family-jones` · id `00000000-0000-0000-0000-000000000011`
 
-Founders are not tenant-scoped. They reach login via the 30-second press-and-hold on the Landing logo.
+| Role | Email |
+|---|---|
+| Parent | `parent.jones@ladder.test` |
+| Student Kai · grade 5 | `kai.jones@ladder.test` |
 
-| Role | Founder ID | Password | TOTP | Notes |
-|---|---|---|---|---|
-| Founder — Kathan | `FND-0001` | `Ladder!v2-pilot` | `123456` (dev only) | Active account. TOTP is fixed in dev; rotates to a real authenticator in prod. |
-| Founder — Jet | `FND-0002` | `Ladder!v2-pilot` | `123456` | Active account. |
+---
 
-**Production passkey:** founders use platform authenticators in production. The dev TOTP `123456` is a backdoor ONLY for local Supabase. Per `ADR-004`, founders are denied every tenant-data table at the RLS + IAM + UI layer regardless of how they signed in.
+## Invite codes (redeem from School login → Join with invite code)
 
-## How to load these fixtures
+| Code | Kind | Window | Email-domain restriction |
+|---|---|---|---|
+| `LDR-TEST-0001` | single-use | +30 days | none |
+| `LDR-TEST-BULK-A` | bulk (max 20 uses) | +14 days | `@lrpa.edu` only |
+| `LDR-TEST-G5` | class-level (grade 5, max 30) | +7 days | none |
+
+Any of those codes paired with any `@*.edu` or `@lakewood.edu` email will redeem successfully in the sim and push a Student dashboard.
+
+Parent-invite code already generated for the Smith family (student → "Add a grown-up"): `LDR-PARENT-SMITH-1`.
+
+---
+
+## Founders (hidden — 30-second logo hold)
+
+| Founder ID | Password | TOTP (dev only) |
+|---|---|---|
+| `FND-0001` | `Ladder!v2-pilot` | `123456` |
+| `FND-0002` | `Ladder!v2-pilot` | `123456` |
+
+After founder login you get the backdoor overview with the **Schools** · **Solo** · **System** tabs and a grid of tappable school cards (LWRPA · Beta · St. Jude · Evergreen). Tap any card to drill into the school detail with aggregates, contracts, audit trail. Every surface refuses student data per §14.4.
+
+In production, TOTP `123456` is replaced by a real platform authenticator; passwords are argon2id-hashed; and the RLS + KMS layers deny founders every tenant-data table regardless of auth.
+
+---
+
+## B2C signup (Landing → "Create an account")
+
+Pick any email + pick any DOB. Requirements:
+- Password **12+ characters** (the strength bar turns Strong at 12).
+- Toggle **Terms** on.
+- Toggle **Privacy** on.
+- If the DOB makes the user under 13 the COPPA card appears — signup still succeeds but quiz/grades writes are blocked server-side until a parent co-signs (batch 2 `parental_co_sign_sheet`).
+
+---
+
+## School partner inquiry (Landing → "Get in touch")
+
+Nobody signs up as a school here. This form just records the inquiry; founders review it in the backdoor and provision the tenant from **Schools → + Add a new school**. Fill any fields to submit.
+
+---
+
+## How to load these fixtures in the real backend
 
 ```sh
 make seed              # runs LadderBackend/supabase/seed.sql + scripts/seed-users.ts
 ```
 
-`scripts/seed-users.ts` (TODO — tracked in the next PR) signs every test account up via the Supabase Auth admin API with these exact emails + passwords, then patches `user_profiles.tenant_id` + `user_profiles.role` to match the table above.
-
-Until the seed script lands, create accounts manually in the Supabase dashboard Auth → Users pane, then run `LadderBackend/supabase/seed.sql` to populate the tenant rows + profile bindings.
-
-## What each account lets you test
-
-- **Founder login → dashboard** — press and hold the Landing logo for 30 seconds, then use `FND-0001` + `Ladder!v2-pilot` + `123456`.
-- **B2B invite redemption flow** — landing → "Sign in through your school" → pick LWRPA → "First time? Join with invite code" → paste `LDR-TEST-0001` → email `new-student@lrpa.edu`.
-- **COPPA gate** — sign up as `alice.lwrpa@ladder.test` (grade 3). The app should block her from quiz + grades until the parent co-signs.
-- **Parent sibling switcher** — sign in as `parent.smith@ladder.test`; Maya + Noah should appear in the switcher at the top.
-- **Counselor approval queue** — sign in as `counselor.lwrpa@ladder.test`; Carol's submitted schedule should be at the top of the queue.
-- **Admin mandatory metrics popup** — sign in as `admin.lwrpa@ladder.test`; the amber banner should prompt an update.
-- **Cross-tenant isolation check (dev only)** — sign in as `admin.lwrpa@ladder.test`, then manually craft a request targeting `beta-school`; the API must return 403 / empty rows. `tests/isolation/` automates this.
+`scripts/seed-users.ts` (wired in the next PR) signs every account up via the Supabase Auth admin API with these exact emails + passwords and patches `user_profiles.tenant_id` + `user_profiles.role`. Until then, the sim uses the in-memory accept-list.
 
 ## Security reminder
 
-These credentials are in the repo on a dev branch. The seed script MUST refuse to run against a production database (hard-coded URL allowlist). Any attempt to provision these accounts on prod should fail loudly and page the on-call founder.
+This list lives on a dev branch. The seed script hard-codes a URL allowlist that refuses to run against prod. Any attempt to provision these accounts on prod fails loudly and pages the on-call founder.

@@ -61,7 +61,7 @@ public struct InviteRedemptionView: View {
 
     private var card: some View {
         VStack(spacing: 20) {
-            LadderLogoMark(size: 72, withShadow: true, style: .cream)
+            LadderLogoMark(size: 72, withShadow: true)
 
             VStack(spacing: 8) {
                 Text("Join Your School")
