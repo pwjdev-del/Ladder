@@ -1,16 +1,35 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Tasks Tab — Activities System (4 General + 6 Career-Specific)
 // The 4 general activities every student needs + 6 specific to their career path
-// Activity impact ratings 1–10 show college application value
+// Activity impact ratings 1-10 show college application value
 
 struct TasksView: View {
     @Environment(AppCoordinator.self) private var coordinator
-    @State private var selectedSegment = 0          // 0=Activities, 1=Checklist
-    @State private var careerBucket = "STEM"        // Would come from StudentProfile
+    @Environment(\.modelContext) private var context
+    @Query(sort: \ActivityModel.createdAt) var activities: [ActivityModel]
+    @Query private var profiles: [StudentProfileModel]
+    @State private var selectedSegment = 0
     @State private var showAddActivity = false
-    @State private var activities: [ActivityEntry] = ActivityEntry.sampleData
-    @State private var checklistItems: [AppChecklistEntry] = AppChecklistEntry.sampleItems
+    @State private var completedItemTitles: Set<String> = []
+
+    // Student profile from SwiftData
+    private var studentProfile: StudentProfileModel? { profiles.first }
+
+    private var studentGrade: Int {
+        studentProfile?.grade ?? 9
+    }
+
+    // Grade-filtered checklist: only show items the student has reached
+    private var checklistItems: [AppChecklistEntry] {
+        AppChecklistEntry.sampleItems.filter { $0.minimumGrade <= studentGrade }
+    }
+
+    // Career bucket from SwiftData
+    private var careerBucket: String {
+        studentProfile?.careerPath ?? "STEM"
+    }
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -30,7 +49,7 @@ struct TasksView: View {
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $showAddActivity) {
-            AddActivitySheet(activities: $activities)
+            AddActivitySheet(context: context)
         }
     }
 
@@ -95,25 +114,30 @@ struct TasksView: View {
 
     private var activitiesSection: some View {
         VStack(spacing: LadderSpacing.lg) {
-            // Big 4 General
-            sectionHeader("The Big 4 — Required for All Students", subtitle: "Every competitive college wants to see these", icon: "4.circle.fill")
-            VStack(spacing: LadderSpacing.sm) {
-                ForEach(GeneralActivity.all) { activity in
-                    let entry = activities.first(where: { $0.category == activity.id })
-                    generalActivityCard(activity: activity, entry: entry)
+            if activities.isEmpty {
+                // Empty state
+                emptyActivitiesState
+            } else {
+                // Big 4 General
+                sectionHeader("The Big 4 \u{2014} Required for All Students", subtitle: "Every competitive college wants to see these", icon: "4.circle.fill")
+                VStack(spacing: LadderSpacing.sm) {
+                    ForEach(GeneralActivity.all) { activity in
+                        let entry = activities.first(where: { $0.category.lowercased() == activity.id.lowercased() })
+                        generalActivityCard(activity: activity, entry: entry)
+                    }
                 }
-            }
-            .padding(.horizontal, LadderSpacing.md)
+                .padding(.horizontal, LadderSpacing.md)
 
-            // 6 Career-Specific
-            sectionHeader("Career Boosters — \(careerBucket) Track", subtitle: "High-impact activities for your field", icon: "star.fill")
-            VStack(spacing: LadderSpacing.sm) {
-                ForEach(careerActivities) { activity in
-                    let entry = activities.first(where: { $0.category == activity.id })
-                    careerActivityCard(activity: activity, entry: entry)
+                // 6 Career-Specific
+                sectionHeader("Career Boosters \u{2014} \(careerBucket) Track", subtitle: "High-impact activities for your field", icon: "star.fill")
+                VStack(spacing: LadderSpacing.sm) {
+                    ForEach(careerActivities) { activity in
+                        let entry = activities.first(where: { $0.category.lowercased() == activity.id.lowercased() })
+                        careerActivityCard(activity: activity, entry: entry)
+                    }
                 }
+                .padding(.horizontal, LadderSpacing.md)
             }
-            .padding(.horizontal, LadderSpacing.md)
 
             // Add button
             Button {
@@ -136,6 +160,47 @@ struct TasksView: View {
         .padding(.top, LadderSpacing.md)
     }
 
+    private var emptyActivitiesState: some View {
+        VStack(spacing: LadderSpacing.lg) {
+            Spacer().frame(height: LadderSpacing.xxl)
+
+            Image(systemName: "star.circle")
+                .font(.system(size: 48))
+                .foregroundStyle(LadderColors.primaryContainer)
+
+            VStack(spacing: LadderSpacing.xs) {
+                Text("No activities yet")
+                    .font(LadderTypography.titleMedium)
+                    .foregroundStyle(LadderColors.onSurface)
+
+                Text("Start building your portfolio by logging\nclubs, sports, volunteering, and more.")
+                    .font(LadderTypography.bodySmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                    .multilineTextAlignment(.center)
+            }
+
+            Button {
+                showAddActivity = true
+            } label: {
+                HStack(spacing: LadderSpacing.sm) {
+                    Image(systemName: "plus.circle.fill")
+                    Text("Add Your First Activity")
+                }
+                .font(LadderTypography.titleSmall)
+                .foregroundStyle(.white)
+                .padding(.horizontal, LadderSpacing.xl)
+                .padding(.vertical, LadderSpacing.md)
+                .background(LadderColors.primary)
+                .clipShape(Capsule())
+            }
+            .buttonStyle(.plain)
+
+            Spacer().frame(height: LadderSpacing.xxl)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, LadderSpacing.md)
+    }
+
     private func sectionHeader(_ title: String, subtitle: String, icon: String) -> some View {
         HStack(alignment: .top, spacing: LadderSpacing.sm) {
             Image(systemName: icon).font(.system(size: 16)).foregroundStyle(LadderColors.accentLime)
@@ -148,7 +213,7 @@ struct TasksView: View {
         .padding(.horizontal, LadderSpacing.md)
     }
 
-    private func generalActivityCard(activity: GeneralActivity, entry: ActivityEntry?) -> some View {
+    private func generalActivityCard(activity: GeneralActivity, entry: ActivityModel?) -> some View {
         LadderCard {
             VStack(spacing: LadderSpacing.sm) {
                 HStack(spacing: LadderSpacing.md) {
@@ -176,7 +241,7 @@ struct TasksView: View {
                         }
                         LinearProgressBar(progress: min(Double(volunteerHours) / 120.0, 1.0))
                         if volunteerHours < 120 {
-                            Text("⚡ \(120 - volunteerHours) more hours for Bright Futures eligibility")
+                            Text("\u{26A1} \(120 - volunteerHours) more hours for Bright Futures eligibility")
                                 .font(LadderTypography.labelSmall).foregroundStyle(LadderColors.accentLime)
                         }
                     }
@@ -185,7 +250,7 @@ struct TasksView: View {
                 if let entry = entry {
                     HStack {
                         Image(systemName: "checkmark.circle.fill").foregroundStyle(LadderColors.accentLime).font(.system(size: 13))
-                        Text(entry.description).font(LadderTypography.bodySmall).foregroundStyle(LadderColors.onSurfaceVariant)
+                        Text(entry.name).font(LadderTypography.bodySmall).foregroundStyle(LadderColors.onSurfaceVariant)
                         Spacer()
                     }
                 } else {
@@ -199,7 +264,7 @@ struct TasksView: View {
         }
     }
 
-    private func careerActivityCard(activity: CareerActivity, entry: ActivityEntry?) -> some View {
+    private func careerActivityCard(activity: CareerActivity, entry: ActivityModel?) -> some View {
         LadderCard {
             HStack(spacing: LadderSpacing.md) {
                 ZStack {
@@ -231,31 +296,50 @@ struct TasksView: View {
 
     private var checklistSection: some View {
         VStack(spacing: LadderSpacing.sm) {
-            ForEach($checklistItems) { $item in
-                checklistRow(item: $item)
+            // Grade context banner
+            HStack(spacing: LadderSpacing.sm) {
+                Image(systemName: "graduationcap.fill")
+                    .font(.system(size: 14))
+                    .foregroundStyle(LadderColors.accentLime)
+                Text("Showing tasks for grade \(studentGrade) and earlier")
+                    .font(LadderTypography.bodySmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                Spacer()
+            }
+            .padding(.horizontal, LadderSpacing.md)
+
+            ForEach(checklistItems) { item in
+                checklistRow(item: item)
             }
         }
         .padding(.horizontal, LadderSpacing.md).padding(.top, LadderSpacing.md)
     }
 
-    private func checklistRow(item: Binding<AppChecklistEntry>) -> some View {
-        Button {
-            withAnimation { item.wrappedValue.isComplete.toggle() }
+    private func checklistRow(item: AppChecklistEntry) -> some View {
+        let isComplete = completedItemTitles.contains(item.title)
+        return Button {
+            withAnimation {
+                if isComplete {
+                    completedItemTitles.remove(item.title)
+                } else {
+                    completedItemTitles.insert(item.title)
+                }
+            }
         } label: {
             HStack(spacing: LadderSpacing.md) {
-                Image(systemName: item.wrappedValue.isComplete ? "checkmark.circle.fill" : "circle")
+                Image(systemName: isComplete ? "checkmark.circle.fill" : "circle")
                     .font(.system(size: 22))
-                    .foregroundStyle(item.wrappedValue.isComplete ? LadderColors.accentLime : LadderColors.outlineVariant)
+                    .foregroundStyle(isComplete ? LadderColors.accentLime : LadderColors.outlineVariant)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(item.wrappedValue.title).font(LadderTypography.bodyMedium)
-                        .foregroundStyle(item.wrappedValue.isComplete ? LadderColors.onSurfaceVariant : LadderColors.onSurface)
-                        .strikethrough(item.wrappedValue.isComplete)
-                    if let grade = item.wrappedValue.gradeLabel {
+                    Text(item.title).font(LadderTypography.bodyMedium)
+                        .foregroundStyle(isComplete ? LadderColors.onSurfaceVariant : LadderColors.onSurface)
+                        .strikethrough(isComplete)
+                    if let grade = item.gradeLabel {
                         Text(grade).font(LadderTypography.labelSmall).foregroundStyle(LadderColors.accentLime)
                     }
                 }
                 Spacer()
-                if let dueDate = item.wrappedValue.dueDate {
+                if let dueDate = item.dueDate {
                     Text(dueDate).font(LadderTypography.labelSmall).foregroundStyle(LadderColors.onSurfaceVariant)
                 }
             }
@@ -266,11 +350,23 @@ struct TasksView: View {
         .buttonStyle(.plain)
     }
 
-    // MARK: - Computed
+    // MARK: - Computed (from real SwiftData)
 
-    private var generalCompleted: Int { activities.filter { GeneralActivity.all.map(\.id).contains($0.category) }.count }
-    private var careerCompleted: Int { activities.filter { careerActivities.map(\.id).contains($0.category) }.count }
-    private var volunteerHours: Int { activities.filter { $0.category == "volunteering" }.reduce(0) { $0 + $1.hours } }
+    private var generalCompleted: Int {
+        let generalIds = GeneralActivity.all.map { $0.id.lowercased() }
+        return activities.filter { generalIds.contains($0.category.lowercased()) }.count
+    }
+
+    private var careerCompleted: Int {
+        let careerIds = careerActivities.map { $0.id.lowercased() }
+        return activities.filter { careerIds.contains($0.category.lowercased()) }.count
+    }
+
+    private var volunteerHours: Int {
+        activities
+            .filter { $0.category.lowercased() == "volunteering" }
+            .reduce(0) { $0 + Int($1.totalHours) }
+    }
 
     private var careerActivities: [CareerActivity] {
         switch careerBucket {
@@ -283,34 +379,32 @@ struct TasksView: View {
     }
 }
 
-// MARK: - Add Activity Sheet
+// MARK: - Add Activity Sheet (saves to SwiftData)
 
 struct AddActivitySheet: View {
-    @Binding var activities: [ActivityEntry]
+    let context: ModelContext
     @Environment(\.dismiss) private var dismiss
-    @State private var title = ""
-    @State private var category = "volunteering"
-    @State private var hours = 0
-    @State private var description = ""
+    @State private var name = ""
+    @State private var category = "Volunteering"
+    @State private var hoursPerWeek: Double = 2
+    @State private var weeksPerYear: Double = 30
+    @State private var role = ""
 
     var body: some View {
         NavigationStack {
             Form {
                 Section("Activity Details") {
-                    TextField("Title (e.g. NHS Volunteering)", text: $title)
+                    TextField("Name (e.g. NHS Volunteering)", text: $name)
                     Picker("Category", selection: $category) {
-                        Text("Volunteering").tag("volunteering")
-                        Text("Athletics").tag("athletics")
-                        Text("Clubs").tag("clubs")
-                        Text("Job / Internship").tag("job")
-                        Text("Research Paper").tag("research")
-                        Text("Award / Competition").tag("award")
-                        Text("Other").tag("other")
+                        ForEach(ActivityModel.allCategories, id: \.self) { cat in
+                            Text(cat).tag(cat)
+                        }
                     }
-                    if category == "volunteering" {
-                        Stepper("Hours: \(hours)", value: $hours, in: 0...500)
-                    }
-                    TextField("Description", text: $description)
+                    TextField("Role (e.g. VP, Member)", text: $role)
+                }
+                Section("Time Commitment") {
+                    Stepper("Hours/week: \(Int(hoursPerWeek))", value: $hoursPerWeek, in: 0...40)
+                    Stepper("Weeks/year: \(Int(weeksPerYear))", value: $weeksPerYear, in: 0...52)
                 }
             }
             .navigationTitle("Log Activity")
@@ -321,8 +415,13 @@ struct AddActivitySheet: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
-                        guard !title.isEmpty else { return }
-                        activities.append(ActivityEntry(title: title, category: category, hours: hours, description: description.isEmpty ? title : description))
+                        guard !name.isEmpty else { return }
+                        let activity = ActivityModel(name: name, category: category)
+                        activity.role = role.isEmpty ? nil : role
+                        activity.hoursPerWeek = hoursPerWeek
+                        activity.weeksPerYear = weeksPerYear
+                        context.insert(activity)
+                        try? context.save()
                         dismiss()
                     }
                     .fontWeight(.semibold)
@@ -332,44 +431,45 @@ struct AddActivitySheet: View {
     }
 }
 
-// MARK: - Data Models
-
-struct ActivityEntry: Identifiable {
-    let id = UUID()
-    var title: String
-    var category: String
-    var hours: Int
-    var description: String
-    var isCompleted: Bool = true
-
-    static let sampleData: [ActivityEntry] = [
-        ActivityEntry(title: "NHS Volunteering", category: "volunteering", hours: 45, description: "45 hrs at Halifax Medical Center"),
-        ActivityEntry(title: "Robotics Club", category: "clubs", hours: 0, description: "Member since 9th grade, VP in 11th"),
-    ]
-}
+// MARK: - Local Data Models (Checklist only — activities now use SwiftData)
 
 struct AppChecklistEntry: Identifiable {
     let id = UUID()
     var title: String
     var gradeLabel: String?
     var dueDate: String?
-    var isComplete: Bool = false
+    var minimumGrade: Int
 
     static let sampleItems: [AppChecklistEntry] = [
-        AppChecklistEntry(title: "Complete Career Quiz", gradeLabel: "9th Grade — Start Here"),
-        AppChecklistEntry(title: "Upload freshman transcript", gradeLabel: "9th Grade"),
-        AppChecklistEntry(title: "Join at least 1 club", gradeLabel: "9th Grade"),
-        AppChecklistEntry(title: "Start volunteering (goal: 120 hrs)", gradeLabel: "9th–10th Grade"),
-        AppChecklistEntry(title: "Register for PSAT", gradeLabel: "10th Grade", dueDate: "Oct"),
-        AppChecklistEntry(title: "Begin SAT prep", gradeLabel: "10th Summer"),
-        AppChecklistEntry(title: "Register for SAT", gradeLabel: "11th Grade", dueDate: "Sep"),
-        AppChecklistEntry(title: "Create college wishlist (5+ schools)", gradeLabel: "11th Grade"),
-        AppChecklistEntry(title: "Request letters of recommendation", gradeLabel: "11th Grade"),
-        AppChecklistEntry(title: "Create Common App account", gradeLabel: "12th Grade"),
-        AppChecklistEntry(title: "Submit Early Action applications", gradeLabel: "12th Grade", dueDate: "Nov 1"),
-        AppChecklistEntry(title: "Submit Regular Decision applications", gradeLabel: "12th Grade", dueDate: "Jan 1"),
-        AppChecklistEntry(title: "Compare financial aid packages", gradeLabel: "12th Grade", dueDate: "Apr"),
-        AppChecklistEntry(title: "Commit to a school (National Decision Day)", gradeLabel: "12th Grade", dueDate: "May 1"),
+        // Grade 9
+        AppChecklistEntry(title: "Take the Career Quiz", gradeLabel: "9th Grade \u{2014} Start Here", minimumGrade: 9),
+        AppChecklistEntry(title: "Join a club", gradeLabel: "9th Grade", minimumGrade: 9),
+        AppChecklistEntry(title: "Start volunteering", gradeLabel: "9th Grade", minimumGrade: 9),
+        AppChecklistEntry(title: "Explore college websites", gradeLabel: "9th Grade", minimumGrade: 9),
+        AppChecklistEntry(title: "Set up activity tracking", gradeLabel: "9th Grade", minimumGrade: 9),
+
+        // Grade 10
+        AppChecklistEntry(title: "Register for PSAT", gradeLabel: "10th Grade", dueDate: "Oct", minimumGrade: 10),
+        AppChecklistEntry(title: "Start SAT prep", gradeLabel: "10th Grade", minimumGrade: 10),
+        AppChecklistEntry(title: "Upload transcript", gradeLabel: "10th Grade", minimumGrade: 10),
+        AppChecklistEntry(title: "Continue volunteering (50 hrs)", gradeLabel: "10th Grade", minimumGrade: 10),
+        AppChecklistEntry(title: "Research AP classes for junior year", gradeLabel: "10th Grade", minimumGrade: 10),
+
+        // Grade 11
+        AppChecklistEntry(title: "Register for SAT", gradeLabel: "11th Grade", dueDate: "Sep", minimumGrade: 11),
+        AppChecklistEntry(title: "Build college list (5+ schools)", gradeLabel: "11th Grade", minimumGrade: 11),
+        AppChecklistEntry(title: "Start supplemental essays", gradeLabel: "11th Grade", minimumGrade: 11),
+        AppChecklistEntry(title: "Request letters of recommendation", gradeLabel: "11th Grade", minimumGrade: 11),
+        AppChecklistEntry(title: "Visit colleges", gradeLabel: "11th Grade", minimumGrade: 11),
+        AppChecklistEntry(title: "Apply for scholarships", gradeLabel: "11th Grade", minimumGrade: 11),
+
+        // Grade 12
+        AppChecklistEntry(title: "Create Common App account", gradeLabel: "12th Grade", minimumGrade: 12),
+        AppChecklistEntry(title: "Submit Early Action apps", gradeLabel: "12th Grade", dueDate: "Nov 1", minimumGrade: 12),
+        AppChecklistEntry(title: "Submit Regular Decision apps", gradeLabel: "12th Grade", dueDate: "Jan 1", minimumGrade: 12),
+        AppChecklistEntry(title: "Complete FAFSA", gradeLabel: "12th Grade", minimumGrade: 12),
+        AppChecklistEntry(title: "Compare financial aid packages", gradeLabel: "12th Grade", dueDate: "Apr", minimumGrade: 12),
+        AppChecklistEntry(title: "Commit to college", gradeLabel: "12th Grade", dueDate: "May 1", minimumGrade: 12),
     ]
 }
 
@@ -379,7 +479,7 @@ struct GeneralActivity: Identifiable {
     let id: String; let name: String; let description: String; let icon: String; let impact: Int
 
     static let all: [GeneralActivity] = [
-        GeneralActivity(id: "volunteering", name: "Community Service", description: "Min 120 hrs for Bright Futures • 75 hrs Medallion", icon: "heart.circle", impact: 8),
+        GeneralActivity(id: "volunteering", name: "Community Service", description: "Min 120 hrs for Bright Futures \u{2022} 75 hrs Medallion", icon: "heart.circle", impact: 8),
         GeneralActivity(id: "clubs", name: "School Clubs", description: "1+ per year with at least one leadership role", icon: "person.3", impact: 7),
         GeneralActivity(id: "athletics", name: "Athletics", description: "School sport, club sport, or physical activity", icon: "figure.run", impact: 7),
         GeneralActivity(id: "job", name: "Job / Work Experience", description: "Shows responsibility, time management, and initiative", icon: "briefcase", impact: 6),
@@ -399,7 +499,7 @@ struct CareerActivity: Identifiable {
     ]
 
     static let medical: [CareerActivity] = [
-        CareerActivity(id: "clinical", name: "Clinical Volunteering", tip: "Hospital, free clinic, or nursing home — 100+ hrs", icon: "cross.case", impact: 10),
+        CareerActivity(id: "clinical", name: "Clinical Volunteering", tip: "Hospital, free clinic, or nursing home \u{2014} 100+ hrs", icon: "cross.case", impact: 10),
         CareerActivity(id: "research", name: "Health Research Paper", tip: "Biology experiment or medical case study", icon: "doc.text", impact: 8),
         CareerActivity(id: "award", name: "Science Fair / Competition", tip: "ISEF, regional science fair, or biology olympiad", icon: "trophy", impact: 9),
         CareerActivity(id: "cert", name: "CNA / CPR / First Aid Cert", tip: "Shows commitment to the medical path", icon: "staroflife", impact: 7),
@@ -435,9 +535,9 @@ struct CareerActivity: Identifiable {
     ]
 }
 
-#Preview {
-    NavigationStack {
-        TasksView()
-            .environment(AppCoordinator())
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        TasksView()
+//            .environment(AppCoordinator())
+//    }
+//}

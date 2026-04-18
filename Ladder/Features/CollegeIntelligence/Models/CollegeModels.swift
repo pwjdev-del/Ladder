@@ -35,6 +35,52 @@ final class CollegeModel {
     var programs: [String] = []
     var lastSyncedAt: Date?
 
+    // Perplexity admissions process fields
+    var applicationFee: String?
+    var feeWaiverAvailable: String?
+    var testingPolicy: String?
+    var supplementalEssaysCount: String?
+    var recommendationLetters: String?
+    var interviewPolicy: String?
+    var demonstratedInterest: String?
+    var transcriptMethod: String?
+    var selfReportedGrades: String?
+    var cssProfileRequired: String?
+    var topMeritScholarship: String?
+    var meritScholarshipAmount: String?
+    var meritCriteria: String?
+    var faPriorityDeadline: String?
+
+    // Florida-deep enrollment fields
+    var enrollmentDeposit: String?
+    var depositDeadline: String?
+    var housingDeposit: String?
+    var housingDeadline: String?
+    var orientationRequired: String?
+    var orientationCost: String?
+    var immunizationsRequired: String?
+    var placementTests: String?
+
+    // Application portal URL (direct portal or Common App link)
+    var portalURL: String?
+
+    // AP Credit policy
+    var apCreditPolicy: String?
+
+    // Additional Scorecard fields
+    var pellRate: Double?
+    var medianDebt: Int?
+    var avgNetPrice: Int?
+    var accreditor: String?
+    var carnegieClassification: Int?
+    var isOpenAdmissions: Bool = false
+    var zipCode: String?
+    var alias: String?
+
+    // Data lineage
+    var dataSource: String?
+    var researchSourceURL: String?
+
     @Relationship(deleteRule: .cascade) var personality: CollegePersonalityModel?
     @Relationship(deleteRule: .cascade) var deadlines: [CollegeDeadlineModel] = []
 

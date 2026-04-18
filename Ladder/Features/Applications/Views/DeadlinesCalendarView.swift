@@ -1,11 +1,28 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Deadlines Calendar View
 
 struct DeadlinesCalendarView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AppCoordinator.self) private var coordinator
+    @Query var deadlines: [CollegeDeadlineModel]
     @State private var selectedMonth = Calendar.current.component(.month, from: Date())
+    @State private var calendarAlert: CalendarAlertState?
+
+    private enum CalendarAlertState: Identifiable {
+        case added(String)
+        case alreadyExists(String)
+        case noAccess
+
+        var id: String {
+            switch self {
+            case .added(let t): return "added-\(t)"
+            case .alreadyExists(let t): return "exists-\(t)"
+            case .noAccess: return "noaccess"
+            }
+        }
+    }
 
     private let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -36,6 +53,16 @@ struct DeadlinesCalendarView: View {
                 Text("Deadlines")
                     .font(LadderTypography.titleMedium)
                     .foregroundStyle(LadderColors.onSurface)
+            }
+        }
+        .alert(item: $calendarAlert) { alertType in
+            switch alertType {
+            case .added(let title):
+                Alert(title: Text("Added to Calendar"), message: Text("\(title) has been added with reminders set for 1 week and 1 day before."), dismissButton: .default(Text("OK")))
+            case .alreadyExists(let title):
+                Alert(title: Text("Already Added"), message: Text("\(title) is already on your calendar."), dismissButton: .default(Text("OK")))
+            case .noAccess:
+                Alert(title: Text("Calendar Access Required"), message: Text("Please enable calendar access in Settings to add deadlines."), dismissButton: .default(Text("OK")))
             }
         }
     }
@@ -81,8 +108,27 @@ struct DeadlinesCalendarView: View {
                 .foregroundStyle(LadderColors.onSurfaceVariant)
                 .labelTracking()
 
-            let deadlines = deadlinesForMonth(selectedMonth)
+            let monthDeadlines = deadlinesForMonth(selectedMonth)
             if deadlines.isEmpty {
+                // No deadlines at all in database
+                VStack(spacing: LadderSpacing.md) {
+                    Image(systemName: "building.columns")
+                        .font(.system(size: 40))
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+
+                    Text("Add colleges to your list to see their deadlines")
+                        .font(LadderTypography.titleMedium)
+                        .foregroundStyle(LadderColors.onSurface)
+                        .multilineTextAlignment(.center)
+
+                    Text("Deadlines will appear here once you add colleges with deadline information.")
+                        .font(LadderTypography.bodySmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, LadderSpacing.xxxxl)
+            } else if monthDeadlines.isEmpty {
                 VStack(spacing: LadderSpacing.md) {
                     Image(systemName: "calendar.badge.checkmark")
                         .font(.system(size: 40))
@@ -95,104 +141,135 @@ struct DeadlinesCalendarView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, LadderSpacing.xxxxl)
             } else {
-                ForEach(deadlines) { deadline in
+                ForEach(monthDeadlines) { deadline in
                     deadlineCard(deadline)
                 }
             }
         }
     }
 
-    private func deadlineCard(_ deadline: DeadlineItem) -> some View {
-        Button {
-            coordinator.navigate(to: .applicationDetail(applicationId: deadline.collegeId))
-        } label: {
-            HStack(spacing: LadderSpacing.md) {
-                // Date column
-                VStack(spacing: 2) {
-                    Text(deadline.dayString)
-                        .font(LadderTypography.headlineSmall)
-                        .foregroundStyle(deadline.isUrgent ? LadderColors.error : LadderColors.primary)
+    private func deadlineCard(_ deadline: CollegeDeadlineModel) -> some View {
+        let collegeName = deadline.college?.name ?? "Unknown College"
+        let deadlineDate = deadline.date ?? Date()
+        let day = Calendar.current.component(.day, from: deadlineDate)
+        let isUrgent = deadlineDate.timeIntervalSinceNow < 7 * 24 * 3600 && deadlineDate.timeIntervalSinceNow > 0
+        let platform = deadline.applicationPlatforms.first ?? "Direct"
 
-                    Text(deadline.weekday)
-                        .font(LadderTypography.labelSmall)
-                        .foregroundStyle(LadderColors.onSurfaceVariant)
+        let weekdayFormatter: DateFormatter = {
+            let f = DateFormatter()
+            f.dateFormat = "EEE"
+            return f
+        }()
+
+        return VStack(spacing: 0) {
+            Button {
+                if let collegeId = deadline.college?.supabaseId {
+                    coordinator.navigate(to: .applicationDetail(applicationId: collegeId))
                 }
-                .frame(width: 48)
+            } label: {
+                HStack(spacing: LadderSpacing.md) {
+                    // Date column
+                    VStack(spacing: 2) {
+                        Text("\(day)")
+                            .font(LadderTypography.headlineSmall)
+                            .foregroundStyle(isUrgent ? LadderColors.error : LadderColors.primary)
 
-                Rectangle()
-                    .fill(deadline.isUrgent ? LadderColors.error : LadderColors.primaryContainer)
-                    .frame(width: 3)
-                    .clipShape(RoundedRectangle(cornerRadius: 2))
+                        Text(weekdayFormatter.string(from: deadlineDate))
+                            .font(LadderTypography.labelSmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                    }
+                    .frame(width: 48)
 
-                VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
-                    Text(deadline.collegeName)
-                        .font(LadderTypography.titleSmall)
-                        .foregroundStyle(LadderColors.onSurface)
+                    Rectangle()
+                        .fill(isUrgent ? LadderColors.error : LadderColors.primaryContainer)
+                        .frame(width: 3)
+                        .clipShape(RoundedRectangle(cornerRadius: 2))
 
-                    Text(deadline.type)
-                        .font(LadderTypography.bodySmall)
-                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                    VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                        Text(collegeName)
+                            .font(LadderTypography.titleSmall)
+                            .foregroundStyle(LadderColors.onSurface)
 
-                    HStack(spacing: LadderSpacing.sm) {
-                        LadderTagChip(deadline.platform)
-                        if deadline.isUrgent {
-                            LadderTagChip("Urgent", icon: "exclamationmark.triangle")
+                        Text(deadline.deadlineType)
+                            .font(LadderTypography.bodySmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+
+                        HStack(spacing: LadderSpacing.sm) {
+                            LadderTagChip(platform)
+                            if isUrgent {
+                                LadderTagChip("Urgent", icon: "exclamationmark.triangle")
+                            }
                         }
                     }
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
                 }
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                .padding(LadderSpacing.md)
             }
-            .padding(LadderSpacing.md)
-            .background(LadderColors.surfaceContainerLow)
-            .clipShape(RoundedRectangle(cornerRadius: LadderRadius.xl, style: .continuous))
+            .buttonStyle(.plain)
+
+            // Add to Calendar button
+            Button {
+                addDeadlineToCalendar(deadline)
+            } label: {
+                HStack(spacing: LadderSpacing.xs) {
+                    Image(systemName: "calendar.badge.plus")
+                        .font(.system(size: 12))
+                    Text("Add to Calendar")
+                        .font(LadderTypography.labelSmall)
+                }
+                .foregroundStyle(LadderColors.primary)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, LadderSpacing.sm)
+                .background(LadderColors.primaryContainer.opacity(0.15))
+            }
         }
-        .buttonStyle(.plain)
+        .background(LadderColors.surfaceContainerLow)
+        .clipShape(RoundedRectangle(cornerRadius: LadderRadius.xl, style: .continuous))
     }
 
-    // MARK: - Mock Data
+    // MARK: - Calendar Integration
 
-    private func deadlinesForMonth(_ month: Int) -> [DeadlineItem] {
-        let all: [DeadlineItem] = [
-            DeadlineItem(collegeName: "SAT Registration", type: "Test Registration", platform: "College Board", collegeId: "sat", month: 4, day: 15, isUrgent: true),
-            DeadlineItem(collegeName: "FAFSA Opens", type: "Financial Aid", platform: "studentaid.gov", collegeId: "fafsa", month: 10, day: 1, isUrgent: false),
-            DeadlineItem(collegeName: "University of Florida", type: "Early Action", platform: "Common App", collegeId: "uf", month: 11, day: 1, isUrgent: false),
-            DeadlineItem(collegeName: "Florida State University", type: "Early Action", platform: "Common App", collegeId: "fsu", month: 11, day: 1, isUrgent: false),
-            DeadlineItem(collegeName: "Emory University", type: "Early Decision", platform: "Common App", collegeId: "emory", month: 11, day: 1, isUrgent: false),
-            DeadlineItem(collegeName: "Georgia Tech", type: "Early Action", platform: "Common App", collegeId: "gatech", month: 11, day: 1, isUrgent: false),
-            DeadlineItem(collegeName: "Rochester Institute of Technology", type: "Early Decision", platform: "Common App", collegeId: "rit", month: 11, day: 15, isUrgent: false),
-            DeadlineItem(collegeName: "University of Florida", type: "Regular Decision", platform: "Common App", collegeId: "uf", month: 1, day: 15, isUrgent: false),
-            DeadlineItem(collegeName: "Georgia Tech", type: "Regular Decision", platform: "Common App", collegeId: "gatech", month: 1, day: 4, isUrgent: false),
-            DeadlineItem(collegeName: "Emory University", type: "Regular Decision", platform: "Common App", collegeId: "emory", month: 1, day: 15, isUrgent: false),
-            DeadlineItem(collegeName: "National Decision Day", type: "Commitment Deadline", platform: "All Schools", collegeId: "ndd", month: 5, day: 1, isUrgent: false),
-        ]
-        return all.filter { $0.month == month }.sorted { $0.day < $1.day }
+    private func addDeadlineToCalendar(_ deadline: CollegeDeadlineModel) {
+        guard let date = deadline.date else { return }
+        let collegeName = deadline.college?.name ?? "Unknown College"
+        let title = "\(collegeName) - \(deadline.deadlineType)"
+        let platform = deadline.applicationPlatforms.first ?? "Direct"
+
+        Task {
+            let manager = CalendarManager.shared
+            let success = await manager.addDeadline(
+                title: title,
+                date: date,
+                notes: "Platform: \(platform)\nAdded from Ladder"
+            )
+            await MainActor.run {
+                if success {
+                    calendarAlert = .added(title)
+                } else if manager.authorizationStatus == .denied || manager.authorizationStatus == .restricted {
+                    calendarAlert = .noAccess
+                } else {
+                    calendarAlert = .alreadyExists(title)
+                }
+            }
+        }
     }
-}
 
-// MARK: - Deadline Item
+    // MARK: - Data Helpers
 
-struct DeadlineItem: Identifiable {
-    let id = UUID()
-    let collegeName: String
-    let type: String
-    let platform: String
-    let collegeId: String
-    let month: Int
-    let day: Int
-    let isUrgent: Bool
-
-    var dayString: String { "\(day)" }
-    var weekday: String {
-        let components = DateComponents(year: 2026, month: month, day: day)
-        guard let date = Calendar.current.date(from: components) else { return "" }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE"
-        return formatter.string(from: date)
+    private func deadlinesForMonth(_ month: Int) -> [CollegeDeadlineModel] {
+        deadlines
+            .filter { deadline in
+                guard let date = deadline.date else { return false }
+                return Calendar.current.component(.month, from: date) == month
+            }
+            .sorted { a, b in
+                (a.date ?? .distantFuture) < (b.date ?? .distantFuture)
+            }
     }
 }
 

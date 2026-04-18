@@ -4,6 +4,7 @@ import SwiftUI
 
 struct CollegeDiscoveryView: View {
     @Environment(AppCoordinator.self) private var coordinator
+    @Environment(\.modelContext) private var context
     @State private var viewModel = CollegeDiscoveryViewModel()
 
     private let columns = [
@@ -25,6 +26,9 @@ struct CollegeDiscoveryView: View {
             }
         }
         .navigationBarHidden(true)
+        .task {
+            viewModel.loadColleges(from: context)
+        }
     }
 
     // MARK: - Header
@@ -88,7 +92,7 @@ struct CollegeDiscoveryView: View {
             HStack(spacing: LadderSpacing.sm) {
                 ForEach(CollegeDiscoveryViewModel.CollegeFilter.allCases, id: \.self) { filter in
                     LadderFilterChip(
-                        title: filter.rawValue,
+                        title: filter == .bestForMajor ? viewModel.bestForMajorLabel : filter.rawValue,
                         isSelected: viewModel.selectedFilter == filter
                     ) {
                         viewModel.selectedFilter = filter
@@ -122,17 +126,29 @@ struct CollegeDiscoveryView: View {
             .padding(.top, LadderSpacing.xxxxl)
         } else {
             LazyVGrid(columns: columns, spacing: LadderSpacing.md) {
-                ForEach(viewModel.filteredColleges) { college in
+                ForEach(viewModel.visibleColleges) { college in
                     CollegeCard(
                         name: college.name,
                         location: college.location,
                         matchPercent: college.matchPercent,
                         imageURL: college.imageURL,
+                        websiteURL: college.websiteURL,
                         tags: college.tags,
                         isFavorite: viewModel.favoriteIds.contains(college.id),
+                        matchTier: viewModel.matchTier(for: college),
                         onFavorite: { viewModel.toggleFavorite(college) },
                         onTap: { coordinator.navigate(to: .collegeProfile(collegeId: college.id)) }
                     )
+                    .onAppear {
+                        if college.id == viewModel.visibleColleges.last?.id {
+                            viewModel.loadMore()
+                        }
+                    }
+                }
+
+                if viewModel.hasMore {
+                    ProgressView()
+                        .padding(.vertical, LadderSpacing.lg)
                 }
             }
             .padding(.horizontal, LadderSpacing.md)

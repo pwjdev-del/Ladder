@@ -24,7 +24,7 @@ struct EssayHubView: View {
                                     .foregroundStyle(LadderColors.onSurface)
                             }
 
-                            Text("Brainstorm ideas, get feedback on drafts, and refine your essays with your AI advisor.")
+                            Text("Brainstorm ideas, get feedback on drafts, and refine your essays with Sia.")
                                 .font(LadderTypography.bodyMedium)
                                 .foregroundStyle(LadderColors.onSurfaceVariant)
 

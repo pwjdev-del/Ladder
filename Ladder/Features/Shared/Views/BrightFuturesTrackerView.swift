@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Bright Futures Tracker (Florida Scholarship)
 // Florida Bright Futures is the state scholarship program:
@@ -10,36 +11,47 @@ import SwiftUI
 
 struct BrightFuturesTrackerView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var context
+    @Query private var profiles: [StudentProfileModel]
 
-    // In production: these come from StudentProfileModel
-    @State private var currentGPA: Double = 3.78
-    @State private var weightedGPA: Double = 4.12
-    @State private var serviceHours: Double = 47
-    @State private var satScore: Int = 1180
-    @State private var actScore: Int = 25
+    @State private var currentGPA: Double = 0
+    @State private var weightedGPA: Double = 0
+    @State private var serviceHours: Double = 0
+    @State private var satScore: Int = 0
+    @State private var actScore: Int = 0
     @State private var showAddHoursSheet = false
     @State private var newHoursText = ""
-    @State private var serviceEntries: [ServiceEntry] = ServiceEntry.sampleEntries
+    @State private var serviceEntries: [ServiceEntry] = []
+    @State private var loaded = false
 
     // Scholarship thresholds
     private let academicGPA  = 3.5;  private let academicHours  = 100.0; private let academicSAT  = 1290; private let academicACT  = 29
     private let medallionGPA = 3.0;  private let medallionHours = 75.0;  private let medallionSAT = 1170; private let medallionACT = 23
 
+    private var isFloridaResident: Bool {
+        guard let profile = profiles.first else { return false }
+        return DomainValidator.normalizedState(profile.state) == "FL"
+    }
+
     var body: some View {
         ZStack {
             LadderColors.surface.ignoresSafeArea()
 
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: LadderSpacing.lg) {
-                    scholarshipStatusCard
-                    serviceHoursCard
-                    requirementsBreakdown
-                    serviceLogSection
-                    faqSection
+            if !isFloridaResident {
+                notAvailableInState
+            } else {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: LadderSpacing.lg) {
+                        scholarshipStatusCard
+                        serviceHoursCard
+                        requirementsBreakdown
+                        serviceLogSection
+                        faqSection
+                    }
+                    .padding(.horizontal, LadderSpacing.md)
+                    .padding(.top, LadderSpacing.md)
+                    .padding(.bottom, 120)
                 }
-                .padding(.horizontal, LadderSpacing.md)
-                .padding(.top, LadderSpacing.md)
-                .padding(.bottom, 120)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -66,6 +78,17 @@ struct BrightFuturesTrackerView: View {
         }
         .sheet(isPresented: $showAddHoursSheet) {
             addHoursSheet
+        }
+        .task {
+            guard !loaded else { return }
+            loaded = true
+            let descriptor = FetchDescriptor<StudentProfileModel>()
+            if let profiles = try? context.fetch(descriptor), let p = profiles.first {
+                currentGPA = p.gpa ?? 0
+                weightedGPA = (p.gpa ?? 0) + 0.3 // Approximate weighted boost
+                satScore = p.satScore ?? 0
+                actScore = p.actScore ?? 0
+            }
         }
     }
 
@@ -369,6 +392,23 @@ struct BrightFuturesTrackerView: View {
     }
 
     // MARK: - Computed
+
+    private var notAvailableInState: some View {
+        VStack(spacing: LadderSpacing.lg) {
+            Image(systemName: "mappin.slash.circle")
+                .font(.system(size: 56))
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+            Text("Bright Futures is Florida-only")
+                .font(LadderTypography.titleMedium)
+                .foregroundStyle(LadderColors.onSurface)
+            Text("This scholarship program is available to Florida residents. Update your state in Profile Settings if this looks wrong.")
+                .font(LadderTypography.bodyMedium)
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, LadderSpacing.xl)
+        }
+        .padding(LadderSpacing.xxl)
+    }
 
     private var scholarshipLevel: ScholarshipLevel {
         let academicMet = currentGPA >= academicGPA && serviceHours >= academicHours && satScore >= academicSAT

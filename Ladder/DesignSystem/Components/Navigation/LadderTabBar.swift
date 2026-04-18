@@ -83,7 +83,7 @@ enum Tab: Int, CaseIterable {
         case .home: "Home"
         case .tasks: "Tasks"
         case .colleges: "Colleges"
-        case .advisor: "Advisor"
+        case .advisor: "Sia"
         case .profile: "Profile"
         }
     }

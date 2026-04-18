@@ -1,10 +1,10 @@
 import SwiftUI
 
-// MARK: - Student Home Dashboard
-// Matches student_home_dashboard Stitch mockup
+// MARK: - Student Home Dashboard (Simplified 3-Section Layout)
 
 struct DashboardView: View {
     @Environment(AppCoordinator.self) private var coordinator
+    @Environment(\.modelContext) private var context
     @State private var viewModel = DashboardViewModel()
 
     var body: some View {
@@ -16,28 +16,31 @@ struct DashboardView: View {
                     // Green header
                     headerSection
 
-                    // Content cards (overlap the header slightly)
+                    // Content sections
                     VStack(spacing: LadderSpacing.md) {
-                        checklistProgressCard
-                        quickActionsSection
-                        nextUpCard
-                        urgentDeadlineCard
-                        dailyTipCard
+                        if viewModel.showMajorPrompt {
+                            majorPromptBanner
+                        }
+                        welcomeProgressCard
+                        actionsThisWeek
+                        upcomingDeadlinesSection
                     }
                     .padding(.horizontal, LadderSpacing.md)
                     .padding(.top, -LadderSpacing.xl)
-                    .padding(.bottom, 120) // Space for tab bar
+                    .padding(.bottom, 120)
                 }
             }
         }
         .navigationBarHidden(true)
+        .task {
+            viewModel.loadDashboard(context: context)
+        }
     }
 
     // MARK: - Header
 
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: LadderSpacing.md) {
-            // Top row: label + avatar
             HStack {
                 Text("STUDENT DASHBOARD")
                     .font(LadderTypography.labelSmall)
@@ -46,7 +49,6 @@ struct DashboardView: View {
 
                 Spacer()
 
-                // Profile avatar with streak
                 ZStack(alignment: .bottomTrailing) {
                     Circle()
                         .fill(.white.opacity(0.2))
@@ -56,25 +58,25 @@ struct DashboardView: View {
                                 .foregroundStyle(.white)
                         )
 
-                    // Streak badge
-                    Text("\(viewModel.streak) 🔥")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(LadderColors.accentLime)
-                        .clipShape(Capsule())
-                        .offset(x: 8, y: 4)
+                    if viewModel.streak > 0 {
+                        Text("\(viewModel.streak) \u{1F525}")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(LadderColors.accentLime)
+                            .clipShape(Capsule())
+                            .offset(x: 8, y: 4)
+                    }
                 }
             }
 
-            // Greeting
             VStack(alignment: .leading, spacing: LadderSpacing.xs) {
-                Text("\(viewModel.greetingText), \(viewModel.studentName) 👋")
+                Text("\(viewModel.greetingText), \(viewModel.studentName)")
                     .font(LadderTypography.headlineMedium)
                     .foregroundStyle(.white)
 
-                Text("\(viewModel.careerPath) · Grade \(viewModel.grade)")
+                Text("\(viewModel.careerPath) \u{00B7} Grade \(viewModel.grade)")
                     .font(LadderTypography.labelMedium)
                     .foregroundStyle(.white.opacity(0.7))
                     .padding(.horizontal, LadderSpacing.sm)
@@ -99,208 +101,252 @@ struct DashboardView: View {
         )
     }
 
-    // MARK: - Checklist Progress Card
+    // MARK: - Section 1: Welcome + Progress Card
 
-    private var checklistProgressCard: some View {
+    private var welcomeProgressCard: some View {
         LadderCard(elevated: true) {
-            HStack(spacing: LadderSpacing.lg) {
-                CircularProgressView(
-                    progress: viewModel.checklistProgress,
-                    label: "\(Int(viewModel.checklistProgress * 100))%",
-                    sublabel: "Complete",
-                    size: 80
-                )
+            VStack(spacing: LadderSpacing.md) {
+                // Progress row
+                HStack(spacing: LadderSpacing.lg) {
+                    CircularProgressView(
+                        progress: viewModel.checklistProgress,
+                        label: "\(Int(viewModel.checklistProgress * 100))%",
+                        sublabel: "Complete",
+                        size: 72
+                    )
 
-                VStack(alignment: .leading, spacing: LadderSpacing.sm) {
-                    Text("Your Checklist")
-                        .font(LadderTypography.titleMedium)
-                        .foregroundStyle(LadderColors.onSurface)
+                    VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                        Text("Your Progress")
+                            .font(LadderTypography.titleMedium)
+                            .foregroundStyle(LadderColors.onSurface)
 
-                    Text("\(viewModel.completedTasks) of \(viewModel.totalTasks) tasks done")
-                        .font(LadderTypography.bodySmall)
-                        .foregroundStyle(LadderColors.onSurfaceVariant)
-
-                    Button {
-                        coordinator.navigate(to: .activityChecklist)
-                    } label: {
-                        Text("View Tasks")
-                            .font(LadderTypography.labelMedium)
-                            .foregroundStyle(LadderColors.primary)
+                        Text("\(viewModel.completedTasks) of \(viewModel.totalTasks) tasks done")
+                            .font(LadderTypography.bodySmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
                     }
+
+                    Spacer()
                 }
 
-                Spacer()
+                // Next Up row
+                Button {
+                    coordinator.navigate(to: .activityChecklist)
+                } label: {
+                    HStack(spacing: LadderSpacing.sm) {
+                        Image(systemName: "arrow.right.circle.fill")
+                            .font(.system(size: 18))
+                            .foregroundStyle(LadderColors.accentLime)
+
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("NEXT UP")
+                                .font(LadderTypography.labelSmall)
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
+                                .labelTracking()
+
+                            Text(viewModel.nextTaskTitle)
+                                .font(LadderTypography.titleSmall)
+                                .foregroundStyle(LadderColors.onSurface)
+                                .lineLimit(1)
+                        }
+
+                        Spacer()
+
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 12))
+                            .foregroundStyle(LadderColors.outlineVariant)
+                    }
+                    .padding(LadderSpacing.sm)
+                    .background(LadderColors.surfaceContainerLow)
+                    .clipShape(RoundedRectangle(cornerRadius: LadderRadius.lg, style: .continuous))
+                }
+                .buttonStyle(.plain)
             }
         }
     }
 
-    // MARK: - Quick Actions Section
+    // MARK: - Section 2: Your Actions This Week
 
-    private var quickActionsSection: some View {
+    private var actionsThisWeek: some View {
         VStack(alignment: .leading, spacing: LadderSpacing.sm) {
-            Text("QUICK ACTIONS")
+            Text("YOUR ACTIONS THIS WEEK")
                 .font(LadderTypography.labelSmall)
                 .foregroundStyle(LadderColors.onSurfaceVariant)
                 .labelTracking()
 
-            HStack(spacing: LadderSpacing.sm) {
-                quickActionTile(
-                    title: "Career\nRadar",
-                    icon: "scope",
-                    color: LadderColors.accentLime,
-                    route: .wheelOfCareer
-                )
-                quickActionTile(
-                    title: "Upload\nTranscript",
-                    icon: "doc.text.magnifyingglass",
-                    color: LadderColors.primary,
-                    route: .transcriptUpload
-                )
-                quickActionTile(
-                    title: "Bright\nFutures",
-                    icon: "star.circle.fill",
-                    color: Color(red: 0.55, green: 0.30, blue: 0.10),
-                    route: .brightFuturesTracker
-                )
-                quickActionTile(
-                    title: "4-Year\nRoadmap",
-                    icon: "map.fill",
-                    color: Color(red: 0.15, green: 0.35, blue: 0.55),
-                    route: .roadmap
-                )
+            VStack(spacing: LadderSpacing.xs) {
+                ForEach(viewModel.gradeActions) { action in
+                    actionCard(action)
+                }
             }
         }
     }
 
-    private func quickActionTile(title: String, icon: String, color: Color, route: Route) -> some View {
+    private func actionCard(_ action: DashboardAction) -> some View {
         Button {
-            coordinator.navigate(to: route)
+            coordinator.navigate(to: action.route)
         } label: {
-            VStack(spacing: LadderSpacing.xs) {
+            HStack(spacing: LadderSpacing.md) {
                 ZStack {
                     RoundedRectangle(cornerRadius: LadderRadius.md, style: .continuous)
-                        .fill(color.opacity(0.12))
+                        .fill(LadderColors.primaryContainer.opacity(0.15))
                         .frame(width: 44, height: 44)
-                    Image(systemName: icon)
+                    Image(systemName: action.icon)
                         .font(.system(size: 20))
-                        .foregroundStyle(color)
+                        .foregroundStyle(LadderColors.primary)
                 }
-                Text(title)
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(LadderColors.onSurface)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(action.title)
+                        .font(LadderTypography.titleSmall)
+                        .foregroundStyle(LadderColors.onSurface)
+                    Text(action.subtitle)
+                        .font(LadderTypography.bodySmall)
+                        .foregroundStyle(LadderColors.onSurfaceVariant)
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12))
+                    .foregroundStyle(LadderColors.outlineVariant)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, LadderSpacing.md)
+            .padding(LadderSpacing.md)
             .background(LadderColors.surfaceContainerLow)
             .clipShape(RoundedRectangle(cornerRadius: LadderRadius.xl, style: .continuous))
         }
         .buttonStyle(.plain)
     }
 
-    // MARK: - Next Up Card
+    // MARK: - Section 3: Upcoming Deadlines
 
-    private var nextUpCard: some View {
-        LadderCard {
-            VStack(alignment: .leading, spacing: LadderSpacing.sm) {
-                HStack {
-                    LadderTagChip("Next Up", icon: "arrow.right.circle")
+    private var upcomingDeadlinesSection: some View {
+        VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+            Text("UPCOMING DEADLINES")
+                .font(LadderTypography.labelSmall)
+                .foregroundStyle(LadderColors.onSurfaceVariant)
+                .labelTracking()
+
+            if viewModel.upcomingDeadlines.isEmpty {
+                HStack(spacing: LadderSpacing.md) {
+                    Image(systemName: "calendar.badge.checkmark")
+                        .font(.system(size: 24))
+                        .foregroundStyle(LadderColors.accentLime)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("No upcoming deadlines")
+                            .font(LadderTypography.titleSmall)
+                            .foregroundStyle(LadderColors.onSurface)
+                        Text("Add colleges to track their deadlines")
+                            .font(LadderTypography.bodySmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                    }
 
                     Spacer()
-
-                    Text(viewModel.nextTaskCategory)
-                        .font(LadderTypography.labelSmall)
-                        .foregroundStyle(LadderColors.onSurfaceVariant)
                 }
-
-                Text(viewModel.nextTaskTitle)
-                    .font(LadderTypography.titleMedium)
-                    .foregroundStyle(LadderColors.onSurface)
-
-                LinearProgressBar(progress: viewModel.nextTaskProgress)
-
-                HStack {
-                    Text("\(Int(viewModel.nextTaskProgress * 100))% complete")
-                        .font(LadderTypography.bodySmall)
-                        .foregroundStyle(LadderColors.onSurfaceVariant)
-
-                    Spacer()
-
-                    LadderTertiaryButton("Continue") {
-                        // TODO: Navigate to task
+                .padding(LadderSpacing.md)
+                .background(LadderColors.surfaceContainerLow)
+                .clipShape(RoundedRectangle(cornerRadius: LadderRadius.xl, style: .continuous))
+            } else {
+                VStack(spacing: LadderSpacing.xs) {
+                    ForEach(viewModel.upcomingDeadlines) { deadline in
+                        deadlineRow(deadline)
                     }
                 }
+
+                Button {
+                    coordinator.navigate(to: .deadlinesCalendar)
+                } label: {
+                    HStack {
+                        Spacer()
+                        Text("See All Deadlines")
+                            .font(LadderTypography.labelMedium)
+                            .foregroundStyle(LadderColors.primary)
+                        Image(systemName: "arrow.right")
+                            .font(.system(size: 12))
+                            .foregroundStyle(LadderColors.primary)
+                        Spacer()
+                    }
+                    .padding(.vertical, LadderSpacing.sm)
+                }
+                .buttonStyle(.plain)
             }
         }
     }
 
-    // MARK: - Urgent Deadline Card
+    // MARK: - Junior Year Major Prompt
 
-    private var urgentDeadlineCard: some View {
+    private var majorPromptBanner: some View {
+        LadderCard {
+            VStack(alignment: .leading, spacing: LadderSpacing.md) {
+                HStack(spacing: LadderSpacing.sm) {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 20))
+                        .foregroundStyle(LadderColors.accentLime)
+
+                    Text("You're in 11th grade \u{2014} time to pick your major direction")
+                        .font(LadderTypography.titleSmall)
+                        .foregroundStyle(LadderColors.onSurface)
+                }
+
+                Text("Colleges you'll apply to this fall care about this.")
+                    .font(LadderTypography.bodySmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+
+                Button {
+                    coordinator.navigate(to: .careerExplorer)
+                } label: {
+                    HStack(spacing: LadderSpacing.xs) {
+                        Text("Choose My Major")
+                            .font(LadderTypography.titleSmall)
+                        Image(systemName: "arrow.right")
+                            .font(.system(size: 12))
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, LadderSpacing.lg)
+                    .padding(.vertical, LadderSpacing.sm)
+                    .background(LadderColors.primary)
+                    .clipShape(Capsule())
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .background(
+            RoundedRectangle(cornerRadius: LadderRadius.xl, style: .continuous)
+                .fill(LadderColors.primaryContainer.opacity(0.25))
+        )
+    }
+
+    private func deadlineRow(_ deadline: DashboardDeadline) -> some View {
         HStack(spacing: LadderSpacing.md) {
-            Rectangle()
-                .fill(LadderColors.error)
-                .frame(width: 4)
-                .clipShape(RoundedRectangle(cornerRadius: 2))
+            // Urgency indicator
+            RoundedRectangle(cornerRadius: 2)
+                .fill(deadline.daysRemaining <= 7 ? LadderColors.error : deadline.daysRemaining <= 30 ? Color.orange : LadderColors.primary)
+                .frame(width: 4, height: 44)
 
-            VStack(alignment: .leading, spacing: LadderSpacing.xs) {
-                Text("URGENT")
-                    .font(LadderTypography.labelSmall)
-                    .foregroundStyle(LadderColors.error)
-                    .labelTracking()
-
-                Text(viewModel.urgentDeadlineTitle)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(deadline.collegeName)
                     .font(LadderTypography.titleSmall)
                     .foregroundStyle(LadderColors.onSurface)
-
-                Text(viewModel.urgentDeadlineDate)
+                    .lineLimit(1)
+                Text(deadline.deadlineType)
                     .font(LadderTypography.bodySmall)
                     .foregroundStyle(LadderColors.onSurfaceVariant)
             }
 
             Spacer()
 
-            Text("\(viewModel.daysUntilDeadline)")
-                .font(LadderTypography.headlineMedium)
-                .foregroundStyle(LadderColors.error)
-            +
-            Text("\ndays")
-                .font(LadderTypography.labelSmall)
-                .foregroundStyle(LadderColors.onSurfaceVariant)
+            VStack(alignment: .trailing, spacing: 2) {
+                Text("\(deadline.daysRemaining)d")
+                    .font(LadderTypography.titleSmall)
+                    .foregroundStyle(deadline.daysRemaining <= 7 ? LadderColors.error : LadderColors.onSurface)
+                Text(deadline.dateFormatted)
+                    .font(LadderTypography.labelSmall)
+                    .foregroundStyle(LadderColors.onSurfaceVariant)
+            }
         }
         .padding(LadderSpacing.md)
         .background(LadderColors.surfaceContainerLow)
         .clipShape(RoundedRectangle(cornerRadius: LadderRadius.xl, style: .continuous))
-    }
-
-    // MARK: - Daily Tip Card
-
-    private var dailyTipCard: some View {
-        ZStack(alignment: .bottomLeading) {
-            RoundedRectangle(cornerRadius: LadderRadius.xl, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [LadderColors.primary.opacity(0.8), LadderColors.primaryContainer],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .frame(height: 140)
-
-            VStack(alignment: .leading, spacing: LadderSpacing.sm) {
-                Text("DAILY TIP")
-                    .font(LadderTypography.labelSmall)
-                    .foregroundStyle(LadderColors.secondaryFixed)
-                    .labelTracking()
-
-                Text(viewModel.dailyTip)
-                    .font(LadderTypography.bodyMedium)
-                    .foregroundStyle(.white)
-                    .lineLimit(3)
-            }
-            .padding(LadderSpacing.lg)
-        }
     }
 }
 

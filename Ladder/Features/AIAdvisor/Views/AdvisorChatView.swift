@@ -1,18 +1,31 @@
 import SwiftUI
+import SwiftData
 
-// MARK: - AI Advisor Chat View
+// MARK: - Sia Chat View
 
 struct AdvisorChatView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+    @Query private var profiles: [StudentProfileModel]
     @State private var viewModel = AdvisorChatViewModel()
     @FocusState private var isInputFocused: Bool
     let sessionId: String?
+
+    private var activeProfile: StudentProfileModel? { profiles.first }
+
+    private var studentId: String {
+        activeProfile?.userId ?? activeProfile?.supabaseId ?? activeProfile?.fullName ?? "unknown-student"
+    }
 
     var body: some View {
         ZStack {
             LadderColors.surface.ignoresSafeArea()
 
             VStack(spacing: 0) {
+                if let banner = viewModel.handoffBanner {
+                    handoffBanner(banner)
+                }
+
                 // Chat messages
                 ScrollViewReader { proxy in
                     ScrollView(showsIndicators: false) {
@@ -43,7 +56,6 @@ struct AdvisorChatView: View {
                     }
                 }
 
-                // Input bar
                 inputBar
             }
         }
@@ -61,12 +73,60 @@ struct AdvisorChatView: View {
                     Image(systemName: "sparkles")
                         .font(.system(size: 14))
                         .foregroundStyle(LadderColors.accentLime)
-                    Text("AI Advisor")
+                    Text(viewModel.sessionType == .counselor ? "Sia" : viewModel.sessionType.displayName)
                         .font(LadderTypography.titleMedium)
                         .foregroundStyle(LadderColors.onSurface)
                 }
             }
         }
+        .onAppear { bootstrap() }
+        .onDisappear { finalizeSession() }
+    }
+
+    // MARK: - Bootstrap
+
+    private func bootstrap() {
+        guard let profile = activeProfile else { return }
+        let memory = ConversationMemoryStore.load(studentId: studentId, context: modelContext)
+        viewModel.configure(
+            profile: profile,
+            context: modelContext,
+            memory: memory,
+            behavior: .empty,
+            school: .unknown(state: profile.state),
+            sessionId: sessionId
+        )
+    }
+
+    private func finalizeSession() {
+        let transcript = viewModel.messages
+        guard !transcript.isEmpty else { return }
+        let id = studentId
+        let ctx = modelContext
+        Task {
+            await MemoryExtractorService.extractAndPersist(
+                transcript: transcript,
+                studentId: id,
+                context: ctx
+            )
+        }
+    }
+
+    // MARK: - Handoff banner
+
+    private func handoffBanner(_ text: String) -> some View {
+        HStack(spacing: LadderSpacing.xs) {
+            Image(systemName: "arrow.triangle.branch")
+                .font(.system(size: 12))
+            Text(text)
+                .font(LadderTypography.labelSmall)
+            Spacer()
+        }
+        .padding(.horizontal, LadderSpacing.md)
+        .padding(.vertical, LadderSpacing.xs)
+        .background(LadderColors.accentLime.opacity(0.15))
+        .foregroundStyle(LadderColors.primary)
+        .transition(.opacity)
     }
 
     // MARK: - Welcome Section (empty state)
@@ -86,17 +146,16 @@ struct AdvisorChatView: View {
             }
 
             VStack(spacing: LadderSpacing.sm) {
-                Text("Hi! I'm your college advisor")
+                Text("Hi — I'm Sia")
                     .font(LadderTypography.headlineSmall)
                     .foregroundStyle(LadderColors.onSurface)
 
-                Text("Ask me anything about college prep, applications, essays, or SAT strategies.")
+                Text("Ask me anything — college prep, applications, essays, SAT, activities. I know your profile already.")
                     .font(LadderTypography.bodyMedium)
                     .foregroundStyle(LadderColors.onSurfaceVariant)
                     .multilineTextAlignment(.center)
             }
 
-            // Quick prompt chips
             VStack(spacing: LadderSpacing.sm) {
                 ForEach(AdvisorChatViewModel.quickPrompts.prefix(4)) { prompt in
                     Button {
@@ -134,7 +193,7 @@ struct AdvisorChatView: View {
     private var typingIndicator: some View {
         HStack {
             HStack(spacing: 4) {
-                ForEach(0..<3, id: \.self) { i in
+                ForEach(0..<3, id: \.self) { _ in
                     Circle()
                         .fill(LadderColors.onSurfaceVariant)
                         .frame(width: 6, height: 6)
@@ -154,7 +213,7 @@ struct AdvisorChatView: View {
 
     private var inputBar: some View {
         HStack(spacing: LadderSpacing.sm) {
-            TextField("Ask your advisor...", text: $viewModel.inputText, axis: .vertical)
+            TextField("Ask Sia...", text: $viewModel.inputText, axis: .vertical)
                 .font(LadderTypography.bodyMedium)
                 .foregroundStyle(LadderColors.onSurface)
                 .lineLimit(1...4)
@@ -195,7 +254,7 @@ struct ChatBubbleView: View {
                         Image(systemName: "sparkles")
                             .font(.system(size: 10))
                             .foregroundStyle(LadderColors.accentLime)
-                        Text("Advisor")
+                        Text("Sia")
                             .font(LadderTypography.labelSmall)
                             .foregroundStyle(LadderColors.onSurfaceVariant)
                     }

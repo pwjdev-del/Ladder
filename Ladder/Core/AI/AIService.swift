@@ -17,7 +17,9 @@ final class AIService {
         messages: [AIMessage],
         systemPrompt: String
     ) async throws -> String {
-        let url = URL(string: AppConfiguration.geminiProxyURL)!
+        guard let url = URL(string: AppConfiguration.geminiProxyURL) else {
+            throw AIServiceError.invalidProxyURL
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -45,7 +47,10 @@ final class AIService {
         AsyncThrowingStream { continuation in
             Task {
                 do {
-                    let url = URL(string: AppConfiguration.geminiProxyURL)!
+                    guard let url = URL(string: AppConfiguration.geminiProxyURL) else {
+                        continuation.finish(throwing: AIServiceError.invalidProxyURL)
+                        return
+                    }
                     var request = URLRequest(url: url)
                     request.httpMethod = "POST"
                     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -105,4 +110,15 @@ struct AIResponse: Codable {
 
 struct StreamChunk: Codable {
     let text: String
+}
+
+enum AIServiceError: LocalizedError {
+    case invalidProxyURL
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidProxyURL:
+            return "AI service proxy URL is not configured correctly."
+        }
+    }
 }

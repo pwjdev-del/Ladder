@@ -74,8 +74,14 @@ final class ScholarshipModel {
     var isMeritBased: Bool = false
     var isSaved: Bool = false
     var matchPercent: Int?
+    var stateTag: String?  // e.g. "FL", "TX" — nil means national/any state
 
     init(name: String) {
         self.name = name
+    }
+
+    /// Returns true if this scholarship is restricted to a specific state
+    var isStateSpecific: Bool {
+        stateTag != nil && !(stateTag ?? "").isEmpty
     }
 }

@@ -1,9 +1,13 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Profile Settings View
 
 struct ProfileSettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+    @Environment(AppCoordinator.self) private var coordinator
+    @Query var profiles: [StudentProfileModel]
     @State private var firstName = "Kathan"
     @State private var lastName = "Patel"
     @State private var school = "Wharton High School"
@@ -13,6 +17,10 @@ struct ProfileSettingsView: View {
     @State private var actScore = ""
     @State private var careerPath = "Medical Path"
     @State private var isFirstGen = false
+    @State private var selectedState = "Florida"
+    @State private var showCareerOverride = false
+
+    private var student: StudentProfileModel? { profiles.first }
 
     var body: some View {
         ZStack {
@@ -44,17 +52,42 @@ struct ProfileSettingsView: View {
                         LadderTextField("Last Name", text: $lastName, icon: "person")
                         LadderTextField("School", text: $school, icon: "building.2")
 
-                        HStack(spacing: LadderSpacing.md) {
-                            Text("Grade")
-                                .font(LadderTypography.bodyLarge)
-                                .foregroundStyle(LadderColors.onSurface)
-                            Spacer()
-                            Picker("", selection: $grade) {
-                                ForEach(9...12, id: \.self) { g in
-                                    Text("\(g)").tag(g)
-                                }
+                        VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                            HStack(spacing: LadderSpacing.md) {
+                                Text("Grade")
+                                    .font(LadderTypography.bodyLarge)
+                                    .foregroundStyle(LadderColors.onSurface)
+                                Spacer()
+                                Text("\(grade)")
+                                    .font(LadderTypography.bodyLarge)
+                                    .foregroundStyle(LadderColors.onSurfaceVariant)
                             }
-                            .tint(LadderColors.primary)
+                            Text("Your grade updates automatically each school year.")
+                                .font(LadderTypography.bodySmall)
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
+                        }
+                        .padding(.vertical, LadderSpacing.sm)
+
+                        // State picker
+                        VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                            HStack(spacing: LadderSpacing.md) {
+                                Image(systemName: "mappin.and.ellipse")
+                                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                                    .frame(width: 20)
+                                Text("State")
+                                    .font(LadderTypography.bodyLarge)
+                                    .foregroundStyle(LadderColors.onSurface)
+                                Spacer()
+                                Picker("", selection: $selectedState) {
+                                    ForEach(StateRequirementsEngine.supportedStates, id: \.self) { state in
+                                        Text(state).tag(state)
+                                    }
+                                }
+                                .tint(LadderColors.primary)
+                            }
+                            Text("Used for state-specific scholarships and graduation requirements.")
+                                .font(LadderTypography.bodySmall)
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
                         }
                         .padding(.vertical, LadderSpacing.sm)
 
@@ -72,11 +105,76 @@ struct ProfileSettingsView: View {
                         LadderTextField("GPA", text: $gpa, icon: "chart.bar")
                         LadderTextField("SAT Score", text: $satScore, icon: "pencil.line")
                         LadderTextField("ACT Score (optional)", text: $actScore, icon: "pencil.line")
-                        LadderTextField("Career Path", text: $careerPath, icon: "sparkle.magnifyingglass")
+
+                        // Career Path row
+                        HStack(spacing: LadderSpacing.md) {
+                            Image(systemName: "sparkle.magnifyingglass")
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
+                                .frame(width: 20)
+
+                            VStack(alignment: .leading, spacing: LadderSpacing.xxs) {
+                                Text("Career Path")
+                                    .font(LadderTypography.bodySmall)
+                                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                                Text(student?.careerPath ?? "Not set")
+                                    .font(LadderTypography.bodyLarge)
+                                    .foregroundStyle(LadderColors.onSurface)
+                                if let major = student?.selectedMajor {
+                                    Text(major)
+                                        .font(LadderTypography.bodySmall)
+                                        .foregroundStyle(LadderColors.primary)
+                                }
+                            }
+
+                            Spacer()
+
+                            Button {
+                                showCareerOverride = true
+                            } label: {
+                                Text("Change")
+                                    .font(LadderTypography.labelMedium)
+                                    .foregroundStyle(LadderColors.primary)
+                                    .padding(.horizontal, LadderSpacing.md)
+                                    .padding(.vertical, LadderSpacing.sm)
+                                    .background(LadderColors.primaryContainer.opacity(0.2))
+                                    .clipShape(Capsule())
+                            }
+                        }
+                        .padding(.vertical, LadderSpacing.xs)
                     }
 
                     LadderPrimaryButton("Save Changes") {
+                        // Persist state to student profile and notify ConnectionEngine
+                        let descriptor = FetchDescriptor<StudentProfileModel>()
+                        if let profile = try? modelContext.fetch(descriptor).first {
+                            profile.state = selectedState
+                            ConnectionEngine.shared.onStateChanged(newState: selectedState, context: modelContext)
+                            try? modelContext.save()
+                        }
                         dismiss()
+                    }
+
+                    settingsSection("LEGAL & PRIVACY") {
+                        Button {
+                            dismiss()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                coordinator.navigate(to: .legalSettings)
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: "doc.text.fill")
+                                    .foregroundStyle(LadderColors.primary)
+                                    .frame(width: 24)
+                                Text("Privacy, Terms & Data Rights")
+                                    .font(LadderTypography.bodyMedium)
+                                    .foregroundStyle(LadderColors.onSurface)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                            }
+                            .padding(.vertical, LadderSpacing.xs)
+                        }
                     }
                 }
                 .padding(.horizontal, LadderSpacing.md)
@@ -97,6 +195,17 @@ struct ProfileSettingsView: View {
                 Text("Edit Profile")
                     .font(LadderTypography.titleMedium)
                     .foregroundStyle(LadderColors.onSurface)
+            }
+        }
+        .sheet(isPresented: $showCareerOverride) {
+            CareerOverrideSheet()
+        }
+        .onAppear {
+            // Load student's current state from profile
+            let descriptor = FetchDescriptor<StudentProfileModel>()
+            if let profile = try? modelContext.fetch(descriptor).first,
+               let state = profile.state, !state.isEmpty {
+                selectedState = state
             }
         }
     }

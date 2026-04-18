@@ -1,0 +1,87 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xcscheme.plist
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+.package.resolved
+
+# CocoaPods
+Pods/
+*.xcworkspace
+
+# Carthage
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Secrets / config (NEVER commit these)
+.env
+.env.*
+!.env.example
+Config/Secrets.xcconfig
+Config/*.local.xcconfig
+*.p12
+*.mobileprovision
+*.certSigningRequest
+ServiceAccountKey.json
+GoogleService-Info.plist
+aws-credentials
+.aws/
+
+# Supabase local runtime
+LadderBackend/.branches/
+LadderBackend/.temp/
+LadderBackend/supabase/.branches/
+LadderBackend/supabase/.temp/
+
+# Node / Deno (ai-gateway, Edge Functions tooling)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Generated Xcode project (XcodeGen)
+Ladder.xcodeproj/
+LadderApp.xcodeproj/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Temp
+tmp/
+*.tmp

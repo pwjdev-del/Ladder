@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - AI Advisor Tab Root
+// MARK: - Sia Tab Root
 
 struct AdvisorHubView: View {
     @Environment(AppCoordinator.self) private var coordinator
@@ -26,18 +26,18 @@ struct AdvisorHubView: View {
 
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: LadderSpacing.md) {
-            Text("AI ADVISOR")
+            Text("SIA")
                 .font(LadderTypography.labelSmall)
                 .foregroundStyle(LadderColors.secondaryFixed)
                 .labelTracking()
 
             HStack {
                 VStack(alignment: .leading, spacing: LadderSpacing.xs) {
-                    Text("Your College Advisor")
+                    Text("Sia")
                         .font(LadderTypography.headlineLarge)
                         .foregroundStyle(.white)
 
-                    Text("Ask me anything about college prep")
+                    Text("Your personal college counselor")
                         .font(LadderTypography.bodyMedium)
                         .foregroundStyle(.white.opacity(0.7))
                 }
@@ -78,7 +78,7 @@ struct AdvisorHubView: View {
     private var quickActionsGrid: some View {
         VStack(alignment: .leading, spacing: LadderSpacing.md) {
             // Start new chat button
-            LadderPrimaryButton("Start New Chat", icon: "bubble.left.and.text.bubble.right") {
+            LadderPrimaryButton("Chat with Sia", icon: "bubble.left.and.text.bubble.right") {
                 coordinator.navigate(to: .advisorChat(sessionId: nil))
             }
             .padding(.horizontal, LadderSpacing.md)
@@ -143,14 +143,32 @@ struct AdvisorHubView: View {
             toolRow("Essay Hub", icon: "text.alignleft", description: "Brainstorm, draft, and refine your essays") {
                 coordinator.navigate(to: .essayHub)
             }
-            toolRow("Mock Interview", icon: "person.wave.2", description: "Practice college interview questions") {
-                coordinator.navigate(to: .interviewPrepHub)
+            toolRow("Mock Interview", icon: "person.wave.2", description: "Practice college interview questions with AI") {
+                coordinator.navigate(to: .mockInterviewFull(collegeId: nil))
+            }
+            toolRow("LOCI Generator", icon: "envelope.open", description: "Letter of Continued Interest for waitlists") {
+                coordinator.navigate(to: .lociGenerator(collegeId: nil))
+            }
+            toolRow("Thank You Notes", icon: "heart.text.square", description: "Thank interviewers, teachers, counselors") {
+                coordinator.navigate(to: .thankYouNote(collegeId: ""))
+            }
+            toolRow("Activity Impact", icon: "pencil.line", description: "AI writes 150-char Common App descriptions") {
+                coordinator.navigate(to: .activityImpact)
+            }
+            toolRow("Academic Resume", icon: "doc.richtext", description: "Build and export your academic resume") {
+                coordinator.navigate(to: .academicResume)
             }
             toolRow("Score Strategy", icon: "chart.line.uptrend.xyaxis", description: "Personalized SAT/ACT improvement plan") {
                 coordinator.navigate(to: .scoreImprovement)
             }
             toolRow("Career Quiz", icon: "sparkle.magnifyingglass", description: "Discover your ideal career path") {
                 coordinator.navigate(to: .careerQuiz)
+            }
+            toolRow("CSS Profile Guide", icon: "building.columns", description: "Step-by-step CSS Profile walkthrough") {
+                coordinator.navigate(to: .cssProfileGuide)
+            }
+            toolRow("NCAA Track", icon: "figure.run", description: "NCAA eligibility and recruitment guide") {
+                coordinator.navigate(to: .ncaaTrack)
             }
         }
         .padding(.top, LadderSpacing.md)

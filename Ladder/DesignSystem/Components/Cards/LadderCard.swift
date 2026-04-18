@@ -72,32 +72,38 @@ struct CollegeCard: View {
     let location: String
     let matchPercent: Int?
     let imageURL: String?
+    let websiteURL: String?
     let tags: [String]
     let isFavorite: Bool
+    let matchTier: MatchTier?
     let onFavorite: () -> Void
     let onTap: () -> Void
+
+    init(name: String, location: String, matchPercent: Int?, imageURL: String?, websiteURL: String? = nil, tags: [String], isFavorite: Bool, matchTier: MatchTier? = nil, onFavorite: @escaping () -> Void, onTap: @escaping () -> Void) {
+        self.name = name
+        self.location = location
+        self.matchPercent = matchPercent
+        self.imageURL = imageURL
+        self.websiteURL = websiteURL
+        self.tags = tags
+        self.isFavorite = isFavorite
+        self.matchTier = matchTier
+        self.onFavorite = onFavorite
+        self.onTap = onTap
+    }
 
     var body: some View {
         Button(action: onTap) {
             VStack(alignment: .leading, spacing: 0) {
-                // Hero image or gradient fallback
+                // Hero gradient with college logo overlay
                 ZStack(alignment: .topTrailing) {
-                    Group {
-                        if let url = imageURL.flatMap({ URL(string: $0) }) {
-                            AsyncImage(url: url) { phase in
-                                switch phase {
-                                case .success(let image):
-                                    image.resizable().aspectRatio(contentMode: .fill)
-                                default:
-                                    CollegeGradientHero(name: name, height: 140)
-                                }
-                            }
-                        } else {
-                            CollegeGradientHero(name: name, height: 140)
+                    CollegeGradientHero(name: name, height: 140)
+                        .frame(height: 140)
+                        .clipped()
+                        .overlay(alignment: .center) {
+                            // College logo from Clearbit, centered on gradient
+                            CollegeLogoView(name, websiteURL: websiteURL, size: 56, cornerRadius: 14)
                         }
-                    }
-                    .frame(height: 140)
-                    .clipped()
 
                     // Favorite button
                     Button(action: onFavorite) {
@@ -135,6 +141,11 @@ struct CollegeCard: View {
                         .font(LadderTypography.bodySmall)
                         .foregroundStyle(LadderColors.onSurfaceVariant)
 
+                    // Match/Reach/Safety badge
+                    if let tier = matchTier {
+                        MatchTierBadge(tier: tier)
+                    }
+
                     // Tag chips
                     HStack(spacing: LadderSpacing.xs) {
                         ForEach(tags.prefix(3), id: \.self) { tag in
@@ -155,6 +166,39 @@ struct CollegeCard: View {
             .ladderShadow(LadderElevation.ambient)
         }
         .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Match Tier Badge
+
+struct MatchTierBadge: View {
+    let tier: MatchTier
+
+    private var badgeColor: Color {
+        switch tier {
+        case .safety: return Color(red: 0.2, green: 0.65, blue: 0.3)
+        case .match:  return LadderColors.primary
+        case .reach:  return LadderColors.error
+        }
+    }
+
+    private var badgeForeground: Color {
+        switch tier {
+        case .safety: return .white
+        case .match:  return LadderColors.onPrimary
+        case .reach:  return LadderColors.onError
+        }
+    }
+
+    var body: some View {
+        Text(tier.rawValue)
+            .font(LadderTypography.labelSmall)
+            .fontWeight(.semibold)
+            .foregroundStyle(badgeForeground)
+            .padding(.horizontal, LadderSpacing.sm)
+            .padding(.vertical, LadderSpacing.xxs)
+            .background(badgeColor)
+            .clipShape(Capsule())
     }
 }
 
@@ -188,8 +232,10 @@ extension View {
             location: "Rochester, NY",
             matchPercent: 92,
             imageURL: nil,
+            websiteURL: "www.rit.edu",
             tags: ["Engineering", "Co-op", "STEM"],
             isFavorite: true,
+            matchTier: .match,
             onFavorite: {},
             onTap: {}
         )

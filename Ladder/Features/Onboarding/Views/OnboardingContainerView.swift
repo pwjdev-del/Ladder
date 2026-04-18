@@ -1,7 +1,8 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Onboarding Container
-// Routes between 5 onboarding steps with shared ViewModel
+// Routes between 6 onboarding steps with shared ViewModel
 
 struct OnboardingContainerView: View {
     @Environment(AuthManager.self) private var authManager
@@ -20,7 +21,7 @@ struct OnboardingContainerView: View {
                 .padding(.horizontal, LadderSpacing.lg)
                 .padding(.top, LadderSpacing.md)
 
-                // Step content
+                // Step content (6 steps: Welcome, Basic Info, Academic, Career Quiz, Dream Schools, Summary)
                 TabView(selection: $viewModel.currentStep) {
                     OnboardingStep1View(viewModel: viewModel)
                         .tag(1)
@@ -28,10 +29,12 @@ struct OnboardingContainerView: View {
                         .tag(2)
                     OnboardingStep3View(viewModel: viewModel)
                         .tag(3)
-                    OnboardingStep4View(viewModel: viewModel)
+                    OnboardingCareerQuizStep(viewModel: viewModel)
                         .tag(4)
-                    OnboardingStep5View(viewModel: viewModel)
+                    OnboardingStep4View(viewModel: viewModel)
                         .tag(5)
+                    OnboardingStep5View(viewModel: viewModel)
+                        .tag(6)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .animation(.easeInOut(duration: 0.3), value: viewModel.currentStep)
@@ -67,21 +70,13 @@ struct OnboardingStep1View: View {
         VStack(spacing: LadderSpacing.xxl) {
             Spacer()
 
-            // Hero image placeholder
-            RoundedRectangle(cornerRadius: LadderRadius.xxl, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [LadderColors.primaryContainer, LadderColors.primary],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .frame(height: 260)
-                .overlay(
-                    Image(systemName: "building.columns.fill")
-                        .font(.system(size: 80))
-                        .foregroundStyle(.white.opacity(0.3))
-                )
+            // Ladder logo
+            Image("LadderLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                .clipShape(Circle())
+                .shadow(color: LadderColors.primary.opacity(0.3), radius: 20, y: 8)
                 .padding(.horizontal, LadderSpacing.lg)
 
             VStack(spacing: LadderSpacing.md) {
@@ -175,6 +170,96 @@ struct OnboardingStep2View: View {
                         Toggle("", isOn: $viewModel.isFirstGen)
                             .tint(LadderColors.accentLime)
                             .labelsHidden()
+                    }
+
+                    // State picker
+                    VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                        Text("STATE")
+                            .font(LadderTypography.labelSmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                            .labelTracking()
+
+                        Text("Used for state-specific graduation requirements and scholarships")
+                            .font(LadderTypography.bodySmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+
+                        Menu {
+                            ForEach(StateRequirementsEngine.supportedStates, id: \.self) { state in
+                                Button(state) {
+                                    viewModel.selectedState = state
+                                    // Auto-set Florida resident if FL selected
+                                    viewModel.isFloridaResident = (state == "Florida")
+                                }
+                            }
+                        } label: {
+                            HStack {
+                                Text(viewModel.selectedState.isEmpty ? "Select your state" : viewModel.selectedState)
+                                    .font(LadderTypography.bodyLarge)
+                                    .foregroundStyle(viewModel.selectedState.isEmpty ? LadderColors.onSurfaceVariant : LadderColors.onSurface)
+                                Spacer()
+                                Image(systemName: "chevron.down")
+                                    .font(.system(size: 13, weight: .medium))
+                                    .foregroundStyle(LadderColors.onSurfaceVariant)
+                            }
+                            .padding(LadderSpacing.md)
+                            .background(LadderColors.surfaceContainerHighest)
+                            .clipShape(RoundedRectangle(cornerRadius: LadderRadius.lg, style: .continuous))
+                        }
+                    }
+
+                    // Florida Resident toggle
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Florida Resident")
+                                .font(LadderTypography.titleSmall)
+                                .foregroundStyle(LadderColors.onSurface)
+                            Text("Activates Bright Futures tracking and in-state tuition display")
+                                .font(LadderTypography.bodySmall)
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
+                        }
+                        Spacer()
+                        Toggle("", isOn: $viewModel.isFloridaResident)
+                            .tint(LadderColors.accentLime)
+                            .labelsHidden()
+                    }
+
+                    // Class difficulty preference
+                    ClassDifficultyPickerView(selectedDifficulty: $viewModel.classDifficultyPreference)
+
+                    // Free/Reduced Lunch toggle
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Free/Reduced Lunch")
+                                .font(LadderTypography.titleSmall)
+                                .foregroundStyle(LadderColors.onSurface)
+                            Text("May qualify you for SAT fee waivers and application fee waivers")
+                                .font(LadderTypography.bodySmall)
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
+                        }
+                        Spacer()
+                        Toggle("", isOn: $viewModel.freeReducedLunch)
+                            .tint(LadderColors.accentLime)
+                            .labelsHidden()
+                    }
+
+                    // Parent Income Bracket picker
+                    VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                        Text("PARENT INCOME BRACKET")
+                            .font(LadderTypography.labelSmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+                            .labelTracking()
+
+                        Text("Used to estimate financial aid eligibility — never shared")
+                            .font(LadderTypography.bodySmall)
+                            .foregroundStyle(LadderColors.onSurfaceVariant)
+
+                        FlowLayout(spacing: LadderSpacing.sm) {
+                            ForEach(OnboardingViewModel.incomeBrackets, id: \.self) { bracket in
+                                LadderFilterChip(title: bracket, isSelected: viewModel.parentIncomeBracket == bracket) {
+                                    viewModel.parentIncomeBracket = bracket
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -398,11 +483,161 @@ struct OnboardingStep4View: View {
     }
 }
 
-// MARK: - Step 5: Ready to Lead
+// MARK: - Step 4: Career Quiz (embedded in onboarding)
+
+struct OnboardingCareerQuizStep: View {
+    @Bindable var viewModel: OnboardingViewModel
+    @State private var currentQuestion = 0
+    @State private var selectedOption = -1
+    @State private var showResult = false
+
+    var body: some View {
+        VStack(spacing: 0) {
+            if showResult {
+                // Result view
+                ScrollView {
+                    VStack(spacing: LadderSpacing.lg) {
+                        let bucket = viewModel.careerBucket ?? "STEM"
+                        let info = BucketInfo.all[bucket]!
+
+                        ZStack {
+                            Circle()
+                                .fill(LinearGradient(colors: [info.color, info.color.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .frame(width: 110, height: 110)
+                            Image(systemName: info.icon).font(.system(size: 40)).foregroundStyle(.white)
+                        }
+                        .padding(.top, LadderSpacing.xl)
+
+                        VStack(spacing: LadderSpacing.sm) {
+                            Text(info.archetype)
+                                .font(LadderTypography.headlineMedium)
+                                .foregroundStyle(LadderColors.onSurface)
+                            Text(bucket.uppercased())
+                                .font(LadderTypography.labelSmall)
+                                .foregroundStyle(LadderColors.accentLime)
+                                .labelTracking()
+                            Text(info.description)
+                                .font(LadderTypography.bodyMedium)
+                                .foregroundStyle(LadderColors.onSurfaceVariant)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, LadderSpacing.lg)
+                        }
+
+                        // Score bars
+                        LadderCard {
+                            VStack(alignment: .leading, spacing: LadderSpacing.sm) {
+                                Text("Your Career Profile").font(LadderTypography.titleSmall).foregroundStyle(LadderColors.onSurface)
+                                let total = max(viewModel.careerScores.values.reduce(0, +), 1)
+                                ForEach(["STEM", "Medical", "Business", "Humanities", "Sports"], id: \.self) { b in
+                                    let pct = Double(viewModel.careerScores[b] ?? 0) / Double(total)
+                                    HStack(spacing: LadderSpacing.sm) {
+                                        Text(b).font(LadderTypography.bodySmall)
+                                            .foregroundStyle(b == bucket ? LadderColors.onSurface : LadderColors.onSurfaceVariant)
+                                            .frame(width: 80, alignment: .leading)
+                                        GeometryReader { geo in
+                                            ZStack(alignment: .leading) {
+                                                RoundedRectangle(cornerRadius: 3).fill(LadderColors.surfaceContainerHigh).frame(height: 6)
+                                                RoundedRectangle(cornerRadius: 3).fill(b == bucket ? LadderColors.accentLime : LadderColors.primary.opacity(0.4))
+                                                    .frame(width: max(geo.size.width * pct, 0), height: 6)
+                                            }
+                                        }.frame(height: 6)
+                                        Text("\(Int(pct * 100))%").font(LadderTypography.labelSmall).foregroundStyle(LadderColors.onSurfaceVariant).frame(width: 30, alignment: .trailing)
+                                    }
+                                }
+                            }
+                        }
+
+                        LadderPrimaryButton("Continue to Dream Schools", icon: "arrow.right") {
+                            viewModel.quizCompleted = true
+                            viewModel.nextStep()
+                        }
+                        .padding(.horizontal, LadderSpacing.md)
+                    }
+                    .padding(.horizontal, LadderSpacing.md)
+                    .padding(.bottom, 40)
+                }
+            } else {
+                // Quiz questions
+                VStack(spacing: LadderSpacing.xs) {
+                    HStack {
+                        Text("Career Discovery — Question \(currentQuestion + 1)/\(QuizData.questions.count)")
+                            .font(LadderTypography.labelMedium).foregroundStyle(LadderColors.onSurfaceVariant)
+                        Spacer()
+                    }
+                    LinearProgressBar(progress: Double(currentQuestion + 1) / Double(QuizData.questions.count))
+                }
+                .padding(.horizontal, LadderSpacing.lg)
+                .padding(.top, LadderSpacing.sm)
+
+                ScrollView {
+                    let q = QuizData.questions[currentQuestion]
+                    VStack(alignment: .leading, spacing: LadderSpacing.lg) {
+                        HStack(spacing: LadderSpacing.sm) {
+                            ZStack {
+                                Circle().fill(LadderColors.primaryContainer.opacity(0.3)).frame(width: 44, height: 44)
+                                Image(systemName: q.icon).font(.system(size: 18)).foregroundStyle(LadderColors.primary)
+                            }
+                            Text(q.question).font(LadderTypography.titleMedium).foregroundStyle(LadderColors.onSurface)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(.horizontal, LadderSpacing.lg)
+                        .padding(.top, LadderSpacing.md)
+
+                        VStack(spacing: LadderSpacing.sm) {
+                            ForEach(Array(q.options.enumerated()), id: \.offset) { idx, opt in
+                                Button {
+                                    withAnimation(.spring(response: 0.25)) { selectedOption = idx }
+                                } label: {
+                                    HStack(spacing: LadderSpacing.md) {
+                                        ZStack {
+                                            Circle().stroke(selectedOption == idx ? LadderColors.accentLime : LadderColors.outlineVariant, lineWidth: 2).frame(width: 20, height: 20)
+                                            if selectedOption == idx { Circle().fill(LadderColors.accentLime).frame(width: 10, height: 10) }
+                                        }
+                                        Text(opt).font(LadderTypography.bodyMedium).foregroundStyle(LadderColors.onSurface).multilineTextAlignment(.leading)
+                                        Spacer()
+                                    }
+                                    .padding(LadderSpacing.md)
+                                    .background(selectedOption == idx ? LadderColors.primaryContainer.opacity(0.2) : LadderColors.surfaceContainerLow)
+                                    .clipShape(RoundedRectangle(cornerRadius: LadderRadius.lg))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        .padding(.horizontal, LadderSpacing.lg)
+                    }
+                    .padding(.bottom, 100)
+                }
+
+                LadderPrimaryButton(
+                    currentQuestion == QuizData.questions.count - 1 ? "See My Results" : "Next",
+                    icon: currentQuestion == QuizData.questions.count - 1 ? "sparkles" : "arrow.right"
+                ) {
+                    guard selectedOption >= 0 else { return }
+                    let weights = QuizData.questions[currentQuestion].weights[selectedOption]
+                    for (bucket, pts) in weights { viewModel.careerScores[bucket, default: 0] += pts }
+                    if currentQuestion == QuizData.questions.count - 1 {
+                        viewModel.careerBucket = viewModel.careerScores.max(by: { $0.value < $1.value })?.key ?? "STEM"
+                        withAnimation { showResult = true }
+                    } else {
+                        withAnimation { currentQuestion += 1; selectedOption = -1 }
+                    }
+                }
+                .padding(.horizontal, LadderSpacing.lg)
+                .padding(.bottom, LadderSpacing.md)
+                .opacity(selectedOption < 0 ? 0.5 : 1)
+            }
+        }
+    }
+}
+
+// MARK: - Step 5 (was 4): Dream Schools — already defined above as OnboardingStep4View
+
+// MARK: - Step 6 (was 5): Ready to Lead
 
 struct OnboardingStep5View: View {
     @Bindable var viewModel: OnboardingViewModel
     @Environment(AuthManager.self) private var authManager
+    @Environment(\.modelContext) private var context
 
     var body: some View {
         ScrollView {
@@ -486,7 +721,7 @@ struct OnboardingStep5View: View {
 
                 VStack(spacing: LadderSpacing.md) {
                     LadderAccentButton("Enter Dashboard", icon: "arrow.right") {
-                        Task { await viewModel.completeOnboarding(authManager: authManager) }
+                        Task { await viewModel.completeOnboarding(authManager: authManager, context: context) }
                     }
 
                     LadderSecondaryButton("Review Full Profile") {

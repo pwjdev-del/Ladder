@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 // MARK: - Career Quiz — Full Scoring System
 // 5 buckets: STEM, Medical, Business, Humanities, Sports
@@ -6,23 +7,35 @@ import SwiftUI
 
 struct CareerQuizView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var context
+    @Query var profiles: [StudentProfileModel]
     @State private var currentQuestion = 0
     @State private var scores: [String: Int] = ["STEM": 0, "Medical": 0, "Business": 0, "Humanities": 0, "Sports": 0]
     @State private var selectedOption: Int = -1
     @State private var showResult = false
     @State private var resultBucket = "STEM"
 
+    private var student: StudentProfileModel? { profiles.first }
+
     var body: some View {
         ZStack {
             LadderColors.surface.ignoresSafeArea()
             if showResult {
-                CareerResultView(bucket: resultBucket, scores: scores) {
-                    withAnimation(.spring(response: 0.4)) {
-                        currentQuestion = 0; selectedOption = -1
-                        scores = ["STEM": 0, "Medical": 0, "Business": 0, "Humanities": 0, "Sports": 0]
-                        showResult = false
+                CareerResultView(
+                    bucket: resultBucket,
+                    scores: scores,
+                    onRetake: {
+                        withAnimation(.spring(response: 0.4)) {
+                            currentQuestion = 0; selectedOption = -1
+                            scores = ["STEM": 0, "Medical": 0, "Business": 0, "Humanities": 0, "Sports": 0]
+                            showResult = false
+                        }
+                    },
+                    onSave: { bucket, topTraits in
+                        saveResults(bucket: bucket, traits: topTraits)
+                        dismiss()
                     }
-                }
+                )
             } else {
                 quizBody
             }
@@ -99,7 +112,6 @@ struct CareerQuizView: View {
                 .padding(.bottom, 120)
             }
 
-            Divider().opacity(0.1)
             LadderPrimaryButton(
                 currentQuestion == QuizData.questions.count - 1 ? "See My Results" : "Next Question",
                 icon: currentQuestion == QuizData.questions.count - 1 ? "sparkles" : "arrow.right"
@@ -119,6 +131,24 @@ struct CareerQuizView: View {
             .background(LadderColors.surface)
         }
     }
+
+    // MARK: - Save Results to SwiftData
+
+    private func saveResults(bucket: String, traits: [String]) {
+        guard let profile = student else { return }
+        profile.careerPath = bucket
+        profile.archetype = BucketInfo.all[bucket]?.archetype
+        profile.archetypeTraits = traits
+
+        // Award XP for finishing career quiz
+        let _ = LevelManager.shared.awardXP(.finishCareerQuiz, to: profile)
+
+        try? context.save()
+
+        // Fire ConnectionEngine cascade so downstream features (activities, scholarships,
+        // AI advisor, essay prompts) refresh to match the new career path.
+        ConnectionEngine.shared.onCareerPathChanged(newPath: bucket, context: context)
+    }
 }
 
 // MARK: - Career Result View
@@ -127,8 +157,14 @@ struct CareerResultView: View {
     let bucket: String
     let scores: [String: Int]
     let onRetake: () -> Void
+    let onSave: (_ bucket: String, _ topTraits: [String]) -> Void
     @Environment(\.dismiss) private var dismiss
     private var info: BucketInfo { BucketInfo.all[bucket] ?? BucketInfo.all["STEM"]! }
+
+    /// Top 3 bucket names sorted by score descending, used as trait indicators
+    private var topTraits: [String] {
+        scores.sorted { $0.value > $1.value }.prefix(3).map { $0.key }
+    }
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -211,14 +247,16 @@ struct CareerResultView: View {
 
                 HStack(spacing: LadderSpacing.sm) {
                     Image(systemName: "arrow.clockwise.circle").foregroundStyle(LadderColors.onSurfaceVariant).font(.system(size: 14))
-                    Text("Suggestions only — not final decisions. Retake every year as your interests evolve.")
+                    Text("Suggestions only -- not final decisions. Retake every year as your interests evolve.")
                         .font(LadderTypography.bodySmall).foregroundStyle(LadderColors.onSurfaceVariant)
                 }
                 .padding(.horizontal, LadderSpacing.md)
 
                 HStack(spacing: LadderSpacing.md) {
                     LadderSecondaryButton("Retake Quiz") { onRetake() }
-                    LadderPrimaryButton("Save My Path", icon: "checkmark") { dismiss() }
+                    LadderPrimaryButton("Save My Path", icon: "checkmark") {
+                        onSave(bucket, topTraits)
+                    }
                 }
                 .padding(.horizontal, LadderSpacing.md).padding(.bottom, 120)
             }
@@ -247,7 +285,7 @@ struct BucketInfo {
     static let all: [String: BucketInfo] = [
         "STEM": BucketInfo(
             archetype: "The Innovator",
-            description: "You're driven by curiosity and building things. Technology, math, and science are where you shine — you want to engineer the future.",
+            description: "You're driven by curiosity and building things. Technology, math, and science are where you shine -- you want to engineer the future.",
             icon: "cpu", color: Color(red: 0.26, green: 0.38, blue: 0.25),
             majors: ["Computer Science", "Electrical Engineering", "Data Science", "Mechanical Engineering", "Cybersecurity", "Aerospace Engineering", "Mathematics"],
             classes: ["AP Computer Science A", "AP Calculus BC", "AP Physics C", "AP Statistics", "AP Chemistry", "Dual Enrollment Math"],
@@ -263,7 +301,7 @@ struct BucketInfo {
         ),
         "Business": BucketInfo(
             archetype: "The Entrepreneur",
-            description: "You're a natural leader and strategic thinker. You see opportunities where others don't — running organizations and building teams energizes you.",
+            description: "You're a natural leader and strategic thinker. You see opportunities where others don't -- running organizations and building teams energizes you.",
             icon: "briefcase", color: Color(red: 0.55, green: 0.30, blue: 0.10),
             majors: ["Business Administration", "Finance", "Marketing", "Accounting", "Entrepreneurship", "Economics", "Real Estate"],
             classes: ["AP Economics", "AP Statistics", "Business Essentials", "Marketing Principles", "AP US Government", "Dual Enrollment: Business 101"],
@@ -329,7 +367,7 @@ struct QuizData {
             weights: [["STEM":2,"Business":1],["Medical":2,"Humanities":1],["Business":3],["Humanities":3],["Sports":2,"Business":1]]),
         QuizItem(question: "Which income path fits your values?", icon: "dollarsign.circle",
             options: ["High income through tech or engineering","Stable meaningful income through healthcare",
-                      "Potentially unlimited income through entrepreneurship","Meaningful work first — teaching, writing, social impact","Earn through athletic performance or sports management"],
+                      "Potentially unlimited income through entrepreneurship","Meaningful work first -- teaching, writing, social impact","Earn through athletic performance or sports management"],
             weights: [["STEM":3],["Medical":3],["Business":3],["Humanities":3],["Sports":3]]),
         QuizItem(question: "Which challenge motivates you most?", icon: "flame",
             options: ["Debugging a complex system or building new tech","Diagnosing a condition or developing a treatment",
@@ -351,4 +389,5 @@ struct QuizData {
 
 #Preview {
     NavigationStack { CareerQuizView() }
+        .modelContainer(for: StudentProfileModel.self, inMemory: true)
 }
