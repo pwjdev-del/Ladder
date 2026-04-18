@@ -13,7 +13,7 @@ public struct SchoolLoginView: View {
     @State private var showingInviteFlow = false
     @State private var working = false
     @State private var error: String?
-    @State private var signedIn = false
+    @State private var session: SignedInSession?
     @Environment(\.dismiss) private var dismiss
 
     public init(school: PartnerSchool) { self.school = school }
@@ -42,8 +42,8 @@ public struct SchoolLoginView: View {
         .navigationDestination(isPresented: $showingInviteFlow) {
             InviteRedemptionView(code: inviteCode, tenantId: school.id)
         }
-        .navigationDestination(isPresented: $signedIn) {
-            PlaceholderSignedInView(displayName: email.isEmpty ? "student" : email, tenantName: school.displayName)
+        .navigationDestination(item: $session) { session in
+            SignedInRouter(session: session)
         }
     }
 
@@ -222,7 +222,12 @@ public struct SchoolLoginView: View {
                 "carol.lwrpa@ladder.test",
             ]
             if acceptedEmails.contains(email.lowercased()) && password == "Ladder!v2-pilot" {
-                signedIn = true
+                let role = RoleDetector.role(for: email)
+                session = SignedInSession(
+                    role: role,
+                    displayName: String(email.split(separator: "@").first ?? ""),
+                    tenantName: school.displayName
+                )
             } else {
                 error = "Couldn't sign in. Use a seeded test account — see docs/runbooks/test-accounts.md."
             }

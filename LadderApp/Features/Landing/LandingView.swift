@@ -25,16 +25,22 @@ public struct LandingView: View {
         NavigationStack {
             ZStack {
                 LadderBrand.forest700.ignoresSafeArea()
+                BrandGradient.heroGlow
 
                 VStack(spacing: 0) {
                     Spacer()
-                    logoBadge
-                        .padding(.bottom, 32)
-                    slogan
+                    // Logo + slogan block, horizontally + vertically centered
+                    // in the top half of the screen.
+                    VStack(spacing: 28) {
+                        logoBadge
+                        slogan
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
                     Spacer()
+
                     ctaStack
                     footerIcons
-                        .padding(.top, 24)
+                        .padding(.top, 20)
                         .padding(.bottom, 8)
                 }
                 .padding(.horizontal, 24)
@@ -52,15 +58,14 @@ public struct LandingView: View {
 
     private var logoBadge: some View {
         ZStack {
-            // Real Ladder logo — circular asset (climber + ladder + hills),
-            // shipped in Assets.xcassets. Slight desaturation during hold.
+            // Real Ladder logo — circular asset (climber + ladder + hills).
             Image("LadderLogo")
                 .resizable()
                 .scaledToFill()
-                .frame(width: 140, height: 140)
+                .frame(width: 180, height: 180)
                 .clipShape(Circle())
                 .saturation(climberSaturation)
-                .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 8)
+                .shadow(color: Color.black.opacity(0.16), radius: 16, x: 0, y: 10)
                 .scaleEffect(holdProgress >= 1 ? 1.02 : 1.0)
                 .animation(.easeOut(duration: 0.12), value: holdProgress >= 1)
 
@@ -70,10 +75,11 @@ public struct LandingView: View {
                     LadderBrand.lime500.opacity(ringOpacity),
                     style: StrokeStyle(lineWidth: ringWidth, lineCap: .round)
                 )
-                .frame(width: 146, height: 146)
+                .frame(width: 188, height: 188)
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 0.05), value: holdProgress)
         }
+        .frame(maxWidth: .infinity, alignment: .center)
         .gesture(holdGesture)
         .accessibilityLabel("Ladder")
         .accessibilityHint("Press and hold for founder access")

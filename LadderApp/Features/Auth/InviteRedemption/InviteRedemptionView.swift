@@ -10,7 +10,7 @@ public struct InviteRedemptionView: View {
     @State private var email: String = ""
     @State private var working = false
     @State private var error: String?
-    @State private var success = false
+    @State private var session: SignedInSession?
     @Environment(\.dismiss) private var dismiss
 
     public init(code: String, tenantId: UUID) {
@@ -33,8 +33,8 @@ public struct InviteRedemptionView: View {
             }
         }
         .navigationBarHidden(true)
-        .navigationDestination(isPresented: $success) {
-            PlaceholderSignedInView(displayName: email, tenantName: "your school")
+        .navigationDestination(item: $session) { session in
+            SignedInRouter(session: session)
         }
     }
 
@@ -154,7 +154,13 @@ public struct InviteRedemptionView: View {
 
             let validCodes: Set<String> = ["LDR-TEST-0001", "LDR-TEST-BULK-A", "LDR-TEST-G5"]
             if validCodes.contains(codeInput.uppercased()) && email.contains("@") {
-                success = true
+                // Assume student redemption for now; kind lives on the
+                // invite_codes row in the real backend.
+                session = SignedInSession(
+                    role: .student,
+                    displayName: String(email.split(separator: "@").first ?? ""),
+                    tenantName: "your school"
+                )
             } else {
                 error = "We couldn't use that code. Ask your counselor to issue a new one."
             }

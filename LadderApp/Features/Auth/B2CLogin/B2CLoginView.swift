@@ -9,7 +9,7 @@ public struct B2CLoginView: View {
     @State private var password: String = ""
     @State private var working = false
     @State private var error: String?
-    @State private var signedIn = false
+    @State private var session: SignedInSession?
     @Environment(\.dismiss) private var dismiss
 
     public init() {}
@@ -33,8 +33,8 @@ public struct B2CLoginView: View {
             }
         }
         .navigationBarHidden(true)
-        .navigationDestination(isPresented: $signedIn) {
-            PlaceholderSignedInView(displayName: email, tenantName: "your family on Ladder")
+        .navigationDestination(item: $session) { session in
+            SignedInRouter(session: session)
         }
     }
 
@@ -154,7 +154,12 @@ public struct B2CLoginView: View {
                 "kai.jones@ladder.test",
             ]
             if accepted.contains(email.lowercased()) && password == "Ladder!v2-pilot" {
-                signedIn = true
+                let role = RoleDetector.role(for: email)
+                session = SignedInSession(
+                    role: role,
+                    displayName: String(email.split(separator: "@").first ?? ""),
+                    tenantName: "your family on Ladder"
+                )
             } else {
                 error = "Couldn't sign in. Use a seeded test account — see docs/runbooks/test-accounts.md."
             }
