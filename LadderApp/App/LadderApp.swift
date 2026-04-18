@@ -9,8 +9,10 @@ struct LadderApp: App {
     @State private var seeder = CollegeDataSeeder()
 
     init() {
-        // 20MB memory + 200MB disk cache for AsyncImage and other URLSession.shared fetches
-        // (college logos, etc.). Prevents Clearbit rate-limit hits and reduces FOUC.
+        // §16.1/§16.3 — preflight guard: Release builds crash at launch if the
+        // TLS pin bytes are still placeholder. See ADR-004 rotation runbook.
+        PinnedKeys.preflightOrCrash()
+
         let cache = URLCache(
             memoryCapacity: 20 * 1024 * 1024,
             diskCapacity: 200 * 1024 * 1024,

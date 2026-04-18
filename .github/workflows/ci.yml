@@ -75,13 +75,20 @@ jobs:
         run: supabase db push --db-url "$DB_URL"
         env:
           DB_URL: postgresql://postgres:postgres@localhost:54322/postgres
+      - name: Extract local Supabase secrets
+        id: supa
+        run: |
+          # supabase status emits deterministic local-dev keys; capture and
+          # expose them to the test step below.
+          supabase status --output env | tee supa.env
+          echo "SUPABASE_URL=$(grep ^API_URL supa.env | cut -d= -f2-)" >> $GITHUB_ENV
+          echo "SUPABASE_SERVICE_ROLE_KEY=$(grep ^SERVICE_ROLE_KEY supa.env | cut -d= -f2-)" >> $GITHUB_ENV
+          echo "SUPABASE_JWT_SECRET=$(grep ^JWT_SECRET supa.env | cut -d= -f2-)" >> $GITHUB_ENV
+
       - name: Run cross-tenant attack suite
         run: |
-          pip install pytest supabase-py pyjwt
+          pip install -r tests/isolation/requirements.txt
           pytest -x -v tests/isolation/
-        env:
-          SUPABASE_URL: http://localhost:54321
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY_LOCAL }}
 
   pr-isolation-comment:
     runs-on: ubuntu-latest

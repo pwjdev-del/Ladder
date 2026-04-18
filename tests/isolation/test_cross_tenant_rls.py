@@ -23,9 +23,31 @@ def fixture_tenants(service_client: Client):
     return service_client.rpc("seed_isolation_fixture").execute().data
 
 
-def make_tenant_jwt(user_id: uuid.UUID, tenant_id: uuid.UUID, role: str) -> str:
-    # Real impl signs via supabase.auth.admin.create_user with custom claims.
-    raise NotImplementedError("wire to supabase auth admin")
+def make_tenant_jwt(user_id: uuid.UUID, tenant_id, role: str) -> str:
+    """Sign a JWT with the local Supabase anon/service JWT secret + custom claims.
+
+    For local `supabase start`, the JWT secret is deterministic and can be
+    read from `SUPABASE_JWT_SECRET` env (printed by `supabase status`).
+    """
+    import jwt  # pyjwt
+    import time
+
+    secret = os.environ["SUPABASE_JWT_SECRET"]
+    now = int(time.time())
+    claims = {
+        "sub": str(user_id),
+        "role": "authenticated",   # Supabase-Auth role column (not app role)
+        "tenant_id": str(tenant_id) if tenant_id is not None else None,
+        # Custom claim used by app.bind_session() for RLS — see migration 0001.
+        # Dual-write `role` as the application-layer role in a namespaced claim
+        # so Supabase doesn't conflate it with its own RBAC.
+        "app_role": role,
+        "iat": now,
+        "exp": now + 300,
+        "aud": "authenticated",
+        "iss": os.environ.get("SUPABASE_URL", "http://localhost:54321") + "/auth/v1",
+    }
+    return jwt.encode(claims, secret, algorithm="HS256")
 
 
 @pytest.mark.parametrize("attempt_ix", range(40))
@@ -40,7 +62,8 @@ def test_student_in_tenant_a_cannot_read_tenant_b_rows(fixture_tenants, service_
     assert resp.data == [], f"leak: attempt #{attempt_ix} read tenant B row from tenant A session"
 
 
-def test_counselor_cannot_read_teacher_review_for_other_tenant(fixture_tenants):
+def test_counselor_cannot_read_teacher_review_for_other_tenant(fixture_tenants, service_client):
+    _ = service_client  # fixture kept in scope; admin-seeded data reused
     a = fixture_tenants["tenant_a"]
     b = fixture_tenants["tenant_b"]
     jwt = make_tenant_jwt(user_id=a["counselor_user_id"], tenant_id=a["id"], role="counselor")

@@ -14,10 +14,31 @@ interface RedeemRequest {
   intended_student_id?: string;
 }
 
-async function sha256(input: string): Promise<Uint8Array> {
-  const data = new TextEncoder().encode(input);
-  const digest = await crypto.subtle.digest('SHA-256', data);
-  return new Uint8Array(digest);
+// HMAC-SHA256 with a per-deployment secret. Phase 8 Security Audit recommended
+// this over plain SHA-256 so scraped invite_codes rows are not rainbow-tableable.
+// The secret lives in Supabase Edge Function env (INVITE_HMAC_SECRET); rotate
+// annually alongside the tenant DEK.
+async function hmacCode(input: string): Promise<Uint8Array> {
+  const secret = Deno.env.get('INVITE_HMAC_SECRET') ?? '';
+  if (!secret) throw new Error('INVITE_HMAC_SECRET not configured');
+  const key = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  );
+  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(input));
+  return new Uint8Array(sig);
+}
+
+// Uniform failure response — do not disclose whether the code is unknown,
+// expired, revoked, or over max-uses.
+function uniformFailure(): Response {
+  return new Response(JSON.stringify({ error: 'invite_invalid' }), {
+    status: 400,
+    headers: { 'content-type': 'application/json' },
+  });
 }
 
 serve(async (req) => {
@@ -34,7 +55,7 @@ serve(async (req) => {
     const user = userRes.user;
 
     const body = (await req.json()) as RedeemRequest;
-    const codeHash = await sha256(body.code);
+    const codeHash = await hmacCode(body.code);
 
     const { data: invite } = await supa
       .from('invite_codes')
@@ -42,25 +63,32 @@ serve(async (req) => {
       .eq('code_hash', codeHash)
       .single();
 
+    // All failure paths return the SAME error to deny the oracle. Audit details
+    // go into the log (server-side) but never to the caller (§16).
     if (!invite) {
       await supa.from('audit_log').insert({
         actor_id: user.id,
         action: 'invite.redeem_failed',
         metadata: { reason: 'unknown_code_hash' },
       });
-      return new Response(JSON.stringify({ error: 'invite_invalid' }), { status: 404 });
+      return uniformFailure();
     }
-
-    if (invite.revoked_at) return new Response(JSON.stringify({ error: 'revoked' }), { status: 410 });
+    if (invite.revoked_at) {
+      await supa.from('audit_log').insert({ tenant_id: invite.tenant_id, actor_id: user.id, action: 'invite.redeem_failed', metadata: { reason: 'revoked' } });
+      return uniformFailure();
+    }
     if (invite.expires_at && new Date(invite.expires_at) < new Date()) {
-      return new Response(JSON.stringify({ error: 'expired' }), { status: 410 });
+      await supa.from('audit_log').insert({ tenant_id: invite.tenant_id, actor_id: user.id, action: 'invite.redeem_failed', metadata: { reason: 'expired' } });
+      return uniformFailure();
     }
     if (invite.uses >= invite.max_uses) {
-      return new Response(JSON.stringify({ error: 'max_uses_reached' }), { status: 410 });
+      await supa.from('audit_log').insert({ tenant_id: invite.tenant_id, actor_id: user.id, action: 'invite.redeem_failed', metadata: { reason: 'max_uses' } });
+      return uniformFailure();
     }
     if (invite.allowed_email_domain && body.email) {
       if (!body.email.toLowerCase().endsWith('@' + invite.allowed_email_domain.toLowerCase())) {
-        return new Response(JSON.stringify({ error: 'email_domain_mismatch' }), { status: 403 });
+        await supa.from('audit_log').insert({ tenant_id: invite.tenant_id, actor_id: user.id, action: 'invite.redeem_failed', metadata: { reason: 'email_domain' } });
+        return uniformFailure();
       }
     }
 

@@ -57,13 +57,53 @@ public final class TenantContext: ObservableObject {
         return r == .counselor || r == .admin
     }
 
-    /// Guard helper — screens that must never render for a founder call this first.
-    /// Returns false for founder sessions so the UI refuses to render tenant data.
-    public func assertNotFounder(_ context: StaticString = #function) -> Bool {
+    /// Guard helper — screens that must never render for a founder MUST call this
+    /// at screen root. Uses `preconditionFailure` (NOT `assertionFailure`) so the
+    /// trap survives Release builds. §14.4 is a hard stop; a silently-allowed
+    /// founder-into-tenant-data render in Release is unacceptable.
+    public func requireNonFounder(_ context: StaticString = #function) {
         if isFounderSession {
-            assertionFailure("Founder session reached tenant-data surface: \(context) — CLAUDE.md §14.4 violation")
-            return false
+            preconditionFailure("§14.4 violation: founder session reached tenant-data surface: \(context)")
         }
-        return true
+    }
+}
+
+// MARK: - SwiftUI view-root guard
+
+import SwiftUI
+
+public struct RequireNonFounderModifier: ViewModifier {
+    @EnvironmentObject private var tenant: TenantContext
+    let context: StaticString
+
+    public func body(content: Content) -> some View {
+        if tenant.isFounderSession {
+            // In Release we also trip preconditionFailure via the guard below, but
+            // this view branch keeps the surface type-safe for testing and ensures
+            // we never render tenant fields even if the precondition is disabled
+            // by a misconfigured compiler flag.
+            FounderBlockedView(context: context)
+                .onAppear { tenant.requireNonFounder(context) }
+        } else {
+            content
+        }
+    }
+}
+
+public extension View {
+    /// Attach to the root of any screen that must not render for founder sessions.
+    func requireNonFounder(_ context: StaticString = #function) -> some View {
+        modifier(RequireNonFounderModifier(context: context))
+    }
+}
+
+public struct FounderBlockedView: View {
+    public let context: StaticString
+    public var body: some View {
+        ContentUnavailableView(
+            "Not available for founder sessions",
+            systemImage: "lock.shield.fill",
+            description: Text("§14.4 — founder sessions are denied tenant data at the API, DB, and UI layers.")
+        )
     }
 }

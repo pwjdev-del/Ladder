@@ -8,23 +8,42 @@ import CryptoKit
 public enum PinnedHost: String, CaseIterable {
     case supabaseAPI = "api.ladder.app"
     case supabaseFunctions = "edge.ladder.app"
-    case awsKMS = "kms.us-east-1.amazonaws.com"
+    // NOTE: KMS is NOT pinned on iOS — per §16.2, master keys and DEKs never
+    // live on device; removing the dead pin closes a lint-vs-intent drift
+    // where a developer might wire a direct KMS call into the client.
 }
 
 /// SHA-256 of the SubjectPublicKeyInfo DER for each accepted cert.
 /// Update via remote config 30 days before the production cert rotates.
 public enum PinnedKeys {
+    /// Placeholder bytes used in Debug only. Release builds fail `preflight`.
+    static let placeholderCurrent = Data(repeating: 0x00, count: 32)
+    static let placeholderNext    = Data(repeating: 0x01, count: 32)
+
     public static let current: [PinnedHost: Data] = [
-        // Placeholder values — replace with real SPKI hashes before production.
-        .supabaseAPI: Data(repeating: 0x00, count: 32),
-        .supabaseFunctions: Data(repeating: 0x00, count: 32),
-        .awsKMS: Data(repeating: 0x00, count: 32),
+        .supabaseAPI: placeholderCurrent,
+        .supabaseFunctions: placeholderCurrent,
     ]
     public static let next: [PinnedHost: Data] = [
-        .supabaseAPI: Data(repeating: 0x01, count: 32),
-        .supabaseFunctions: Data(repeating: 0x01, count: 32),
-        .awsKMS: Data(repeating: 0x01, count: 32),
+        .supabaseAPI: placeholderNext,
+        .supabaseFunctions: placeholderNext,
     ]
+
+    /// Trap at app launch if pins are still placeholders in a Release build.
+    /// Call from the App.init. Build passes because the check is runtime, but
+    /// the production IPA will refuse to launch with zero-byte pins.
+    public static func preflightOrCrash() {
+        #if !DEBUG
+        for (host, pin) in current {
+            precondition(pin != placeholderCurrent,
+                         "TLS current pin for \(host.rawValue) is placeholder — rotate before Release build (§16.3).")
+        }
+        for (host, pin) in next {
+            precondition(pin != placeholderNext,
+                         "TLS next pin for \(host.rawValue) is placeholder — rotate before Release build (§16.3).")
+        }
+        #endif
+    }
 }
 
 public final class TLSPinnedSessionFactory: NSObject, URLSessionDelegate {
