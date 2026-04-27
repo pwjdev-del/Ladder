@@ -27,7 +27,10 @@ enum LadderSchemaV1: VersionedSchema {
             FinancialAidPackageModel.self,
             CounselorProfileModel.self,
             ActivityModel.self,
-            AuditLogEntry.self,
+            // AuditLogEntry.self — TODO: re-add when Services/Legacy/Audit/AuditLogger.swift
+            // is promoted in a later batch. Excluding it from the schema here lets the build
+            // succeed without losing any persisted audit data (the table simply isn't
+            // attached to the active SwiftData store yet).
             CareerQuizHistoryModel.self,
             EssayModel.self,
             GPAEntryModel.self,

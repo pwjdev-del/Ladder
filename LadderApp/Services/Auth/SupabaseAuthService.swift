@@ -209,7 +209,9 @@ public actor SupabaseAuthService {
             tenantId: tenantId,
             role: appRole,
             userId: session.user.id,
-            expiresAt: session.expiresAt ?? Date.distantFuture
+            // session.expiresAt is a TimeInterval (Unix seconds), not a Date —
+            // convert before storing on TenantClaim.
+            expiresAt: Date(timeIntervalSince1970: session.expiresAt)
         )
 
         // tenant_display_name is optional — the DB RLS fn sets it via
