@@ -60,14 +60,8 @@ create policy grades_student_self_only
     using (student_id in (select id from students where user_id = auth.uid())
            and tenant_id::text = current_setting('app.tenant_id', true));
 
--- Parents can VIEW (not write) grades of their linked children (§5 matrix)
-create policy grades_parent_view
-    on grades
-    for select
-    using (exists (select 1 from parent_links pl
-                    where pl.parent_user_id = auth.uid()
-                      and pl.student_id = grades.student_id)
-           and tenant_id::text = current_setting('app.tenant_id', true));
+-- grades_parent_view policy moved below parent_links table creation
+-- (the policy references parent_links so that table must exist first).
 
 -- -----------------------------------------------------------------------------
 -- parent_links — many-to-many between parent accounts and students (§6.2).
@@ -88,6 +82,16 @@ create policy parent_links_self
     for all
     using ((parent_user_id = auth.uid()
             or student_id in (select id from students where user_id = auth.uid()))
+           and tenant_id::text = current_setting('app.tenant_id', true));
+
+-- Parents can VIEW (not write) grades of their linked children (§5 matrix).
+-- Defined here so parent_links exists when the policy is created.
+create policy grades_parent_view
+    on grades
+    for select
+    using (exists (select 1 from parent_links pl
+                    where pl.parent_user_id = auth.uid()
+                      and pl.student_id = grades.student_id)
            and tenant_id::text = current_setting('app.tenant_id', true));
 
 -- -----------------------------------------------------------------------------
