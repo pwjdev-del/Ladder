@@ -60,6 +60,11 @@ LadderBackend/.branches/
 LadderBackend/.temp/
 LadderBackend/supabase/.branches/
 LadderBackend/supabase/.temp/
+# Project-root /supabase/ contains symlinks into LadderBackend/supabase/
+# so the Supabase CLI finds migrations + functions when run from repo root.
+# The CLI generates .branches/ and .temp/ in the cwd's supabase/ directory.
+/supabase/.branches/
+/supabase/.temp/
 
 # Node / Deno (ai-gateway, Edge Functions tooling)
 node_modules/
