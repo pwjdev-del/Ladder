@@ -16,6 +16,11 @@ settings:
 configFiles:
   Debug: Config/Base.xcconfig
   Release: Config/Base.xcconfig
+packages:
+  Supabase:
+    url: https://github.com/supabase/supabase-swift
+    from: "2.0.0"
+
 targets:
   LadderApp:
     type: application
@@ -30,6 +35,9 @@ targets:
           - "Models/DomainEnums.swift"
           - "App/Navigation/**"
           - "App/Configuration/**"
+    dependencies:
+      - package: Supabase
+        product: Supabase
     settings:
       base:
         INFOPLIST_GENERATION_MODE: GeneratedFile
@@ -40,8 +48,8 @@ targets:
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
         INFOPLIST_KEY_UILaunchScreen_Generation: true
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
-        # iPad deferred per user instruction — iPhone only for this pass.
-        TARGETED_DEVICE_FAMILY: "1"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        TARGETED_DEVICE_FAMILY: "1,2"
         INFOPLIST_KEY_CFBundleDisplayName: "Ladder"
         INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription: "Ladder uses your calendar to add school and activity deadlines."
         INFOPLIST_KEY_NSCameraUsageDescription: "Ladder uses your camera to scan transcripts and documents."
