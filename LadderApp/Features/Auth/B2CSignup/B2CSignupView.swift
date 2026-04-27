@@ -12,6 +12,12 @@ public struct B2CSignupView: View {
     @State private var acceptedTerms = false
     @State private var acceptedPrivacy = false
     @State private var working = false
+    // Inline error surfaced when signUp throws (network error, duplicate email, etc.)
+    @State private var errorMessage: String?
+    // Set to true when Supabase requires email confirmation (session is nil after signUp).
+    @State private var needsEmailConfirmation = false
+    // Non-nil after successful signUp with a live session — triggers navigation.
+    @State private var signedInSession: SignedInSession?
     @Environment(\.dismiss) private var dismiss
 
     public init() {}
@@ -41,6 +47,31 @@ public struct B2CSignupView: View {
                     }
                     .padding(.top, 16)
 
+                    // Email-confirmation success state: Supabase requires verification.
+                    if needsEmailConfirmation {
+                        HStack(alignment: .top, spacing: 12) {
+                            Image(systemName: "envelope.badge.checkmark")
+                                .font(.system(size: 20))
+                                .foregroundStyle(LadderBrand.forest700)
+                            Text("Check your email to confirm your account, then log in.")
+                                .font(.ladderBody(14))
+                                .foregroundStyle(LadderBrand.ink900)
+                        }
+                        .padding(14)
+                        .background(LadderBrand.lime500.opacity(0.15))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .accessibilityIdentifier("signup-email-confirmation-banner")
+                    }
+
+                    // Inline error message surfaced when signUp throws.
+                    if let errorMessage {
+                        Text(errorMessage)
+                            .font(.ladderBody(13))
+                            .foregroundStyle(LadderBrand.statusRed)
+                            .multilineTextAlignment(.center)
+                            .accessibilityIdentifier("signup-error-message")
+                    }
+
                     createButton
                         .padding(.top, 12)
                         .padding(.bottom, 32)
@@ -51,6 +82,10 @@ public struct B2CSignupView: View {
         }
         .navigationBarHidden(true)
         .requireNonFounder()
+        // Navigate to the role dashboard immediately when signup completes with a live session.
+        .navigationDestination(item: $signedInSession) { session in
+            SignedInRouter(session: session)
+        }
     }
 
     private var wordmark: some View {
@@ -250,8 +285,39 @@ public struct B2CSignupView: View {
     private func submit() {
         Task { @MainActor in
             working = true
+            errorMessage = nil
+            needsEmailConfirmation = false
             defer { working = false }
-            try? await Task.sleep(nanoseconds: 400_000_000)
+            do {
+                let supabaseSession = try await SupabaseAuthService.shared.signUp(
+                    email: email.lowercased().trimmingCharacters(in: .whitespaces),
+                    password: password
+                )
+                // signUp returned a live session — bind role and navigate.
+                let claim = await TenantContext.shared.claim
+                let role: SignedInRole = {
+                    switch claim?.role {
+                    case .admin:     return .admin
+                    case .counselor: return .counselor
+                    case .parent:    return .parent
+                    case .founder:   return .founder
+                    default:         return .student
+                    }
+                }()
+                let grade = TenantContext.shared.studentGradeLevel
+                signedInSession = SignedInSession(
+                    role: role,
+                    displayName: String(supabaseSession.user.email?.split(separator: "@").first ?? ""),
+                    tenantName: TenantContext.shared.tenantDisplayName ?? "Ladder",
+                    gradeLevel: grade
+                )
+            } catch LadderAuthError.missingRoleClaim {
+                // Supabase returned nil session — email confirmation is required.
+                // Surface the confirmation message; do NOT navigate.
+                needsEmailConfirmation = true
+            } catch {
+                errorMessage = error.localizedDescription
+            }
         }
     }
 }
