@@ -149,6 +149,15 @@ public struct FounderLoginView: View {
                     email: founderEmail,
                     password: password
                 )
+                // B1 — verify JWT role before navigating. A non-founder JWT must not
+                // reach FounderDashboardView even if the email pattern matched.
+                // TenantContext.bind was already called inside signInWithPassword.
+                guard TenantContext.shared.claim?.role == .founder else {
+                    // Sign out the (wrong-role) session so we don't leave a half-bound state.
+                    try? await SupabaseAuthService.shared.signOut()
+                    self.error = "This account is not authorized for founder login."
+                    return
+                }
                 goDashboard = true
             } catch {
                 self.error = error.localizedDescription

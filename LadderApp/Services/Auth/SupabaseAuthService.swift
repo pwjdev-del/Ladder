@@ -1,10 +1,35 @@
 import Foundation
 import Supabase
+import os
 
 // CLAUDE.md §3 / §4 — canonical Supabase auth wrapper.
 // All sign-in flows route through this actor; the Supabase SDK handles
 // JWT storage in its own Keychain-backed session store (GoTrue).
 // TenantContext is bound after sign-in from the JWT claims.
+
+// MARK: - Auth errors
+
+public enum LadderAuthError: LocalizedError {
+    case missingRoleClaim
+    case unauthorizedRole(AppRole)
+
+    public var errorDescription: String? {
+        switch self {
+        case .missingRoleClaim:
+            return "Account not configured. Contact your administrator."
+        case .unauthorizedRole:
+            return "This account is not authorized for this login."
+        }
+    }
+}
+
+// MARK: - OSLog category
+
+private extension OSLog {
+    static let auth = OSLog(subsystem: "app.ladder", category: "auth")
+}
+
+// MARK: - Service
 
 public actor SupabaseAuthService {
     public static let shared = SupabaseAuthService()
@@ -21,11 +46,11 @@ public actor SupabaseAuthService {
     // MARK: - Sign in
 
     /// Sign in with email + password. Returns the authenticated Session.
-    /// Throws `AuthError` on failure (bad credentials, network error, etc.).
+    /// Throws `LadderAuthError` or Supabase errors on failure.
     @discardableResult
     public func signInWithPassword(email: String, password: String) async throws -> Session {
         let response = try await client.auth.signIn(email: email, password: password)
-        await bindTenantContext(from: response)
+        try await bindTenantContext(from: response)
         return response
     }
 
@@ -33,7 +58,7 @@ public actor SupabaseAuthService {
 
     public func signOut() async throws {
         try await client.auth.signOut()
-        await TenantContext.shared.clear()
+        await MainActor.run { TenantContext.shared.clear() }
     }
 
     // MARK: - Current session
@@ -41,7 +66,11 @@ public actor SupabaseAuthService {
     /// Returns the persisted session if one exists (GoTrue persists to Keychain).
     public var currentSession: Session? {
         get async {
-            try? await client.auth.session
+            let session = try? await client.auth.session
+            if session == nil {
+                os_log("currentSession: no active session found", log: .auth, type: .debug)
+            }
+            return session
         }
     }
 
@@ -49,9 +78,23 @@ public actor SupabaseAuthService {
 
     /// Extracts role + tenant from the JWT user_metadata / app_metadata claims
     /// and populates TenantContext. Adapt claim keys to match your DB schema.
-    private func bindTenantContext(from session: Session) async {
+    /// Throws `LadderAuthError.missingRoleClaim` in Release when the role claim is absent.
+    private func bindTenantContext(from session: Session) async throws {
         let metadata = session.user.appMetadata
-        let rawRole = metadata["role"]?.value as? String ?? "student"
+        let rawRole: String
+
+        if let r = metadata["role"]?.value as? String {
+            rawRole = r
+        } else {
+            #if DEBUG
+            os_log("role claim missing, defaulting to .student in DEBUG",
+                   log: .auth, type: .fault)
+            rawRole = "student"
+            #else
+            throw LadderAuthError.missingRoleClaim
+            #endif
+        }
+
         let appRole = AppRole(rawValue: rawRole) ?? .student
         let tenantIdString = metadata["tenant_id"]?.value as? String
         let tenantId = tenantIdString.flatMap { UUID(uuidString: $0) }
@@ -67,10 +110,13 @@ public actor SupabaseAuthService {
         // the tenants table; for now pull from user_metadata if present.
         let displayName = metadata["tenant_display_name"]?.value as? String
 
-        await TenantContext.shared.bind(claim,
-                                        displayName: displayName,
-                                        primaryColorHex: nil,
-                                        logoKey: nil)
+        // TenantContext is @MainActor-isolated; hop explicitly from this actor.
+        await MainActor.run {
+            TenantContext.shared.bind(claim,
+                                      displayName: displayName,
+                                      primaryColorHex: nil,
+                                      logoKey: nil)
+        }
 
         // If this is a student session, fetch grade_level from the DB.
         // RLS on the `students` table restricts the row to the current user automatically.
@@ -98,10 +144,11 @@ public actor SupabaseAuthService {
                 .execute()
                 .value
             let grade = rows.first?.gradeLevel
-            await TenantContext.shared.setStudentGradeLevel(grade)
+            // TenantContext is @MainActor-isolated; hop explicitly.
+            await MainActor.run { TenantContext.shared.setStudentGradeLevel(grade) }
         } catch {
-            // Non-fatal: grade_level missing means feature gates default to nil.
-            // Will be populated once the students row is created via onboarding.
+            os_log("grade fetch failed: %{public}@",
+                   log: .auth, type: .error, String(describing: error))
         }
     }
 
