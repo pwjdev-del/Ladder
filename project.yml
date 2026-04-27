@@ -32,8 +32,11 @@ targets:
           - "Features/Legacy/**"
           - "Services/Legacy/**"
           - "DesignSystem/Legacy/**"
-          - "Models/DomainEnums.swift"
-          - "App/Navigation/**"
+          - "App/Navigation/AdminTabView.swift"
+          - "App/Navigation/AppCoordinator.swift"
+          - "App/Navigation/CounselorTabView.swift"
+          - "App/Navigation/MainTabView.swift"
+          - "App/Navigation/ParentTabView.swift"
     dependencies:
       - package: Supabase
         product: Supabase
