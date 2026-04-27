@@ -31,30 +31,43 @@ public struct SignedInSession: Hashable, Sendable {
 }
 
 public enum RoleDetector {
-    /// Cheap email-prefix routing for the seeded test accounts.
-    /// Real role comes from JWT claim once SupabaseAuthService ships.
+    /// Returns the role from the JWT claim stored in TenantContext (authoritative).
+    /// In DEBUG, falls back to email-prefix heuristic when TenantContext has no claim
+    /// (e.g., running against a local Supabase seed before claim schema is deployed).
+    @MainActor
+    public static func roleFromJWT() -> SignedInRole {
+        if let claim = TenantContext.shared.claim {
+            switch claim.role {
+            case .admin:     return .admin
+            case .counselor: return .counselor
+            case .parent:    return .parent
+            case .founder:   return .founder
+            case .student:   return .student
+            }
+        }
+        #if DEBUG
+        // No claim yet — return student as safe default.
+        // TODO: remove fallback once all seed accounts have role claims in JWT.
+        return .student
+        #else
+        // Release: no claim means something went wrong in bindTenantContext; treat as student.
+        return .student
+        #endif
+    }
+
+    /// Email-prefix fallback retained for debug convenience only.
+    /// DO NOT call this in production flows — use roleFromJWT() instead.
+    @available(*, deprecated, message: "Use RoleDetector.roleFromJWT() — role must come from JWT claim.")
     public static func role(for email: String) -> SignedInRole {
+        #if DEBUG
         let lower = email.lowercased()
         if lower.hasPrefix("admin.") { return .admin }
         if lower.hasPrefix("counselor.") { return .counselor }
         if lower.hasPrefix("parent.") { return .parent }
-        let studentPrefixes = ["alice.", "bob.", "carol.", "maya.", "noah.", "kai.", "zed."]
-        if studentPrefixes.contains(where: { lower.hasPrefix($0) }) { return .student }
         return .student
-    }
-
-    /// Grade lookup for the seeded student accounts (§ADR-007 pivot to 9–12).
-    public static func gradeLevel(for email: String) -> Int? {
-        switch email.lowercased() {
-        case "alice.lwrpa@ladder.test": return 10
-        case "bob.lwrpa@ladder.test":   return 11
-        case "carol.lwrpa@ladder.test": return 12
-        case "maya.smith@ladder.test":  return 9
-        case "noah.smith@ladder.test":  return 11
-        case "kai.jones@ladder.test":   return 10
-        case "zed.beta@ladder.test":    return 11
-        default: return nil
-        }
+        #else
+        return .student
+        #endif
     }
 }
 
