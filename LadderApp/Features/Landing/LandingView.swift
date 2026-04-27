@@ -195,6 +195,9 @@ public struct LandingView: View {
     }
 
     private func startProgressTimer() {
+        // NOTE: 30-second hold duration was explicitly requested by the founder.
+        // Typical iOS long-press gestures are 0.5–3s. If you want to shorten
+        // this, suggest 5–10s to the founder — still secret but actually usable.
         Task { @MainActor in
             var lastMilestone = 0
             while isHolding {
@@ -206,7 +209,15 @@ public struct LandingView: View {
 
                 if elapsed >= 15 && lastMilestone < 15 { softHaptic(); lastMilestone = 15 }
                 if elapsed >= 25 && lastMilestone < 25 { mediumHaptic(); lastMilestone = 25 }
-                if newProgress >= 1.0 { break }
+                if newProgress >= 1.0 {
+                    // Bug fix: previously the loop broke here but fireFounderTrigger()
+                    // was only called in onEnded — meaning the founder had to *release*
+                    // their finger after 30s for navigation to happen. Auto-fire here so
+                    // the trigger fires the moment the ring completes, regardless of
+                    // whether the finger is still down.
+                    fireFounderTrigger()
+                    break
+                }
             }
         }
     }
@@ -219,6 +230,7 @@ public struct LandingView: View {
     }
 
     private func fireFounderTrigger() {
+        guard !goFounderLogin else { return } // idempotent — timer and onEnded can both call this
         successHaptic()
         goFounderLogin = true
     }
