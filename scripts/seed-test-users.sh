@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 # scripts/seed-test-users.sh
 #
-# Creates five test users (one per Ladder role) in the live Supabase project.
+# Creates a full test matrix:
+#   - School tenant "Deku Drench Prep" with admin, counselor, 4 graded students, parent
+#   - One B2C private-pay student (no tenant)
+#   - One founder account with TOTP
+#
 # Safe to re-run — existing users are detected via the Admin API and skipped.
+# All DB rows use Prefer: resolution=ignore-duplicates.
 #
 # Prerequisites:
 #   - bash 4+ or zsh
@@ -46,7 +51,7 @@ fi
 
 if [[ -z "${SUPABASE_SERVICE_ROLE_KEY}" ]]; then
   echo "ERROR: SUPABASE_SERVICE_ROLE_KEY is empty in .env"
-  echo "       Find it in your Supabase dashboard → Settings → API → service_role."
+  echo "       Set SUPABASE_SERVICE_ROLE_KEY in .env first — grab from https://supabase.com/dashboard/project/seicofzlgwjqkggscvao/settings/api"
   exit 1
 fi
 
@@ -73,41 +78,30 @@ AUTH_ADMIN_URL="${SUPABASE_URL}/auth/v1/admin/users"
 REST_URL="${SUPABASE_URL}/rest/v1"
 PASSWORD="LadderTest123!"
 
-# School tenant fixed ID — deterministic UUID so idempotent re-runs find it.
+# Deku Drench Prep school tenant — deterministic UUID for idempotent re-runs.
 SCHOOL_TENANT_ID="10000000-0000-0000-0000-000000000001"
-# B2C family tenant fixed ID
-FAMILY_TENANT_ID="10000000-0000-0000-0000-000000000002"
+
+# Deterministic student-row UUIDs (students table, not auth.users)
+STUDENT_G9_ROW_ID="20000000-0000-0000-0000-000000000009"
+STUDENT_G10_ROW_ID="20000000-0000-0000-0000-000000000010"
+STUDENT_G11_ROW_ID="20000000-0000-0000-0000-000000000011"
+STUDENT_G12_ROW_ID="20000000-0000-0000-0000-000000000012"
+# B2C private-pay student row
+B2C_STUDENT_ROW_ID="20000000-0000-0000-0000-000000000099"
 
 # ---------------------------------------------------------------------------
 # 2. Helper functions
 # ---------------------------------------------------------------------------
 
-# Print a separator line to stdout.
 hr() { printf '%s\n' "------------------------------------------------------------"; }
 
-# Curl wrapper that surfaces HTTP errors clearly.
-# Usage: api_call METHOD URL BODY_JSON
-# Returns the response body. Exits non-zero on curl failure.
-api_call() {
-  local method="$1" url="$2" body="$3"
-  curl --silent --show-error --fail-with-body \
-    --request "${method}" \
-    --header "Authorization: Bearer ${SUPABASE_SERVICE_ROLE_KEY}" \
-    --header "apikey: ${SUPABASE_SERVICE_ROLE_KEY}" \
-    --header "Content-Type: application/json" \
-    --header "Prefer: return=representation" \
-    --data "${body}" \
-    "${url}"
-}
-
-# Look up an auth user by email via the Admin API list endpoint.
-# Returns the user's UUID, or empty string if not found.
+# find_user_by_email EMAIL
+# Returns the auth UUID if found, empty string if not found.
 # Exits with a clear message if the key is invalid (HTTP 401/403).
 find_user_by_email() {
   local email="$1"
   local response http_code
 
-  # The Admin API lists up to 1000 users; for a seed script this is fine.
   response=$(curl --silent --write-out '\n__HTTP_STATUS__%{http_code}' \
     --request GET \
     --header "Authorization: Bearer ${SUPABASE_SERVICE_ROLE_KEY}" \
@@ -122,7 +116,7 @@ find_user_by_email() {
 
   if [[ "${http_code}" == "401" || "${http_code}" == "403" ]]; then
     echo "ERROR: SUPABASE_SERVICE_ROLE_KEY is invalid or expired (HTTP ${http_code})."
-    echo "       Regenerate it in Supabase dashboard → Settings → API → service_role."
+    echo "       Set SUPABASE_SERVICE_ROLE_KEY in .env first — grab from https://supabase.com/dashboard/project/seicofzlgwjqkggscvao/settings/api"
     exit 1
   fi
 
@@ -130,8 +124,8 @@ find_user_by_email() {
     '.users[] | select(.email == $email) | .id' 2>/dev/null || true
 }
 
-# Create an auth user. Returns UUID on success.
-# Caller passes: email, display_name, role, tenant_id_or_null
+# create_auth_user EMAIL DISPLAY_NAME ROLE TENANT_ID_OR_NULL
+# Returns the new UUID. Exits on error.
 create_auth_user() {
   local email="$1" display_name="$2" role="$3" tenant_id="$4"
 
@@ -168,7 +162,6 @@ create_auth_user() {
     exit 1
   }
 
-  # Check for error in response body
   local err_msg
   err_msg=$(echo "${response}" | jq -r '.msg // .message // ""' 2>/dev/null || true)
   if [[ -n "${err_msg}" && "${err_msg}" != "null" ]]; then
@@ -179,7 +172,8 @@ create_auth_user() {
   echo "${response}" | jq -r '.id'
 }
 
-# Upsert a row via PostgREST. Uses Prefer: resolution=ignore-duplicates for idempotency.
+# upsert_row TABLE BODY_JSON
+# Inserts or silently skips on conflict (ignore-duplicates).
 upsert_row() {
   local table="$1" body="$2"
   curl --silent --show-error \
@@ -196,24 +190,29 @@ upsert_row() {
 }
 
 # ---------------------------------------------------------------------------
-# 3. Ensure tenants exist
+# Step 1 — Ensure "Deku Drench Prep" school tenant exists
 # ---------------------------------------------------------------------------
 
 hr
-echo "Step 1 of 7: Ensuring school tenant exists..."
+echo "Step 1 of 7: Ensuring school tenant 'Deku Drench Prep' exists..."
 
+# theme_primary_color / theme_accent_color / enabled_features are migration-0009 columns.
+# Sending them as null lets the DB default to Ladder branding. If the columns do not
+# yet exist PostgREST will ignore unknown keys — no harm done.
 SCHOOL_BODY=$(jq -n \
   --arg id "${SCHOOL_TENANT_ID}" \
   '{
     id: $id,
     type: "school",
-    slug: "test-springs-high",
-    display_name: "Test Springs High School",
-    primary_color_hex: "#1D4E89",
-    plan: "pilot"
+    slug: "deku-drench-prep",
+    display_name: "Deku Drench Prep",
+    primary_color_hex: null,
+    plan: "pilot",
+    theme_primary_color: null,
+    theme_accent_color: null,
+    enabled_features: null
   }')
 
-# Use ignore-duplicates so re-runs skip gracefully
 curl --silent --show-error \
   --request POST \
   --header "Authorization: Bearer ${SUPABASE_SERVICE_ROLE_KEY}" \
@@ -222,79 +221,96 @@ curl --silent --show-error \
   --header "Prefer: resolution=ignore-duplicates,return=minimal" \
   --data "${SCHOOL_BODY}" \
   "${REST_URL}/tenants" >/dev/null
-echo "  School tenant: Test Springs High School (${SCHOOL_TENANT_ID})"
-
-echo "Step 1b: Ensuring B2C family tenant exists..."
-FAMILY_BODY=$(jq -n \
-  --arg id "${FAMILY_TENANT_ID}" \
-  '{
-    id: $id,
-    type: "family",
-    slug: "test-family",
-    display_name: "Test Family",
-    plan: "free"
-  }')
-
-curl --silent --show-error \
-  --request POST \
-  --header "Authorization: Bearer ${SUPABASE_SERVICE_ROLE_KEY}" \
-  --header "apikey: ${SUPABASE_SERVICE_ROLE_KEY}" \
-  --header "Content-Type: application/json" \
-  --header "Prefer: resolution=ignore-duplicates,return=minimal" \
-  --data "${FAMILY_BODY}" \
-  "${REST_URL}/tenants" >/dev/null
-echo "  B2C family tenant: Test Family (${FAMILY_TENANT_ID})"
+echo "  [OK] tenant: Deku Drench Prep (${SCHOOL_TENANT_ID})"
 
 # ---------------------------------------------------------------------------
-# 4. Create / detect each auth user
+# Step 2 — Create / detect all auth users
 # ---------------------------------------------------------------------------
 
 hr
 echo "Step 2 of 7: Creating auth users (skipping any that already exist)..."
 
-# ---- student.test ----
-STUDENT_EMAIL="student.test@ladder.dev"
-STUDENT_ID=$(find_user_by_email "${STUDENT_EMAIL}")
-if [[ -n "${STUDENT_ID}" ]]; then
-  echo "  [SKIP] ${STUDENT_EMAIL} already exists (${STUDENT_ID})"
-else
-  STUDENT_ID=$(create_auth_user "${STUDENT_EMAIL}" "Student Test" "student" "${FAMILY_TENANT_ID}")
-  echo "  [OK]   ${STUDENT_EMAIL} created (${STUDENT_ID})"
-fi
-
-# ---- parent.test ----
-PARENT_EMAIL="parent.test@ladder.dev"
-PARENT_ID=$(find_user_by_email "${PARENT_EMAIL}")
-if [[ -n "${PARENT_ID}" ]]; then
-  echo "  [SKIP] ${PARENT_EMAIL} already exists (${PARENT_ID})"
-else
-  PARENT_ID=$(create_auth_user "${PARENT_EMAIL}" "Parent Test" "parent" "${FAMILY_TENANT_ID}")
-  echo "  [OK]   ${PARENT_EMAIL} created (${PARENT_ID})"
-fi
-
-# ---- counselor.test ----
-COUNSELOR_EMAIL="counselor.test@ladder.dev"
-COUNSELOR_ID=$(find_user_by_email "${COUNSELOR_EMAIL}")
-if [[ -n "${COUNSELOR_ID}" ]]; then
-  echo "  [SKIP] ${COUNSELOR_EMAIL} already exists (${COUNSELOR_ID})"
-else
-  COUNSELOR_ID=$(create_auth_user "${COUNSELOR_EMAIL}" "Counselor Test" "counselor" "${SCHOOL_TENANT_ID}")
-  echo "  [OK]   ${COUNSELOR_EMAIL} created (${COUNSELOR_ID})"
-fi
-
-# ---- admin.test ----
-ADMIN_EMAIL="admin.test@ladder.dev"
+# --- admin ---
+ADMIN_EMAIL="admin@dekudrenchprep.test"
 ADMIN_ID=$(find_user_by_email "${ADMIN_EMAIL}")
 if [[ -n "${ADMIN_ID}" ]]; then
   echo "  [SKIP] ${ADMIN_EMAIL} already exists (${ADMIN_ID})"
 else
-  ADMIN_ID=$(create_auth_user "${ADMIN_EMAIL}" "Admin Test" "admin" "${SCHOOL_TENANT_ID}")
+  ADMIN_ID=$(create_auth_user "${ADMIN_EMAIL}" "DDP Admin" "admin" "${SCHOOL_TENANT_ID}")
   echo "  [OK]   ${ADMIN_EMAIL} created (${ADMIN_ID})"
 fi
 
-# ---- founder.test ----
-# The FounderLoginView converts "Founder ID" to {id.lowercased()}@ladder.internal
-# so this user's email must use the @ladder.internal domain.
+# --- counselor ---
+COUNSELOR_EMAIL="counselor@dekudrenchprep.test"
+COUNSELOR_ID=$(find_user_by_email "${COUNSELOR_EMAIL}")
+if [[ -n "${COUNSELOR_ID}" ]]; then
+  echo "  [SKIP] ${COUNSELOR_EMAIL} already exists (${COUNSELOR_ID})"
+else
+  COUNSELOR_ID=$(create_auth_user "${COUNSELOR_EMAIL}" "DDP Counselor" "counselor" "${SCHOOL_TENANT_ID}")
+  echo "  [OK]   ${COUNSELOR_EMAIL} created (${COUNSELOR_ID})"
+fi
+
+# --- student grade 9 ---
+STU_G9_EMAIL="student.g9@dekudrenchprep.test"
+STU_G9_ID=$(find_user_by_email "${STU_G9_EMAIL}")
+if [[ -n "${STU_G9_ID}" ]]; then
+  echo "  [SKIP] ${STU_G9_EMAIL} already exists (${STU_G9_ID})"
+else
+  STU_G9_ID=$(create_auth_user "${STU_G9_EMAIL}" "DDP Student G9" "student" "${SCHOOL_TENANT_ID}")
+  echo "  [OK]   ${STU_G9_EMAIL} created (${STU_G9_ID})"
+fi
+
+# --- student grade 10 ---
+STU_G10_EMAIL="student.g10@dekudrenchprep.test"
+STU_G10_ID=$(find_user_by_email "${STU_G10_EMAIL}")
+if [[ -n "${STU_G10_ID}" ]]; then
+  echo "  [SKIP] ${STU_G10_EMAIL} already exists (${STU_G10_ID})"
+else
+  STU_G10_ID=$(create_auth_user "${STU_G10_EMAIL}" "DDP Student G10" "student" "${SCHOOL_TENANT_ID}")
+  echo "  [OK]   ${STU_G10_EMAIL} created (${STU_G10_ID})"
+fi
+
+# --- student grade 11 ---
+STU_G11_EMAIL="student.g11@dekudrenchprep.test"
+STU_G11_ID=$(find_user_by_email "${STU_G11_EMAIL}")
+if [[ -n "${STU_G11_ID}" ]]; then
+  echo "  [SKIP] ${STU_G11_EMAIL} already exists (${STU_G11_ID})"
+else
+  STU_G11_ID=$(create_auth_user "${STU_G11_EMAIL}" "DDP Student G11" "student" "${SCHOOL_TENANT_ID}")
+  echo "  [OK]   ${STU_G11_EMAIL} created (${STU_G11_ID})"
+fi
+
+# --- student grade 12 ---
+STU_G12_EMAIL="student.g12@dekudrenchprep.test"
+STU_G12_ID=$(find_user_by_email "${STU_G12_EMAIL}")
+if [[ -n "${STU_G12_ID}" ]]; then
+  echo "  [SKIP] ${STU_G12_EMAIL} already exists (${STU_G12_ID})"
+else
+  STU_G12_ID=$(create_auth_user "${STU_G12_EMAIL}" "DDP Student G12" "student" "${SCHOOL_TENANT_ID}")
+  echo "  [OK]   ${STU_G12_EMAIL} created (${STU_G12_ID})"
+fi
+
+# --- parent (linked to all 4 school students) ---
+PARENT_EMAIL="parent@dekudrenchprep.test"
+PARENT_ID=$(find_user_by_email "${PARENT_EMAIL}")
+if [[ -n "${PARENT_ID}" ]]; then
+  echo "  [SKIP] ${PARENT_EMAIL} already exists (${PARENT_ID})"
+else
+  PARENT_ID=$(create_auth_user "${PARENT_EMAIL}" "DDP Parent" "parent" "${SCHOOL_TENANT_ID}")
+  echo "  [OK]   ${PARENT_EMAIL} created (${PARENT_ID})"
+fi
+
+# --- B2C private-pay student (no tenant) ---
+B2C_EMAIL="private.user@ladder.test"
+B2C_ID=$(find_user_by_email "${B2C_EMAIL}")
+if [[ -n "${B2C_ID}" ]]; then
+  echo "  [SKIP] ${B2C_EMAIL} already exists (${B2C_ID})"
+else
+  B2C_ID=$(create_auth_user "${B2C_EMAIL}" "Private User" "student" "null")
+  echo "  [OK]   ${B2C_EMAIL} created (${B2C_ID})"
+fi
+
+# --- founder (keep; FounderLoginView converts Founder ID → {id}@ladder.internal) ---
 FOUNDER_EMAIL="founder.test@ladder.internal"
 FOUNDER_ID=$(find_user_by_email "${FOUNDER_EMAIL}")
 if [[ -n "${FOUNDER_ID}" ]]; then
@@ -305,140 +321,197 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 5. user_profiles rows
+# Step 3 — user_profiles rows
 # ---------------------------------------------------------------------------
 
 hr
 echo "Step 3 of 7: Upserting user_profiles rows..."
 
 upsert_row "user_profiles" "$(jq -n \
-  --arg id "${STUDENT_ID}" \
-  --arg tid "${FAMILY_TENANT_ID}" \
-  '{ id: $id, tenant_id: $tid, role: "student", display_name: "Student Test", email: "student.test@ladder.dev" }')"
-echo "  [OK] user_profiles: student"
+  --arg id "${ADMIN_ID}" --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, tenant_id: $tid, role: "admin",
+     display_name: "DDP Admin", email: "admin@dekudrenchprep.test" }')"
+echo "  [OK] user_profiles: admin"
 
 upsert_row "user_profiles" "$(jq -n \
-  --arg id "${PARENT_ID}" \
-  --arg tid "${FAMILY_TENANT_ID}" \
-  '{ id: $id, tenant_id: $tid, role: "parent", display_name: "Parent Test", email: "parent.test@ladder.dev" }')"
-echo "  [OK] user_profiles: parent"
-
-upsert_row "user_profiles" "$(jq -n \
-  --arg id "${COUNSELOR_ID}" \
-  --arg tid "${SCHOOL_TENANT_ID}" \
-  '{ id: $id, tenant_id: $tid, role: "counselor", display_name: "Counselor Test", email: "counselor.test@ladder.dev" }')"
+  --arg id "${COUNSELOR_ID}" --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, tenant_id: $tid, role: "counselor",
+     display_name: "DDP Counselor", email: "counselor@dekudrenchprep.test" }')"
 echo "  [OK] user_profiles: counselor"
 
 upsert_row "user_profiles" "$(jq -n \
-  --arg id "${ADMIN_ID}" \
-  --arg tid "${SCHOOL_TENANT_ID}" \
-  '{ id: $id, tenant_id: $tid, role: "admin", display_name: "Admin Test", email: "admin.test@ladder.dev" }')"
-echo "  [OK] user_profiles: admin"
+  --arg id "${STU_G9_ID}" --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, tenant_id: $tid, role: "student",
+     display_name: "DDP Student G9", email: "student.g9@dekudrenchprep.test" }')"
+echo "  [OK] user_profiles: student.g9"
 
-# Founders have tenant_id = null (enforced by DB constraint founder_has_no_tenant)
+upsert_row "user_profiles" "$(jq -n \
+  --arg id "${STU_G10_ID}" --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, tenant_id: $tid, role: "student",
+     display_name: "DDP Student G10", email: "student.g10@dekudrenchprep.test" }')"
+echo "  [OK] user_profiles: student.g10"
+
+upsert_row "user_profiles" "$(jq -n \
+  --arg id "${STU_G11_ID}" --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, tenant_id: $tid, role: "student",
+     display_name: "DDP Student G11", email: "student.g11@dekudrenchprep.test" }')"
+echo "  [OK] user_profiles: student.g11"
+
+upsert_row "user_profiles" "$(jq -n \
+  --arg id "${STU_G12_ID}" --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, tenant_id: $tid, role: "student",
+     display_name: "DDP Student G12", email: "student.g12@dekudrenchprep.test" }')"
+echo "  [OK] user_profiles: student.g12"
+
+upsert_row "user_profiles" "$(jq -n \
+  --arg id "${PARENT_ID}" --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, tenant_id: $tid, role: "parent",
+     display_name: "DDP Parent", email: "parent@dekudrenchprep.test" }')"
+echo "  [OK] user_profiles: parent"
+
+# B2C student: tenant_id intentionally omitted (NULL)
+upsert_row "user_profiles" "$(jq -n \
+  --arg id "${B2C_ID}" \
+  '{ id: $id, role: "student",
+     display_name: "Private User", email: "private.user@ladder.test" }')"
+echo "  [OK] user_profiles: private.user (tenant_id=NULL)"
+
+# Founder: no tenant per founder_has_no_tenant constraint
 upsert_row "user_profiles" "$(jq -n \
   --arg id "${FOUNDER_ID}" \
-  '{ id: $id, role: "founder", display_name: "Founder Test", email: "founder.test@ladder.internal" }')"
+  '{ id: $id, role: "founder",
+     display_name: "Founder Test", email: "founder.test@ladder.internal" }')"
 echo "  [OK] user_profiles: founder"
 
 # ---------------------------------------------------------------------------
-# 6. students row for student.test
+# Step 4 — students rows (one per student, grade_level + tenant_id)
 # ---------------------------------------------------------------------------
 
 hr
-echo "Step 4 of 7: Upserting students row for student.test (grade 11)..."
-
-# Fixed deterministic student-row ID for idempotency
-STUDENT_ROW_ID="20000000-0000-0000-0000-000000000001"
+echo "Step 4 of 7: Upserting students rows..."
 
 upsert_row "students" "$(jq -n \
-  --arg id "${STUDENT_ROW_ID}" \
-  --arg uid "${STUDENT_ID}" \
-  --arg tid "${FAMILY_TENANT_ID}" \
-  '{ id: $id, user_id: $uid, tenant_id: $tid, grade_level: 11 }')"
-echo "  [OK] students row: grade_level=11, id=${STUDENT_ROW_ID}"
-
-# ---------------------------------------------------------------------------
-# 7. parent_links row
-# ---------------------------------------------------------------------------
-
-hr
-echo "Step 5 of 7: Upserting parent_links row (parent.test -> student.test)..."
-
-upsert_row "parent_links" "$(jq -n \
-  --arg puid "${PARENT_ID}" \
-  --arg sid "${STUDENT_ROW_ID}" \
-  --arg tid "${FAMILY_TENANT_ID}" \
-  '{ parent_user_id: $puid, student_id: $sid, tenant_id: $tid, relationship: "parent", status: "active" }')"
-echo "  [OK] parent_links: parent.test -> student.test (active)"
-
-# ---------------------------------------------------------------------------
-# 8. counselor_assignments row (migration 0009 schema)
-# ---------------------------------------------------------------------------
-
-hr
-echo "Step 6 of 7: Upserting counselor_assignments row (counselor.test -> student.test)..."
-
-# counselor_assignments.student_id is an FK to students.id (not auth.users.id)
-# student.test is a B2C user and counselor.test is school-tenant, so this is a
-# cross-tenant assignment. In production this would not occur; for test coverage
-# it verifies the counselor RLS path. A school student row would be needed for
-# a fully realistic assignment — this uses the B2C student row as a placeholder
-# since the DB FK only requires the row to exist in `students`.
-#
-# NOTE: if the DB rejects this due to a tenant_id mismatch FK, create a school
-# student row first and update SCHOOL_STUDENT_ROW_ID below.
-upsert_row "counselor_assignments" "$(jq -n \
+  --arg id "${STUDENT_G9_ROW_ID}" \
+  --arg uid "${STU_G9_ID}" \
   --arg tid "${SCHOOL_TENANT_ID}" \
-  --arg cuid "${COUNSELOR_ID}" \
-  --arg sid "${STUDENT_ROW_ID}" \
-  '{ tenant_id: $tid, counselor_user_id: $cuid, student_id: $sid }')"
-echo "  [OK] counselor_assignments: counselor.test -> student.test"
+  '{ id: $id, user_id: $uid, tenant_id: $tid, grade_level: 9 }')"
+echo "  [OK] students: student.g9  grade=9  row=${STUDENT_G9_ROW_ID}"
+
+upsert_row "students" "$(jq -n \
+  --arg id "${STUDENT_G10_ROW_ID}" \
+  --arg uid "${STU_G10_ID}" \
+  --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, user_id: $uid, tenant_id: $tid, grade_level: 10 }')"
+echo "  [OK] students: student.g10 grade=10 row=${STUDENT_G10_ROW_ID}"
+
+upsert_row "students" "$(jq -n \
+  --arg id "${STUDENT_G11_ROW_ID}" \
+  --arg uid "${STU_G11_ID}" \
+  --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, user_id: $uid, tenant_id: $tid, grade_level: 11 }')"
+echo "  [OK] students: student.g11 grade=11 row=${STUDENT_G11_ROW_ID}"
+
+upsert_row "students" "$(jq -n \
+  --arg id "${STUDENT_G12_ROW_ID}" \
+  --arg uid "${STU_G12_ID}" \
+  --arg tid "${SCHOOL_TENANT_ID}" \
+  '{ id: $id, user_id: $uid, tenant_id: $tid, grade_level: 12 }')"
+echo "  [OK] students: student.g12 grade=12 row=${STUDENT_G12_ROW_ID}"
+
+# B2C private-pay student: tenant_id NULL, no school assignment
+upsert_row "students" "$(jq -n \
+  --arg id "${B2C_STUDENT_ROW_ID}" \
+  --arg uid "${B2C_ID}" \
+  '{ id: $id, user_id: $uid, grade_level: 11 }')"
+echo "  [OK] students: private.user  grade=11 tenant_id=NULL row=${B2C_STUDENT_ROW_ID}"
 
 # ---------------------------------------------------------------------------
-# 9. founder_users row + TOTP secret
+# Step 5 — parent_links: parent@dekudrenchprep.test -> all 4 school students
+# ---------------------------------------------------------------------------
+
+hr
+echo "Step 5 of 7: Upserting parent_links (parent -> 4 school students, status=active)..."
+
+for row_id_var in STUDENT_G9_ROW_ID STUDENT_G10_ROW_ID STUDENT_G11_ROW_ID STUDENT_G12_ROW_ID; do
+  # Resolve the variable name to its value
+  row_id="${!row_id_var}"
+  upsert_row "parent_links" "$(jq -n \
+    --arg puid "${PARENT_ID}" \
+    --arg sid  "${row_id}" \
+    --arg tid  "${SCHOOL_TENANT_ID}" \
+    '{ parent_user_id: $puid, student_id: $sid, tenant_id: $tid,
+       relationship: "parent", status: "active" }')"
+  echo "  [OK] parent_links: parent -> students row ${row_id} (active)"
+done
+
+# ---------------------------------------------------------------------------
+# Step 6 — counselor_assignments: counselor -> all 4 school students
+# ---------------------------------------------------------------------------
+
+hr
+echo "Step 6 of 7: Upserting counselor_assignments (counselor -> 4 school students)..."
+
+for row_id_var in STUDENT_G9_ROW_ID STUDENT_G10_ROW_ID STUDENT_G11_ROW_ID STUDENT_G12_ROW_ID; do
+  row_id="${!row_id_var}"
+  upsert_row "counselor_assignments" "$(jq -n \
+    --arg tid  "${SCHOOL_TENANT_ID}" \
+    --arg cuid "${COUNSELOR_ID}" \
+    --arg sid  "${row_id}" \
+    '{ tenant_id: $tid, counselor_user_id: $cuid, student_id: $sid }')"
+  echo "  [OK] counselor_assignments: counselor -> students row ${row_id}"
+done
+
+# ---------------------------------------------------------------------------
+# Step 7 — founder_users row + TOTP secret
 # ---------------------------------------------------------------------------
 
 hr
 echo "Step 7 of 7: Upserting founder_users row for founder.test..."
 
-# TOTP secret JBSWY3DPEHPK3PXP stored as plain text in totp_secret_cipher.
-# In production this field holds a KMS-wrapped ciphertext. In the test environment
-# the founder-login Edge Function accepts this placeholder directly
-# (commit a78b00d schema gap — the Edge Function checks the raw value).
-# The secret encodes "Hello!" in Base32, which Google Authenticator / Authy
-# will accept. Use it with the seed TOTP in docs/test-credentials.md.
-
+# TOTP secret JBSWY3DPEHPK3PXP — plaintext placeholder acceptable in test env.
+# In production this field holds a KMS-wrapped ciphertext. The founder-login
+# Edge Function accepts the raw value in the dev project.
 upsert_row "founder_users" "$(jq -n \
   --arg auid "${FOUNDER_ID}" \
-  '{ auth_user_id: $auid, display_name: "Founder Test", totp_secret_cipher: "JBSWY3DPEHPK3PXP" }')"
+  '{ auth_user_id: $auid,
+     display_name: "Founder Test",
+     totp_secret_cipher: "JBSWY3DPEHPK3PXP" }')"
 echo "  [OK] founder_users: founder.test, totp_secret_cipher=JBSWY3DPEHPK3PXP"
 
 # ---------------------------------------------------------------------------
-# 10. Summary table
+# Summary table
 # ---------------------------------------------------------------------------
 
 hr
 echo ""
-echo "Seed complete. Test credentials summary:"
+echo "Seed complete. Test credentials:"
 echo ""
-printf "%-12s  %-38s  %-20s  %-30s\n" "ROLE" "EMAIL" "PASSWORD" "LOGIN SCREEN"
-printf "%-12s  %-38s  %-20s  %-30s\n" "----" "-----" "--------" "------------"
-printf "%-12s  %-38s  %-20s  %-30s\n" \
-  "student"   "student.test@ladder.dev"         "${PASSWORD}" "B2C login  (Landing → Log in)"
-printf "%-12s  %-38s  %-20s  %-30s\n" \
-  "parent"    "parent.test@ladder.dev"           "${PASSWORD}" "B2C login  (Landing → Log in)"
-printf "%-12s  %-38s  %-20s  %-30s\n" \
-  "counselor" "counselor.test@ladder.dev"        "${PASSWORD}" "School login (Test Springs High School)"
-printf "%-12s  %-38s  %-20s  %-30s\n" \
-  "admin"     "admin.test@ladder.dev"            "${PASSWORD}" "School login (Test Springs High School)"
-printf "%-12s  %-38s  %-20s  %-30s\n" \
-  "founder"   "founder.test  [ID for login UI]"  "${PASSWORD}" "Founder backdoor (30-sec logo hold)"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "ROLE" "EMAIL" "PASSWORD" "LOGIN SCREEN" "GRADE"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "----" "-----" "--------" "------------" "-----"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "admin"     "admin@dekudrenchprep.test"    "${PASSWORD}" "School login (Deku Drench Prep)" "—"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "counselor" "counselor@dekudrenchprep.test" "${PASSWORD}" "School login (Deku Drench Prep)" "—"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "student"   "student.g9@dekudrenchprep.test" "${PASSWORD}" "School login (Deku Drench Prep)" "9"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "student"   "student.g10@dekudrenchprep.test" "${PASSWORD}" "School login (Deku Drench Prep)" "10"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "student"   "student.g11@dekudrenchprep.test" "${PASSWORD}" "School login (Deku Drench Prep)" "11"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "student"   "student.g12@dekudrenchprep.test" "${PASSWORD}" "School login (Deku Drench Prep)" "12"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "parent"    "parent@dekudrenchprep.test"   "${PASSWORD}" "School login (Deku Drench Prep)" "—"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "student"   "private.user@ladder.test"     "${PASSWORD}" "B2C login (Landing -> Log in)" "11"
+printf "%-11s  %-40s  %-16s  %-34s  %-5s\n" \
+  "founder"   "founder.test  [Founder ID]"   "${PASSWORD}" "Founder backdoor (30-sec hold)" "—"
 echo ""
-echo "Founder login ID: founder.test"
-echo "Founder TOTP:     JBSWY3DPEHPK3PXP (add to Google Authenticator / Authy)"
-echo "                  In DEBUG builds the app may bypass TOTP — see docs/test-credentials.md"
+echo "Founder login:  ID = founder.test  |  TOTP secret = JBSWY3DPEHPK3PXP"
+echo "                Add secret to Google Authenticator / Authy manually."
 echo ""
-echo "Full credential details + what to verify after each login:"
+echo "Full credential details + per-login verification checklist:"
 echo "  docs/test-credentials.md"
 hr
