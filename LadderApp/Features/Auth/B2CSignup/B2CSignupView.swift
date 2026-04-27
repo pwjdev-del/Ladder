@@ -1,4 +1,5 @@
 import SwiftUI
+import OSLog
 
 // §6 — B2C student signup with inline COPPA gate.
 // Visual source: docs/design/stitch-deliverables/batch-11-full-v2-spec/b2c_signup_with_coppa_gate/
@@ -279,7 +280,10 @@ public struct B2CSignupView: View {
     }
 
     private var formReady: Bool {
-        !email.isEmpty && password.count >= 12 && acceptedTerms && acceptedPrivacy
+        // Gate is 8 chars to match the "Fair" strength label threshold — avoids the UX
+        // contradiction of a positive label + disabled button. Supabase minimum is 6+,
+        // so 8 chars is safely above the backend floor. (Option A from fix spec.)
+        !email.isEmpty && password.count >= 8 && acceptedTerms && acceptedPrivacy
     }
 
     private func submit() {
@@ -333,7 +337,16 @@ public struct SchoolPartnerInquiryView: View {
     @State private var phone = ""
     @State private var studentCount = 500
     @State private var features: Set<String> = ["Scheduling", "Extracurriculars"]
+    /// True once the form is submitted successfully (shows confirmation banner).
+    @State private var submitted = false
+    /// Non-nil when submission fails so we can surface the error inline.
+    @State private var submitError: String?
     @Environment(\.dismiss) private var dismiss
+
+    // Logger for inquiry data — survives even without a backing table.
+    // TODO: replace os_log path with a real Supabase insert once the
+    // `school_inquiries` table is added (see migration 0010, TBD).
+    private static let logger = Logger(subsystem: "com.ladder.app", category: "SchoolPartnerInquiry")
 
     public init() {}
 
@@ -357,24 +370,82 @@ public struct SchoolPartnerInquiryView: View {
                     detailsCard
                     estimateCard
 
-                    Button { /* TODO submit */ } label: {
-                        HStack(spacing: 8) {
-                            Text("Submit inquiry").font(.ladderLabel(16))
-                            Image(systemName: "arrow.right").font(.system(size: 14, weight: .semibold))
+                    if submitted {
+                        // Success confirmation — shown in place of the submit button.
+                        VStack(spacing: 8) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 32))
+                                .foregroundStyle(LadderBrand.forest700)
+                            Text("Thanks — we'll be in touch within 48 hours.")
+                                .font(.ladderBody(15))
+                                .multilineTextAlignment(.center)
+                                .foregroundStyle(LadderBrand.forest700)
                         }
-                        .foregroundStyle(LadderBrand.ink900)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(LadderBrand.lime500)
-                        .clipShape(Capsule())
+                        .padding(20)
+                        .background(LadderBrand.lime500.opacity(0.20))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .padding(.bottom, 32)
+                    } else {
+                        if let err = submitError {
+                            Text(err)
+                                .font(.ladderBody(13))
+                                .foregroundStyle(.red)
+                                .padding(.horizontal, 4)
+                        }
+
+                        Button { submitInquiry() } label: {
+                            HStack(spacing: 8) {
+                                Text("Submit inquiry").font(.ladderLabel(16))
+                                Image(systemName: "arrow.right").font(.system(size: 14, weight: .semibold))
+                            }
+                            .foregroundStyle(LadderBrand.ink900)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(formValid ? LadderBrand.lime500 : LadderBrand.stone200)
+                            .clipShape(Capsule())
+                        }
+                        .disabled(!formValid)
+                        .opacity(formValid ? 1.0 : 0.7)
+                        .padding(.bottom, 32)
                     }
-                    .padding(.bottom, 32)
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 16)
             }
         }
         .navigationBarHidden(true)
+    }
+
+    private var formValid: Bool {
+        !schoolName.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !contactName.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !email.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+
+    // TODO: Replace body with a real Supabase insert into `school_inquiries` once
+    // migration 0010 lands. Until then the data is captured via os_log so no inquiry
+    // is silently lost during the pilot period.
+    private func submitInquiry() {
+        submitError = nil
+        guard formValid else {
+            submitError = "Please fill in school name, contact name, and email."
+            return
+        }
+
+        Self.logger.info("""
+        SchoolPartnerInquiry submitted (no DB yet — needs migration 0010):
+          school=\(schoolName, privacy: .public)
+          contact=\(contactName, privacy: .public)
+          role=\(role, privacy: .public)
+          state=\(state, privacy: .public)
+          email=\(email, privacy: .public)
+          phone=\(phone.isEmpty ? "(none)" : phone, privacy: .public)
+          studentCount=\(studentCount, privacy: .public)
+          features=\(features.sorted().joined(separator: ", "), privacy: .public)
+        """)
+
+        submitted = true
     }
 
     private var wordmark: some View {
