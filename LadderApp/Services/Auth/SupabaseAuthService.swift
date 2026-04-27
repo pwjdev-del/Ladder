@@ -71,6 +71,38 @@ public actor SupabaseAuthService {
                                         displayName: displayName,
                                         primaryColorHex: nil,
                                         logoKey: nil)
+
+        // If this is a student session, fetch grade_level from the DB.
+        // RLS on the `students` table restricts the row to the current user automatically.
+        if appRole == .student {
+            await fetchAndCacheGradeLevel(userId: session.user.id)
+        }
+    }
+
+    // MARK: - Grade level fetch
+
+    /// Fetches `students.grade_level` for the authenticated user from the DB.
+    /// Caches the result in TenantContext so the router and feature gates can read it
+    /// without an additional async hop. RLS guarantees the query returns only own row.
+    private func fetchAndCacheGradeLevel(userId: UUID) async {
+        struct GradeRow: Decodable {
+            let gradeLevel: Int?
+            enum CodingKeys: String, CodingKey { case gradeLevel = "grade_level" }
+        }
+        do {
+            let rows: [GradeRow] = try await client
+                .from("students")
+                .select("grade_level")
+                .eq("user_id", value: userId.uuidString)
+                .limit(1)
+                .execute()
+                .value
+            let grade = rows.first?.gradeLevel
+            await TenantContext.shared.setStudentGradeLevel(grade)
+        } catch {
+            // Non-fatal: grade_level missing means feature gates default to nil.
+            // Will be populated once the students row is created via onboarding.
+        }
     }
 
     // MARK: - Supabase client accessor

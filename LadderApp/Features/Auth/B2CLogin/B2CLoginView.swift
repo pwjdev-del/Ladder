@@ -154,10 +154,14 @@ public struct B2CLoginView: View {
                     default:         return .student
                     }
                 }()
+                // Grade level was fetched from students table and cached on TenantContext
+                // by SupabaseAuthService.bindTenantContext — read it directly here.
+                let grade = TenantContext.shared.studentGradeLevel
                 session = SignedInSession(
                     role: role,
                     displayName: String(supabaseSession.user.email?.split(separator: "@").first ?? ""),
-                    tenantName: await TenantContext.shared.tenantDisplayName ?? "Ladder"
+                    tenantName: TenantContext.shared.tenantDisplayName ?? "Ladder",
+                    gradeLevel: grade
                 )
             } catch {
                 self.error = error.localizedDescription

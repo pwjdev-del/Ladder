@@ -28,6 +28,8 @@ public final class TenantContext: ObservableObject {
     @Published public private(set) var tenantDisplayName: String?
     @Published public private(set) var tenantPrimaryColorHex: String?
     @Published public private(set) var tenantLogoKey: String?
+    /// Cached from `students.grade_level` after sign-in. Nil for non-student roles.
+    @Published public private(set) var studentGradeLevel: Int?
 
     private init() {}
 
@@ -41,11 +43,16 @@ public final class TenantContext: ObservableObject {
         self.tenantLogoKey = logoKey
     }
 
+    public func setStudentGradeLevel(_ grade: Int?) {
+        studentGradeLevel = grade
+    }
+
     public func clear() {
         claim = nil
         tenantDisplayName = nil
         tenantPrimaryColorHex = nil
         tenantLogoKey = nil
+        studentGradeLevel = nil
     }
 
     public var isFounderSession: Bool {

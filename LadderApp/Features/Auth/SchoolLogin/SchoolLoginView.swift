@@ -219,10 +219,14 @@ public struct SchoolLoginView: View {
                     default:         return .student
                     }
                 }()
+                // Grade level fetched from students table and cached on TenantContext
+                // by SupabaseAuthService after sign-in (RLS restricts to own row).
+                let grade = TenantContext.shared.studentGradeLevel
                 session = SignedInSession(
                     role: role,
                     displayName: String(supabaseSession.user.email?.split(separator: "@").first ?? ""),
-                    tenantName: school.displayName
+                    tenantName: school.displayName,
+                    gradeLevel: grade
                 )
             } catch {
                 self.error = error.localizedDescription
