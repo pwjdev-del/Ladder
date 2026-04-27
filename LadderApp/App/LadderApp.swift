@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 // CLAUDE.md §3 — unauthenticated root is LandingView.
 // Legacy prototype routing (AuthManager, AppCoordinator, CollegeDataSeeder,
@@ -11,6 +12,8 @@ import SwiftUI
 struct LadderApp: App {
     @StateObject private var tenantContext = TenantContext.shared
     @StateObject private var flagClient = FlagClient.shared
+
+    private let modelContainer: ModelContainer = createModelContainer()
 
     init() {
         // §16.1 / §16.3 — Release builds crash at launch if TLS pins are
@@ -26,6 +29,7 @@ struct LadderApp: App {
             LandingView()
                 .environmentObject(tenantContext)
                 .environmentObject(flagClient)
+                .modelContainer(modelContainer)
         }
     }
 }

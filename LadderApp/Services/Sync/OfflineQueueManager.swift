@@ -28,15 +28,15 @@ final class OfflineQueueManager {
         save()
     }
 
-    // Replay all queued mutations when back online
+    // Replay all queued mutations when back online.
+    // TODO(Batch 5): wire real Supabase mutation sender here. AppSyncManager
+    // (AWS GraphQL) was deleted in Batch 3 — this stub returns false so mutations
+    // stay queued until the Supabase sync path is implemented.
     func replayQueue() async {
         guard isOnline else { return }
         var remaining: [QueuedMutation] = []
         for var mutation in queue {
-            let success = await AppSyncManager.shared.send(
-                operation: mutation.operation,
-                payload: mutation.payload
-            )
+            let success = await sendMutation(operation: mutation.operation, payload: mutation.payload)
             if success {
                 continue
             }
@@ -50,6 +50,12 @@ final class OfflineQueueManager {
         }
         queue = remaining
         save()
+    }
+
+    /// Stub sender — always returns false until Supabase sync is wired (Batch 5).
+    private func sendMutation(operation: String, payload: Data) async -> Bool {
+        // TODO(Batch 5): call Supabase RPC / REST with operation + payload
+        return false
     }
 
     private func save() {

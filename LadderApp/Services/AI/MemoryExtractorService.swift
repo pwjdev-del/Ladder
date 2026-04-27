@@ -6,14 +6,27 @@ import SwiftData
 // decodes the structured JSON, merges into the persisted ConversationMemory.
 //
 // Called from AdvisorChatView on disappear (if the session had substantive turns).
+//
+// ChatBubble is defined here so MemoryExtractorService is self-contained and
+// independent of Features/Legacy/AIAdvisor. When AdvisorChatView is un-quarantined
+// it should import this canonical definition rather than redefining it.
+
+struct ChatBubble: Identifiable {
+    enum Role { case user, assistant, system }
+    let id = UUID()
+    var role: Role
+    var content: String
+}
 
 @MainActor
 enum MemoryExtractorService {
 
     /// Extract + merge + persist. No-op if the session is too short to be worth analyzing.
+    /// `accessToken` is the Supabase session token forwarded to the ai-gateway Edge Function.
     static func extractAndPersist(
         transcript: [ChatBubble],
         studentId: String,
+        accessToken: String,
         context: ModelContext
     ) async {
         // Only extract if the conversation had real content (at least 2 student turns).
@@ -30,12 +43,22 @@ enum MemoryExtractorService {
             }
             .joined(separator: "\n\n")
 
+        // Wrap the transcript + extraction system prompt as the AI gateway input.
+        struct MemoryInput: Encodable {
+            let transcript: String
+            let systemPrompt: String
+        }
+
         do {
-            let raw = try await AIService.shared.sendMessage(
-                messages: [AIMessage(role: "user", content: formatted)],
-                systemPrompt: MemoryExtractor.systemPrompt
+            let response = try await AIGatewayClient.shared.call(
+                feature: .helpSurface,
+                input: MemoryInput(
+                    transcript: formatted,
+                    systemPrompt: MemoryExtractor.systemPrompt
+                ),
+                accessToken: accessToken
             )
-            guard let extraction = parse(raw) else { return }
+            guard let extraction = parse(response.output) else { return }
 
             let merged = MemoryExtractor.merge(into: current, extraction: extraction)
             ConversationMemoryStore.save(merged, studentId: studentId, context: context)
