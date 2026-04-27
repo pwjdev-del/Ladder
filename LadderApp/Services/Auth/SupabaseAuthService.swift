@@ -150,8 +150,14 @@ public actor SupabaseAuthService {
             throw LadderAuthError.founderLoginUnavailable
         }
 
-        // 200 OK — refresh session to pick up the idempotent role stamp.
-        _ = try await client.auth.refreshSession()
+        // 200 OK — refresh session to pick up the idempotent role stamp,
+        // then rebind TenantContext so callers see role=.founder. Without
+        // the rebind, in DEBUG builds where the original signInWithPassword
+        // session lacked role and bindTenantContext defaulted to .student,
+        // the claim in TenantContext stays stale at .student even though
+        // the JWT has been refreshed to role=founder.
+        let refreshed = try await client.auth.refreshSession()
+        try await bindTenantContext(from: refreshed)
     }
 
     // MARK: - Sign out
