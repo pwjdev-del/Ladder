@@ -4,7 +4,12 @@
 -- current_setting('app.tenant_id').
 
 create extension if not exists pgcrypto;
-create extension if not exists pgvector;
+-- On Supabase the pgvector extension is exposed under the name "vector".
+-- It is not yet used by any current schema (career_profile_vector_cipher
+-- is a bytea column, not a vector type) but is enabled here for future
+-- embeddings/RAG work. If your Supabase project doesn't have it in the
+-- available extensions list, enable it via Database → Extensions → vector.
+create extension if not exists vector;
 
 -- -----------------------------------------------------------------------------
 -- tenants
