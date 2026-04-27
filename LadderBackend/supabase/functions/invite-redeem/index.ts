@@ -92,16 +92,42 @@ serve(async (req) => {
       }
     }
 
-    // Bind the caller's user_profile to this tenant.
+    // Derive the application role from invite kind.
+    // The invite_codes table has no separate `role` column — kind is the source
+    // of truth. b2c_parent → 'parent'; any B2B kind → 'student'.
+    const resolvedRole: string = invite.kind === 'b2c_parent' ? 'parent' : 'student';
+
+    // SECURITY: all three writes below use the service_role client (supa).
+    // The caller's JWT is used only for identity verification (getUser above).
+    // role + tenant_id are NEVER accepted from the request body — they come
+    // exclusively from the invite_codes row fetched server-side.
+
+    // 1. Stamp JWT app_metadata so the iOS app can read role + tenant_id from
+    //    the claim without a round-trip to user_profiles.
+    //    auth.admin.updateUserById requires service_role — never exposed to clients.
+    const { error: metaErr } = await supa.auth.admin.updateUserById(user.id, {
+      app_metadata: {
+        role: resolvedRole,
+        tenant_id: invite.tenant_id,
+      },
+    });
+    if (metaErr) {
+      console.error('invite-redeem: failed to stamp app_metadata', metaErr);
+      // Hard fail — without the JWT claim the iOS app will throw missingRoleClaim.
+      return new Response('internal error', { status: 500 });
+    }
+
+    // 2. Bind the caller's user_profile to this tenant (table-level RLS source).
     await supa
       .from('user_profiles')
       .upsert({
         id: user.id,
         tenant_id: invite.tenant_id,
-        role: invite.kind === 'b2c_parent' ? 'parent' : 'student',
+        role: resolvedRole,
         email: user.email,
       });
 
+    // 3. Increment invite use counter.
     await supa.from('invite_codes').update({ uses: invite.uses + 1 }).eq('id', invite.id);
 
     await supa.from('audit_log').insert({
@@ -113,7 +139,7 @@ serve(async (req) => {
       metadata: { kind: invite.kind },
     });
 
-    return new Response(JSON.stringify({ ok: true, tenant_id: invite.tenant_id, role: invite.kind === 'b2c_parent' ? 'parent' : 'student' }), {
+    return new Response(JSON.stringify({ ok: true, tenant_id: invite.tenant_id, role: resolvedRole }), {
       headers: { 'content-type': 'application/json' },
     });
   } catch (e) {
