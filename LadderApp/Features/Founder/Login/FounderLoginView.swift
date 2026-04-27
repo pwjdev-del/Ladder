@@ -133,33 +133,47 @@ public struct FounderLoginView: View {
     }
 
     private func submit() {
+        // Guard: require a 6-digit TOTP before any network call.
+        guard totp.count == 6 else {
+            error = "Enter your 6-digit code."
+            return
+        }
+
         Task { @MainActor in
             working = true
             error = nil
             defer { working = false }
             do {
-                // TODO(server): founder TOTP must verify server-side via Edge Function
-                // /functions/v1/founder-login (Phase 4). That function will accept
-                // founderId + password + totp and return a short-lived founder JWT.
-                // For now, sign in via Supabase email/password only. TOTP field is
-                // collected but not validated client-side; server-side validation ships Phase 4.
                 // founderId maps to email: FND-0001 → fnd-0001@ladder.internal
                 let founderEmail = "\(founderId.lowercased())@ladder.internal"
+
+                // Step 1: Supabase password auth.
                 _ = try await SupabaseAuthService.shared.signInWithPassword(
                     email: founderEmail,
                     password: password
                 )
-                // B1 — verify JWT role before navigating. A non-founder JWT must not
-                // reach FounderDashboardView even if the email pattern matched.
-                // TenantContext.bind was already called inside signInWithPassword.
+
+                // Step 2: Server-side TOTP verification via founder-login Edge Function.
+                // On 401 the function throws founderLoginUnauthorized and signs out.
+                // On 5xx/network error it throws founderLoginUnavailable and signs out.
+                // On 200 it refreshes the session, stamping app_metadata.role = 'founder'.
+                // Server-side TOTP verification is now active via /functions/v1/founder-login.
+                try await SupabaseAuthService.shared.invokeFounderLogin(totpCode: totp)
+
+                // Step 3: Verify JWT role after the Edge Function has refreshed the session.
+                // TenantContext was bound inside signInWithPassword; re-check the live claim.
                 guard TenantContext.shared.claim?.role == .founder else {
-                    // Sign out the (wrong-role) session so we don't leave a half-bound state.
+                    // Role mismatch after a successful TOTP exchange is unexpected but
+                    // must be handled fail-closed. Sign out and surface a generic message.
                     try? await SupabaseAuthService.shared.signOut()
-                    self.error = "This account is not authorized for founder login."
+                    self.error = "Invalid login. Check your password and TOTP code."
                     return
                 }
+
                 goDashboard = true
             } catch {
+                // founderLoginUnauthorized and founderLoginUnavailable already signed out
+                // inside the service. Surface the localized message directly.
                 self.error = error.localizedDescription
             }
         }

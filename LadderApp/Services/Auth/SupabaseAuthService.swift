@@ -11,17 +11,23 @@ import os
 
 public enum LadderAuthError: LocalizedError {
     case missingRoleClaim
-    case unauthorizedRole(AppRole)
     case bootstrapFailed
+    /// founder-login returned 401: invalid TOTP or account is not a founder.
+    /// Message is deliberately generic to avoid enumeration of founder accounts.
+    case founderLoginUnauthorized
+    /// founder-login returned 5xx or a network error.
+    case founderLoginUnavailable
 
     public var errorDescription: String? {
         switch self {
         case .missingRoleClaim:
             return "Account not configured. Contact your administrator."
-        case .unauthorizedRole:
-            return "This account is not authorized for this login."
         case .bootstrapFailed:
             return "Could not initialize your account. Please try again or contact support."
+        case .founderLoginUnauthorized:
+            return "Invalid login. Check your password and TOTP code."
+        case .founderLoginUnavailable:
+            return "Service temporarily unavailable. Try again."
         }
     }
 }
@@ -108,6 +114,44 @@ public actor SupabaseAuthService {
 
         try await bindTenantContext(from: refreshed)
         return refreshed
+    }
+
+    // MARK: - Founder TOTP verification
+
+    /// Calls the `founder-login` Edge Function to verify the TOTP server-side, then
+    /// refreshes the session so the JWT picks up the `app_metadata.role = 'founder'` stamp.
+    ///
+    /// On 401 (wrong TOTP or account is not a founder): throws `founderLoginUnauthorized`.
+    /// On 5xx / network error: throws `founderLoginUnavailable`.
+    /// Both cases are handled by signing out before throwing — the caller must not
+    /// proceed to FounderDashboard regardless of the error variant.
+    public func invokeFounderLogin(totpCode: String) async throws {
+        do {
+            try await client.functions.invoke(
+                "founder-login",
+                options: .init(body: ["totpCode": totpCode])
+            )
+        } catch let FunctionsError.httpError(code, _) where code == 401 {
+            os_log("founder-login: 401 — unauthorized (invalid TOTP or non-founder account)",
+                   log: .auth, type: .error)
+            try? await client.auth.signOut()
+            await MainActor.run { TenantContext.shared.clear() }
+            throw LadderAuthError.founderLoginUnauthorized
+        } catch let FunctionsError.httpError(code, _) {
+            os_log("founder-login: HTTP %d — service error", log: .auth, type: .error, code)
+            try? await client.auth.signOut()
+            await MainActor.run { TenantContext.shared.clear() }
+            throw LadderAuthError.founderLoginUnavailable
+        } catch {
+            os_log("founder-login: network error: %{public}@",
+                   log: .auth, type: .error, String(describing: error))
+            try? await client.auth.signOut()
+            await MainActor.run { TenantContext.shared.clear() }
+            throw LadderAuthError.founderLoginUnavailable
+        }
+
+        // 200 OK — refresh session to pick up the idempotent role stamp.
+        _ = try await client.auth.refreshSession()
     }
 
     // MARK: - Sign out
