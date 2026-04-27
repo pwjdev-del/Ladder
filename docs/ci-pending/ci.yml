@@ -18,6 +18,11 @@ jobs:
         run: |
           brew install swiftlint
           swiftlint lint --quiet --strict
+      # TLS pin guard — fails on main/release/*, warns elsewhere.
+      # See docs/runbooks/tls-pinning.md. Active once Phase 4 moves this
+      # workflow to .github/workflows/ci.yml.
+      - name: TLS pin placeholder check
+        run: ./scripts/check_tls_pins.sh
       - name: Gitleaks
         uses: gitleaks/gitleaks-action@v2
       - name: Deno fmt + lint

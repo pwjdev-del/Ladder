@@ -62,3 +62,12 @@ scope decision — we are building the full spec, not the CEO-trimmed version.
 ## Contributing
 
 See `CONTRIBUTING.md` (todo) and the ADRs in `docs/decisions/`.
+
+## TLS Pinning
+
+iOS clients SPKI-pin the Supabase API + Edge Function hosts (CLAUDE.md §16.1, §16.3).
+Two pins ship in-app (`current` + `next`) so cert rotation cannot brick users.
+Real SHA-256 hashes are NOT in the repo — extract them from production before any
+release build. Full extraction commands, paste targets, rotation policy, and the
+`scripts/check_tls_pins.sh` CI gate are documented in
+[`docs/runbooks/tls-pinning.md`](docs/runbooks/tls-pinning.md).
