@@ -16,6 +16,9 @@ struct LadderApp: App {
         // §16.1 / §16.3 — Release builds crash at launch if TLS pins are
         // still placeholder bytes. Debug builds skip.
         PinnedKeys.preflightOrCrash()
+        // §5 — Release builds crash if Supabase URL is still the placeholder
+        // or anon key is empty. Prevents silent boot against a broken backend.
+        AppConfiguration.preflightOrCrash()
     }
 
     var body: some Scene {

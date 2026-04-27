@@ -34,7 +34,6 @@ targets:
           - "DesignSystem/Legacy/**"
           - "Models/DomainEnums.swift"
           - "App/Navigation/**"
-          - "App/Configuration/**"
     dependencies:
       - package: Supabase
         product: Supabase
