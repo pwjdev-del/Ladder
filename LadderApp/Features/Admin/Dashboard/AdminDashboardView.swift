@@ -36,6 +36,7 @@ public struct AdminDashboardView: View {
         }
         .navigationBarHidden(true)
         .sheet(isPresented: $showingSuccessMetrics) { SuccessMetricsPopupView() }
+        .requireNonFounder()
     }
 
     private var hero: some View {

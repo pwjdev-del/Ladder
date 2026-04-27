@@ -35,6 +35,7 @@ public struct StudentDashboardView: View {
             }
         }
         .navigationBarHidden(true)
+        .requireNonFounder()
     }
 
     private var hero: some View {

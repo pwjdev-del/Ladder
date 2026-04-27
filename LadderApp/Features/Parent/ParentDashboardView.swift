@@ -49,6 +49,7 @@ public struct ParentDashboardView: View {
         }
         .navigationBarHidden(true)
         .onAppear { if selected == nil { selected = linked.first } }
+        .requireNonFounder()
     }
 
     private var hero: some View {

@@ -50,6 +50,7 @@ public struct B2CSignupView: View {
             }
         }
         .navigationBarHidden(true)
+        .requireNonFounder()
     }
 
     private var wordmark: some View {
