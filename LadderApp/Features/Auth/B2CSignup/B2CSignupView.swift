@@ -19,6 +19,8 @@ public struct B2CSignupView: View {
     @State private var needsEmailConfirmation = false
     // Non-nil after successful signUp with a live session — triggers navigation.
     @State private var signedInSession: SignedInSession?
+    // Flipped to true on first "Create account" press; drives inline validation hints.
+    @State private var showValidationErrors = false
     @Environment(\.dismiss) private var dismiss
 
     public init() {}
@@ -43,8 +45,8 @@ public struct B2CSignupView: View {
                     if age < 13 { coppaCard }
 
                     VStack(spacing: 10) {
-                        consentToggle("I have read and accept the Terms", isOn: $acceptedTerms)
-                        consentToggle("Privacy Notice", isOn: $acceptedPrivacy)
+                        consentToggle("I have read and accept the Terms", isOn: $acceptedTerms, errorText: showValidationErrors && !acceptedTerms ? "Required — please accept the Terms" : nil)
+                        consentToggle("Privacy Notice", isOn: $acceptedPrivacy, errorText: showValidationErrors && !acceptedPrivacy ? "Required — please accept the Privacy Notice" : nil)
                     }
                     .padding(.top, 16)
 
@@ -102,6 +104,21 @@ public struct B2CSignupView: View {
         }
     }
 
+    // MARK: - Validation helpers
+
+    private var emailValid: Bool {
+        // RFC-lite check: must have exactly one @, a non-empty local part, and a dot after @.
+        let parts = email.split(separator: "@", omittingEmptySubsequences: false)
+        guard parts.count == 2, !parts[0].isEmpty else { return false }
+        return parts[1].contains(".")
+    }
+
+    private var passwordValid: Bool { password.count >= 8 }
+
+    private var formReady: Bool {
+        emailValid && passwordValid && acceptedTerms && acceptedPrivacy
+    }
+
     // MARK: - Fields
 
     private var emailField: some View {
@@ -114,8 +131,22 @@ public struct B2CSignupView: View {
                 .autocorrectionDisabled()
                 .padding(.horizontal, 16)
                 .padding(.vertical, 14)
-                .background(LadderBrand.stone200)
+                .background(showValidationErrors && !emailValid ? LadderBrand.statusRed.opacity(0.08) : LadderBrand.stone200)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(showValidationErrors && !emailValid ? LadderBrand.statusRed : Color.clear, lineWidth: 1.5)
+                )
+
+            if showValidationErrors && !emailValid {
+                Label(
+                    email.isEmpty ? "Email is required" : "Please enter a valid email address",
+                    systemImage: "exclamationmark.circle.fill"
+                )
+                .font(.ladderBody(12))
+                .foregroundStyle(LadderBrand.statusRed)
+                .accessibilityIdentifier("signup-email-error")
+            }
         }
     }
 
@@ -126,8 +157,12 @@ public struct B2CSignupView: View {
                 .font(.ladderBody(15))
                 .padding(.horizontal, 16)
                 .padding(.vertical, 14)
-                .background(LadderBrand.stone200)
+                .background(showValidationErrors && !passwordValid ? LadderBrand.statusRed.opacity(0.08) : LadderBrand.stone200)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(showValidationErrors && !passwordValid ? LadderBrand.statusRed : Color.clear, lineWidth: 1.5)
+                )
 
             // Strength bars (Fair when >=8 chars; Strong when >=12)
             HStack(spacing: 6) {
@@ -140,6 +175,18 @@ public struct B2CSignupView: View {
                     .font(.ladderBody(12))
                     .foregroundStyle(LadderBrand.ink600)
                     .frame(width: 48, alignment: .trailing)
+            }
+
+            if showValidationErrors && !passwordValid {
+                Label(
+                    password.isEmpty
+                        ? "Password is required"
+                        : "Must be at least 8 characters (\(password.count)/8)",
+                    systemImage: "exclamationmark.circle.fill"
+                )
+                .font(.ladderBody(12))
+                .foregroundStyle(LadderBrand.statusRed)
+                .accessibilityIdentifier("signup-password-error")
             }
         }
     }
@@ -245,18 +292,32 @@ public struct B2CSignupView: View {
 
     // MARK: - Consent toggles
 
-    private func consentToggle(_ label: String, isOn: Binding<Bool>) -> some View {
-        HStack {
-            Text(label).font(.ladderBody(15)).foregroundStyle(LadderBrand.ink900)
-            Spacer()
-            Toggle("", isOn: isOn)
-                .labelsHidden()
-                .tint(LadderBrand.lime500)
+    /// `errorText` is shown in red below the toggle row when non-nil.
+    private func consentToggle(_ label: String, isOn: Binding<Bool>, errorText: String? = nil) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(label).font(.ladderBody(15)).foregroundStyle(LadderBrand.ink900)
+                Spacer()
+                Toggle("", isOn: isOn)
+                    .labelsHidden()
+                    .tint(LadderBrand.lime500)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(errorText != nil ? LadderBrand.statusRed.opacity(0.06) : LadderBrand.paper)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .strokeBorder(errorText != nil ? LadderBrand.statusRed : Color.clear, lineWidth: 1.5)
+            )
+
+            if let errorText {
+                Label(errorText, systemImage: "exclamationmark.circle.fill")
+                    .font(.ladderBody(12))
+                    .foregroundStyle(LadderBrand.statusRed)
+                    .padding(.horizontal, 4)
+            }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .background(LadderBrand.paper)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
     // MARK: - Create
@@ -272,21 +333,19 @@ public struct B2CSignupView: View {
             .foregroundStyle(LadderBrand.ink900)
             .frame(maxWidth: .infinity)
             .frame(height: 56)
-            .background(formReady ? LadderBrand.lime500 : LadderBrand.stone200)
+            .background(LadderBrand.lime500)
             .clipShape(Capsule())
         }
-        .disabled(!formReady)
-        .opacity(formReady ? 1.0 : 0.7)
-    }
-
-    private var formReady: Bool {
-        // Gate is 8 chars to match the "Fair" strength label threshold — avoids the UX
-        // contradiction of a positive label + disabled button. Supabase minimum is 6+,
-        // so 8 chars is safely above the backend floor. (Option A from fix spec.)
-        !email.isEmpty && password.count >= 8 && acceptedTerms && acceptedPrivacy
+        .disabled(working)
+        .accessibilityIdentifier("signup-create-button")
     }
 
     private func submit() {
+        // Always show validation errors after first press so the user can see exactly what's missing.
+        showValidationErrors = true
+
+        guard formReady else { return }
+
         Task { @MainActor in
             working = true
             errorMessage = nil
