@@ -12,6 +12,7 @@ import os
 public enum LadderAuthError: LocalizedError {
     case missingRoleClaim
     case unauthorizedRole(AppRole)
+    case bootstrapFailed
 
     public var errorDescription: String? {
         switch self {
@@ -19,6 +20,8 @@ public enum LadderAuthError: LocalizedError {
             return "Account not configured. Contact your administrator."
         case .unauthorizedRole:
             return "This account is not authorized for this login."
+        case .bootstrapFailed:
+            return "Could not initialize your account. Please try again or contact support."
         }
     }
 }
@@ -52,6 +55,59 @@ public actor SupabaseAuthService {
         let response = try await client.auth.signIn(email: email, password: password)
         try await bindTenantContext(from: response)
         return response
+    }
+
+    // MARK: - Sign up (B2C)
+
+    /// Creates a new account and bootstraps the role claim via the `bootstrap-user` Edge Function.
+    /// Only sign-UP triggers bootstrap — sign-IN deliberately does not (misconfigured
+    /// accounts or attack signals must surface as `missingRoleClaim`, not silently fixed).
+    @discardableResult
+    public func signUp(email: String, password: String) async throws -> Session {
+        let response = try await client.auth.signUp(email: email, password: password)
+        // GoTrue returns a Session when email confirmation is disabled; when confirmation
+        // is required it returns a User-only response. We need a Session to proceed.
+        guard let session = response.session else {
+            // Email confirmation required — caller should prompt user to verify.
+            throw LadderAuthError.missingRoleClaim
+        }
+
+        // Check whether the bootstrapped JWT already contains a role claim.
+        // If Supabase triggers a DB function on signup that stamps the claim synchronously,
+        // we might already have it and can skip the Edge Function round-trip.
+        if let rawRole = session.user.appMetadata["role"]?.value as? String, !rawRole.isEmpty {
+            try await bindTenantContext(from: session)
+            return session
+        }
+
+        // Role absent — call bootstrap-user to stamp app_metadata.role on the server.
+        // The SDK attaches the current Bearer JWT automatically via SupabaseClient.setAuth.
+        os_log("signUp: role claim absent, calling bootstrap-user", log: .auth, type: .info)
+        do {
+            try await client.functions.invoke("bootstrap-user", options: .init())
+        } catch let FunctionsError.httpError(code, _) {
+            os_log("bootstrap-user returned HTTP %d, signing out", log: .auth, type: .error, code)
+            try? await client.auth.signOut()
+            throw LadderAuthError.bootstrapFailed
+        } catch {
+            os_log("bootstrap-user network error: %{public}@", log: .auth, type: .error,
+                   String(describing: error))
+            try? await client.auth.signOut()
+            throw LadderAuthError.bootstrapFailed
+        }
+
+        // Refresh the session so the JWT picks up the freshly stamped role claim.
+        let refreshed = try await client.auth.refreshSession()
+
+        guard let rawRole = refreshed.user.appMetadata["role"]?.value as? String, !rawRole.isEmpty else {
+            os_log("bootstrap-user succeeded but role claim still absent after refresh",
+                   log: .auth, type: .fault)
+            try? await client.auth.signOut()
+            throw LadderAuthError.missingRoleClaim
+        }
+
+        try await bindTenantContext(from: refreshed)
+        return refreshed
     }
 
     // MARK: - Sign out
