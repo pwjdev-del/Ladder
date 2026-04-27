@@ -204,27 +204,28 @@ public struct SchoolLoginView: View {
             working = true
             error = nil
             defer { working = false }
-            try? await Task.sleep(nanoseconds: 700_000_000)
-
-            // TODO: SupabaseAuthService.signIn(email:password:tenantId:)
-            // Until the backend lands, accept any of the seeded test accounts
-            // from docs/runbooks/test-accounts.md so testers get a usable flow.
-            let acceptedEmails: Set<String> = [
-                "admin.lwrpa@ladder.test",
-                "counselor.lwrpa@ladder.test",
-                "alice.lwrpa@ladder.test",
-                "bob.lwrpa@ladder.test",
-                "carol.lwrpa@ladder.test",
-            ]
-            if acceptedEmails.contains(email.lowercased()) && password == "Ladder!v2-pilot" {
-                let role = RoleDetector.role(for: email)
+            do {
+                let supabaseSession = try await SupabaseAuthService.shared.signInWithPassword(
+                    email: email.lowercased(),
+                    password: password
+                )
+                let claim = await TenantContext.shared.claim
+                let role: SignedInRole = {
+                    switch claim?.role {
+                    case .admin:     return .admin
+                    case .counselor: return .counselor
+                    case .parent:    return .parent
+                    case .founder:   return .founder
+                    default:         return .student
+                    }
+                }()
                 session = SignedInSession(
                     role: role,
-                    displayName: String(email.split(separator: "@").first ?? ""),
+                    displayName: String(supabaseSession.user.email?.split(separator: "@").first ?? ""),
                     tenantName: school.displayName
                 )
-            } else {
-                error = "Couldn't sign in. Use a seeded test account — see docs/runbooks/test-accounts.md."
+            } catch {
+                self.error = error.localizedDescription
             }
         }
     }

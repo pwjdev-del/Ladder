@@ -137,16 +137,21 @@ public struct FounderLoginView: View {
             working = true
             error = nil
             defer { working = false }
-            try? await Task.sleep(nanoseconds: 700_000_000)
-
-            // Accept seeded founder credentials from docs/runbooks/test-accounts.md.
-            let validIds: Set<String> = ["FND-0001", "FND-0002"]
-            if validIds.contains(founderId.uppercased())
-                && password == "Ladder!v2-pilot"
-                && totp == "123456" {
+            do {
+                // TODO(server): founder TOTP must verify server-side via Edge Function
+                // /functions/v1/founder-login (Phase 4). That function will accept
+                // founderId + password + totp and return a short-lived founder JWT.
+                // For now, sign in via Supabase email/password only. TOTP field is
+                // collected but not validated client-side; server-side validation ships Phase 4.
+                // founderId maps to email: FND-0001 → fnd-0001@ladder.internal
+                let founderEmail = "\(founderId.lowercased())@ladder.internal"
+                _ = try await SupabaseAuthService.shared.signInWithPassword(
+                    email: founderEmail,
+                    password: password
+                )
                 goDashboard = true
-            } else {
-                error = "Wrong credentials. Use FND-0001 / Ladder!v2-pilot / 123456 for dev."
+            } catch {
+                self.error = error.localizedDescription
             }
         }
     }

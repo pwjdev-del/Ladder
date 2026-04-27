@@ -54,3 +54,9 @@ custom_rules:
     regex: "password[\\s]*=[\\s]*\"[A-Za-z0-9]+\""
     message: "§16.1 — passwords use argon2id server-side. Never a literal."
     severity: error
+
+  banned_pilot_password:
+    name: "Hardcoded pilot password"
+    regex: "Ladder!v2-pilot"
+    message: "§3 — pilot password is banned from source. Use real Supabase auth via SupabaseAuthService."
+    severity: error

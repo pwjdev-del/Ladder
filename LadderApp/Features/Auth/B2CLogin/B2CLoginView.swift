@@ -139,24 +139,28 @@ public struct B2CLoginView: View {
             working = true
             error = nil
             defer { working = false }
-            try? await Task.sleep(nanoseconds: 700_000_000)
-
-            let accepted: Set<String> = [
-                "parent.smith@ladder.test",
-                "parent.jones@ladder.test",
-                "maya.smith@ladder.test",
-                "noah.smith@ladder.test",
-                "kai.jones@ladder.test",
-            ]
-            if accepted.contains(email.lowercased()) && password == "Ladder!v2-pilot" {
-                let role = RoleDetector.role(for: email)
+            do {
+                let supabaseSession = try await SupabaseAuthService.shared.signInWithPassword(
+                    email: email.lowercased(),
+                    password: password
+                )
+                let claim = await TenantContext.shared.claim
+                let role: SignedInRole = {
+                    switch claim?.role {
+                    case .admin:     return .admin
+                    case .counselor: return .counselor
+                    case .parent:    return .parent
+                    case .founder:   return .founder
+                    default:         return .student
+                    }
+                }()
                 session = SignedInSession(
                     role: role,
-                    displayName: String(email.split(separator: "@").first ?? ""),
-                    tenantName: "your family on Ladder"
+                    displayName: String(supabaseSession.user.email?.split(separator: "@").first ?? ""),
+                    tenantName: await TenantContext.shared.tenantDisplayName ?? "Ladder"
                 )
-            } else {
-                error = "Couldn't sign in. Use a seeded test account — see docs/runbooks/test-accounts.md."
+            } catch {
+                self.error = error.localizedDescription
             }
         }
     }
