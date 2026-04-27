@@ -6,27 +6,52 @@ import CryptoKit
 // not brick users mid-flight.
 
 public enum PinnedHost: String, CaseIterable {
-    case supabaseAPI = "api.ladder.app"
-    case supabaseFunctions = "edge.ladder.app"
-    // NOTE: KMS is NOT pinned on iOS — per §16.2, master keys and DEKs never
-    // live on device; removing the dead pin closes a lint-vs-intent drift
-    // where a developer might wire a direct KMS call into the client.
+    // Supabase native host. Same wildcard cert (`CN=supabase.co`) covers
+    // both REST/PostgREST and Edge Functions for this project, so one host
+    // entry covers both surfaces.
+    // TODO(phase 4 polish): when custom domains api.ladder.app and
+    // edge.ladder.app are configured via Supabase Custom Domains, add
+    // cases for them and extract their SPKI hashes via
+    // docs/runbooks/tls-pinning.md. Until then, this single case is the
+    // production-correct pinning target.
+    case supabase = "seicofzlgwjqkggscvao.supabase.co"
 }
 
 /// SHA-256 of the SubjectPublicKeyInfo DER for each accepted cert.
 /// Update via remote config 30 days before the production cert rotates.
 public enum PinnedKeys {
-    /// Placeholder bytes used in Debug only. Release builds fail `preflight`.
+    /// Placeholder bytes — Release builds fail `preflightOrCrash` if any
+    /// pin still equals these. Real pins below were extracted on
+    /// 2026-04-27 from `seicofzlgwjqkggscvao.supabase.co` via openssl
+    /// (see docs/runbooks/tls-pinning.md for the exact command).
     static let placeholderCurrent = Data(repeating: 0x00, count: 32)
     static let placeholderNext    = Data(repeating: 0x01, count: 32)
 
+    /// Leaf cert — `CN=supabase.co` (wildcard, issued by Google Trust
+    /// Services WE1). Rotates on the Supabase production cadence
+    /// (~annual). Update before expiry; `next` survives this rotation.
+    private static let supabaseLeafSPKI = Data([
+        0x19, 0x4d, 0x96, 0xe2, 0x3d, 0x4f, 0xdb, 0x84,
+        0xf7, 0xb2, 0xa9, 0x48, 0xfa, 0x8e, 0x98, 0x4e,
+        0x78, 0x9d, 0xcf, 0x3d, 0x0f, 0x23, 0xc7, 0xc1,
+        0xfc, 0x6b, 0xdd, 0xd8, 0x84, 0xdf, 0x49, 0x91,
+    ])
+
+    /// Intermediate CA — `CN=WE1, O=Google Trust Services`. Long-lived
+    /// (multi-year). Acts as backup pin so a leaf rotation does not
+    /// brick clients with stale `current`.
+    private static let googleTrustWE1SPKI = Data([
+        0x90, 0x87, 0x69, 0xe8, 0xd3, 0x44, 0x77, 0xcc,
+        0x2c, 0xba, 0x06, 0x32, 0xc8, 0x86, 0x05, 0xb2,
+        0x2d, 0x72, 0x94, 0xc0, 0x84, 0x0f, 0x78, 0x59,
+        0x6d, 0x24, 0x7c, 0x64, 0x5b, 0x1a, 0xfc, 0x0e,
+    ])
+
     public static let current: [PinnedHost: Data] = [
-        .supabaseAPI: placeholderCurrent,
-        .supabaseFunctions: placeholderCurrent,
+        .supabase: supabaseLeafSPKI,
     ]
     public static let next: [PinnedHost: Data] = [
-        .supabaseAPI: placeholderNext,
-        .supabaseFunctions: placeholderNext,
+        .supabase: googleTrustWE1SPKI,
     ]
 
     /// Trap at app launch if pins are still placeholders in a Release build.
