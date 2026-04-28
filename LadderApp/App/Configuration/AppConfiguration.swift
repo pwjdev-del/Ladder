@@ -26,8 +26,17 @@ enum AppConfiguration {
         return "https://\(supabaseHostFallback)"
     }
 
+    // The Supabase publishable anon key is safe to ship in the iOS binary —
+    // by design it grants ONLY the access RLS policies allow, and Apple makes
+    // any iOS binary trivially downloadable + decryptable on a jailbroken
+    // device. Real security comes from JWT-derived auth + RLS, NOT from
+    // hiding this key. Same xcconfig + auto-Info.plist filtering issues that
+    // affect SUPABASE_HOST also affect this key, so hardcoded fallback.
+    private static let supabaseAnonKeyFallback = "sb_publishable_kXZvRLZgvh2qL_jqfSjtHg_ZdnjrFyX"
+
     static var supabaseAnonKey: String {
-        Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String ?? ""
+        let raw = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String ?? ""
+        return raw.isEmpty ? supabaseAnonKeyFallback : raw
     }
 
     static var geminiProxyURL: String {
