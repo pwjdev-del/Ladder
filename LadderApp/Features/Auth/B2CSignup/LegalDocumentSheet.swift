@@ -15,7 +15,7 @@ struct LegalDocumentSheet: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     Text(document.title)
-                        .font(.ladderTitle(28))
+                        .font(.system(size: 28, weight: .bold))
                         .foregroundStyle(LadderBrand.ink900)
                         .padding(.bottom, 4)
 
