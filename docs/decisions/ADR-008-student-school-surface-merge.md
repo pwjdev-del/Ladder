@@ -280,13 +280,15 @@ This extends — does not replace — `ParentDashboardView`. Resolves open quest
 
 ### 2.11 Counselor full read access to AI chats + essays
 
+**Status (2026-04-27):** Founder confirmed counselor full read access is correct. The "your data is yours" promise means tenant-portability, not hiding from your current school. See SPEC_v2 §2.2 (privacy guarantee variants).
+
 Counselors get **read access** to `student_ai_chats` and `student_essays` for any student where the counselor's `counselor_id` matches the student's assigned counselor. There is no per-item opt-in by the student.
 
 **RLS policy:** `select` on `student_ai_chats` and `student_essays` allowed when `auth.jwt() ->> 'role' = 'counselor'` AND `student_id IN (select id from students where assigned_counselor_id = auth.uid())`.
 
 **Consent flow update (mandatory):** the COPPA + 6-doc legal/consent flow (`Features/Auth/Consent/`) must surface explicit copy at student signup: *"Your school counselor can see your AI advisor chats and your essay drafts."* Signup blocks until acknowledged. This applies only to school-tenant students; B2C students see no counselor language because they have no counselor.
 
-This resolves open question #3 and overrides the privacy-default proposal. The counselor view (§2.6) is amended: chat history and essay drafts ARE visible to counselors.
+The counselor view (§2.6) is amended: chat history and essay drafts ARE visible to counselors.
 
 ### 2.12 Counselor freelance marketplace — tenant-gated visibility
 
@@ -331,17 +333,23 @@ This resolves open question #4 and overrides the "out of v1" default with a v1 v
 
 ---
 
-## 4. Open questions for the founder
+## 4. Founder Decisions (All Resolved)
 
-All four resolved by founder on 2026-04-26. Schema migration plan still pending Supabase-specialist review before this ADR moves to Accepted.
+All questions resolved by founder on 2026-04-26 (ADR-008) and 2026-04-27 (SPEC_v2 Q1–Q4). Schema migration plan pending Supabase-specialist review.
+
+### ADR-008 Questions (Resolved 2026-04-26)
 
 1. **Tenant-flavored vs identical student app.** **RESOLVED — see §2.9.** Default = same app as B2C; founder-controlled per-school theming (primary/accent colors) and per-school feature toggles override on a per-tenant basis. Not self-serve to school admins.
 
 2. **Parent surface scope.** **RESOLVED — see §2.10.** Multi-child dashboard: child picker → parent-formatted summary per child (recent activity, counselor report, lag detection, templated suggestions). Not a mirror.
 
-3. **Counselor visibility into chat + essays.** **RESOLVED — see §2.11.** Counselors get full read access to `student_ai_chats` and `student_essays`. Mandatory consent copy at student signup; no per-item opt-in.
+3. **Counselor visibility into chat + essays.** **RESOLVED — see §2.11.** Counselors get full read access to `student_ai_chats` and `student_essays`. Mandatory consent copy at student signup; no per-item opt-in. Rationale confirmed 2026-04-27: tenant-portability model (SPEC_v2 §2.2).
 
 4. **Counselor freelance marketplace.** **RESOLVED — see §2.12.** In v1 as a tenant-gated visibility rule: shown to B2C (`tenantId == nil`), hidden for school-tenant users. Counselor profile/booking schema deferred to a sub-spec.
+
+### SPEC_v2 Questions (Resolved 2026-04-27)
+
+See SPEC_v2 §6 for all resolutions: Q1 (privacy variants), Q2 (no parent approval), Q3 (3-stage transfer model), Q4 (extracurricular curation — default pending confirmation).
 
 ---
 

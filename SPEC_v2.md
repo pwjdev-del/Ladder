@@ -39,9 +39,11 @@ Affected data types and their ownership:
 
 **What parent gets:** the parent-formatted summary defined in ADR-008 §2.10 — derived activity, lag detection, and counselor notes flagged `parent_visible = true`. Parents do not get raw chat transcripts or essay drafts.
 
-**Privacy guarantee (marketing copy):** "Your AI counselor's notes about you, your essays, your goals — all of it lives in your account. Your school sees only what you choose to share."
+**Privacy guarantee — two variants:**
+- **B2C students:** "Your AI counselor's notes about you, your essays, your goals — all of it lives in your account. Your data, your account."
+- **School-tenant students:** "Your school's admin and counselor will see your AI chats, essays, and progress while you're enrolled here. When you transfer schools or leave, they lose access and the new school sees everything."
 
-Note: Per ADR-008 §2.11, for school-tenant students, the consent flow makes clear that the assigned counselor *can* see AI chats and essays. "Choose to share" in marketing copy refers to B2C students. Consent language must be different for school-tenant students at signup. This is a legal/copy requirement, not a system change.
+**Rationale (founder decision 2026-04-27):** "Your data is yours" means **tenant-portability**, not hiding from your current school. While enrolled at school A, that school (admin and counselor) has full visibility. Transfer A → B: data ports; A loses access automatically. Convert to private: school visibility revoked. Pure B2C from day 1: no school ever has access. The consent flow for school-tenant students makes this explicit at signup.
 
 ### 2.3 Read-Everything Mandate
 
@@ -139,62 +141,74 @@ There are two distinct flows:
 
 ### 3.2 Flow A: School-to-School Transfer
 
+**NEW 3-stage approval model (founder decision 2026-04-27):** Students are NOT in the parent-approval loop. Students can sign up without a parent. Transfers require founder approval, then school-B admin approval.
+
 **State diagram:**
 
 ```
-Student initiates → [transfer_request: pending_parent]
-    → Parent receives email
-    → Parent approves → [transfer_request: approved, transfer_code issued]
-    → Parent denies → [transfer_request: denied] → terminal
-Student shares code with new school
-    → New school admin enters code in Admin dashboard → Backend verifies HMAC + approval status
-    → Verification passes → [transfer: complete] — tenant_id updated, school A loses visibility
-    → Code expired (30d) → [transfer_request: expired] → student must restart
+Student initiates → [transfer_request: pending_founder_review]
+    → Founder/Employee dashboard: "Pending Transfers"
+    → Founder approves → [transfer_request: founder_approved_pending_school]
+    → Founder denies → [transfer_request: denied] → terminal
+    → Request lands in School B admin dashboard: "Incoming Transfers"
+    → School B admin approves → [transfer_request: school_approved_complete] — tenant_id updated, school A loses access
+    → School B admin denies → [transfer_request: denied] → terminal
 ```
 
 **Step-by-step:**
 
 1. Student opens Profile → "Transfer to a new school" (visible to school-tenant students only; hidden for B2C)
-2. Student confirms intent (1-tap confirmation modal with plain-English description of what happens)
-3. Backend generates `transfer_code`: HMAC-SHA256 signed with a server-side secret, embedding `student_user_id + requested_at + expiry`. Stored in `school_transfers` table with `status = 'pending_parent'`.
-4. Backend sends an email to `parent_email` from `parent_child_links` (ADR-008 §2.10). If no parent linked, student is prompted to enter parent email before proceeding.
-5. Parent email contains: which student, current school, what transfers/what doesn't (see §3.4), a one-click Approve link, a one-click Deny link. No account required to approve.
-6. Parent clicks Approve → backend marks `school_transfers.status = 'approved'`, `transfer_code` becomes valid for use.
-7. Student shares transfer_code (displayed in-app, copy-able) with new school's admin.
-8. New school admin opens Admin Dashboard → "Accept Transfer Student" → enters code.
-9. Backend verifies: HMAC signature is valid, `status = 'approved'`, `expiry > now()`. On success:
-   - `students.tenant_id` updated from school A's `tenant_id` to school B's `tenant_id`
-   - `students.assigned_counselor_id` set to NULL (school B will assign)
-   - `school_transfers.status` set to `'complete'`
-   - School A counselors and admin immediately lose visibility (RLS enforces via `tenant_id`)
-   - School A's counselor notes remain in `counselor_notes` table but are flagged `archived = true`; student can see them as read-only; school A staff cannot see them after transfer (RLS: counselor access requires `students.tenant_id = counselor.tenant_id`)
-10. Student is notified in-app: "You're now at [New School]. Welcome!"
+2. Student confirms intent (1-tap confirmation modal) and selects the destination school (or enters school name/ID)
+3. Backend creates `transfer_requests` row: `{student_user_id, from_tenant_id, to_tenant_id (initially null), status: 'pending_founder_review'}`
+4. Request lands in a **new "Pending Transfers" surface in the FounderDashboard**. Founder or authorized Ladder employee reviews each request.
+5. Founder approves → backend marks `status = 'founder_approved_pending_school'`, sets `to_tenant_id` to the destination school's tenant ID, writes audit log.
+6. Automatic notification triggers to School B admin: "Incoming student transfer request from [Student] at [School A]."
+7. Request lands in **School B Admin Dashboard → "Incoming Transfers"** panel.
+8. School B admin reviews and approves or denies:
+   - **Approve** → backend: `students.tenant_id` updated from school A to school B, `assigned_counselor_id` set to NULL, `status = 'school_approved_complete'`, timestamp `completed_at`, audit log written.
+   - **Deny** → backend: `status = 'denied'`, `denial_reason` recorded, audit log written.
+9. On approval: school A counselors/admins lose visibility immediately (RLS enforces via `tenant_id` change). School A counselor notes archived and marked read-only.
+10. Student is notified in-app: "Your transfer to [School B] was approved. Welcome!"
 
 ### 3.3 Flow B: School-to-Private Conversion
+
+**Parent approval removed (founder decision 2026-04-27).** Students own the decision to go private.
 
 **State diagram:**
 
 ```
-Student initiates → [conversion_request: pending_parent]
-    → Parent receives email
-    → Parent approves → [conversion: complete] — tenant_id set to NULL, role stays 'student'
-    → Parent denies → [conversion_request: denied] → terminal
+Student initiates → [conversion_request: pending_completion]
+    → Backend immediately:
+       — sets students.tenant_id = NULL
+       — sets assigned_counselor_id = NULL
+       — marks archived = true for all school A counselor notes
+       — writes audit log
+    → [conversion_request: complete]
 ```
 
 **Step-by-step:**
 
 1. Student opens Profile → "Convert to private account (no school)" (visible to school-tenant students only)
 2. Confirmation modal lists what turns off and what stays on (see §3.5)
-3. Backend sets `school_transfers.flow_type = 'to_private'`, `status = 'pending_parent'`
-4. Parent email: same structure as Flow A, but destination is "private account (no school)" instead of a new school. Approve and Deny links work identically.
-5. Parent approves → backend:
-   - `students.tenant_id` set to NULL
-   - `students.assigned_counselor_id` set to NULL
-   - `school_transfers.status` set to `'complete'`
-6. No transfer code needed — the receiving party is the student themselves (no school admin step).
-7. Student is notified in-app: "Your account is now private. Your data is all here."
+3. Backend immediately:
+   - Sets `students.tenant_id` to NULL
+   - Sets `students.assigned_counselor_id` to NULL
+   - Marks all counselor notes `archived = true` (student can read as history; school A staff cannot access)
+   - Writes audit log entry
+4. Student is notified in-app: "Your account is now private. Your data is all here."
+5. All school-tenant features (counselor chat, school class catalog, school-specific roadmap) turn off immediately.
 
-### 3.4 What Carries Over (Both Flows)
+### 3.4 Signup Without Parent (Both Flows)
+
+**Founder decision 2026-04-27:** Parents are NOT required for signup. Students can create an account without any parent linked. Parent linking is optional.
+
+**B2C Signup flow:** email/password only. No parent email gate. No parent invite code required. Parent linking can be added later by the student (via an invite code the parent uses to link, or manually by the parent in their own signup).
+
+**School-tenant signup flow:** school email required (tenant-gated). No parent gate. School admin or founder can link parents later via a separate flow if the school chooses.
+
+**Consequence for transfer flow:** students without a linked parent can still transfer schools (approval is founder + school B admin, not parent-mediated).
+
+### 3.5 What Carries Over (Both Flows)
 
 | Data | Carries? | Notes |
 |---|---|---|
@@ -214,7 +228,7 @@ Student initiates → [conversion_request: pending_parent]
 | School A's roadmap variant (if school-specific feature enabled) | No | School-specific feature; new school starts fresh |
 | School A counselor's AI conversation access | Revoked | RLS enforces immediately on `tenant_id` change |
 
-### 3.5 Feature States After School-to-Private Conversion
+### 3.6 Feature States After School-to-Private Conversion
 
 | Feature | Before (school-tenant) | After (private/B2C) |
 |---|---|---|
@@ -233,22 +247,25 @@ Student initiates → [conversion_request: pending_parent]
 | Counselor Marketplace ("Find a Counselor") | OFF (school tenant) | ON — B2C students see marketplace per ADR-008 §2.12 |
 | Parent dashboard (if parent linked) | On | On — parent_child_links survives |
 
-### 3.6 Parent Email Template (Functional Specification)
+### 3.7 Founder + School Admin Notification Spec
 
-Subject: `[Action Required] Your child's Ladder school transfer request`
+**Founder dashboard notification (in-app, at "Pending Transfers" surface):**
+- Student name, requesting school, destination school (if selected)
+- Timestamp of request
+- Action buttons: Approve | Deny
+- Deny reason text box (optional)
 
-Body must include (in plain English, not legalese):
-- Student's name and their current school
-- What is happening ("They requested to transfer to [New School]" or "They requested to remove their school connection")
-- What carries over (their profile, AI counselor history, essays, college list — everything they've built stays with them)
-- What turns off (clearly enumerated per §3.5 — no surprises)
-- One-click Approve button (deep link to backend endpoint)
-- One-click Deny button (same)
-- Footer: "If you didn't expect this request, tap Deny and contact us at [support email]."
+**In-app notification to founder:** "New transfer request: [Student] from [School A]" (triggers immediately on student initiation)
 
-The email is sent via a Supabase Edge Function. Email provider (Resend or equivalent) is NOT yet built — this is an open infra dependency (see §5).
+**School Admin notification (email + in-app, at "Incoming Transfers" panel):**
+- Student name, requesting school
+- Timestamp of founder approval
+- What carries over (data continuity statement)
+- Action buttons: Approve | Deny (with reason text box)
 
-### 3.7 Audit Log Shape
+Email provider (Resend or equivalent) is NOT yet built — this is an open infra dependency (see §5).
+
+### 3.8 Audit Log Shape
 
 Every state transition in the transfer flow writes to `audit_events`:
 
@@ -256,35 +273,48 @@ Every state transition in the transfer flow writes to `audit_events`:
 {
   event_type: 'school_transfer' | 'private_conversion',
   flow: 'a_to_b' | 'to_private',
-  actor_role: 'student' | 'parent' | 'school_admin',
+  actor_role: 'student' | 'founder' | 'school_admin',
   actor_user_id: uuid,
   target_student_id: uuid,
   from_tenant_id: uuid | null,
   to_tenant_id: uuid | null,
-  transfer_code_hash: text,  // HMAC hash, not the plaintext code
-  status_transition: 'initiated → pending_parent' | 'pending_parent → approved' | etc.,
+  status_transition: 'initiated → pending_founder_review' | 'founder_approved_pending_school' | etc.,
   created_at: timestamptz
 }
 ```
 
 Audit log entries are immutable (no update/delete RLS policy). Permanent record.
 
-### 3.8 Required New Schema
+### 3.9 Required New Schema
 
-- `school_transfers(id uuid pk, student_user_id uuid, flow_type text check (flow_type in ('a_to_b', 'to_private')), from_tenant_id uuid, to_tenant_id uuid nullable, transfer_code_hash text, status text check (status in ('pending_parent', 'approved', 'denied', 'complete', 'expired')), expires_at timestamptz, parent_email text, created_at, updated_at)`
-- Index on `transfer_code_hash` for O(1) admin lookup
-- `counselor_notes` table: add `archived boolean not null default false` column
+**New table — `transfer_requests`:**
+- `id uuid primary key`
+- `student_user_id uuid not null references auth.users(id)`
+- `from_tenant_id uuid not null`
+- `to_tenant_id uuid null` (populated after founder approval)
+- `status text not null check (status in ('pending_founder_review', 'founder_approved_pending_school', 'school_approved_complete', 'denied'))`
+- `founder_decision_at timestamptz null`
+- `school_decision_at timestamptz null`
+- `completed_at timestamptz null`
+- `denial_reason text null`
+- `created_at timestamptz not null default now()`
 
-### 3.9 P0 Requirements for Transfer
+**Columns added to `counselor_notes`:**
+- `archived boolean not null default false`
 
-- [ ] Student can initiate transfer from Profile; backend generates HMAC-signed transfer_code and emails parent
-- [ ] Parent one-click approval/denial via email link (no app account required to approve)
-- [ ] New school admin can enter transfer_code in Admin Dashboard to accept student; backend verifies and updates `tenant_id`
-- [ ] School-to-private conversion: same parent-approval flow, but tenant_id set to NULL
-- [ ] All student-owned data carries over unchanged; school A counselors lose visibility immediately
-- [ ] Full audit trail written to `audit_events` for every state transition
+**Why no transfer_code:** codes are replaced by the 3-stage approval workflow. Founder approval + school admin approval are the gates, not a shareable code.
 
-### 3.10 P1 (Post v1 Transfer)
+### 3.10 P0 Requirements for Transfer
+
+- [ ] Student can initiate transfer from Profile → transfer_request created in `pending_founder_review` status
+- [ ] Founder/employee reviews pending transfers in FounderDashboard → "Pending Transfers" surface and approves/denies
+- [ ] On founder approval: notification to school B admin; transfer_requests.to_tenant_id set; status → `founder_approved_pending_school`
+- [ ] School B admin reviews and approves/denies from Admin Dashboard → "Incoming Transfers" panel
+- [ ] On school approval: `students.tenant_id` updates; school A loses visibility immediately; audit trail written
+- [ ] School-to-private conversion: immediate (no approval gate); `tenant_id` set to NULL; counselor notes archived
+- [ ] All student-owned data carries over unchanged; full audit trail for every state transition
+
+### 3.11 P1 (Post v1 Transfer)
 
 - [ ] In-app transfer status tracker ("Your transfer code is valid for 27 more days")
 - [ ] Transfer code re-generation (if expired, student can request a new one — requires fresh parent approval)
@@ -465,16 +495,16 @@ These three features are POST the current Phase 1-4 sprint plan. The sprint plan
 
 ---
 
-## 6. Open Questions for the Founder (max 4)
+## 6. Product Decisions (Resolved by Founder 2026-04-27)
 
-**Q1 — Consent copy discrepancy for school-tenant students.**
-The marketing privacy guarantee ("your school sees only what you choose to share") contradicts ADR-008 §2.11, which gives school counselors automatic read access to AI chats and essays for school-enrolled students. The consent flow at signup must make this explicit. Should the marketing copy be revised to have two variants (B2C vs school-tenant), or should the counselor access model change to an opt-in per item? This is a legal and trust decision, not a product one.
+**Q1 — Privacy guarantee variants (RESOLVED).**
+**Decision:** Two marketing copy variants. B2C: "Your data, your account." School-tenant: "Your school's admin and counselor will see your AI chats, essays, and progress while you're enrolled here." Rationale: "your data is yours" means tenant-portability (§2.2), not hiding from current school. Consent flow for school students makes this explicit at signup.
 
-**Q2 — Parent approval without a parent-linked account.**
-The transfer flow requires emailing the parent. If no parent is linked in `parent_child_links` (ADR-008 §2.10 — established at signup or via invite code), the transfer cannot proceed. For students who signed up without linking a parent (common for older students, B2C signups), what is the fallback? Options: (a) student must link a parent before any transfer; (b) student manually enters parent email at transfer time (one-time, not persisted); (c) students over 18 can self-approve. The founder needs to pick one.
+**Q2 — Parent approval removed from transfers (RESOLVED).**
+**Decision:** Parents are NOT required for signup or transfers. Students can create an account without a parent linked. Parent linking is optional (§3.4). Transfer approval is founder (founder/employee dashboard) + school B admin (school admin dashboard), not parent-mediated. Students without linked parents can still transfer.
 
-**Q3 — Transfer code delivery to the new school.**
-The spec assumes the student shares the transfer_code with the new school admin manually (copy/paste or screenshot). Is that the intended UX, or should the student be able to enter the new school's admin email and have the backend email the code directly to the new admin? The second option removes friction but requires the new school admin's email to be discoverable (which requires a school directory or the student to look it up).
+**Q3 — Transfer code model replaced (RESOLVED).**
+**Decision:** No transfer codes. 3-stage approval workflow instead (§3.2): Student initiates → Founder reviews in "Pending Transfers" dashboard → School B admin reviews in "Incoming Transfers" dashboard. Founder approval triggers notification to school B admin. School admin approval triggers `tenant_id` update and school A access revocation. Removes friction of student sharing codes.
 
-**Q4 — Extracurricular seed dataset ownership.**
-The seed JSON requires 3-5 days of manual human curation per research sprint. Who does this research — the founder, an intern, or a contracted education researcher? And how does the seed stay current (college admissions trends shift year-to-year)? Define a refresh cadence and ownership before the Batch runs.
+**Q4 — Extracurricular seed dataset ownership (DEFAULT — PENDING FOUNDER CONFIRMATION).**
+**Recommendation:** Founder + AI co-curate initially. Long-term: hire a part-time admissions counselor (per Ideas folder mentions of potential ambassadors) to refresh annually before app season starts (August). Mark as DEFAULT; founder to confirm implementation plan before Batch runs. No blocker — seed curation can parallelize with engine promotion work (§4.1, §4.7).
