@@ -12,6 +12,8 @@ import os
 public enum LadderAuthError: LocalizedError {
     case missingRoleClaim
     case bootstrapFailed
+    /// GoTrue returned a nil session after signUp — email confirmation is required.
+    case emailConfirmationRequired
     /// founder-login returned 401: invalid TOTP or account is not a founder.
     /// Message is deliberately generic to avoid enumeration of founder accounts.
     case founderLoginUnauthorized
@@ -24,6 +26,8 @@ public enum LadderAuthError: LocalizedError {
             return "Account not configured. Contact your administrator."
         case .bootstrapFailed:
             return "Could not initialize your account. Please try again or contact support."
+        case .emailConfirmationRequired:
+            return "Check your email to confirm your account, then log in."
         case .founderLoginUnauthorized:
             return "Invalid login. Check your password and TOTP code."
         case .founderLoginUnavailable:
@@ -75,7 +79,9 @@ public actor SupabaseAuthService {
         // is required it returns a User-only response. We need a Session to proceed.
         guard let session = response.session else {
             // Email confirmation required — caller should prompt user to verify.
-            throw LadderAuthError.missingRoleClaim
+            // This is NOT a configuration error; throw the specific case so the
+            // UI can show the confirmation banner rather than an error message.
+            throw LadderAuthError.emailConfirmationRequired
         }
 
         // Check whether the bootstrapped JWT already contains a role claim.
@@ -158,6 +164,15 @@ public actor SupabaseAuthService {
         // the JWT has been refreshed to role=founder.
         let refreshed = try await client.auth.refreshSession()
         try await bindTenantContext(from: refreshed)
+    }
+
+    // MARK: - Password reset
+
+    /// Sends a password-reset email via Supabase Auth (GoTrue).
+    /// Throws on network error; does NOT throw when the address is unregistered
+    /// (GoTrue returns 200 in that case to prevent account enumeration).
+    public func resetPasswordForEmail(_ email: String) async throws {
+        try await client.auth.resetPasswordForEmail(email)
     }
 
     // MARK: - Sign out

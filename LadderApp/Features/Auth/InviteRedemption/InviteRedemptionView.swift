@@ -1,4 +1,5 @@
 import SwiftUI
+import Supabase
 
 // §6.1 — invite code redemption on the brand gradient.
 
@@ -146,19 +147,45 @@ public struct InviteRedemptionView: View {
             working = true
             error = nil
             defer { working = false }
-            try? await Task.sleep(nanoseconds: 700_000_000)
+            do {
+                struct RedeemResponse: Decodable {
+                    let role: String?
+                    let tenantName: String?
+                    enum CodingKeys: String, CodingKey {
+                        case role
+                        case tenantName = "tenant_name"
+                    }
+                }
 
-            let validCodes: Set<String> = ["LDR-TEST-0001", "LDR-TEST-BULK-A", "LDR-TEST-G5"]
-            if validCodes.contains(codeInput.uppercased()) && email.contains("@") {
-                // Assume student redemption for now; kind lives on the
-                // invite_codes row in the real backend.
+                let supabase = await SupabaseAuthService.shared.supabase
+                let response: RedeemResponse = try await supabase.functions
+                    .invoke(
+                        "invite-redeem",
+                        options: .init(body: [
+                            "code": codeInput.uppercased(),
+                            "email": email.lowercased()
+                        ])
+                    )
+
+                let resolvedRole: SignedInRole
+                switch response.role {
+                case "admin":     resolvedRole = .admin
+                case "counselor": resolvedRole = .counselor
+                case "parent":    resolvedRole = .parent
+                default:          resolvedRole = .student
+                }
+
                 session = SignedInSession(
-                    role: .student,
+                    role: resolvedRole,
                     displayName: String(email.split(separator: "@").first ?? ""),
-                    tenantName: "your school"
+                    tenantName: response.tenantName ?? "your school"
                 )
-            } else {
-                error = "We couldn't use that code. Ask your counselor to issue a new one."
+            } catch let FunctionsError.httpError(code, _) where code == 400 || code == 401 {
+                error = "Invalid or expired code."
+            } catch let FunctionsError.httpError(code, _) where code >= 500 {
+                error = "Service temporarily unavailable. Please try again."
+            } catch {
+                self.error = "Invalid or expired code."
             }
         }
     }

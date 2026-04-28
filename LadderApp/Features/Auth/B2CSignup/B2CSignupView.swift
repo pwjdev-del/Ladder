@@ -374,10 +374,14 @@ public struct B2CSignupView: View {
                     tenantName: TenantContext.shared.tenantDisplayName ?? "Ladder",
                     gradeLevel: grade
                 )
-            } catch LadderAuthError.missingRoleClaim {
-                // Supabase returned nil session — email confirmation is required.
-                // Surface the confirmation message; do NOT navigate.
+            } catch LadderAuthError.emailConfirmationRequired {
+                // Supabase requires email verification before a session is issued.
+                // Surface the confirmation banner; do NOT navigate.
                 needsEmailConfirmation = true
+            } catch LadderAuthError.missingRoleClaim {
+                // Account created but bootstrap-user ran and JWT still lacks role.
+                // This is a server-side configuration issue, not a normal state.
+                errorMessage = "Account created but not yet activated. Contact support if this persists."
             } catch {
                 errorMessage = error.localizedDescription
             }

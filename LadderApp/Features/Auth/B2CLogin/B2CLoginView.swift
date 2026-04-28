@@ -10,6 +10,7 @@ public struct B2CLoginView: View {
     @State private var working = false
     @State private var error: String?
     @State private var session: SignedInSession?
+    @State private var showingForgotPassword = false
     @Environment(\.dismiss) private var dismiss
 
     public init() {}
@@ -35,6 +36,9 @@ public struct B2CLoginView: View {
         .navigationBarHidden(true)
         .navigationDestination(item: $session) { session in
             SignedInRouter(session: session)
+        }
+        .sheet(isPresented: $showingForgotPassword) {
+            ForgotPasswordView()
         }
     }
 
@@ -123,7 +127,7 @@ public struct B2CLoginView: View {
 
     private var footerLinks: some View {
         HStack(spacing: 24) {
-            Button("Forgot password?") { /* TODO */ }
+            Button("Forgot password?") { showingForgotPassword = true }
             Button("Help") { /* TODO */ }
         }
         .font(.ladderBody(13))

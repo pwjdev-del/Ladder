@@ -11,6 +11,7 @@ public struct SchoolLoginView: View {
     @State private var password: String = ""
     @State private var inviteCode: String = ""
     @State private var showingInviteFlow = false
+    @State private var showingForgotPassword = false
     @State private var working = false
     @State private var error: String?
     @State private var session: SignedInSession?
@@ -44,6 +45,9 @@ public struct SchoolLoginView: View {
         }
         .navigationDestination(item: $session) { session in
             SignedInRouter(session: session)
+        }
+        .sheet(isPresented: $showingForgotPassword) {
+            ForgotPasswordView()
         }
     }
 
@@ -187,7 +191,7 @@ public struct SchoolLoginView: View {
 
     private var footer: some View {
         HStack(spacing: 24) {
-            Button("Forgot password?") { /* TODO */ }
+            Button("Forgot password?") { showingForgotPassword = true }
             Button("Use a different school") { dismiss() }
         }
         .font(.ladderBody(13))
