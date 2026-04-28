@@ -12,6 +12,7 @@ public struct B2CSignupView: View {
     @State private var year: Int = 2014
     @State private var acceptedTerms = false
     @State private var acceptedPrivacy = false
+    @State private var legalDocumentSheet: LegalDocument?
     @State private var working = false
     // Inline error surfaced when signUp throws (network error, duplicate email, etc.)
     @State private var errorMessage: String?
@@ -45,8 +46,8 @@ public struct B2CSignupView: View {
                     if age < 13 { coppaCard }
 
                     VStack(spacing: 10) {
-                        consentToggle("I have read and accept the Terms", isOn: $acceptedTerms, errorText: showValidationErrors && !acceptedTerms ? "Required — please accept the Terms" : nil)
-                        consentToggle("Privacy Notice", isOn: $acceptedPrivacy, errorText: showValidationErrors && !acceptedPrivacy ? "Required — please accept the Privacy Notice" : nil)
+                        consentToggle("I have read and accept the Terms", isOn: $acceptedTerms, errorText: showValidationErrors && !acceptedTerms ? "Required — please accept the Terms" : nil, documentToView: .terms)
+                        consentToggle("Privacy Notice", isOn: $acceptedPrivacy, errorText: showValidationErrors && !acceptedPrivacy ? "Required — please accept the Privacy Notice" : nil, documentToView: .privacy)
                     }
                     .padding(.top, 16)
 
@@ -85,6 +86,9 @@ public struct B2CSignupView: View {
         }
         .navigationBarHidden(true)
         .requireNonStaff()
+        .sheet(item: $legalDocumentSheet) { doc in
+            LegalDocumentSheet(document: doc)
+        }
         // Navigate to the role dashboard immediately when signup completes with a live session.
         .navigationDestination(item: $signedInSession) { session in
             SignedInRouter(session: session)
@@ -293,10 +297,37 @@ public struct B2CSignupView: View {
     // MARK: - Consent toggles
 
     /// `errorText` is shown in red below the toggle row when non-nil.
-    private func consentToggle(_ label: String, isOn: Binding<Bool>, errorText: String? = nil) -> some View {
+    /// `documentToView` makes the label tappable — opens a sheet with the actual
+    /// legal text so users can READ what they're agreeing to before they toggle.
+    private func consentToggle(
+        _ label: String,
+        isOn: Binding<Bool>,
+        errorText: String? = nil,
+        documentToView: LegalDocument? = nil
+    ) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Text(label).font(.ladderBody(15)).foregroundStyle(LadderBrand.ink900)
+                if let documentToView {
+                    // Tappable — opens the legal text sheet.
+                    Button {
+                        legalDocumentSheet = documentToView
+                    } label: {
+                        HStack(spacing: 6) {
+                            Text(label)
+                                .font(.ladderBody(15))
+                                .foregroundStyle(LadderBrand.ink900)
+                            Image(systemName: "arrow.up.right.square")
+                                .font(.system(size: 12))
+                                .foregroundStyle(LadderBrand.forest700)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityHint("Opens the legal document to read")
+                } else {
+                    Text(label)
+                        .font(.ladderBody(15))
+                        .foregroundStyle(LadderBrand.ink900)
+                }
                 Spacer()
                 Toggle("", isOn: isOn)
                     .labelsHidden()
@@ -320,6 +351,19 @@ public struct B2CSignupView: View {
         }
     }
 
+    /// Identifier for which legal document to show in the sheet.
+    enum LegalDocument: String, Identifiable {
+        case terms, privacy
+        var id: String { rawValue }
+
+        var title: String {
+            switch self {
+            case .terms: return "Terms of Service"
+            case .privacy: return "Privacy Notice"
+            }
+        }
+    }
+
     // MARK: - Create
 
     private var createButton: some View {
@@ -335,7 +379,11 @@ public struct B2CSignupView: View {
             .frame(height: 56)
             .background(LadderBrand.lime500)
             .clipShape(Capsule())
+            .contentShape(Capsule())
         }
+        // iOS 26 default button style applies a system tint that overrides our
+        // custom .background — without .plain the button renders tan/grey.
+        .buttonStyle(.plain)
         .disabled(working)
         .accessibilityIdentifier("signup-create-button")
     }
