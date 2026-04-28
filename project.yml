@@ -59,6 +59,11 @@ targets:
         INFOPLIST_KEY_NSCameraUsageDescription: "Ladder uses your camera to scan transcripts and documents."
         INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "Ladder accesses your photos to upload transcripts and profile pictures."
         # Info.plist picks up Supabase config via Config/Base.xcconfig → Config/Secrets.xcconfig
+        # SUPABASE_HOST is split from the URL because xcconfig // comment-rule
+        # eats the slashes — Swift prepends https://. Keep SUPABASE_URL too
+        # for backwards compatibility with environments that DON'T hit the
+        # comment bug (e.g. CI or future Xcode versions).
+        INFOPLIST_KEY_SUPABASE_HOST: $(SUPABASE_HOST)
         INFOPLIST_KEY_SUPABASE_URL: $(SUPABASE_URL)
         INFOPLIST_KEY_SUPABASE_ANON_KEY: $(SUPABASE_ANON_KEY)
         INFOPLIST_KEY_GEMINI_PROXY_URL: $(GEMINI_PROXY_URL)

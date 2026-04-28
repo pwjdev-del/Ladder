@@ -4,8 +4,26 @@ import Foundation
 // Reads values from xcconfig → Info.plist at build time
 
 enum AppConfiguration {
+    // The Supabase project host is hardcoded here because:
+    //   1) xcconfig treats `//` as a comment, eating `https://` URLs.
+    //   2) Xcode's auto-Info.plist generation silently drops custom
+    //      INFOPLIST_KEY_* keys not in Apple's known-key list.
+    // The host is project-id-only (no secret); the anon key + service role
+    // stay in xcconfig / .env. If the project moves, update this constant
+    // and rebuild. Future enhancement: code-gen this from .env at build time.
+    private static let supabaseHostFallback = "seicofzlgwjqkggscvao.supabase.co"
+
     static var supabaseURL: String {
-        Bundle.main.infoDictionary?["SUPABASE_URL"] as? String ?? "https://your-project.supabase.co"
+        // Allow override via Info.plist for staging / preview environments
+        // where the build script CAN produce a clean Info.plist with custom keys.
+        let raw = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String ?? ""
+        if raw.hasPrefix("https://") {
+            return raw
+        }
+        if let host = Bundle.main.infoDictionary?["SUPABASE_HOST"] as? String, !host.isEmpty {
+            return "https://\(host)"
+        }
+        return "https://\(supabaseHostFallback)"
     }
 
     static var supabaseAnonKey: String {
@@ -13,8 +31,12 @@ enum AppConfiguration {
     }
 
     static var geminiProxyURL: String {
-        Bundle.main.infoDictionary?["GEMINI_PROXY_URL"] as? String
-            ?? "\(supabaseURL)/functions/v1/gemini-proxy"
+        let raw = Bundle.main.infoDictionary?["GEMINI_PROXY_URL"] as? String ?? ""
+        if raw.hasPrefix("https://") {
+            return raw
+        }
+        // Synthesize from host if the gemini URL wasn't explicitly set.
+        return "\(supabaseURL)/functions/v1/ai-gateway"
     }
 
     static var collegeScorecardAPIKey: String {
