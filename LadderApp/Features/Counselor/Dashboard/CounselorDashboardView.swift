@@ -31,7 +31,7 @@ public struct CounselorDashboardView: View {
             }
         }
         .navigationBarHidden(true)
-        .requireNonFounder()
+        .requireNonStaff()
     }
 
     private var firstName: String {

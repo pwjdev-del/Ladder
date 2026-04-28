@@ -36,7 +36,7 @@ public struct InviteRedemptionView: View {
         .navigationDestination(item: $session) { session in
             SignedInRouter(session: session)
         }
-        .requireNonFounder()
+        .requireNonStaff()
     }
 
     private var topBar: some View {

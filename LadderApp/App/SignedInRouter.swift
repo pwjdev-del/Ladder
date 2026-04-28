@@ -12,6 +12,7 @@ public enum SignedInRole: String, Sendable {
     case student
     case parent
     case founder
+    case employee
 }
 
 public struct SignedInSession: Hashable, Sendable {
@@ -46,6 +47,7 @@ private enum RoleDetector {
         case .parent:    return .parent
         case .founder:   return .founder
         case .student:   return .student
+        case .employee:  return .employee
         }
     }
 }
@@ -81,6 +83,7 @@ public struct SignedInRouter: View {
                 case .student:   StudentDashboardView(session: session, onLogout: logout)
                 case .parent:    ParentDashboardView(session: session, onLogout: logout)
                 case .founder:   FounderDashboardView(onLogout: logout)
+                case .employee:  EmployeeDashboardView(onLogout: logout)
                 }
             }
         )

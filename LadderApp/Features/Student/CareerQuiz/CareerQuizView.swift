@@ -90,7 +90,7 @@ public struct CareerQuizView: View {
             }
         }
         .navigationTitle("Career quiz")
-        .requireNonFounder()
+        .requireNonStaff()
     }
 }
 

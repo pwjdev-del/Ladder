@@ -2,16 +2,16 @@ import SwiftUI
 
 // CLAUDE.md §3 — unauthenticated landing.
 // Visual source of truth: `docs/design/stitch-deliverables/batch-11-full-v2-spec/landing_page_v2/`
-// Three affordances + hidden 30s logo-hold founder trigger.
+// Three affordances + hidden 30s logo-hold backdoor trigger.
 // Feedback states (§3.2 spec in landing_interaction_states_spec):
-//   0s idle · 5s desaturate · 15s soft haptic + faint ring · 25s medium + bright ring · 30s success + full ring → FounderLogin
+//   0s idle · 5s desaturate · 15s soft haptic + faint ring · 25s medium + bright ring · 30s success + full ring → BackdoorChoice
 
 public struct LandingView: View {
     @State private var holdProgress: Double = 0
     @State private var isHolding = false
     @State private var holdStartedAt: Date?
 
-    @State private var goFounderLogin = false
+    @State private var goBackdoorChoice = false
     @State private var goB2CLogin = false
     @State private var goSchoolPicker = false
     @State private var goB2CSignup = false
@@ -47,7 +47,7 @@ public struct LandingView: View {
                         .padding(.bottom, 20)
                 }
             }
-            .navigationDestination(isPresented: $goFounderLogin) { FounderLoginView() }
+            .navigationDestination(isPresented: $goBackdoorChoice) { BackdoorChoiceView() }
             .navigationDestination(isPresented: $goB2CLogin) { B2CLoginView() }
             .navigationDestination(isPresented: $goSchoolPicker) { SchoolPickerView() }
             .navigationDestination(isPresented: $goB2CSignup) { B2CSignupView() }
@@ -56,7 +56,7 @@ public struct LandingView: View {
         .tint(LadderBrand.cream100)
     }
 
-    // MARK: - Logo (hidden 30s founder trigger)
+    // MARK: - Logo (hidden 30s backdoor trigger)
 
     private var logoBadge: some View {
         ZStack {
@@ -79,7 +79,7 @@ public struct LandingView: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .gesture(holdGesture)
         .accessibilityLabel("Ladder")
-        .accessibilityHint("Press and hold for founder access")
+        .accessibilityHint("Press and hold for staff access")
     }
 
     /// Logo desaturates up to ~15% between 5s and 15s of the founder hold.
@@ -189,7 +189,7 @@ public struct LandingView: View {
             }
             .onEnded { _ in
                 isHolding = false
-                if holdProgress >= 1.0 { fireFounderTrigger() }
+                if holdProgress >= 1.0 { fireBackdoorTrigger() }
                 resetHold()
             }
     }
@@ -210,12 +210,12 @@ public struct LandingView: View {
                 if elapsed >= 15 && lastMilestone < 15 { softHaptic(); lastMilestone = 15 }
                 if elapsed >= 25 && lastMilestone < 25 { mediumHaptic(); lastMilestone = 25 }
                 if newProgress >= 1.0 {
-                    // Bug fix: previously the loop broke here but fireFounderTrigger()
-                    // was only called in onEnded — meaning the founder had to *release*
+                    // Bug fix: previously the loop broke here but fireBackdoorTrigger()
+                    // was only called in onEnded — meaning the user had to *release*
                     // their finger after 30s for navigation to happen. Auto-fire here so
                     // the trigger fires the moment the ring completes, regardless of
                     // whether the finger is still down.
-                    fireFounderTrigger()
+                    fireBackdoorTrigger()
                     break
                 }
             }
@@ -229,10 +229,10 @@ public struct LandingView: View {
         }
     }
 
-    private func fireFounderTrigger() {
-        guard !goFounderLogin else { return } // idempotent — timer and onEnded can both call this
+    private func fireBackdoorTrigger() {
+        guard !goBackdoorChoice else { return } // idempotent — timer and onEnded can both call this
         successHaptic()
-        goFounderLogin = true
+        goBackdoorChoice = true
     }
 
     #if canImport(UIKit)

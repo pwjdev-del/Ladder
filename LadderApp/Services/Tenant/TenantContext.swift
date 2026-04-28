@@ -11,6 +11,8 @@ public enum AppRole: String, Codable, Sendable {
     case counselor
     case admin
     case founder
+    /// Ladder internal staff — handles transfer approvals. Cannot access tenant data.
+    case employee
 }
 
 public struct TenantClaim: Codable, Sendable, Equatable {
@@ -59,19 +61,35 @@ public final class TenantContext: ObservableObject {
         claim?.role == .founder
     }
 
+    public var isEmployeeSession: Bool {
+        claim?.role == .employee
+    }
+
+    /// True for both founder and employee — neither role may access tenant data.
+    public var isLadderStaffSession: Bool {
+        claim?.role == .founder || claim?.role == .employee
+    }
+
     public var isStaffSession: Bool {
         guard let r = claim?.role else { return false }
         return r == .counselor || r == .admin
     }
 
-    /// Guard helper — screens that must never render for a founder MUST call this
+    /// Guard helper — screens that must never render for a founder OR employee MUST call this
     /// at screen root. Uses `preconditionFailure` (NOT `assertionFailure`) so the
     /// trap survives Release builds. §14.4 is a hard stop; a silently-allowed
-    /// founder-into-tenant-data render in Release is unacceptable.
-    public func requireNonFounder(_ context: StaticString = #function) {
-        if isFounderSession {
-            preconditionFailure("§14.4 violation: founder session reached tenant-data surface: \(context)")
+    /// staff-into-tenant-data render in Release is unacceptable.
+    public func requireNonStaff(_ context: StaticString = #function) {
+        if isLadderStaffSession {
+            preconditionFailure("§14.4 violation: Ladder staff session reached tenant-data surface: \(context)")
         }
+    }
+
+    /// Deprecated alias — use `requireNonStaff`. Retained temporarily so call sites
+    /// can be migrated one at a time without a build break.
+    @available(*, deprecated, renamed: "requireNonStaff")
+    public func requireNonFounder(_ context: StaticString = #function) {
+        requireNonStaff(context)
     }
 }
 
@@ -79,18 +97,18 @@ public final class TenantContext: ObservableObject {
 
 import SwiftUI
 
-public struct RequireNonFounderModifier: ViewModifier {
+public struct RequireNonStaffModifier: ViewModifier {
     @EnvironmentObject private var tenant: TenantContext
     let context: StaticString
 
     public func body(content: Content) -> some View {
-        if tenant.isFounderSession {
+        if tenant.isLadderStaffSession {
             // In Release we also trip preconditionFailure via the guard below, but
             // this view branch keeps the surface type-safe for testing and ensures
             // we never render tenant fields even if the precondition is disabled
             // by a misconfigured compiler flag.
-            FounderBlockedView(context: context)
-                .onAppear { tenant.requireNonFounder(context) }
+            StaffBlockedView(context: context)
+                .onAppear { tenant.requireNonStaff(context) }
         } else {
             content
         }
@@ -98,19 +116,31 @@ public struct RequireNonFounderModifier: ViewModifier {
 }
 
 public extension View {
-    /// Attach to the root of any screen that must not render for founder sessions.
+    /// Attach to the root of any screen that must not render for Ladder staff
+    /// (founder or employee) sessions.
+    func requireNonStaff(_ context: StaticString = #function) -> some View {
+        modifier(RequireNonStaffModifier(context: context))
+    }
+
+    /// Deprecated alias — use `requireNonStaff`. Both founder and employee are now
+    /// blocked by the same data-wall modifier.
+    @available(*, deprecated, renamed: "requireNonStaff")
     func requireNonFounder(_ context: StaticString = #function) -> some View {
-        modifier(RequireNonFounderModifier(context: context))
+        modifier(RequireNonStaffModifier(context: context))
     }
 }
 
-public struct FounderBlockedView: View {
+public struct StaffBlockedView: View {
     public let context: StaticString
     public var body: some View {
         ContentUnavailableView(
-            "Not available for founder sessions",
+            "Not available for Ladder staff sessions",
             systemImage: "lock.shield.fill",
-            description: Text("§14.4 — founder sessions are denied tenant data at the API, DB, and UI layers.")
+            description: Text("§14.4 — founder and employee sessions are denied tenant data at the API, DB, and UI layers.")
         )
     }
 }
+
+/// Deprecated alias — use `StaffBlockedView`.
+@available(*, deprecated, renamed: "StaffBlockedView")
+public typealias FounderBlockedView = StaffBlockedView

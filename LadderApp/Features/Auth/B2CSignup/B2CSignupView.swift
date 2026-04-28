@@ -84,7 +84,7 @@ public struct B2CSignupView: View {
             }
         }
         .navigationBarHidden(true)
-        .requireNonFounder()
+        .requireNonStaff()
         // Navigate to the role dashboard immediately when signup completes with a live session.
         .navigationDestination(item: $signedInSession) { session in
             SignedInRouter(session: session)
