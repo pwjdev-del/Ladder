@@ -1,4 +1,5 @@
 import SwiftUI
+import Supabase
 
 // §14.3 + §15 — per-tenant feature flags, grouped by subsystem so a
 // founder can see every toggle in one scroll. Each flag has a Varun-
@@ -67,6 +68,10 @@ public struct FeatureFlagsTenantView: View {
     public let tenantId: UUID
     @State private var flags: [String: Bool] = FeatureFlagsCatalog.defaultState
     @State private var violations: [String] = []   // per-flag violations
+    @State private var isSaving = false
+    @State private var saveResult: SaveResult?
+
+    public enum SaveResult: Equatable { case success(Int), failure(String) }
 
     public init(tenantId: UUID) { self.tenantId = tenantId }
 
@@ -80,8 +85,27 @@ public struct FeatureFlagsTenantView: View {
                 violationsCard
             }
 
+            if let result = saveResult {
+                saveBanner(result)
+            }
+
             saveButton
         }
+        .task(id: tenantId) { await loadFlags() }
+    }
+
+    private func saveBanner(_ r: SaveResult) -> some View {
+        let (text, color): (String, Color) = {
+            switch r {
+            case .success(let n): return ("Saved \(n) flag\(n == 1 ? "" : "s").", LadderBrand.lime500)
+            case .failure(let msg): return (msg, LadderBrand.statusAmber)
+            }
+        }()
+        return Text(text)
+            .font(.ladderBody(12))
+            .foregroundStyle(color)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 6)
     }
 
     private func groupCard(_ group: FlagGroup) -> some View {
@@ -166,16 +190,19 @@ public struct FeatureFlagsTenantView: View {
     }
 
     private var saveButton: some View {
-        Button { save() } label: {
-            Text(violations.isEmpty ? "Save changes" : "Fix Varun issues first")
-                .font(.ladderLabel(15))
-                .foregroundStyle(LadderBrand.ink900)
-                .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(violations.isEmpty ? LadderBrand.lime500 : LadderBrand.cream100.opacity(0.18))
-                .clipShape(Capsule())
+        Button { Task { await save() } } label: {
+            HStack(spacing: 8) {
+                if isSaving { ProgressView().tint(LadderBrand.ink900) }
+                Text(isSaving ? "Saving…" : (violations.isEmpty ? "Save changes" : "Fix Varun issues first"))
+                    .font(.ladderLabel(15))
+                    .foregroundStyle(LadderBrand.ink900)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 48)
+            .background(violations.isEmpty ? LadderBrand.lime500 : LadderBrand.cream100.opacity(0.18))
+            .clipShape(Capsule())
         }
-        .disabled(!violations.isEmpty)
+        .disabled(!violations.isEmpty || isSaving)
         .padding(.top, 8)
     }
 
@@ -209,8 +236,54 @@ public struct FeatureFlagsTenantView: View {
         violations = Array(Set(v))
     }
 
-    private func save() {
-        // TODO: POST /rest/v1/feature_flags with the tenant + proposed state.
+    // MARK: - Persistence
+
+    private struct FlagRow: Codable {
+        let tenant_id: String
+        let flag_key: String
+        let enabled: Bool
+    }
+
+    private func loadFlags() async {
+        let client = await SupabaseAuthService.shared.supabase
+        do {
+            let response = try await client
+                .from("feature_flags")
+                .select("flag_key, enabled")
+                .eq("tenant_id", value: tenantId.uuidString)
+                .execute()
+            struct Row: Decodable { let flag_key: String; let enabled: Bool }
+            let rows = try JSONDecoder().decode([Row].self, from: response.data)
+            // Start from defaults, then overlay what's in the DB.
+            var map = FeatureFlagsCatalog.defaultState
+            for r in rows { map[r.flag_key] = r.enabled }
+            flags = map
+            validate()
+        } catch {
+            // Non-fatal: keep defaults. Founder can still save.
+        }
+    }
+
+    private func save() async {
+        validate()
+        guard violations.isEmpty else { return }
+        isSaving = true
+        saveResult = nil
+        defer { isSaving = false }
+
+        let rows: [FlagRow] = flags.map {
+            FlagRow(tenant_id: tenantId.uuidString, flag_key: $0.key, enabled: $0.value)
+        }
+        do {
+            let client = await SupabaseAuthService.shared.supabase
+            try await client
+                .from("feature_flags")
+                .upsert(rows, onConflict: "tenant_id,flag_key")
+                .execute()
+            saveResult = .success(rows.count)
+        } catch {
+            saveResult = .failure("Couldn't save: \(error.localizedDescription)")
+        }
     }
 }
 
