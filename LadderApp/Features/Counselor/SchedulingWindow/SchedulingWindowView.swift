@@ -55,6 +55,7 @@ public struct SchedulingWindowView: View {
         }
         .navigationTitle("Scheduling window")
         .task { await loadPreconditions() }
+        .requireNonFounder()
     }
 
     private func rowLabel(_ label: String, _ ready: Bool) -> some View {

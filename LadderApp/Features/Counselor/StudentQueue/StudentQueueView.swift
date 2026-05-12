@@ -42,6 +42,7 @@ public struct StudentQueueView: View {
                                        description: Text("Left rail ranked by conflict count."))
             }
         }
+        .requireNonFounder()
     }
 }
 
@@ -74,6 +75,9 @@ public struct ScheduleReviewView: View {
             }
             Spacer()
             HStack {
+                if isWorking {
+                    ProgressView().padding(.trailing, 4)
+                }
                 Button("Send back") { Task { await transition(to: "RETURNED", reason: sendBackNote.isEmpty ? nil : sendBackNote) } }
                     .buttonStyle(.bordered)
                     .disabled(isWorking)

@@ -30,8 +30,8 @@ public struct SchoolDetailView: View {
                 NavigationLink("Manage with Varun") { FeatureFlagsTenantView(tenantId: school.id) }
             }
             Section("Contracts") {
-                Link("Data Processing Agreement", destination: URL(string: "https://purewavejosh.com/legal/dpa/\(school.id)")!)
-                Link("Liability acknowledgement", destination: URL(string: "https://purewavejosh.com/legal/liability/\(school.id)")!)
+                Link("Data Processing Agreement", destination: URL(string: "https://ladderapp.com/legal/dpa/\(school.id)")!)
+                Link("Liability acknowledgement", destination: URL(string: "https://ladderapp.com/legal/liability/\(school.id)")!)
             }
             Section {
                 Text("This view does not render student names, grades, schedules, quiz answers, or AI logs. A founder session is denied those fields at the API layer (§14.5) and at the database via RLS.")

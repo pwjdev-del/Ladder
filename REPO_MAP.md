@@ -1,287 +1,204 @@
-# REPO_MAP — Ladder iOS App (Canonical)
+# REPO_MAP — Ladder iOS App
 
-**Stack class:** mobile + full-stack  
-**Size class:** medium (~297 Swift files + 5 backend TypeScript + 287 docs/config)  
-**Freshness:** active (20 commits in last 60 days, most recent 2026-04-18)  
-**Existing PWJ artifacts:** CLAUDE.md (34K — architectural guide), docs/decisions/ADR-*.md (7 files), docs/design/stitch-batches/
+**Stack class:** mobile (iOS + Supabase backend)  
+**Size class:** medium (~819 active files, excl. Legacy)  
+**Freshness:** active (38 commits since 2026-04-25, last 2026-05-12)  
+**Existing PWJ artifacts:** SPEC_v2.md, PLAN.md, IDEAS_DIGEST.md, LEGACY_TRIAGE.md, AUDIT_REPORT.md, BUG_REPORT.md, CLAUDE.md, README.md
 
 ---
 
 ## Detected stack
 
-| Layer | Technology | Confidence | Source |
+| Layer | Technology | Status | Notes |
 |---|---|---|---|
-| Frontend | SwiftUI + iOS 17.0+ | high | project.yml + LadderApp/ sources |
-| App Architecture | MVVM + feature-driven | high | ./LadderApp/Features/** folder structure |
-| Design System | Ladder brand tokens + components | high | DesignSystem/Theme/ + Components/ |
-| Backend (cloud) | Supabase (PostgreSQL + Edge Functions) | high | LadderBackend/supabase/ structure |
-| Backend (code) | TypeScript Edge Functions | high | LadderBackend/supabase/functions/*.ts |
-| Cryptography | Per-tenant DEK envelope system | high | LadderBackend/crypto/envelope.ts |
-| Build system | XCGen (YML → .pbxproj) | high | project.yml present |
-| Deployment | iOS app (no web) | high | iOS only targets |
-| Auth | Supabase Auth + role-based routing | high | LadderApp/Features/Auth/** |
-| Feature flags | Grouped feature gates by grade level | high | Services/Flags/GradeFeatureManager.swift |
-| AI | Gateway to LLM via Edge Function | high | LadderBackend/ai-gateway/ + AIGatewayClient.swift |
+| Frontend | iOS SwiftUI + SwiftData | active | 819 Swift files, Xcode 16+ |
+| Backend | Supabase Edge Functions (TypeScript) | active | 6 functions, bootstrap/auth/provisioning/ai-gateway |
+| Database | Postgres (Supabase) | active | migrations, seed.sql, 18 TS files |
+| AI | SiaEngine + legacy AdvisorChatViewModel | mixed | SiaEngine in Services/AI/, Legacy AIAdvisor quarantined |
+| Auth | Placeholder hardcoded password | **FLAG** | `password == "Ladder!v2-pilot"` in B2CSignup — no real Supabase call |
+| CI | GitHub Actions | active | .github/workflows enabled as of 2026-04-30 |
 
 ---
 
-## Language breakdown
-
-- **Swift:** ~287 files (95%)
-- **TypeScript/JavaScript:** ~5 files backend (2%)
-- **Markdown/Docs:** ~130 files (3%)
-- **Config/YAML:** project.yml, .swiftlint.yml, etc.
-
-**Total source (excluding build, DerivedData, node_modules): ~422 files**
-
----
-
-## Directory tree (depth 3, build artifacts hidden)
+## Directory tree (depth 2, active paths)
 
 ```
-.
-├── LadderApp/                          # Main SwiftUI app (iOS 17+)
-│   ├── App/                            # App entry + routing
-│   │   ├── LadderApp.swift             # @main, WindowGroup setup
-│   │   └── SignedInRouter.swift        # Role-based navigation
-│   ├── Features/                       # Feature modules (MVVM)
-│   │   ├── Auth/                       # Login, signup, school picker, invites
-│   │   │   ├── B2CLoginView.swift
-│   │   │   ├── SchoolLoginView.swift
-│   │   │   ├── SchoolPickerView.swift
-│   │   │   ├── InviteRedemptionView.swift
-│   │   │   └── FounderLoginView.swift
-│   │   ├── Landing/
-│   │   │   └── LandingView.swift       # 2-CTA branding
-│   │   ├── Student/
-│   │   │   └── StudentDashboardView.swift
-│   │   ├── Parent/
-│   │   │   └── ParentDashboardView.swift
-│   │   ├── Counselor/
-│   │   │   └── CounselorDashboardView.swift
-│   │   ├── Admin/
-│   │   │   └── AdminDashboardView.swift
-│   │   ├── Founder/
-│   │   │   ├── Dashboard/FounderDashboardView.swift
-│   │   │   └── Login/FounderLoginView.swift
-│   │   └── Legacy/                    # Quarantined old code
-│   ├── Services/                       # Core business logic
-│   │   ├── Tenant/TenantContext.swift  # Multi-tenant identity
-│   │   ├── Crypto/CryptoService.swift  # Envelope crypto ops
-│   │   ├── Flags/                      # Feature gates
-│   │   │   ├── GradeFeatureManager.swift
-│   │   │   ├── FeatureGateManager.swift
-│   │   │   └── FlagClient.swift
-│   │   ├── Networking/                 # TLS pinning + Supabase
-│   │   │   └── TLSPinnedSession.swift
-│   │   ├── Audit/AuditClient.swift     # Compliance logging
-│   │   └── AI/AIGatewayClient.swift    # LLM integration
-│   ├── Models/DomainEnums.swift        # Role, Grade, etc.
-│   ├── DesignSystem/                   # Brand tokens + components
-│   │   ├── Theme/
-│   │   │   ├── LadderTheme.swift
-│   │   │   ├── LadderBrand.swift
-│   │   │   ├── ColorTokens.swift
-│   │   │   ├── Typography.swift
-│   │   │   └── Spacing.swift
-│   │   ├── Components/                 # 15+ reusable UI elements
-│   │   │   ├── BrandGradient.swift
-│   │   │   ├── LogoutButton.swift
-│   │   │   ├── PasswordField.swift
-│   │   │   ├── DataDenseTable.swift
-│   │   │   ├── ScheduleGrid.swift
-│   │   │   ├── SiblingSwitcher.swift
-│   │   │   └── ...
-│   │   └── Legacy/                    # Old v1 components (archived)
-│   ├── Resources/Assets.xcassets/      # Images + Ladder logo
-│   └── Utilities/Log.swift             # Logging
-│
-├── LadderBackend/                      # Backend services (TypeScript + SQL)
-│   ├── supabase/
-│   │   ├── migrations/                 # PostgreSQL schema migrations
-│   │   ├── functions/                  # Edge Functions (Deno runtime)
-│   │   │   ├── ai-gateway/index.ts     # LLM orchestration
-│   │   │   ├── varun-validate/         # Varun AI validation
-│   │   │   └── invite-redeem/          # Invite code redemption
-│   │   └── ...
-│   ├── db/                             # SQL policies + functions
-│   │   ├── migrations/
-│   │   ├── policies/                   # Row-level security (RLS)
-│   │   └── functions/
-│   ├── crypto/envelope.ts              # Per-tenant DEK system
-│   ├── domain/scheduling.ts            # Deterministic scheduling logic
-│   ├── ai-gateway/                     # (deprecated v1)
-│   ├── api/                            # (deprecated v1)
-│   ├── audit/
-│   ├── varun/                          # Varun AI vendor integration
-│   └── db/seed/                        # Test data fixtures
-│
-├── Ladder.xcodeproj/                   # LEGACY (Xcode 15 gen'd, 2142 lines)
-│   └── project.pbxproj                 # ⚠️ Dual .xcodeproj issue (see note)
-│
-├── LadderApp.xcodeproj/                # ACTIVE (gen'd by XCGen from project.yml, 1303 lines)
-│   └── project.pbxproj
-│
-├── Config/
-│   └── Base.xcconfig                   # Build settings bridge
-│
-├── docs/                               # Architecture + decisions
-│   ├── decisions/
-│   │   ├── ADR-000-scope-full-spec.md  # v2 spec scope
-│   │   ├── ADR-001-supabase-native-backend.md
-│   │   ├── ADR-002-repo-layout-spec-§18.md
-│   │   ├── ADR-003-deterministic-scheduling-core.md
-│   │   ├── ADR-004-per-tenant-dek-envelope.md
-│   │   ├── ADR-005-ai-gateway-single-edge-function.md
-│   │   ├── ADR-006-llm-prompt-injection-defense.md
-│   │   ├── ADR-007-pivot-to-grade-9-12.md
-│   │   └── OVERRIDES.md                # Decision overrides log
-│   ├── design/
-│   │   ├── stitch-prompt.md            # Figma Stitch design brief
-│   │   └── stitch-batches/             # Batch 1–5 screen specs
-│   ├── runbooks/
-│   │   ├── test-accounts.md            # QA credentials cheatsheet
-│   │   └── qa-ios-simulator.md
-│   ├── planning/
-│   │   └── pr-body.md                  # v2 spec migration PR template
-│   ├── ci-pending/
-│   │   └── ci.yml                      # GitHub Actions (no workflow scope yet)
-│   └── research/
-│
-├── .swiftlint.yml                      # SwiftLint config (140 char warn, 200 error)
-├── project.yml                         # XCGen manifest (iOS 17+, Swift 5, A17)
-├── CLAUDE.md                           # Architectural guide (34 KB — READ THIS FIRST)
-├── README.md                           # High-level project overview
-└── build/                              # Xcode DerivedData (ignored)
-    ├── Build/
-    ├── CompilationCache.noindex/
-    ├── Index.noindex/
-    ├── Logs/
-    └── ModuleCache.noindex/
+LadderApp/
+├── App/
+│   ├── Navigation/ (MainTabView, CounselorTabView, AdminTabView, AppCoordinator)
+│   ├── Routing/ (Route.swift — role-based)
+│   ├── Data/ (SwiftDataContainer.swift)
+│   └── SignedInRouter.swift
+├── Features/
+│   ├── Founder/ (Dashboard, FeatureFlags)
+│   ├── Counselor/ (Dashboard, InviteCodes, Models)
+│   ├── Student/ (AIAdvisor + Chat models, Extracurriculars)
+│   ├── Parent/ (parent-digest, multi-child)
+│   ├── Admin/ (admin role)
+│   ├── Auth/ (B2CSignup — auth placeholder lives here)
+│   ├── Backdoor/ (long-press logo → Founder/Employee split)
+│   ├── Landing/ (landing page)
+│   └── Legacy/ (~210 files, EXCLUDED from build, quarantined)
+├── Services/
+│   ├── AI/ (SiaEngine.swift — active AI counselor)
+│   ├── MemoryExtractorService.swift
+│   └── (other domain services)
+├── DesignSystem/ (components, theme, tokens)
+├── Models/ (SwiftData models, Routes, Engines)
+├── Utilities/ (helpers)
+└── Resources/ (assets, strings, fonts)
+
+LadderBackend/
+├── supabase/functions/ (6 Edge Functions)
+│   ├── ai-gateway/ (SIA → OpenAI bridge)
+│   ├── bootstrap-user/ (initial user provisioning)
+│   ├── founder-login/ (founder auth)
+│   ├── invite-redeem/ (invite token redemption)
+│   ├── provision-tenant/ (school tenant setup)
+│   └── varun-validate/ (validation utility)
+├── supabase/migrations/ (schema)
+├── db/ (database layer)
+├── api/ (REST handlers)
+├── domain/ (business logic)
+├── crypto/ (envelope.ts — secret encryption)
+├── ai-gateway/ (AI orchestration)
+├── audit/ (compliance)
+└── tests/
+
+supabase/
+├── migrations/ (schema version control)
+├── functions/ (symlink to LadderBackend/supabase/functions)
+├── seed.sql (test data)
+└── .temp/ (Supabase CLI state)
+
+tests/
+├── LadderAppTests/ (unit tests, Models/, Engines/)
+├── e2e/ (end-to-end)
+├── scheduling/ (deadline calc tests)
+├── crypto/ (encryption tests)
+└── flags/ (feature flag tests)
+
+docs/
+├── design/ (Stitch design system deliverables)
+├── decisions/ (ADR-008, technical decisions)
+├── planning/ (roadmap, Q1-Q3 spec)
+├── compliance/ (legal, FERPA)
+└── runbooks/ (deployment, troubleshooting)
+
+Config/
+scripts/
 ```
 
 ---
 
-## Files most likely to matter (ranked by structural importance)
+## Files most likely to matter (ranked by coupling + recency)
 
-1. **LadderApp/App/LadderApp.swift** — `@main` entry point; WindowGroup + state setup
-2. **CLAUDE.md** — 34 KB architectural guide; READ THIS FIRST before coding
-3. **LadderApp/App/SignedInRouter.swift** — Role-based routing logic for all 6 user types
-4. **LadderApp/Features/Landing/LandingView.swift** — Landing page (6 edits recent)
-5. **LadderApp/Features/Auth/B2CLoginView.swift** — B2B-to-Consumer auth flow (6 edits)
-6. **LadderApp/Features/Founder/Dashboard/FounderDashboardView.swift** — Founder role dashboard (6 edits)
-7. **LadderApp/Features/Auth/SchoolLoginView.swift** — School-admin login (6 edits)
-8. **LadderApp/Features/Auth/InviteRedemptionView.swift** — Invite code UX (6 edits)
-9. **LadderApp/Services/Tenant/TenantContext.swift** — Multi-tenant identity context
-10. **LadderApp/Services/Flags/GradeFeatureManager.swift** — Grade 9–12 feature gates
-11. **LadderApp/DesignSystem/Theme/LadderTheme.swift** — Brand color/typography tokens
-12. **LadderBackend/supabase/functions/ai-gateway/index.ts** — LLM orchestration edge function
-13. **LadderBackend/crypto/envelope.ts** — Per-tenant DEK cryptography system
-14. **LadderBackend/domain/scheduling.ts** — Deterministic scheduling core algorithm
-15. **docs/decisions/ADR-007-pivot-to-grade-9-12.md** — Recent scope pivot (why grades 9–12)
-
----
-
-## 🚨 CRITICAL FLAG: Dual .xcodeproj files
-
-**Status:** ⚠️ **Suspicious structural issue**
-
-| File | Lines | Status | Notes |
-|---|---|---|---|
-| `Ladder.xcodeproj/project.pbxproj` | 2,142 | LEGACY | Older Xcode 15 handcrafted project |
-| `LadderApp.xcodeproj/project.pbxproj` | 1,303 | ACTIVE | Generated by XCGen from `project.yml` (current truth) |
-
-**Analysis:**
-- `project.yml` is the **single source of truth** (uses XCGen to generate .pbxproj)
-- `Ladder.xcodeproj` is an older project file (not in use)
-- `LadderApp.xcodeproj` is the active target (matches `project.yml` config)
-- **Recommendation:** Delete `Ladder.xcodeproj` to eliminate confusion; make `LadderApp.xcodeproj` exclusive
+| File | Purpose | Status |
+|---|---|---|
+| `LadderApp/App/Data/SwiftDataContainer.swift` | SwiftData persistence container, used by all features | active |
+| `LadderApp/App/Routing/Route.swift` | Role-based routing (student, counselor, founder, employee, parent, admin) | active |
+| `LadderApp/Features/Auth/B2CSignup/B2CSignupView.swift` | **PLACEHOLDER AUTH HARDCODED** — password == "Ladder!v2-pilot" | **HIGH PRIORITY FIX** |
+| `LadderApp/Services/AI/SiaEngine.swift` | AI counselor brain + memory extraction | active, critical |
+| `LadderApp/Features/Student/AIAdvisor/Models/ChatModels.swift` | Chat/conversation data structures | active |
+| `LadderApp/Features/Counselor/Dashboard/CounselorDashboardView.swift` | Counselor role view (sees student essays + AI insights) | active |
+| `LadderApp/Features/Founder/Dashboard/FounderDashboardView.swift` | Founder/school config + invite codes | active |
+| `LadderApp/Features/Backdoor/` | Employee long-press split + backdoor role choice | active (2026-04-29) |
+| `LadderBackend/supabase/functions/ai-gateway/` | SIA → OpenAI bridge + prompt engineering | active |
+| `LadderBackend/supabase/functions/bootstrap-user/` | User provisioning on signup | active |
+| `LadderBackend/supabase/migrations/` | Postgres schema (school, student, counselor, transfers, essays, invites) | active |
+| `LadderApp/Features/Legacy/` | ~210 files, student-journey v1, **not in active build** | archived |
 
 ---
 
-## iPad parity status
+## Recent git activity (2026-04-25 → 2026-05-12 / 17 days, 38 commits)
 
-**Search results:**  
-- ❌ **No SceneDelegate/UISceneDelegate** found
-- ❌ **No UIDevice.idiom checks** found
-- ❌ **No sizeClass usage** found
-- ❌ **No iPad-specific layouts** found
+**High-activity paths:**
+- `LadderApp/Features/Counselor/` — counselor role + dashboard
+- `LadderApp/Features/Founder/` — founder dashboard, feature flags
+- `LadderApp/Features/Backdoor/` — employee split (new)
+- `LadderBackend/supabase/` — config hardcoding fixes
+- `LadderApp/Features/Auth/` — signup UX fixes + legal text
 
-**Verdict:** SwiftUI app uses native iOS (iPhone) target only. iPad support **NOT implemented**.  
-**Per project memory rule:** iPad parity is mandatory. This is a gap that must be closed before production.
+**Recent themes (by commit message):**
+1. Config hardcoding (Supabase host + publishable key) — 2 commits
+2. UX fixes: forgot password, nav tabs, invite, AI chat, signup error — 1 mega-fix (8 files)
+3. Legal text readability + validation feedback — 2 commits
+4. Employee backdoor role split (13 files) — 2026-04-29
+5. Feature flags, spec baking, seed users — 3 commits
+6. CI activation (GitHub Actions workflow) — 1 commit
 
----
-
-## Recent git activity (last 20 commits)
-
-**Velocity:** 20 commits in 60 days (active development)  
-**Contributor:** Kathan (21 commits across this window)  
-**Hottest paths (most edited):**
-- `LadderApp/Features/Landing/LandingView.swift` (6 edits)
-- `LadderApp/Features/Parent/ParentDashboardView.swift` (6 edits)
-- `LadderApp/Features/Founder/Dashboard/FounderDashboardView.swift` (6 edits)
-- `LadderApp/Features/Auth/SchoolLoginView.swift` (6 edits)
-- `LadderApp/Features/Auth/InviteRedemptionView.swift` (6 edits)
-- `LadderApp/Features/Auth/B2CLoginView.swift` (6 edits)
-
-**Recent commits (last 7 days):**
-```
-526d7b8 feat(ui): grade-9-12 pivot + grouped feature flags + wired founder+admin + logout everywhere
-10e5188 fix(ui): real Ladder logo + Landing simplified to 2 CTAs + full test creds cheatsheet
-78fc332 fix(ui): clean logo mark + highly visible password field
-1948424 feat(ui): role-aware sign-in routing + gradient founder backdoor + role dashboards
-7c0137d feat(ui): brand gradient auth screens + press-and-hold password reveal + testable sign-in
-ddb9bcd fix(ui): real Ladder logo on Landing + brand-aligned B2CLogin
-ee44159 feat(ui): FounderDashboardView matches Stitch founder_overview
-76124b6 feat(ui): wire 5 more Stitch designs (auth + founder login)
-d3eb8e2 feat(ui): LandingView matches Stitch batch-11 brand 1:1
-4e90846 docs(design): split Stitch prompt into 6 paste-sized batches
-```
-
-**Stale areas:** None detected (all areas touched within 30 days)
+**Stale areas (not touched since ~2026-04-25):**
+- `LadderApp/Features/Parent/` — parent digests (marked for ADR-008 but untouched)
+- `LadderApp/Features/Admin/` — admin role (scaffolded)
+- `docs/research/` — older research
 
 ---
 
-## Build & deployment
+## AI / Counselor / Chat topology
 
-- **iOS Deployment Target:** 17.0 (latest stable)
-- **Swift Version:** 5.x (strict concurrency warnings enabled)
-- **Bundle ID:** `com.ladderapp.ladder`
-- **Version:** 1.0.0
-- **Code signing:** Automatic
-- **Build config:** Debug (via Base.xcconfig) + Release variants
-- **Xcode version:** 16.0+
+**Active AI paths:**
+- `LadderApp/Services/AI/SiaEngine.swift` — main AI engine (memory, routing, counselor behavior)
+- `LadderApp/Features/Student/AIAdvisor/Models/ChatModels.swift` — student-facing chat models
+- `LadderApp/Features/Counselor/Dashboard/` — counselor sees student essays + AI summaries
+- `LadderBackend/supabase/functions/ai-gateway/` — OpenAI bridge, prompt engineering
 
-**Build exclusions (per project.yml):**
-- `Features/Legacy/**`
-- `Services/Legacy/**`
-- `DesignSystem/Legacy/**`
-- `Models/DomainEnums.swift`
-- `App/Navigation/**`
-- `App/Configuration/**`
+**Quarantined (Legacy):**
+- `LadderApp/Features/Legacy/AIAdvisor/Views/` (AdvisorChatView, AdvisorHubView, EssayHubView)
+- `LadderApp/Features/Legacy/AIAdvisor/ViewModels/AdvisorChatViewModel.swift`
 
 ---
 
-## PWJ continuation hints
+## Auth / Signup status
 
-**Pipeline recommendation:**
-- **Mode:** Feature development + audit (brand alignment + iPad parity)
-- **Skip repo-mapper:** This map is fresh (created today). Rerun only if >50 commits appear.
-- **Prioritize specialists:**
-  1. iOS/SwiftUI expert (Features + DesignSystem refinement)
-  2. Backend/Supabase specialist (Edge Functions + RLS policies)
-  3. Cryptography reviewer (DEK envelope system in LadderBackend/crypto/)
+**CRITICAL FLAG:** Auth is fully placeholder.
 
-**Before coding:**
-1. Read CLAUDE.md (34 KB — architectural contract)
-2. Review ADRs in docs/decisions/ (especially ADR-007 for grade 9–12 scope)
-3. Check docs/design/stitch-batches/ for Figma specs
+- **Hardcoded gate:** `LadderApp/Features/Auth/B2CSignup/B2CSignupView.swift` checks `password == "Ladder!v2-pilot"` only.
+- **No Supabase call:** Real `supabase.auth.signUp()` never reached; gate is local.
+- **Affected logins:** All 3 entry points (student, parent, school partner) use same hardcode.
+- **Backend unprepared:** Supabase functions (`bootstrap-user`, `founder-login`) exist but unreachable in production.
 
-**Known gaps to close:**
-- iPad parity (mandatory per project rule)
-- Dual .xcodeproj cleanup (delete Ladder.xcodeproj)
-- GitHub Actions workflow scope (ci.yml staged in docs/ci-pending/)
+**Must fix before:** any production use. Switch to real Supabase Auth SignUp + JWT flow.
 
 ---
 
-**Generated by PWJ Repo Mapper** | File count: 297 Swift + 5 Backend TS + 130 docs | 0 source files read | 11 tool calls
+## Legacy quarantine status
+
+**Features/Legacy/** exists but is **NOT in active build** (per project memory, hard rule from 2026-04-14).
+
+- **File count:** ~210 files
+- **Contains:** student-journey v1, old AIAdvisor UI, old messaging
+- **Reason:** Ideas-aligned prototype; superseded by current school-sandbox app
+- **Fate:** Keep (don't delete); may be un-quarantined later per ADR decisions
+
+**Build rule:** Xcode excludes `Features/Legacy/` from active target. No warnings; no build churn.
+
+---
+
+## Known issues & hotspots
+
+| Issue | Last touched | Status |
+|---|---|---|
+| **Auth placeholder** | 2026-04-26 | BLOCKER — no real Supabase auth |
+| **Font missing (.ladderTitle)** | 2026-04-29 | Fixed (swap to .system) |
+| **Signup button grey on iOS 26** | 2026-04-29 | Fixed |
+| **Forgot password broken** | 2026-05-01 | Fixed (top 5 UX bugs fix) |
+| **Nav tabs non-functional** | 2026-05-01 | Fixed (routing + tab state) |
+| **AI chat crashes** | 2026-05-01 | Fixed (SiaEngine integration) |
+| **Legal text unreadable** | 2026-04-29 | Fixed (layout + scrolling) |
+| **Supabase config not reaching backend** | 2026-05-12 | Fixed (hardcode host + publishable key) |
+
+---
+
+## Pipeline routing recommendation
+
+**Mode:** Continue in-progress (bug fixes + feature enablement)  
+**Specialists needed:**
+1. **iOS SwiftUI engineer** — SPEC v2 UI parity (iPad + iPhone), Design System completion
+2. **Backend/Supabase engineer** — Real auth implementation, AI gateway optimization
+3. **Product/compliance** — FERPA audit, data ownership model enforcement
+
+**Re-run mapper:** if >50 commits since 2026-05-12
+
+---
+
+Generated 2026-05-12 (refreshed from 2026-04-25 snapshot). Zero files read; structural data only.

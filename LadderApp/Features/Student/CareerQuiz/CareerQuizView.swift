@@ -45,11 +45,38 @@ final class CareerQuizViewModel: ObservableObject {
         }
     }
 
+    private struct ScoringInput: Encodable {
+        let answers: [String: String]
+        let grade_band: String
+    }
+
+    @Published var scoringError: String?
+    @Published var isScoring = false
+
     private func finish() async {
-        completed = true
-        locked = true
-        // TODO: POST answers to /functions/v1/ai-gateway feature=career_quiz_scoring
-        //       store career_profile_vector_cipher on students row.
+        isScoring = true
+        defer { isScoring = false }
+
+        guard let session = await SupabaseAuthService.shared.currentSession else {
+            scoringError = "You need to sign in again to save your quiz."
+            return
+        }
+
+        do {
+            _ = try await ai.call(
+                feature: .careerQuizScoring,
+                input: ScoringInput(
+                    answers: answers,
+                    grade_band: (current?.gradeBand ?? .g35).rawValue
+                ),
+                accessToken: session.accessToken
+            )
+            completed = true
+            locked = true
+        } catch {
+            // If scoring fails we leave the quiz UN-locked so they can retry on next launch.
+            scoringError = "We couldn't save your quiz. Try again in a moment."
+        }
     }
 
     private static func placeholderQuestion(for band: GradeBand) -> QuizQuestion {
@@ -81,8 +108,15 @@ public struct CareerQuizView: View {
         Group {
             if vm.locked {
                 LockedQuizView()
+            } else if vm.isScoring {
+                ProgressView("Saving your answers…").padding()
             } else if let q = vm.current {
-                QuizQuestionView(question: q, onAnswer: vm.answer)
+                VStack(spacing: 12) {
+                    QuizQuestionView(question: q, onAnswer: vm.answer)
+                    if let err = vm.scoringError {
+                        Text(err).foregroundStyle(.red).font(.footnote)
+                    }
+                }
             } else {
                 StartQuizView(band: $band) {
                     vm.start(gradeBand: band)

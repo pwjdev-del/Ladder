@@ -94,18 +94,31 @@ public struct FeatureFlagsTenantView: View {
         .task(id: tenantId) { await loadFlags() }
     }
 
+    @ViewBuilder
     private func saveBanner(_ r: SaveResult) -> some View {
-        let (text, color): (String, Color) = {
-            switch r {
-            case .success(let n): return ("Saved \(n) flag\(n == 1 ? "" : "s").", LadderBrand.lime500)
-            case .failure(let msg): return (msg, LadderBrand.statusAmber)
+        switch r {
+        case .success(let n):
+            Text("Settings saved (\(n) flag\(n == 1 ? "" : "s")).")
+                .font(.ladderBody(12))
+                .foregroundStyle(LadderBrand.lime500)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 6)
+        case .failure(let msg):
+            HStack(spacing: 10) {
+                Text(msg)
+                    .font(.ladderBody(12))
+                    .foregroundStyle(LadderBrand.statusAmber)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer(minLength: 4)
+                Button("Retry") { Task { await save() } }
+                    .font(.ladderLabel(12))
+                    .foregroundStyle(LadderBrand.ink900)
+                    .padding(.horizontal, 12).padding(.vertical, 6)
+                    .background(LadderBrand.statusAmber)
+                    .clipShape(Capsule())
             }
-        }()
-        return Text(text)
-            .font(.ladderBody(12))
-            .foregroundStyle(color)
-            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 6)
+        }
     }
 
     private func groupCard(_ group: FlagGroup) -> some View {

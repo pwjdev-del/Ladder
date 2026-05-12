@@ -71,6 +71,7 @@ struct AdminTabView: View {
 
             AdminTabBar(selectedTab: $coordinator.selectedAdminTab)
         }
+        .requireNonFounder()
     }
 }
 
@@ -299,6 +300,8 @@ struct AdminStatCard: View {
 // MARK: - Admin Students Screen
 
 struct AdminStudentsScreen: View {
+    @State private var showImportSheet = false
+
     var body: some View {
         ZStack {
             LadderColors.surface.ignoresSafeArea()
@@ -346,7 +349,7 @@ struct AdminStudentsScreen: View {
 
                         // Import button
                         Button {
-                            // TODO: Implement CSV import
+                            showImportSheet = true
                         } label: {
                             HStack(spacing: LadderSpacing.sm) {
                                 Image(systemName: "square.and.arrow.down")
@@ -392,6 +395,11 @@ struct AdminStudentsScreen: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showImportSheet) {
+            NavigationStack {
+                StudentBulkImportSheet()
+            }
+        }
     }
 }
 

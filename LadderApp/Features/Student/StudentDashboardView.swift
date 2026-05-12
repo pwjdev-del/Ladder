@@ -35,6 +35,8 @@ public struct StudentDashboardView: View {
     public let onLogout: () -> Void
 
     @State private var selectedTab: StudentTab = .home
+    @State private var showGradesSheet = false
+    @State private var showScheduleSheet = false
 
     public init(session: SignedInSession, onLogout: @escaping () -> Void = {}) {
         self.session = session
@@ -53,6 +55,12 @@ public struct StudentDashboardView: View {
         }
         .navigationBarHidden(true)
         .requireNonStaff()
+        .sheet(isPresented: $showGradesSheet) {
+            NavigationStack { GradesSelfEntryView() }
+        }
+        .sheet(isPresented: $showScheduleSheet) {
+            NavigationStack { ScheduleBuilderView() }
+        }
     }
 
     @ViewBuilder
@@ -190,20 +198,24 @@ public struct StudentDashboardView: View {
 
     private var quickActions: some View {
         HStack(spacing: 12) {
-            actionTile("Grades", icon: "book", color: LadderBrand.lime500)
-            actionTile("Classes", icon: "graduationcap", color: LadderBrand.lime500)
-            actionTile("Schedule", icon: "calendar", color: LadderBrand.lime500)
+            actionTile("Grades", icon: "book") { showGradesSheet = true }
+            actionTile("Classes", icon: "graduationcap") { selectedTab = .classes }
+            actionTile("Schedule", icon: "calendar") { showScheduleSheet = true }
         }
     }
 
-    private func actionTile(_ label: String, icon: String, color: Color) -> some View {
-        VStack(spacing: 6) {
-            Image(systemName: icon).font(.system(size: 22)).foregroundStyle(color)
-            Text(label).font(.ladderLabel(12)).foregroundStyle(LadderBrand.cream100)
+    private func actionTile(_ label: String, icon: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(spacing: 6) {
+                Image(systemName: icon).font(.system(size: 22)).foregroundStyle(LadderBrand.lime500)
+                Text(label).font(.ladderLabel(12)).foregroundStyle(LadderBrand.cream100)
+            }
+            .frame(maxWidth: .infinity).frame(height: 72)
+            .background(LadderBrand.cream100.opacity(0.12))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .contentShape(RoundedRectangle(cornerRadius: 12))
         }
-        .frame(maxWidth: .infinity).frame(height: 72)
-        .background(LadderBrand.cream100.opacity(0.12))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .buttonStyle(.plain)
     }
 
     private var dailyTip: some View {

@@ -1,8 +1,12 @@
 import SwiftUI
+import Supabase
 
 // §11.2 — student schedule builder. Quiz gate: cannot enter unless career
 // quiz is dated within the current academic year. Window gate: cannot
 // submit outside scheduling_windows.opens_at / closes_at.
+//
+// Bug-fix (S2-5): both gates are now fetched from real backend state on
+// .task. They no longer default-bypass to true.
 
 public struct SchedulePick: Identifiable, Sendable {
     public let id: UUID
@@ -13,15 +17,18 @@ public struct SchedulePick: Identifiable, Sendable {
 
 public struct ScheduleBuilderView: View {
     @State private var picks: [SchedulePick] = []
-    @State private var windowOpen = true       // from window_state API
-    @State private var quizFresh = true        // from student profile
+    @State private var windowOpen = false
+    @State private var quizFresh = false
+    @State private var loaded = false
     @State private var submitState: String = "DRAFT"
 
     public init() {}
 
     public var body: some View {
         Group {
-            if !quizFresh {
+            if !loaded {
+                ProgressView().padding()
+            } else if !quizFresh {
                 ContentUnavailableView(
                     "Take the career quiz first",
                     systemImage: "pencil.and.list.clipboard",
@@ -38,6 +45,65 @@ public struct ScheduleBuilderView: View {
             }
         }
         .navigationTitle("Next year's schedule")
+        .task { await loadGates() }
+    }
+
+    private struct WindowRow: Decodable {
+        let opens_at: Date
+        let closes_at: Date
+    }
+
+    private struct QuizRow: Decodable {
+        let submitted_at: Date
+    }
+
+    private func loadGates() async {
+        defer { loaded = true }
+        let client = await SupabaseAuthService.shared.supabase
+        let iso = ISO8601DateFormatter()
+        let now = Date()
+
+        do {
+            // Window: any window whose [opens_at, closes_at] contains now.
+            let resp = try await client
+                .from("scheduling_windows")
+                .select("opens_at, closes_at")
+                .lte("opens_at", value: iso.string(from: now))
+                .gte("closes_at", value: iso.string(from: now))
+                .limit(1)
+                .execute()
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let rows = (try? decoder.decode([WindowRow].self, from: resp.data)) ?? []
+            windowOpen = !rows.isEmpty
+        } catch {
+            windowOpen = false
+        }
+
+        do {
+            // Quiz freshness: latest quiz_answers submitted_at within this academic year.
+            let resp = try await client
+                .from("quiz_answers")
+                .select("submitted_at")
+                .order("submitted_at", ascending: false)
+                .limit(1)
+                .execute()
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let rows = (try? decoder.decode([QuizRow].self, from: resp.data)) ?? []
+            if let latest = rows.first {
+                let cal = Calendar.current
+                let nowYear = cal.component(.year, from: now)
+                let nowMonth = cal.component(.month, from: now)
+                let startYear = nowMonth >= 7 ? nowYear : nowYear - 1
+                let startOfAY = cal.date(from: DateComponents(year: startYear, month: 7, day: 1)) ?? now
+                quizFresh = latest.submitted_at >= startOfAY
+            } else {
+                quizFresh = false
+            }
+        } catch {
+            quizFresh = false
+        }
     }
 }
 

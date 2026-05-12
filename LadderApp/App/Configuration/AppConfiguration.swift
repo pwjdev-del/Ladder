@@ -54,26 +54,66 @@ enum AppConfiguration {
 
     // MARK: - Preflight
 
-    /// Call from LadderApp.init(). In Release builds, crashes immediately if
-    /// Supabase is still pointing at the placeholder project or the anon key
-    /// is missing — far better than silently booting with a broken backend.
-    /// Debug builds are intentionally exempt so local dev without Secrets.xcconfig works.
+    /// Known placeholder / template values that must never reach production.
+    /// Extend this list whenever a new env template is added.
+    private static let placeholderURLs: Set<String> = [
+        "https://your-project.supabase.co",
+        "https://example.supabase.co",
+        "https://<your-project-id>.supabase.co",
+        "https://YOUR_PROJECT.supabase.co",
+    ]
+
+    private static let placeholderAnonKeys: Set<String> = [
+        "your-anon-key",
+        "<your-anon-key>",
+        "YOUR_ANON_KEY",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.placeholder",
+    ]
+
+    /// Call from LadderApp.init() before any other work.
+    ///
+    /// In Release builds this crashes immediately when:
+    ///   - SUPABASE_URL is blank, missing, or matches a known placeholder.
+    ///   - SUPABASE_ANON_KEY is blank or matches a known placeholder.
+    ///
+    /// Debug builds are intentionally exempt so local dev without
+    /// Secrets.xcconfig launches without configuration. The hardcoded
+    /// fallback values in this file are the real pilot project — they
+    /// are safe in debug but you must confirm they are correct before
+    /// archiving a Release build.
     static func preflightOrCrash() {
         #if !DEBUG
-        if supabaseURL == "https://your-project.supabase.co" {
-            preconditionFailure(
-                """
-                [AppConfiguration] Release build launched with placeholder Supabase URL. \
-                Add SUPABASE_URL to Config/Secrets.xcconfig before shipping.
-                """
+        let url = supabaseURL
+        if url.isEmpty {
+            fatalError(
+                "[AppConfiguration.preflightOrCrash] SUPABASE_URL is blank. " +
+                "Add SUPABASE_URL to Config/Secrets.xcconfig before archiving."
             )
         }
-        if supabaseAnonKey.isEmpty {
-            preconditionFailure(
-                """
-                [AppConfiguration] Release build launched with empty SUPABASE_ANON_KEY. \
-                Add SUPABASE_ANON_KEY to Config/Secrets.xcconfig before shipping.
-                """
+        if placeholderURLs.contains(url) {
+            fatalError(
+                "[AppConfiguration.preflightOrCrash] SUPABASE_URL is a placeholder (\(url)). " +
+                "Replace it with the real Supabase project URL before archiving."
+            )
+        }
+        if !url.hasPrefix("https://") {
+            fatalError(
+                "[AppConfiguration.preflightOrCrash] SUPABASE_URL does not start with https://. " +
+                "Value: \(url)"
+            )
+        }
+
+        let key = supabaseAnonKey
+        if key.isEmpty {
+            fatalError(
+                "[AppConfiguration.preflightOrCrash] SUPABASE_ANON_KEY is blank. " +
+                "Add SUPABASE_ANON_KEY to Config/Secrets.xcconfig before archiving."
+            )
+        }
+        if placeholderAnonKeys.contains(key) {
+            fatalError(
+                "[AppConfiguration.preflightOrCrash] SUPABASE_ANON_KEY is a placeholder (\(key)). " +
+                "Replace it with the real Supabase anon key before archiving."
             )
         }
         #endif

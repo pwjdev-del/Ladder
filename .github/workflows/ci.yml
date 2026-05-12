@@ -51,8 +51,17 @@ jobs:
       - name: Gitleaks
         run: gitleaks detect --source . --no-banner
 
-      # TLS pin guard — fails on main/release/*, warns elsewhere
-      - name: TLS pin placeholder check
+      # TLS pin guard (T002) — inline fast-fail: any literal placeholder byte
+      # sequence in the pin file blocks CI on every branch immediately.
+      - name: Refuse placeholder TLS pins
+        run: |
+          if grep -E "0x00, 0x00, 0x00, 0x00|0x01, 0x01, 0x01, 0x01" LadderApp/Services/Networking/TLSPinnedSession.swift ; then
+            echo "::error::Placeholder TLS pins detected — generate real ones via scripts/generate-tls-pin.sh"
+            exit 1
+          fi
+
+      # TLS pin guard — deeper check: fails on main/release/*, warns elsewhere
+      - name: TLS pin placeholder check (branch-aware)
         run: ./scripts/check_tls_pins.sh
 
   ios-build-test:

@@ -61,7 +61,11 @@ public struct GradesSelfEntryView: View {
                 }
             }
         }
+        // S1-6: .task fires once per view identity; .onAppear fires on every
+        // navigation-back, so grades reload from Supabase both on first mount
+        // and after popping child views.
         .task { await load() }
+        .onAppear { Task { await load() } }
         .refreshable { await load() }
     }
 
