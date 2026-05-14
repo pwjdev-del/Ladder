@@ -33,6 +33,14 @@ import os
 // addition to LadderApp.init() — tracked as an out-of-scope seam in
 // OUT_OF_SCOPE_FINDINGS.md.
 
+/// The result of a SwiftData store wipe attempt.
+/// `.ok` means the persistent store was fully cleared.
+/// `.failed` carries the underlying error so the call site can surface it to the user.
+public enum WipeOutcome: Sendable {
+    case ok
+    case failed(reason: String)
+}
+
 public enum SwiftDataWipeRegistry {
     // nonisolated(unsafe) is safe here: the container is set once on the main
     // thread during app startup, before any concurrent access is possible, and
@@ -45,14 +53,14 @@ public enum SwiftDataWipeRegistry {
     }
 
     /// Wipe all SwiftData models from the persistent store.
-    /// Must be called from a context that can await (the actor's signOut is async).
-    /// Returns false if the container was never registered or the wipe failed.
-    @discardableResult
-    static func wipeAll(hashedUserId: String) async -> Bool {
+    /// Returns `.ok` on success, or `.failed(reason:)` if the container was
+    /// never registered or `deleteAllData()` threw. The fault is always logged
+    /// regardless of outcome so crash reports have a correlation point.
+    static func wipeAll(hashedUserId: String) async -> WipeOutcome {
         guard let container = _container else {
             os_log("SwiftDataWipeRegistry: no container registered — skipping wipe for user %{public}@",
                    log: .auth, type: .fault, hashedUserId)
-            return false
+            return .failed(reason: "Local data store not initialized. Force-quit and reopen Ladder, then try again.")
         }
         do {
             // deleteAllData() drops the entire persistent store on disk and
@@ -62,13 +70,13 @@ public enum SwiftDataWipeRegistry {
             try container.deleteAllData()
             os_log("SwiftDataWipeRegistry: store wiped for user %{public}@",
                    log: .auth, type: .info, hashedUserId)
-            return true
+            return .ok
         } catch {
             os_log("SwiftDataWipeRegistry: deleteAllData failed for user %{public}@ — %{public}@",
                    log: .auth, type: .fault,
                    hashedUserId,
                    error.localizedDescription)
-            return false
+            return .failed(reason: error.localizedDescription)
         }
     }
 }
@@ -85,6 +93,12 @@ public enum LadderAuthError: LocalizedError {
     case founderLoginUnauthorized
     /// founder-login returned 5xx or a network error.
     case founderLoginUnavailable
+    /// SwiftData wipe failed during signOut.
+    /// The GoTrue session is intentionally NOT cleared when this is thrown — the
+    /// user remains signed in so they can retry. Proceeding with signOut while
+    /// local PII is still on-disk would enable a Student A → Student B data leak
+    /// on a shared device, which is the exact risk this wipe guards against.
+    case wipeFailed(reason: String)
 
     public var errorDescription: String? {
         switch self {
@@ -98,6 +112,8 @@ public enum LadderAuthError: LocalizedError {
             return "Invalid login. Check your password and TOTP code."
         case .founderLoginUnavailable:
             return "Service temporarily unavailable. Try again."
+        case .wipeFailed:
+            return "Your local data couldn't be cleared for safety reasons. Please force-quit Ladder and try again. If this keeps happening, contact support."
         }
     }
 }
@@ -121,10 +137,47 @@ public actor SupabaseAuthService {
         // transport used by AIGatewayClient, AuditClient, and FlagClient.
         // SupabaseClientOptions is the 2.x API; GlobalOptions.session replaces
         // the SDK-default URLSession.shared with TLSPinnedSessionFactory.shared.session.
+
+        // SECURITY: Realtime pinning status — S1-3 partial close (2026-05-14)
+        // ─────────────────────────────────────────────────────────────────────
+        // COVERED by the pin below: Auth, PostgREST, Storage, Edge Functions.
+        //
+        // NOT COVERED: Realtime (WebSocket). supabase-swift 2.44.1 hardcodes the
+        // WebSocket transport inside RealtimeClientV2.init(url:options:) as:
+        //
+        //   wsTransport: { url, headers in
+        //       URLSessionWebSocket.connect(to: url, headers: headers)
+        //       // ↑ calls URLSession.sessionWithConfiguration(.default, ...)
+        //   }
+        //
+        // RealtimeClientOptions exposes no URLSession or URLSessionConfiguration
+        // parameter. The `fetch` closure in RealtimeClientOptions is HTTP-only
+        // (presence HTTP sync calls); it does NOT control the WSS handshake.
+        // There is therefore no public SDK hook to propagate
+        // TLSPinnedSessionFactory.shared.session into the WebSocket transport
+        // without forking the SDK.
+        //
+        // Current exposure: NONE — grep for "\.realtime" in LadderApp/ is clean.
+        // The app does not use Realtime in v1.0.
+        //
+        // Before any Realtime usage is merged (v1.0.1 / v1.1 counselor presence,
+        // parent-student notifications):
+        //   1. Check supabase/supabase-swift changelog for a
+        //      URLSessionConfiguration hook in RealtimeClientOptions (tracked in
+        //      the GitHub issue filed 2026-05-14 — see OUT_OF_SCOPE_FINDINGS.md).
+        //   2. If the hook exists: wire TLSPinnedSessionFactory.shared.session
+        //      .configuration into RealtimeClientOptions here (one-liner).
+        //   3. If still absent: require CI grep guard (see OUT_OF_SCOPE_FINDINGS.md,
+        //      section P2-FOLLOWUP) to fail the build on any new "\.realtime" call.
+        //
+        // DO NOT call client.realtime from app code until pinning is resolved.
+        // ─────────────────────────────────────────────────────────────────────
         let options = SupabaseClientOptions(
             global: SupabaseClientOptions.GlobalOptions(
                 session: TLSPinnedSessionFactory.shared.session
             )
+            // realtime: intentionally omitted — SDK 2.44.1 provides no
+            // URLSession hook for the WebSocket transport. See comment above.
         )
         guard let url = URL(string: AppConfiguration.supabaseURL) else {
             // AppConfiguration.preflightOrCrash() in App.init() catches the
@@ -296,9 +349,13 @@ public actor SupabaseAuthService {
 
     public func signOut() async throws {
         // S1-4: Wipe SwiftData FIRST before clearing the GoTrue session.
-        // Order matters: if the wipe fails we still have the session reference
-        // for any cleanup retry; conversely, clearing the session first and then
-        // crashing the wipe would leave residual PII accessible to the next user.
+        // Order matters deliberately:
+        //   1. Wipe succeeds  → clear GoTrue + TenantContext. Normal path.
+        //   2. Wipe fails     → throw LadderAuthError.wipeFailed WITHOUT clearing
+        //                       GoTrue. The user stays signed in so they can retry.
+        //                       Proceeding with sign-out while local PII remains on
+        //                       disk would enable a Student A → Student B data leak
+        //                       on a shared device.
         //
         // The user's raw UUID is never logged. We derive a short opaque hash for
         // correlation in crash reports without exposing PII.
@@ -309,18 +366,27 @@ public actor SupabaseAuthService {
             hashedId = "unknown"
         }
 
-        // Best-effort wipe: never throws from signOut().
-        // The registry logs a fault-level message on failure; the caller must
-        // not rely on this succeeding in abnormal conditions (e.g. container
-        // not registered in a test target).
-        await SwiftDataWipeRegistry.wipeAll(hashedUserId: hashedId)
+        let outcome = await SwiftDataWipeRegistry.wipeAll(hashedUserId: hashedId)
 
-        // Clear GoTrue session from Keychain after the local store is gone.
-        try await client.auth.signOut()
+        switch outcome {
+        case .ok:
+            // Store is clear — safe to drop the session and in-memory state.
+            try await client.auth.signOut()
+            await MainActor.run { TenantContext.shared.clear() }
 
-        // Clear in-memory TenantContext last so any in-flight reads still have
-        // a valid claim reference during the async wipe above.
-        await MainActor.run { TenantContext.shared.clear() }
+        case .failed(let reason):
+            // Do NOT clear GoTrue session. The user must see an alert and either
+            // retry or force-quit. Silently completing sign-out here is the exact
+            // cross-student PII leak we are guarding against.
+            //
+            // DEBUG TESTING NOTE:
+            // To exercise this branch without corrupting the real container,
+            // temporarily return `.failed(reason: "forced for testing")` from
+            // SwiftDataWipeRegistry.wipeAll() in a DEBUG build, trigger signOut,
+            // and confirm the "Couldn't finish signing out" alert appears with
+            // Retry / Cancel. Remove the forced failure before committing.
+            throw LadderAuthError.wipeFailed(reason: reason)
+        }
     }
 
     // MARK: - Current session

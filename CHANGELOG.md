@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Founder-login TOCTOU fixed: rate limit count now post-increment via upsert return value, preventing concurrent-attempt bypass (founder-login/index.ts:116-167).
 - Employee-login rate limit TOCTOU fixed identically (employee-login/index.ts).
 - `find_invite_by_hash` RPC permissions audited; explicit `REVOKE` from public/anon/authenticated added (migration 0021).
+- NSFileProtectionComplete entitlement applied at build time (was deferred from D3; now active per CODE_SIGN_ENTITLEMENTS in project.yml).
 
 ### Bug Fixes
 

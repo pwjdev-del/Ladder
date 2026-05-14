@@ -53,6 +53,14 @@ private struct GatewayRequestBody<I: Encodable>: Encodable {
     let input: I
 }
 
+// S2-CR1: idle-timeout state box. Declared at file scope because Swift does not
+// allow nested type declarations inside closures that are in generic contexts
+// (AsyncThrowingStream's init closure is generic). The underscore prefix signals
+// this is an implementation detail of AIGatewayClient, not public API.
+private final class _IdleState: @unchecked Sendable {
+    var lastEventAt = Date()
+}
+
 public actor AIGatewayClient {
     public static let shared = AIGatewayClient()
 
@@ -138,18 +146,15 @@ public actor AIGatewayClient {
                 // The timeout watcher task cancels the stream if no frame arrives for
                 // `idleTimeoutSeconds`. Uses a class-box so the watcher closure can
                 // mutate `lastEventAt` without capture-list gymnastics.
-                final class IdleState: @unchecked Sendable {
-                    var lastEventAt = Date()
-                }
-                let idleState = IdleState()
+                let idleState = _IdleState()
                 let idleTimeoutSeconds: TimeInterval = 30
 
-                let timeoutTask = Task { [weak continuation] in
+                let timeoutTask = Task { [continuation] in
                     while !Task.isCancelled {
                         try? await Task.sleep(nanoseconds: 5_000_000_000) // check every 5 s
                         guard !Task.isCancelled else { break }
                         if Date().timeIntervalSince(idleState.lastEventAt) > idleTimeoutSeconds {
-                            continuation?.finish(throwing: AIGatewayError.streamTimeout)
+                            continuation.finish(throwing: AIGatewayError.streamTimeout)
                             break
                         }
                     }

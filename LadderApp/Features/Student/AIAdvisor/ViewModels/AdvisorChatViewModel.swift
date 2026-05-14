@@ -201,7 +201,7 @@ final class AdvisorChatViewModel {
             var accumulated = ""
             var finalSafetyFlag: String? = nil
 
-            for try await delta in AIGatewayClient.shared.streamSiaChat(
+            for try await delta in await AIGatewayClient.shared.streamSiaChat(
                 input: input,
                 accessToken: accessToken
             ) {
@@ -279,25 +279,6 @@ private struct SiaChatInput: Encodable {
 private struct SiaChatMessage: Encodable {
     let role: String
     let content: String
-}
-
-// MARK: - SSE stream event
-
-/// Decoded from each `data:` line of the sia_chat SSE stream.
-private struct SiaStreamEvent: Decodable {
-    let delta: String?
-    let done: Bool?
-    let safetyFlag: String?
-    let inTokens: Int?
-    let outTokens: Int?
-
-    enum CodingKeys: String, CodingKey {
-        case delta
-        case done
-        case safetyFlag  = "safety_flag"
-        case inTokens    = "in_tokens"
-        case outTokens   = "out_tokens"
-    }
 }
 
 // MARK: - ChatMessage

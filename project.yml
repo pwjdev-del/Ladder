@@ -42,6 +42,7 @@ targets:
         product: Supabase
     settings:
       base:
+        CODE_SIGN_ENTITLEMENTS: LadderApp/LadderApp.entitlements
         SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
         SUPPORTS_MACCATALYST: NO
         INFOPLIST_GENERATION_MODE: GeneratedFile

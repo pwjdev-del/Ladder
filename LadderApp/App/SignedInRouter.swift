@@ -60,6 +60,10 @@ public struct SignedInRouter: View {
     // Observe TenantContext so the router re-renders once claim is bound.
     @ObservedObject private var tenant = TenantContext.shared
 
+    /// Non-nil when a SwiftData wipe failure occurred during sign-out.
+    /// Drives the blocking wipe-failure alert. Nil means no alert is shown.
+    @State private var wipeFailureReason: String?
+
     public init(session: SignedInSession) { self.session = session }
 
     public var body: some View {
@@ -86,15 +90,59 @@ public struct SignedInRouter: View {
                 case .employee:  EmployeeDashboardView(onLogout: logout)
                 }
             }
+            // Wipe-failure alert: blocking, no "continue anyway" path.
+            // The user must retry or force-quit. Completing sign-out with
+            // residual on-disk PII would expose Student A's data to Student B
+            // on a shared device — intentionally no dismiss-without-action button.
+            .alert(
+                "Couldn't Finish Signing Out",
+                isPresented: Binding(
+                    get: { wipeFailureReason != nil },
+                    set: { if !$0 { wipeFailureReason = nil } }
+                )
+            ) {
+                Button("Try Again") {
+                    wipeFailureReason = nil
+                    logout()
+                }
+                Button("Cancel", role: .cancel) {
+                    // User stays signed in. No stale data leak possible because
+                    // sign-out was intentionally NOT completed when wipe failed.
+                    wipeFailureReason = nil
+                }
+                // No "Continue Anyway" button — that is the whole risk.
+            } message: {
+                Text(
+                    "Your local data couldn't be cleared for safety reasons. " +
+                    "Please force-quit Ladder and try again. " +
+                    "If this keeps happening, contact support."
+                )
+            }
         )
     }
 
     private func logout() {
         // M4 — sign out the backend session before dismissing so the Keychain/GoTrue
         // session is cleared and a fresh sign-in is required on next launch.
+        //
+        // On LadderAuthError.wipeFailed: signOut() did NOT clear GoTrue — the user
+        // remains authenticated with their existing session intact. We surface the
+        // blocking wipe-failure alert so they can retry or force-quit. We never
+        // dismiss here on failure: doing so would complete the sign-out flow without
+        // the wipe, opening the Student A → Student B PII leak.
         Task {
-            try? await SupabaseAuthService.shared.signOut()
-            await MainActor.run { dismiss() }
+            do {
+                try await SupabaseAuthService.shared.signOut()
+                await MainActor.run { dismiss() }
+            } catch LadderAuthError.wipeFailed(let reason) {
+                await MainActor.run { wipeFailureReason = reason }
+            } catch {
+                // Non-wipe errors (network, GoTrue): surface via the same alert
+                // with a generic message so sign-out failures are never silent.
+                await MainActor.run {
+                    wipeFailureReason = error.localizedDescription
+                }
+            }
         }
     }
 }

@@ -120,30 +120,6 @@ Then replace the two `TODO(B3-followup)` throws in `buildForCounselorBrief` with
 
 ---
 
-# Out-of-scope findings — D3
-
-## S4 complement: add `com.apple.developer.default-data-protection` entitlement
-
-**Source finding:** S4 (SECURITY_AUDIT_2026-05-14.md)
-
-**Issue:** The `FileManager.setAttributes` approach in `SwiftDataContainer.swift` applies `NSFileProtectionComplete` at runtime to files that already exist. However, any file the OS creates *before* `applyFileProtection()` runs (e.g., during the very first launch before the container is fully initialised) will inherit the default protection class (`CompleteUntilFirstUserAuthentication`).
-
-The belt-and-suspenders fix is to add the `com.apple.developer.default-data-protection` entitlement to the app target, which sets `NSFileProtectionComplete` as the default for every file created by the process:
-
-**Required change (project.yml, `LadderApp` target):**
-```yaml
-entitlements:
-  "com.apple.developer.default-data-protection": NSFileProtectionComplete
-```
-
-This requires a new entitlements file (e.g., `LadderApp/LadderApp.entitlements`) and a corresponding `CODE_SIGN_ENTITLEMENTS` build setting. `project.yml` accepts an `entitlements` key directly on the target. No App Store capability provisioning is required for this entitlement.
-
-**Priority:** Should fix before v1.0 launch to cover the window between app first-launch and the `createModelContainer()` call.
-
-**Reported by:** D3 (SwiftDataContainer.swift)
-
----
-
 ## F2-FOLLOWUP — uniform 401 in founder-login + employee-login
 
 **Source:** SECURITY_RE-AUDIT_2026-05-14.md S2-NEW-3
@@ -156,3 +132,81 @@ This requires a new entitlements file (e.g., `LadderApp/LadderApp.entitlements`)
 3. Same change in employee-login/index.ts.
 
 If F2 has already committed without this, file a small follow-up edge function patch.
+
+---
+
+# P2-FOLLOWUP — Realtime pinning blocked on SDK (S1-3 partial close, 2026-05-14)
+
+**Source:** SECURITY_RE-AUDIT_2026-05-14.md, finding S1-3 (partial)
+
+**Path taken:** Documented SDK limitation. Pinning for Auth/PostgREST/Storage/Functions was confirmed intact (B1's GlobalOptions.session injection). Realtime cannot be wired through the same pin with the current SDK version.
+
+## (a) What was attempted
+
+`RealtimeClientOptions` in supabase-swift 2.44.1 was inspected at:
+
+```
+build/SourcePackages/checkouts/supabase-swift/Sources/Realtime/Types.swift
+build/SourcePackages/checkouts/supabase-swift/Sources/Realtime/RealtimeClientV2.swift
+build/SourcePackages/checkouts/supabase-swift/Sources/Realtime/WebSocket/URLSessionWebSocket.swift
+```
+
+`SupabaseClientOptions.realtime` (type `RealtimeClientOptions`) was checked for any `URLSession` or `URLSessionConfiguration` parameter. Neither exists. The `fetch` closure on `RealtimeClientOptions` is HTTP-only (used to construct an `HTTPClient` for presence-related HTTP calls); it does NOT control the WebSocket upgrade handshake.
+
+The WebSocket transport is hardcoded in `RealtimeClientV2.init(url:options:)`:
+
+```swift
+wsTransport: { url, headers in
+    return try await URLSessionWebSocket.connect(to: url, headers: headers)
+}
+```
+
+`URLSessionWebSocket.connect(to:headers:configuration:)` accepts a `URLSessionConfiguration?` but is called from inside the SDK without exposing that parameter to the public options API. The app cannot reach it without forking the SDK or swizzling (both ruled out per task constraints).
+
+## (b) SDK version checked
+
+**supabase-swift 2.44.1** (revision `06ae7b34ec21406cbd3e643bee7a8a54206fa8f5`)
+Confirmed via `LadderApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved`.
+
+## (c) Proposed long-term fix
+
+**Option 1 (preferred) — Wait for upstream SDK fix:**
+File an issue at https://github.com/supabase/supabase-swift requesting a `urlSessionConfiguration: URLSessionConfiguration?` parameter on `RealtimeClientOptions`. Once merged, the fix in `SupabaseAuthService.swift` is:
+
+```swift
+realtime: RealtimeClientOptions(
+    // Pass the pinned session's configuration so the WebSocket transport
+    // is created from the same ephemeral config + TLS delegate.
+    urlSessionConfiguration: TLSPinnedSessionFactory.shared.session.configuration
+)
+```
+
+The pinned host `seicofzlgwjqkggscvao.supabase.co` is already present in `PinnedHost` and `PinnedKeys.current`/`PinnedKeys.next` — no additional pin work is needed once the SDK hook exists.
+
+**Option 2 (deferred, v1.1+) — Custom Realtime client:**
+Write a custom Realtime client that calls `URLSessionWebSocket.connect(to:headers:configuration:)` directly using `TLSPinnedSessionFactory.shared.session.configuration`. Large scope; not appropriate for v1.0 or v1.0.1.
+
+**Option 3 (never) — Swizzle:** Ruled out per task constraints. Fragile, breaks on SDK updates.
+
+## (d) Current Realtime usage in app
+
+**Zero.** As of 2026-05-14, `grep -rn "\.realtime" LadderApp/` returns no hits. The app does not subscribe to any Realtime channels. The risk is unexploited.
+
+### CI guard — fail build if Realtime is called before pinning is resolved
+
+Add the following shell script step to `.github/workflows/ci.yml` (or equivalent) **before** any Realtime usage is merged:
+
+```sh
+# Guard: Fail CI if any app source calls client.realtime before Realtime pinning is resolved.
+# Remove this check only after supabase-swift exposes a URLSessionConfiguration hook in
+# RealtimeClientOptions and SupabaseAuthService.swift is updated. (OUT_OF_SCOPE_FINDINGS.md P2-FOLLOWUP)
+if grep -rn "\.realtime\b" LadderApp/ --include="*.swift"; then
+  echo "ERROR: client.realtime called in app code but Realtime TLS pinning is not yet implemented."
+  echo "See OUT_OF_SCOPE_FINDINGS.md section P2-FOLLOWUP before adding Realtime usage."
+  exit 1
+fi
+```
+
+**Priority:** P2 — no current exposure. Elevate to P1 before any Realtime code lands.
+
+**Reported by:** S1-3 partial close (SupabaseAuthService.swift security audit sweep, 2026-05-14)
