@@ -37,6 +37,33 @@
 -- RESTRICTIVE on that table would silently break the mandatory-reporting audit path.
 -- All other tables below follow the standard guard.
 --
+-- FOUNDER DATA-WALL vs. FOUNDER DASHBOARD TABLES — IMPORTANT DISTINCTION
+-- ─────────────────────────────────────────────────────────────────────────────
+-- The RESTRICTIVE guards below protect TENANT-SCOPED STUDENT DATA — the D-002
+-- founder-data-wall surface. These are tables whose PERMISSIVE policies join on
+-- current_setting('app.tenant_id') and could theoretically be reached by a
+-- buggy JWT that carries both role='founder' and a tenant_id claim.
+--
+-- Founders are LEGITIMATELY blocked from this data. They must never see
+-- individual student rows, grades, essays, chat logs, or memory summaries.
+--
+-- EXCLUDED from this list (NOT guarded here):
+--   feature_flags      — founder reads/writes flags via PostgREST for FeatureFlagsView.
+--   audit_log          — founder reads audit dashboard via PostgREST.
+--   ai_usage_ledger    — founder reads usage charts via PostgREST.
+--   success_metrics    — founder reads metrics charts via PostgREST.
+--
+-- These four tables ARE the founder's legitimate read/write surface exposed
+-- through founder-scoped policies (flags_founder_write, audit_founder_read_metadata_only,
+-- ai_usage_founder_aggregate_only, success_metrics_founder_read). Adding RESTRICTIVE
+-- NOT is_founder() guards on them would silently break PostgREST calls from
+-- FeatureFlagsView, audit dashboards, and metrics charts (S1-CR2 fix, 2026-05-14).
+--
+-- Future hardening (v1.1+): migrate founder reads of flags/audit/metrics/ledger
+-- to vetted service-role Edge Functions, then re-add the RESTRICTIVE guards on
+-- those four tables. Document the decision in DECISIONS.md before doing so.
+-- ─────────────────────────────────────────────────────────────────────────────
+--
 -- Tables covered (all have tenant-scoped policies using current_setting('app.tenant_id')):
 --   students                 (0002: students_self, students_staff_read)
 --   grades                   (0002: grades_student_self_only, grades_parent_view)
@@ -51,10 +78,6 @@
 --   quiz_answers             (0003: quiz_answers_student_self)
 --   extracurricular_sessions (0003: extracurricular_student_self)
 --   invite_codes             (0004: invite_staff_write, invite_student_parent_create)
---   feature_flags            (0004: flags_tenant_read)
---   audit_log                (0004: audit_tenant_staff_read)
---   ai_usage_ledger          (0004: ai_usage_tenant_read)
---   success_metrics          (0005: success_metrics_admin_write)
 --   legal_acceptances        (0005: legal_staff_read)
 --   impersonation_grants     (0005: impersonation_admin_issue)
 --   counselor_assignments    (0009: counselor_assignments_self_read, counselor_assignments_admin_manage)
@@ -234,87 +257,6 @@ create policy invite_codes_no_founder
 comment on policy invite_codes_no_founder on invite_codes is
   'RESTRICTIVE guard: founder sessions cannot satisfy any PERMISSIVE policy on invite_codes. '
   'S3-4 fix.';
-
--- ── feature_flags ─────────────────────────────────────────────────────────────
--- flags_founder_write uses app.is_founder() directly (not tenant_id scoped) so
--- a RESTRICTIVE guard would break it. We add the guard but exclude the founder
--- write path by noting that flags_founder_write does NOT use tenant_id scoping —
--- but a buggy claim with role=founder AND tenant_id would still satisfy
--- flags_tenant_read (tenant_id match, no role check). Guard is therefore needed.
--- flags_founder_write USING clause: app.is_founder() — when NOT app.is_founder()
--- is RESTRICTIVE, that policy also gets blocked. This is correct: a session with
--- a buggy founder claim cannot write flags. A legitimate founder session
--- (is_founder()=true) is blocked by RESTRICTIVE = zero rows. This is intentional —
--- founders write flags only through the vetted edge function (service role, bypasses RLS).
-drop policy if exists feature_flags_no_founder on feature_flags;
-create policy feature_flags_no_founder
-    on feature_flags
-    as restrictive
-    for all
-    to authenticated
-    using (not app.is_founder());
-
-comment on policy feature_flags_no_founder on feature_flags is
-  'RESTRICTIVE guard: blocks founder-role sessions from all PERMISSIVE policies. '
-  'Legitimate founder flag writes flow through the Edge Function (service role, bypasses RLS). '
-  'S3-4 fix.';
-
--- ── audit_log ─────────────────────────────────────────────────────────────────
--- audit_founder_read_metadata_only is a legitimate founder policy (no tenant_id scoping).
--- RESTRICTIVE guard here would break it. However per S3-4 the threat is specifically
--- a buggy founder+tenant_id claim satisfying tenant-scoped policies. audit_tenant_staff_read
--- requires role in ('counselor','admin'), so founder role does not satisfy it.
--- We still add the guard for defense-in-depth against future policy drift.
--- audit_founder_read_metadata_only uses: current_setting('app.role') = 'founder'
--- When RESTRICTIVE NOT is_founder() applies, a legitimate founder cannot read
--- audit_log via PostgREST. This is acceptable: audit reads for founders go through
--- a vetted RPC or edge function. NOTE: if you need direct PostgREST audit reads
--- for founders, REMOVE this guard and document in DECISIONS.md.
-drop policy if exists audit_log_no_founder on audit_log;
-create policy audit_log_no_founder
-    on audit_log
-    as restrictive
-    for all
-    to authenticated
-    using (not app.is_founder());
-
-comment on policy audit_log_no_founder on audit_log is
-  'RESTRICTIVE guard: founder sessions cannot satisfy any PERMISSIVE policy on audit_log '
-  'via PostgREST. Founder audit reads must go through a vetted service-role RPC. '
-  'S3-4 fix. NOTE: if direct PostgREST audit reads for founders are needed, '
-  'document in DECISIONS.md and remove this policy.';
-
--- ── ai_usage_ledger ───────────────────────────────────────────────────────────
--- ai_usage_founder_aggregate_only is a legitimate founder policy (no tenant join).
--- Same reasoning as audit_log above — guard blocks it via PostgREST, forcing
--- founder aggregate reads through an RPC. Acceptable for v1.0.
-drop policy if exists ai_usage_ledger_no_founder on ai_usage_ledger;
-create policy ai_usage_ledger_no_founder
-    on ai_usage_ledger
-    as restrictive
-    for all
-    to authenticated
-    using (not app.is_founder());
-
-comment on policy ai_usage_ledger_no_founder on ai_usage_ledger is
-  'RESTRICTIVE guard: founder sessions cannot satisfy any PERMISSIVE policy on ai_usage_ledger '
-  'via PostgREST. Founder aggregate reads must go through a vetted service-role RPC. '
-  'S3-4 fix.';
-
--- ── success_metrics ───────────────────────────────────────────────────────────
--- success_metrics_founder_read is a legitimate founder policy (no tenant join).
--- Same pattern: guard blocks PostgREST founder reads; service-role RPC is the safe path.
-drop policy if exists success_metrics_no_founder on success_metrics;
-create policy success_metrics_no_founder
-    on success_metrics
-    as restrictive
-    for all
-    to authenticated
-    using (not app.is_founder());
-
-comment on policy success_metrics_no_founder on success_metrics is
-  'RESTRICTIVE guard: founder sessions cannot satisfy any PERMISSIVE policy on success_metrics '
-  'via PostgREST. S3-4 fix.';
 
 -- ── legal_acceptances ─────────────────────────────────────────────────────────
 drop policy if exists legal_acceptances_no_founder on legal_acceptances;
@@ -559,15 +501,10 @@ comment on policy counselors_acknowledge_caseload_safety_events on sia_safety_ev
 -- § 4 — Out-of-scope findings (for human review, not actioned here)
 -- =============================================================================
 --
--- [OOS-1] Founder-scoped read policies that are now blocked via PostgREST by
--- the RESTRICTIVE guards added above:
---   - success_metrics_founder_read (0005)
---   - audit_founder_read_metadata_only (0004)
---   - ai_usage_founder_aggregate_only (0004)
--- These policies still exist but are unreachable from PostgREST while a founder
--- session is active (RESTRICTIVE NOT is_founder() blocks the row). Founders must
--- read this data via service-role RPCs. This is intentional (founder dashboard
--- should use RPCs, not raw PostgREST), but the RPCs need to exist — verify with A2.
+-- [OOS-1] Founder-scoped read policies on flags/audit/metrics/ledger are NOT
+-- blocked by RESTRICTIVE guards in this migration (S1-CR2 fix, 2026-05-14).
+-- Those tables are the legitimate founder PostgREST surface. Future hardening:
+-- migrate founder reads to vetted service-role Edge Functions, then add guards.
 --
 -- [OOS-2] sia_safety_events: founders_read_all_safety_events (0019) is preserved
 -- intentionally. The RESTRICTIVE guard in § 1 does NOT cover sia_safety_events

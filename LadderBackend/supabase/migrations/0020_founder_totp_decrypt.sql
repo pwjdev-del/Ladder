@@ -78,7 +78,9 @@ create extension if not exists pgcrypto;
 --
 -- For now: add a descriptive comment marking the intent.
 comment on column founder_users.totp_secret_cipher is
-  'AES-256-CBC ciphertext of the founder TOTP base32 secret. '
+  'IV-prefixed AES-256-CBC ciphertext of the founder TOTP base32 secret. '
+  'Storage format: first 16 bytes = random IV (gen_random_bytes(16)), '
+  'remaining bytes = pgcrypto encrypt_iv(plaintext, fsk, iv, ''aes-cbc/pad:pkcs'') ciphertext. '
   'Encrypted by app.enroll_founder_totp(), decrypted by app.decrypt_founder_totp(). '
   'Key source: Vault secret name ''founder_totp_fsk'' (32-byte hex). '
   'NULL means TOTP not yet enrolled — founder login must be blocked until populated. '
@@ -149,8 +151,14 @@ revoke execute on function app._founder_totp_fsk() from authenticated;
 -- Flow:
 --   1. Look up founder_users row by auth_user_id = p_user_id.
 --   2. Assert totp_secret_cipher IS NOT NULL (not enrolled → exception).
---   3. Decrypt ciphertext with FSK via pgcrypto.decrypt (AES-256-CBC).
---   4. Decode bytes as UTF-8 and return the base32 secret string.
+--   3. Split IV-prefixed blob: bytes 1–16 = IV, bytes 17+ = ciphertext.
+--   4. Decrypt with FSK via pgcrypto.decrypt_iv using 'aes-cbc/pad:pkcs'.
+--   5. Decode bytes as UTF-8 and return the base32 secret string.
+--
+-- Storage format (written by app.enroll_founder_totp):
+--   totp_secret_cipher = gen_random_bytes(16) || encrypt_iv(plaintext, fsk, iv, 'aes-cbc/pad:pkcs')
+--   substring(cipher from 1 for 16) → IV
+--   substring(cipher from 17)       → ciphertext
 --
 -- Called by: founder-login edge function (service_role key).
 -- Security:  SECURITY DEFINER so it runs as the migration owner, not the
@@ -162,13 +170,15 @@ security definer
 set search_path = public
 as $$
 declare
-    v_cipher  bytea;
+    v_stored  bytea;   -- full IV-prefixed blob from the column
+    v_iv      bytea;   -- first 16 bytes: the AES-CBC IV
+    v_cipher  bytea;   -- bytes 17+: the actual ciphertext
     v_fsk     bytea;
     v_plain   bytea;
 begin
-    -- 1. Fetch ciphertext.
+    -- 1. Fetch stored blob.
     select totp_secret_cipher
-      into v_cipher
+      into v_stored
       from founder_users
      where auth_user_id = p_user_id;
 
@@ -177,29 +187,45 @@ begin
             using errcode = 'no_data_found';
     end if;
 
-    if v_cipher is null then
+    if v_stored is null then
         raise exception 'founder_totp: TOTP not enrolled for user %. '
             'Call app.enroll_founder_totp() first.', p_user_id
             using errcode = 'null_value_not_allowed';
     end if;
 
-    -- 2. Resolve FSK.
+    if octet_length(v_stored) < 17 then
+        raise exception 'founder_totp: stored cipher is too short (% bytes); '
+            'expected at least 17 (16-byte IV + 1-byte ciphertext). '
+            'Re-enroll via app.enroll_founder_totp().', octet_length(v_stored)
+            using errcode = 'data_corrupted';
+    end if;
+
+    -- 2. Split IV prefix from ciphertext.
+    --    substring(bytea, start, length) — 1-indexed.
+    v_iv     := substring(v_stored from 1 for 16);
+    v_cipher := substring(v_stored from 17);
+
+    -- 3. Resolve FSK.
     v_fsk := app._founder_totp_fsk();
 
-    -- 3. Decrypt: pgcrypto encrypt/decrypt use OpenSSL EVP, AES-256-CBC.
-    --    The key must be exactly 32 bytes (256 bits); _founder_totp_fsk enforces >= 64 hex chars.
-    v_plain := decrypt(v_cipher, v_fsk, 'aes-cbc');
+    -- 4. Decrypt with explicit IV. 'aes-cbc/pad:pkcs' pins padding mode explicitly
+    --    to avoid reliance on pgcrypto defaults (S1-CR3 fix, 2026-05-14).
+    --    decrypt_iv(data, key, iv, type): data and key must each be multiples of
+    --    the AES block size (16 bytes) after key-padding; pgcrypto handles this.
+    v_plain := decrypt_iv(v_cipher, v_fsk, v_iv, 'aes-cbc/pad:pkcs');
 
-    -- 4. Return UTF-8 string (base32 TOTP secret).
+    -- 5. Return UTF-8 string (base32 TOTP secret).
     return convert_from(v_plain, 'UTF8');
 end;
 $$;
 
 comment on function app.decrypt_founder_totp(uuid) is
   'Decrypts founder_users.totp_secret_cipher for the given auth user ID. '
+  'Expects IV-prefixed format: bytes 1-16 = random IV, bytes 17+ = ciphertext. '
+  'Uses decrypt_iv(..., ''aes-cbc/pad:pkcs'') — explicit padding to avoid zero-IV default. '
   'Returns the plaintext base32 TOTP secret for verification. '
   'Requires Vault secret ''founder_totp_fsk'' or session config app.founder_totp_fsk. '
-  'SECURITY DEFINER — only service_role may execute. S1-1 fix (2026-05-14).';
+  'SECURITY DEFINER — only service_role may execute. S1-CR3 fix (2026-05-14).';
 
 -- Grant only to service_role. Deny everything else.
 revoke execute on function app.decrypt_founder_totp(uuid) from public;
@@ -243,9 +269,20 @@ begin
             using errcode = 'no_data_found';
     end if;
 
-    -- Resolve FSK and encrypt.
-    v_fsk    := app._founder_totp_fsk();
-    v_cipher := encrypt(convert_to(p_secret, 'UTF8'), v_fsk, 'aes-cbc');
+    -- Resolve FSK, generate a fresh random IV, and encrypt.
+    -- Storage format: 16-byte random IV prepended to ciphertext.
+    --   IV = gen_random_bytes(16)
+    --   ciphertext = encrypt_iv(plaintext, fsk, iv, 'aes-cbc/pad:pkcs')
+    -- Storing iv || ciphertext together means each enrollment produces a
+    -- different blob even for the same secret, defeating ciphertext comparison.
+    -- S1-CR3 fix (2026-05-14): replaces encrypt(..., 'aes-cbc') which used a
+    -- zero IV and was deterministic (same plaintext → same ciphertext).
+    declare
+        v_iv bytea;
+    begin
+        v_iv     := gen_random_bytes(16);
+        v_cipher := v_iv || encrypt_iv(convert_to(p_secret, 'UTF8'), v_fsk, v_iv, 'aes-cbc/pad:pkcs');
+    end;
 
     -- Write ciphertext.
     update founder_users
@@ -266,9 +303,11 @@ $$;
 
 comment on function app.enroll_founder_totp(uuid, text) is
   'Encrypts and stores a founder TOTP base32 secret in founder_users.totp_secret_cipher. '
+  'Stored format: gen_random_bytes(16) || encrypt_iv(plaintext, fsk, iv, ''aes-cbc/pad:pkcs''). '
+  'The prepended 16-byte IV ensures each enrollment produces unique ciphertext. '
   'Call once during founder onboarding. Re-calling overwrites the prior secret (re-enrollment). '
   'Writes an audit_log entry for compliance. SECURITY DEFINER — only service_role may execute. '
-  'S1-1 fix (2026-05-14).';
+  'S1-CR3 fix (2026-05-14).';
 
 -- Grant only to service_role.
 revoke execute on function app.enroll_founder_totp(uuid, text) from public;

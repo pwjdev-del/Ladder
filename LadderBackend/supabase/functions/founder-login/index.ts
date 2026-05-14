@@ -12,8 +12,8 @@
 //   Body: { "totpCode": "123456" }
 //
 // On success  → 200  { ok: true, role: "founder" }
-// Not founder → 403  { ok: false, error: "not_a_founder" }
-// Bad TOTP    → 401  { ok: false, error: "invalid_totp" }    + session invalidated
+// Soft fail   → 401  { ok: false, error: "invalid_credentials" } (uniform — see S2-NEW-3)
+// Hard lock   → 429  { ok: false, error: "too_many_attempts" } (after 5 fails in 15min)
 // Locked out  → 429  { ok: false, error: "too_many_attempts" }
 // Server err  → 500  { ok: false, error: "internal_error" }
 
@@ -52,9 +52,21 @@ function buildBucketKey(prefix: string, userId: string): string {
   return `${prefix}:${userId}:${windowLabel}`;
 }
 
-/** Uniform failure used everywhere we want timing-indistinguishable 401s. */
+/**
+ * Uniform 401 used for every soft-failure path. Critical for preventing
+ * account enumeration (S2-NEW-3): if we returned distinct status/error codes
+ * for "not a founder" vs "wrong TOTP" vs "decrypt failed", an attacker
+ * iterating auth.users could enumerate which accounts are in founder_users.
+ *
+ * The REAL failure reason is logged server-side (see redactId-tagged
+ * console.error calls); the client only ever sees `invalid_credentials`.
+ *
+ * Reserve other status codes for: 429 (hard rate-limit lockout — timing
+ * already deterministic), 500 (genuine server error), 405/400 (malformed
+ * request, no enumeration risk).
+ */
 function uniformFailure(): Response {
-  return new Response(JSON.stringify({ ok: false, error: 'invalid_totp' }), {
+  return new Response(JSON.stringify({ ok: false, error: 'invalid_credentials' }), {
     status: 401,
     headers: corsJson(),
   });
@@ -145,35 +157,45 @@ serve(async (req) => {
     // Normalise: strip spaces the user may have typed between digit groups.
     const code = body.totpCode.replace(/\s+/g, '');
 
-    // ── 3. Rate-limit check (S2-1) ───────────────────────────────────────
+    // ── 3. Rate-limit check (S2-1, S2-CR4 fix) ──────────────────────────────
     // Uses the existing rate_limit_buckets table (migration 0015) via the
-    // upsert_rate_limit_bucket RPC.  We read the count BEFORE incrementing so
-    // that the 5th bad attempt triggers the lockout response on this very call,
-    // not on the 6th.  We do this by checking whether the current count (before
-    // this attempt) is already >= max. The increment happens after TOTP verify
-    // only on failure, keeping the bucket low for legitimate users.
+    // upsert_rate_limit_bucket RPC.
+    //
+    // S2-CR4 fix: the pre-attempt SELECT that read the current count was removed.
+    // That SELECT introduced a TOCTOU race: two concurrent requests both observing
+    // count=4 would both proceed, both fail TOTP, and both increment to 5/6 before
+    // lockout was checked. Attacker got ~2× allowed attempts per window.
+    //
+    // New pattern:
+    //   - Lock check (SELECT count >= 5): safe pre-flight to return 429 fast if the
+    //     window is already locked. A locked window stays locked for the full 15-min
+    //     window; a millisecond race here is harmless.
+    //   - On TOTP failure: call upsert_rate_limit_bucket (atomic INSERT/ON CONFLICT
+    //     DO UPDATE RETURNING) and use the RETURNED post-increment count to decide
+    //     whether to lock. Race-free because the increment and count read are a
+    //     single atomic statement.
     //
     // The bucket key is scoped per-user per 15-minute window.
     const rateBucketKey = buildBucketKey('founder_totp', userId);
     const windowStart = currentWindowStart();
 
-    // Read current count without incrementing (SELECT directly via service role).
-    const { data: bucketRow } = await supa
+    // Lock check: is this window already locked? (SELECT-only, no race risk here.)
+    const { data: lockRow } = await supa
       .from('rate_limit_buckets')
       .select('count')
       .eq('bucket_key', rateBucketKey)
       .maybeSingle();
 
-    const currentCount: number = (bucketRow as { count: number } | null)?.count ?? 0;
+    const lockedCount: number = (lockRow as { count: number } | null)?.count ?? 0;
 
-    if (currentCount >= RATE_LIMIT_MAX_ATTEMPTS) {
+    if (lockedCount >= RATE_LIMIT_MAX_ATTEMPTS) {
       // Already locked out — do not reveal whether the TOTP would have been valid.
       console.error(JSON.stringify({
         fn: 'founder-login',
         event: 'totp_rate_limit_blocked',
         actor: redactId(userId),
         bucket: rateBucketKey,
-        count: currentCount,
+        count: lockedCount,
       }));
       return new Response(JSON.stringify({ ok: false, error: 'too_many_attempts' }), {
         status: 429,
@@ -203,12 +225,14 @@ serve(async (req) => {
     }
 
     if (!founderRow) {
-      // Not in founder_users — not a founder. Do NOT audit-log with user detail
-      // to avoid confirming which accounts exist in founder_users.
-      return new Response(JSON.stringify({ ok: false, error: 'not_a_founder' }), {
-        status: 403,
-        headers: corsJson(),
-      });
+      // Not in founder_users. Return uniformFailure to prevent account
+      // enumeration (S2-NEW-3). Log the real reason server-side only.
+      console.warn(JSON.stringify({
+        fn: 'founder-login',
+        event: 'not_a_founder_attempt',
+        actor: redactId(userId),
+      }));
+      return uniformFailure();
     }
 
     // ── 5. Decrypt TOTP secret via Postgres RPC (S1-1) ───────────────────
@@ -236,14 +260,20 @@ serve(async (req) => {
     });
 
     if (!isValid) {
-      // Increment fail counter ONLY on a bad code (not on decrypt errors or
-      // lock-already-set — both return before reaching here).
+      // Increment fail counter atomically (S2-CR4 fix). upsert_rate_limit_bucket
+      // does INSERT … ON CONFLICT DO UPDATE … RETURNING count in a single
+      // statement, so the returned value is the authoritative post-increment count.
+      // There is no separate SELECT; the lockout decision is made solely from this
+      // return value, eliminating the TOCTOU window.
       const { data: newCount, error: rpcErr } = await supa.rpc('upsert_rate_limit_bucket', {
         p_bucket_key: rateBucketKey,
         p_window_start: windowStart.toISOString(),
       });
 
-      const failCount: number = rpcErr ? currentCount + 1 : (newCount as number);
+      // If the RPC errors, conservatively treat it as a lockout-threshold breach
+      // to fail closed (better to lock a real founder out for 15 min than to allow
+      // unlimited attempts on a broken counter).
+      const failCount: number = rpcErr ? RATE_LIMIT_MAX_ATTEMPTS : (newCount as number);
 
       console.error(JSON.stringify({
         fn: 'founder-login',

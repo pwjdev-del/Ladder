@@ -13,8 +13,8 @@
 //   Body: { "totpCode": "123456" }
 //
 // On success  → 200  { ok: true, role: "employee" }
-// Not employee→ 403  { ok: false, error: "not_an_employee" }
-// Bad TOTP    → 401  { ok: false, error: "invalid_totp" }    + session invalidated
+// Soft fail   → 401  { ok: false, error: "invalid_credentials" } (uniform — see S2-NEW-3)
+// Hard lock   → 429  { ok: false, error: "too_many_attempts" } (after 5 fails in 15min)
 // Locked out  → 429  { ok: false, error: "too_many_attempts" }
 // Server err  → 500  { ok: false, error: "internal_error" }
 
@@ -50,8 +50,12 @@ function buildBucketKey(prefix: string, userId: string): string {
   return `${prefix}:${userId}:${windowLabel}`;
 }
 
+/**
+ * Uniform 401 for every soft-failure path (S2-NEW-3 — prevent account
+ * enumeration via 403/401 distinction). Real reason logged server-side only.
+ */
 function uniformFailure(): Response {
-  return new Response(JSON.stringify({ ok: false, error: 'invalid_totp' }), {
+  return new Response(JSON.stringify({ ok: false, error: 'invalid_credentials' }), {
     status: 401,
     headers: corsJson(),
   });
@@ -139,25 +143,28 @@ serve(async (req) => {
 
     const code = body.totpCode.replace(/\s+/g, '');
 
-    // ── 3. Rate-limit check (S2-1) ───────────────────────────────────────
+    // ── 3. Rate-limit check (S2-1, S2-CR4 fix) ──────────────────────────────
+    // S2-CR4 fix: removed pre-attempt SELECT that caused TOCTOU race. See
+    // founder-login/index.ts §3 comment for full explanation. Same pattern applied.
     const rateBucketKey = buildBucketKey('employee_totp', userId);
     const windowStart = currentWindowStart();
 
-    const { data: bucketRow } = await supa
+    // Lock check: is this window already locked? (SELECT-only, no race risk.)
+    const { data: lockRow } = await supa
       .from('rate_limit_buckets')
       .select('count')
       .eq('bucket_key', rateBucketKey)
       .maybeSingle();
 
-    const currentCount: number = (bucketRow as { count: number } | null)?.count ?? 0;
+    const lockedCount: number = (lockRow as { count: number } | null)?.count ?? 0;
 
-    if (currentCount >= RATE_LIMIT_MAX_ATTEMPTS) {
+    if (lockedCount >= RATE_LIMIT_MAX_ATTEMPTS) {
       console.error(JSON.stringify({
         fn: 'employee-login',
         event: 'totp_rate_limit_blocked',
         actor: redactId(userId),
         bucket: rateBucketKey,
-        count: currentCount,
+        count: lockedCount,
       }));
       return new Response(JSON.stringify({ ok: false, error: 'too_many_attempts' }), {
         status: 429,
@@ -187,11 +194,14 @@ serve(async (req) => {
     }
 
     if (!employeeRow) {
-      // Not in employee_users — not an employee.
-      return new Response(JSON.stringify({ ok: false, error: 'not_an_employee' }), {
-        status: 403,
-        headers: corsJson(),
-      });
+      // Not in employee_users. Return uniformFailure to prevent account
+      // enumeration (S2-NEW-3). Log the real reason server-side only.
+      console.warn(JSON.stringify({
+        fn: 'employee-login',
+        event: 'not_an_employee_attempt',
+        actor: redactId(userId),
+      }));
+      return uniformFailure();
     }
 
     // ── 5. Decrypt TOTP secret ───────────────────────────────────────────
@@ -226,12 +236,14 @@ serve(async (req) => {
     });
 
     if (!isValid) {
+      // Atomic increment — returned count is authoritative (S2-CR4 fix).
+      // Fail closed on RPC error: treat as threshold breach.
       const { data: newCount, error: rpcErr } = await supa.rpc('upsert_rate_limit_bucket', {
         p_bucket_key: rateBucketKey,
         p_window_start: windowStart.toISOString(),
       });
 
-      const failCount: number = rpcErr ? currentCount + 1 : (newCount as number);
+      const failCount: number = rpcErr ? RATE_LIMIT_MAX_ATTEMPTS : (newCount as number);
 
       console.error(JSON.stringify({
         fn: 'employee-login',

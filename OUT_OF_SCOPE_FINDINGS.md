@@ -141,3 +141,18 @@ This requires a new entitlements file (e.g., `LadderApp/LadderApp.entitlements`)
 **Priority:** Should fix before v1.0 launch to cover the window between app first-launch and the `createModelContainer()` call.
 
 **Reported by:** D3 (SwiftDataContainer.swift)
+
+---
+
+## F2-FOLLOWUP — uniform 401 in founder-login + employee-login
+
+**Source:** SECURITY_RE-AUDIT_2026-05-14.md S2-NEW-3
+
+**Issue:** founder-login returns 403 `{"error":"not_a_founder"}` vs 401 `{"error":"invalid_totp"}` — distinguishable. An attacker iterating `auth.users` can detect founder accounts.
+
+**Fix when F2 commits its TOCTOU edits to founder-login/index.ts (and employee-login/index.ts):**
+1. Always return HTTP 401 with `{"error":"invalid_credentials"}` for ANY failure path (wrong password, wrong TOTP, not-a-founder, rate-limited-soft, decrypt-failed). Reserve 429 for rate-limited-hard (the explicit lockout response) — that's already enumeration-protected because the timing is deterministic.
+2. Audit-log the REAL error category server-side (so we still know WHY a request failed) but never surface it to the client.
+3. Same change in employee-login/index.ts.
+
+If F2 has already committed without this, file a small follow-up edge function patch.

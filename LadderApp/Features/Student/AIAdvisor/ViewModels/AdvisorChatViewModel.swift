@@ -195,7 +195,7 @@ final class AdvisorChatViewModel {
                 .filter { $0.role != .system }
                 .map { SiaChatMessage(role: $0.role == .user ? "user" : "assistant", content: $0.content) }
 
-            let input = SiaChatInput(systemPrompt: systemPrompt, messages: historyMessages)
+            let input = SiaChatInput(studentId: studentId, systemPrompt: systemPrompt, messages: historyMessages)
 
             // --- SSE streaming path for sia_chat (A4 contract) ---
             var accumulated = ""
@@ -262,10 +262,15 @@ private struct SiaChatInput: Encodable {
     // S1-002: CodingKey raw value renamed from "system_prompt" → "context_payload"
     // to match ai-gateway A4 contract. Swift property name kept as `systemPrompt`
     // to avoid cascading caller churn.
+    //
+    // S1-CR1: `studentId` added — required by SiaChatInputSchema (ai-gateway/index.ts:97).
+    // Wire key is camelCase `studentId` per Zod schema.
+    let studentId: String
     let systemPrompt: String
     let messages: [SiaChatMessage]
 
     enum CodingKeys: String, CodingKey {
+        case studentId    = "studentId"
         case systemPrompt = "context_payload"
         case messages
     }

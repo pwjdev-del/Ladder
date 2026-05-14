@@ -48,11 +48,15 @@ enum MemoryExtractorService {
 
         // Wrap the transcript + extraction context as the AI gateway input.
         // S1-002: field renamed system_prompt → context_payload to match ai-gateway A4 contract.
+        // S1-CR1: `studentId` added — required by MemoryExtractionInputSchema
+        //         (ai-gateway/index.ts:141). Wire key is camelCase `studentId`.
         struct MemoryInput: Encodable {
+            let studentId: String
             let transcript: String
             let contextPayload: String
 
             enum CodingKeys: String, CodingKey {
+                case studentId    = "studentId"
                 case transcript
                 case contextPayload = "context_payload"
             }
@@ -62,6 +66,7 @@ enum MemoryExtractorService {
             let response = try await AIGatewayClient.shared.call(
                 feature: .memoryExtraction,
                 input: MemoryInput(
+                    studentId: studentId,
                     transcript: formatted,
                     contextPayload: MemoryExtractor.systemPrompt
                 ),

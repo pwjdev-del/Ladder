@@ -1,0 +1,48 @@
+-- LadderBackend/supabase/migrations/0023_rate_limit_atomic_count.sql
+-- S2-CR4 fix: TOCTOU on rate-limit count in founder-login / employee-login.
+--
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- FINDING
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- Wave 2 code review (S2-CR4) identified a TOCTOU race in the rate-limit check:
+--   1. founder-login/index.ts reads current count via a SELECT on rate_limit_buckets.
+--   2. If count < 5, TOTP verify proceeds.
+--   3. On failure, upsert_rate_limit_bucket is called to increment.
+--
+-- With two concurrent requests both observing count=4, both pass the < 5 guard,
+-- both fail TOTP, and both increment → count becomes 6 before lockout is enforced.
+-- An attacker gets ~2× the allowed attempts per window.
+--
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- SQL STATUS: NO CHANGE REQUIRED
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- upsert_rate_limit_bucket (migration 0015, public.upsert_rate_limit_bucket)
+-- already performs an atomic INSERT … ON CONFLICT DO UPDATE … RETURNING count
+-- and returns the post-increment count. The function is race-free by construction:
+-- the INSERT/UPDATE is a single statement with no intermediate SELECT.
+--
+-- The fix is purely in the edge functions (founder-login/index.ts and
+-- employee-login/index.ts). Those files previously performed a separate
+-- SELECT on rate_limit_buckets BEFORE calling upsert_rate_limit_bucket, then
+-- used the pre-read count to decide lockout. That SELECT has been removed.
+-- The returned count from upsert_rate_limit_bucket is now the sole basis for
+-- the lockout decision.
+--
+-- The pre-attempt LOCK CHECK (SELECT where count >= 5) is preserved — returning
+-- 429 immediately if the window is already locked. That SELECT is safe because
+-- it has no "compare-then-act" gap: a locked window stays locked for the whole
+-- 15-minute window regardless of concurrent reads.
+--
+-- Edge function changes (committed alongside this migration):
+--   founder-login/index.ts  — removed pre-attempt SELECT on rate_limit_buckets.count;
+--                             lockout now decided from upsert_rate_limit_bucket return value.
+--   employee-login/index.ts — same change (identical TOCTOU pattern).
+--
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- This migration file is intentionally a no-op SQL file (comment-only).
+-- It exists to keep the migration sequence contiguous and to document the
+-- rationale for the edge-function-only fix at the correct sequence point.
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- No DDL changes. The existing upsert_rate_limit_bucket function in 0015 is
+-- already correct. See edge function diffs for the application-layer fix.

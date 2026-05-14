@@ -86,6 +86,28 @@ grant execute on function app.invite_hmac(text) to service_role;
 grant execute on function public.find_invite_by_hash(text) to service_role;
 
 -- ---------------------------------------------------------------------------
+-- S2-NEW-1 FIX: Remove the default PUBLIC EXECUTE grant that Postgres adds
+-- automatically to every new function.  Without these REVOKEs, any
+-- authenticated (or anonymous) user can call these two functions directly via
+-- .rpc() or PostgREST and:
+--   • find_invite_by_hash — returns full invite_codes rows (intended_email,
+--     expires_at, tenant_id) bypassing the edge function's uniform-failure
+--     design.
+--   • app.invite_hmac — reads the app.invite_hmac_secret GUC; repeated calls
+--     with crafted inputs could leak it via timing or error-path oracles.
+-- service_role retains EXECUTE via the grants above.
+-- ---------------------------------------------------------------------------
+-- Remove default PUBLIC grant on app.invite_hmac (service_role only).
+revoke execute on function app.invite_hmac(text) from public;
+revoke execute on function app.invite_hmac(text) from authenticated;
+revoke execute on function app.invite_hmac(text) from anon;
+
+-- Remove default PUBLIC grant on public.find_invite_by_hash (service_role only).
+revoke execute on function public.find_invite_by_hash(text) from public;
+revoke execute on function public.find_invite_by_hash(text) from authenticated;
+revoke execute on function public.find_invite_by_hash(text) from anon;
+
+-- ---------------------------------------------------------------------------
 -- 3. Invalidate existing un-redeemed rows.
 --    We do not have the original plaintext codes, so we cannot re-hash them.
 --    Mark all un-redeemed, un-revoked rows as revoked so they fail gracefully
@@ -147,6 +169,9 @@ end;
 $$;
 
 grant execute on function public.generate_parent_invite(text, text) to authenticated;
+-- Retain authenticated grant (set by 0010); revoke from anon/PUBLIC.
+revoke execute on function public.generate_parent_invite(text, text) from anon;
+revoke execute on function public.generate_parent_invite(text, text) from public;
 
 -- ---------------------------------------------------------------------------
 -- 5. Re-define generate_student_invite to use app.invite_hmac().
@@ -197,6 +222,9 @@ end;
 $$;
 
 grant execute on function public.generate_student_invite(text, int) to authenticated;
+-- Retain authenticated grant (set by 0013); revoke from anon/PUBLIC.
+revoke execute on function public.generate_student_invite(text, int) from anon;
+revoke execute on function public.generate_student_invite(text, int) from public;
 
 -- ---------------------------------------------------------------------------
 -- 6. Re-define counselor_issue_invite to use app.invite_hmac().
@@ -254,6 +282,9 @@ end;
 $$;
 
 grant execute on function public.counselor_issue_invite(text) to authenticated;
+-- Retain authenticated grant (set by 0018); revoke from anon/PUBLIC.
+revoke execute on function public.counselor_issue_invite(text) from anon;
+revoke execute on function public.counselor_issue_invite(text) from public;
 
 -- ---------------------------------------------------------------------------
 -- 7. Index on code_hash for fast lookup (unique constraint in 0004 already

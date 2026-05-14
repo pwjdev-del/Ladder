@@ -44,6 +44,8 @@ public enum AIGatewayError: Error {
     case rateLimited
     case serverError(Int, String?)
     case decode(Error)
+    /// S2-CR1: no SSE frame received within the idle-timeout window (30 s).
+    case streamTimeout
 }
 
 private struct GatewayRequestBody<I: Encodable>: Encodable {
@@ -132,10 +134,34 @@ public actor AIGatewayClient {
         let capturedSelf = self
         return AsyncThrowingStream { continuation in
             Task {
+                // S2-CR1: idle-timeout state. Updated on every received SSE frame.
+                // The timeout watcher task cancels the stream if no frame arrives for
+                // `idleTimeoutSeconds`. Uses a class-box so the watcher closure can
+                // mutate `lastEventAt` without capture-list gymnastics.
+                final class IdleState: @unchecked Sendable {
+                    var lastEventAt = Date()
+                }
+                let idleState = IdleState()
+                let idleTimeoutSeconds: TimeInterval = 30
+
+                let timeoutTask = Task { [weak continuation] in
+                    while !Task.isCancelled {
+                        try? await Task.sleep(nanoseconds: 5_000_000_000) // check every 5 s
+                        guard !Task.isCancelled else { break }
+                        if Date().timeIntervalSince(idleState.lastEventAt) > idleTimeoutSeconds {
+                            continuation?.finish(throwing: AIGatewayError.streamTimeout)
+                            break
+                        }
+                    }
+                }
+                defer { timeoutTask.cancel() }
+
                 do {
                     let body = GatewayRequestBody(feature: .siaChat, input: input)
 
                     var req = URLRequest(url: await capturedSelf.resolvedEndpoint)
+                    // S2-CR1: 60-second connection + response timeout.
+                    req.timeoutInterval = 60
                     req.httpMethod = "POST"
                     req.setValue("application/json", forHTTPHeaderField: "Content-Type")
                     req.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
@@ -164,6 +190,8 @@ public actor AIGatewayClient {
                         // SSE lines that carry data begin with "data: ".
                         // Skip "event:" lines, comments (":"), and blank lines.
                         guard line.hasPrefix("data: ") else { continue }
+                        // S2-CR1: reset idle clock on every received frame.
+                        idleState.lastEventAt = Date()
                         let payload = String(line.dropFirst(6))
                         if payload == "[DONE]" { continuation.finish(); return }
 

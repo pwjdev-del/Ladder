@@ -28,11 +28,21 @@ struct PrivacyOverlayModifier: ViewModifier {
         content.overlay {
             if phase != .active {
                 privacyScreen
+                    // S2-CR2: NO transition when COVERING — the overlay must be
+                    // opaque in the same frame that scenePhase becomes .inactive so
+                    // the iOS task-switcher snapshot cannot race past a partially
+                    // faded cover. .identity means "appear immediately, no animation".
+                    .transition(.identity)
+            } else {
+                // Reveal (inactive → active): a short fade is fine because the
+                // snapshot has already been taken; the user is now looking at the screen.
+                Color.clear
                     .transition(.opacity)
             }
         }
-        // Animate state transitions so the cover fades in rather than snapping.
-        .animation(.easeInOut(duration: 0.15), value: phase)
+        // S2-CR2: no blanket animation on phase changes. The reveal path uses an
+        // explicit withAnimation inside the branch above; the cover path is instant.
+        .animation(phase == .active ? .easeInOut(duration: 0.15) : nil, value: phase)
     }
 
     // MARK: - Overlay content
