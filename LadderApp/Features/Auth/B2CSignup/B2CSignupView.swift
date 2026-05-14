@@ -1,5 +1,6 @@
 import SwiftUI
 import OSLog
+import Supabase
 
 // §6 — B2C student signup with inline COPPA gate.
 // Visual source: docs/design/stitch-deliverables/batch-11-full-v2-spec/b2c_signup_with_coppa_gate/
@@ -523,6 +524,15 @@ public struct B2CSignupView: View {
                 // Account created but bootstrap-user ran and JWT still lacks role.
                 // This is a server-side configuration issue, not a normal state.
                 errorMessage = "Account created but not yet activated. Contact support if this persists."
+            } catch AuthError.api(_, let errorCode, _, _)
+                where errorCode == .emailExists || errorCode == .userAlreadyExists {
+                // Supabase rejected the signup because this email is already registered.
+                errorMessage = "An account with this email already exists. Tap the × and sign in instead."
+            } catch AuthError.sessionMissing {
+                // GoTrue completed the signup but couldn't issue a session (e.g. session
+                // was not yet persisted when refreshSession() fired). Treat this the same
+                // as email-confirmation-required so the user has a clear action to take.
+                needsEmailConfirmation = true
             } catch {
                 errorMessage = error.localizedDescription
             }
