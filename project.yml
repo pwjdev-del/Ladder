@@ -42,6 +42,7 @@ targets:
         product: Supabase
     settings:
       base:
+        CODE_SIGN_ENTITLEMENTS: LadderApp/LadderApp.entitlements
         SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
         SUPPORTS_MACCATALYST: NO
         INFOPLIST_GENERATION_MODE: GeneratedFile
@@ -67,6 +68,8 @@ targets:
         INFOPLIST_KEY_SUPABASE_URL: $(SUPABASE_URL)
         INFOPLIST_KEY_SUPABASE_ANON_KEY: $(SUPABASE_ANON_KEY)
         INFOPLIST_KEY_GEMINI_PROXY_URL: $(GEMINI_PROXY_URL)
+        INFOPLIST_KEY_FLAGS_BASE_URL: $(FLAGS_BASE_URL)
+        INFOPLIST_KEY_AUDIT_BASE_URL: $(AUDIT_BASE_URL)
   LadderAppTests:
     type: bundle.unit-test
     platform: iOS

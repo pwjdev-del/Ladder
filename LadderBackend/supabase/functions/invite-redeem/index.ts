@@ -1,9 +1,10 @@
+// Invite redemption: HMAC-SHA256(code, INVITE_HMAC_SECRET) compared to bytea code_hash via RPC. See migration 0021.
+
 // LadderBackend/supabase/functions/invite-redeem/index.ts
 // §6.1 B2B and §6.2 B2C parent invite code redemption.
 
 import { serve } from 'https://deno.land/std@0.224.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.0';
-import { crypto as stdCrypto } from 'https://deno.land/std@0.224.0/crypto/mod.ts';
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SUPABASE_SERVICE_ROLE = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -14,11 +15,34 @@ interface RedeemRequest {
   intended_student_id?: string;
 }
 
+// Shape of the invite_codes row returned by find_invite_by_hash().
+// Mirrors the table definition in migration 0004 / 0018.
+interface InviteRow {
+  id: string;
+  tenant_id: string;
+  kind: string;
+  code_hash: string;
+  code_prefix: string;
+  created_by: string;
+  intended_email: string | null;
+  intended_student_id: string | null;
+  allowed_email_domain: string | null;
+  expected_grade_level: number | null;
+  max_uses: number;
+  uses: number;
+  expires_at: string | null;
+  revoked_at: string | null;
+  created_at: string;
+}
+
 // HMAC-SHA256 with a per-deployment secret. Phase 8 Security Audit recommended
 // this over plain SHA-256 so scraped invite_codes rows are not rainbow-tableable.
-// The secret lives in Supabase Edge Function env (INVITE_HMAC_SECRET); rotate
-// annually alongside the tenant DEK.
-async function hmacCode(input: string): Promise<Uint8Array> {
+// The secret lives in Supabase Edge Function env (INVITE_HMAC_SECRET); it must
+// also be configured in Postgres as:
+//   ALTER DATABASE postgres SET app.invite_hmac_secret = '<same-value>';
+// so that the app.invite_hmac() DB function and this edge function agree.
+// Rotate annually alongside the tenant DEK.
+async function hmacCode(input: string): Promise<string> {
   const secret = Deno.env.get('INVITE_HMAC_SECRET') ?? '';
   if (!secret) throw new Error('INVITE_HMAC_SECRET not configured');
   const key = await crypto.subtle.importKey(
@@ -29,7 +53,12 @@ async function hmacCode(input: string): Promise<Uint8Array> {
     ['sign'],
   );
   const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(input));
-  return new Uint8Array(sig);
+  // B-02 fix: return bare hex string (no \x prefix) so app.find_invite_by_hash()
+  // can call decode(p_hex, 'hex') directly. Avoids supabase-js Uint8Array →
+  // JSON object serialisation when passed to .eq().
+  return Array.from(new Uint8Array(sig))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 // Uniform failure response — do not disclose whether the code is unknown,
@@ -55,17 +84,27 @@ serve(async (req) => {
     const user = userRes.user;
 
     const body = (await req.json()) as RedeemRequest;
-    const codeHash = await hmacCode(body.code);
 
-    const { data: invite } = await supa
-      .from('invite_codes')
-      .select('*')
-      .eq('code_hash', codeHash)
+    // B-01 fix: hmacCode() returns hex; DB side now also stores HMAC-SHA256
+    // (via app.invite_hmac()) since migration 0021. Previously the DB stored
+    // plain digest(code, 'sha256') which never matched.
+    const codeHex = await hmacCode(body.code);
+
+    // B-02 fix: use app.find_invite_by_hash() RPC instead of .eq('code_hash', ...)
+    // with a raw Uint8Array. supabase-js serialises Uint8Array to {"0":...,"1":...}
+    // JSON which PostgREST cannot match to a bytea column. The RPC accepts a bare
+    // hex string and calls decode(p_hex, 'hex') inside Postgres, which is reliable.
+    // find_invite_by_hash lives in public schema, so no schema override needed.
+    // Type-assert to InviteRow: supabase-js v2 rpc() is typed against generated
+    // DB types which aren't present here; the function signature is stable.
+    const { data: inviteRaw, error: rpcError } = await supa
+      .rpc('find_invite_by_hash', { p_hex: codeHex })
       .single();
+    const invite = inviteRaw as InviteRow | null;
 
     // All failure paths return the SAME error to deny the oracle. Audit details
     // go into the log (server-side) but never to the caller (§16).
-    if (!invite) {
+    if (rpcError || invite === null) {
       await supa.from('audit_log').insert({
         actor_id: user.id,
         action: 'invite.redeem_failed',

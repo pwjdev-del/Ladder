@@ -1,0 +1,270 @@
+# LadderBackend/supabase/config.toml
+# Supabase CLI local-dev configuration.
+# CLI version at time of creation: 2.95.4 (Postgres 17 default).
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# S1-2 FIX — db-pre-request hook (app.bind_session)
+# ─────────────────────────────────────────────────────────────────────────────
+# 97 RLS policies across migrations 0001–0019 read:
+#   current_setting('app.role',      true)
+#   current_setting('app.tenant_id', true)
+# Those GUCs are populated by app.bind_session(), which reads JWT claims and
+# calls set_config(…, true) (transaction-local).
+#
+# Without a db-pre-request hook, PostgREST starts a transaction and executes
+# the user's query without ever calling bind_session(). Both GUCs are NULL.
+# Every USING predicate that compares current_setting(…) against a tenant
+# value evaluates NULL → Postgres treats as FALSE → 0 rows returned silently.
+#
+# TWO WAYS to wire the hook (set BOTH for defense in depth):
+#
+#   1. config.toml [api] section — used by the Supabase CLI for local dev and
+#      `supabase db push` / `supabase start`. The key `db_pre_request` was
+#      introduced in Supabase CLI ~1.100 and is present in 2.x. Local PostgREST
+#      container reads this value.
+#
+#   2. Dashboard env var (PRODUCTION — mandatory) — In the Supabase dashboard:
+#        Project Settings → API → "DB Pre-request" = app.bind_session
+#      This sets PGRST_DB_PRE_REQUEST=app.bind_session on the production
+#      PostgREST container. config.toml has no effect on hosted Supabase.
+#      Until this dashboard setting is applied, S1-2 is NOT fixed in production.
+#
+#   DASHBOARD ACTION REQUIRED:
+#     https://supabase.com/dashboard/project/seicofzlgwjqkggscvao/settings/api
+#     Scroll to "DB Pre-request" and enter: app.bind_session
+#
+# For detailed configuration reference documentation, visit:
+# https://supabase.com/docs/guides/local-development/cli/config
+
+project_id = "seicofzlgwjqkggscvao"
+
+# =============================================================================
+# [api] — PostgREST settings
+# =============================================================================
+[api]
+enabled = true
+# Port for the local API URL.
+port = 54321
+# Schemas exposed as REST endpoints. public and graphql_public always included.
+schemas = ["public", "graphql_public"]
+# Extra schemas on every request's search_path.
+extra_search_path = ["public", "extensions", "app"]
+# Maximum rows returned from a view, table, or stored procedure.
+max_rows = 1000
+# S1-2 FIX: Call app.bind_session() before every PostgREST request so that
+# current_setting('app.role') and current_setting('app.tenant_id') are populated
+# for RLS. This wires the pre-request hook for LOCAL DEV via the Supabase CLI.
+# For PRODUCTION, also set PGRST_DB_PRE_REQUEST=app.bind_session in the dashboard
+# (see comment block at top of this file).
+db_pre_request = "app.bind_session"
+
+[api.tls]
+# TLS for local dev — disabled (Supabase CLI uses HTTP locally).
+enabled = false
+
+# =============================================================================
+# [db] — Local Postgres settings
+# =============================================================================
+[db]
+port = 54322
+shadow_port = 54320
+health_timeout = "2m"
+# Must match your remote DB Postgres major version.
+# Run: SHOW server_version; on the remote to verify.
+# Supabase hosted projects as of 2026 use Postgres 17.
+major_version = 17
+
+[db.pooler]
+enabled = false
+port = 54329
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 100
+
+# Vault secret key for local dev. Set via env var — do NOT hardcode.
+# In production, secrets are managed via the Supabase Dashboard Vault UI.
+# Required secret for S1-1: create a Vault secret named 'founder_totp_fsk'
+# containing a 64-char hex string (32 random bytes, hex-encoded).
+# Generate with: openssl rand -hex 32
+# [db.vault]
+# secret_key = "env(SUPABASE_DB_VAULT_SECRET_KEY)"
+
+[db.migrations]
+enabled = true
+schema_paths = []
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[db.network_restrictions]
+enabled = false
+allowed_cidrs   = ["0.0.0.0/0"]
+allowed_cidrs_v6 = ["::/0"]
+
+# =============================================================================
+# [realtime] — Realtime settings
+# =============================================================================
+[realtime]
+enabled = true
+
+# =============================================================================
+# [studio] — Supabase Studio local settings
+# =============================================================================
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1"
+openai_api_key = "env(OPENAI_API_KEY)"
+
+# =============================================================================
+# [inbucket] — Local email testing
+# =============================================================================
+[inbucket]
+enabled = true
+port = 54324
+
+# =============================================================================
+# [storage]
+# =============================================================================
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[storage.s3_protocol]
+enabled = true
+
+[storage.analytics]
+enabled = false
+max_namespaces = 5
+max_tables = 10
+max_catalogs = 2
+
+[storage.vector]
+enabled = false
+max_buckets = 10
+max_indexes = 5
+
+# =============================================================================
+# [auth]
+# =============================================================================
+[auth]
+enabled = true
+# iOS app URL scheme. Update if scheme changes.
+site_url = "ladder://"
+additional_redirect_urls = [
+  "ladder://auth/callback",
+  "http://127.0.0.1:3000",
+]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+enable_anonymous_sign_ins = false
+# Students self-sign-up (DECISIONS.md: Signup no-parent-required).
+enable_manual_linking = false
+minimum_password_length = 8
+password_requirements = "letters_digits"
+
+[auth.rate_limit]
+email_sent      = 2
+sms_sent        = 30
+anonymous_users = 30
+token_refresh   = 150
+sign_in_sign_ups = 30
+token_verifications = 30
+web3            = 30
+
+[auth.email]
+enable_signup        = true
+double_confirm_changes = true
+enable_confirmations = true
+secure_password_change = true
+max_frequency        = "1s"
+otp_length           = 6
+otp_expiry           = 3600
+
+[auth.sms]
+enable_signup         = false
+enable_confirmations  = false
+template              = "Your Ladder code is {{ .Code }}"
+max_frequency         = "5s"
+
+[auth.sms.twilio]
+enabled            = false
+account_sid        = ""
+message_service_sid = ""
+auth_token         = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
+
+[auth.mfa]
+max_enrolled_factors = 10
+
+[auth.mfa.totp]
+# Supabase built-in TOTP MFA — disabled here because Ladder implements its
+# own TOTP second-factor for founders via the founder-login edge function
+# and app.decrypt_founder_totp() / app.enroll_founder_totp().
+enroll_enabled = false
+verify_enabled = false
+
+[auth.mfa.phone]
+enroll_enabled = false
+verify_enabled = false
+otp_length     = 6
+template       = "Your code is {{ .Code }}"
+max_frequency  = "5s"
+
+[auth.external.apple]
+enabled     = false
+client_id   = ""
+secret      = "env(SUPABASE_AUTH_EXTERNAL_APPLE_SECRET)"
+redirect_uri = ""
+url         = ""
+skip_nonce_check = false
+email_optional   = false
+
+[auth.web3.solana]
+enabled = false
+
+[auth.third_party.firebase]
+enabled = false
+
+[auth.third_party.auth0]
+enabled = false
+
+[auth.third_party.aws_cognito]
+enabled = false
+
+[auth.third_party.clerk]
+enabled = false
+
+[auth.oauth_server]
+enabled = false
+authorization_url_path = "/oauth/consent"
+allow_dynamic_registration = false
+
+# =============================================================================
+# [edge_runtime]
+# =============================================================================
+[edge_runtime]
+enabled        = true
+policy         = "per_worker"
+inspector_port = 8083
+deno_version   = 2
+
+# =============================================================================
+# [analytics]
+# =============================================================================
+[analytics]
+enabled  = true
+port     = 54327
+backend  = "postgres"
+
+# =============================================================================
+# [experimental]
+# =============================================================================
+[experimental]
+orioledb_version = ""
+s3_host          = "env(S3_HOST)"
+s3_region        = "env(S3_REGION)"
+s3_access_key    = "env(S3_ACCESS_KEY)"
+s3_secret_key    = "env(S3_SECRET_KEY)"

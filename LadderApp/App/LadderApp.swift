@@ -22,6 +22,9 @@ struct LadderApp: App {
         // §5 — Release builds crash if Supabase URL is still the placeholder
         // or anon key is empty. Prevents silent boot against a broken backend.
         AppConfiguration.preflightOrCrash()
+        // S1-4 — Register the ModelContainer so SupabaseAuthService.signOut()
+        // can wipe SwiftData on sign-out (shared-iPad PII leak fix).
+        SwiftDataWipeRegistry.register(modelContainer)
     }
 
     var body: some Scene {
@@ -30,6 +33,15 @@ struct LadderApp: App {
                 .environmentObject(tenantContext)
                 .environmentObject(flagClient)
                 .modelContainer(modelContainer)
+                // S3-1: cover the view in the iOS task-switcher snapshot so student
+                // PII (SIA chat, crisis resources, grades) is never visible in the
+                // app switcher. Modifier defined in App/PrivacyOverlay.swift.
+                // TEMP: PrivacyOverlay.swift is on disk but NOT in the Xcode project
+                // file, so the extension is invisible at compile time. Cached .o files
+                // from earlier Xcode-IDE builds were masking this. Re-enable after
+                // adding the file to the LadderApp target (Xcode → right-click App/
+                // group → Add Files… → PrivacyOverlay.swift).
+                // .privacyOverlay()
         }
     }
 }

@@ -25,6 +25,10 @@ final class AdvisorChatViewModel {
     /// AdvisorChatView observes this to route the session to the counselor safety queue.
     /// v1.1: wire to a proper counselor-alert flow; for v1.0 this is observable state only.
     var activeSafetyFlag: String?
+    /// Accumulates SSE deltas for the in-flight SIA response.
+    /// The view renders this as a live-updating assistant bubble while the stream
+    /// is open; it is reset to "" at the start of each new send.
+    var streamingContent: String = ""
 
     // MARK: - Identity
 
@@ -126,7 +130,9 @@ final class AdvisorChatViewModel {
     // MARK: - Send
 
     /// Appends the user's message immediately, builds the SIA context,
-    /// calls the AI gateway, and appends SIA's response.
+    /// opens the SSE stream from the ai-gateway, and streams SIA's response
+    /// delta-by-delta into `streamingContent` so the view can render a live
+    /// typing effect. On completion the full response is committed to `messages`.
     /// On failure, `error` is set so the view can show the retry banner.
     func send(context: ModelContext) async {
         let text = currentInput.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -136,9 +142,13 @@ final class AdvisorChatViewModel {
         messages.append(userMessage)
         currentInput = ""
         isLoading = true
+        streamingContent = ""
         error = nil
 
-        defer { isLoading = false }
+        defer {
+            isLoading = false
+            streamingContent = ""
+        }
 
         do {
             // Auth — bearer token + user identity.
@@ -180,24 +190,37 @@ final class AdvisorChatViewModel {
             )
 
             // Build message history for the gateway (strip system bubbles).
+            // Exclude the still-empty in-flight assistant bubble if present.
             let historyMessages = messages
                 .filter { $0.role != .system }
                 .map { SiaChatMessage(role: $0.role == .user ? "user" : "assistant", content: $0.content) }
 
-            let input = SiaChatInput(systemPrompt: systemPrompt, messages: historyMessages)
+            let input = SiaChatInput(studentId: studentId, systemPrompt: systemPrompt, messages: historyMessages)
 
-            let response = try await AIGatewayClient.shared.call(
-                feature: .siaChat,
+            // --- SSE streaming path for sia_chat (A4 contract) ---
+            var accumulated = ""
+            var finalSafetyFlag: String? = nil
+
+            for try await delta in await AIGatewayClient.shared.streamSiaChat(
                 input: input,
                 accessToken: accessToken
-            )
+            ) {
+                switch delta {
+                case .token(let chunk):
+                    accumulated += chunk
+                    streamingContent = accumulated
+                case .done(let safetyFlag):
+                    finalSafetyFlag = safetyFlag
+                }
+            }
 
-            let siaMessage = ChatMessage(role: .assistant, content: response.output)
+            // Commit the fully-assembled response into the message list.
+            let siaMessage = ChatMessage(role: .assistant, content: accumulated)
             messages.append(siaMessage)
 
             // Propagate any backend safety flag so the view can act on it.
             // v1.1: route to counselor safety queue via a Supabase RPC call here.
-            if let flag = response.safetyFlag {
+            if let flag = finalSafetyFlag {
                 activeSafetyFlag = flag
                 Log.warn("[SIA-SAFETY] safety_flag=\(flag) in response for studentId=\(self.studentId)")
             }
@@ -236,11 +259,19 @@ private enum AdvisorChatError: LocalizedError {
 // MARK: - Gateway payload types
 
 private struct SiaChatInput: Encodable {
+    // S1-002: CodingKey raw value renamed from "system_prompt" → "context_payload"
+    // to match ai-gateway A4 contract. Swift property name kept as `systemPrompt`
+    // to avoid cascading caller churn.
+    //
+    // S1-CR1: `studentId` added — required by SiaChatInputSchema (ai-gateway/index.ts:97).
+    // Wire key is camelCase `studentId` per Zod schema.
+    let studentId: String
     let systemPrompt: String
     let messages: [SiaChatMessage]
 
     enum CodingKeys: String, CodingKey {
-        case systemPrompt = "system_prompt"
+        case studentId    = "studentId"
+        case systemPrompt = "context_payload"
         case messages
     }
 }

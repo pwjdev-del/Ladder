@@ -120,10 +120,21 @@ extension SiaEngine {
             "Summary \(index + 1): \(row.summaryText)"
         }.joined(separator: "\n")
 
+        // S1-CR1: `counselorId` added — CounselorBriefInputSchema requires both
+        // `studentId` and `counselorId` as UUID strings (ai-gateway/index.ts:105-108).
+        // `studentId` is the TARGET student; `counselorId` is the REQUESTING counselor
+        // (already identity-verified by assertCounselorIdentity above).
+        // `context_payload` carries the summary context. Wire keys are camelCase per Zod schema.
         struct BriefInput: Encodable {
             let studentId: String
-            let counselorQuestion: String
-            let summaryContext: String
+            let counselorId: String
+            let contextPayload: String
+
+            enum CodingKeys: String, CodingKey {
+                case studentId    = "studentId"
+                case counselorId  = "counselorId"
+                case contextPayload = "context_payload"
+            }
         }
 
         guard let session = await SupabaseAuthService.shared.currentSession else {
@@ -135,8 +146,8 @@ extension SiaEngine {
             feature: .counselorBrief,
             input: BriefInput(
                 studentId: studentId,
-                counselorQuestion: question,
-                summaryContext: summaryContext
+                counselorId: requestingCounselorAuthUid,
+                contextPayload: summaryContext
             ),
             accessToken: accessToken
         )

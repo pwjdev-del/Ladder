@@ -46,18 +46,29 @@ enum MemoryExtractorService {
             }
             .joined(separator: "\n\n")
 
-        // Wrap the transcript + extraction system prompt as the AI gateway input.
+        // Wrap the transcript + extraction context as the AI gateway input.
+        // S1-002: field renamed system_prompt → context_payload to match ai-gateway A4 contract.
+        // S1-CR1: `studentId` added — required by MemoryExtractionInputSchema
+        //         (ai-gateway/index.ts:141). Wire key is camelCase `studentId`.
         struct MemoryInput: Encodable {
+            let studentId: String
             let transcript: String
-            let systemPrompt: String
+            let contextPayload: String
+
+            enum CodingKeys: String, CodingKey {
+                case studentId    = "studentId"
+                case transcript
+                case contextPayload = "context_payload"
+            }
         }
 
         do {
             let response = try await AIGatewayClient.shared.call(
                 feature: .memoryExtraction,
                 input: MemoryInput(
+                    studentId: studentId,
                     transcript: formatted,
-                    systemPrompt: MemoryExtractor.systemPrompt
+                    contextPayload: MemoryExtractor.systemPrompt
                 ),
                 accessToken: accessToken
             )
@@ -128,7 +139,11 @@ enum MemoryExtractorService {
             Log.info("[T012-MemorySync] summary synced for session \(sessionId)")
         } catch {
             // Loud warn — QA should catch this in console; user is never shown an error.
-            Log.warn("[T012-MemorySync] Supabase sync FAILED for session \(sessionId), studentId=\(studentId): \(error)")
+            // S3-2: redact studentId to last-4 chars (UUIDs of minors are PII);
+            //        truncate error to 120 chars to avoid leaking schema detail in logs.
+            let idSuffix = studentId.suffix(4)
+            let truncatedError = String(error.localizedDescription.prefix(120))
+            Log.warn("[T012-MemorySync] Supabase sync FAILED for session \(sessionId), student=...\(idSuffix) — \(truncatedError)")
         }
     }
 

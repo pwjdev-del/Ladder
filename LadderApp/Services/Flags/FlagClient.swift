@@ -41,13 +41,22 @@ public final class FlagClient: ObservableObject {
 
     @Published public private(set) var flags: [String: Bool] = [:]
 
-    private let endpoint: URL
+    // endpoint is resolved lazily per call so that AppConfiguration is read
+    // after preflightOrCrash() has run. An override may be injected for tests.
+    private let endpointOverride: URL?
     private let session: URLSession
 
-    public init(endpoint: URL = URL(string: "https://edge.ladder.app/functions/v1/varun-validate")!,
+    public init(endpointOverride: URL? = nil,
                 session: URLSession = TLSPinnedSessionFactory.shared.session) {
-        self.endpoint = endpoint
+        self.endpointOverride = endpointOverride
         self.session = session
+    }
+
+    // Resolved endpoint: override (tests) → AppConfiguration (production).
+    // AppConfiguration.flagsBaseURL routes to:
+    //   https://seicofzlgwjqkggscvao.supabase.co/functions/v1/varun-validate
+    private var resolvedEndpoint: URL {
+        endpointOverride ?? AppConfiguration.flagsBaseURL
     }
 
     public func isEnabled(_ key: String) -> Bool {
@@ -62,7 +71,7 @@ public final class FlagClient: ObservableObject {
     /// persisting. Never persists on-device — write is server-side.
     public func validate(proposed: [String: Bool], tenantType: String, accessToken: String) async throws -> VarunValidation {
         struct Body: Encodable { let flags: [String: Bool]; let tenant_type: String }
-        var req = URLRequest(url: endpoint)
+        var req = URLRequest(url: resolvedEndpoint)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")

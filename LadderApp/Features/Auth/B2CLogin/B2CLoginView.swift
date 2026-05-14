@@ -222,7 +222,9 @@ public struct B2CLoginView: View {
                     case .counselor: return .counselor
                     case .parent:    return .parent
                     case .founder:   return .founder
-                    default:         return .student
+                    case .employee:  return .employee
+                    case .student:   return .student
+                    case .none:      return .student
                     }
                 }()
                 // Grade level was fetched from students table and cached on TenantContext

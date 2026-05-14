@@ -18,19 +18,28 @@ public struct AuditEvent: Codable, Sendable {
 public actor AuditClient {
     public static let shared = AuditClient()
 
-    private let endpoint: URL
+    // endpoint is resolved lazily per call so that AppConfiguration is read
+    // after preflightOrCrash() has run. An override may be injected for tests.
+    private let endpointOverride: URL?
     private let session: URLSession
 
-    public init(endpoint: URL = URL(string: "https://edge.ladder.app/functions/v1/audit-ingest")!,
+    public init(endpointOverride: URL? = nil,
                 session: URLSession = TLSPinnedSessionFactory.shared.session) {
-        self.endpoint = endpoint
+        self.endpointOverride = endpointOverride
         self.session = session
+    }
+
+    // Resolved endpoint: override (tests) → AppConfiguration (production).
+    // AppConfiguration.auditBaseURL routes to:
+    //   https://seicofzlgwjqkggscvao.supabase.co/functions/v1/audit-ingest
+    private var resolvedEndpoint: URL {
+        endpointOverride ?? AppConfiguration.auditBaseURL
     }
 
     public func record(_ event: AuditEvent, accessToken: String) async {
         // Fire-and-forget; a failed audit write must not block a user action,
         // but server-side RLS-gated inserts are still the authoritative log.
-        var req = URLRequest(url: endpoint)
+        var req = URLRequest(url: resolvedEndpoint)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")

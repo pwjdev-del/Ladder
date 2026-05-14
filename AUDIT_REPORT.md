@@ -1,6 +1,8 @@
 # Ladder — Consolidated Audit & Gap Report
 _Date: 2026-04-26  •  Audited by: PWJ pipeline_
 
+> **STATUS UPDATE — 2026-05-14:** This is a historical audit reflecting the pre-sweep state (2026-04-26). All critical S1 findings (fake auth, hardcoded password, placeholder Supabase config, TLS pinning placeholders, iPad parity violation, founder data wall unenforced) have been resolved in the v1.0 audit-fix sweep. See `CHANGELOG.md` and `FOUNDER_SHIP_REVIEW_2026-05-14.md` for the final verdict and remaining known issues.
+
 ---
 
 ## TL;DR (3 sentences for the founder)

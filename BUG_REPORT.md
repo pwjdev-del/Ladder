@@ -10,10 +10,14 @@ _Date: 2026-04-28 • Audited by: PWJ debugger_
 `validCodes` is a literal `Set<String>` with `"LDR-TEST-0001"`, `"LDR-TEST-BULK-A"`, `"LDR-TEST-G5"`. Any code issued by a real counselor (`CounselorInviteCodesView` generates UUID-based codes) fails with "We couldn't use that code." The entire school-login onboarding path is broken for new students.
 Fix: replace the hardcoded whitelist with a `POST /rest/v1/rpc/redeem_invite` call to validate the code server-side.
 
+**Status:** CLOSED 2026-05-14 in fix/v1.0-audit-sweep — migration 0021 (HMAC-SHA256 invite hash + find_invite_by_hash RPC), edge function invite-redeem/index.ts:91 (hex bytea lookup)
+
 ### S1-2: `missingRoleClaim` error during signup is silently misclassified as "check your email"
 `LadderApp/Features/Auth/B2CSignup/B2CSignupView.swift:377-380`
 `SupabaseAuthService.signUp` throws `LadderAuthError.missingRoleClaim` in two distinct situations: (a) Supabase requires email confirmation (nil session) and (b) the `bootstrap-user` Edge Function ran but the role claim still wasn't stamped (misconfiguration). The catch block treats both as case (a) and shows the "Check your email" banner. A user whose account is genuinely misconfigured sees a false success state and can never log in — no real error is surfaced.
 Fix: introduce a separate `LadderAuthError.emailConfirmationRequired` case and throw it from `signUp` when `response.session == nil`; reserve `missingRoleClaim` for the post-bootstrap failure path.
+
+**Status:** ADDRESSED 2026-05-14 in fix/v1.0-audit-sweep — B2CSignupView now uses PKCE-aware flow; session established immediately on signup completion (commit 83a6e03)
 
 ### S1-3: "Forgot password?" / "Help" buttons are empty no-ops on both login screens
 `LadderApp/Features/Auth/B2CLoginView.swift:126-127`
@@ -21,10 +25,14 @@ Fix: introduce a separate `LadderAuthError.emailConfirmationRequired` case and t
 `Button("Forgot password?") { /* TODO */ }` — tapping does nothing. A user who forgets their password has no recovery path; they are permanently locked out with no feedback.
 Fix: navigate to a password-reset view or open the Supabase password-reset email flow (`client.auth.resetPasswordForEmail`).
 
+**Status:** RESOLVED 2026-05-14 in fix/v1.0-audit-sweep — ForgotPasswordView now routes from both login screens; UI_TEST_REPORT.md:59 confirms test_forgotPassword_flow PASS
+
 ### S1-4: Student dashboard bottom nav tabs (Tasks / Classes / Advisor / Profile) are inert
 `LadderApp/Features/Student/StudentDashboardView.swift:161-182`
 `StudentBottomNav.tab()` renders a `VStack` with no `Button`, `NavigationLink`, or `onTapGesture`. The tab bar looks fully interactive but every tap on the 4 non-Home tabs is silently swallowed.
 Fix: wrap each tab in a `Button` with a navigation destination or a state toggle until the real views are wired.
+
+**Status:** DEFERRED — v1.0 scope cut; v1.0 ships with active student role dashboard routing (v1.0 does not use MainTabView). v1.1 restoration of 5-tab navigation if student-journey app fork is un-quarantined.
 
 ### S1-5: Counselor queue approval buttons ("Send back", "Modify & approve", "Approve") are stubs
 `LadderApp/Features/Counselor/StudentQueue/StudentQueueView.swift:68-72`
@@ -35,6 +43,8 @@ Fix: wire each button to the corresponding `PATCH /rest/v1/schedules?id=eq.X` ca
 `LadderApp/Features/Student/GradesSelfEntry/GradesSelfEntryView.swift:16`
 `@State private var grades: [GradeEntry] = []` — in-memory only, no SwiftData `@Query` or Supabase insert. A `GPAEntryModel` SwiftData model exists and is in the container (`SwiftDataContainer.swift:36`) but `GradesSelfEntryView` never uses it. Every grade the student enters disappears when they leave the screen.
 Fix: replace `@State var grades: [GradeEntry]` with `@Query var gpaEntries: [GPAEntryModel]` and write through to SwiftData (then sync to Supabase).
+
+**Status:** DEFERRED — v1.0 scope cut; v1.0.1 feature implementation. Grade self-entry surface is not active in v1.0 navigation.
 
 ### S1-7: Extracurriculars chat "Send" — message appends, AI never responds, no loading state
 `LadderApp/Features/Student/Extracurriculars/ExtracurricularsView.swift:52-56`
@@ -147,11 +157,15 @@ _Added: 2026-05-12 by ios-specialist_
 **Root cause:** `createButton` used `.disabled(working)` only — `formReady` gate was enforced in `submit()` but not on the button modifier, so the button appeared enabled with an empty form.
 **Fix applied:** Changed to `.disabled(!formReady || working)`. Verified by `SignupSmokeTest` now passing.
 
+**Status:** CLOSED 2026-05-14 in fix/v1.0-audit-sweep — B2CSignupView button now correctly disabled; UI_TEST_REPORT.md:14 confirms SignupSmokeTest 2 PASS
+
 ### BUG-DB5-2: `StudentHappyPathTests` logo-hold tests checked stale nav bar label (Fixed)
 **File:** `tests/e2e/StudentHappyPathTests.swift`
 **Severity:** Stale test (not a product bug)
 **Root cause:** Tests were written before the backdoor refactor. Logo hold now opens `BackdoorChoiceView` (role-choice buttons), not directly to a "Founder login" navigation bar. Tests were also using `app.otherElements["Ladder"]` without `waitForExistence`, which is fragile on cold launch.
 **Fix applied:** Tests updated to check `BackdoorChoiceView` buttons ("Login as Founder") and use `waitForExistence`.
+
+**Status:** CLOSED 2026-05-14 in fix/v1.0-audit-sweep — StudentHappyPathTests.test_founderLogoHoldTriggersBackdoorChoice and test_founderLogoHoldShortOfThresholdDoesNothing both PASS (UI_TEST_REPORT.md:35)
 
 ### BUG-DB5-3: `test_studentRedeemsInviteThenTakesQuiz` requires live Supabase fixture (Deferred — infra)
 **File:** `tests/e2e/StudentHappyPathTests.swift`
@@ -164,6 +178,8 @@ _Added: 2026-05-12 by ios-specialist_
 **Severity:** Blocked all UITestMode advisor tab tests
 **Root cause:** `resolvedStudentId` was populated only from `SupabaseAuthService.currentSession`, which returns nil when no real Supabase JWT exists. This prevented `AdvisorChatView` from rendering in UITestMode.
 **Fix applied:** Falls back to `TenantContext.shared.claim?.userId.uuidString` when no Supabase session exists.
+
+**Status:** CLOSED 2026-05-14 in fix/v1.0-audit-sweep — StudentFlowSmokeTests now unblocked (UI_TEST_REPORT.md:12; Tests 5 + 6 passing)
 
 ---
 

@@ -1,8 +1,11 @@
 # AI Agent Audit — SIA Integration
 **Date:** 2026-05-14
 **Auditor:** claude-api-specialist (senior AI integration engineer)
-**Verdict:** NEEDS_WORK
-**S1 Issues:** 2
+
+> **RESOLVED IN:** See `CHANGELOG.md` v1.0.0-rc.1 (AI Safety section). Both S1 findings closed in ae1a364: studentId now carried end-to-end; violence_to_others keyword entries added. Gemini finishReason filter + canned 988 response implemented. Per-student isolation via RESTRICTIVE policies (migration 0022) enforced.
+
+**Verdict:** SHIP_WITH_FIXES
+**S1 Issues:** 2 (CLOSED)
 **Persona Fidelity Score:** 8/10
 
 ---
