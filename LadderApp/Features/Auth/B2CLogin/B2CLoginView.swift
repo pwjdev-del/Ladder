@@ -5,6 +5,8 @@ import SwiftUI
 // in from the sim actually lands on a confirmation screen.
 
 public struct B2CLoginView: View {
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var working = false
@@ -20,16 +22,49 @@ public struct B2CLoginView: View {
             BrandGradient.auth
             BrandGradient.heroGlow
 
-            VStack(spacing: 0) {
-                hero
-                ScrollView {
-                    VStack(spacing: 24) {
-                        signInBlock
-                        footerLinks
+            if sizeClass == .regular {
+                // iPad: brand hero on left, scrollable form on right
+                HStack(spacing: 0) {
+                    padHero
+                        .frame(maxWidth: .infinity)
+
+                    Rectangle()
+                        .fill(LadderBrand.cream100.opacity(0.12))
+                        .frame(width: 1)
+                        .padding(.vertical, 80)
+
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            Spacer(minLength: 60)
+                            MaxWidthContainer(maxWidth: 420) {
+                                VStack(spacing: 24) {
+                                    backButton
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    signInBlock
+                                    footerLinks
+                                }
+                                .padding(.horizontal, 40)
+                            }
+                            Spacer(minLength: 60)
+                        }
                     }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 24)
-                    .padding(.bottom, 32)
+                    .scrollDismissesKeyboard(.interactively)
+                    .frame(maxWidth: .infinity)
+                }
+            } else {
+                // iPhone: original single-column layout, unchanged
+                VStack(spacing: 0) {
+                    hero
+                    ScrollView {
+                        VStack(spacing: 24) {
+                            signInBlock
+                            footerLinks
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.top, 24)
+                        .padding(.bottom, 32)
+                    }
+                    .scrollDismissesKeyboard(.interactively)
                 }
             }
         }
@@ -39,6 +74,38 @@ public struct B2CLoginView: View {
         }
         .sheet(isPresented: $showingForgotPassword) {
             ForgotPasswordView()
+        }
+    }
+
+    // MARK: - iPad hero pane (left column)
+
+    private var padHero: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            LadderLogoMark(size: 140, withShadow: true)
+            Text("Ladder")
+                .font(.ladderDisplay(40, relativeTo: .largeTitle).italic())
+                .foregroundStyle(LadderBrand.cream100)
+            Text("Every kid needs a ladder\nto success.")
+                .font(.ladderBody(17))
+                .foregroundStyle(LadderBrand.cream100.opacity(0.75))
+                .multilineTextAlignment(.center)
+                .lineSpacing(4)
+            Spacer()
+        }
+        .padding(.horizontal, 40)
+    }
+
+    // MARK: - Back button (iPad form column only)
+
+    private var backButton: some View {
+        Button { dismiss() } label: {
+            Image(systemName: "chevron.left")
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(LadderBrand.cream100)
+                .frame(width: 40, height: 40)
+                .background(LadderBrand.cream100.opacity(0.12))
+                .clipShape(Circle())
         }
     }
 
@@ -128,7 +195,7 @@ public struct B2CLoginView: View {
     private var footerLinks: some View {
         HStack(spacing: 24) {
             Button("Forgot password?") { showingForgotPassword = true }
-            Button("Help") { /* TODO */ }
+            Link("Help", destination: URL(string: "https://ladder.app/help")!)
         }
         .font(.ladderBody(13))
         .foregroundStyle(LadderBrand.cream100.opacity(0.7))
@@ -173,3 +240,26 @@ public struct B2CLoginView: View {
         }
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+#Preview("iPhone 15") {
+    B2CLoginView()
+}
+
+#Preview("iPad Air 10.9 portrait") {
+    B2CLoginView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Air landscape") {
+    B2CLoginView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Pro 12.9 portrait") {
+    B2CLoginView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+#endif

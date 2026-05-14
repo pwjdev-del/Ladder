@@ -111,6 +111,10 @@ private struct ScheduleBuilderBody: View {
     @Binding var picks: [SchedulePick]
     @Binding var submitState: String
 
+    @State private var submitting = false
+    @State private var banner: String?
+    @State private var bannerIsError = false
+
     var body: some View {
         List {
             Section("Periods") {
@@ -126,13 +130,61 @@ private struct ScheduleBuilderBody: View {
                     }
                 }
             }
-            Section {
-                Button("Submit for counselor review") {
-                    submitState = "SUBMITTED"
-                    // TODO: POST /rest/v1/schedules ; insert schedule_events row.
+            if let banner {
+                Section {
+                    Text(banner).foregroundStyle(bannerIsError ? .red : .green)
                 }
-                .disabled(picks.count < 7 || submitState != "DRAFT")
             }
+            Section {
+                Button(submitting ? "Submitting…" : "Submit for counselor review") {
+                    Task { await submit() }
+                }
+                .disabled(submitting || picks.count < 7 || submitState != "DRAFT")
+            }
+        }
+    }
+
+    // MARK: - Submit
+
+    private struct ScheduleInsert: Encodable {
+        let state: String
+        let submitted_at: String
+    }
+
+    private struct ScheduleEventInsert: Encodable {
+        let schedule_id: String
+        let from_state: String?
+        let to_state: String
+    }
+
+    private struct ScheduleIDOnly: Decodable { let id: String }
+
+    private func submit() async {
+        submitting = true
+        banner = nil
+        defer { submitting = false }
+        let iso = ISO8601DateFormatter().string(from: Date())
+        do {
+            let client = await SupabaseAuthService.shared.supabase
+            // Try to update an existing DRAFT row first (if one exists), else insert.
+            let response = try await client
+                .from("schedules")
+                .insert(ScheduleInsert(state: "SUBMITTED", submitted_at: iso))
+                .select("id")
+                .execute()
+            let rows = try JSONDecoder().decode([ScheduleIDOnly].self, from: response.data)
+            if let id = rows.first?.id {
+                _ = try? await client
+                    .from("schedule_events")
+                    .insert(ScheduleEventInsert(schedule_id: id, from_state: "DRAFT", to_state: "SUBMITTED"))
+                    .execute()
+            }
+            submitState = "SUBMITTED"
+            bannerIsError = false
+            banner = "Submitted for counselor review."
+        } catch {
+            bannerIsError = true
+            banner = "Couldn't submit: \(error.localizedDescription)"
         }
     }
 }
