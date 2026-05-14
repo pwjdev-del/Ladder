@@ -158,13 +158,22 @@ public actor SupabaseAuthService {
     @discardableResult
     public func signUp(email: String, password: String) async throws -> Session {
         let response = try await client.auth.signUp(email: email, password: password)
-        // GoTrue returns a Session when email confirmation is disabled; when confirmation
-        // is required it returns a User-only response. We need a Session to proceed.
-        guard let session = response.session else {
-            // Email confirmation required — caller should prompt user to verify.
-            // This is NOT a configuration error; throw the specific case so the
-            // UI can show the confirmation banner rather than an error message.
-            throw LadderAuthError.emailConfirmationRequired
+        // The Swift SDK defaults to PKCE flow, where /auth/v1/signup returns
+        // user-only (the session is normally obtained via a separate code
+        // exchange triggered by an email-link or OAuth redirect). For
+        // password-based signup with autoconfirm ON server-side, immediately
+        // sign in with the same credentials to establish a real session.
+        // If autoconfirm is OFF, signIn will fail with .emailNotConfirmed,
+        // which we translate to the UI-facing case so the banner appears.
+        let session: Session
+        if let direct = response.session {
+            session = direct
+        } else {
+            do {
+                session = try await client.auth.signIn(email: email, password: password)
+            } catch AuthError.api(_, let code, _, _) where code == .emailNotConfirmed {
+                throw LadderAuthError.emailConfirmationRequired
+            }
         }
 
         // Check whether the bootstrapped JWT already contains a role claim.
