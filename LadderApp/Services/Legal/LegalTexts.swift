@@ -91,8 +91,8 @@ enum LegalTexts {
 
     4.2 Service Providers
     We use the following third-party services to operate the App:
-    - Amazon Web Services (AWS): Cloud infrastructure, data storage, authentication, and serverless computing. Data is encrypted at rest and in transit. AWS is FERPA-eligible and SOC 2 compliant.
-    - Google Gemini API: AI-powered features. Data sent to Gemini is not used to train Google's models and is processed according to Google's API data usage policy.
+    - Supabase Inc.: Managed PostgreSQL database, authentication, storage, and edge functions. Data is encrypted at rest using AES-256 and in transit using TLS 1.2+. Supabase is a SOC 2 compliant cloud provider.
+    - Google Gemini API: AI-powered features including essay feedback and career recommendations. Data sent to Gemini is not used to train Google's models and is processed according to Google's API data usage policy.
     - Apple App Store: Payment processing for subscriptions. Apple handles all payment data; we never see your credit card information.
 
     4.3 Legal Requirements
@@ -102,19 +102,19 @@ enum LegalTexts {
     - Sell your personal information to any third party
     - Share your data with colleges, universities, or admissions offices
     - Provide data to data brokers, advertisers, or marketing companies
-    - Transfer your data outside the United States (all AWS infrastructure is in US regions)
+    - Share your data with third-party AI services for model training purposes
 
 
     5. DATA SECURITY
 
     We implement appropriate technical and organizational measures to protect your personal information:
-    - All data is encrypted at rest using AES-256 encryption (AWS RDS encryption)
+    - All data is encrypted at rest using AES-256 encryption through Supabase's managed PostgreSQL database
     - All data is encrypted in transit using TLS 1.2+
-    - Authentication is handled by AWS Cognito with bcrypt password hashing
+    - Authentication is handled by Supabase Auth with industry-standard JWT tokens and bcrypt password hashing
     - Access controls enforce role-based permissions (students, parents, counselors, admins)
     - Counselor access to student data is logged in an audit trail
     - Regular security assessments are conducted on our infrastructure
-    - We use AWS Comprehend for content moderation in messaging to protect student safety
+    - We use keyword-based content moderation in messaging to protect student safety and flag concerning content (self-harm, violence, threats)
 
     No method of transmission over the Internet or electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security.
 
@@ -479,13 +479,13 @@ enum LegalTexts {
 
     3. DATA HANDLED: Student names, dates of birth, grades, GPA, test scores, course data, college preferences, application data, and counselor communications.
 
-    4. SECURITY: All data encrypted at rest (AES-256) and in transit (TLS 1.2+). AWS infrastructure in US regions only. Role-based access controls. Audit logging of all counselor data access.
+    4. SECURITY: All data encrypted at rest (AES-256) and in transit (TLS 1.2+). Supabase infrastructure with role-based access controls. Audit logging of all counselor data access.
 
     5. NO SALE OF DATA: We will NEVER sell, rent, or lease student data to any third party.
 
     6. NO ADVERTISING: Student data is NEVER used for advertising or marketing purposes.
 
-    7. SUBPROCESSORS: AWS (infrastructure), Google Gemini API (AI features, data not used for training).
+    7. SUBPROCESSORS: Supabase Inc. (database, auth, storage, edge functions), Google LLC (Gemini API for AI features; data not used for training), Apple Inc. (payment processing).
 
     8. DATA RETENTION: Active during enrollment. Archived 2 years post-graduation. Permanently deleted after archive period.
 

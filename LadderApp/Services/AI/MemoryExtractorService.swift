@@ -46,10 +46,16 @@ enum MemoryExtractorService {
             }
             .joined(separator: "\n\n")
 
-        // Wrap the transcript + extraction system prompt as the AI gateway input.
+        // Wrap the transcript + extraction context as the AI gateway input.
+        // S1-002: field renamed system_prompt → context_payload to match ai-gateway A4 contract.
         struct MemoryInput: Encodable {
             let transcript: String
-            let systemPrompt: String
+            let contextPayload: String
+
+            enum CodingKeys: String, CodingKey {
+                case transcript
+                case contextPayload = "context_payload"
+            }
         }
 
         do {
@@ -57,7 +63,7 @@ enum MemoryExtractorService {
                 feature: .memoryExtraction,
                 input: MemoryInput(
                     transcript: formatted,
-                    systemPrompt: MemoryExtractor.systemPrompt
+                    contextPayload: MemoryExtractor.systemPrompt
                 ),
                 accessToken: accessToken
             )
@@ -128,7 +134,11 @@ enum MemoryExtractorService {
             Log.info("[T012-MemorySync] summary synced for session \(sessionId)")
         } catch {
             // Loud warn — QA should catch this in console; user is never shown an error.
-            Log.warn("[T012-MemorySync] Supabase sync FAILED for session \(sessionId), studentId=\(studentId): \(error)")
+            // S3-2: redact studentId to last-4 chars (UUIDs of minors are PII);
+            //        truncate error to 120 chars to avoid leaking schema detail in logs.
+            let idSuffix = studentId.suffix(4)
+            let truncatedError = String(error.localizedDescription.prefix(120))
+            Log.warn("[T012-MemorySync] Supabase sync FAILED for session \(sessionId), student=...\(idSuffix) — \(truncatedError)")
         }
     }
 

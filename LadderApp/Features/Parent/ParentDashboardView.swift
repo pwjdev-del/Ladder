@@ -1,23 +1,18 @@
 import SwiftUI
 
-// §6.2 + §5 — parent viewer of linked student(s). Sibling switcher on
-// brand gradient.
-
-public struct LinkedStudent: Identifiable, Sendable, Hashable {
-    public let id: UUID
-    public let displayName: String
-    public let gradeLevel: Int
-}
+// D-005 / DECISIONS.md D-004 — Parent multi-child digest deferred to v1.1.
+// The previous implementation shipped a sibling switcher with hardcoded mock
+// children (Maya / Noah). That mock surface was removed per FIX_PLAN_2026-05-14
+// decision D2. Replace with a calm placeholder so the .parent role routes to
+// something intentional rather than fake data.
+//
+// Sign-out: delegates to `onLogout` closure injected by SignedInRouter, which
+// calls SupabaseAuthService.shared.signOut() and then dismiss(). No direct
+// auth coupling needed here.
 
 public struct ParentDashboardView: View {
     public let session: SignedInSession
     public let onLogout: () -> Void
-
-    @State private var linked: [LinkedStudent] = [
-        LinkedStudent(id: UUID(), displayName: "Maya", gradeLevel: 9),
-        LinkedStudent(id: UUID(), displayName: "Noah", gradeLevel: 11),
-    ]
-    @State private var selected: LinkedStudent?
 
     public init(session: SignedInSession, onLogout: @escaping () -> Void = {}) {
         self.session = session
@@ -29,168 +24,43 @@ public struct ParentDashboardView: View {
             BrandGradient.list
             BrandGradient.heroGlow
 
-            VStack(spacing: 0) {
-                // T027: wrap hero in MaxWidthContainer so it stays readable
-                // on iPad Pro 12.9" without spanning the full ~1024pt width.
-                MaxWidthContainer(maxWidth: 720) {
-                    hero
-                }
-
-                if linked.count > 1 {
-                    MaxWidthContainer(maxWidth: 720) {
-                        siblingSwitcher
+            MaxWidthContainer(maxWidth: 480) {
+                VStack(spacing: 0) {
+                    // Top bar: consistent with other role dashboards
+                    HStack {
+                        Spacer()
+                        LogoutButton(action: onLogout)
                     }
-                    .padding(.vertical, 12)
-                }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 12)
 
-                ScrollView {
-                    // T027: MaxWidthContainer caps the card column at 720pt,
-                    // centering it on iPad while leaving iPhone unchanged.
-                    MaxWidthContainer(maxWidth: 720) {
-                        VStack(spacing: 16) {
-                            summaryCard
-                            gradesCard
-                            scheduleCard
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 32)
+                    Spacer()
+
+                    // Placeholder body
+                    VStack(spacing: 24) {
+                        Image(systemName: "hourglass")
+                            .font(.system(size: 56))
+                            .foregroundStyle(LadderBrand.lime500)
+
+                        Text("Parent dashboard coming soon")
+                            .font(.ladderDisplay(24, relativeTo: .title2))
+                            .foregroundStyle(LadderBrand.cream100)
+
+                        Text("We're working on a way to keep you connected to your student's progress. For now, please ask your student to share their journey directly with you.")
+                            .font(.ladderBody(15))
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(LadderBrand.cream100.opacity(0.72))
+                            .padding(.horizontal, 32)
                     }
-                }
 
-                parentBottomNav
+                    Spacer()
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .navigationBarHidden(true)
-        .onAppear { if selected == nil { selected = linked.first } }
         .requireNonStaff()
-    }
-
-    private var hero: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("PARENT VIEW")
-                        .font(.ladderCaps(11)).tracking(1.4).foregroundStyle(LadderBrand.lime500)
-                    Text("Hi, \(firstName) 👋")
-                        .font(.ladderDisplay(26, relativeTo: .title))
-                        .foregroundStyle(LadderBrand.cream100)
-                }
-                Spacer()
-                LogoutButton(action: onLogout)
-            }
-        }
-        .padding(.horizontal, 20)
-        .padding(.top, 12)
-    }
-
-    private var firstName: String {
-        session.displayName.split(separator: ".").first.map(String.init)?.capitalized ?? "Parent"
-    }
-
-    private var siblingSwitcher: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            // T027: AdaptiveStack spreads child chips horizontally on iPad
-            // regular width, stacking them vertically on compact (iPhone).
-            AdaptiveStack(compactSpacing: 8, regularSpacing: 12, alignment: .leading) {
-                ForEach(linked) { student in
-                    Button {
-                        selected = student
-                    } label: {
-                        HStack(spacing: 8) {
-                            Circle().fill(selected == student ? LadderBrand.ink900 : LadderBrand.cream100.opacity(0.25))
-                                .frame(width: 24, height: 24)
-                                .overlay(
-                                    Text(String(student.displayName.prefix(1)))
-                                        .font(.ladderLabel(12))
-                                        .foregroundStyle(selected == student ? LadderBrand.lime500 : LadderBrand.cream100)
-                                )
-                            Text(student.displayName.uppercased())
-                                .font(.ladderCaps(11))
-                                .tracking(1.1)
-                        }
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .background(selected == student ? LadderBrand.lime500 : LadderBrand.cream100.opacity(0.12))
-                        .foregroundStyle(selected == student ? LadderBrand.ink900 : LadderBrand.cream100)
-                        .clipShape(Capsule())
-                    }
-                }
-            }
-            .padding(.horizontal, 20)
-        }
-    }
-
-    private var summaryCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(selected?.displayName ?? "")
-                .font(.ladderDisplay(22, relativeTo: .title2))
-                .foregroundStyle(LadderBrand.ink900)
-            Text("Grade \(selected?.gradeLevel ?? 0) · Career quiz completed")
-                .font(.ladderBody(13))
-                .foregroundStyle(LadderBrand.ink600)
-            Text("On track for advanced Algebra next year.")
-                .font(.ladderBody(14))
-                .foregroundStyle(LadderBrand.forest700)
-                .padding(.top, 4)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(LadderBrand.cream100)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-    }
-
-    private var gradesCard: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                Text("GRADES").font(.ladderCaps(11)).tracking(1.2).foregroundStyle(LadderBrand.cream100.opacity(0.7))
-                Spacer()
-            }
-            Text("Grades are shown only when your child chooses to share. Respect their privacy.")
-                .font(.ladderBody(13))
-                .foregroundStyle(LadderBrand.cream100.opacity(0.7))
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(LadderBrand.cream100.opacity(0.08))
-        .clipShape(RoundedRectangle(cornerRadius: 14))
-    }
-
-    private var scheduleCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("NEXT YEAR'S SCHEDULE").font(.ladderCaps(11)).tracking(1.2).foregroundStyle(LadderBrand.cream100.opacity(0.7))
-            Text("Maya's picks are with the counselor for review.")
-                .font(.ladderBody(14))
-                .foregroundStyle(LadderBrand.cream100)
-            Text("Approved in 48 hrs on average")
-                .font(.ladderCaps(10))
-                .tracking(0.8)
-                .foregroundStyle(LadderBrand.lime500)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(LadderBrand.cream100.opacity(0.08))
-        .clipShape(RoundedRectangle(cornerRadius: 14))
-    }
-
-    private var parentBottomNav: some View {
-        HStack(spacing: 0) {
-            tab("Home", icon: "house.fill", active: true)
-            tab("Grades", icon: "chart.line.uptrend.xyaxis", active: false)
-            tab("Schedule", icon: "calendar", active: false)
-            tab("Messages", icon: "bubble.left.and.bubble.right", active: false)
-            tab("Settings", icon: "gear", active: false)
-        }
-        .padding(.top, 10).padding(.bottom, 24)
-        .background(LadderBrand.forest900)
-    }
-
-    private func tab(_ label: String, icon: String, active: Bool) -> some View {
-        VStack(spacing: 4) {
-            Image(systemName: icon).font(.system(size: 18))
-            Text(label).font(.ladderCaps(10)).tracking(0.6)
-        }
-        .foregroundStyle(active ? LadderBrand.lime500 : LadderBrand.cream100.opacity(0.55))
-        .frame(maxWidth: .infinity)
     }
 }
 

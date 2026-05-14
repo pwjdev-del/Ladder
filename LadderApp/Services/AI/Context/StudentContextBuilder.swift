@@ -1,4 +1,5 @@
 import Foundation
+import Supabase
 import SwiftData
 
 // Maps the live SwiftData world -> a Codable StudentContext snapshot for the
@@ -9,6 +10,10 @@ import SwiftData
 //   Every build() call receives an explicit `studentId` and asserts it matches
 //   the live JWT's auth.uid() before returning any context. Mismatch → throw,
 //   never silently fall back.
+//
+// SAFETY: all SwiftData fetches MUST be predicated to the current user.
+// SignOut wipes the store as a backstop (see SupabaseAuthService.signOut).
+// See S1-4.
 
 enum StudentContextBuilder {
 
@@ -153,12 +158,19 @@ enum StudentContextBuilder {
         }
     }
 
-    // MARK: - Counselor brief path (T016 stub)
+    // MARK: - Counselor brief path (S2-3 tenant-match enforced)
 
-    /// Reserved for the counselor-brief surface (T016).
-    /// A counselor is permitted to load a student's context only through this
-    /// separately-named function, which will verify the counselor's tenant
-    /// matches the student's tenant via a Supabase query (deferred to T016).
+    /// Builds a StudentContext for a counselor brief. Enforces two gates before
+    /// reading any context data:
+    ///
+    /// 1. **Session identity gate** — the requesting counselor's auth UID must
+    ///    match the live JWT's `user.id`. Mirrors `assertIdentity` above.
+    ///
+    /// 2. **Tenant-match gate (S2-3)** — performs a Supabase query to read
+    ///    `students.tenant_id` for `studentId` and asserts it equals the
+    ///    counselor's `TenantContext.shared.claim.tenantId`. Fails CLOSED:
+    ///    if the query itself throws, the error propagates and the brief is
+    ///    never built.
     ///
     /// - Parameters:
     ///   - studentId: The student whose context the counselor is requesting.
@@ -166,7 +178,12 @@ enum StudentContextBuilder {
     ///   - profile: The student's SwiftData profile.
     ///   - context: The active SwiftData ModelContext.
     ///
-    /// - Throws: `SiaIsolationError` or a tenant-mismatch error (T016).
+    /// - Throws: `SiaIsolationError.noActiveSession` when the counselor has no
+    ///   live session; `SiaIsolationError.tenantUnavailable` when the counselor's
+    ///   tenant is not loaded; `SiaIsolationError.contextMismatch` when the
+    ///   student's tenant does not match the counselor's tenant.
+    ///   NOTE: A dedicated `.tenantMismatch` case should be added to
+    ///   `SiaIsolationError` (see OUT_OF_SCOPE_FINDINGS.md — B3 follow-up).
     @MainActor
     static func buildForCounselorBrief(
         studentId: String,
@@ -174,14 +191,59 @@ enum StudentContextBuilder {
         profile: StudentProfileModel,
         context: ModelContext
     ) async throws -> StudentContext {
-        // T016 will add: assert counselor tenant == student tenant via Supabase query.
-        // For now guard against obvious misuse: the counselor uid must be the live auth uid.
+        // Gate 1 — counselor uid must match the live JWT (mirrors assertIdentity).
         let session = await SupabaseAuthService.shared.currentSession
         guard let uid = session?.user.id.uuidString, uid == requestingCounselorAuthUid else {
             Log.warn("[SIA-ISOLATION] buildForCounselorBrief — counselor uid mismatch or no session")
             throw SiaIsolationError.noActiveSession
         }
-        // Build context without the student-identity assertion (the counselor is not the student).
+
+        // Gate 2 (S2-3) — assert counselor tenant == student tenant via Supabase query.
+        // Fail CLOSED: any error from the query propagates; we do NOT proceed on uncertainty.
+        guard let counselorTenantId = await TenantContext.shared.claim?.tenantId else {
+            Log.warn("[SIA-ISOLATION] buildForCounselorBrief — counselor tenant unavailable for uid=\(requestingCounselorAuthUid)")
+            throw SiaIsolationError.tenantUnavailable
+        }
+
+        struct StudentTenantRow: Decodable {
+            let tenantId: UUID
+            enum CodingKeys: String, CodingKey { case tenantId = "tenant_id" }
+        }
+
+        let db = SupabaseAuthService.shared.supabase
+        // This query errors (throws) if the row is not found or the network fails —
+        // both outcomes propagate upward, preventing a silent partial brief.
+        let rows: [StudentTenantRow] = try await db
+            .from("students")
+            .select("tenant_id")
+            .eq("id", value: studentId)
+            .limit(1)
+            .execute()
+            .value
+
+        guard let studentTenantId = rows.first?.tenantId else {
+            // Student row not found — treat as isolation violation (fail closed).
+            Log.warn("[SIA-ISOLATION] buildForCounselorBrief — student row not found for id=\(studentId)")
+            throw SiaIsolationError.contextMismatch(
+                expected: counselorTenantId.uuidString,
+                actual: "not-found"
+            )
+        }
+
+        guard studentTenantId == counselorTenantId else {
+            Log.warn("[SIA-ISOLATION] buildForCounselorBrief — tenant mismatch counselor=\(counselorTenantId) student=\(studentTenantId)")
+            // Using .contextMismatch as closest available case.
+            // TODO(B3-followup): add SiaIsolationError.tenantMismatch(counselor:student:)
+            // to SiaIsolationError.swift — see OUT_OF_SCOPE_FINDINGS.md.
+            throw SiaIsolationError.contextMismatch(
+                expected: counselorTenantId.uuidString,
+                actual: studentTenantId.uuidString
+            )
+        }
+
+        // Both gates passed — build context.
+        // The counselor is not the student, so the student-identity assertion is
+        // intentionally skipped here (the student is not authenticated in this session).
         return buildContext(from: profile, context: context)
     }
 

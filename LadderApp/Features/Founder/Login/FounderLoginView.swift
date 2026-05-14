@@ -13,6 +13,19 @@ public struct FounderLoginView: View {
     @State private var error: String?
     @State private var goDashboard = false
 
+    // S2-5: client-side throttle — 1 submit per 5 seconds
+    @State private var lastSubmitAt: Date?
+    @State private var isSubmitting: Bool = false
+
+    // S2-5: client-side lockout after 5 failed TOTP attempts within 15 minutes.
+    // The server (A2) locks for 15 min server-side; this prevents even hitting the network.
+    private static let maxAttempts = 5
+    private static let attemptWindowSeconds: TimeInterval = 15 * 60   // 15 min
+    private static let clientLockDuration: TimeInterval   = 5  * 60   // 5 min
+    @State private var failedAttempts: Int = 0
+    @State private var attemptWindowStart: Date?
+    @State private var lockedUntil: Date?
+
     public init() {}
 
     public var body: some View {
@@ -57,23 +70,26 @@ public struct FounderLoginView: View {
                                text: $founderId,
                                capitalization: .characters,
                                mono: true)
+            .onChange(of: founderId) { error = nil }
             PasswordField(label: "PASSWORD",
                           icon: "key",
                           placeholder: "••••••••••••",
                           text: $password,
                           onDarkSurface: true)
+            .onChange(of: password) { error = nil }
             GradientInputField(label: "TOTP CODE",
                                icon: "lock.shield",
                                placeholder: "000000",
                                text: $totp,
                                keyboard: .numberPad,
                                mono: true)
+            .onChange(of: totp) { error = nil }
 
             Button {
                 submit()
             } label: {
                 HStack(spacing: 8) {
-                    if working { ProgressView().tint(LadderBrand.ink900) }
+                    if working || isSubmitting { ProgressView().tint(LadderBrand.ink900) }
                     else {
                         Text("Enter").font(.ladderLabel(16))
                         Image(systemName: "arrow.right.square.fill").font(.system(size: 14, weight: .semibold))
@@ -82,11 +98,13 @@ public struct FounderLoginView: View {
                 .foregroundStyle(LadderBrand.ink900)
                 .frame(maxWidth: .infinity)
                 .frame(height: 52)
-                .background(LadderBrand.lime500)
+                .background(isClientLocked ? LadderBrand.cream100.opacity(0.18) : LadderBrand.lime500)
                 .clipShape(Capsule())
             }
-            .disabled(working || founderId.isEmpty || password.isEmpty || totp.isEmpty)
-            .opacity((founderId.isEmpty || password.isEmpty || totp.isEmpty) ? 0.7 : 1.0)
+            .disabled(working || isSubmitting || isClientLocked || isThrottled
+                      || founderId.isEmpty || password.isEmpty || totp.isEmpty)
+            .opacity((founderId.isEmpty || password.isEmpty || totp.isEmpty
+                      || isClientLocked || isThrottled) ? 0.7 : 1.0)
 
             if let error {
                 Text(error)
@@ -137,14 +155,68 @@ public struct FounderLoginView: View {
         }
     }
 
+    // MARK: - Throttle / lockout helpers
+
+    // S2-5: true while the 5-second inter-submit gap hasn't elapsed.
+    private var isThrottled: Bool {
+        guard let last = lastSubmitAt else { return false }
+        return Date().timeIntervalSince(last) < 5
+    }
+
+    // S2-5: true while the client-side 5-minute lockout is active.
+    private var isClientLocked: Bool {
+        guard let until = lockedUntil else { return false }
+        return Date() < until
+    }
+
+    /// Records a failed TOTP attempt. Applies a 5-minute client lock after
+    /// `maxAttempts` failures within a 15-minute window.
+    private func recordFailedAttempt() {
+        let now = Date()
+
+        // Reset the window counter if the window has expired.
+        if let windowStart = attemptWindowStart,
+           now.timeIntervalSince(windowStart) > Self.attemptWindowSeconds {
+            failedAttempts = 0
+            attemptWindowStart = nil
+        }
+
+        if attemptWindowStart == nil { attemptWindowStart = now }
+        failedAttempts += 1
+
+        if failedAttempts >= Self.maxAttempts {
+            lockedUntil = now.addingTimeInterval(Self.clientLockDuration)
+            failedAttempts = 0
+            attemptWindowStart = nil
+            error = "Too many attempts. Please try again later."
+        }
+    }
+
     private func submit() {
+        // S2-5: bail if the client lockout is active — don't touch the network.
+        if isClientLocked {
+            error = "Too many attempts. Please try again later."
+            return
+        }
+
+        // S2-5: throttle rapid successive taps.
+        let now = Date()
+        if let last = lastSubmitAt, now.timeIntervalSince(last) < 5 {
+            error = "Please wait a moment before trying again."
+            return
+        }
+        lastSubmitAt = now
+        isSubmitting = true
+
         // Guard: require a 6-digit TOTP before any network call.
         guard totp.count == 6 else {
             error = "Enter your 6-digit code."
+            isSubmitting = false
             return
         }
 
         Task { @MainActor in
+            defer { isSubmitting = false }
             working = true
             error = nil
             defer { working = false }
@@ -171,15 +243,22 @@ public struct FounderLoginView: View {
                     // Role mismatch after a successful TOTP exchange is unexpected but
                     // must be handled fail-closed. Sign out and surface a generic message.
                     try? await SupabaseAuthService.shared.signOut()
-                    self.error = "Invalid login. Check your password and TOTP code."
+                    recordFailedAttempt()
                     return
                 }
 
+                // Successful login: reset the failure counter.
+                failedAttempts = 0
+                attemptWindowStart = nil
+                lockedUntil = nil
                 goDashboard = true
             } catch {
                 // founderLoginUnauthorized and founderLoginUnavailable already signed out
-                // inside the service. Surface the localized message directly.
-                self.error = error.localizedDescription
+                // inside the service. Count this as a failed TOTP attempt.
+                recordFailedAttempt()
+                if self.error == nil {
+                    self.error = error.localizedDescription
+                }
             }
         }
     }

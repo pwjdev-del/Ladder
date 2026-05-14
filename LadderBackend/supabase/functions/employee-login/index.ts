@@ -1,18 +1,19 @@
-// LadderBackend/supabase/functions/founder-login/index.ts
+// LadderBackend/supabase/functions/employee-login/index.ts
 // Auth flow: password → TOTP decrypt → verify → app_metadata.role assignment. Rate-limited per S2-1.
 //
-// The iOS client performs signInWithPassword first (first factor), then calls
-// this endpoint with the resulting JWT + the TOTP code the founder typed.
-// On success, app_metadata.role is stamped as 'founder' and iOS refreshes the session.
+// Mirrors founder-login but targets the AppRole.employee path.
+// The iOS client (EmployeeLoginView) calls this after signInWithPassword, passing the resulting JWT
+// and the TOTP code from the employee's authenticator app.  On success, app_metadata.role is
+// stamped as 'employee' server-side (moved from client-side EmployeeLoginView per S2-2 fix).
 //
 // Call contract:
-//   POST /functions/v1/founder-login
+//   POST /functions/v1/employee-login
 //   Authorization: Bearer <jwt>       (JWT from a prior signInWithPassword)
 //   Content-Type: application/json
 //   Body: { "totpCode": "123456" }
 //
-// On success  → 200  { ok: true, role: "founder" }
-// Not founder → 403  { ok: false, error: "not_a_founder" }
+// On success  → 200  { ok: true, role: "employee" }
+// Not employee→ 403  { ok: false, error: "not_an_employee" }
 // Bad TOTP    → 401  { ok: false, error: "invalid_totp" }    + session invalidated
 // Locked out  → 429  { ok: false, error: "too_many_attempts" }
 // Server err  → 500  { ok: false, error: "internal_error" }
@@ -24,35 +25,31 @@ import { authenticator } from 'npm:otplib@12.0.1';
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
-// otplib authenticator options — 30-second window, 6 digits, ±1 step grace
-// (allows the founder ~60 seconds of clock skew tolerance).
+// otplib options — must match enrollment settings.
 authenticator.options = {
   digits: 6,
   step: 30,
   window: 1,
 };
 
-// Rate-limit constants (S2-1).
+// Rate-limit constants (S2-1 — same window/max as founder).
 const RATE_LIMIT_MAX_ATTEMPTS = 5;
 const RATE_LIMIT_WINDOW_MINUTES = 15;
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────────────
 
-/** Returns the start of the current 15-minute rate-limit window. */
 function currentWindowStart(): Date {
   const now = new Date();
   const slotMs = RATE_LIMIT_WINDOW_MINUTES * 60 * 1000;
   return new Date(Math.floor(now.getTime() / slotMs) * slotMs);
 }
 
-/** Bucket key for TOTP rate-limiting. Uses last-8 of userId — not full UUID — for log safety. */
 function buildBucketKey(prefix: string, userId: string): string {
   const windowStart = currentWindowStart();
-  const windowLabel = windowStart.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:MM"
+  const windowLabel = windowStart.toISOString().slice(0, 16);
   return `${prefix}:${userId}:${windowLabel}`;
 }
 
-/** Uniform failure used everywhere we want timing-indistinguishable 401s. */
 function uniformFailure(): Response {
   return new Response(JSON.stringify({ ok: false, error: 'invalid_totp' }), {
     status: 401,
@@ -72,14 +69,14 @@ function redactId(id: string): string {
   return `...${id.slice(-8)}`;
 }
 
-interface FounderLoginRequest {
+interface EmployeeLoginRequest {
   totpCode: string;
 }
 
-// ── Handler ───────────────────────────────────────────────────────────────────
+// ── Handler ──────────────────────────────────────────────────────────────────
 
 serve(async (req) => {
-  // ── CORS preflight ──────────────────────────────────────────────────────────
+  // ── CORS preflight ────────────────────────────────────────────────────────
   if (req.method === 'OPTIONS') {
     return new Response(null, {
       status: 204,
@@ -98,8 +95,6 @@ serve(async (req) => {
     });
   }
 
-  // Use service_role client for all admin operations. This key is auto-injected
-  // by the Supabase runtime and is NEVER returned to callers.
   const supa = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
   try {
@@ -125,9 +120,9 @@ serve(async (req) => {
     const userId = user.id;
 
     // ── 2. Parse request body ────────────────────────────────────────────
-    let body: FounderLoginRequest;
+    let body: EmployeeLoginRequest;
     try {
-      body = (await req.json()) as FounderLoginRequest;
+      body = (await req.json()) as EmployeeLoginRequest;
     } catch {
       return new Response(JSON.stringify({ ok: false, error: 'invalid_json_body' }), {
         status: 400,
@@ -142,22 +137,12 @@ serve(async (req) => {
       });
     }
 
-    // Normalise: strip spaces the user may have typed between digit groups.
     const code = body.totpCode.replace(/\s+/g, '');
 
     // ── 3. Rate-limit check (S2-1) ───────────────────────────────────────
-    // Uses the existing rate_limit_buckets table (migration 0015) via the
-    // upsert_rate_limit_bucket RPC.  We read the count BEFORE incrementing so
-    // that the 5th bad attempt triggers the lockout response on this very call,
-    // not on the 6th.  We do this by checking whether the current count (before
-    // this attempt) is already >= max. The increment happens after TOTP verify
-    // only on failure, keeping the bucket low for legitimate users.
-    //
-    // The bucket key is scoped per-user per 15-minute window.
-    const rateBucketKey = buildBucketKey('founder_totp', userId);
+    const rateBucketKey = buildBucketKey('employee_totp', userId);
     const windowStart = currentWindowStart();
 
-    // Read current count without incrementing (SELECT directly via service role).
     const { data: bucketRow } = await supa
       .from('rate_limit_buckets')
       .select('count')
@@ -167,9 +152,8 @@ serve(async (req) => {
     const currentCount: number = (bucketRow as { count: number } | null)?.count ?? 0;
 
     if (currentCount >= RATE_LIMIT_MAX_ATTEMPTS) {
-      // Already locked out — do not reveal whether the TOTP would have been valid.
       console.error(JSON.stringify({
-        fn: 'founder-login',
+        fn: 'employee-login',
         event: 'totp_rate_limit_blocked',
         actor: redactId(userId),
         bucket: rateBucketKey,
@@ -181,20 +165,20 @@ serve(async (req) => {
       });
     }
 
-    // ── 4. Look up founder_users row ─────────────────────────────────────
-    // Service_role bypasses RLS — required here because the JWT app_metadata
-    // does not yet carry role='founder' (that's what we're about to verify).
-    const { data: founderRow, error: founderErr } = await supa
-      .from('founder_users')
+    // ── 4. Look up employee_users row ────────────────────────────────────
+    // employee_users mirrors the shape of founder_users for the AppRole.employee
+    // path introduced in the employee-role feature.
+    const { data: employeeRow, error: employeeErr } = await supa
+      .from('employee_users')
       .select('id, totp_secret_cipher')
       .eq('auth_user_id', userId)
       .maybeSingle();
 
-    if (founderErr) {
+    if (employeeErr) {
       console.error(JSON.stringify({
-        fn: 'founder-login',
-        event: 'founder_users_lookup_error',
-        error: founderErr.message,
+        fn: 'employee-login',
+        event: 'employee_users_lookup_error',
+        error: employeeErr.message,
       }));
       return new Response(JSON.stringify({ ok: false, error: 'internal_error' }), {
         status: 500,
@@ -202,26 +186,32 @@ serve(async (req) => {
       });
     }
 
-    if (!founderRow) {
-      // Not in founder_users — not a founder. Do NOT audit-log with user detail
-      // to avoid confirming which accounts exist in founder_users.
-      return new Response(JSON.stringify({ ok: false, error: 'not_a_founder' }), {
+    if (!employeeRow) {
+      // Not in employee_users — not an employee.
+      return new Response(JSON.stringify({ ok: false, error: 'not_an_employee' }), {
         status: 403,
         headers: corsJson(),
       });
     }
 
-    // ── 5. Decrypt TOTP secret via Postgres RPC (S1-1) ───────────────────
-    // Migration 0020 (agent A1) adds app.decrypt_founder_totp(p_user_id uuid)
-    // which retrieves the DEK from Supabase Vault and decrypts
-    // founder_users.totp_secret_cipher, returning the base32 plaintext.
+    // ── 5. Decrypt TOTP secret ───────────────────────────────────────────
+    // TODO: employee TOTP decrypt — currently shares founder DEK path until
+    // separate enrollment lands. Agent A1 must provide a dedicated
+    // decrypt_employee_totp(p_user_id uuid) RPC that uses the employee DEK.
+    // Until that migration ships, we call decrypt_founder_totp as a shim —
+    // this WILL return an error for employees without a founder row, which
+    // means employee TOTP login is intentionally gated until A1's migration
+    // (or a follow-on 0021_employee_totp_decrypt.sql) ships.
+    //
+    // When A1's migration is ready, replace the RPC name below with:
+    //   supa.rpc('decrypt_employee_totp', { p_user_id: userId })
     const { data: totpSecret, error: decryptErr } = await supa.rpc('decrypt_founder_totp', {
       p_user_id: userId,
     });
 
     if (decryptErr || !totpSecret) {
       console.error(JSON.stringify({
-        fn: 'founder-login',
+        fn: 'employee-login',
         event: 'totp_decrypt_failed',
         actor: redactId(userId),
         error: decryptErr?.message ?? 'null_secret',
@@ -236,8 +226,6 @@ serve(async (req) => {
     });
 
     if (!isValid) {
-      // Increment fail counter ONLY on a bad code (not on decrypt errors or
-      // lock-already-set — both return before reaching here).
       const { data: newCount, error: rpcErr } = await supa.rpc('upsert_rate_limit_bucket', {
         p_bucket_key: rateBucketKey,
         p_window_start: windowStart.toISOString(),
@@ -246,33 +234,31 @@ serve(async (req) => {
       const failCount: number = rpcErr ? currentCount + 1 : (newCount as number);
 
       console.error(JSON.stringify({
-        fn: 'founder-login',
+        fn: 'employee-login',
         event: 'totp_verify_failed',
         actor: redactId(userId),
         fail_count: failCount,
       }));
 
-      // Invalidate the session immediately.
       try {
         await supa.auth.admin.signOut(userId);
       } catch (signOutErr) {
         console.error(JSON.stringify({
-          fn: 'founder-login',
+          fn: 'employee-login',
           event: 'sign_out_after_bad_totp_failed',
           actor: redactId(userId),
           error: String(signOutErr),
         }));
       }
 
-      // Audit-log the failed attempt, including whether lockout was triggered.
       const isNowLocked = failCount >= RATE_LIMIT_MAX_ATTEMPTS;
       await supa.from('audit_log').insert({
         tenant_id: null,
         actor_id: userId,
-        actor_role: 'founder',
-        action: isNowLocked ? 'founder.totp_lockout' : 'founder.totp_failed',
-        target_type: 'founder_users',
-        target_id: founderRow.id,
+        actor_role: 'employee',
+        action: isNowLocked ? 'employee.totp_lockout' : 'employee.totp_failed',
+        target_type: 'employee_users',
+        target_id: employeeRow.id,
         metadata: { reason: 'invalid_totp_code', fail_count: failCount, locked: isNowLocked },
       });
 
@@ -287,25 +273,26 @@ serve(async (req) => {
     }
 
     // ── 7. TOTP valid — clear rate-limit counter ─────────────────────────
-    // Delete the failure bucket so a legitimate user who had some prior fails
-    // gets a clean slate on success.
     await supa
       .from('rate_limit_buckets')
       .delete()
       .eq('bucket_key', rateBucketKey);
 
-    // ── 8. Stamp app_metadata and audit-log ─────────────────────────────
-    // Idempotent: if role is already 'founder' this is a no-op in effect.
+    // ── 8. Stamp app_metadata server-side (S2-2) ─────────────────────────
+    // Moved from client-side EmployeeLoginView.swift per S2-2: employee role
+    // must only be granted after server-vetted TOTP, with full audit trail.
     const { error: updateErr } = await supa.auth.admin.updateUserById(userId, {
       app_metadata: {
-        role: 'founder',
+        role: 'employee',
+        // Employees are not tenant-scoped — they handle cross-tenant transfer
+        // approvals but cannot read tenant row data directly.
         tenant_id: null,
       },
     });
 
     if (updateErr) {
       console.error(JSON.stringify({
-        fn: 'founder-login',
+        fn: 'employee-login',
         event: 'app_metadata_write_failed',
         actor: redactId(userId),
         error: updateErr.message,
@@ -316,40 +303,39 @@ serve(async (req) => {
       });
     }
 
-    // Update last_login_at on the founder row.
+    // Update last_login_at on the employee row.
     await supa
-      .from('founder_users')
+      .from('employee_users')
       .update({ last_login_at: new Date().toISOString() })
-      .eq('id', founderRow.id);
+      .eq('id', employeeRow.id);
 
     // Audit-log the successful login.
     await supa.from('audit_log').insert({
       tenant_id: null,
       actor_id: userId,
-      actor_role: 'founder',
-      action: 'founder.login_success',
-      target_type: 'founder_users',
-      target_id: founderRow.id,
+      actor_role: 'employee',
+      action: 'employee.login_success',
+      target_type: 'employee_users',
+      target_id: employeeRow.id,
       metadata: {},
     });
 
     console.log(JSON.stringify({
-      fn: 'founder-login',
+      fn: 'employee-login',
       event: 'login_success',
       actor: redactId(userId),
     }));
 
     return new Response(
-      JSON.stringify({ ok: true, role: 'founder' }),
+      JSON.stringify({ ok: true, role: 'employee' }),
       {
         status: 200,
         headers: corsJson(),
       },
     );
   } catch (e) {
-    // Catch-all: never leak internal details or the service_role key.
     console.error(JSON.stringify({
-      fn: 'founder-login',
+      fn: 'employee-login',
       event: 'unhandled_error',
       error: String(e),
     }));

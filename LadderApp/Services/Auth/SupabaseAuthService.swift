@@ -1,11 +1,77 @@
 import Foundation
 import Supabase
+import SwiftData
 import os
 
 // CLAUDE.md §3 / §4 — canonical Supabase auth wrapper.
 // All sign-in flows route through this actor; the Supabase SDK handles
 // JWT storage in its own Keychain-backed session store (GoTrue).
 // TenantContext is bound after sign-in from the JWT claims.
+//
+// S1-3 FIX (2026-05-14): SupabaseClient is now constructed with the
+// TLS-pinned URLSession injected via SupabaseClientOptions.GlobalOptions.
+// This routes every auth, PostgREST, and Edge Function call through the
+// same cert-pinned transport used by AIGatewayClient / AuditClient / FlagClient.
+//
+// S1-4 FIX (2026-05-14): signOut() wipes the SwiftData store before clearing
+// the GoTrue session so shared-device Student A → Student B transitions
+// cannot leak residual PII. The ModelContainer is registered once at app
+// startup via SwiftDataWipeRegistry.register(_:). If the container was never
+// registered the wipe is skipped and logged — callers must not rely on
+// sign-out as the sole isolation mechanism in that case.
+
+// MARK: - SwiftData wipe registry
+//
+// Holds a weak-ish reference to the app's ModelContainer so signOut() can wipe
+// on-device PII without requiring the container to be threaded through the
+// actor's initialiser (which would require changes to the app entry point beyond
+// this file's scope).
+//
+// SEAM NOTE: LadderApp.swift must call
+//   SwiftDataWipeRegistry.register(modelContainer)
+// once, immediately after `createModelContainer()` returns. This is a one-liner
+// addition to LadderApp.init() — tracked as an out-of-scope seam in
+// OUT_OF_SCOPE_FINDINGS.md.
+
+public enum SwiftDataWipeRegistry {
+    // nonisolated(unsafe) is safe here: the container is set once on the main
+    // thread during app startup, before any concurrent access is possible, and
+    // is only ever read (never mutated after registration) at sign-out time.
+    nonisolated(unsafe) private static var _container: ModelContainer?
+
+    /// Register the app's ModelContainer. Call once from LadderApp.init().
+    public static func register(_ container: ModelContainer) {
+        _container = container
+    }
+
+    /// Wipe all SwiftData models from the persistent store.
+    /// Must be called from a context that can await (the actor's signOut is async).
+    /// Returns false if the container was never registered or the wipe failed.
+    @discardableResult
+    static func wipeAll(hashedUserId: String) async -> Bool {
+        guard let container = _container else {
+            os_log("SwiftDataWipeRegistry: no container registered — skipping wipe for user %{public}@",
+                   log: .auth, type: .fault, hashedUserId)
+            return false
+        }
+        do {
+            // deleteAllData() drops the entire persistent store on disk and
+            // reinitialises it in the same location. iOS 17.4+.
+            // This is preferred over per-model deletes because it is atomic and
+            // avoids a missed-model regression when new @Model types are added.
+            try container.deleteAllData()
+            os_log("SwiftDataWipeRegistry: store wiped for user %{public}@",
+                   log: .auth, type: .info, hashedUserId)
+            return true
+        } catch {
+            os_log("SwiftDataWipeRegistry: deleteAllData failed for user %{public}@ — %{public}@",
+                   log: .auth, type: .fault,
+                   hashedUserId,
+                   error.localizedDescription)
+            return false
+        }
+    }
+}
 
 // MARK: - Auth errors
 
@@ -50,9 +116,26 @@ public actor SupabaseAuthService {
     private nonisolated let client: SupabaseClient
 
     private init() {
+        // S1-3: Inject the TLS-pinned URLSession so every auth, PostgREST, and
+        // Edge Function request is covered by certificate pinning — matching the
+        // transport used by AIGatewayClient, AuditClient, and FlagClient.
+        // SupabaseClientOptions is the 2.x API; GlobalOptions.session replaces
+        // the SDK-default URLSession.shared with TLSPinnedSessionFactory.shared.session.
+        let options = SupabaseClientOptions(
+            global: SupabaseClientOptions.GlobalOptions(
+                session: TLSPinnedSessionFactory.shared.session
+            )
+        )
+        guard let url = URL(string: AppConfiguration.supabaseURL) else {
+            // AppConfiguration.preflightOrCrash() in App.init() catches the
+            // Release-build case. In DEBUG the guard provides a clear crash site
+            // rather than a force-unwrap with no context.
+            fatalError("SupabaseAuthService: AppConfiguration.supabaseURL is not a valid URL — check AppConfiguration.")
+        }
         client = SupabaseClient(
-            supabaseURL: URL(string: AppConfiguration.supabaseURL)!,
-            supabaseKey: AppConfiguration.supabaseAnonKey
+            supabaseURL: url,
+            supabaseKey: AppConfiguration.supabaseAnonKey,
+            options: options
         )
     }
 
@@ -189,7 +272,31 @@ public actor SupabaseAuthService {
     // MARK: - Sign out
 
     public func signOut() async throws {
+        // S1-4: Wipe SwiftData FIRST before clearing the GoTrue session.
+        // Order matters: if the wipe fails we still have the session reference
+        // for any cleanup retry; conversely, clearing the session first and then
+        // crashing the wipe would leave residual PII accessible to the next user.
+        //
+        // The user's raw UUID is never logged. We derive a short opaque hash for
+        // correlation in crash reports without exposing PII.
+        let hashedId: String
+        if let uid = (try? await client.auth.session)?.user.id.uuidString {
+            hashedId = String(uid.hashValue & 0xFFFF, radix: 16)
+        } else {
+            hashedId = "unknown"
+        }
+
+        // Best-effort wipe: never throws from signOut().
+        // The registry logs a fault-level message on failure; the caller must
+        // not rely on this succeeding in abnormal conditions (e.g. container
+        // not registered in a test target).
+        await SwiftDataWipeRegistry.wipeAll(hashedUserId: hashedId)
+
+        // Clear GoTrue session from Keychain after the local store is gone.
         try await client.auth.signOut()
+
+        // Clear in-memory TenantContext last so any in-flight reads still have
+        // a valid claim reference during the async wipe above.
         await MainActor.run { TenantContext.shared.clear() }
     }
 

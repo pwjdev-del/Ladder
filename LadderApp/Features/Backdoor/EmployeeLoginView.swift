@@ -14,6 +14,10 @@ public struct EmployeeLoginView: View {
     @State private var error: String?
     @State private var goDashboard = false
 
+    // S2-5: client-side throttle — 1 submit per 5 seconds, defense-in-depth
+    @State private var lastSubmitAt: Date?
+    @State private var isSubmitting: Bool = false
+
     public init() {}
 
     public var body: some View {
@@ -60,6 +64,7 @@ public struct EmployeeLoginView: View {
                 text: $email,
                 keyboard: .emailAddress
             )
+            .onChange(of: email) { error = nil }
 
             PasswordField(
                 label: "PASSWORD",
@@ -68,12 +73,13 @@ public struct EmployeeLoginView: View {
                 text: $password,
                 onDarkSurface: true
             )
+            .onChange(of: password) { error = nil }
 
             Button {
                 submit()
             } label: {
                 HStack(spacing: 8) {
-                    if working {
+                    if working || isSubmitting {
                         ProgressView().tint(LadderBrand.ink900)
                     } else {
                         Text("Sign in").font(.ladderLabel(16))
@@ -87,8 +93,8 @@ public struct EmployeeLoginView: View {
                 .background(LadderBrand.lime500)
                 .clipShape(Capsule())
             }
-            .disabled(working || email.isEmpty || password.isEmpty)
-            .opacity((email.isEmpty || password.isEmpty) ? 0.7 : 1.0)
+            .disabled(working || isSubmitting || email.isEmpty || password.isEmpty || isThrottled)
+            .opacity((email.isEmpty || password.isEmpty || isThrottled) ? 0.7 : 1.0)
 
             if let error {
                 Text(error)
@@ -108,8 +114,24 @@ public struct EmployeeLoginView: View {
 
     // MARK: - Actions
 
+    // S2-5: true when fewer than 5 seconds have elapsed since the last submit.
+    private var isThrottled: Bool {
+        guard let last = lastSubmitAt else { return false }
+        return Date().timeIntervalSince(last) < 5
+    }
+
     private func submit() {
+        // S2-5: client-side throttle — reject rapid successive submits.
+        let now = Date()
+        if let last = lastSubmitAt, now.timeIntervalSince(last) < 5 {
+            error = "Please wait a moment before trying again."
+            return
+        }
+        lastSubmitAt = now
+        isSubmitting = true
+
         Task { @MainActor in
+            defer { isSubmitting = false }
             working = true
             error = nil
             defer { working = false }

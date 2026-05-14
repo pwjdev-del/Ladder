@@ -98,9 +98,16 @@ struct AdvisorChatView: View {
                             .id(message.id)
                     }
 
+                    // Show either the live streaming bubble (tokens arriving) or
+                    // the three-dot typing indicator (connected, waiting for first token).
                     if viewModel.isLoading {
-                        typingIndicator
-                            .id("typing")
+                        if viewModel.streamingContent.isEmpty {
+                            typingIndicator
+                                .id("typing")
+                        } else {
+                            streamingBubble(viewModel.streamingContent)
+                                .id("typing")
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
@@ -178,6 +185,42 @@ struct AdvisorChatView: View {
             }
         }
         .frame(maxWidth: .infinity)
+    }
+
+    // MARK: - Streaming bubble
+    //
+    // Renders the live in-progress assistant response as tokens arrive over SSE.
+    // Shown once the first token lands; replaced by the committed ChatBubbleRow
+    // when the stream closes and the message is appended to `messages`.
+
+    private func streamingBubble(_ content: String) -> some View {
+        HStack(alignment: .top, spacing: 8) {
+            ZStack {
+                Circle()
+                    .fill(LadderBrand.lime500.opacity(0.2))
+                    .frame(width: 28, height: 28)
+                Image(systemName: "sparkles")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(LadderBrand.lime500)
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("SIA")
+                    .font(.ladderCaps(10))
+                    .tracking(0.6)
+                    .foregroundStyle(LadderBrand.cream100.opacity(0.55))
+
+                Text(content)
+                    .font(.ladderBody(15))
+                    .foregroundStyle(LadderBrand.cream100)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .background(LadderBrand.forest700.opacity(0.6))
+                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            }
+
+            Spacer(minLength: 56)
+        }
     }
 
     // MARK: - Typing indicator

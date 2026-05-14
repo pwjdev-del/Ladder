@@ -47,6 +47,11 @@ final class CareerQuizViewModel: ObservableObject {
     @Published var locked = false
     @Published var scoringError: String?
     @Published var isScoring = false
+    @Published var topCareerPath: String?
+
+    /// 1-based question number for the progress indicator (max 12).
+    var questionNumber: Int { answers.count + 1 }
+    static let totalQuestions = 12
 
     private let ai = AIGatewayClient.shared
     /// Injected from the View via `setContext(_:)` before quiz starts.
@@ -146,6 +151,7 @@ final class CareerQuizViewModel: ObservableObject {
             result: result
         )
 
+        topCareerPath = result.topCareerPath
         completed = true
         locked = true
     }
@@ -222,22 +228,318 @@ final class CareerQuizViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Question bank (12 questions, 4–6 options each, RIASEC-mapped)
+    //
+    // Option id suffixes encode the primary RIASEC dimension for ai-gateway scoring:
+    //   _r = Realistic  _i = Investigative  _a = Artistic
+    //   _s = Social     _e = Enterprising   _c = Conventional
+    //
+    // Q1 branches into two parallel warm-up chains (build vs story) that re-merge
+    // at q3. Q3–Q12 are shared across all paths so every student answers 12 total.
+    // A question is terminal when nextByAnswer is [:] — answer() fires finish().
+    //
+    // Grade-band variants: K–2 uses shorter, simpler text; G3–5 default; G6–8 extended.
+
     private static func placeholderQuestion(for band: GradeBand) -> QuizQuestion {
-        QuizQuestion(
-            id: "q1",
-            text: "Which do you like more?",
-            gradeBand: band,
-            options: [
-                QuizOption(id: "a", text: "Building things",  imageSystemName: "hammer"),
-                QuizOption(id: "b", text: "Telling stories",  imageSystemName: "book"),
-            ],
-            nextByAnswer: ["a": "q2_build", "b": "q2_story"]
-        )
+        // Q1 — entry point, always id "q1"
+        switch band {
+        case .k2:
+            return QuizQuestion(
+                id: "q1",
+                text: "What sounds more fun to you?",
+                gradeBand: band,
+                options: [
+                    QuizOption(id: "a_r", text: "Building something with your hands",  imageSystemName: "hammer"),
+                    QuizOption(id: "b_a", text: "Making up a story or drawing a picture", imageSystemName: "book"),
+                ],
+                nextByAnswer: ["a_r": "q2_build", "b_a": "q2_story"]
+            )
+        case .g35:
+            return QuizQuestion(
+                id: "q1",
+                text: "Which do you enjoy more?",
+                gradeBand: band,
+                options: [
+                    QuizOption(id: "a_r", text: "Building or fixing things",  imageSystemName: "hammer"),
+                    QuizOption(id: "b_a", text: "Writing stories or drawing",  imageSystemName: "book"),
+                ],
+                nextByAnswer: ["a_r": "q2_build", "b_a": "q2_story"]
+            )
+        case .g68:
+            return QuizQuestion(
+                id: "q1",
+                text: "When you have free time, which sounds more like you?",
+                gradeBand: band,
+                options: [
+                    QuizOption(id: "a_r", text: "Tinkering — building, fixing, or making something physical", imageSystemName: "hammer"),
+                    QuizOption(id: "b_a", text: "Creating — writing, drawing, or crafting something original", imageSystemName: "pencil.and.outline"),
+                ],
+                nextByAnswer: ["a_r": "q2_build", "b_a": "q2_story"]
+            )
+        }
     }
 
+    // Full question bank keyed by question id.
+    // Built once as a static let; closure is an IIFE so it can use local helpers.
+    //
+    // nextByAnswer is built by mapping each option id in the question to the
+    // same next question id (all roads from a non-terminal question lead forward).
+    // Q12's nextByAnswer is [:] — the empty dict signals finish() in answer().
+    private static let questionBank: [String: (GradeBand) -> QuizQuestion] = {
+        // Builds a [optionId: nextId] dict from a flat list of option ids.
+        func next(_ nextId: String, _ ids: String...) -> [String: String] {
+            Dictionary(uniqueKeysWithValues: ids.map { ($0, nextId) })
+        }
+
+        return [
+            // ── Q2 build branch ──────────────────────────────────────────────
+            "q2_build": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q2_build",
+                    text: k ? "What do you like to build most?"
+                            : "Which kind of building or making sounds most interesting?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_r", text: k ? "Toys or gadgets"      : "Machines or gadgets",          imageSystemName: "gearshape"),
+                        QuizOption(id: "b_i", text: k ? "Science projects"     : "Science experiments",           imageSystemName: "flask"),
+                        QuizOption(id: "c_a", text: k ? "Art or crafts"        : "Art, crafts, or costumes",      imageSystemName: "paintpalette"),
+                        QuizOption(id: "d_c", text: k ? "Plans and lists"      : "Organized systems or plans",    imageSystemName: "list.bullet.clipboard"),
+                    ],
+                    nextByAnswer: next("q3", "a_r", "b_i", "c_a", "d_c")
+                )
+            },
+
+            // ── Q2 story branch ──────────────────────────────────────────────
+            "q2_story": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q2_story",
+                    text: k ? "What do you like to make?"
+                            : "What kind of creative work sounds most exciting?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_a", text: k ? "Draw pictures"  : "Draw or paint",             imageSystemName: "paintbrush"),
+                        QuizOption(id: "b_a", text: k ? "Write stories"  : "Write stories or poems",     imageSystemName: "doc.text"),
+                        QuizOption(id: "c_s", text: k ? "Act in plays"   : "Act, sing, or perform",      imageSystemName: "theatermasks"),
+                        QuizOption(id: "d_e", text: k ? "Make videos"    : "Make videos or podcasts",    imageSystemName: "video"),
+                    ],
+                    nextByAnswer: next("q3", "a_a", "b_a", "c_s", "d_e")
+                )
+            },
+
+            // ── Q3–Q12: shared convergent path ──────────────────────────────
+
+            "q3": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q3",
+                    text: k ? "Who do you most like spending time with?"
+                            : "Which group activity sounds most like you?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_s", text: k ? "Helping a friend"          : "Helping someone solve a problem",          imageSystemName: "person.2"),
+                        QuizOption(id: "b_e", text: k ? "Being the leader"          : "Leading a team or club",                  imageSystemName: "megaphone"),
+                        QuizOption(id: "c_i", text: k ? "Working alone on a puzzle" : "Working quietly on a tricky puzzle",      imageSystemName: "puzzlepiece"),
+                        QuizOption(id: "d_c", text: k ? "Following instructions"    : "Following a clear process step-by-step",  imageSystemName: "checklist"),
+                    ],
+                    nextByAnswer: next("q4", "a_s", "b_e", "c_i", "d_c")
+                )
+            },
+
+            "q4": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q4",
+                    text: k ? "Pick your favorite subject:"
+                            : "Which school subject do you look forward to most?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_r", text: k ? "PE or wood-shop"    : "PE, shop class, or hands-on lab",             imageSystemName: "figure.run"),
+                        QuizOption(id: "b_i", text: k ? "Science"            : "Science or math",                            imageSystemName: "atom"),
+                        QuizOption(id: "c_a", text: k ? "Art or music"       : "Art, music, or drama",                       imageSystemName: "music.note"),
+                        QuizOption(id: "d_s", text: k ? "Reading"            : "Reading, history, or social studies",        imageSystemName: "books.vertical"),
+                        QuizOption(id: "e_e", text: k ? "Class projects"     : "Group projects and class debates",           imageSystemName: "person.3"),
+                        QuizOption(id: "f_c", text: k ? "Math"               : "Math or computer class",                    imageSystemName: "number"),
+                    ],
+                    nextByAnswer: next("q5", "a_r", "b_i", "c_a", "d_s", "e_e", "f_c")
+                )
+            },
+
+            "q5": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q5",
+                    text: k ? "What do you do when you find something broken?"
+                            : "When something breaks around you, what do you most want to do?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_r", text: k ? "Try to fix it"              : "Take it apart and figure out how to fix it",      imageSystemName: "wrench.and.screwdriver"),
+                        QuizOption(id: "b_i", text: k ? "Wonder why it broke"        : "Research why it broke and how to prevent it",     imageSystemName: "magnifyingglass"),
+                        QuizOption(id: "c_a", text: k ? "Make something new from it" : "Repurpose it into something creative",            imageSystemName: "scissors"),
+                        QuizOption(id: "d_s", text: k ? "Ask for help"               : "Find the right person who knows how to fix it",   imageSystemName: "questionmark.bubble"),
+                        QuizOption(id: "e_e", text: k ? "Tell someone to fix it"     : "Delegate — find and organize people to handle it", imageSystemName: "arrow.2.circlepath"),
+                    ],
+                    nextByAnswer: next("q6", "a_r", "b_i", "c_a", "d_s", "e_e")
+                )
+            },
+
+            "q6": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q6",
+                    text: k ? "If you ran a lemonade stand, what job would you want?"
+                            : "Imagine you're running a school fundraiser. Which role fits you best?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_e", text: k ? "Be the boss"       : "Organizer — plan the whole event",                       imageSystemName: "star"),
+                        QuizOption(id: "b_s", text: k ? "Talk to customers" : "Ambassador — talk to supporters and donors",             imageSystemName: "hand.wave"),
+                        QuizOption(id: "c_c", text: k ? "Count the money"   : "Treasurer — track all the money",                       imageSystemName: "dollarsign"),
+                        QuizOption(id: "d_a", text: k ? "Make the signs"    : "Designer — make posters and social posts",              imageSystemName: "paintbrush.pointed"),
+                        QuizOption(id: "e_i", text: k ? "Plan the prices"   : "Analyst — research what prices and products sell best", imageSystemName: "chart.bar"),
+                        QuizOption(id: "f_r", text: k ? "Set up everything" : "Setup crew — build booths and carry equipment",        imageSystemName: "shippingbox"),
+                    ],
+                    nextByAnswer: next("q7", "a_e", "b_s", "c_c", "d_a", "e_i", "f_r")
+                )
+            },
+
+            "q7": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q7",
+                    text: k ? "Your dream after-school activity:"
+                            : "Which after-school activity would you choose if you could?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_r", text: k ? "Building club"     : "Robotics or maker club",                          imageSystemName: "gearshape.2"),
+                        QuizOption(id: "b_i", text: k ? "Science club"      : "Science or coding club",                          imageSystemName: "desktopcomputer"),
+                        QuizOption(id: "c_a", text: k ? "Art club"          : "Art, theater, or band",                           imageSystemName: "theatermasks"),
+                        QuizOption(id: "d_s", text: k ? "Volunteer"         : "Community service or peer tutoring",              imageSystemName: "heart"),
+                        QuizOption(id: "e_e", text: k ? "Student council"   : "Student government or entrepreneurship club",     imageSystemName: "building.columns"),
+                        QuizOption(id: "f_c", text: k ? "Math club"         : "Math team or debate club",                        imageSystemName: "function"),
+                    ],
+                    nextByAnswer: next("q8", "a_r", "b_i", "c_a", "d_s", "e_e", "f_c")
+                )
+            },
+
+            "q8": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q8",
+                    text: k ? "When you grow up, where do you want to work?"
+                            : "What kind of work environment sounds most like where you'd thrive?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_r", text: k ? "Outside or a workshop" : "Outside, a lab, or a workshop — hands-on space",       imageSystemName: "sun.max"),
+                        QuizOption(id: "b_i", text: k ? "A lab"                 : "A research lab or university",                        imageSystemName: "building.2"),
+                        QuizOption(id: "c_a", text: k ? "A studio"              : "A creative studio or design firm",                    imageSystemName: "sparkles"),
+                        QuizOption(id: "d_s", text: k ? "A school or hospital"  : "A school, hospital, or social service organization",  imageSystemName: "cross.circle"),
+                        QuizOption(id: "e_e", text: k ? "My own company"        : "A startup or my own business",                        imageSystemName: "briefcase"),
+                        QuizOption(id: "f_c", text: k ? "An office"             : "A structured office or government agency",            imageSystemName: "building.columns"),
+                    ],
+                    nextByAnswer: next("q9", "a_r", "b_i", "c_a", "d_s", "e_e", "f_c")
+                )
+            },
+
+            "q9": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q9",
+                    text: k ? "What's the best part of a group project?"
+                            : "In a group project, what role do you naturally end up playing?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_e", text: k ? "Being in charge"           : "The leader who assigns tasks and sets the vision",              imageSystemName: "crown"),
+                        QuizOption(id: "b_s", text: k ? "Helping everyone get along": "The peacemaker who makes sure everyone is heard",              imageSystemName: "person.2.fill"),
+                        QuizOption(id: "c_a", text: k ? "Making it look good"       : "The creative who handles visuals and presentation",            imageSystemName: "eye"),
+                        QuizOption(id: "d_i", text: k ? "Doing the research"        : "The researcher who digs into the facts",                       imageSystemName: "doc.text.magnifyingglass"),
+                        QuizOption(id: "e_r", text: k ? "Building the thing"        : "The builder who makes the physical prototype or demo",         imageSystemName: "hammer"),
+                        QuizOption(id: "f_c", text: k ? "Checking everything"       : "The editor who catches mistakes and keeps things organized",   imageSystemName: "checkmark.seal"),
+                    ],
+                    nextByAnswer: next("q10", "a_e", "b_s", "c_a", "d_i", "e_r", "f_c")
+                )
+            },
+
+            "q10": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q10",
+                    text: k ? "What would you do if you had a whole free Saturday?"
+                            : "It's a free Saturday with no plans. What do you actually end up doing?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_r", text: k ? "Build or fix something"       : "Build, repair, or tinker with something around the house",              imageSystemName: "wrench"),
+                        QuizOption(id: "b_i", text: k ? "Read or watch documentaries"  : "Read, watch a documentary, or dive into a topic you're curious about", imageSystemName: "book.closed"),
+                        QuizOption(id: "c_a", text: k ? "Draw, write, or make music"   : "Draw, write, play music, or work on a creative project",               imageSystemName: "music.note.list"),
+                        QuizOption(id: "d_s", text: k ? "Hang out with friends"        : "Text or hang out with friends — just being around people",             imageSystemName: "bubble.left.and.bubble.right"),
+                        QuizOption(id: "e_e", text: k ? "Start a project or sell stuff": "Start a side project, plan something, or try to earn money",           imageSystemName: "chart.line.uptrend.xyaxis"),
+                        QuizOption(id: "f_c", text: k ? "Organize your stuff"          : "Organize your room, plan your week, or sort and categorize things",    imageSystemName: "tray.2"),
+                    ],
+                    nextByAnswer: next("q11", "a_r", "b_i", "c_a", "d_s", "e_e", "f_c")
+                )
+            },
+
+            "q11": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q11",
+                    text: k ? "If you could invent something, what would it do?"
+                            : "If you could invent anything, which type of invention sounds most exciting?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_r", text: k ? "A cool machine"             : "A machine or tool that makes physical tasks easier",                 imageSystemName: "gearshape.fill"),
+                        QuizOption(id: "b_i", text: k ? "A medicine or discovery"    : "A medicine, discovery, or scientific breakthrough",                  imageSystemName: "staroflife"),
+                        QuizOption(id: "c_a", text: k ? "An amazing story or game"   : "A game, story, or experience people love",                          imageSystemName: "gamecontroller"),
+                        QuizOption(id: "d_s", text: k ? "Something to help people"   : "Something that helps people feel less lonely or misunderstood",      imageSystemName: "hands.and.sparkles"),
+                        QuizOption(id: "e_e", text: k ? "A business app"             : "A business or app that grows really fast and helps lots of people",  imageSystemName: "network"),
+                        QuizOption(id: "f_c", text: k ? "A super helpful checklist"  : "A system that organizes huge amounts of information perfectly",      imageSystemName: "square.grid.3x3"),
+                    ],
+                    nextByAnswer: next("q12", "a_r", "b_i", "c_a", "d_s", "e_e", "f_c")
+                )
+            },
+
+            // Q12 — terminal: nextByAnswer [:] triggers finish() in answer()
+            "q12": { band in
+                let k = band == .k2
+                return QuizQuestion(
+                    id: "q12",
+                    text: k ? "Last one! What do you want people to say about you when you grow up?"
+                            : "Last question: when you're older, what would mean the most to you?",
+                    gradeBand: band,
+                    options: [
+                        QuizOption(id: "a_r", text: k ? "\"They built amazing things\""       : "\"They built things that changed how we live\"",               imageSystemName: "hammer.fill"),
+                        QuizOption(id: "b_i", text: k ? "\"They discovered something cool\""  : "\"They figured out something nobody understood before\"",      imageSystemName: "lightbulb.fill"),
+                        QuizOption(id: "c_a", text: k ? "\"They made beautiful things\""      : "\"They created art or stories that moved people\"",            imageSystemName: "star.fill"),
+                        QuizOption(id: "d_s", text: k ? "\"They helped so many people\""      : "\"They dedicated their life to helping others\"",              imageSystemName: "heart.fill"),
+                        QuizOption(id: "e_e", text: k ? "\"They started a big company\""      : "\"They built something from nothing and led people well\"",    imageSystemName: "flag.fill"),
+                        QuizOption(id: "f_c", text: k ? "\"Everything they did was perfect\""  : "\"They were the most organized and reliable person around\"", imageSystemName: "checkmark.circle.fill"),
+                    ],
+                    nextByAnswer: [:]  // terminal — triggers finish()
+                )
+            },
+        ]
+    }()
+
     private static func nextStub(id: String, grade: GradeBand) -> QuizQuestion {
-        QuizQuestion(id: id, text: "Another question about what you love.",
-                     gradeBand: grade, options: [], nextByAnswer: [:])
+        // Look up the real question from the bank. If for any reason the id is
+        // unknown (shouldn't happen with the current fixed graph), return a safe
+        // terminal question so finish() fires rather than softlocking.
+        if let factory = questionBank[id] {
+            return factory(grade)
+        }
+        // Fallback terminal — never returns options: [] with live options
+        return QuizQuestion(
+            id: id,
+            text: "Last question: what matters most to you?",
+            gradeBand: grade,
+            options: [
+                QuizOption(id: "a_s", text: "Helping others",        imageSystemName: "heart"),
+                QuizOption(id: "b_e", text: "Leading something big", imageSystemName: "star"),
+                QuizOption(id: "c_i", text: "Discovering the truth",  imageSystemName: "lightbulb"),
+                QuizOption(id: "d_r", text: "Building real things",   imageSystemName: "hammer"),
+            ],
+            nextByAnswer: [:]  // terminal — triggers finish()
+        )
     }
 }
 
@@ -256,15 +558,23 @@ public struct CareerQuizView: View {
     public var body: some View {
         MaxWidthContainer(maxWidth: 640) {
             Group {
-                if vm.locked {
+                if vm.completed, let path = vm.topCareerPath {
+                    QuizResultView(topCareerPath: path)
+                } else if vm.locked {
                     LockedQuizView()
                 } else if vm.isScoring {
                     ProgressView("Saving your answers…").padding()
                 } else if let q = vm.current {
                     VStack(spacing: 12) {
+                        // Progress bar: shows how far through the 12 questions the student is.
+                        QuizProgressView(
+                            current: vm.questionNumber,
+                            total: CareerQuizViewModel.totalQuestions
+                        )
+                        .padding(.horizontal)
                         QuizQuestionView(question: q, onAnswer: vm.answer)
                         if let err = vm.scoringError {
-                            Text(err).foregroundStyle(.red).font(.footnote)
+                            Text(err).foregroundStyle(.red).font(.footnote).padding(.horizontal)
                         }
                     }
                 } else {
@@ -363,6 +673,44 @@ private struct QuizQuestionView: View {
                     }
                 }
             }
+        }
+        .padding()
+    }
+}
+
+private struct QuizProgressView: View {
+    let current: Int
+    let total: Int
+
+    var body: some View {
+        VStack(alignment: .trailing, spacing: 4) {
+            ProgressView(value: Double(current - 1), total: Double(total))
+                .tint(.accentColor)
+            Text("Question \(current) of \(total)")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
+private struct QuizResultView: View {
+    let topCareerPath: String
+
+    var body: some View {
+        VStack(spacing: 24) {
+            Image(systemName: "checkmark.seal.fill")
+                .font(.system(size: 64))
+                .foregroundStyle(.green)
+            Text("Your career profile:")
+                .font(.headline)
+                .foregroundStyle(.secondary)
+            Text(topCareerPath)
+                .font(.largeTitle.bold())
+                .multilineTextAlignment(.center)
+            Text("Ladder will use this to suggest classes, activities, and pathways that fit you. Your counselor can also see your profile.")
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
         }
         .padding()
     }
