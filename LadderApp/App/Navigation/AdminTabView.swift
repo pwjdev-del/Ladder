@@ -34,8 +34,63 @@ enum AdminTab: Int, CaseIterable {
 
 // MARK: - Admin Tab View
 // 3 tabs: Dashboard, Students, Reports
+// iPad regular: NavigationSplitView sidebar replaces bottom tab bar.
+// iPhone / compact: original TabView + custom tab bar.
 
 struct AdminTabView: View {
+    @Environment(AppCoordinator.self) private var coordinator
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
+    var body: some View {
+        if sizeClass == .regular {
+            AdminSplitView()
+                .requireNonFounder()
+        } else {
+            AdminPhoneTabView()
+                .requireNonFounder()
+        }
+    }
+}
+
+// MARK: iPad — NavigationSplitView sidebar
+
+private struct AdminSplitView: View {
+    @Environment(AppCoordinator.self) private var coordinator
+
+    var body: some View {
+        @Bindable var coordinator = coordinator
+
+        NavigationSplitView {
+            List(AdminTab.allCases, id: \.self, selection: $coordinator.selectedAdminTab) { tab in
+                Label(tab.title, systemImage: tab.icon)
+                    .tag(tab)
+            }
+            .navigationTitle("Admin")
+        } detail: {
+            switch coordinator.selectedAdminTab {
+            case .dashboard:
+                NavigationStack(path: $coordinator.dashboardPath) {
+                    SchoolAdminDashboardView()
+                        .navigationDestination(for: Route.self) { AdminRouteResolver.resolve($0) }
+                }
+            case .students:
+                NavigationStack(path: $coordinator.studentsPath) {
+                    BulkStudentImportView()
+                        .navigationDestination(for: Route.self) { AdminRouteResolver.resolve($0) }
+                }
+            case .reports:
+                NavigationStack(path: $coordinator.reportsPath) {
+                    DistrictAnalyticsView()
+                        .navigationDestination(for: Route.self) { AdminRouteResolver.resolve($0) }
+                }
+            }
+        }
+    }
+}
+
+// MARK: iPhone — original TabView + custom tab bar
+
+private struct AdminPhoneTabView: View {
     @Environment(AppCoordinator.self) private var coordinator
 
     var body: some View {
@@ -71,7 +126,6 @@ struct AdminTabView: View {
 
             AdminTabBar(selectedTab: $coordinator.selectedAdminTab)
         }
-        .requireNonFounder()
     }
 }
 

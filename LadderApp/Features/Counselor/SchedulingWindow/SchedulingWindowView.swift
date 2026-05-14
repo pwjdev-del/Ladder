@@ -22,35 +22,39 @@ public struct SchedulingWindowView: View {
 
     public init() {}
 
+    // T024 iPad parity: MaxWidthContainer(640) prevents the Form from stretching
+    // across the full 1024+pt width of an iPad Pro in landscape.
     public var body: some View {
-        Form {
-            Section("Preconditions (§11.1)") {
-                Toggle(isOn: $teacherSchedulesReady) {
-                    rowLabel("Teacher schedules uploaded", teacherSchedulesReady)
+        MaxWidthContainer(maxWidth: 640) {
+            Form {
+                Section("Preconditions (§11.1)") {
+                    Toggle(isOn: $teacherSchedulesReady) {
+                        rowLabel("Teacher schedules uploaded", teacherSchedulesReady)
+                    }
+                    Toggle(isOn: $classCatalogReady) {
+                        rowLabel("Class catalog uploaded", classCatalogReady)
+                    }
+                    Toggle(isOn: $prereqsReady) {
+                        rowLabel("Prereqs confirmed", prereqsReady)
+                    }
+                    if isLoading { ProgressView("Checking…").font(.caption) }
                 }
-                Toggle(isOn: $classCatalogReady) {
-                    rowLabel("Class catalog uploaded", classCatalogReady)
+                Section("Window") {
+                    TextField("Academic year", text: $academicYear)
+                    DatePicker("Opens at", selection: $opensAt)
+                    DatePicker("Closes at", selection: $closesAt)
                 }
-                Toggle(isOn: $prereqsReady) {
-                    rowLabel("Prereqs confirmed", prereqsReady)
+                if let banner {
+                    Section {
+                        Text(banner).foregroundStyle(bannerIsError ? .red : .green)
+                    }
                 }
-                if isLoading { ProgressView("Checking…").font(.caption) }
-            }
-            Section("Window") {
-                TextField("Academic year", text: $academicYear)
-                DatePicker("Opens at", selection: $opensAt)
-                DatePicker("Closes at", selection: $closesAt)
-            }
-            if let banner {
                 Section {
-                    Text(banner).foregroundStyle(bannerIsError ? .red : .green)
+                    Button(isPosting ? "Opening…" : "Open scheduling window") {
+                        Task { await openWindow() }
+                    }
+                    .disabled(isPosting || !(prereqsReady && teacherSchedulesReady && classCatalogReady))
                 }
-            }
-            Section {
-                Button(isPosting ? "Opening…" : "Open scheduling window") {
-                    Task { await openWindow() }
-                }
-                .disabled(isPosting || !(prereqsReady && teacherSchedulesReady && classCatalogReady))
             }
         }
         .navigationTitle("Scheduling window")

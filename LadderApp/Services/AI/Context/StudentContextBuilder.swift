@@ -4,176 +4,41 @@ import SwiftData
 // Maps the live SwiftData world -> a Codable StudentContext snapshot for the
 // prompt layer. Called once per AI session (or whenever the prompt needs to
 // rebuild). Keeps the prompt layer oblivious to SwiftData specifics.
+//
+// D-003 ISOLATION CONTRACT:
+//   Every build() call receives an explicit `studentId` and asserts it matches
+//   the live JWT's auth.uid() before returning any context. Mismatch → throw,
+//   never silently fall back.
 
 enum StudentContextBuilder {
 
+    // MARK: - Student build (D-003 enforced)
+
     /// Build a full StudentContext from the active student profile + related
     /// SwiftData models fetched from `context`.
+    ///
+    /// - Parameters:
+    ///   - studentId: The `auth.uid()` of the student whose context is being
+    ///                built. Must match the currently-authenticated session's
+    ///                user ID. Obtained from the JWT at the call site — never
+    ///                inferred from global state inside this function.
+    ///   - profile: The SwiftData `StudentProfileModel` to map.
+    ///   - context: The active SwiftData `ModelContext`.
+    ///
+    /// - Throws: `SiaIsolationError.noActiveSession` when there is no live
+    ///   Supabase session, or `SiaIsolationError.contextMismatch` when the
+    ///   authenticated uid does not equal `studentId`.
     @MainActor
     static func build(
+        studentId: String,
         from profile: StudentProfileModel,
         context: ModelContext
-    ) -> StudentContext {
+    ) async throws -> StudentContext {
 
-        let satScores = fetchSAT(context)
-        let latest = satScores.last  // already sorted chronological
-
-        let activities = fetchActivities(context)
-        let gpaHistory = fetchGPA(context)
-        let essays = fetchEssays(context)
-        let apps = fetchApplications(context)
-        let quizHistory = fetchQuizHistory(context)
-        let collegeNameById = fetchCollegeNameIndex(context)
-
-        let volunteering = activities.filter { $0.category == "Volunteering" }
-        let clubs = activities.filter { $0.category == "Club" }
-        let jobs = activities.filter { $0.category == "Job" || $0.category == "Internship" }
-        let ath = activities.filter { $0.category == "Athletics" }
-        let careerSpecific = activities.filter { isCareerSpecific($0.category) }
-
-        let volunteerHours = volunteering.reduce(0.0) { acc, a in
-            let hpw = a.hoursPerWeek ?? 0
-            let wpy = a.weeksPerYear ?? 40
-            return acc + hpw * wpy
-        }
-
-        let gpaTrend = computeGPATrend(gpaHistory)
-        let satTrajectory = computeSATTrajectory(satScores)
-
-        return StudentContext(
-            name: profile.fullName,
-            preferredName: profile.firstName,
-            pronouns: nil,
-            grade: profile.grade,
-            age: nil,
-            state: profile.state,
-            firstGen: profile.isFirstGen,
-            homeLanguage: nil,
-            siblingsCollegeStatus: nil,
-
-            gpaUnweighted: profile.gpa,
-            gpaWeighted: gpaHistory.last?.weightedGPA,
-            classRank: nil,
-            gpaTrend: gpaTrend,
-            strongSubjects: [],
-            weakSubjects: [],
-            currentClasses: [],
-            pastTranscript: [],
-            advancedCourses: profile.apCourses,
-            apExamScores: [],
-
-            satScores: satScores.map {
-                SATScore(
-                    date: $0.testDate,
-                    total: $0.totalScore,
-                    readingWriting: $0.readingScore,
-                    math: $0.mathScore,
-                    isPractice: $0.isPractice
-                )
-            },
-            latestSAT: latest?.totalScore,
-            latestSATDate: latest?.testDate,
-            satSectionBreakdown: nil,
-            satTrajectory: satTrajectory,
-            targetSAT: nil,
-            nextTestDate: nil,
-            practiceTestHistory: [],
-            feeWaiverEligible: profile.freeReducedLunch,
-            feeWaiverUsed: false,
-
-            careerPath: profile.careerPath,
-            intendedMajor: profile.selectedMajor,
-            careerQuizHistory: quizHistory.map {
-                CareerQuizResult(
-                    date: $0.dateTaken,
-                    topResult: $0.topCareerPath,
-                    secondaryResult: nil,
-                    hollandCode: nil
-                )
-            },
-            careerPathChanges: [],
-            familyCareerExpectations: nil,
-            hobbies: profile.interests,
-
-            volunteering: volunteering.map(mapActivity),
-            volunteerHours: volunteerHours,
-            clubs: clubs.map {
-                ClubActivity(
-                    name: $0.name,
-                    role: $0.role,
-                    yearsIn: $0.gradeYears.count,
-                    leadershipLevel: $0.isLeadership ? "officer" : "member"
-                )
-            },
-            jobs: jobs.compactMap {
-                guard let start = $0.startDate else { return nil }
-                return JobActivity(
-                    title: $0.role ?? $0.name,
-                    employer: $0.organization ?? "",
-                    hoursPerWeek: $0.hoursPerWeek ?? 0,
-                    startDate: start,
-                    endDate: $0.endDate
-                )
-            },
-            athletics: ath.map {
-                AthleticActivity(
-                    sport: $0.name,
-                    level: $0.role ?? "",
-                    yearsIn: $0.gradeYears.count,
-                    awards: []
-                )
-            },
-            careerElectives: careerSpecific.map(mapActivity),
-            awards: activities.filter { $0.category == "Award" }.map { $0.name },
-            leadershipPositions: activities.filter { $0.isLeadership }.compactMap { $0.role },
-            ecTierAssessment: ecTierLabel(activities),
-
-            savedColleges: profile.savedCollegeIds.map { id in
-                SavedCollege(
-                    id: id,
-                    name: collegeNameById[id] ?? id,
-                    category: "target",
-                    interestLevel: 3,
-                    visited: false,
-                    infoSession: false,
-                    applied: apps.contains { $0.collegeId == id },
-                    status: apps.first { $0.collegeId == id }?.status
-                )
-            },
-            removedColleges: [],
-            applicationStatus: apps.map {
-                ApplicationStatus(
-                    college: $0.collegeName,
-                    type: $0.deadlineType ?? "RD",
-                    status: $0.status,
-                    deadline: $0.deadlineDate,
-                    submittedAt: $0.submittedAt
-                )
-            },
-            essays: essays.map {
-                EssayStatus(
-                    college: $0.collegeName,
-                    type: $0.prompt.isEmpty ? "Personal Statement" : "Supplement",
-                    prompt: $0.prompt,
-                    draftNumber: 1,
-                    wordCount: $0.wordCount,
-                    wordLimit: $0.wordLimit,
-                    lastEdited: $0.updatedAt,
-                    latestFeedback: nil
-                )
-            },
-            personalStatementStatus: essays.first(where: { $0.prompt.contains("Common App") })?.status,
-            recLetters: [],
-
-            fafsaStatus: nil,
-            cssProfileStatus: nil,
-            familyFinancialContext: profile.parentIncomeBracket,
-            aidPackages: [],
-
-            brightFuturesStatus: profile.state == "FL"
-                ? computeBrightFutures(gpa: profile.gpa, sat: latest?.totalScore, hours: volunteerHours)
-                : nil
-        )
+        // D-003: Verify the caller-supplied studentId against the live JWT.
+        try await assertIdentity(studentId: studentId)
+        // All fetch/build work happens after the identity gate above.
+        return buildContext(from: profile, context: context)
     }
 
     // MARK: - Fetches
@@ -271,6 +136,238 @@ enum StudentContextBuilder {
         let best = tiers.min() ?? 4
         return "best activity at Tier \(best)"
     }
+
+    // MARK: - D-003 Identity assertion
+
+    /// Fetches the live Supabase session uid and asserts it equals `studentId`.
+    /// Throws `SiaIsolationError` on mismatch or missing session.
+    private static func assertIdentity(studentId: String) async throws {
+        let session = await SupabaseAuthService.shared.currentSession
+        guard let uid = session?.user.id.uuidString else {
+            Log.warn("[SIA-ISOLATION] no active session while building context for studentId=\(studentId)")
+            throw SiaIsolationError.noActiveSession
+        }
+        guard uid == studentId else {
+            Log.warn("[SIA-ISOLATION] contextMismatch — expected=\(studentId) actual=\(uid)")
+            throw SiaIsolationError.contextMismatch(expected: studentId, actual: uid)
+        }
+    }
+
+    // MARK: - Counselor brief path (T016 stub)
+
+    /// Reserved for the counselor-brief surface (T016).
+    /// A counselor is permitted to load a student's context only through this
+    /// separately-named function, which will verify the counselor's tenant
+    /// matches the student's tenant via a Supabase query (deferred to T016).
+    ///
+    /// - Parameters:
+    ///   - studentId: The student whose context the counselor is requesting.
+    ///   - requestingCounselorAuthUid: The counselor's own JWT uid.
+    ///   - profile: The student's SwiftData profile.
+    ///   - context: The active SwiftData ModelContext.
+    ///
+    /// - Throws: `SiaIsolationError` or a tenant-mismatch error (T016).
+    @MainActor
+    static func buildForCounselorBrief(
+        studentId: String,
+        requestingCounselorAuthUid: String,
+        profile: StudentProfileModel,
+        context: ModelContext
+    ) async throws -> StudentContext {
+        // T016 will add: assert counselor tenant == student tenant via Supabase query.
+        // For now guard against obvious misuse: the counselor uid must be the live auth uid.
+        let session = await SupabaseAuthService.shared.currentSession
+        guard let uid = session?.user.id.uuidString, uid == requestingCounselorAuthUid else {
+            Log.warn("[SIA-ISOLATION] buildForCounselorBrief — counselor uid mismatch or no session")
+            throw SiaIsolationError.noActiveSession
+        }
+        // Build context without the student-identity assertion (the counselor is not the student).
+        return buildContext(from: profile, context: context)
+    }
+
+    // MARK: - Internal pure builder (no identity check — only called after gates above)
+
+    @MainActor
+    private static func buildContext(
+        from profile: StudentProfileModel,
+        context: ModelContext
+    ) -> StudentContext {
+        let satScores = fetchSAT(context)
+        let latest = satScores.last
+        let allActivities = fetchActivities(context)
+        let gpaHistory = fetchGPA(context)
+        let essays = fetchEssays(context)
+        let apps = fetchApplications(context)
+        let quizHistory = fetchQuizHistory(context)
+        let collegeNameById = fetchCollegeNameIndex(context)
+
+        let volunteering = allActivities.filter { $0.category == "Volunteering" }
+        let clubs = allActivities.filter { $0.category == "Club" }
+        let jobs = allActivities.filter { $0.category == "Job" || $0.category == "Internship" }
+        let ath = allActivities.filter { $0.category == "Athletics" }
+        let careerSpecific = allActivities.filter { isCareerSpecific($0.category) }
+
+        let volunteerHours = volunteering.reduce(0.0) { acc, act in
+            acc + (act.hoursPerWeek ?? 0) * (act.weeksPerYear ?? 40)
+        }
+        let gpaTrend = computeGPATrend(gpaHistory)
+        let satTrajectory = computeSATTrajectory(satScores)
+
+        // Pre-map activity arrays so composeContext stays under the 120-line body limit.
+        let mappedSAT = satScores.map {
+            SATScore(date: $0.testDate, total: $0.totalScore,
+                     readingWriting: $0.readingScore, math: $0.mathScore, isPractice: $0.isPractice)
+        }
+        let mappedQuiz = quizHistory.map {
+            CareerQuizResult(date: $0.dateTaken, topResult: $0.topCareerPath,
+                             secondaryResult: nil, hollandCode: nil)
+        }
+        let mappedClubs = clubs.map {
+            ClubActivity(name: $0.name, role: $0.role, yearsIn: $0.gradeYears.count,
+                         leadershipLevel: $0.isLeadership ? "officer" : "member")
+        }
+        let mappedJobs = jobs.compactMap { act -> JobActivity? in
+            guard let start = act.startDate else { return nil }
+            return JobActivity(title: act.role ?? act.name, employer: act.organization ?? "",
+                               hoursPerWeek: act.hoursPerWeek ?? 0, startDate: start, endDate: act.endDate)
+        }
+        let mappedAth = ath.map {
+            AthleticActivity(sport: $0.name, level: $0.role ?? "",
+                             yearsIn: $0.gradeYears.count, awards: [])
+        }
+        let mappedApps = apps.map {
+            ApplicationStatus(college: $0.collegeName, type: $0.deadlineType ?? "RD",
+                              status: $0.status, deadline: $0.deadlineDate, submittedAt: $0.submittedAt)
+        }
+        let mappedEssays = essays.map {
+            EssayStatus(college: $0.collegeName,
+                        type: $0.prompt.isEmpty ? "Personal Statement" : "Supplement",
+                        prompt: $0.prompt, draftNumber: 1, wordCount: $0.wordCount,
+                        wordLimit: $0.wordLimit, lastEdited: $0.updatedAt, latestFeedback: nil)
+        }
+        let mappedColleges = profile.savedCollegeIds.map { id in
+            SavedCollege(id: id, name: collegeNameById[id] ?? id, category: "target",
+                         interestLevel: 3, visited: false, infoSession: false,
+                         applied: apps.contains { $0.collegeId == id },
+                         status: apps.first { $0.collegeId == id }?.status)
+        }
+        let psStatus = essays.first(where: { $0.prompt.contains("Common App") })?.status
+
+        return composeContext(
+            profile: profile,
+            latest: latest,
+            gpaHistory: gpaHistory,
+            volunteerHours: volunteerHours,
+            gpaTrend: gpaTrend,
+            satTrajectory: satTrajectory,
+            allActivities: allActivities,
+            volunteering: volunteering,
+            careerSpecific: careerSpecific,
+            mappedSAT: mappedSAT,
+            mappedQuiz: mappedQuiz,
+            mappedClubs: mappedClubs,
+            mappedJobs: mappedJobs,
+            mappedAth: mappedAth,
+            mappedApps: mappedApps,
+            mappedEssays: mappedEssays,
+            mappedColleges: mappedColleges,
+            personalStatementStatus: psStatus
+        )
+    }
+
+    // Assembles the StudentContext init from pre-mapped arrays. Separated from
+    // buildContext (which handles all fetching/mapping) to keep each function within
+    // the 120-line body limit enforced by swiftlint.
+    // swiftlint:disable function_parameter_count
+    @MainActor
+    private static func composeContext(
+        profile: StudentProfileModel,
+        latest: SATScoreEntryModel?,
+        gpaHistory: [GPAEntryModel],
+        volunteerHours: Double,
+        gpaTrend: String?,
+        satTrajectory: String?,
+        allActivities: [ActivityModel],
+        volunteering: [ActivityModel],
+        careerSpecific: [ActivityModel],
+        mappedSAT: [SATScore],
+        mappedQuiz: [CareerQuizResult],
+        mappedClubs: [ClubActivity],
+        mappedJobs: [JobActivity],
+        mappedAth: [AthleticActivity],
+        mappedApps: [ApplicationStatus],
+        mappedEssays: [EssayStatus],
+        mappedColleges: [SavedCollege],
+        personalStatementStatus: String?
+    ) -> StudentContext {
+        StudentContext(
+            name: profile.fullName,
+            preferredName: profile.firstName,
+            pronouns: nil,
+            grade: profile.grade,
+            age: nil,
+            state: profile.state,
+            firstGen: profile.isFirstGen,
+            homeLanguage: nil,
+            siblingsCollegeStatus: nil,
+
+            gpaUnweighted: profile.gpa,
+            gpaWeighted: gpaHistory.last?.weightedGPA,
+            classRank: nil,
+            gpaTrend: gpaTrend,
+            strongSubjects: [],
+            weakSubjects: [],
+            currentClasses: [],
+            pastTranscript: [],
+            advancedCourses: profile.apCourses,
+            apExamScores: [],
+
+            satScores: mappedSAT,
+            latestSAT: latest?.totalScore,
+            latestSATDate: latest?.testDate,
+            satSectionBreakdown: nil,
+            satTrajectory: satTrajectory,
+            targetSAT: nil,
+            nextTestDate: nil,
+            practiceTestHistory: [],
+            feeWaiverEligible: profile.freeReducedLunch,
+            feeWaiverUsed: false,
+
+            careerPath: profile.careerPath,
+            intendedMajor: profile.selectedMajor,
+            careerQuizHistory: mappedQuiz,
+            careerPathChanges: [],
+            familyCareerExpectations: nil,
+            hobbies: profile.interests,
+
+            volunteering: volunteering.map(mapActivity),
+            volunteerHours: volunteerHours,
+            clubs: mappedClubs,
+            jobs: mappedJobs,
+            athletics: mappedAth,
+            careerElectives: careerSpecific.map(mapActivity),
+            awards: allActivities.filter { $0.category == "Award" }.map { $0.name },
+            leadershipPositions: allActivities.filter { $0.isLeadership }.compactMap { $0.role },
+            ecTierAssessment: ecTierLabel(allActivities),
+
+            savedColleges: mappedColleges,
+            removedColleges: [],
+            applicationStatus: mappedApps,
+            essays: mappedEssays,
+            personalStatementStatus: personalStatementStatus,
+            recLetters: [],
+
+            fafsaStatus: nil,
+            cssProfileStatus: nil,
+            familyFinancialContext: profile.parentIncomeBracket,
+            aidPackages: [],
+
+            brightFuturesStatus: profile.state == "FL"
+                ? computeBrightFutures(gpa: profile.gpa, sat: latest?.totalScore, hours: volunteerHours)
+                : nil
+        )
+    }
+    // swiftlint:enable function_parameter_count
 
     private static func computeBrightFutures(gpa: Double?, sat: Int?, hours: Double) -> BrightFuturesStatus {
         let gpaMet = (gpa ?? 0) >= 3.5

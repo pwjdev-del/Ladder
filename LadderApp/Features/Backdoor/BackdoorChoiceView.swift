@@ -7,6 +7,7 @@ import SwiftUI
 
 public struct BackdoorChoiceView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var sizeClass
 
     @State private var goFounderLogin = false
     @State private var goEmployeeLogin = false
@@ -22,9 +23,12 @@ public struct BackdoorChoiceView: View {
 
                 VStack(spacing: 32) {
                     header
-                    choiceCard
+                    // MaxWidthContainer prevents the card from becoming unreadably wide on iPad
+                    MaxWidthContainer(maxWidth: 460) {
+                        choiceCard
+                    }
                 }
-                .padding(.horizontal, 24)
+                .padding(.horizontal, sizeClass == .regular ? 0 : 24)
 
                 Spacer()
 

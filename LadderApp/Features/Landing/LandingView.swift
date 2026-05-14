@@ -7,6 +7,8 @@ import SwiftUI
 //   0s idle · 5s desaturate · 15s soft haptic + faint ring · 25s medium + bright ring · 30s success + full ring → BackdoorChoice
 
 public struct LandingView: View {
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
     @State private var holdProgress: Double = 0
     @State private var isHolding = false
     @State private var holdStartedAt: Date?
@@ -27,24 +29,72 @@ public struct LandingView: View {
                 LadderBrand.forest700.ignoresSafeArea()
                 BrandGradient.heroGlow
 
-                VStack(spacing: 0) {
-                    Spacer()
-                    VStack(spacing: 32) {
-                        logoBadge
-                        slogan
+                if sizeClass == .regular {
+                    // iPad: hero on the left half, CTAs on the right half
+                    HStack(spacing: 0) {
+                        // Left column — logo + slogan
+                        VStack(spacing: 32) {
+                            Spacer()
+                            logoBadge
+                            slogan
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity)
+
+                        // Subtle column separator
+                        Rectangle()
+                            .fill(LadderBrand.cream100.opacity(0.12))
+                            .frame(width: 1)
+                            .padding(.vertical, 80)
+
+                        // Right column — CTAs, scrollable so keyboard never obscures
+                        ScrollView {
+                            VStack(spacing: 0) {
+                                Spacer(minLength: 80)
+                                MaxWidthContainer(maxWidth: 420) {
+                                    VStack(spacing: 28) {
+                                        Text("Get started")
+                                            .font(.custom("PlayfairDisplay-SemiBold",
+                                                          size: 36,
+                                                          relativeTo: .largeTitle))
+                                            .foregroundStyle(LadderBrand.cream100)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                                        ctaStack
+
+                                        createAccountLink
+
+                                        partnerFooterLink
+                                    }
+                                    .padding(.horizontal, 40)
+                                }
+                                Spacer(minLength: 80)
+                            }
+                        }
+                        .scrollDismissesKeyboard(.interactively)
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    Spacer()
+                } else {
+                    // iPhone: original single-column layout, unchanged
+                    VStack(spacing: 0) {
+                        Spacer()
+                        VStack(spacing: 32) {
+                            logoBadge
+                            slogan
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        Spacer()
 
-                    ctaStack
-                        .padding(.horizontal, 24)
+                        ctaStack
+                            .padding(.horizontal, 24)
 
-                    createAccountLink
-                        .padding(.top, 16)
+                        createAccountLink
+                            .padding(.top, 16)
 
-                    partnerFooterLink
-                        .padding(.top, 8)
-                        .padding(.bottom, 20)
+                        partnerFooterLink
+                            .padding(.top, 8)
+                            .padding(.bottom, 20)
+                    }
                 }
             }
             .navigationDestination(isPresented: $goBackdoorChoice) { BackdoorChoiceView() }
@@ -245,3 +295,31 @@ public struct LandingView: View {
     private func successHaptic() {}
     #endif
 }
+
+// MARK: - Previews
+
+#if DEBUG
+#Preview("iPhone 15") {
+    LandingView()
+}
+
+#Preview("iPad Air 10.9 portrait") {
+    LandingView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Air 10.9 landscape") {
+    LandingView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Pro 12.9 portrait") {
+    LandingView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Pro 12.9 landscape") {
+    LandingView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+#endif

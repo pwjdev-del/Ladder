@@ -7,6 +7,8 @@ import SwiftUI
 public struct SchoolLoginView: View {
     public let school: PartnerSchool
 
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var inviteCode: String = ""
@@ -24,19 +26,54 @@ public struct SchoolLoginView: View {
             BrandGradient.auth
             BrandGradient.heroGlow
 
-            VStack(spacing: 0) {
-                hero
-                ScrollView {
-                    VStack(spacing: 24) {
-                        signInSection
-                        orDivider
-                        inviteSection
+            if sizeClass == .regular {
+                // iPad: school brand hero on left, scrollable form on right
+                HStack(spacing: 0) {
+                    padHero
+                        .frame(maxWidth: .infinity)
+
+                    Rectangle()
+                        .fill(LadderBrand.cream100.opacity(0.12))
+                        .frame(width: 1)
+                        .padding(.vertical, 80)
+
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            Spacer(minLength: 48)
+                            MaxWidthContainer(maxWidth: 440) {
+                                VStack(spacing: 24) {
+                                    backButton
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    signInSection
+                                    orDivider
+                                    inviteSection
+                                    footer
+                                }
+                                .padding(.horizontal, 40)
+                            }
+                            Spacer(minLength: 48)
+                        }
                     }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 24)
-                    .padding(.bottom, 32)
+                    .scrollDismissesKeyboard(.interactively)
+                    .frame(maxWidth: .infinity)
                 }
-                footer
+            } else {
+                // iPhone: original single-column layout, unchanged
+                VStack(spacing: 0) {
+                    hero
+                    ScrollView {
+                        VStack(spacing: 24) {
+                            signInSection
+                            orDivider
+                            inviteSection
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.top, 24)
+                        .padding(.bottom, 32)
+                    }
+                    .scrollDismissesKeyboard(.interactively)
+                    footer
+                }
             }
         }
         .navigationBarHidden(true)
@@ -48,6 +85,37 @@ public struct SchoolLoginView: View {
         }
         .sheet(isPresented: $showingForgotPassword) {
             ForgotPasswordView()
+        }
+    }
+
+    // MARK: - iPad hero pane (left column)
+
+    private var padHero: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            LadderLogoMark(size: 120, withShadow: true)
+            Text(school.displayName)
+                .font(.ladderDisplay(32, relativeTo: .largeTitle))
+                .foregroundStyle(LadderBrand.cream100)
+                .multilineTextAlignment(.center)
+            Text("Powered by Ladder")
+                .font(.ladderBody(14))
+                .foregroundStyle(LadderBrand.cream100.opacity(0.6))
+            Spacer()
+        }
+        .padding(.horizontal, 40)
+    }
+
+    // MARK: - Back button (iPad form column only)
+
+    private var backButton: some View {
+        Button { dismiss() } label: {
+            Image(systemName: "chevron.left")
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(LadderBrand.cream100)
+                .frame(width: 40, height: 40)
+                .background(LadderBrand.cream100.opacity(0.12))
+                .clipShape(Circle())
         }
     }
 
@@ -238,6 +306,37 @@ public struct SchoolLoginView: View {
         }
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+private let _previewSchool = PartnerSchool(
+    id: UUID(),
+    slug: "oakridge",
+    displayName: "Oakridge High",
+    primaryColorHex: nil,
+    logoURL: nil
+)
+
+#Preview("iPhone 15") {
+    SchoolLoginView(school: _previewSchool)
+}
+
+#Preview("iPad Air 10.9 portrait") {
+    SchoolLoginView(school: _previewSchool)
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Air landscape") {
+    SchoolLoginView(school: _previewSchool)
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Pro 12.9 portrait") {
+    SchoolLoginView(school: _previewSchool)
+        .environment(\.horizontalSizeClass, .regular)
+}
+#endif
 
 // MARK: - Placeholder "you're in" screen while role dashboards are being wired
 

@@ -7,6 +7,11 @@ import SwiftData
 //   - Rules decide WHAT to surface. LLM decides HOW to phrase it.
 //   - Every screen calls in for its personalized content.
 //   - Output is typed; views render without knowing about LLM plumbing.
+//
+// D-003 CONTRACT:
+//   Every public method carries `studentId: String` as a required parameter.
+//   No default values. No global/singleton-cached StudentContext keyed on
+//   "current user" — every call site must supply the explicit student UUID.
 
 @Observable
 @MainActor
@@ -16,7 +21,10 @@ final class SiaEngine {
 
     // MARK: - Home: "3 things this week"
 
-    func generateHomeRecommendations(
+    // Rationale for 6-param signature: all context objects are mandatory and structurally
+    // distinct. Merging them into a wrapper struct is deferred to the Context-refactor milestone.
+    func generateHomeRecommendations( // swiftlint:disable:this function_parameter_count
+        studentId: String,
         student: StudentContext,
         temporal: TemporalContext,
         school: SchoolContext,
@@ -42,79 +50,20 @@ final class SiaEngine {
     // MARK: - College List
 
     func evaluateCollegeList(
+        studentId: String,
         student: StudentContext,
         colleges: [CollegeModel],
         temporal: TemporalContext
     ) -> [CollegeInsight] {
-        var insights: [CollegeInsight] = []
-
-        // Categorize each saved college using middle-50% SAT range.
-        let collegesByName = Dictionary(grouping: colleges, by: { $0.name })
-
-        var reach = 0, target = 0, safety = 0
-
-        for saved in student.savedColleges {
-            guard let college = collegesByName[saved.name]?.first,
-                  let p25 = college.satAvg ?? averageP25(college),
-                  let _ = college.satAvg
-            else { continue }
-
-            let computed = category(studentSAT: student.latestSAT, p25: averageP25(college), p75: averageP75(college))
-            switch computed {
-            case "reach": reach += 1
-            case "target": target += 1
-            case "safety": safety += 1
-            default: break
-            }
-
-            if computed != saved.category {
-                insights.append(CollegeInsight(
-                    collegeId: saved.id,
-                    message: "\(saved.name) moved from \(saved.category) to \(computed) based on your latest SAT (\(student.latestSAT ?? 0)).",
-                    kind: .categoryShift
-                ))
-            }
-            _ = p25  // silence unused
-        }
-
-        // List balance
-        let total = student.savedColleges.count
-        if total >= 3 {
-            if reach >= 5 && safety <= 1 {
-                insights.append(CollegeInsight(
-                    collegeId: "list",
-                    message: "Your list is top-heavy — \(reach) reaches but only \(safety) safeties. Worth finding 2-3 targets where you'd be genuinely excited.",
-                    kind: .listBalance
-                ))
-            }
-            if safety >= total - 1 && reach == 0 {
-                insights.append(CollegeInsight(
-                    collegeId: "list",
-                    message: "Your list is all safeties. Nothing wrong with that, but add 1-2 targets or reaches if there are schools you actually love.",
-                    kind: .listBalance
-                ))
-            }
-        }
-
-        // Deadline warnings
-        for app in student.applicationStatus {
-            guard let dl = app.deadline else { continue }
-            let days = Calendar.current.dateComponents([.day], from: temporal.today, to: dl).day ?? 0
-            if days >= 0 && days <= 30 && app.status != "submitted" {
-                insights.append(CollegeInsight(
-                    collegeId: app.college,
-                    message: "\(app.college) \(app.type) deadline in \(days) days — still showing \(app.status).",
-                    kind: .deadlineWarning
-                ))
-            }
-        }
-
+        var insights = categorizationInsights(student: student, colleges: colleges)
+        insights += deadlineInsights(student: student, today: temporal.today)
         return insights
     }
 
     // MARK: - Activities
 
     func analyzeActivityGaps(
+        studentId: String,
         student: StudentContext,
         school: SchoolContext
     ) -> [ActivityRecommendation] {
@@ -122,28 +71,46 @@ final class SiaEngine {
 
         // 4 generals check
         if student.volunteering.isEmpty {
-            out.append(.init(category: "volunteering", suggestion: "No volunteer hours logged yet.",
-                             rationale: "Colleges (and Bright Futures in FL) expect sustained volunteering. Even 2 hrs/week adds up."))
+            out.append(.init(
+                category: "volunteering",
+                suggestion: "No volunteer hours logged yet.",
+                rationale: "Colleges (and Bright Futures in FL) expect sustained volunteering."
+                    + " Even 2 hrs/week adds up."
+            ))
         }
         if student.clubs.isEmpty {
-            out.append(.init(category: "clubs", suggestion: "Pick one club this month.",
-                             rationale: "Depth in 2-3 clubs beats a long shallow list. Any start is better than none."))
+            out.append(.init(
+                category: "clubs",
+                suggestion: "Pick one club this month.",
+                rationale: "Depth in 2-3 clubs beats a long shallow list. Any start is better than none."
+            ))
         }
         if student.jobs.isEmpty && student.grade >= 10 {
-            out.append(.init(category: "jobs", suggestion: "A part-time job or internship by junior summer.",
-                             rationale: "Shows maturity and real-world exposure — valuable signal on applications."))
+            out.append(.init(
+                category: "jobs",
+                suggestion: "A part-time job or internship by junior summer.",
+                rationale: "Shows maturity and real-world exposure — valuable signal on applications."
+            ))
         }
 
         // Career-specific coverage
         if student.careerElectives.isEmpty, let path = student.careerPath {
-            out.append(.init(category: "career-specific", suggestion: "Nothing \(path)-specific yet.",
-                             rationale: "A research project, internship, or sustained career-aligned activity is what separates serious applicants."))
+            out.append(.init(
+                category: "career-specific",
+                suggestion: "Nothing \(path)-specific yet.",
+                rationale: "A research project, internship, or sustained career-aligned activity"
+                    + " is what separates serious applicants."
+            ))
         }
 
         // Bright Futures volunteer hours gap (FL)
-        if student.state == "FL", let bf = student.brightFuturesStatus, let gap = bf.hoursGapToFAS, gap > 0 {
-            out.append(.init(category: "volunteering", suggestion: "\(Int(gap)) more hours for Bright Futures FAS.",
-                             rationale: "At 5 hrs/month, you'd hit it in \(Int(ceil(gap / 5.0))) months."))
+        if student.state == "FL", let bf = student.brightFuturesStatus,
+           let gap = bf.hoursGapToFAS, gap > 0 {
+            out.append(.init(
+                category: "volunteering",
+                suggestion: "\(Int(gap)) more hours for Bright Futures FAS.",
+                rationale: "At 5 hrs/month, you'd hit it in \(Int(ceil(gap / 5.0))) months."
+            ))
         }
 
         return out
@@ -151,46 +118,22 @@ final class SiaEngine {
 
     // MARK: - SAT
 
-    func evaluateSATProgress(student: StudentContext) -> SATInsight? {
+    func evaluateSATProgress(
+        studentId: String,
+        student: StudentContext
+    ) -> SATInsight? {
         let real = student.satScores.filter { !$0.isPractice }
         let all = student.satScores
         guard !all.isEmpty else { return nil }
 
         let scores = (real.isEmpty ? all : real).map(\.total)
-        let latest = scores.last!
+        guard let latest = scores.last else { return nil }
 
-        // Plateau detection: last 3 within ±20.
-        var label = "improving"
-        if scores.count >= 3 {
-            let last3 = scores.suffix(3)
-            let spread = (last3.max() ?? 0) - (last3.min() ?? 0)
-            if spread <= 20 { label = "plateauing" }
-            else if (last3.last ?? 0) < (last3.first ?? 0) { label = "declining" }
-        } else if scores.count == 2 {
-            let delta = scores[1] - scores[0]
-            label = delta > 20 ? "improving" : (delta < -20 ? "declining" : "stable")
-        } else {
-            label = "no trend yet"
-        }
-
-        // Target = student.targetSAT OR 1330 if FL (Bright Futures FAS) OR 1200 default.
+        let label = satTrajectoryLabel(scores: scores)
         let target = student.targetSAT ?? (student.state == "FL" ? 1330 : 1200)
         let gap = max(0, target - latest)
-
-        // Weak sections heuristic: compare latest RW vs Math against target proportional split.
-        var weak: [String] = []
-        if let rw = student.satScores.last?.readingWriting, let math = student.satScores.last?.math {
-            if rw < math - 30 { weak.append("Reading & Writing") }
-            if math < rw - 30 { weak.append("Math") }
-        }
-
-        let drill: String = {
-            switch weak.first {
-            case "Math": return "20 Algebra problems from Khan Academy this week — it's 35% of the Math section."
-            case "Reading & Writing": return "Drill 10 Craft & Structure questions — biggest R&W content area."
-            default: return "Take a full Bluebook practice test this weekend to pin down your weakest section."
-            }
-        }()
+        let weak = satWeakSections(from: student.satScores.last)
+        let drill = satDrillSuggestion(weakSections: weak)
 
         return SATInsight(
             trajectoryLabel: label,
@@ -203,14 +146,18 @@ final class SiaEngine {
 
     // MARK: - Essays
 
-    func generateEssayStatus(student: StudentContext, temporal: TemporalContext) -> [EssayInsight] {
+    func generateEssayStatus(
+        studentId: String,
+        student: StudentContext,
+        temporal: TemporalContext
+    ) -> [EssayInsight] {
         var out: [EssayInsight] = []
         let now = temporal.today
 
         for essay in student.essays {
             let stale: Int = {
-                guard let e = essay.lastEdited else { return 999 }
-                return Calendar.current.dateComponents([.day], from: e, to: now).day ?? 0
+                guard let editedDate = essay.lastEdited else { return 999 }
+                return Calendar.current.dateComponents([.day], from: editedDate, to: now).day ?? 0
             }()
 
             // Priority and message based on draft count, staleness, and word count.
@@ -222,19 +169,16 @@ final class SiaEngine {
                     severity: .high
                 ))
             } else if stale >= 14 {
-                out.append(EssayInsight(
-                    college: essay.college,
-                    type: essay.type,
-                    message: "\(essay.college) \(essay.type): last edited \(stale) days ago, draft #\(essay.draftNumber). Time to pick it back up.",
-                    severity: .normal
-                ))
+                let msg = "\(essay.college) \(essay.type): last edited \(stale) days ago,"
+                    + " draft #\(essay.draftNumber). Time to pick it back up."
+                out.append(EssayInsight(college: essay.college, type: essay.type,
+                                        message: msg, severity: .normal))
             } else if let limit = essay.wordLimit, essay.wordCount > limit {
-                out.append(EssayInsight(
-                    college: essay.college,
-                    type: essay.type,
-                    message: "\(essay.college) \(essay.type): \(essay.wordCount)/\(limit) words — over the limit by \(essay.wordCount - limit).",
-                    severity: .high
-                ))
+                let over = essay.wordCount - limit
+                let msg = "\(essay.college) \(essay.type): \(essay.wordCount)/\(limit) words"
+                    + " — over the limit by \(over)."
+                out.append(EssayInsight(college: essay.college, type: essay.type,
+                                        message: msg, severity: .high))
             }
         }
 
@@ -244,6 +188,7 @@ final class SiaEngine {
     // MARK: - Timeline
 
     func generateTimelineItems(
+        studentId: String,
         student: StudentContext,
         temporal: TemporalContext
     ) -> [TimelineItem] {
@@ -271,7 +216,10 @@ final class SiaEngine {
 
     // MARK: - Financial Aid
 
-    func evaluateFinancialAidStatus(student: StudentContext) -> FinancialAidInsight {
+    func evaluateFinancialAidStatus(
+        studentId: String,
+        student: StudentContext
+    ) -> FinancialAidInsight {
         var bullets: [String] = []
 
         let fafsa = student.fafsaStatus ?? "not started"
@@ -282,7 +230,13 @@ final class SiaEngine {
         }
 
         if student.state == "FL", let bf = student.brightFuturesStatus {
-            bullets.append("Bright Futures \(bf.level): GPA \(bf.gpaMet ? "✓" : "✗"), SAT \(bf.satMet ? "✓" : "✗")\(bf.satGapToFAS.map { " (\($0) pts to go)" } ?? ""), Hours \(bf.hoursMet ? "✓" : "✗")\(bf.hoursGapToFAS.map { " (\(Int($0)) hrs to go)" } ?? "")")
+            let satGap = bf.satGapToFAS.map { " (\($0) pts to go)" } ?? ""
+            let hoursGap = bf.hoursGapToFAS.map { " (\(Int($0)) hrs to go)" } ?? ""
+            let bfLine = "Bright Futures \(bf.level): "
+                + "GPA \(bf.gpaMet ? "✓" : "✗"), "
+                + "SAT \(bf.satMet ? "✓" : "✗")\(satGap), "
+                + "Hours \(bf.hoursMet ? "✓" : "✗")\(hoursGap)"
+            bullets.append(bfLine)
         }
 
         if student.firstGen {
@@ -303,6 +257,7 @@ final class SiaEngine {
     // MARK: - Notifications (max 2/week, only .critical and .high)
 
     func generateNotification(
+        studentId: String,
         student: StudentContext,
         temporal: TemporalContext,
         school: SchoolContext,
@@ -326,6 +281,7 @@ final class SiaEngine {
     // MARK: - Class Plan (hybrid — rules compute gaps, LLM phrases the plan)
 
     func generateClassPlan(
+        studentId: String,
         student: StudentContext,
         school: SchoolContext,
         temporal: TemporalContext
@@ -337,11 +293,12 @@ final class SiaEngine {
         let targeted = career.lowercased()
         let apPool = school.apClasses.filter {
             switch targeted {
-            case let c where c.contains("stem") || c.contains("engineer"):
-                return $0.contains("Calc") || $0.contains("Physics") || $0.contains("CS") || $0.contains("Computer")
-            case let c where c.contains("medic"):
+            case let career where career.contains("stem") || career.contains("engineer"):
+                return $0.contains("Calc") || $0.contains("Physics")
+                    || $0.contains("CS") || $0.contains("Computer")
+            case let career where career.contains("medic"):
                 return $0.contains("Bio") || $0.contains("Chem")
-            case let c where c.contains("business"):
+            case let career where career.contains("business"):
                 return $0.contains("Econ") || $0.contains("Stat")
             default: return true
             }
@@ -356,113 +313,131 @@ final class SiaEngine {
         )
     }
 
-    // MARK: - Helpers
+}
 
-    private func averageP25(_ c: CollegeModel) -> Int? {
-        switch (c.satMath25, c.satReading25) {
-        case let (m?, r?): return m + r
-        default: return c.satAvg.map { Int(Double($0) * 0.95) }
+// Counselor surface → SiaEngine+Counselor.swift
+// Return type models → SiaEngine+Models.swift
+
+// MARK: - SiaEngine private college/SAT helpers (outside class body to stay within type_body_length)
+
+private extension SiaEngine {
+
+    func averageP25(_ college: CollegeModel) -> Int? {
+        switch (college.satMath25, college.satReading25) {
+        case let (math?, reading?): return math + reading
+        default: return college.satAvg.map { Int(Double($0) * 0.95) }
         }
     }
 
-    private func averageP75(_ c: CollegeModel) -> Int? {
-        switch (c.satMath75, c.satReading75) {
-        case let (m?, r?): return m + r
-        default: return c.satAvg.map { Int(Double($0) * 1.05) }
+    func averageP75(_ college: CollegeModel) -> Int? {
+        switch (college.satMath75, college.satReading75) {
+        case let (math?, reading?): return math + reading
+        default: return college.satAvg.map { Int(Double($0) * 1.05) }
         }
     }
 
-    private func category(studentSAT: Int?, p25: Int?, p75: Int?) -> String {
+    func category(studentSAT: Int?, p25: Int?, p75: Int?) -> String {
         guard let sat = studentSAT else { return "target" }
         if let p75, sat >= p75 + 50 { return "safety" }
         if let p25, sat < p25 - 30 { return "reach" }
         return "target"
     }
-}
 
-// MARK: - Return types
+    func satTrajectoryLabel(scores: [Int]) -> String {
+        if scores.count >= 3 {
+            let last3 = scores.suffix(3)
+            let spread = (last3.max() ?? 0) - (last3.min() ?? 0)
+            if spread <= 20 { return "plateauing" }
+            if (last3.last ?? 0) < (last3.first ?? 0) { return "declining" }
+            return "improving"
+        } else if scores.count == 2 {
+            let delta = scores[1] - scores[0]
+            return delta > 20 ? "improving" : (delta < -20 ? "declining" : "stable")
+        }
+        return "no trend yet"
+    }
 
-struct HomeCard: Identifiable, Equatable {
-    let id = UUID()
-    var title: String
-    var body: String
-    var priority: SiaPriority
-    var specialist: SessionType?
-    var deepLink: String?
-}
+    func satWeakSections(from score: SATScore?) -> [String] {
+        guard let score,
+              let rw = score.readingWriting,
+              let math = score.math else { return [] }
+        var weak: [String] = []
+        if rw < math - 30 { weak.append("Reading & Writing") }
+        if math < rw - 30 { weak.append("Math") }
+        return weak
+    }
 
-enum SiaPriority: String, Codable, Equatable {
-    case critical
-    case high
-    case normal
-    case low
-
-    var rank: Int {
-        switch self {
-        case .critical: return 0
-        case .high:     return 1
-        case .normal:   return 2
-        case .low:      return 3
+    func satDrillSuggestion(weakSections: [String]) -> String {
+        switch weakSections.first {
+        case "Math":
+            return "20 Algebra problems from Khan Academy this week — it's 35% of the Math section."
+        case "Reading & Writing":
+            return "Drill 10 Craft & Structure questions — biggest R&W content area."
+        default:
+            return "Take a full Bluebook practice test this weekend to pin down your weakest section."
         }
     }
-}
 
-struct CollegeInsight: Identifiable, Equatable {
-    let id = UUID()
-    var collegeId: String
-    var message: String
-    var kind: Kind
-    enum Kind: String, Codable { case categoryShift, deadlineWarning, missingItem, listBalance, newSuggestion }
-}
+    func categorizationInsights(student: StudentContext, colleges: [CollegeModel]) -> [CollegeInsight] {
+        var insights: [CollegeInsight] = []
+        let collegesByName = Dictionary(grouping: colleges, by: { $0.name })
+        var reach = 0, target = 0, safety = 0
 
-struct ActivityRecommendation: Identifiable, Equatable {
-    let id = UUID()
-    var category: String
-    var suggestion: String
-    var rationale: String
-}
+        for saved in student.savedColleges {
+            guard let college = collegesByName[saved.name]?.first,
+                  college.satAvg != nil
+            else { continue }
 
-struct ClassPlan: Equatable {
-    var tier: Tier
-    var courses: [Course]
-    var rationale: String
-    var workloadEstimate: String
-    enum Tier: String, Codable { case balanced, challenging, maximum }
-}
+            let computed = category(
+                studentSAT: student.latestSAT,
+                p25: averageP25(college),
+                p75: averageP75(college)
+            )
+            switch computed {
+            case "reach":  reach += 1
+            case "target": target += 1
+            case "safety": safety += 1
+            default:       break
+            }
 
-struct SATInsight: Equatable {
-    var trajectoryLabel: String
-    var gapToTarget: Int
-    var weakSections: [String]
-    var nextDrillSuggestion: String
-    var weeklyPlanAvailable: Bool
-}
+            if computed != saved.category {
+                let msg = "\(saved.name) moved from \(saved.category) to \(computed)"
+                    + " based on your latest SAT (\(student.latestSAT ?? 0))."
+                insights.append(CollegeInsight(collegeId: saved.id, message: msg, kind: .categoryShift))
+            }
+        }
 
-struct EssayInsight: Identifiable, Equatable {
-    let id = UUID()
-    var college: String
-    var type: String
-    var message: String
-    var severity: SiaPriority
-}
+        insights += listBalanceInsights(reach: reach, safety: safety, total: student.savedColleges.count)
+        return insights
+    }
 
-struct TimelineItem: Identifiable, Equatable {
-    let id = UUID()
-    var title: String
-    var date: Date
-    var kind: String
-    var status: Status
-    enum Status: String, Codable { case done, upcoming, overdue }
-}
+    func listBalanceInsights(reach: Int, safety: Int, total: Int) -> [CollegeInsight] {
+        guard total >= 3 else { return [] }
+        var insights: [CollegeInsight] = []
+        if reach >= 5 && safety <= 1 {
+            let msg = "Your list is top-heavy — \(reach) reaches but only \(safety) safeties."
+                + " Worth finding 2-3 targets where you'd be genuinely excited."
+            insights.append(CollegeInsight(collegeId: "list", message: msg, kind: .listBalance))
+        }
+        if safety >= total - 1 && reach == 0 {
+            let msg = "Your list is all safeties. Nothing wrong with that,"
+                + " but add 1-2 targets or reaches if there are schools you actually love."
+            insights.append(CollegeInsight(collegeId: "list", message: msg, kind: .listBalance))
+        }
+        return insights
+    }
 
-struct FinancialAidInsight: Equatable {
-    var headline: String
-    var bullets: [String]
-}
-
-struct NotificationPayload: Equatable {
-    var title: String
-    var body: String
-    var deepLink: String?
-    var priority: SiaPriority
+    func deadlineInsights(student: StudentContext, today: Date) -> [CollegeInsight] {
+        var insights: [CollegeInsight] = []
+        for app in student.applicationStatus {
+            guard let deadline = app.deadline else { continue }
+            let days = Calendar.current.dateComponents([.day], from: today, to: deadline).day ?? 0
+            if days >= 0 && days <= 30 && app.status != "submitted" {
+                let msg = "\(app.college) \(app.type) deadline in \(days) days"
+                    + " — still showing \(app.status)."
+                insights.append(CollegeInsight(collegeId: app.college, message: msg, kind: .deadlineWarning))
+            }
+        }
+        return insights
+    }
 }

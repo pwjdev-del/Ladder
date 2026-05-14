@@ -57,6 +57,25 @@ public final class TenantContext: ObservableObject {
         studentGradeLevel = nil
     }
 
+#if DEBUG
+    // MARK: - Test hooks (DEBUG only)
+
+    /// Directly sets a deterministic role and tenantId for XCUITest sessions.
+    /// Must only be called from UITestBootstrap — never from production code paths.
+    public func setForTesting(role: AppRole, tenantId: String) {
+        let claim = TenantClaim(
+            tenantId: UUID(uuidString: tenantId),
+            role: role,
+            userId: UUID(uuidString: "11111111-1111-1111-1111-111111111111") ?? UUID(),
+            expiresAt: Date(timeIntervalSinceNow: 3600)
+        )
+        bind(claim,
+             displayName: "Test School",
+             primaryColorHex: nil,
+             logoKey: nil)
+    }
+#endif
+
     public var isFounderSession: Bool {
         claim?.role == .founder
     }
@@ -102,16 +121,23 @@ public struct RequireNonStaffModifier: ViewModifier {
     let context: StaticString
 
     public func body(content: Content) -> some View {
+        // S1#1 fix: evaluate the guard SYNCHRONOUSLY inside body, before any
+        // branch is returned. This prevents inner `.task`/`.onAppear` closures
+        // on `content` from being scheduled even for a single render frame.
+        //
+        // In Release builds `preconditionFailure` terminates the process immediately.
+        // In Debug builds we use `assertionFailure` (non-fatal) so tests and the
+        // simulator can still render `StaffBlockedView` for visual verification
+        // without crashing the whole app on every preview refresh.
         if tenant.isLadderStaffSession {
-            // In Release we also trip preconditionFailure via the guard below, but
-            // this view branch keeps the surface type-safe for testing and ensures
-            // we never render tenant fields even if the precondition is disabled
-            // by a misconfigured compiler flag.
-            StaffBlockedView(context: context)
-                .onAppear { tenant.requireNonStaff(context) }
-        } else {
-            content
+            #if DEBUG
+            assertionFailure("§14.4 violation [DEBUG]: Ladder staff session reached tenant-data surface: \(context)")
+            #else
+            preconditionFailure("§14.4 violation: Ladder staff session reached tenant-data surface: \(context)")
+            #endif
+            return AnyView(StaffBlockedView(context: context))
         }
+        return AnyView(content)
     }
 }
 

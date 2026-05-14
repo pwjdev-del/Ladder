@@ -23,10 +23,13 @@ enum MemoryExtractorService {
 
     /// Extract + merge + persist. No-op if the session is too short to be worth analyzing.
     /// `accessToken` is the Supabase session token forwarded to the ai-gateway Edge Function.
+    /// `sessionId` is a stable UUID for this chat session — used as the Supabase upsert key
+    ///  so retries never duplicate rows (idempotent via ON CONFLICT session_id).
     static func extractAndPersist(
         transcript: [ChatBubble],
         studentId: String,
         accessToken: String,
+        sessionId: UUID = UUID(),
         context: ModelContext
     ) async {
         // Only extract if the conversation had real content (at least 2 student turns).
@@ -51,7 +54,7 @@ enum MemoryExtractorService {
 
         do {
             let response = try await AIGatewayClient.shared.call(
-                feature: .helpSurface,
+                feature: .memoryExtraction,
                 input: MemoryInput(
                     transcript: formatted,
                     systemPrompt: MemoryExtractor.systemPrompt
@@ -61,9 +64,71 @@ enum MemoryExtractorService {
             guard let extraction = parse(response.output) else { return }
 
             let merged = MemoryExtractor.merge(into: current, extraction: extraction)
+
+            // 1. Local write — source of truth. Always happens first.
             ConversationMemoryStore.save(merged, studentId: studentId, context: context)
+
+            // 2. Remote sync — non-fatal backup. Runs after local write succeeds.
+            //    Failure is logged loudly for QA but never surfaced to the user.
+            if let summaryText = merged.lastSessionSummary, !summaryText.isEmpty {
+                await syncSummaryToSupabase(
+                    summaryText: summaryText,
+                    studentId: studentId,
+                    sessionId: sessionId
+                )
+            }
         } catch {
             // Extraction failure is non-fatal — we keep the prior memory intact.
+        }
+    }
+
+    // MARK: - Supabase sync (T012)
+
+    /// Upserts a session summary row to `student_memory_summaries`.
+    /// Uses ON CONFLICT on `session_id` so repeated calls for the same session are idempotent.
+    /// Failure is non-fatal: the local SwiftData write is the source of truth.
+    private static func syncSummaryToSupabase(
+        summaryText: String,
+        studentId: String,
+        sessionId: UUID
+    ) async {
+        // Resolve tenant_id from the live session claim. Required for RLS to allow INSERT.
+        guard let tenantId = await TenantContext.shared.claim?.tenantId?.uuidString else {
+            Log.warn("[T012-MemorySync] tenant_id unavailable — skipping Supabase sync for session \(sessionId)")
+            return
+        }
+
+        struct SummaryRow: Encodable {
+            let tenantId: String
+            let studentUserId: String
+            let summaryText: String
+            let sessionId: String
+            // embedding intentionally omitted — v1.1 will compute via AI pipeline
+
+            enum CodingKeys: String, CodingKey {
+                case tenantId       = "tenant_id"
+                case studentUserId  = "student_user_id"
+                case summaryText    = "summary_text"
+                case sessionId      = "session_id"
+            }
+        }
+
+        let row = SummaryRow(
+            tenantId: tenantId,
+            studentUserId: studentId,
+            summaryText: summaryText,
+            sessionId: sessionId.uuidString
+        )
+
+        do {
+            try await SupabaseAuthService.shared.supabase
+                .from("student_memory_summaries")
+                .upsert(row, onConflict: "session_id", ignoreDuplicates: true)
+                .execute()
+            Log.info("[T012-MemorySync] summary synced for session \(sessionId)")
+        } catch {
+            // Loud warn — QA should catch this in console; user is never shown an error.
+            Log.warn("[T012-MemorySync] Supabase sync FAILED for session \(sessionId), studentId=\(studentId): \(error)")
         }
     }
 

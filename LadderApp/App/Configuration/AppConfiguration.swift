@@ -72,17 +72,20 @@ enum AppConfiguration {
 
     /// Call from LadderApp.init() before any other work.
     ///
-    /// In Release builds this crashes immediately when:
-    ///   - SUPABASE_URL is blank, missing, or matches a known placeholder.
-    ///   - SUPABASE_ANON_KEY is blank or matches a known placeholder.
+    /// S2#2 fix: replaced `#if !DEBUG` with a runtime XCTest-environment guard so
+    /// that the preflight runs in ALL non-test launch contexts — including Debug,
+    /// TestFlight/AdHoc, and Release. `#if !DEBUG` was unsafe because a
+    /// misconfigured scheme can pass `-D DEBUG` into a TestFlight archive, causing
+    /// the preflight to silently skip and ship placeholder config to testers.
     ///
-    /// Debug builds are intentionally exempt so local dev without
-    /// Secrets.xcconfig launches without configuration. The hardcoded
-    /// fallback values in this file are the real pilot project — they
-    /// are safe in debug but you must confirm they are correct before
-    /// archiving a Release build.
+    /// The only exemption is XCTest runs, where the host app launches with real-device
+    /// env vars stripped and every value would be blank, causing spurious failures.
     static func preflightOrCrash() {
-        #if !DEBUG
+        // Skip during unit/UI test runs; XCTest injects this path when active.
+        guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else {
+            return
+        }
+
         let url = supabaseURL
         if url.isEmpty {
             fatalError(
@@ -116,6 +119,5 @@ enum AppConfiguration {
                 "Replace it with the real Supabase anon key before archiving."
             )
         }
-        #endif
     }
 }

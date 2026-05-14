@@ -21,34 +21,38 @@ public struct SuccessMetricsPopupView: View {
     public init() {}
 
     public var body: some View {
-        NavigationStack {
-            Form {
-                Section("Period") {
-                    TextField("Period label", text: $periodLabel)
-                }
-                Section("Core metrics") {
-                    Stepper("College acceptances: \(collegeAcceptances)", value: $collegeAcceptances, in: 0...5000)
-                    HStack {
-                        Text("Graduation rate")
-                        Slider(value: $graduationRate, in: 0...100)
-                        Text(String(format: "%.1f%%", graduationRate))
+        // MaxWidthContainer caps the sheet at 600pt on iPad so content doesn't
+        // stretch across a full-width formSheet. On iPhone the cap is irrelevant.
+        MaxWidthContainer(maxWidth: 600) {
+            NavigationStack {
+                Form {
+                    Section("Period") {
+                        TextField("Period label", text: $periodLabel)
+                    }
+                    Section("Core metrics") {
+                        Stepper("College acceptances: \(collegeAcceptances)", value: $collegeAcceptances, in: 0...5000)
+                        HStack {
+                            Text("Graduation rate")
+                            Slider(value: $graduationRate, in: 0...100)
+                            Text(String(format: "%.1f%%", graduationRate))
+                        }
+                    }
+                    Section("Custom") {
+                        Text("Configurable per school in admin settings.")
+                            .font(.footnote).foregroundStyle(.secondary)
+                    }
+                    if let error {
+                        Section { Text(error).foregroundStyle(.red) }
+                    }
+                    Section {
+                        Button(submitting ? "Submitting…" : "Submit") {
+                            Task { await submit() }
+                        }
+                        .disabled(submitting)
                     }
                 }
-                Section("Custom") {
-                    Text("Configurable per school in admin settings.")
-                        .font(.footnote).foregroundStyle(.secondary)
-                }
-                if let error {
-                    Section { Text(error).foregroundStyle(.red) }
-                }
-                Section {
-                    Button(submitting ? "Submitting…" : "Submit") {
-                        Task { await submit() }
-                    }
-                    .disabled(submitting)
-                }
+                .navigationTitle("Periodic metrics")
             }
-            .navigationTitle("Periodic metrics")
         }
         .requireNonFounder()
     }

@@ -30,20 +30,33 @@ public struct ParentDashboardView: View {
             BrandGradient.heroGlow
 
             VStack(spacing: 0) {
-                hero
+                // T027: wrap hero in MaxWidthContainer so it stays readable
+                // on iPad Pro 12.9" without spanning the full ~1024pt width.
+                MaxWidthContainer(maxWidth: 720) {
+                    hero
+                }
+
                 if linked.count > 1 {
-                    siblingSwitcher
-                        .padding(.vertical, 12)
-                }
-                ScrollView {
-                    VStack(spacing: 16) {
-                        summaryCard
-                        gradesCard
-                        scheduleCard
+                    MaxWidthContainer(maxWidth: 720) {
+                        siblingSwitcher
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 32)
+                    .padding(.vertical, 12)
                 }
+
+                ScrollView {
+                    // T027: MaxWidthContainer caps the card column at 720pt,
+                    // centering it on iPad while leaving iPhone unchanged.
+                    MaxWidthContainer(maxWidth: 720) {
+                        VStack(spacing: 16) {
+                            summaryCard
+                            gradesCard
+                            scheduleCard
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 32)
+                    }
+                }
+
                 parentBottomNav
             }
         }
@@ -76,7 +89,9 @@ public struct ParentDashboardView: View {
 
     private var siblingSwitcher: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
+            // T027: AdaptiveStack spreads child chips horizontally on iPad
+            // regular width, stacking them vertically on compact (iPhone).
+            AdaptiveStack(compactSpacing: 8, regularSpacing: 12, alignment: .leading) {
                 ForEach(linked) { student in
                     Button {
                         selected = student
@@ -178,3 +193,30 @@ public struct ParentDashboardView: View {
         .frame(maxWidth: .infinity)
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+private let _previewSession = SignedInSession(
+    role: .parent,
+    displayName: "Alex.Parent",
+    tenantName: "Demo High"
+)
+
+#Preview("iPhone 15 Pro", traits: .sizeThatFitsLayout) {
+    ParentDashboardView(session: _previewSession)
+        .frame(width: 393, height: 852)
+}
+
+#Preview("iPad Air 10.9 portrait", traits: .sizeThatFitsLayout) {
+    ParentDashboardView(session: _previewSession)
+        .frame(width: 820, height: 1180)
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Pro 12.9 landscape", traits: .sizeThatFitsLayout) {
+    ParentDashboardView(session: _previewSession)
+        .frame(width: 1366, height: 1024)
+        .environment(\.horizontalSizeClass, .regular)
+}
+#endif

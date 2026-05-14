@@ -79,6 +79,8 @@ Launch target: 2026-05-27 (T+15 days)
 - Marketplace (B2C) — separate product surface
 - Extracurricular seed dataset — needs 3-5 days human research curation
 - Founder dashboard school theming (basic founder dashboard ships; theming defers)
+- **Grades SwiftData parity with `GPAEntryModel`** (T004 finding 2026-05-12) — grades currently use Supabase as source of truth via `list_my_grades`/`record_grade` RPCs because GPAEntryModel's `coursesData: Data?` JSON-blob shape doesn't match GradesSelfEntryView's flat `subject + score + period` rows. v1.1 ticket: add `SubjectGradeEntryModel` to the SwiftData schema with a v2 migration stage. Functional behaviour for v1.0 is correct (navigation + relaunch survive); only the offline-first guarantee is weaker than the rest of the app.
+- **Test target Info.plist + backend test env** (QA Day-band 1 finding 2026-05-12) — `LadderAppTests` and `LadderAppE2E` lack Info.plist, blocking `xcodebuild test`. Backend `tests/auth_app_metadata.test.ts` needs `SUPABASE_ANON_KEY` env in CI. Address in Day-band 5 alongside test scaffolding.
 
 ### NOT a v1.0 cut (still mandatory):
 - iPad parity (this is a project-level hard rule, never negotiable)

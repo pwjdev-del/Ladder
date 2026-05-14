@@ -1,5 +1,7 @@
 import SwiftUI
 import Supabase
+// T023 — iPad parity: MaxWidthContainer(640) prevents the grades List from
+// stretching absurdly wide on iPad Pro 13". iPhone layout is unchanged.
 
 // §2.2 — STUDENT-SELF-ONLY grades. No counselor/admin/teacher/founder ever
 // reads these through Ladder. Enforced at RLS (see 0002 migration) AND at
@@ -26,47 +28,51 @@ public struct GradesSelfEntryView: View {
     public init() {}
 
     public var body: some View {
-        List {
-            if let error {
-                Section { Text(error).foregroundStyle(.red) }
-            }
-            if grades.isEmpty {
-                ContentUnavailableView(
-                    isLoading ? "Loading…" : "No grades yet",
-                    systemImage: "square.and.pencil",
-                    description: Text("Only you see your grades. The AI uses them to suggest next year's classes (§9).")
-                )
-            } else {
-                ForEach(grades) { entry in
-                    HStack {
-                        Text(entry.subject)
-                        Spacer()
-                        Text(entry.score).font(.body.monospaced())
-                        Text(entry.period).foregroundStyle(.secondary)
+        // MaxWidthContainer(640) centers and caps the list on iPad Pro 12.9"/13".
+        // On iPhone (390pt) the container is wider than the screen, so it has no effect.
+        MaxWidthContainer(maxWidth: 640) {
+            List {
+                if let error {
+                    Section { Text(error).foregroundStyle(.red) }
+                }
+                if grades.isEmpty {
+                    ContentUnavailableView(
+                        isLoading ? "Loading…" : "No grades yet",
+                        systemImage: "square.and.pencil",
+                        description: Text("Only you see your grades. The AI uses them to suggest next year's classes (§9).")
+                    )
+                } else {
+                    ForEach(grades) { entry in
+                        HStack {
+                            Text(entry.subject)
+                            Spacer()
+                            Text(entry.score).font(.body.monospaced())
+                            Text(entry.period).foregroundStyle(.secondary)
+                        }
                     }
                 }
             }
-        }
-        .navigationTitle("My grades")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button { showingNew = true } label: { Image(systemName: "plus") }
-            }
-        }
-        .sheet(isPresented: $showingNew) {
-            NewGradeSheet { new in
-                Task {
-                    await save(new)
-                    showingNew = false
+            .navigationTitle("My grades")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button { showingNew = true } label: { Image(systemName: "plus") }
                 }
             }
+            .sheet(isPresented: $showingNew) {
+                NewGradeSheet { new in
+                    Task {
+                        await save(new)
+                        showingNew = false
+                    }
+                }
+            }
+            // S1-6: .task fires once per view identity; .onAppear fires on every
+            // navigation-back, so grades reload from Supabase both on first mount
+            // and after popping child views.
+            .task { await load() }
+            .onAppear { Task { await load() } }
+            .refreshable { await load() }
         }
-        // S1-6: .task fires once per view identity; .onAppear fires on every
-        // navigation-back, so grades reload from Supabase both on first mount
-        // and after popping child views.
-        .task { await load() }
-        .onAppear { Task { await load() } }
-        .refreshable { await load() }
     }
 
     // MARK: - Backend
@@ -153,3 +159,30 @@ private struct NewGradeSheet: View {
         }
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+#Preview("iPhone 15", traits: .sizeThatFitsLayout) {
+    NavigationStack { GradesSelfEntryView() }
+        .frame(width: 393, height: 852)
+}
+
+#Preview("iPad Air portrait", traits: .sizeThatFitsLayout) {
+    NavigationStack { GradesSelfEntryView() }
+        .frame(width: 820, height: 1180)
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Air landscape", traits: .sizeThatFitsLayout) {
+    NavigationStack { GradesSelfEntryView() }
+        .frame(width: 1180, height: 820)
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Pro 12.9 portrait", traits: .sizeThatFitsLayout) {
+    NavigationStack { GradesSelfEntryView() }
+        .frame(width: 1024, height: 1366)
+        .environment(\.horizontalSizeClass, .regular)
+}
+#endif

@@ -4,6 +4,8 @@ import SwiftUI
 // Visual source: docs/design/stitch-deliverables/batch-11-full-v2-spec/founder_backdoor_login/
 
 public struct FounderLoginView: View {
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
     @State private var founderId: String = ""
     @State private var password: String = ""
     @State private var totp: String = ""
@@ -24,7 +26,10 @@ public struct FounderLoginView: View {
                     .tracking(3.0)
                     .foregroundStyle(LadderBrand.cream100.opacity(0.85))
 
-                card
+                // MaxWidthContainer prevents the card from stretching on iPad
+                MaxWidthContainer(maxWidth: 480) {
+                    card
+                }
 
                 Spacer()
 
@@ -34,7 +39,7 @@ public struct FounderLoginView: View {
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 24)
             }
-            .padding(.horizontal, 24)
+            .padding(.horizontal, sizeClass == .regular ? 0 : 24)
         }
         .navigationBarHidden(true)
         .navigationDestination(isPresented: $goDashboard) {
@@ -179,3 +184,21 @@ public struct FounderLoginView: View {
         }
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+#Preview("iPhone 15") {
+    FounderLoginView()
+}
+
+#Preview("iPad Pro 12.9 portrait") {
+    FounderLoginView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Air landscape") {
+    FounderLoginView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+#endif

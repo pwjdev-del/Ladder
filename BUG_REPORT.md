@@ -135,6 +135,54 @@ UserDefaults is not encrypted. Mutation payloads (which may contain PII) survive
 
 ---
 
+---
+
+## Found during Day-band 5 QA
+
+_Added: 2026-05-12 by ios-specialist_
+
+### BUG-DB5-1: `B2CSignupView` "Create account" button not disabled when form is empty (Fixed)
+**File:** `LadderApp/Features/Auth/B2CSignup/B2CSignupView.swift`
+**Severity:** S1 (blocked the `test_createAccountButton_disabledWithEmptyForm` smoke test)
+**Root cause:** `createButton` used `.disabled(working)` only — `formReady` gate was enforced in `submit()` but not on the button modifier, so the button appeared enabled with an empty form.
+**Fix applied:** Changed to `.disabled(!formReady || working)`. Verified by `SignupSmokeTest` now passing.
+
+### BUG-DB5-2: `StudentHappyPathTests` logo-hold tests checked stale nav bar label (Fixed)
+**File:** `tests/e2e/StudentHappyPathTests.swift`
+**Severity:** Stale test (not a product bug)
+**Root cause:** Tests were written before the backdoor refactor. Logo hold now opens `BackdoorChoiceView` (role-choice buttons), not directly to a "Founder login" navigation bar. Tests were also using `app.otherElements["Ladder"]` without `waitForExistence`, which is fragile on cold launch.
+**Fix applied:** Tests updated to check `BackdoorChoiceView` buttons ("Login as Founder") and use `waitForExistence`.
+
+### BUG-DB5-3: `test_studentRedeemsInviteThenTakesQuiz` requires live Supabase fixture (Deferred — infra)
+**File:** `tests/e2e/StudentHappyPathTests.swift`
+**Severity:** Infrastructure gap (not a product bug)
+**Root cause:** Test requires fixture tenant "lwrpa" (Lakewood Ranch Preparatory Academy) to exist in the live Supabase `tenants` table and appear in `SchoolPickerView` results. The invite code "LDR-TESTCODE" also has no server-side record.
+**Action:** Deferred. Test marked `XCTSkip` with clear reason. Re-enable after a `-fixtureTenant` Supabase seeding script is implemented.
+
+### BUG-DB5-4: `StudentDashboardView.resolvedStudentId` always nil in UITestMode (Fixed)
+**File:** `LadderApp/Features/Student/StudentDashboardView.swift`
+**Severity:** Blocked all UITestMode advisor tab tests
+**Root cause:** `resolvedStudentId` was populated only from `SupabaseAuthService.currentSession`, which returns nil when no real Supabase JWT exists. This prevented `AdvisorChatView` from rendering in UITestMode.
+**Fix applied:** Falls back to `TenantContext.shared.claim?.userId.uuidString` when no Supabase session exists.
+
+---
+
+## D-002 cleanup required
+
+_Added: 2026-05-12 by T009b postgres-specialist_
+
+Migration `0009_adr_008_schema_additions.sql` created policy `ai_chats_counselor_read` on `student_ai_chats`, giving counselors direct SELECT access to raw chat rows for assigned students. This violates **DECISIONS.md D-002** ("Counselor CANNOT scroll the student's chat history"). Migration `0016_d002_counselor_chat_revoke.sql` drops that policy.
+
+**iOS call sites reading raw chats under a counselor role:** NONE found.
+Grepped `LadderApp/Features/Counselor/` for `student_ai_chats` and `studentAIChats` — zero matches. No iOS cleanup required.
+
+**Edge Function call sites:** NONE found.
+Grepped `LadderBackend/supabase/functions/` for `student_ai_chats` — zero matches.
+
+**Action for T016 (counselor surface):** When building the counselor student-detail view, read only from `student_memory_summaries` (topic summaries, safety flags, last-active). Do NOT add any query against `student_ai_chats` in counselor-role code paths. Any attempt to add such a policy to `student_ai_chats` will be caught by the DO block in migration 0016 and the RLS test `tests/rls/sia_isolation.test.ts`.
+
+---
+
 ## Test approach used
 
 Scanned all 126 Swift files in the active build (per `project.yml` excludes). Phase 1: grep passes for `TODO`, `FIXME`, `/* TODO */`, `assertionFailure`, `preconditionFailure`, `fatalError`, `try!`, `try?`, force-unwrap patterns on URL/Int/array. Phase 2: read every file flagged by grep, plus the full user journey from `LandingView` through each role dashboard, checking for missing loading states, empty closures, and silent data loss. Phase 3: `xcodebuild` run for compiler warnings. No runtime simulator execution was performed; any bugs requiring live Supabase state (e.g., JWT race in `SignedInRouter:68`) were not testable from static analysis alone.

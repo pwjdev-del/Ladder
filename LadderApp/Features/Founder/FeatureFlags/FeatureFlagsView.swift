@@ -20,10 +20,12 @@ public struct FeatureFlagsRootView: View {
                 header
                 tenantPicker
                 ScrollView {
-                    FeatureFlagsTenantView(tenantId: selectedTenantId)
-                        .padding(.horizontal, 20)
-                        .padding(.top, 8)
-                        .padding(.bottom, 40)
+                    MaxWidthContainer(maxWidth: 720) {
+                        FeatureFlagsTenantView(tenantId: selectedTenantId)
+                            .padding(.horizontal, 20)
+                            .padding(.top, 8)
+                            .padding(.bottom, 40)
+                    }
                 }
             }
         }
@@ -257,6 +259,16 @@ public struct FeatureFlagsTenantView: View {
         let enabled: Bool
     }
 
+    // Mirrors the ValidateResult shape from varun-validate/index.ts
+    private struct VarunValidateResponse: Decodable {
+        struct Violation: Decodable {
+            let rule: String
+            let message: String
+        }
+        let ok: Bool
+        let violations: [Violation]
+    }
+
     private func loadFlags() async {
         let client = await SupabaseAuthService.shared.supabase
         do {
@@ -287,8 +299,40 @@ public struct FeatureFlagsTenantView: View {
         let rows: [FlagRow] = flags.map {
             FlagRow(tenant_id: tenantId.uuidString, flag_key: $0.key, enabled: $0.value)
         }
+
+        let client = await SupabaseAuthService.shared.supabase
+
+        // 1. Server-side validation via varun-validate edge function.
+        //    The edge function returns 200 { ok: true } or 409 { ok: false, violations: [...] }.
+        //    The Supabase SDK throws FunctionsError.httpError on non-2xx, so catch 409 separately
+        //    to surface the first violation message rather than a generic network error.
+        struct ValidateBody: Encodable { let flags: [String: Bool] }
         do {
-            let client = await SupabaseAuthService.shared.supabase
+            let varunResult: VarunValidateResponse = try await client.functions.invoke(
+                "varun-validate",
+                options: .init(body: ValidateBody(flags: flags))
+            )
+            // 200 path — ok must be true or we fall through to upsert.
+            if !varunResult.ok {
+                saveResult = .failure(varunResult.violations.first?.message ?? "Varun rejected these settings.")
+                return
+            }
+        } catch FunctionsError.httpError(409, let data) {
+            // 409 path — decode the violations array from the error body.
+            if let result = try? JSONDecoder().decode(VarunValidateResponse.self, from: data),
+               let first = result.violations.first {
+                saveResult = .failure(first.message)
+            } else {
+                saveResult = .failure("Varun rejected these settings (409).")
+            }
+            return
+        } catch {
+            saveResult = .failure("Validation failed: \(error.localizedDescription)")
+            return
+        }
+
+        // 2. Upsert all flags in a single call (PK: tenant_id, flag_key).
+        do {
             try await client
                 .from("feature_flags")
                 .upsert(rows, onConflict: "tenant_id,flag_key")

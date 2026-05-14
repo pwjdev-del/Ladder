@@ -6,6 +6,8 @@ import SwiftUI
 //   supabase.auth.admin.updateUserById(uid, { app_metadata: { role: 'employee' } })
 
 public struct EmployeeLoginView: View {
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var working = false
@@ -26,7 +28,10 @@ public struct EmployeeLoginView: View {
                     .tracking(3.0)
                     .foregroundStyle(LadderBrand.cream100.opacity(0.85))
 
-                card
+                // MaxWidthContainer prevents the card from stretching on iPad
+                MaxWidthContainer(maxWidth: 480) {
+                    card
+                }
 
                 Spacer()
 
@@ -36,7 +41,7 @@ public struct EmployeeLoginView: View {
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 24)
             }
-            .padding(.horizontal, 24)
+            .padding(.horizontal, sizeClass == .regular ? 0 : 24)
         }
         .navigationBarHidden(true)
         .navigationDestination(isPresented: $goDashboard) {

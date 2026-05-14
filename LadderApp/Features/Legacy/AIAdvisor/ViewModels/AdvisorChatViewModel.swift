@@ -179,7 +179,18 @@ final class AdvisorChatViewModel {
             return "You are Sia, a college counselor. The student profile is not yet loaded — ask the student to complete onboarding first."
         }
 
-        let student = StudentContextBuilder.build(from: profile, context: modelContext)
+        // D-003: studentId must be the JWT auth.uid(). StudentProfileModel.userId
+        // is set from the JWT at sign-in. If it's nil the session is broken — throw
+        // so the UI can surface "please log out and back in".
+        guard let studentId = profile.userId else {
+            throw SiaIsolationError.noActiveSession
+        }
+
+        let student = try await StudentContextBuilder.build(
+            studentId: studentId,
+            from: profile,
+            context: modelContext
+        )
         let temporal = TemporalContextBuilder.build(for: student)
 
         // Refresh daysSinceLastSession for accurate memory framing.

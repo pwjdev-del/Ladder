@@ -10,33 +10,35 @@ public struct SchoolDetailView: View {
     public init(school: SchoolCard) { self.school = school }
 
     public var body: some View {
-        List {
-            Section("Enrollment + billing") {
-                LabeledContent("Students", value: "\(school.enrolledStudentCount)")
-                LabeledContent("Balance", value: "$\(school.billingBalanceUSD)")
-            }
-            Section("AI usage") {
-                LabeledContent("Tokens this month", value: "\(school.aiTokensUsedMonth)")
-                LabeledContent("Cost this month", value: "$\(school.aiCostUSD)")
-            }
-            Section("Success metrics") {
-                if let rate = school.successRatePercent {
-                    LabeledContent("College matriculation", value: String(format: "%.1f%%", rate))
-                } else {
-                    Text("Not yet submitted").foregroundStyle(.secondary)
+        MaxWidthContainer(maxWidth: 720) {
+            List {
+                Section("Enrollment + billing") {
+                    LabeledContent("Students", value: "\(school.enrolledStudentCount)")
+                    LabeledContent("Balance", value: "$\(school.billingBalanceUSD)")
                 }
-            }
-            Section("Feature flags") {
-                NavigationLink("Manage with Varun") { FeatureFlagsTenantView(tenantId: school.id) }
-            }
-            Section("Contracts") {
-                Link("Data Processing Agreement", destination: URL(string: "https://ladderapp.com/legal/dpa/\(school.id)")!)
-                Link("Liability acknowledgement", destination: URL(string: "https://ladderapp.com/legal/liability/\(school.id)")!)
-            }
-            Section {
-                Text("This view does not render student names, grades, schedules, quiz answers, or AI logs. A founder session is denied those fields at the API layer (§14.5) and at the database via RLS.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+                Section("AI usage") {
+                    LabeledContent("Tokens this month", value: "\(school.aiTokensUsedMonth)")
+                    LabeledContent("Cost this month", value: "$\(school.aiCostUSD)")
+                }
+                Section("Success metrics") {
+                    if let rate = school.successRatePercent {
+                        LabeledContent("College matriculation", value: String(format: "%.1f%%", rate))
+                    } else {
+                        Text("Not yet submitted").foregroundStyle(.secondary)
+                    }
+                }
+                Section("Feature flags") {
+                    NavigationLink("Manage with Varun") { FeatureFlagsTenantView(tenantId: school.id) }
+                }
+                Section("Contracts") {
+                    Link("Data Processing Agreement", destination: LegalURLs.dataProcessingAgreement(schoolID: school.id.uuidString))
+                    Link("Liability acknowledgement", destination: LegalURLs.liabilityWaiver(schoolID: school.id.uuidString))
+                }
+                Section {
+                    Text("This view does not render student names, grades, schedules, quiz answers, or AI logs. A founder session is denied those fields at the API layer (§14.5) and at the database via RLS.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .navigationTitle(school.displayName)

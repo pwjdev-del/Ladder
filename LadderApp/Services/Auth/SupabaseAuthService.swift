@@ -47,7 +47,7 @@ private extension OSLog {
 public actor SupabaseAuthService {
     public static let shared = SupabaseAuthService()
 
-    private let client: SupabaseClient
+    private nonisolated let client: SupabaseClient
 
     private init() {
         client = SupabaseClient(
@@ -166,6 +166,17 @@ public actor SupabaseAuthService {
         try await bindTenantContext(from: refreshed)
     }
 
+    // MARK: - Session rebind (cold-launch restore)
+
+    /// Re-populates TenantContext from a session that was already persisted in
+    /// the Keychain (i.e. a cold-launch restore). Does NOT perform a network
+    /// round-trip unless `bindTenantContext` needs to fetch grade level.
+    /// Throws `LadderAuthError.missingRoleClaim` in Release when the JWT lacks
+    /// an `app_metadata.role` claim — the caller should sign out and show LandingView.
+    public func rebindFromSession(_ session: Session) async throws {
+        try await bindTenantContext(from: session)
+    }
+
     // MARK: - Password reset
 
     /// Sends a password-reset email via Supabase Auth (GoTrue).
@@ -279,5 +290,30 @@ public actor SupabaseAuthService {
 
     /// Exposed for callers that need raw DB / Edge Function access
     /// (e.g., grade_level fetch in Fix 6).
-    public var supabase: SupabaseClient { client }
+    public nonisolated var supabase: SupabaseClient { client }
+
+#if DEBUG
+    // MARK: - Test hooks (DEBUG only)
+
+    /// Bypasses Supabase auth and directly populates TenantContext with a
+    /// mock student session. Only callable when -UITestMode is active.
+    /// This does NOT create a real Supabase Session — the actor holds no
+    /// JWT state for the injected session, which is intentional: tests that
+    /// need a live JWT must sign in normally.
+    public func injectMockSession(_ student: MockStudent) async {
+        let claim = TenantClaim(
+            tenantId: UUID(uuidString: student.tenantId),
+            role: .student,
+            userId: UUID(uuidString: student.userId) ?? UUID(),
+            expiresAt: Date(timeIntervalSinceNow: 3600)
+        )
+        await MainActor.run {
+            TenantContext.shared.bind(claim,
+                                     displayName: "Test School",
+                                     primaryColorHex: nil,
+                                     logoKey: nil)
+            TenantContext.shared.setStudentGradeLevel(student.gradeLevel)
+        }
+    }
+#endif
 }

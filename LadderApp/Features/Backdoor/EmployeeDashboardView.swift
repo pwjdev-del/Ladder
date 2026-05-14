@@ -22,12 +22,14 @@ public struct EmployeeDashboardView: View {
                 headerBar
 
                 ScrollView {
-                    VStack(spacing: 20) {
-                        pendingTransfersCard
+                    MaxWidthContainer(maxWidth: 720) {
+                        VStack(spacing: 20) {
+                            pendingTransfersCard
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 24)
+                        .padding(.bottom, 40)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 24)
-                    .padding(.bottom, 40)
                 }
             }
         }

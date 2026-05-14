@@ -5,6 +5,8 @@ import OSLog
 // Visual source: docs/design/stitch-deliverables/batch-11-full-v2-spec/b2c_signup_with_coppa_gate/
 
 public struct B2CSignupView: View {
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var month: Int = 8
@@ -30,58 +32,124 @@ public struct B2CSignupView: View {
         ZStack {
             LadderBrand.lime500.opacity(0.12).ignoresSafeArea()
 
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    wordmark
-                    Text("Create your account")
-                        .font(.ladderDisplay(40, relativeTo: .largeTitle))
-                        .foregroundStyle(LadderBrand.ink900)
-                        .tracking(-0.8)
-                        .padding(.top, 8)
+            if sizeClass == .regular {
+                // iPad: forest brand panel on left, form on right
+                HStack(spacing: 0) {
+                    padBrandPanel
+                        .frame(maxWidth: .infinity)
 
-                    emailField
-                    passwordField
-                    dobPickers
+                    ScrollView {
+                        MaxWidthContainer(maxWidth: 460) {
+                            VStack(alignment: .leading, spacing: 24) {
+                                wordmark
+                                Text("Create your account")
+                                    .font(.ladderDisplay(36, relativeTo: .largeTitle))
+                                    .foregroundStyle(LadderBrand.ink900)
+                                    .tracking(-0.8)
+                                    .padding(.top, 8)
 
-                    if age < 13 { coppaCard }
+                                emailField
+                                passwordField
+                                dobPickers
 
-                    VStack(spacing: 10) {
-                        consentToggle("I have read and accept the Terms", isOn: $acceptedTerms, errorText: showValidationErrors && !acceptedTerms ? "Required — please accept the Terms" : nil, documentToView: .terms)
-                        consentToggle("Privacy Notice", isOn: $acceptedPrivacy, errorText: showValidationErrors && !acceptedPrivacy ? "Required — please accept the Privacy Notice" : nil, documentToView: .privacy)
-                    }
-                    .padding(.top, 16)
+                                if age < 13 { coppaCard }
 
-                    // Email-confirmation success state: Supabase requires verification.
-                    if needsEmailConfirmation {
-                        HStack(alignment: .top, spacing: 12) {
-                            Image(systemName: "envelope.badge.checkmark")
-                                .font(.system(size: 20))
-                                .foregroundStyle(LadderBrand.forest700)
-                            Text("Check your email to confirm your account, then log in.")
-                                .font(.ladderBody(14))
-                                .foregroundStyle(LadderBrand.ink900)
+                                VStack(spacing: 10) {
+                                    consentToggle("I have read and accept the Terms", isOn: $acceptedTerms, errorText: showValidationErrors && !acceptedTerms ? "Required — please accept the Terms" : nil, documentToView: .terms)
+                                    consentToggle("Privacy Notice", isOn: $acceptedPrivacy, errorText: showValidationErrors && !acceptedPrivacy ? "Required — please accept the Privacy Notice" : nil, documentToView: .privacy)
+                                }
+                                .padding(.top, 16)
+
+                                if needsEmailConfirmation {
+                                    HStack(alignment: .top, spacing: 12) {
+                                        Image(systemName: "envelope.badge.checkmark")
+                                            .font(.system(size: 20))
+                                            .foregroundStyle(LadderBrand.forest700)
+                                        Text("Check your email to confirm your account, then log in.")
+                                            .font(.ladderBody(14))
+                                            .foregroundStyle(LadderBrand.ink900)
+                                    }
+                                    .padding(14)
+                                    .background(LadderBrand.lime500.opacity(0.15))
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .accessibilityIdentifier("signup-email-confirmation-banner")
+                                }
+
+                                if let errorMessage {
+                                    Text(errorMessage)
+                                        .font(.ladderBody(13))
+                                        .foregroundStyle(LadderBrand.statusRed)
+                                        .multilineTextAlignment(.center)
+                                        .accessibilityIdentifier("signup-error-message")
+                                }
+
+                                createButton
+                                    .padding(.top, 12)
+                                    .padding(.bottom, 48)
+                            }
+                            .padding(.horizontal, 40)
+                            .padding(.top, 32)
                         }
-                        .padding(14)
-                        .background(LadderBrand.lime500.opacity(0.15))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .accessibilityIdentifier("signup-email-confirmation-banner")
                     }
-
-                    // Inline error message surfaced when signUp throws.
-                    if let errorMessage {
-                        Text(errorMessage)
-                            .font(.ladderBody(13))
-                            .foregroundStyle(LadderBrand.statusRed)
-                            .multilineTextAlignment(.center)
-                            .accessibilityIdentifier("signup-error-message")
-                    }
-
-                    createButton
-                        .padding(.top, 12)
-                        .padding(.bottom, 32)
+                    .scrollDismissesKeyboard(.interactively)
+                    .frame(maxWidth: .infinity)
                 }
-                .padding(.horizontal, 24)
-                .padding(.top, 16)
+            } else {
+                // iPhone: original single-column layout, unchanged
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
+                        wordmark
+                        Text("Create your account")
+                            .font(.ladderDisplay(40, relativeTo: .largeTitle))
+                            .foregroundStyle(LadderBrand.ink900)
+                            .tracking(-0.8)
+                            .padding(.top, 8)
+
+                        emailField
+                        passwordField
+                        dobPickers
+
+                        if age < 13 { coppaCard }
+
+                        VStack(spacing: 10) {
+                            consentToggle("I have read and accept the Terms", isOn: $acceptedTerms, errorText: showValidationErrors && !acceptedTerms ? "Required — please accept the Terms" : nil, documentToView: .terms)
+                            consentToggle("Privacy Notice", isOn: $acceptedPrivacy, errorText: showValidationErrors && !acceptedPrivacy ? "Required — please accept the Privacy Notice" : nil, documentToView: .privacy)
+                        }
+                        .padding(.top, 16)
+
+                        // Email-confirmation success state: Supabase requires verification.
+                        if needsEmailConfirmation {
+                            HStack(alignment: .top, spacing: 12) {
+                                Image(systemName: "envelope.badge.checkmark")
+                                    .font(.system(size: 20))
+                                    .foregroundStyle(LadderBrand.forest700)
+                                Text("Check your email to confirm your account, then log in.")
+                                    .font(.ladderBody(14))
+                                    .foregroundStyle(LadderBrand.ink900)
+                            }
+                            .padding(14)
+                            .background(LadderBrand.lime500.opacity(0.15))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .accessibilityIdentifier("signup-email-confirmation-banner")
+                        }
+
+                        // Inline error message surfaced when signUp throws.
+                        if let errorMessage {
+                            Text(errorMessage)
+                                .font(.ladderBody(13))
+                                .foregroundStyle(LadderBrand.statusRed)
+                                .multilineTextAlignment(.center)
+                                .accessibilityIdentifier("signup-error-message")
+                        }
+
+                        createButton
+                            .padding(.top, 12)
+                            .padding(.bottom, 32)
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.top, 16)
+                }
+                .scrollDismissesKeyboard(.interactively)
             }
         }
         .navigationBarHidden(true)
@@ -93,6 +161,31 @@ public struct B2CSignupView: View {
         .navigationDestination(item: $signedInSession) { session in
             SignedInRouter(session: session)
         }
+    }
+
+    // MARK: - iPad brand panel (left column)
+
+    private var padBrandPanel: some View {
+        ZStack {
+            LadderBrand.forest700
+            BrandGradient.heroGlow
+
+            VStack(spacing: 20) {
+                Spacer()
+                LadderLogoMark(size: 120, withShadow: true)
+                Text("Join Ladder")
+                    .font(.ladderDisplay(36, relativeTo: .largeTitle))
+                    .foregroundStyle(LadderBrand.cream100)
+                Text("Your college journey\nstarts here.")
+                    .font(.ladderBody(16))
+                    .foregroundStyle(LadderBrand.cream100.opacity(0.75))
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(4)
+                Spacer()
+            }
+            .padding(.horizontal, 40)
+        }
+        .ignoresSafeArea(edges: .vertical)
     }
 
     private var wordmark: some View {
@@ -384,7 +477,7 @@ public struct B2CSignupView: View {
         // iOS 26 default button style applies a system tint that overrides our
         // custom .background — without .plain the button renders tan/grey.
         .buttonStyle(.plain)
-        .disabled(working)
+        .disabled(!formReady || working)
         .accessibilityIdentifier("signup-create-button")
     }
 
@@ -693,38 +786,7 @@ struct FeatureChipsGrid: View {
     }
 }
 
-// MARK: - Minimal flow layout
-
-struct FlowLayout: Layout {
-    var spacing: CGFloat = 8
-
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let maxWidth = proposal.width ?? .infinity
-        var x: CGFloat = 0, y: CGFloat = 0, rowHeight: CGFloat = 0
-        for v in subviews {
-            let size = v.sizeThatFits(.unspecified)
-            if x + size.width > maxWidth {
-                x = 0; y += rowHeight + spacing; rowHeight = 0
-            }
-            x += size.width + spacing
-            rowHeight = max(rowHeight, size.height)
-        }
-        return CGSize(width: maxWidth, height: y + rowHeight)
-    }
-
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        var x = bounds.minX, y = bounds.minY, rowHeight: CGFloat = 0
-        for v in subviews {
-            let size = v.sizeThatFits(.unspecified)
-            if x + size.width > bounds.maxX {
-                x = bounds.minX; y += rowHeight + spacing; rowHeight = 0
-            }
-            v.place(at: CGPoint(x: x, y: y), proposal: .unspecified)
-            x += size.width + spacing
-            rowHeight = max(rowHeight, size.height)
-        }
-    }
-}
+// FlowLayout is defined in DesignSystem/Components/Layout/AdaptiveContainer.swift
 
 public struct ConsentSheetView: View {
     public init() {}
@@ -732,3 +794,26 @@ public struct ConsentSheetView: View {
         Text("Legal text …")
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+#Preview("iPhone 15") {
+    B2CSignupView()
+}
+
+#Preview("iPad Air 10.9 portrait") {
+    B2CSignupView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Air landscape") {
+    B2CSignupView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+
+#Preview("iPad Pro 12.9 portrait") {
+    B2CSignupView()
+        .environment(\.horizontalSizeClass, .regular)
+}
+#endif

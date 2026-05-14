@@ -12,17 +12,28 @@ public enum AIFeature: String, Codable, Sendable {
     case extracurricularSession = "extracurricular_session"
     case scheduleSuggester = "schedule_suggester"
     case helpSurface = "help_surface"
+    case siaChat = "sia_chat"
+    case memoryExtraction = "memory_extraction"
+    /// Counselor "Ask SIA" brief — system instruction enforces summary-only, no raw chat.
+    case counselorBrief = "counselor_brief"
 }
 
 public struct AIGatewayResponse: Codable, Sendable {
     public let output: String
     public let inTokens: Int
     public let outTokens: Int
+    /// Non-nil when the backend safety-flag scan detected crisis language in the
+    /// model's response or the user's input. iOS client routes this to the
+    /// counselor's safety queue (T015 Step 4).
+    /// Known values: "crisis_resource_mentioned", "crisis_topic_in_response".
+    /// v1.1: replace keyword-scan source with a proper ML safety classifier.
+    public let safetyFlag: String?
 
     enum CodingKeys: String, CodingKey {
         case output
         case inTokens = "in_tokens"
         case outTokens = "out_tokens"
+        case safetyFlag = "safety_flag"
     }
 }
 
@@ -46,9 +57,12 @@ public actor AIGatewayClient {
     private let endpoint: URL
     private let session: URLSession
 
+    // Rationale for force-unwrap on the fallback URL: it is a compile-time string
+    // literal that is structurally valid. Changes would be caught immediately in CI.
     public init(endpoint: URL? = AppConfig.geminiProxyURL,
                 session: URLSession = TLSPinnedSessionFactory.shared.session) {
-        self.endpoint = endpoint ?? URL(string: "https://edge.ladder.app/functions/v1/ai-gateway")!
+        self.endpoint = endpoint
+            ?? URL(string: "https://edge.ladder.app/functions/v1/ai-gateway")! // swiftlint:disable:this force_unwrapping
         self.session = session
     }
 
@@ -69,8 +83,11 @@ public actor AIGatewayClient {
         }
         switch http.statusCode {
         case 200..<300:
-            do { return try JSONDecoder().decode(AIGatewayResponse.self, from: data) }
-            catch { throw AIGatewayError.decode(error) }
+            do {
+                return try JSONDecoder().decode(AIGatewayResponse.self, from: data)
+            } catch {
+                throw AIGatewayError.decode(error)
+            }
         case 401:
             throw AIGatewayError.unauthenticated
         case 403:
@@ -87,8 +104,8 @@ public actor AIGatewayClient {
 public enum AppConfig {
     // Reads from Info.plist at runtime. See Config/Base.xcconfig template.
     public static var geminiProxyURL: URL? {
-        guard let s = Bundle.main.object(forInfoDictionaryKey: "GEMINI_PROXY_URL") as? String,
-              let url = URL(string: s) else { return nil }
+        guard let urlString = Bundle.main.object(forInfoDictionaryKey: "GEMINI_PROXY_URL") as? String,
+              let url = URL(string: urlString) else { return nil }
         return url
     }
 }

@@ -26,6 +26,53 @@ enum SpecialistPrompts {
         }
     }
 
+    // MARK: - SIA opening message
+    //
+    // Returns the appropriate first message SIA sends to the student.
+    //
+    // First-session (forFirstSession == true):
+    //   Uses the research-grounded Day-1 opening from SIA_PERSONA_RESEARCH.md §4.
+    //   Low-stakes, low-extraction, no goal-setting agenda. Deliberately names what
+    //   SIA is NOT (teacher, parent) before what it IS. Gives permission for "nothing"
+    //   as a valid answer. Does NOT open with college/grades.
+    //
+    // Returning session (forFirstSession == false):
+    //   SIA generates a contextual welcome-back referencing the most recent session
+    //   summary. The lastSessionTopic parameter is a short phrase extracted from
+    //   ConversationMemory.lastSessionSummary by the call site (AdvisorChatViewModel).
+    //   If no topic is available, falls back to a neutral returning-session opener.
+    //
+    // Detection at the call site (AdvisorChatViewModel.loadInitialState):
+    //   First session: ConversationMemory.lastSessionSummary == nil AND chat history is empty.
+    //   Returning session: anything else.
+    //
+    // NOTE: The iOS client prepends this as an `assistant` turn in the conversation
+    // history BEFORE calling the ai-gateway. The backend system prompt does NOT bake
+    // this opening in, because the client controls session-state detection.
+    static func siaOpeningMessage(forFirstSession: Bool, lastSessionTopic: String? = nil) -> String {
+        if forFirstSession {
+            // Day-1 opening — verbatim from SIA_PERSONA_RESEARCH.md §4.
+            // Do not rewrite without re-reviewing the research rationale.
+            return "Hey — I'm SIA. I'm not a teacher and I'm not your parent. " +
+                   "I'm something like the counselor at school you'd go to if the counselor " +
+                   "at school actually had time. There's no quiz coming, and I don't have a " +
+                   "script I'm trying to get through. Mostly I want to know who you are and " +
+                   "what's actually going on for you right now — at school, at home, with " +
+                   "friends, with whatever's loud in your head this week. We can talk about " +
+                   "college stuff too, but it doesn't have to start there. " +
+                   "So — what's on your mind today, even if it's nothing?"
+        } else if let topic = lastSessionTopic, !topic.isEmpty {
+            // Returning session: reference the prior summary topic.
+            // The exact phrasing keeps the door open without presuming the student
+            // is in the same headspace — "where's your head at today" acknowledges drift.
+            return "Hey, welcome back. Last time we talked you were thinking about \(topic). " +
+                   "Where's your head at today?"
+        } else {
+            // Returning session with no recoverable topic — neutral opener.
+            return "Hey, good to have you back. What's on your mind today?"
+        }
+    }
+
     // MARK: - Counselor (router + relationship holder)
 
     static let counselor = """

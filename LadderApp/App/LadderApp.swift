@@ -26,10 +26,131 @@ struct LadderApp: App {
 
     var body: some Scene {
         WindowGroup {
-            LandingView()
+            AppRootView()
                 .environmentObject(tenantContext)
                 .environmentObject(flagClient)
                 .modelContainer(modelContainer)
         }
+    }
+}
+
+// MARK: - AppRootView
+//
+// Root view that handles three startup modes:
+//   1. Normal (no persisted session): shows LandingView.
+//   2. Normal (persisted Supabase session found in Keychain): restores session
+//      and routes directly to the appropriate role dashboard — the user never
+//      sees LandingView on subsequent launches while their token is valid.
+//   3. -UITestMode: injects a mock student session (UITestBootstrap) and skips
+//      auth UI entirely so XCUITests start from the student dashboard.
+//
+// Using a separate view keeps LadderApp.init() synchronous and avoids
+// entangling test-only code with the Scene lifecycle.
+
+private struct AppRootView: View {
+    @EnvironmentObject private var tenantContext: TenantContext
+
+    // Three states:
+    //   nil        — still checking for a persisted session (splash shown)
+    //   .some(nil) — no persisted session; show LandingView
+    //   .some(.some(session)) — restored; route to dashboard
+    @State private var restoredSession: SignedInSession?? = nil
+
+#if DEBUG
+    @State private var testSession: SignedInSession?
+#endif
+
+    var body: some View {
+#if DEBUG
+        if UITestBootstrap.isActive {
+            Group {
+                if let session = testSession {
+                    SignedInRouter(session: session)
+                } else {
+                    // Blank splash while bootstrap populates TenantContext
+                    Color.black.ignoresSafeArea()
+                        .task {
+                            await UITestBootstrap.bootstrapIfNeeded()
+                            let student = MockStudent.shared
+                            testSession = SignedInSession(
+                                role: .student,
+                                displayName: student.displayName,
+                                tenantName: "Test School",
+                                gradeLevel: student.gradeLevel
+                            )
+                        }
+                }
+            }
+        } else {
+            sessionAwareRoot
+        }
+#else
+        sessionAwareRoot
+#endif
+    }
+
+    // MARK: - Session-aware root (non-test path)
+
+    @ViewBuilder
+    private var sessionAwareRoot: some View {
+        switch restoredSession {
+        case .none:
+            // Still checking — show a neutral splash to avoid a LandingView flash.
+            Color.black.ignoresSafeArea()
+                .task { await restoreSessionIfNeeded() }
+
+        case .some(.none):
+            // No persisted session — normal unauthenticated entry point.
+            LandingView()
+
+        case .some(.some(let session)):
+            // Persisted session found — jump straight to the role dashboard.
+            SignedInRouter(session: session)
+        }
+    }
+
+    // MARK: - Session restore
+
+    /// Checks the Keychain-backed Supabase session store. If a valid session
+    /// exists, rebinds TenantContext (so SignedInRouter has a live claim) and
+    /// builds a SignedInSession. On any error — expired token, no session,
+    /// network failure — falls through to LandingView so the user can log in fresh.
+    @MainActor
+    private func restoreSessionIfNeeded() async {
+        guard let supabaseSession = await SupabaseAuthService.shared.currentSession else {
+            restoredSession = .some(nil)
+            return
+        }
+
+        // currentSession (via client.auth.session) may return a locally-cached
+        // session whose JWT is still valid without hitting the network. Re-bind
+        // TenantContext from it so the role claim is populated before routing.
+        do {
+            try await SupabaseAuthService.shared.rebindFromSession(supabaseSession)
+        } catch {
+            // Rebind failed (e.g. role claim missing in Release) — treat as logged out.
+            try? await SupabaseAuthService.shared.signOut()
+            restoredSession = .some(nil)
+            return
+        }
+
+        let claim = tenantContext.claim
+        let role: SignedInRole = {
+            switch claim?.role {
+            case .admin:     return .admin
+            case .counselor: return .counselor
+            case .parent:    return .parent
+            case .founder:   return .founder
+            case .employee:  return .employee
+            default:         return .student
+            }
+        }()
+        let grade = tenantContext.studentGradeLevel
+        restoredSession = .some(SignedInSession(
+            role: role,
+            displayName: String(supabaseSession.user.email?.split(separator: "@").first ?? ""),
+            tenantName: tenantContext.tenantDisplayName ?? "Ladder",
+            gradeLevel: grade
+        ))
     }
 }

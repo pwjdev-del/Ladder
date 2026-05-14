@@ -6,6 +6,8 @@ import SwiftUI
 
 public struct FounderDashboardView: View {
     @State private var selectedTab: FounderTab = .overview
+    @State private var selectedSchool: FounderSchool? = FounderSchool.pilotData.first
+    @Environment(\.horizontalSizeClass) private var sizeClass
     public let onLogout: () -> Void
 
     public init(onLogout: @escaping () -> Void = {}) {
@@ -13,6 +15,129 @@ public struct FounderDashboardView: View {
     }
 
     public var body: some View {
+        if sizeClass == .regular {
+            iPadLayout
+        } else {
+            iPhoneLayout
+        }
+    }
+
+    // MARK: - iPad: NavigationSplitView (school list | detail)
+
+    private var iPadLayout: some View {
+        NavigationSplitView {
+            ZStack {
+                BrandGradient.list
+                BrandGradient.heroGlow
+                VStack(spacing: 0) {
+                    iPadSidebarHeader
+                    List(selection: $selectedSchool) {
+                        Section("Overview") {
+                            iPadSidebarRow(icon: "square.grid.2x2.fill",  label: "System vitals", badge: nil)
+                                .tag(Optional<FounderSchool>.none)
+                                .listRowBackground(Color.clear)
+                        }
+                        Section("Schools") {
+                            ForEach(FounderSchool.pilotData) { school in
+                                iPadSchoolRow(school)
+                                    .tag(Optional(school))
+                                    .listRowBackground(Color.clear)
+                            }
+                        }
+                        Section("Solo families") {
+                            iPadSidebarRow(icon: "person.3.fill", label: "B2C families (22)", badge: "22")
+                                .listRowBackground(Color.clear)
+                        }
+                        Section("System") {
+                            NavigationLink { FeatureFlagsRootView() } label: {
+                                iPadSidebarRow(icon: "flag.fill", label: "Feature flags", badge: nil)
+                            }
+                            .listRowBackground(Color.clear)
+                            NavigationLink { VarunPanelView() } label: {
+                                iPadSidebarRow(icon: "link.circle.fill", label: "Varun rules", badge: nil)
+                            }
+                            .listRowBackground(Color.clear)
+                            NavigationLink { ImpersonationGrantsView() } label: {
+                                iPadSidebarRow(icon: "person.crop.circle.badge.exclamationmark.fill", label: "Impersonation", badge: nil)
+                            }
+                            .listRowBackground(Color.clear)
+                            NavigationLink { AuditTimelineView() } label: {
+                                iPadSidebarRow(icon: "list.bullet.rectangle", label: "Audit timeline", badge: nil)
+                            }
+                            .listRowBackground(Color.clear)
+                        }
+                    }
+                    .listStyle(.sidebar)
+                    .scrollContentBackground(.hidden)
+                }
+            }
+            .navigationBarHidden(true)
+        } detail: {
+            ZStack {
+                BrandGradient.list
+                BrandGradient.heroGlow
+                if let school = selectedSchool {
+                    ScrollView {
+                        FounderSchoolDetailView(school: school)
+                            .padding(.horizontal, 32)
+                            .padding(.vertical, 24)
+                    }
+                } else {
+                    ScrollView {
+                        MaxWidthContainer(maxWidth: 960) {
+                            overviewContent
+                                .padding(.horizontal, 32)
+                                .padding(.top, 16)
+                                .padding(.bottom, 40)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private var iPadSidebarHeader: some View {
+        HStack(spacing: 10) {
+            Circle().fill(LadderBrand.cream100.opacity(0.15))
+                .frame(width: 30, height: 30)
+                .overlay(Image(systemName: "person.fill").font(.system(size: 12)).foregroundStyle(LadderBrand.cream100))
+            VStack(alignment: .leading, spacing: 1) {
+                Text("FOUNDER · LADDER").font(.ladderCaps(9)).tracking(1.4).foregroundStyle(LadderBrand.cream100.opacity(0.7))
+                Text("Kathan · Jet").font(.ladderLabel(13)).foregroundStyle(LadderBrand.cream100)
+            }
+            Spacer()
+            LogoutButton(action: onLogout)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(LadderBrand.forest900.opacity(0.4))
+    }
+
+    private func iPadSidebarRow(icon: String, label: String, badge: String?) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon).font(.system(size: 14)).foregroundStyle(LadderBrand.lime500)
+            Text(label).font(.ladderBody(14)).foregroundStyle(LadderBrand.cream100)
+            Spacer()
+            if let badge {
+                Text(badge).font(.ladderCaps(10)).foregroundStyle(LadderBrand.cream100.opacity(0.6))
+            }
+        }
+    }
+
+    private func iPadSchoolRow(_ school: FounderSchool) -> some View {
+        HStack(spacing: 10) {
+            RoundedRectangle(cornerRadius: 4)
+                .fill(Color(hex: school.primaryColorHex) ?? LadderBrand.lime500)
+                .frame(width: 10, height: 10)
+            Text(school.displayName).font(.ladderBody(14)).foregroundStyle(LadderBrand.cream100)
+            Spacer()
+            Text(school.slug).font(.ladderCaps(9)).tracking(1.0).foregroundStyle(LadderBrand.cream100.opacity(0.55))
+        }
+    }
+
+    // MARK: - iPhone: original tab-based layout
+
+    private var iPhoneLayout: some View {
         NavigationStack {
             ZStack {
                 BrandGradient.list
@@ -174,14 +299,7 @@ public struct FounderDashboardView: View {
     }
 
     private var schoolsPreviewGrid: some View {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-            ForEach(FounderSchool.pilotData.prefix(4)) { school in
-                NavigationLink { FounderSchoolDetailView(school: school) } label: {
-                    SchoolPreviewCard(school: school)
-                }
-                .buttonStyle(.plain)
-            }
-        }
+        AdaptiveSchoolGrid(schools: Array(FounderSchool.pilotData.prefix(4)))
     }
 
     // MARK: - SCHOOLS TAB
@@ -211,14 +329,7 @@ public struct FounderDashboardView: View {
                 .shadow(color: LadderBrand.lime500.opacity(0.4), radius: 12, y: 4)
             }
 
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                ForEach(FounderSchool.pilotData) { school in
-                    NavigationLink { FounderSchoolDetailView(school: school) } label: {
-                        SchoolPreviewCard(school: school)
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
+            AdaptiveSchoolGrid(schools: FounderSchool.pilotData)
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 24)
@@ -384,6 +495,27 @@ public struct FounderDashboardView: View {
 
 public enum FounderTab { case overview, schools, solo, system }
 
+// MARK: - Adaptive school grid (2 cols on iPhone, 3 cols on iPad)
+
+private struct AdaptiveSchoolGrid: View {
+    let schools: [FounderSchool]
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
+    var body: some View {
+        let columns = sizeClass == .regular
+            ? [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+            : [GridItem(.flexible()), GridItem(.flexible())]
+        LazyVGrid(columns: columns, spacing: 12) {
+            ForEach(schools) { school in
+                NavigationLink { FounderSchoolDetailView(school: school) } label: {
+                    SchoolPreviewCard(school: school)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+}
+
 // MARK: - School model + sample data
 
 public struct FounderSchool: Identifiable, Hashable, Sendable {
@@ -516,16 +648,18 @@ public struct FounderSchoolDetailView: View {
             BrandGradient.heroGlow
 
             ScrollView {
-                VStack(spacing: 16) {
-                    hero
-                    metricsGrid
-                    contractsCard
-                    flagsLinkCard
-                    auditCard
-                    footerNote
+                MaxWidthContainer(maxWidth: 720) {
+                    VStack(spacing: 16) {
+                        hero
+                        metricsGrid
+                        contractsCard
+                        flagsLinkCard
+                        auditCard
+                        footerNote
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 40)
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 40)
             }
         }
         .navigationBarHidden(true)
