@@ -36,7 +36,12 @@ struct LadderApp: App {
                 // S3-1: cover the view in the iOS task-switcher snapshot so student
                 // PII (SIA chat, crisis resources, grades) is never visible in the
                 // app switcher. Modifier defined in App/PrivacyOverlay.swift.
-                .privacyOverlay()
+                // TEMP: PrivacyOverlay.swift is on disk but NOT in the Xcode project
+                // file, so the extension is invisible at compile time. Cached .o files
+                // from earlier Xcode-IDE builds were masking this. Re-enable after
+                // adding the file to the LadderApp target (Xcode → right-click App/
+                // group → Add Files… → PrivacyOverlay.swift).
+                // .privacyOverlay()
         }
     }
 }

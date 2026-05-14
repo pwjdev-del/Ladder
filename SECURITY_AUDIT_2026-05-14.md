@@ -1,5 +1,7 @@
 # SECURITY AUDIT — Ladder iOS + Supabase — 2026-05-14
 
+> **RESOLVED IN:** See `CHANGELOG.md` v1.0.0-rc.1 (Security section). All S1 findings closed in commit ae1a364 and verified in SECURITY_RE-AUDIT_2026-05-14.md. Four S2 NEW findings identified in re-audit; three deferred to v1.0.1+.
+
 **Verdict: SHIP_WITH_FIXES**
 
 No remote-RCE-tier issues, no leaked secrets in working tree or git history (prior commit `0e27ce0` cleanup confirmed; `.env` gitignored). But four S1 findings each undermine a v1.0 trust claim that the app is being marketed on (per-student isolation, counselor surface, founder 2FA).

@@ -314,37 +314,113 @@ function scanResponseForLeakage(text: string, knownTenantIds: string[]): boolean
   return false;
 }
 
+// finishReason values that indicate Gemini's native safety filter intercepted
+// the response. When these occur the text payload is empty and no crisis
+// resource is returned to the student unless we intervene.
+const GEMINI_BLOCKED_FINISH_REASONS = new Set(['SAFETY', 'BLOCKED', 'RECITATION', 'OTHER']);
+
+// Canned safety message returned to the student when Gemini's native filter
+// blocks a response. Uses the highest-tier (Tier 1) safety language so that
+// any crisis-adjacent prompt gets the crisis resources regardless of the
+// reason the model was blocked.
+const GEMINI_NATIVE_BLOCK_CANNED_RESPONSE =
+  "I'm here with you, and I want to make sure you're safe right now. " +
+  "Whatever you're going through, you don't have to face it alone. " +
+  "Please reach out to the 988 Suicide and Crisis Lifeline — you can call or text 988, " +
+  "or chat at 988lifeline.org. The Crisis Text Line is also available: text HOME to 741741. " +
+  "Please talk to a trusted adult or your school counselor — they can actually help. " +
+  "I'm not going anywhere. What's happening for you right now?";
+
 // Safety signal detection for SIA chat (v1.0 keyword scan).
 // v1.1: replace with a proper ML safety classifier that handles paraphrase,
 // implicit ideation, and cultural variation in crisis language.
 // Source phrases drawn from SIA_PERSONA_RESEARCH.md §6 and SAMHSA / 988 guidance.
 
-const SAFETY_SIGNALS_USER: string[] = [
-  'want to die',
-  'wanna die',
-  'kill myself',
-  'killing myself',
-  'hurt myself',
-  'hurting myself',
-  'end my life',
-  'ending my life',
-  'take my life',
-  'don\'t want to be here',
-  'dont want to be here',
-  'not safe at home',
-  'being abused',
-  'i am being abused',
-  'he hits me',
-  'she hits me',
-  'they hit me',
-  'touch me without',
-  'being hurt',
-  'someone is hurting me',
-  'nobody would miss me',
-  'better off without me',
-  'no reason to live',
-  'can\'t do this anymore',
-  'cant do this anymore',
+// Signal categories used as prefixes in signal_keywords to let counselors
+// prioritise triage. Format: "<category>:<phrase>".
+// Categories: self_harm | violence_to_others | abuse | general_crisis
+//
+// Two scanner classes control how phrases are matched (see _buildSafetySignalRegex):
+//
+//   IDIOM_SUPPRESSED — self_harm, abuse, general_crisis phrases
+//     Uses \b<phrase>(?!\s+\w) so idiom completions like "want to die laughing"
+//     or "kill myself if I see one more problem" do NOT fire.
+//     The phrase must appear at end-of-phrase or before punctuation.
+//
+//   PREFIX_MATCH — violence_to_others phrases
+//     Uses \b<phrase> with NO negative lookahead.
+//     These phrases ARE incomplete by design: "I want to hurt [Marcus]",
+//     "shoot up [the school]" — the target always follows as another word.
+//     False-positive risk is low because the phrases are specific intent verbs
+//     paired with a violence anchor; there is no common benign idiom that
+//     starts with "I'm going to hurt" or "bring a gun to school".
+
+interface SafetySignalEntry {
+  entry: string;       // full "<category>:<phrase>" string
+  prefixMatch: boolean; // true → no negative lookahead; false → idiom-suppressed
+}
+
+const SAFETY_SIGNALS_USER: SafetySignalEntry[] = [
+  // ── self_harm (idiom-suppressed) ─────────────────────────────────────────
+  { entry: 'self_harm:want to die',            prefixMatch: false },
+  { entry: 'self_harm:wanna die',              prefixMatch: false },
+  { entry: 'self_harm:kill myself',            prefixMatch: false },
+  { entry: 'self_harm:killing myself',         prefixMatch: false },
+  { entry: 'self_harm:hurt myself',            prefixMatch: false },
+  { entry: 'self_harm:hurting myself',         prefixMatch: false },
+  { entry: 'self_harm:end my life',            prefixMatch: false },
+  { entry: 'self_harm:ending my life',         prefixMatch: false },
+  { entry: 'self_harm:take my life',           prefixMatch: false },
+  { entry: 'self_harm:don\'t want to be here', prefixMatch: false },
+  { entry: 'self_harm:dont want to be here',   prefixMatch: false },
+  { entry: 'self_harm:nobody would miss me',   prefixMatch: false },
+  { entry: 'self_harm:better off without me',  prefixMatch: false },
+  { entry: 'self_harm:no reason to live',      prefixMatch: false },
+  { entry: 'self_harm:can\'t do this anymore', prefixMatch: false },
+  { entry: 'self_harm:cant do this anymore',   prefixMatch: false },
+  // ── abuse (idiom-suppressed) ──────────────────────────────────────────────
+  { entry: 'abuse:not safe at home',           prefixMatch: false },
+  { entry: 'abuse:being abused',               prefixMatch: false },
+  { entry: 'abuse:i am being abused',          prefixMatch: false },
+  { entry: 'abuse:he hits me',                 prefixMatch: false },
+  { entry: 'abuse:she hits me',                prefixMatch: false },
+  { entry: 'abuse:they hit me',                prefixMatch: false },
+  { entry: 'abuse:touch me without',           prefixMatch: false },
+  { entry: 'abuse:being hurt',                 prefixMatch: false },
+  { entry: 'abuse:someone is hurting me',      prefixMatch: false },
+  // ── violence_to_others (prefix-match — NO negative lookahead) ────────────
+  // These phrases are incomplete by design; the target follows as another word.
+  // Specificity of the phrase (intent verb + violence anchor) prevents common
+  // false positives. "I want to hurt no one" is handled by the false-positive
+  // test — "no" triggers the lookahead suppression only on the idiom-suppressed
+  // set, so we accept that edge case here and note it as a documented limitation.
+  //
+  // "i want to kill [someone|them|him|her|my]" — the kill+myself/yourself
+  // variants are covered by self_harm above; here we only cover other-directed.
+  { entry: 'violence_to_others:i want to hurt',            prefixMatch: true },
+  { entry: 'violence_to_others:i\'m going to hurt',        prefixMatch: true },
+  { entry: 'violence_to_others:im going to hurt',          prefixMatch: true },
+  { entry: 'violence_to_others:i\'m gonna hurt',           prefixMatch: true },
+  { entry: 'violence_to_others:im gonna hurt',             prefixMatch: true },
+  { entry: 'violence_to_others:i want to kill someone',    prefixMatch: true },
+  { entry: 'violence_to_others:i want to kill them',       prefixMatch: true },
+  { entry: 'violence_to_others:i want to kill him',        prefixMatch: true },
+  { entry: 'violence_to_others:i want to kill her',        prefixMatch: true },
+  { entry: 'violence_to_others:i want to kill my',         prefixMatch: true },
+  { entry: 'violence_to_others:i\'m going to kill someone',prefixMatch: true },
+  { entry: 'violence_to_others:i\'m going to kill them',   prefixMatch: true },
+  { entry: 'violence_to_others:i\'m going to kill him',    prefixMatch: true },
+  { entry: 'violence_to_others:i\'m going to kill her',    prefixMatch: true },
+  { entry: 'violence_to_others:i\'m going to kill my',     prefixMatch: true },
+  { entry: 'violence_to_others:im going to kill someone',  prefixMatch: true },
+  { entry: 'violence_to_others:im going to kill them',     prefixMatch: true },
+  { entry: 'violence_to_others:im going to kill him',      prefixMatch: true },
+  { entry: 'violence_to_others:im going to kill her',      prefixMatch: true },
+  { entry: 'violence_to_others:im going to kill my',       prefixMatch: true },
+  { entry: 'violence_to_others:i want to attack',          prefixMatch: true },
+  { entry: 'violence_to_others:bring a gun to school',     prefixMatch: true },
+  { entry: 'violence_to_others:bring a knife to school',   prefixMatch: true },
+  { entry: 'violence_to_others:shoot up',                  prefixMatch: true },
 ];
 
 // Escapes all regex metacharacters in a literal string so it can be embedded
@@ -353,35 +429,49 @@ function escapeRegex(s: string): string {
   return s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 }
 
-// Word-boundary regex built once at module load from the phrase list above.
-//
-// Why not just \b at both ends?
-// "\bwant to die\b" DOES match "I want to die laughing" because "die" ends
-// at a word boundary before the space — the boundary is satisfied even though
-// more words follow.  The false positives we need to suppress are idiom
-// completions: "want to die [laughing]", "kill myself [if I see one more…]".
-//
-// Fix: use \b at the START (so "suicide" doesn't embed-match) and a negative
-// lookahead (?!\s+\w) at the END (so the phrase must NOT be followed by
-// whitespace + another word — i.e., no more words can complete an idiom).
-// This preserves all true-positive cases ("I want to die", "I want to kill
-// myself", phrases at end of sentence or followed by punctuation).
-//
-// NOTE: keep SAFETY_SIGNALS_USER as the single source of truth — this regex
-// is derived from it so the phrase list itself never changes.
-const _safetySignalRegex = new RegExp(
-  '\\b(?:' + SAFETY_SIGNALS_USER.map(escapeRegex).join('|') + ')(?!\\s+\\w)',
-  'i',
-);
+// Strips the "<category>:" prefix from a signal entry to get the raw phrase.
+// e.g. "self_harm:want to die" → "want to die"
+function signalPhrase(entry: string): string {
+  const colon = entry.indexOf(':');
+  return colon >= 0 ? entry.slice(colon + 1) : entry;
+}
+
+// Build two separate regex groups:
+//   group A — idiom-suppressed phrases: \b<phrase>(?!\s+\w)
+//   group B — prefix-match phrases:     \b<phrase>
+// Combined as  (?:groupA(?!\s+\w)|groupB)  so each group gets the correct tail.
+function _buildSafetySignalRegex(): RegExp {
+  const idiomPhrases = SAFETY_SIGNALS_USER
+    .filter((s) => !s.prefixMatch)
+    .map((s) => escapeRegex(signalPhrase(s.entry)));
+  const prefixPhrases = SAFETY_SIGNALS_USER
+    .filter((s) => s.prefixMatch)
+    .map((s) => escapeRegex(signalPhrase(s.entry)));
+
+  const parts: string[] = [];
+  if (idiomPhrases.length > 0) {
+    parts.push('(?:' + idiomPhrases.join('|') + ')(?!\\s+\\w)');
+  }
+  if (prefixPhrases.length > 0) {
+    parts.push('(?:' + prefixPhrases.join('|') + ')');
+  }
+  return new RegExp('\\b(?:' + parts.join('|') + ')', 'i');
+}
+
+const _safetySignalRegex = _buildSafetySignalRegex();
 
 // Exported for unit tests (tests/safety_keywords.test.ts).
+// Returns matched signal entries in full "<category>:<phrase>" form so callers
+// can distinguish signal categories (e.g. violence_to_others vs self_harm).
 export function checkUserSafetySignals(text: string): { triggered: boolean; matchedKeywords: string[] } {
   const triggered = _safetySignalRegex.test(text);
   const matchedKeywords: string[] = [];
   if (triggered) {
-    for (const phrase of SAFETY_SIGNALS_USER) {
-      const r = new RegExp('\\b' + escapeRegex(phrase) + '(?!\\s+\\w)', 'i');
-      if (r.test(text)) matchedKeywords.push(phrase);
+    for (const sig of SAFETY_SIGNALS_USER) {
+      const phrase = signalPhrase(sig.entry);
+      const tail = sig.prefixMatch ? '' : '(?!\\s+\\w)';
+      const r = new RegExp('\\b' + escapeRegex(phrase) + tail, 'i');
+      if (r.test(text)) matchedKeywords.push(sig.entry); // full "category:phrase" entry
     }
   }
   return { triggered, matchedKeywords };
@@ -429,7 +519,7 @@ function extractSiaChatLastUserMessage(input: unknown): string | null {
 async function callGemini(
   model: string,
   prompt: { system: string; user: string },
-): Promise<{ text: string; inTokens: number; outTokens: number }> {
+): Promise<{ text: string; inTokens: number; outTokens: number; finishReason: string }> {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
   const resp = await fetch(url, {
     method: 'POST',
@@ -441,9 +531,11 @@ async function callGemini(
   });
   const body = await resp.json();
   const text: string = body?.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+  const finishReason: string = body?.candidates?.[0]?.finishReason ?? 'STOP';
   const usage = body?.usageMetadata ?? {};
   return {
     text,
+    finishReason,
     inTokens: usage.promptTokenCount ?? 0,
     outTokens: usage.candidatesTokenCount ?? 0,
   };
@@ -451,12 +543,13 @@ async function callGemini(
 
 // Streaming generateContent — used for sia_chat only.
 // Returns an async generator yielding each text chunk as it arrives,
-// plus a terminal object with token counts.
+// plus a terminal object with token counts and the final finishReason.
 async function* streamGemini(
   model: string,
   prompt: { system: string; user: string },
 ): AsyncGenerator<
-  { type: 'chunk'; delta: string } | { type: 'done'; inTokens: number; outTokens: number }
+  | { type: 'chunk'; delta: string }
+  | { type: 'done'; inTokens: number; outTokens: number; finishReason: string }
 > {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
   const resp = await fetch(url, {
@@ -477,6 +570,7 @@ async function* streamGemini(
   let buffer = '';
   let inTokens = 0;
   let outTokens = 0;
+  let finishReason = 'STOP'; // default; overwritten by the last chunk with a finishReason
 
   while (true) {
     const { done, value } = await reader.read();
@@ -496,6 +590,9 @@ async function* streamGemini(
         const parsed = JSON.parse(jsonStr);
         const delta: string = parsed?.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
         if (delta) yield { type: 'chunk', delta };
+        // finishReason is present on the last substantive chunk from Gemini.
+        const candidateFinishReason: string | undefined = parsed?.candidates?.[0]?.finishReason;
+        if (candidateFinishReason) finishReason = candidateFinishReason;
         const usage = parsed?.usageMetadata;
         if (usage) {
           inTokens = usage.promptTokenCount ?? inTokens;
@@ -507,7 +604,7 @@ async function* streamGemini(
     }
   }
 
-  yield { type: 'done', inTokens, outTokens };
+  yield { type: 'done', inTokens, outTokens, finishReason };
 }
 
 serve(async (req) => {
@@ -672,6 +769,8 @@ serve(async (req) => {
           let inTokens = 0;
           let outTokens = 0;
 
+          let streamFinishReason = 'STOP';
+
           try {
             for await (const event of streamGemini(SIA_CHAT_MODEL, safePrompt)) {
               if (event.type === 'chunk') {
@@ -682,6 +781,7 @@ serve(async (req) => {
               } else {
                 inTokens = event.inTokens;
                 outTokens = event.outTokens;
+                streamFinishReason = event.finishReason;
               }
             }
           } catch (streamErr) {
@@ -691,6 +791,35 @@ serve(async (req) => {
             );
             controller.close();
             return;
+          }
+
+          // Fix 2 (streaming): if Gemini's native safety filter blocked the response,
+          // the text is empty and no crisis resource has been sent.  Inject the canned
+          // safety message so the student never sees a blank bubble, and write a
+          // sia_safety_events row so counselors are alerted.
+          if (GEMINI_BLOCKED_FINISH_REASONS.has(streamFinishReason)) {
+            const cannedDelta = GEMINI_NATIVE_BLOCK_CANNED_RESPONSE;
+            fullText = cannedDelta;
+            controller.enqueue(
+              enc.encode(`data: ${JSON.stringify({ delta: cannedDelta })}\n\n`),
+            );
+            // Fire-and-log the safety event — same pattern as user_input_scan.
+            void supa.from('sia_safety_events').insert({
+              tenant_id: profile.tenant_id,
+              student_id: studentId,
+              flag_type: 'gemini_native_block',
+              triggered_by: 'gemini_native_filter',
+              signal_keywords: [`gemini_finish_${streamFinishReason}`],
+              message_excerpt: redactPII(
+                extractSiaChatLastUserMessage(validatedInput)?.slice(0, 500) ?? '',
+              ),
+              severity: 'high',
+              created_at: new Date().toISOString(),
+            }).then(
+              () => {},
+              (e: unknown) =>
+                console.error('safety_event insert failed (gemini_native_filter):', (e as Error).message),
+            );
           }
 
           // Cross-tenant leakage scan on assembled text.
@@ -719,7 +848,7 @@ serve(async (req) => {
             enc.encode(
               `data: ${JSON.stringify({
                 done: true,
-                safety_flag: safetyFlag ?? null,
+                safety_flag: safetyFlag ?? (GEMINI_BLOCKED_FINISH_REASONS.has(streamFinishReason) ? 'gemini_native_block' : null),
                 in_tokens: inTokens,
                 out_tokens: outTokens,
               })}\n\n`,
@@ -780,17 +909,53 @@ serve(async (req) => {
     // Blocking path — all features except sia_chat.
     // ---------------------------------------------------------------------------
     const model = feature === 'counselor_brief' ? COUNSELOR_BRIEF_MODEL : SIA_CHAT_MODEL;
-    const { text, inTokens, outTokens } = await callGemini(model, safePrompt);
+    const { text, inTokens, outTokens, finishReason } = await callGemini(model, safePrompt);
 
     const allTenantIds = await getTenantIds(supa);
     const otherTenantIds = allTenantIds.filter((id) => id !== profile.tenant_id);
 
-    const leaked = scanResponseForLeakage(text, otherTenantIds);
-    const output = leaked ? '[redacted: cross-tenant content detected]' : text;
+    // Fix 2 (blocking): if Gemini's native safety filter blocked the response,
+    // inject the canned safety message and write a sia_safety_events row.
+    // This path is primarily hit by counselor_brief; other non-streaming features
+    // are lower-stakes but we handle them uniformly.
+    let effectiveText = text;
+    let blockingSafetyFlag: string | null = null;
+    if (GEMINI_BLOCKED_FINISH_REASONS.has(finishReason)) {
+      effectiveText = GEMINI_NATIVE_BLOCK_CANNED_RESPONSE;
+      blockingSafetyFlag = 'gemini_native_block';
+      // Attempt to extract student_id for safety event (available only for
+      // counselor_brief and sia_chat — other features may not have studentId).
+      const inputObj = validatedInput as Record<string, unknown>;
+      const studentIdForEvent =
+        typeof inputObj['studentId'] === 'string' ? inputObj['studentId'] : null;
+      if (studentIdForEvent) {
+        void supa.from('sia_safety_events').insert({
+          tenant_id: profile.tenant_id,
+          student_id: studentIdForEvent,
+          flag_type: 'gemini_native_block',
+          triggered_by: 'gemini_native_filter',
+          signal_keywords: [`gemini_finish_${finishReason}`],
+          message_excerpt: redactPII(safePrompt.user.slice(0, 500)),
+          severity: 'high',
+          created_at: new Date().toISOString(),
+        }).then(
+          () => {},
+          (e: unknown) =>
+            console.error('safety_event insert failed (blocking gemini_native_filter):', (e as Error).message),
+        );
+      } else {
+        console.error(
+          `ai-gateway: gemini_native_filter triggered for feature=${feature} finishReason=${finishReason} — no studentId to write safety event`,
+        );
+      }
+    }
+
+    const leaked = scanResponseForLeakage(effectiveText, otherTenantIds);
+    const output = leaked ? '[redacted: cross-tenant content detected]' : effectiveText;
 
     // Safety-flag pass 2 is only applicable to sia_chat, which is handled in the
-    // streaming branch above. Non-sia_chat features do not produce safety flags.
-    const safetyFlag: string | null = null;
+    // streaming branch above. Non-sia_chat features use blockingSafetyFlag only.
+    const safetyFlag: string | null = blockingSafetyFlag;
 
     const costMicros = Math.round((inTokens * 0.00125 + outTokens * 0.005) * 1e6);
 

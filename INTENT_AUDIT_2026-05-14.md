@@ -1,5 +1,7 @@
 # Ladder Intent Audit — 2026-05-14
 
+> **RESOLVED IN:** See `CHANGELOG.md` v1.0.0-rc.1 (Product section). Drift 1 (AWS in LegalTexts.swift) fixed in SECURITY_RE-AUDIT verification. Parent dashboard mock replaced with intentional "coming soon" placeholder. Marketing-vs-code alignment confirmed sound.
+
 **Verdict: MOSTLY_ALIGNED** — the load-bearing pillars of DECISIONS.md (D-001..D-005) are implemented and traceable in code. Drift is limited to (a) stale AWS marketing/legal copy, (b) a built-but-mocked parent multi-child dashboard that contradicts the v1.0 deferral, and (c) a couple of TODO comments still pointing at AWS Comprehend.
 
 Scope: canon root `/Users/kathanpatel/Desktop/LadderApp`. Google Drive `Ladder-Oloid (WIP)` ignored per user memory.

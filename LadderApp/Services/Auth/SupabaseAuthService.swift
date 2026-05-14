@@ -157,22 +157,29 @@ public actor SupabaseAuthService {
     /// accounts or attack signals must surface as `missingRoleClaim`, not silently fixed).
     @discardableResult
     public func signUp(email: String, password: String) async throws -> Session {
+        os_log("signUp: starting for %{public}@", log: .auth, type: .info, email)
         let response = try await client.auth.signUp(email: email, password: password)
-        // The Swift SDK defaults to PKCE flow, where /auth/v1/signup returns
-        // user-only (the session is normally obtained via a separate code
-        // exchange triggered by an email-link or OAuth redirect). For
-        // password-based signup with autoconfirm ON server-side, immediately
-        // sign in with the same credentials to establish a real session.
-        // If autoconfirm is OFF, signIn will fail with .emailNotConfirmed,
-        // which we translate to the UI-facing case so the banner appears.
+        os_log("signUp: response received, session=%{public}@",
+               log: .auth, type: .info, response.session == nil ? "nil" : "present")
         let session: Session
         if let direct = response.session {
             session = direct
         } else {
+            os_log("signUp: response.session nil, calling signIn", log: .auth, type: .info)
             do {
                 session = try await client.auth.signIn(email: email, password: password)
-            } catch AuthError.api(_, let code, _, _) where code == .emailNotConfirmed {
-                throw LadderAuthError.emailConfirmationRequired
+                os_log("signUp: signIn after signUp succeeded", log: .auth, type: .info)
+            } catch let authError as AuthError {
+                os_log("signUp: signIn after signUp threw AuthError: %{public}@",
+                       log: .auth, type: .error, String(describing: authError))
+                if case .api(_, let code, _, _) = authError, code == .emailNotConfirmed {
+                    throw LadderAuthError.emailConfirmationRequired
+                }
+                throw authError
+            } catch {
+                os_log("signUp: signIn after signUp threw generic: %{public}@",
+                       log: .auth, type: .error, String(describing: error))
+                throw error
             }
         }
 
@@ -200,11 +207,18 @@ public actor SupabaseAuthService {
             throw LadderAuthError.bootstrapFailed
         }
 
-        // Refresh the session so the JWT picks up the freshly stamped role claim.
-        let refreshed = try await client.auth.refreshSession()
+        // Re-issue the session so the JWT picks up the freshly stamped role claim.
+        // We use signIn(email:password:) rather than refreshSession() because under
+        // the SDK's PKCE flow the refresh_token returned from /signup interacts
+        // poorly with mid-flight Edge Function calls and refreshSession() will
+        // throw AuthError.sessionMissing — leaving the user dead-ended on the
+        // signup screen. signIn always returns a fresh, fully-claimed JWT.
+        os_log("signUp: bootstrap-user succeeded, re-issuing session via signIn",
+               log: .auth, type: .info)
+        let refreshed = try await client.auth.signIn(email: email, password: password)
 
         guard let rawRole = refreshed.user.appMetadata["role"]?.value as? String, !rawRole.isEmpty else {
-            os_log("bootstrap-user succeeded but role claim still absent after refresh",
+            os_log("bootstrap-user succeeded but role claim still absent after re-signin",
                    log: .auth, type: .fault)
             try? await client.auth.signOut()
             throw LadderAuthError.missingRoleClaim
