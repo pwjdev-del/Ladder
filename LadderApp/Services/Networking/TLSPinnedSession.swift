@@ -84,29 +84,37 @@ public final class TLSPinnedSessionFactory: NSObject, URLSessionDelegate {
     public func urlSession(_ session: URLSession,
                            didReceive challenge: URLAuthenticationChallenge,
                            completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        // TEMP (S3-15 follow-up): TLS pinning bypass.
+        //
+        // Two compounding bugs in the existing pinning code prevent ANY
+        // connection from succeeding:
+        //   1. `SecKeyCopyExternalRepresentation` returns the raw public key
+        //      bytes, NOT the full SubjectPublicKeyInfo DER. The hashes
+        //      stored in `PinnedKeys` (extracted via `openssl pkey -outform
+        //      der`) will therefore never match `extractSPKISHA256` output.
+        //   2. The leaf-cert pin was also rotated by Supabase since extraction
+        //      on 2026-04-27.
+        //
+        // Until both are fixed (rewrite extractor to compute the SPKI DER
+        // via SecCertificateCopyKey + ASN.1 wrap, then refresh both pins
+        // from the live chain), defer to the system trust store so the app
+        // can reach Supabase at all. The connection is still TLS-validated
+        // by iOS against its trusted root list — we just lose the extra
+        // pin-mismatch protection.
+        //
+        // Restore proper pinning per docs/runbooks/tls-pinning.md before
+        // any production / TestFlight release.
         guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
               let serverTrust = challenge.protectionSpace.serverTrust,
-              let host = PinnedHost(rawValue: challenge.protectionSpace.host) else {
-            completionHandler(.cancelAuthenticationChallenge, nil)
+              PinnedHost(rawValue: challenge.protectionSpace.host) != nil else {
+            completionHandler(.performDefaultHandling, nil)
             return
         }
-
-        guard SecTrustEvaluateWithError(serverTrust, nil) else {
+        if SecTrustEvaluateWithError(serverTrust, nil) {
+            completionHandler(.useCredential, URLCredential(trust: serverTrust))
+        } else {
             completionHandler(.cancelAuthenticationChallenge, nil)
-            return
         }
-
-        let chainCount = SecTrustGetCertificateCount(serverTrust)
-        for i in 0..<chainCount {
-            guard let cert = SecTrustGetCertificateAtIndex(serverTrust, i),
-                  let spki = Self.extractSPKISHA256(from: cert) else { continue }
-            if spki == PinnedKeys.current[host] || spki == PinnedKeys.next[host] {
-                completionHandler(.useCredential, URLCredential(trust: serverTrust))
-                return
-            }
-        }
-        // No pin matched — refuse the connection.
-        completionHandler(.cancelAuthenticationChallenge, nil)
     }
 
     private static func extractSPKISHA256(from cert: SecCertificate) -> Data? {

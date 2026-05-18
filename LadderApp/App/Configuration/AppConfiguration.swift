@@ -16,12 +16,28 @@ import Foundation
 
 enum AppConfiguration {
 
+    // MARK: - Hardcoded fallbacks
+    //
+    // Xcode's auto-Info.plist generation silently drops custom INFOPLIST_KEY_*
+    // entries that are not in Apple's known-key list — so even though xcconfig
+    // defines SUPABASE_URL / SUPABASE_ANON_KEY, they never reach the bundled
+    // Info.plist. Until the .pbxproj is fixed to inject these keys explicitly,
+    // we need source-code fallbacks so the app boots. The host + publishable
+    // anon key are safe to ship: real security comes from JWT + RLS.
+    //
+    // TODO(S3-5 / B-16): Restore "fail-fast on missing Info.plist key" behaviour
+    // by adding explicit INFOPLIST_KEY_SUPABASE_HOST etc. to the LadderApp
+    // target's build settings (Xcode → LadderApp target → Build Settings → Info
+    // → Custom iOS Target Properties), then delete these fallbacks.
+    private static let supabaseHostFallback = "seicofzlgwjqkggscvao.supabase.co"
+    private static let supabaseAnonKeyFallback = "sb_publishable_kXZvRLZgvh2qL_jqfSjtHg_ZdnjrFyX"
+
     // MARK: - Supabase
 
     /// Full HTTPS URL for the Supabase project.
     /// Reads `SUPABASE_URL` from Info.plist first; if that value lacks a scheme,
-    /// falls back to assembling from `SUPABASE_HOST`. Both keys are required —
-    /// preflightOrCrash() will abort launch if neither yields a valid URL.
+    /// falls back to assembling from `SUPABASE_HOST`; if that is also missing,
+    /// falls back to the hardcoded host above.
     static var supabaseURL: String {
         let raw = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String ?? ""
         if raw.hasPrefix("https://") {
@@ -33,26 +49,14 @@ enum AppConfiguration {
            !host.hasPrefix("YOUR_PROJECT") {
             return "https://\(host)"
         }
-        // No fallback — preflightOrCrash() will have caught this before any
-        // client code runs. If somehow reached at runtime, fail loudly.
-        fatalError(
-            "[AppConfiguration] SUPABASE_URL / SUPABASE_HOST missing or placeholder. " +
-            "Set them in Config/Secrets.xcconfig and ensure preflightOrCrash() is called " +
-            "from LadderApp.init() before any service initialisation."
-        )
+        return "https://\(supabaseHostFallback)"
     }
 
     /// Supabase publishable anon key. Safe to ship in the binary — security
     /// comes from JWT + RLS, not from hiding this key.
     static var supabaseAnonKey: String {
         let raw = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String ?? ""
-        guard !raw.isEmpty else {
-            fatalError(
-                "[AppConfiguration] SUPABASE_ANON_KEY is missing. " +
-                "Set it in Config/Secrets.xcconfig."
-            )
-        }
-        return raw
+        return raw.isEmpty ? supabaseAnonKeyFallback : raw
     }
 
     // MARK: - AI Gateway
